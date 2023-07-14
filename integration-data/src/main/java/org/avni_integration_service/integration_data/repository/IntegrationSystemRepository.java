@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface IntegrationSystemRepository extends BaseRepository<IntegrationSystem> {
-    IntegrationSystem findByName(String name);
+    IntegrationSystem findByNameAndIsVoidedFalse(String name);
 }

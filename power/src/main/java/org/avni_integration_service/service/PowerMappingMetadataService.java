@@ -37,7 +37,7 @@ public class PowerMappingMetadataService {
                 "PhoneNumber",
                 mappingType,
                 intSystemValue,
-                integrationSystemRepository.findByName("power")
+                integrationSystemRepository.findByNameAndIsVoidedFalse("power")
         );
         if(mappingMetaData == null) {
             throw new RuntimeException(String.format("Unable to find %s mapping for %s phoneNumber",
@@ -56,9 +56,9 @@ public class PowerMappingMetadataService {
     }
 
     public Set<String> findAllCallPhoneNumbers() {
-        List<MappingMetaData> mappingMetaDataList = mappingMetaDataRepository.findAllByMappingGroupNameAndIntegrationSystem(
+        List<MappingMetaData> mappingMetaDataList = mappingMetaDataRepository.findAllByMappingGroupNameAndIntegrationSystemAndIsVoidedFalse(
                 "PhoneNumber",
-                integrationSystemRepository.findByName("power")
+                integrationSystemRepository.findByNameAndIsVoidedFalse("power")
         );
         return mappingMetaDataList == null ? Collections.emptySet() : mappingMetaDataList.stream()
                 .map(MappingMetaData::getIntSystemValue).collect(Collectors.toSet());

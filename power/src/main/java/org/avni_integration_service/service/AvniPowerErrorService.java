@@ -30,7 +30,7 @@ public class AvniPowerErrorService {
     }
 
     private ErrorType getErrorType(PowerErrorType powerErrorType) {
-        return errorTypeRepository.findByNameAndIntegrationSystem(powerErrorType.name(), integrationSystemRepository.findByName("power"));
+        return errorTypeRepository.findByNameAndIntegrationSystem(powerErrorType.name(), integrationSystemRepository.findByNameAndIsVoidedFalse("power"));
     }
 
     public List<ErrorType> getUnprocessableErrorTypes() {
@@ -55,7 +55,7 @@ public class AvniPowerErrorService {
             errorRecord.setEntityId(uuid);
             errorRecord.addErrorType(getErrorType(powerErrorType));
             errorRecord.setProcessingDisabled(false);
-            errorRecord.setIntegrationSystem(integrationSystemRepository.findByName("power"));
+            errorRecord.setIntegrationSystem(integrationSystemRepository.findByNameAndIsVoidedFalse("power"));
             errorRecordRepository.save(errorRecord);
         }
         return errorRecord;

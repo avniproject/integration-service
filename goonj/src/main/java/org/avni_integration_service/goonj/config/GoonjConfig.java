@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
@@ -88,6 +87,6 @@ public class GoonjConfig {
 
     @Bean("GoonjIntegrationSystem")
     public IntegrationSystem getGoonjIntegrationSystem() {
-        return integrationSystemRepository.findByName(GoonjMappingDbConstants.IntSystemName);
+        return integrationSystemRepository.findByNameAndIsVoidedFalse(GoonjMappingDbConstants.IntSystemName);
     }
 }

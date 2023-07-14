@@ -18,11 +18,11 @@ public class BahmniMappingGroup {
 
     @Autowired
     public BahmniMappingGroup(MappingGroupRepository mappingGroupRepository) {
-        this.patientSubject = mappingGroupRepository.findByName("PatientSubject");
-        this.generalEncounter = mappingGroupRepository.findByName("GeneralEncounter");
-        this.programEnrolment = mappingGroupRepository.findByName("ProgramEnrolment");
-        this.programEncounter = mappingGroupRepository.findByName("ProgramEncounter");
-        this.observation = mappingGroupRepository.findByName("Observation");
-        this.common = mappingGroupRepository.findByName("Common");
+        this.patientSubject = mappingGroupRepository.findByNameAndIsVoidedFalse("PatientSubject");
+        this.generalEncounter = mappingGroupRepository.findByNameAndIsVoidedFalse("GeneralEncounter");
+        this.programEnrolment = mappingGroupRepository.findByNameAndIsVoidedFalse("ProgramEnrolment");
+        this.programEncounter = mappingGroupRepository.findByNameAndIsVoidedFalse("ProgramEncounter");
+        this.observation = mappingGroupRepository.findByNameAndIsVoidedFalse("Observation");
+        this.common = mappingGroupRepository.findByNameAndIsVoidedFalse("Common");
     }
 }

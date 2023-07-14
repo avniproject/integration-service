@@ -54,7 +54,7 @@ public abstract class AmritBaseRepository {
         this.mappingTypeRepository = mappingTypeRepository;
         this.entityType = entityType;
         this.mappingMetaDataRepository = mappingMetaDataRepository;
-        this.integrationSystem = integrationSystemRepository.findByName(AmritMappingDbConstants.IntSystemName);
+        this.integrationSystem = integrationSystemRepository.findByNameAndIsVoidedFalse(AmritMappingDbConstants.IntSystemName);
     }
 
     private <T extends AmritBaseResponse> boolean extractResponse(ResponseEntity<T> responseEntity) {
@@ -131,9 +131,9 @@ public abstract class AmritBaseRepository {
 
     protected void populateObservations(Map<String, Object> observationHolder, AvniBaseContract avniEntity,
                                         String mappingGroup, String mappingType, String mappingTypeCodedObservations) {
-        MappingGroup mappingGroupEntity = mappingGroupRepository.findByName(mappingGroup);
-        MappingType mappingTypeEntity = mappingTypeRepository.findByName(mappingType);
-        List<MappingMetaData> amritFields = mappingMetaDataRepository.findAllByMappingGroupAndMappingType(mappingGroupEntity, mappingTypeEntity);
+        MappingGroup mappingGroupEntity = mappingGroupRepository.findByNameAndIsVoidedFalse(mappingGroup);
+        MappingType mappingTypeEntity = mappingTypeRepository.findByNameAndIsVoidedFalse(mappingType);
+        List<MappingMetaData> amritFields = mappingMetaDataRepository.findAllByMappingGroupAndMappingTypeAndIsVoidedFalse(mappingGroupEntity, mappingTypeEntity);
 
 
         for (MappingMetaData amritField : amritFields) {

@@ -57,7 +57,7 @@ public class AvniGoonjErrorService {
     }
 
     private ErrorType getErrorType(GoonjErrorType goonjErrorType) {
-        return errorTypeRepository.findByNameAndIntegrationSystem(goonjErrorType.name(), integrationSystemRepository.findByName("Goonj"));
+        return errorTypeRepository.findByNameAndIntegrationSystem(goonjErrorType.name(), integrationSystemRepository.findByNameAndIsVoidedFalse("Goonj"));
     }
 
     private ErrorRecord saveGoonjError(String uuid, GoonjErrorType goonjErrorType, GoonjEntityType goonjEntityType, String errorMsg) {
@@ -78,7 +78,7 @@ public class AvniGoonjErrorService {
             errorRecord.setEntityId(uuid);
             errorRecord.addErrorType(getErrorType(goonjErrorType), errorMsg);
             errorRecord.setProcessingDisabled(false);
-            errorRecord.setIntegrationSystem(integrationSystemRepository.findByName("Goonj"));
+            errorRecord.setIntegrationSystem(integrationSystemRepository.findByNameAndIsVoidedFalse("Goonj"));
             errorRecordRepository.save(errorRecord);
         }
         return errorRecord;

@@ -83,7 +83,7 @@ public class OpenMRSEncounterMapper {
     }
 
     private MappingMetaData getConceptMappingByOpenMRSConcept(String openMRSConceptUuid, BahmniEncounterToAvniEncounterMetaData bahmniEncounterToAvniEncounterMetaData, boolean isIgnorable) {
-        MappingMetaData mappingMetaData = mappingMetaDataRepository.findByMappingGroupAndMappingTypeAndIntSystemValue(bahmniMappingGroup.observation, bahmniMappingType.concept, openMRSConceptUuid);
+        MappingMetaData mappingMetaData = mappingMetaDataRepository.findByMappingGroupAndMappingTypeAndIntSystemValueAndIsVoidedFalse(bahmniMappingGroup.observation, bahmniMappingType.concept, openMRSConceptUuid);
         if (mappingMetaData == null && !isIgnorable && !bahmniEncounterToAvniEncounterMetaData.isIgnoredInBahmni(openMRSConceptUuid))
             throw new RuntimeException(String.format("No mapping found for openmrs concept with uuid = %s and is also not ignored", openMRSConceptUuid));
         return mappingMetaData;

@@ -27,15 +27,15 @@ public class MappingService {
     }
 
     public MappingMetaDataCollection findAll(MappingGroup mappingGroup, List<MappingType> mappingTypes) {
-        return new MappingMetaDataCollection(mappingMetaDataRepository.findAllByMappingGroupAndMappingTypeIn(mappingGroup, mappingTypes));
+        return new MappingMetaDataCollection(mappingMetaDataRepository.findAllByMappingGroupAndMappingTypeInAndIsVoidedFalse(mappingGroup, mappingTypes));
     }
 
     public MappingMetaDataCollection findAll(MappingGroup mappingGroup, MappingType mappingType) {
-        return new MappingMetaDataCollection(mappingMetaDataRepository.findAllByMappingGroupAndMappingType(mappingGroup, mappingType));
+        return new MappingMetaDataCollection(mappingMetaDataRepository.findAllByMappingGroupAndMappingTypeAndIsVoidedFalse(mappingGroup, mappingType));
     }
 
     public String getAvniValue(MappingGroup mappingGroup, MappingType mappingType) {
-        MappingMetaData mapping = mappingMetaDataRepository.findByMappingGroupAndMappingType(mappingGroup, mappingType);
+        MappingMetaData mapping = mappingMetaDataRepository.findByMappingGroupAndMappingTypeAndIsVoidedFalse(mappingGroup, mappingType);
         return getAvniValue(mapping);
     }
 
@@ -45,13 +45,13 @@ public class MappingService {
     }
 
     public String getBahmniValue(MappingGroup mappingGroup, MappingType mappingType) {
-        MappingMetaData mapping = mappingMetaDataRepository.findByMappingGroupAndMappingType(mappingGroup, mappingType);
+        MappingMetaData mapping = mappingMetaDataRepository.findByMappingGroupAndMappingTypeAndIsVoidedFalse(mappingGroup, mappingType);
         if (mapping == null) return null;
         return mapping.getIntSystemValue();
     }
 
     public String getBahmniValue(MappingGroup mappingGroup, MappingType mappingType, String avniValue) {
-        MappingMetaData mapping = mappingMetaDataRepository.findByMappingGroupAndMappingTypeAndAvniValue(mappingGroup, mappingType, avniValue);
+        MappingMetaData mapping = mappingMetaDataRepository.findByMappingGroupAndMappingTypeAndAvniValueAndIsVoidedFalse(mappingGroup, mappingType, avniValue);
         if (mapping == null) return null;
         return mapping.getIntSystemValue();
     }
@@ -93,6 +93,6 @@ public class MappingService {
     }
 
     public MappingMetaData findByMappingGroupAndMappingType(MappingGroup patientSubject, MappingType mappingType) {
-        return mappingMetaDataRepository.findByMappingGroupAndMappingType(patientSubject, mappingType);
+        return mappingMetaDataRepository.findByMappingGroupAndMappingTypeAndIsVoidedFalse(patientSubject, mappingType);
     }
 }

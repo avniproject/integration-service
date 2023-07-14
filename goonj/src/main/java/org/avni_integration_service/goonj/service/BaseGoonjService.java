@@ -27,7 +27,7 @@ public abstract class BaseGoonjService {
 
     protected void populateObservations(ObservationHolder observationHolder, GoonjEntity goonjEntity, String mappingGroup) {
         List<String> observationFields = goonjEntity.getObservationFields();
-        IntegrationSystem integrationSystem = integrationSystemRepository.findByName(GoonjMappingDbConstants.IntSystemName);
+        IntegrationSystem integrationSystem = integrationSystemRepository.findByNameAndIsVoidedFalse(GoonjMappingDbConstants.IntSystemName);
 
         for (String obsField : observationFields) {
             MappingMetaData mapping = mappingMetaDataRepository.getAvniMappingIfPresent(mappingGroup, MappingType_Obs, obsField, integrationSystem);

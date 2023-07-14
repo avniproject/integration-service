@@ -63,7 +63,7 @@ public class AvniBahmniErrorService {
     }
 
     private ErrorType getErrorType(BahmniErrorType bahmniErrorType) {
-        return errorTypeRepository.findByNameAndIntegrationSystem(bahmniErrorType.name(), integrationSystemRepository.findByName("bahmni"));
+        return errorTypeRepository.findByNameAndIntegrationSystem(bahmniErrorType.name(), integrationSystemRepository.findByNameAndIsVoidedFalse("bahmni"));
     }
 
     public boolean hasError(String entityId, BahmniEntityType bahmniEntityType) {
@@ -98,7 +98,7 @@ public class AvniBahmniErrorService {
             errorRecord.setEntityId(uuid);
             errorRecord.addErrorType(getErrorType(bahmniErrorType));
             errorRecord.setProcessingDisabled(false);
-            errorRecord.setIntegrationSystem(integrationSystemRepository.findByName("bahmni"));
+            errorRecord.setIntegrationSystem(integrationSystemRepository.findByNameAndIsVoidedFalse("bahmni"));
             errorRecordRepository.save(errorRecord);
         }
         return errorRecord;

@@ -22,7 +22,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
@@ -50,7 +49,7 @@ public class DispatchReceiptRepository extends GoonjBaseRepository
         super(integratingEntityStatusRepository, restTemplate,
                 goonjConfig, GoonjEntityType.DispatchReceipt.name(), avniHttpClient);
         this.mappingMetaDataRepository = mappingMetaDataRepository;
-        this.integrationSystem = integrationSystemRepository.findByName(GoonjMappingDbConstants.IntSystemName);
+        this.integrationSystem = integrationSystemRepository.findByNameAndIsVoidedFalse(GoonjMappingDbConstants.IntSystemName);
         this.deleteAndRecreateDispatchReceipt = deleteAndRecreateDispatchReceipt;
     }
     @Override

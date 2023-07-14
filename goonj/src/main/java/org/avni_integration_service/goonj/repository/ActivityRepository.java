@@ -10,7 +10,6 @@ import org.avni_integration_service.goonj.config.GoonjMappingDbConstants;
 import org.avni_integration_service.goonj.domain.ActivityConstants;
 import org.avni_integration_service.goonj.dto.ActivityDTO;
 import org.avni_integration_service.goonj.dto.ActivityRequestDTO;
-import org.avni_integration_service.goonj.dto.DistributionActivities;
 import org.avni_integration_service.goonj.util.DateTimeUtil;
 import org.avni_integration_service.integration_data.domain.IntegrationSystem;
 import org.avni_integration_service.integration_data.domain.MappingMetaData;
@@ -48,7 +47,7 @@ public class ActivityRepository extends GoonjBaseRepository implements ActivityC
         super(integratingEntityStatusRepository, restTemplate,
                 goonjConfig, GoonjEntityType.Activity.name(), avniHttpClient);
         this.mappingMetaDataRepository = mappingMetaDataRepository;
-        this.integrationSystem = integrationSystemRepository.findByName(GoonjMappingDbConstants.IntSystemName);
+        this.integrationSystem = integrationSystemRepository.findByNameAndIsVoidedFalse(GoonjMappingDbConstants.IntSystemName);
     }
 
     @Override

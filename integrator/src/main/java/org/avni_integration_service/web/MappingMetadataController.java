@@ -35,7 +35,7 @@ public class MappingMetadataController extends BaseController {
 
     @RequestMapping(value = "/int/mappingMetadata", method = {RequestMethod.GET})
     public Page<MappingMetadataWebContract> getPage(Pageable pageable, Principal principal) {
-        return toContractPage(mappingMetaDataRepository.findAllByIntegrationSystem(getCurrentIntegrationSystem(principal), pageable));
+        return toContractPage(mappingMetaDataRepository.findAllByIntegrationSystemAndIsVoidedFalse(getCurrentIntegrationSystem(principal), pageable));
     }
 
     private Page<MappingMetadataWebContract> toContractPage(Page<MappingMetaData> page) {
@@ -45,7 +45,7 @@ public class MappingMetadataController extends BaseController {
     @RequestMapping(value = "/int/mappingMetadata/{id}", method = {RequestMethod.GET})
     public MappingMetadataWebContract getOne(@PathVariable("id") int id, Principal principal) {
         IntegrationSystem currentIntegrationSystem = getCurrentIntegrationSystem(principal);
-        MappingMetaData mappingMetaData = mappingMetaDataRepository.findByIdAndIntegrationSystem(id, currentIntegrationSystem);
+        MappingMetaData mappingMetaData = mappingMetaDataRepository.findByIdAndIntegrationSystemAndIsVoidedFalse(id, currentIntegrationSystem);
         return mapOne(mappingMetaData);
     }
 
@@ -62,19 +62,19 @@ public class MappingMetadataController extends BaseController {
 
     @RequestMapping(value = "/int/mappingMetadata/search/findByAvniValue", method = {RequestMethod.GET})
     public Page<MappingMetadataWebContract> findByAvniValue(@RequestParam("avniValue") String avniValue, Pageable pageable, Principal principal) {
-        return toContractPage(mappingMetaDataRepository.findAllByAvniValueContainsAndIntegrationSystem(avniValue, getCurrentIntegrationSystem(principal), pageable));
+        return toContractPage(mappingMetaDataRepository.findAllByAvniValueContainsAndIntegrationSystemAndIsVoidedFalse(avniValue, getCurrentIntegrationSystem(principal), pageable));
     }
 
     @RequestMapping(value = "/int/mappingMetadata/search/findByIntSystemValue", method = {RequestMethod.GET})
     public Page<MappingMetadataWebContract> findByBahmniValue(@RequestParam("intSystemValue") String intSystemValue, Pageable pageable, Principal principal) {
-        return toContractPage(mappingMetaDataRepository.findAllByIntSystemValueContainsAndIntegrationSystem(intSystemValue, getCurrentIntegrationSystem(principal), pageable));
+        return toContractPage(mappingMetaDataRepository.findAllByIntSystemValueContainsAndIntegrationSystemAndIsVoidedFalse(intSystemValue, getCurrentIntegrationSystem(principal), pageable));
     }
 
     @RequestMapping(value = "/int/mappingMetadata/search/find", method = {RequestMethod.GET})
     public Page<MappingMetadataWebContract> find(@RequestParam("avniValue") String avniValue,
                                                  @RequestParam("intSystemValue") String intSystemValue,
                                                  Pageable pageable, Principal principal) {
-        return toContractPage(mappingMetaDataRepository.findAllByAvniValueContainsAndIntSystemValueContainsAndIntegrationSystem(avniValue, intSystemValue, getCurrentIntegrationSystem(principal), pageable));
+        return toContractPage(mappingMetaDataRepository.findAllByAvniValueContainsAndIntSystemValueContainsAndIntegrationSystemAndIsVoidedFalse(avniValue, intSystemValue, getCurrentIntegrationSystem(principal), pageable));
     }
 
     @RequestMapping(value = "/int/mappingMetadata", method = {RequestMethod.POST})
@@ -85,7 +85,7 @@ public class MappingMetadataController extends BaseController {
         if (request.getId() == 0) {
             mappingMetaData = new MappingMetaData();
         } else {
-            mappingMetaData = mappingMetaDataRepository.findByIdAndIntegrationSystem(request.getId(), iSystem);
+            mappingMetaData = mappingMetaDataRepository.findByIdAndIntegrationSystemAndIsVoidedFalse(request.getId(), iSystem);
         }
 
         mappingMetaData.setMappingGroup(mappingGroupRepository.findById(request.getMappingGroup()).get());
@@ -107,6 +107,6 @@ public class MappingMetadataController extends BaseController {
     @RequestMapping(value = "/int/mappingMetadata/{id}", method = {RequestMethod.DELETE})
     @Transactional
     public void delete(@PathVariable("id") int id, Principal principal) {
-        mappingMetaDataRepository.delete(mappingMetaDataRepository.findByIdAndIntegrationSystem(id, getCurrentIntegrationSystem(principal)));
+        mappingMetaDataRepository.delete(mappingMetaDataRepository.findByIdAndIntegrationSystemAndIsVoidedFalse(id, getCurrentIntegrationSystem(principal)));
     }
 }
