@@ -13,14 +13,12 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 @Component
 public class GoonjSpringConfig {
     private final TokenService tokenService;
     private final IntegrationSystemRepository integrationSystemRepository;
-
-    @Value("${goonj.sf.tokenExpiry}")
-    private int tokenExpiry;
 
     @Autowired
     public GoonjSpringConfig(TokenService tokenService, IntegrationSystemRepository integrationSystemRepository) {
@@ -38,7 +36,7 @@ public class GoonjSpringConfig {
                     return execution.execute(httpRequest, bytes);
                 })
                 .build();
-        restTemplate.setMessageConverters(Arrays.asList(new MappingJackson2HttpMessageConverter()));
+        restTemplate.setMessageConverters(Collections.singletonList(new MappingJackson2HttpMessageConverter()));
         return restTemplate;
     }
 
