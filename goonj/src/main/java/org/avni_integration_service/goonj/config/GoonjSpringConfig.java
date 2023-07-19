@@ -18,12 +18,10 @@ import java.util.Collections;
 @Component
 public class GoonjSpringConfig {
     private final TokenService tokenService;
-    private final IntegrationSystemRepository integrationSystemRepository;
 
     @Autowired
-    public GoonjSpringConfig(TokenService tokenService, IntegrationSystemRepository integrationSystemRepository) {
+    public GoonjSpringConfig(TokenService tokenService) {
         this.tokenService = tokenService;
-        this.integrationSystemRepository = integrationSystemRepository;
     }
 
     @Bean("GoonjRestTemplate")
@@ -38,10 +36,5 @@ public class GoonjSpringConfig {
                 .build();
         restTemplate.setMessageConverters(Collections.singletonList(new MappingJackson2HttpMessageConverter()));
         return restTemplate;
-    }
-
-    @Bean("GoonjIntegrationSystem")
-    public IntegrationSystem getGoonjIntegrationSystem() {
-        return integrationSystemRepository.findBySystemType(IntegrationSystem.IntegrationSystemType.Goonj);
     }
 }
