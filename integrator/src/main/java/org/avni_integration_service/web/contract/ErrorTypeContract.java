@@ -22,6 +22,12 @@ public class ErrorTypeContract extends NamedEntityContract{
         this.comparisonValue = comparisonValue;
     }
 
+    public ErrorTypeContract(int id, String uuid, String name, ErrorTypeComparisonOperatorEnum comparisonOperator, String comparisonValue) {
+        super(id, uuid, name);
+        this.comparisonOperator = comparisonOperator;
+        this.comparisonValue = comparisonValue;
+    }
+
     public ErrorTypeContract(NamedEntity namedEntity, ErrorTypeComparisonOperatorEnum comparisonOperator, String comparisonValue) {
         super(namedEntity);
         this.comparisonOperator = comparisonOperator;
@@ -29,7 +35,7 @@ public class ErrorTypeContract extends NamedEntityContract{
     }
 
     public ErrorTypeContract(ErrorType errorType) {
-        this(errorType.getId(), errorType.getName(), errorType.getComparisonOperator(), errorType.getComparisonValue());
+        this(errorType, errorType.getComparisonOperator(), errorType.getComparisonValue());
     }
 
     public ErrorTypeComparisonOperatorEnum getComparisonOperator() {

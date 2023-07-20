@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import java.security.Principal;
+import java.util.UUID;
 
 @RestController
 @PreAuthorize("hasRole('USER')")
@@ -84,6 +85,7 @@ public class MappingMetadataController extends BaseController {
         MappingMetaData mappingMetaData;
         if (request.getId() == 0) {
             mappingMetaData = new MappingMetaData();
+            mappingMetaData.setUuid(UUID.randomUUID().toString());
         } else {
             mappingMetaData = mappingMetaDataRepository.findByIdAndIntegrationSystemAndIsVoidedFalse(request.getId(), iSystem);
         }
@@ -94,6 +96,7 @@ public class MappingMetadataController extends BaseController {
         mappingMetaData.setAvniValue(request.getAvniValue());
         mappingMetaData.setDataTypeHint(request.isCoded() ? ObsDataType.Coded : null);
         mappingMetaData.setIntegrationSystem(iSystem);
+        mappingMetaData.setUuid(request.getUuid() != null ? request.getUuid() : UUID.randomUUID().toString());
         MappingMetaData saved = mappingMetaDataRepository.save(mappingMetaData);
         return mapOne(saved);
     }
@@ -107,6 +110,10 @@ public class MappingMetadataController extends BaseController {
     @RequestMapping(value = "/int/mappingMetadata/{id}", method = {RequestMethod.DELETE})
     @Transactional
     public void delete(@PathVariable("id") int id, Principal principal) {
-        mappingMetaDataRepository.delete(mappingMetaDataRepository.findByIdAndIntegrationSystemAndIsVoidedFalse(id, getCurrentIntegrationSystem(principal)));
+        MappingMetaData mappingMetaData = mappingMetaDataRepository.findByIdAndIntegrationSystemAndIsVoidedFalse(id, getCurrentIntegrationSystem(principal));
+        if (mappingMetaData != null) {
+            mappingMetaData.setVoided(true);
+            mappingMetaDataRepository.save(mappingMetaData);
+        }
     }
 }

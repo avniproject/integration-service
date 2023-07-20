@@ -15,6 +15,7 @@ import java.util.List;
 @Repository
 public interface MappingMetaDataRepository extends BaseRepository<MappingMetaData> {
     MappingMetaData findByIdAndIntegrationSystemAndIsVoidedFalse(int id, IntegrationSystem integrationSystem);
+    MappingMetaData findByUuidAndIntegrationSystem(String uuid, IntegrationSystem integrationSystem);
 
     MappingMetaData findByMappingGroupAndMappingTypeAndIsVoidedFalse(MappingGroup mappingGroup, MappingType mappingType);
 

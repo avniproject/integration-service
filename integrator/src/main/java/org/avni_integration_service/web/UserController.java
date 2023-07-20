@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.transaction.Transactional;
 import java.security.Principal;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RestController
@@ -36,6 +37,7 @@ public class UserController {
     }
 
     private UserContract save(UserContract userRequest, User user) {
+        user.setUuid(UUID.randomUUID().toString());
         user.setEmail(userRequest.getEmail());
         user.setWorkingIntegrationSystem(integrationSystemRepository.findEntity(userRequest.getWorkingIntegrationSystemId()));
         return new UserContract(userRepository.save(user));

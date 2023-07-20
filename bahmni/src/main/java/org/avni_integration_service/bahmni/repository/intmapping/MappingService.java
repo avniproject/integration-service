@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.UUID;
 
 @Component
 public class MappingService {
@@ -68,6 +69,7 @@ public class MappingService {
         mappingMetaData.setMappingType(mappingType);
         mappingMetaData.setIntSystemValue(bahmniValue);
         mappingMetaData.setAvniValue(avniValue);
+        mappingMetaData.setUuid(UUID.randomUUID().toString());
         return mappingMetaData;
     }
 
