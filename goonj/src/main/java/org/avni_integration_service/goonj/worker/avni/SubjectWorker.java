@@ -14,7 +14,6 @@ import org.avni_integration_service.goonj.service.AvniGoonjErrorService;
 import org.avni_integration_service.goonj.util.DateTimeUtil;
 import org.avni_integration_service.integration_data.domain.AvniEntityType;
 import org.avni_integration_service.integration_data.domain.IntegratingEntityStatus;
-import org.avni_integration_service.integration_data.domain.IntegrationSystem;
 import org.avni_integration_service.integration_data.domain.error.ErrorType;
 import org.avni_integration_service.integration_data.repository.IntegratingEntityStatusRepository;
 import org.avni_integration_service.integration_data.service.error.ErrorClassifier;
@@ -77,6 +76,7 @@ public abstract class SubjectWorker implements ErrorRecordWorker {
 
     /**
      * Add an offset to avoid syncing the last Avni subject to Goonj
+     *
      * @param status
      * @return EffectiveCutoffDateTime
      */
@@ -119,8 +119,9 @@ public abstract class SubjectWorker implements ErrorRecordWorker {
     protected void handleError(Subject subject, Exception exception,
                                boolean updateSyncStatus, GoonjErrorType goonjErrorType) throws Exception {
         logger.error(String.format("Avni subject %s could not be synced to Goonj Salesforce. ", subject.getUuid()), exception);
-        ErrorType classifiedErrorType = errorClassifier.classify(goonjContextProvider.get().getIntegrationSystem(), exception);
-        if(classifiedErrorType == null) {
+        ErrorType classifiedErrorType = errorClassifier.classify(goonjContextProvider.get().getIntegrationSystem(),
+                exception, goonjContextProvider.get().getBypassErrors(), GoonjErrorType.UnclassifiedError.name());
+        if (classifiedErrorType == null) {
             throw exception;
         }
         createOrUpdateErrorRecordAndSyncStatus(subject, updateSyncStatus, subject.getUuid(),

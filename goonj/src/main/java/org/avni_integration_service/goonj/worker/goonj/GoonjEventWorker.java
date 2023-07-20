@@ -7,7 +7,6 @@ import org.avni_integration_service.goonj.config.GoonjContextProvider;
 import org.avni_integration_service.goonj.service.AvniGoonjErrorService;
 import org.avni_integration_service.goonj.util.DateTimeUtil;
 import org.avni_integration_service.integration_data.domain.IntegratingEntityStatus;
-import org.avni_integration_service.integration_data.domain.IntegrationSystem;
 import org.avni_integration_service.integration_data.domain.error.ErrorType;
 import org.avni_integration_service.integration_data.repository.IntegratingEntityStatusRepository;
 import org.avni_integration_service.integration_data.service.error.ErrorClassifier;
@@ -65,7 +64,8 @@ public abstract class GoonjEventWorker {
 
     protected void handleError(Map<String, Object> event, Exception exception, String entityId, GoonjErrorType goonjErrorType) throws Exception {
         logger.error(String.format("Goonj %s %s could not be synced to Goonj Salesforce. ", entityType, event.get(entityId)), exception);
-        ErrorType classifiedErrorType = errorClassifier.classify(goonjContextProvider.get().getIntegrationSystem(), exception);
+        ErrorType classifiedErrorType = errorClassifier.classify(goonjContextProvider.get().getIntegrationSystem(),
+                exception, goonjContextProvider.get().getBypassErrors(),  GoonjErrorType.UnclassifiedError.name());
         if(classifiedErrorType == null) {
             throw exception;
         }

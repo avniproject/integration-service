@@ -80,6 +80,7 @@ public abstract class GeneralEncounterWorker implements ErrorRecordWorker {
 
     /**
      * Add an offset to avoid syncing the last Avni encounter to Goonj
+     *
      * @param status
      * @return EffectiveCutoffDateTime
      */
@@ -130,8 +131,9 @@ public abstract class GeneralEncounterWorker implements ErrorRecordWorker {
     protected void handleError(GeneralEncounter generalEncounter, Exception exception,
                                boolean updateSyncStatus, GoonjErrorType goonjErrorType) throws Exception {
         logger.error(String.format("Avni encounter %s could not be synced to Goonj Salesforce. ", generalEncounter.getUuid()), exception);
-        ErrorType classifiedErrorType = errorClassifier.classify(goonjContextProvider.get().getIntegrationSystem(), exception);
-        if(classifiedErrorType == null) {
+        ErrorType classifiedErrorType = errorClassifier.classify(goonjContextProvider.get().getIntegrationSystem(),
+                exception, goonjContextProvider.get().getBypassErrors(), GoonjErrorType.UnclassifiedError.name());
+        if (classifiedErrorType == null) {
             throw exception;
         }
         createOrUpdateErrorRecordAndSyncStatus(generalEncounter, updateSyncStatus, generalEncounter.getUuid(),
