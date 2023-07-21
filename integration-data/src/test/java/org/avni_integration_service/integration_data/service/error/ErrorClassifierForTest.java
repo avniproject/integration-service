@@ -9,8 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(classes = {ErrorClassifier.class, IntegrationSystemRepository.class})
 public class ErrorClassifierForTest extends AbstractSpringTest implements ErrorClassifierForGoonjTestConstants {
@@ -72,6 +71,15 @@ public class ErrorClassifierForTest extends AbstractSpringTest implements ErrorC
         @Test
         public void classifyErrorMsgActivityMeasurementTypeMissingError() {
                 assertNotNull(invokeClassifyForContains(ERROR_MSG_ACTIVITY_MEASUREMENT_TYPE_MISSING));
+        }
+
+        @Test
+        public void classifyErrorMsgAddressNotFoundError() {
+                assertEquals("AddressNotFoundError" , errorClassifier.classify(integrationSystem, ERROR_MSG_DEMAND_ADDRESS_NOT_FOUND).getName());
+                assertEquals("AddressNotFoundError" , errorClassifier.classify(integrationSystem, ERROR_MSG_DISPATCH_ADDRESS_NOT_FOUND,
+                        true, "UnclassifiedError").getName());
+                assertEquals("UnclassifiedError" , errorClassifier.classify(integrationSystem, ERROR_MSG_DISPATCH_ADDRESS_NOT_FOUND_INVALID,
+                        true, "UnclassifiedError").getName());
         }
 
         private ErrorType invokeClassifyForContains(String errorMessage) {
