@@ -21,7 +21,7 @@ public class DemandWorker extends BaseGoonjWorker {
     public void process() throws Exception {
         HashMap<String, Object>[] demands = fetchEvents();
         for (Map<String, Object> demand : demands) {
-            eventWorker.process(demand);
+            eventWorker.process(demand, true);
         }
     }
 

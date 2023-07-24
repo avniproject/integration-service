@@ -31,7 +31,7 @@ public abstract class GoonjEventWorker {
         this.goonjContextProvider = goonjContextProvider;
     }
 
-    abstract void process(Map<String, Object> event) throws Exception;
+    abstract void process(Map<String, Object> event, boolean updateSyncStatus) throws Exception;
 
     void updateErrorRecordAndSyncStatus(Map<String, Object> callResponse, boolean updateSyncStatus, String sid) {
         avniGoonjErrorService.successfullyProcessed(sid, entityType);

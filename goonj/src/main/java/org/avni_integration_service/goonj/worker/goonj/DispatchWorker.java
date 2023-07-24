@@ -23,7 +23,7 @@ public class DispatchWorker extends BaseGoonjWorker {
     public void process() throws Exception {
         HashMap<String, Object>[] dispatches = fetchEvents();
         for (Map<String, Object> dispatch : dispatches) {
-            eventWorker.process(dispatch);
+            eventWorker.process(dispatch, true);
         }
     }
 

@@ -43,10 +43,11 @@ public class InventoryEventWorker extends GoonjEventWorker implements ErrorRecor
         this.integratingEntityStatusRepository = integratingEntityStatusRepository;
     }
 
-    public void process(Map<String, Object> event) throws Exception {
+    @Override
+    public void process(Map<String, Object> event, boolean updateSyncStatus) throws Exception {
         try {
             processImplementationInventory(event);
-            updateErrorRecordAndSyncStatus(event, true, (String) event.get("ImplementationInventoryId"));
+            updateErrorRecordAndSyncStatus(event, updateSyncStatus, (String) event.get("ImplementationInventoryId"));
         } catch (Exception e) {
             handleError(event, e, "ImplementationInventoryId", GoonjErrorType.ImplementationInventoryAttributesMismatch);
         }
@@ -67,7 +68,7 @@ public class InventoryEventWorker extends GoonjEventWorker implements ErrorRecor
             updateErrorRecordAndSyncStatus(null, false, inventoryUuid);
             return;
         }
-        process(inventoryItem);
+        process(inventoryItem, false);
     }
 
     @Override

@@ -21,7 +21,7 @@ public class InventoryWorker extends BaseGoonjWorker {
     public void process() throws Exception {
         HashMap<String, Object>[] inventoryItems = fetchEvents();
         for (Map<String, Object> items : inventoryItems) {
-            eventWorker.process(items);
+            eventWorker.process(items, true);
         }
     }
 

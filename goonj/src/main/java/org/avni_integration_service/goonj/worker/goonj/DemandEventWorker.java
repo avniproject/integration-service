@@ -36,10 +36,11 @@ public class DemandEventWorker extends GoonjEventWorker implements ErrorRecordWo
         this.avniSubjectRepository = avniSubjectRepository;
     }
 
-    public void process(Map<String, Object> event) throws Exception {
+    @Override
+    public void process(Map<String, Object> event, boolean updateSyncStatus) throws Exception {
         try {
             processDemand(event);
-            updateErrorRecordAndSyncStatus(event, true, (String) event.get("DemandId"));
+            updateErrorRecordAndSyncStatus(event, updateSyncStatus, (String) event.get("DemandId"));
         } catch (Exception e) {
             handleError(event, e, "DemandId", GoonjErrorType.DemandAttributesMismatch);
         }
@@ -60,7 +61,7 @@ public class DemandEventWorker extends GoonjEventWorker implements ErrorRecordWo
             updateErrorRecordAndSyncStatus(null, false, demandUuid);
             return;
         }
-        process(demand);
+        process(demand, false);
     }
 
     @Override

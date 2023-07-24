@@ -38,10 +38,10 @@ public class DispatchEventWorker extends GoonjEventWorker implements ErrorRecord
         this.avniSubjectRepository = avniSubjectRepository;
     }
 
-    public void process(Map<String, Object> event) throws Exception {
+    public void process(Map<String, Object> event, boolean updateSyncStatus) throws Exception {
         try {
             processDispatch(event);
-            updateErrorRecordAndSyncStatus(event, true, (String) event.get("DispatchStatusId"));
+            updateErrorRecordAndSyncStatus(event, updateSyncStatus, (String) event.get("DispatchStatusId"));
         } catch (Exception exception) {
             handleError(event, exception, "DispatchStatusId", GoonjErrorType.DispatchAttributesMismatch);
         }
@@ -62,7 +62,7 @@ public class DispatchEventWorker extends GoonjEventWorker implements ErrorRecord
             updateErrorRecordAndSyncStatus(null, false, dispatchUuid);
             return;
         }
-        process(dispatch);
+        process(dispatch, false);
     }
 
     @Override
