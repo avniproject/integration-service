@@ -124,9 +124,9 @@ public abstract class SubjectWorker implements ErrorRecordWorker {
         if (classifiedErrorType == null) {
             throw exception;
         }
-        GoonjErrorType specificErrorType = GoonjErrorType.valueOf(classifiedErrorType.getName());
+        GoonjErrorType errorType = GoonjErrorType.safeGetValueOf(classifiedErrorType.getName(), goonjErrorType);
         createOrUpdateErrorRecordAndSyncStatus(subject, updateSyncStatus, subject.getUuid(),
-                specificErrorType != null ? specificErrorType : goonjErrorType, exception.getLocalizedMessage());
+                errorType, exception.getLocalizedMessage());
     }
 
     protected abstract void createSubject(Subject subject);

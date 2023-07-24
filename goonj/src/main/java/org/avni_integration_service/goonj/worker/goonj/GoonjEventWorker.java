@@ -69,9 +69,9 @@ public abstract class GoonjEventWorker {
         if(classifiedErrorType == null) {
             throw exception;
         }
-        GoonjErrorType specificErrorType = GoonjErrorType.valueOf(classifiedErrorType.getName());
+        GoonjErrorType errorType = GoonjErrorType.safeGetValueOf(classifiedErrorType.getName(), goonjErrorType);
         createOrUpdateErrorRecordAndSyncStatus(event, true, (String) event.get(entityId),
-                specificErrorType != null ? specificErrorType : goonjErrorType, exception.getLocalizedMessage());
+                errorType , exception.getLocalizedMessage());
     }
 
     public abstract void processDeletion(String deletedEntity);

@@ -136,9 +136,9 @@ public abstract class GeneralEncounterWorker implements ErrorRecordWorker {
         if (classifiedErrorType == null) {
             throw exception;
         }
-        GoonjErrorType specificErrorType = GoonjErrorType.valueOf(classifiedErrorType.getName());
+        GoonjErrorType errorType = GoonjErrorType.safeGetValueOf(classifiedErrorType.getName(), goonjErrorType);
         createOrUpdateErrorRecordAndSyncStatus(generalEncounter, updateSyncStatus, generalEncounter.getUuid(),
-                specificErrorType != null ? specificErrorType : goonjErrorType, exception.getLocalizedMessage());
+                errorType, exception.getLocalizedMessage());
     }
 
     protected abstract void createOrUpdateGeneralEncounter(GeneralEncounter generalEncounter, Subject subject);
