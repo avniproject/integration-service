@@ -75,7 +75,7 @@ public class DispatchReceiptRepository extends GoonjBaseRepository
         if (goonjConfig.getDeleteAndRecreateDispatchReceipt()) {
             try {
                 deleteEvent(RESOURCE_DELETE_DISPATCH_RECEIVED_STATUS, encounter);
-            } catch (HttpClientErrorException.NotFound hce) {
+            } catch (HttpClientErrorException.NotFound | HttpClientErrorException.BadRequest  hce) {
                 logger.info(String.format("Ignoring failure to delete missing DispatchReceipt, %s", encounter.getUuid()));
             }
         }
