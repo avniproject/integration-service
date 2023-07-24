@@ -71,7 +71,7 @@ public class DistributionDTO {
     @JsonProperty("reachedTo")
     private String reachedTo;
     @JsonProperty("totalNumberOfReceivers")
-    private String totalNumberOfReceivers;
+    private Integer totalNumberOfReceivers;
     @JsonProperty("groupName")
     private String groupName;
     @JsonProperty("anyOtherDocumentSubmitted")
@@ -83,7 +83,7 @@ public class DistributionDTO {
     @JsonProperty("gender")
     private String gender;
     @JsonProperty("age")
-    private int age;
+    private Integer age;
     @JsonProperty("father_MotherName")
     private String fatherMotherName;
     @JsonProperty("phoneNumber")
@@ -91,9 +91,9 @@ public class DistributionDTO {
     @JsonProperty("presentOccupation")
     private String presentOccupation;
     @JsonProperty("monthlyIncome")
-    private int monthlyIncome;
+    private Integer monthlyIncome;
     @JsonProperty("noOfFamilyMember")
-    private int noOfFamilyMember;
+    private Integer noOfFamilyMember;
     @JsonProperty("centreName")
     private String centreName;
     @JsonProperty("shareABriefProvidedMaterial")
@@ -103,9 +103,9 @@ public class DistributionDTO {
     @JsonProperty("materialGivenFor")
     private String materialGivenFor;
     @JsonProperty("noOfIndividualReached")
-    private String noOfIndividualReached;
+    private Integer noOfIndividualReached;
     @JsonProperty("noOfFamiliesReached")
-    private String noOfFamiliesReached;
+    private Integer noOfFamiliesReached;
     @JsonProperty("remarks")
     private String remarks;
     @JsonProperty("TypeOfSchool")
@@ -175,12 +175,12 @@ public class DistributionDTO {
                            String modifiedBy, List<DistributionLine> distributionLines, List<DistributionActivities> activities,
                            String surveyedBy, String monitoredByOrDistributor, String approvedOrVerifiedBy,
                            String teamOrExternal, String nameOfPOC, String pocContactNo, String reachedTo,
-                           String totalNumberOfReceivers, String groupName, String anyOtherDocumentSubmitted,
-                           String reportsCrosschecked, String name, String gender, int age,
+                           Integer totalNumberOfReceivers, String groupName, String anyOtherDocumentSubmitted,
+                           String reportsCrosschecked, String name, String gender, Integer age,
                            String fatherMotherName, String phoneNumber, String presentOccupation,
-                           int monthlyIncome, int noOfFamilyMember, String centreName,
+                           Integer monthlyIncome, Integer noOfFamilyMember, String centreName,
                            String shareABriefProvidedMaterial, String howtheMaterialMakesaDifference,
-                           String materialGivenFor, String noOfIndividualReached, String noOfFamiliesReached,
+                           String materialGivenFor, Integer noOfIndividualReached, Integer noOfFamiliesReached,
                            String remarks, String TypeOfSchool, String SchoolAanganwadiLearningCenterName) {
         super();
         this.source_id = source_id;
@@ -493,12 +493,12 @@ public class DistributionDTO {
     }
 
     @JsonProperty("totalNumberOfReceivers")
-    public String getTotalNumberOfReceivers() {
+    public Integer getTotalNumberOfReceivers() {
         return totalNumberOfReceivers;
     }
 
     @JsonProperty("totalNumberOfReceivers")
-    public void setTotalNumberOfReceivers(String totalNumberOfReceivers) {
+    public void setTotalNumberOfReceivers(Integer totalNumberOfReceivers) {
         this.totalNumberOfReceivers = totalNumberOfReceivers;
     }
 
@@ -553,12 +553,12 @@ public class DistributionDTO {
     }
 
     @JsonProperty("age")
-    public int getAge() {
+    public Integer getAge() {
         return age;
     }
 
     @JsonProperty("age")
-    public void setAge(int age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 
@@ -593,22 +593,22 @@ public class DistributionDTO {
     }
 
     @JsonProperty("monthlyIncome")
-    public int getMonthlyIncome() {
+    public Integer getMonthlyIncome() {
         return monthlyIncome;
     }
 
     @JsonProperty("monthlyIncome")
-    public void setMonthlyIncome(int monthlyIncome) {
+    public void setMonthlyIncome(Integer monthlyIncome) {
         this.monthlyIncome = monthlyIncome;
     }
 
     @JsonProperty("noOfFamilyMember")
-    public int getNoOfFamilyMember() {
+    public Integer getNoOfFamilyMember() {
         return noOfFamilyMember;
     }
 
     @JsonProperty("noOfFamilyMember")
-    public void setNoOfFamilyMember(int noOfFamilyMember) {
+    public void setNoOfFamilyMember(Integer noOfFamilyMember) {
         this.noOfFamilyMember = noOfFamilyMember;
     }
 
@@ -653,22 +653,22 @@ public class DistributionDTO {
     }
 
     @JsonProperty("noOfIndividualReached")
-    public String getNoOfIndividualReached() {
+    public Integer getNoOfIndividualReached() {
         return noOfIndividualReached;
     }
 
     @JsonProperty("noOfIndividualReached")
-    public void setNoOfIndividualReached(String noOfIndividualReached) {
+    public void setNoOfIndividualReached(Integer noOfIndividualReached) {
         this.noOfIndividualReached = noOfIndividualReached;
     }
 
     @JsonProperty("noOfFamiliesReached")
-    public String getNoOfFamiliesReached() {
+    public Integer getNoOfFamiliesReached() {
         return noOfFamiliesReached;
     }
 
     @JsonProperty("noOfFamiliesReached")
-    public void setNoOfFamiliesReached(String noOfFamiliesReached) {
+    public void setNoOfFamiliesReached(Integer noOfFamiliesReached) {
         this.noOfFamiliesReached = noOfFamiliesReached;
     }
 
