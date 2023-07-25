@@ -10,7 +10,7 @@ public class UserContract extends BaseEntityContract {
     }
 
     public UserContract(User user) {
-        super(user.getId());
+        super(user.getId(), user.getUuid());
         this.email = user.getEmail();
         this.workingIntegrationSystemId = user.getWorkingIntegrationSystem().getId();
     }

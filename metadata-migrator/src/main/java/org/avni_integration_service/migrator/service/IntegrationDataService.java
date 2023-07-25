@@ -56,8 +56,8 @@ public class IntegrationDataService {
     public void createStandardMappings() {
         List<Map<String, String>> standardMappings = implementationConfigurationRepository.getStandardMappings().getList();
         standardMappings.forEach(keyValues -> {
-            MappingGroup mappingGroup = mappingGroupRepository.findByName(keyValues.get("MappingGroup"));
-            MappingType mappingType = mappingTypeRepository.findByName(keyValues.get("MappingType"));
+            MappingGroup mappingGroup = mappingGroupRepository.findByNameAndIsVoidedFalse(keyValues.get("MappingGroup"));
+            MappingType mappingType = mappingTypeRepository.findByNameAndIsVoidedFalse(keyValues.get("MappingType"));
             mappingService.saveMapping(mappingGroup, mappingType, keyValues.get("Bahmni Value"), keyValues.get("Avni Value"));
         });
         logger.info("Standard mappings created in integration database");

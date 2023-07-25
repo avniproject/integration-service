@@ -61,17 +61,17 @@ public class MappingMetaDataService {
     }
 
     public BahmniEncounterToAvniEncounterMetaData getForBahmniEncounterToAvniEntities() {
-        List<MappingMetaData> mappings = mappingMetaDataRepository.findAllByMappingType(bahmniMappingType.encounterType);
+        List<MappingMetaData> mappings = mappingMetaDataRepository.findAllByMappingTypeAndIsVoidedFalse(bahmniMappingType.encounterType);
         BahmniEncounterToAvniEncounterMetaData metaData = new BahmniEncounterToAvniEncounterMetaData();
         metaData.addEncounterMappings(mappings);
 
         String bahmniEntityUuidConceptInAvni = mappingService.getAvniValue(bahmniMappingGroup.common, bahmniMappingType.bahmniUUIDConcept);
         metaData.setBahmniEntityUuidConcept(bahmniEntityUuidConceptInAvni);
 
-        metaData.addLabMapping(mappingMetaDataRepository.findByMappingType(bahmniMappingType.labEncounterType));
-        metaData.addDrugOrderMapping(mappingMetaDataRepository.findByMappingType(bahmniMappingType.drugOrderEncounterType));
-        metaData.addDrugOrderConceptMapping(mappingMetaDataRepository.findByMappingType(bahmniMappingType.drugOrderConcept));
-        metaData.addProgramMapping(mappingMetaDataRepository.findAllByMappingGroupAndMappingType(bahmniMappingGroup.programEnrolment, bahmniMappingType.bahmniFormCommunityProgram));
+        metaData.addLabMapping(mappingMetaDataRepository.findByMappingTypeAndIsVoidedFalse(bahmniMappingType.labEncounterType));
+        metaData.addDrugOrderMapping(mappingMetaDataRepository.findByMappingTypeAndIsVoidedFalse(bahmniMappingType.drugOrderEncounterType));
+        metaData.addDrugOrderConceptMapping(mappingMetaDataRepository.findByMappingTypeAndIsVoidedFalse(bahmniMappingType.drugOrderConcept));
+        metaData.addProgramMapping(mappingMetaDataRepository.findAllByMappingGroupAndMappingTypeAndIsVoidedFalse(bahmniMappingGroup.programEnrolment, bahmniMappingType.bahmniFormCommunityProgram));
         ArrayList<IgnoredIntegratingConcept> ignoredIntegratingConcepts = new ArrayList<>();
         ignoredBahmniConceptRepository.findAll().forEach(ignoredIntegratingConcepts::add);
         metaData.setIgnoredConcepts(ignoredIntegratingConcepts);
@@ -79,6 +79,6 @@ public class MappingMetaDataService {
     }
 
     public boolean isBahmniEncounterInAvni(String encounterType) {
-        return mappingMetaDataRepository.findAllByMappingTypeInAndAvniValue(Arrays.asList(bahmniEncounterMappingTypes), encounterType).size() != 0;
+        return mappingMetaDataRepository.findAllByMappingTypeInAndAvniValueAndIsVoidedFalse(Arrays.asList(bahmniEncounterMappingTypes), encounterType).size() != 0;
     }
 }

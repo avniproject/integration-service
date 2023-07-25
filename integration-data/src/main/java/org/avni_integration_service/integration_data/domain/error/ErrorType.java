@@ -5,6 +5,7 @@ import org.avni_integration_service.integration_data.domain.framework.NamedInteg
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import java.util.UUID;
 
 @Entity
 public class ErrorType extends NamedIntegrationSpecificEntity {
@@ -27,6 +28,7 @@ public class ErrorType extends NamedIntegrationSpecificEntity {
         this.setIntegrationSystem(integrationSystem);
         this.setComparisonOperator(comparisonOperator);
         this.setComparisonValue(comparisonValue);
+        this.setUuid(UUID.randomUUID().toString());
     }
 
     public ErrorType(String name, IntegrationSystem integrationSystem, String comparisonOperator, String comparisonValue) {
@@ -34,6 +36,7 @@ public class ErrorType extends NamedIntegrationSpecificEntity {
         this.setIntegrationSystem(integrationSystem);
         this.setComparisonOperator(comparisonOperator);
         this.setComparisonValue(comparisonValue);
+        this.setUuid(UUID.randomUUID().toString());
     }
 
     public ErrorTypeComparisonOperatorEnum getComparisonOperator() {
