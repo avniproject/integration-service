@@ -5,6 +5,17 @@ public class BaseEntityContract {
 
     private String uuid;
 
+    private boolean isVoided;
+
+
+    public boolean isVoided() {
+        return isVoided;
+    }
+
+    public void setVoided(boolean voided) {
+        isVoided = voided;
+    }
+
     public String getUuid() {
         return uuid;
     }

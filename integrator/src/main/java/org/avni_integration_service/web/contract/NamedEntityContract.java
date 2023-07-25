@@ -36,4 +36,11 @@ public class NamedEntityContract extends BaseEntityContract {
     public void setName(String name) {
         this.name = name;
     }
+
+    public static NamedEntityContract fromNamedEntity(NamedEntity namedEntity) {
+        NamedEntityContract namedEntityContract = new NamedEntityContract();
+        namedEntityContract.setUuid(namedEntity.getUuid());
+        namedEntityContract.setName(namedEntity.getName());
+        return namedEntityContract;
+    }
 }

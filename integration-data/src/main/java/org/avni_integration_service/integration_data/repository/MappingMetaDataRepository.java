@@ -50,6 +50,8 @@ public interface MappingMetaDataRepository extends BaseRepository<MappingMetaDat
 
     List<MappingMetaData> findAllByMappingTypeAndIsVoidedFalse(MappingType mappingType);
 
+    List<MappingMetaData> findAllByIntegrationSystem(IntegrationSystem integrationSystem);
+
     Page<MappingMetaData> findAllByAvniValueContainsAndIntegrationSystemAndIsVoidedFalse(String avniValue, IntegrationSystem integrationSystem, Pageable pageable);
 
     Page<MappingMetaData> findAllByIntSystemValueContainsAndIntegrationSystemAndIsVoidedFalse(String intSystemValue, IntegrationSystem integrationSystem, Pageable pageable);
