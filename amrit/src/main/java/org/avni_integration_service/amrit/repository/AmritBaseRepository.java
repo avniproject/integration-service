@@ -131,7 +131,7 @@ public abstract class AmritBaseRepository {
 
     protected void populateObservations(Map<String, Object> observationHolder, AvniBaseContract avniEntity,
                                         String mappingGroup, String mappingType, String mappingTypeCodedObservations) {
-        MappingGroup mappingGroupEntity = mappingGroupRepository.findByName(mappingGroup);
+        MappingGroup mappingGroupEntity = mappingGroupRepository.findByNameAndIsVoidedFalse(mappingGroup);
         MappingType mappingTypeEntity = mappingTypeRepository.findByName(mappingType);
         List<MappingMetaData> amritFields = mappingMetaDataRepository.findAllByMappingGroupAndMappingType(mappingGroupEntity, mappingTypeEntity);
 

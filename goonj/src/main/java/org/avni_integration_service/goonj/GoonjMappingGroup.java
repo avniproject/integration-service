@@ -20,12 +20,12 @@ public class GoonjMappingGroup {
 
     @Autowired
     public GoonjMappingGroup(MappingGroupRepository mappingGroupRepository) {
-        this.demand = mappingGroupRepository.findByName(GoonjMappingDbConstants.MappingGroup_Demand);
-        this.dispatch = mappingGroupRepository.findByName(GoonjMappingDbConstants.MappingGroup_Dispatch);
-        this.dispatchLineItem = mappingGroupRepository.findByName(GoonjMappingDbConstants.MappingGroup_Dispatch_LineItem);
-        this.dispatchReceipt = mappingGroupRepository.findByName(GoonjMappingDbConstants.MappingGroup_DispatchReceipt);
-        this.distribution = mappingGroupRepository.findByName(GoonjMappingDbConstants.MappingGroup_Distribution);
-        this.activity = mappingGroupRepository.findByName(GoonjMappingDbConstants.MappingGroup_Activity);
-        this.inventory = mappingGroupRepository.findByName(GoonjMappingDbConstants.MappingGroup_Inventory);
+        this.demand = mappingGroupRepository.findByNameAndIsVoidedFalse(GoonjMappingDbConstants.MappingGroup_Demand);
+        this.dispatch = mappingGroupRepository.findByNameAndIsVoidedFalse(GoonjMappingDbConstants.MappingGroup_Dispatch);
+        this.dispatchLineItem = mappingGroupRepository.findByNameAndIsVoidedFalse(GoonjMappingDbConstants.MappingGroup_Dispatch_LineItem);
+        this.dispatchReceipt = mappingGroupRepository.findByNameAndIsVoidedFalse(GoonjMappingDbConstants.MappingGroup_DispatchReceipt);
+        this.distribution = mappingGroupRepository.findByNameAndIsVoidedFalse(GoonjMappingDbConstants.MappingGroup_Distribution);
+        this.activity = mappingGroupRepository.findByNameAndIsVoidedFalse(GoonjMappingDbConstants.MappingGroup_Activity);
+        this.inventory = mappingGroupRepository.findByNameAndIsVoidedFalse(GoonjMappingDbConstants.MappingGroup_Inventory);
     }
 }

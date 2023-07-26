@@ -162,7 +162,7 @@ public class AvniToBahmniService {
     }
 
     private void saveObsMapping(String avniValue, String bahmniValue, ObsDataType obsDataType) {
-        var existingMapping = mappingMetaDataRepository.findByMappingGroupAndMappingTypeAndAvniValue(bahmniMappingGroup.observation,
+        var existingMapping = mappingMetaDataRepository.findByMappingGroupAndMappingTypeAndAvniValueAndIsVoidedFalse(bahmniMappingGroup.observation,
                 bahmniMappingType.concept, avniValue);
         if (existingMapping == null) {
             mappingService.saveMapping(bahmniMappingGroup.observation,

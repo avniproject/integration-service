@@ -6,6 +6,7 @@ public class MappingMetadataWebContract extends BaseIntSystemSpecificContract {
     private String avniValue;
     private String intSystemValue;
     private boolean coded;
+    private String about;
 
     public int getMappingGroup() {
         return mappingGroup;
@@ -45,5 +46,13 @@ public class MappingMetadataWebContract extends BaseIntSystemSpecificContract {
 
     public void setCoded(boolean coded) {
         this.coded = coded;
+    }
+
+    public String getAbout() {
+        return about;
+    }
+
+    public void setAbout(String about) {
+        this.about = about;
     }
 }

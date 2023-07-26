@@ -132,12 +132,12 @@ public class DistributionRepository extends GoonjBaseRepository implements Distr
                 distributionDTO.setAge((Integer) subject.getObservation(AGE));
                 distributionDTO.setPhoneNumber((String) ((Map<String, Object>) subject.getObservation(POC_CONTACT_NO)).get("phoneNumber"));
                 distributionDTO.setPresentOccupation((String) subject.getObservation(PRESENT_OCCUPATION));
-                distributionDTO.setNoOfFamilyMember((int) subject.getObservation(NUMBER_OF_FAMILY_MEMBERS));
-                distributionDTO.setMonthlyIncome((int) subject.getObservation(MONTHLY_INCOME));
+                distributionDTO.setNoOfFamilyMember((Integer) subject.getObservation(NUMBER_OF_FAMILY_MEMBERS));
+                distributionDTO.setMonthlyIncome((Integer) subject.getObservation(MONTHLY_INCOME));
             }
             if (subject.getObservation(REACHED_TO).equals("Group")) {
                 distributionDTO.setGroupName((String) subject.getObservation(GROUP_NAME));
-                distributionDTO.setTotalNumberOfReceivers((String) subject.getObservation(NUMBER_OF_RECEIVERS));
+                distributionDTO.setTotalNumberOfReceivers((Integer) subject.getObservation(NUMBER_OF_RECEIVERS));
             }
         } else if (subject.getObservation(TYPE_OF_INITIATIVE).equals(SPECIFIC_INITIATIVE)) {
             distributionDTO.setTypeOfInitiative((String) subject.getObservation(TYPE_OF_INITIATIVE));
@@ -145,8 +145,8 @@ public class DistributionRepository extends GoonjBaseRepository implements Distr
             distributionDTO.setShareABriefProvidedMaterial((String) subject.getObservation(PROVIDED_MATERIAL));
             distributionDTO.setHowtheMaterialMakesaDifference((String) subject.getObservation(MATERIAL_MAKES_DIFFERENCE));
             distributionDTO.setMaterialGivenFor((String) subject.getObservation(MATERIAL_GIVEN_FOR));
-            distributionDTO.setNoOfFamiliesReached((String) subject.getObservation(NUMBER_OF_FAMILIES_REACHED));
-            distributionDTO.setNoOfIndividualReached((String) subject.getObservation(NUMBER_OF_INDIVIDUALS_REACHED));
+            distributionDTO.setNoOfFamiliesReached((Integer) subject.getObservation(NUMBER_OF_FAMILIES_REACHED));
+            distributionDTO.setNoOfIndividualReached((Integer) subject.getObservation(NUMBER_OF_INDIVIDUALS_REACHED));
 
         } else {
             distributionDTO.setTypeOfInitiative((String) subject.getObservation(TYPE_OF_INITIATIVE));
@@ -170,8 +170,8 @@ public class DistributionRepository extends GoonjBaseRepository implements Distr
         String sourceId = getSourceId(subject.getUuid(), inventoryExternalId);
         String distributedTo = (String) entry.get(DISTRIBUTED_TO);
         String unit = (String) inventorySubject.getObservation(UNIT);
-        int noOfDistributions = (int) entry.get(NUMBER_OF_DISTRIBUTIONS);
-        int quantity = (int) entry.get(QUANTITY);
+        int noOfDistributions = (Integer) entry.get(NUMBER_OF_DISTRIBUTIONS);
+        int quantity = (Integer) entry.get(QUANTITY);
         return new DistributionLine(sourceId, distributedTo, inventoryExternalId, noOfDistributions, quantity, unit);
     }
 
@@ -186,7 +186,7 @@ public class DistributionRepository extends GoonjBaseRepository implements Distr
     private DistributionActivities createDistributionActivities(HashMap<String, Object> entry) {
         String activitySourceId = (String) entry.get(ACTIVITIES_DONE);
         if (activitySourceId != null) {
-            int numberOfPersons = (int) entry.get(NUMBER_OF_PERSONS);
+            int numberOfPersons = (Integer) entry.get(NUMBER_OF_PERSONS);
             return new DistributionActivities(activitySourceId, numberOfPersons);
         }
         return null;

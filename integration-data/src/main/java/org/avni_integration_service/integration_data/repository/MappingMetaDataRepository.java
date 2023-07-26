@@ -14,10 +14,12 @@ import java.util.Collection;
 import java.util.List;
 
 @Repository
-public interface MappingMetaDataRepository extends PagingAndSortingRepository<MappingMetaData, Integer> {
+public interface MappingMetaDataRepository extends BaseRepository<MappingMetaData> {
     MappingMetaData findByIdAndIntegrationSystem(int id, IntegrationSystem integrationSystem);
+    MappingMetaData findByIdAndIntegrationSystemAndIsVoidedFalse(int id, IntegrationSystem integrationSystem);
 
     MappingMetaData findByMappingGroupAndMappingType(MappingGroup mappingGroup, MappingType mappingType);
+    MappingMetaData findByMappingGroupAndMappingTypeAndIsVoidedFalse(MappingGroup mappingGroup, MappingType mappingType);
 
     MappingMetaData findByMappingGroupNameAndMappingTypeNameAndIntSystemValueAndIntegrationSystem(String mappingGroup, String mappingType, String intSystemValue, IntegrationSystem integrationSystem);
     MappingMetaData findByMappingGroupNameAndMappingTypeNameAndIntSystemValueAndIntegrationSystemId(String mappingGroup, String mappingType, String intSystemValue, int integrationSystemId);
@@ -49,26 +51,38 @@ public interface MappingMetaDataRepository extends PagingAndSortingRepository<Ma
     }
 
     MappingMetaData findByMappingGroupAndMappingTypeAndIntSystemValue(MappingGroup mappingGroup, MappingType mappingType, String intSystemValue);
+    MappingMetaData findByMappingGroupAndMappingTypeAndIntSystemValueAndIsVoidedFalse(MappingGroup mappingGroup, MappingType mappingType, String intSystemValue);
 
     MappingMetaData findByMappingGroupAndMappingTypeAndAvniValue(MappingGroup mappingGroup, MappingType mappingType, String avniValue);
+    MappingMetaData findByMappingGroupAndMappingTypeAndAvniValueAndIsVoidedFalse(MappingGroup mappingGroup, MappingType mappingType, String avniValue);
 
     List<MappingMetaData> findAllByMappingGroupAndMappingType(MappingGroup mappingGroup, MappingType mappingType);
+    List<MappingMetaData> findAllByMappingGroupAndMappingTypeAndIsVoidedFalse(MappingGroup mappingGroup, MappingType mappingType);
 
     List<MappingMetaData> findAllByMappingGroupAndMappingTypeIn(MappingGroup mappingGroup, List<MappingType> mappingTypes);
+    List<MappingMetaData> findAllByMappingGroupAndMappingTypeInAndIsVoidedFalse(MappingGroup mappingGroup, List<MappingType> mappingTypes);
 
     List<MappingMetaData> findAllByMappingGroupNameAndIntegrationSystem(String mappingGroup, IntegrationSystem integrationSystem);
 
     List<MappingMetaData> findAllByMappingType(MappingType mappingType);
+    List<MappingMetaData> findAllByMappingTypeAndIsVoidedFalse(MappingType mappingType);
 
     Page<MappingMetaData> findAllByAvniValueContainsAndIntegrationSystem(String avniValue, IntegrationSystem integrationSystem, Pageable pageable);
+    Page<MappingMetaData> findAllByAvniValueContainsAndIntegrationSystemAndIsVoidedFalse(String avniValue, IntegrationSystem integrationSystem, Pageable pageable);
 
     Page<MappingMetaData> findAllByIntSystemValueContainsAndIntegrationSystem(String intSystemValue, IntegrationSystem integrationSystem, Pageable pageable);
+    Page<MappingMetaData> findAllByIntSystemValueContainsAndIntegrationSystemAndIsVoidedFalse(String intSystemValue, IntegrationSystem integrationSystem, Pageable pageable);
 
     Page<MappingMetaData> findAllByAvniValueContainsAndIntSystemValueContainsAndIntegrationSystem(String avniValue, String intSystemValue, IntegrationSystem integrationSystem, Pageable pageable);
+    Page<MappingMetaData> findAllByAvniValueContainsAndIntSystemValueContainsAndIntegrationSystemAndIsVoidedFalse(String avniValue, String intSystemValue, IntegrationSystem integrationSystem, Pageable pageable);
 
     MappingMetaData findByMappingType(MappingType mappingType);
+    MappingMetaData findByMappingTypeAndIsVoidedFalse(MappingType mappingType);
 
     List<MappingMetaData> findAllByMappingTypeInAndAvniValue(Collection<MappingType> mappingTypes, String avniValue);
+    List<MappingMetaData> findAllByMappingTypeInAndAvniValueAndIsVoidedFalse(Collection<MappingType> mappingTypes, String avniValue);
 
     Page<MappingMetaData> findAllByIntegrationSystem(IntegrationSystem currentIntegrationSystem, Pageable pageable);
+    Page<MappingMetaData> findAllByIntegrationSystemAndIsVoidedFalse(IntegrationSystem currentIntegrationSystem, Pageable pageable);
+    List<MappingMetaData> findAllByIntegrationSystem(IntegrationSystem currentIntegrationSystem);
 }

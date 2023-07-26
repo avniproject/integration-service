@@ -10,6 +10,8 @@ public class ErrorTypeContract extends NamedEntityContract{
     private ErrorTypeComparisonOperatorEnum comparisonOperator;
     private String comparisonValue;
 
+    public ErrorTypeContract() {}
+
     public ErrorTypeContract(BaseEnum baseEnum, ErrorTypeComparisonOperatorEnum comparisonOperator, String comparisonValue) {
         super(baseEnum);
         this.comparisonOperator = comparisonOperator;
@@ -22,6 +24,12 @@ public class ErrorTypeContract extends NamedEntityContract{
         this.comparisonValue = comparisonValue;
     }
 
+    public ErrorTypeContract(int id, String uuid, String name, ErrorTypeComparisonOperatorEnum comparisonOperator, String comparisonValue) {
+        super(id, uuid, name);
+        this.comparisonOperator = comparisonOperator;
+        this.comparisonValue = comparisonValue;
+    }
+
     public ErrorTypeContract(NamedEntity namedEntity, ErrorTypeComparisonOperatorEnum comparisonOperator, String comparisonValue) {
         super(namedEntity);
         this.comparisonOperator = comparisonOperator;
@@ -29,7 +37,7 @@ public class ErrorTypeContract extends NamedEntityContract{
     }
 
     public ErrorTypeContract(ErrorType errorType) {
-        this(errorType.getId(), errorType.getName(), errorType.getComparisonOperator(), errorType.getComparisonValue());
+        this(errorType, errorType.getComparisonOperator(), errorType.getComparisonValue());
     }
 
     public ErrorTypeComparisonOperatorEnum getComparisonOperator() {
@@ -46,6 +54,15 @@ public class ErrorTypeContract extends NamedEntityContract{
 
     public void setComparisonValue(String comparisonValue) {
         this.comparisonValue = comparisonValue;
+    }
+
+    public static ErrorTypeContract fromErrorType(ErrorType errorType) {
+        ErrorTypeContract errorTypeContract = new ErrorTypeContract();
+        errorTypeContract.setUuid(errorType.getUuid());
+        errorTypeContract.setName(errorType.getName());
+        errorTypeContract.setComparisonOperator(errorType.getComparisonOperator());
+        errorTypeContract.setComparisonValue(errorType.getComparisonValue());
+        return errorTypeContract;
     }
 
 }

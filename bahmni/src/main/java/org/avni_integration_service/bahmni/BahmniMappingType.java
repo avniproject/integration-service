@@ -38,30 +38,30 @@ public class BahmniMappingType {
 
     @Autowired
     public BahmniMappingType(MappingTypeRepository mappingTypeRepository) {
-        this.subjectEncounterType = mappingTypeRepository.findByName("Subject_EncounterType");
-        this.personAttributeConcept = mappingTypeRepository.findByName("PersonAttributeConcept");
-        this.encounterType = mappingTypeRepository.findByName("EncounterType");
-        this.labEncounterType = mappingTypeRepository.findByName("LabEncounterType");
-        this.drugOrderEncounterType = mappingTypeRepository.findByName("DrugOrderEncounterType");
-        this.drugOrderConcept = mappingTypeRepository.findByName("DrugOrderConcept");
-        this.communityEnrolmentEncounterType = mappingTypeRepository.findByName("CommunityEnrolment_EncounterType");
-        this.communityEnrolmentExitEncounterType = mappingTypeRepository.findByName("CommunityEnrolmentExit_EncounterType");
-        this.communityProgramEncounterEncounterType = mappingTypeRepository.findByName("CommunityProgramEncounter_EncounterType");
-        this.communityEncounterEncounterType = mappingTypeRepository.findByName("CommunityEncounter_EncounterType");
-        this.avniUUIDConcept = mappingTypeRepository.findByName("AvniUUID_Concept");
-        this.avniEventDateConcept = mappingTypeRepository.findByName("AvniEventDate_Concept");
-        this.avniProgramDataConcept = mappingTypeRepository.findByName("AvniProgramData_Concept");
-        this.bahmniUUIDConcept = mappingTypeRepository.findByName("BahmniUUID_Concept");
-        this.bahmniFormCommunityProgram = mappingTypeRepository.findByName("BahmniForm_CommunityProgram");
-        this.communityRegistrationBahmniForm = mappingTypeRepository.findByName("CommunityRegistration_BahmniForm");
-        this.communityEnrolmentBahmniForm = mappingTypeRepository.findByName("CommunityEnrolment_BahmniForm");
-        this.communityEnrolmentExitBahmniForm = mappingTypeRepository.findByName("CommunityEnrolmentExit_BahmniForm");
-        this.communityProgramEncounterBahmniForm = mappingTypeRepository.findByName("CommunityProgramEncounter_BahmniForm");
-        this.communityEncounterBahmniForm = mappingTypeRepository.findByName("CommunityEncounter_BahmniForm");
-        this.patientIdentifierConcept = mappingTypeRepository.findByName("PatientIdentifier_Concept");
-        this.communityEnrolmentVisitType = mappingTypeRepository.findByName("CommunityEnrolment_VisitType");
-        this.avniEventDateVisitAttributeType = mappingTypeRepository.findByName("AvniEventDate_VisitAttributeType");
-        this.avniUUIDVisitAttributeType = mappingTypeRepository.findByName("AvniUUID_VisitAttributeType");
-        this.concept = mappingTypeRepository.findByName("Concept");
+        this.subjectEncounterType = mappingTypeRepository.findByNameAndIsVoidedFalse("Subject_EncounterType");
+        this.personAttributeConcept = mappingTypeRepository.findByNameAndIsVoidedFalse("PersonAttributeConcept");
+        this.encounterType = mappingTypeRepository.findByNameAndIsVoidedFalse("EncounterType");
+        this.labEncounterType = mappingTypeRepository.findByNameAndIsVoidedFalse("LabEncounterType");
+        this.drugOrderEncounterType = mappingTypeRepository.findByNameAndIsVoidedFalse("DrugOrderEncounterType");
+        this.drugOrderConcept = mappingTypeRepository.findByNameAndIsVoidedFalse("DrugOrderConcept");
+        this.communityEnrolmentEncounterType = mappingTypeRepository.findByNameAndIsVoidedFalse("CommunityEnrolment_EncounterType");
+        this.communityEnrolmentExitEncounterType = mappingTypeRepository.findByNameAndIsVoidedFalse("CommunityEnrolmentExit_EncounterType");
+        this.communityProgramEncounterEncounterType = mappingTypeRepository.findByNameAndIsVoidedFalse("CommunityProgramEncounter_EncounterType");
+        this.communityEncounterEncounterType = mappingTypeRepository.findByNameAndIsVoidedFalse("CommunityEncounter_EncounterType");
+        this.avniUUIDConcept = mappingTypeRepository.findByNameAndIsVoidedFalse("AvniUUID_Concept");
+        this.avniEventDateConcept = mappingTypeRepository.findByNameAndIsVoidedFalse("AvniEventDate_Concept");
+        this.avniProgramDataConcept = mappingTypeRepository.findByNameAndIsVoidedFalse("AvniProgramData_Concept");
+        this.bahmniUUIDConcept = mappingTypeRepository.findByNameAndIsVoidedFalse("BahmniUUID_Concept");
+        this.bahmniFormCommunityProgram = mappingTypeRepository.findByNameAndIsVoidedFalse("BahmniForm_CommunityProgram");
+        this.communityRegistrationBahmniForm = mappingTypeRepository.findByNameAndIsVoidedFalse("CommunityRegistration_BahmniForm");
+        this.communityEnrolmentBahmniForm = mappingTypeRepository.findByNameAndIsVoidedFalse("CommunityEnrolment_BahmniForm");
+        this.communityEnrolmentExitBahmniForm = mappingTypeRepository.findByNameAndIsVoidedFalse("CommunityEnrolmentExit_BahmniForm");
+        this.communityProgramEncounterBahmniForm = mappingTypeRepository.findByNameAndIsVoidedFalse("CommunityProgramEncounter_BahmniForm");
+        this.communityEncounterBahmniForm = mappingTypeRepository.findByNameAndIsVoidedFalse("CommunityEncounter_BahmniForm");
+        this.patientIdentifierConcept = mappingTypeRepository.findByNameAndIsVoidedFalse("PatientIdentifier_Concept");
+        this.communityEnrolmentVisitType = mappingTypeRepository.findByNameAndIsVoidedFalse("CommunityEnrolment_VisitType");
+        this.avniEventDateVisitAttributeType = mappingTypeRepository.findByNameAndIsVoidedFalse("AvniEventDate_VisitAttributeType");
+        this.avniUUIDVisitAttributeType = mappingTypeRepository.findByNameAndIsVoidedFalse("AvniUUID_VisitAttributeType");
+        this.concept = mappingTypeRepository.findByNameAndIsVoidedFalse("Concept");
     }
 }

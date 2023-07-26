@@ -8,6 +8,6 @@ import java.util.List;
 
 @Repository
 public interface MappingGroupRepository extends BaseRepository<MappingGroup> {
-    MappingGroup findByName(String name);
+    MappingGroup findByNameAndIsVoidedFalse(String name);
     List<MappingGroup> findAllByIntegrationSystem(IntegrationSystem integrationSystem);
 }

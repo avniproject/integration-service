@@ -16,8 +16,13 @@ public class NamedEntityContract extends BaseEntityContract {
         this.name = name;
     }
 
+    public NamedEntityContract(int id, String uuid, String name) {
+        super(id, uuid);
+        this.name = name;
+    }
+
     public NamedEntityContract(NamedEntity namedEntity) {
-        super(namedEntity.getId());
+        super(namedEntity.getId(), namedEntity.getUuid());
         this.name = namedEntity.getName();
     }
 
@@ -30,5 +35,12 @@ public class NamedEntityContract extends BaseEntityContract {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public static NamedEntityContract fromNamedEntity(NamedEntity namedEntity) {
+        NamedEntityContract namedEntityContract = new NamedEntityContract();
+        namedEntityContract.setUuid(namedEntity.getUuid());
+        namedEntityContract.setName(namedEntity.getName());
+        return namedEntityContract;
     }
 }

@@ -64,6 +64,7 @@ public class ErrorRecord extends BaseIntegrationSpecificEntity {
         errorRecordLog.setErrorType(errorType);
         errorRecordLog.setErrorMsg(errorMsg);
         errorRecordLog.setLoggedAt(new Date());
+        errorRecordLog.setUuid(UUID.randomUUID().toString());
         errorRecordLogs.add(errorRecordLog);
         errorRecordLog.setErrorRecord(this);
     }

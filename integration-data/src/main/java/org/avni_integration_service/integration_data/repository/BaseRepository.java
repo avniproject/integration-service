@@ -16,4 +16,8 @@ public interface BaseRepository<T> extends PagingAndSortingRepository<T, Integer
     }
 
     List<T> findByIdIn(Integer[] ids);
+
+    T findByUuid(String uuid);
+
+    List<T> findAllByIsVoidedFalse();
 }
