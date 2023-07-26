@@ -11,6 +11,8 @@ public class IntegrationSystemConfig extends BaseIntegrationSpecificEntity {
     private String key;
     @Column
     private String value;
+    @Column
+    private boolean isSecret;
 
     public String getKey() {
         return key;
@@ -18,6 +20,22 @@ public class IntegrationSystemConfig extends BaseIntegrationSpecificEntity {
 
     public String getValue() {
         return value;
+    }
+
+    public boolean isSecret() {
+        return isSecret;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public void setSecret(boolean secret) {
+        isSecret = secret;
     }
 
     @Override

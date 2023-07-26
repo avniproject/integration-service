@@ -4,7 +4,8 @@ public enum BundleFileName {
     MAPPING_TYPES("mappingTypes.json"),
     MAPPING_GROUPS("mappingGroups.json"),
     MAPPING_METADATA("mappingMetadata.json"),
-    ERROR_TYPES("errorTypes.json");
+    ERROR_TYPES("errorTypes.json"),
+    INTEGRATION_SYSTEM_CONFIG("integrationSystemConfigs.json");
 
     private final String bundleFileName;
 

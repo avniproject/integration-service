@@ -8,15 +8,18 @@ import org.avni_integration_service.integration_data.domain.IntegrationSystem;
 import org.avni_integration_service.integration_data.domain.MappingGroup;
 import org.avni_integration_service.integration_data.domain.MappingMetaData;
 import org.avni_integration_service.integration_data.domain.MappingType;
+import org.avni_integration_service.integration_data.domain.config.IntegrationSystemConfig;
 import org.avni_integration_service.integration_data.domain.error.ErrorType;
 import org.avni_integration_service.integration_data.domain.bundle.BundleFile;
 import org.avni_integration_service.integration_data.repository.ErrorTypeRepository;
 import org.avni_integration_service.integration_data.repository.MappingGroupRepository;
 import org.avni_integration_service.integration_data.repository.MappingMetaDataRepository;
 import org.avni_integration_service.integration_data.repository.MappingTypeRepository;
+import org.avni_integration_service.integration_data.repository.config.IntegrationSystemConfigRepository;
 import org.avni_integration_service.util.BundleFileName;
 import org.avni_integration_service.util.ObjectMapperSingleton;
 import org.avni_integration_service.web.contract.ErrorTypeContract;
+import org.avni_integration_service.web.contract.IntegrationSystemConfigContract;
 import org.avni_integration_service.web.contract.MappingMetadataContract;
 import org.avni_integration_service.web.contract.NamedEntityContract;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,30 +41,35 @@ public class BundleService {
     private final MappingGroupRepository mappingGroupRepository;
     private final MappingTypeRepository mappingTypeRepository;
     private final ErrorTypeRepository errorTypeRepository;
+    private final IntegrationSystemConfigRepository integrationSystemConfigRepository;
     private final MappingTypeService mappingTypeService;
     private final MappingGroupService mappingGroupService;
     private final MappingMetadataService mappingMetadataService;
     private final ErrorTypeService errorTypeService;
+    private final IntegrationSystemConfigService integrationSystemConfigService;
     private final List<String> fileSequence = new ArrayList<>() {{
         add(BundleFileName.MAPPING_TYPES.getBundleFileName());
         add(BundleFileName.MAPPING_GROUPS.getBundleFileName());
         add(BundleFileName.MAPPING_METADATA.getBundleFileName());
         add(BundleFileName.ERROR_TYPES.getBundleFileName());
+        add(BundleFileName.INTEGRATION_SYSTEM_CONFIG.getBundleFileName());
     }};
     private static final int BUFFER_SIZE = 2048;
     private final ObjectMapper objectMapper;
 
 
     @Autowired
-    public BundleService(MappingMetaDataRepository mappingMetaDataRepository, MappingGroupRepository mappingGroupRepository, MappingTypeRepository mappingTypeRepository, ErrorTypeRepository errorTypeRepository, MappingTypeService mappingTypeService, MappingGroupService mappingGroupService, MappingMetadataService mappingMetadataService, ErrorTypeService errorTypeService, ObjectMapper objectMapper) {
+    public BundleService(MappingMetaDataRepository mappingMetaDataRepository, MappingGroupRepository mappingGroupRepository, MappingTypeRepository mappingTypeRepository, ErrorTypeRepository errorTypeRepository, IntegrationSystemConfigRepository integrationSystemConfigRepository, MappingTypeService mappingTypeService, MappingGroupService mappingGroupService, MappingMetadataService mappingMetadataService, ErrorTypeService errorTypeService, IntegrationSystemConfigService integrationSystemConfigService, ObjectMapper objectMapper) {
         this.mappingMetaDataRepository = mappingMetaDataRepository;
         this.mappingGroupRepository = mappingGroupRepository;
         this.mappingTypeRepository = mappingTypeRepository;
         this.errorTypeRepository = errorTypeRepository;
+        this.integrationSystemConfigRepository = integrationSystemConfigRepository;
         this.mappingTypeService = mappingTypeService;
         this.mappingGroupService = mappingGroupService;
         this.mappingMetadataService = mappingMetadataService;
         this.errorTypeService = errorTypeService;
+        this.integrationSystemConfigService = integrationSystemConfigService;
         this.objectMapper = objectMapper;
     }
 
@@ -93,6 +101,15 @@ public class BundleService {
         addFileToZip(zos, BundleFileName.ERROR_TYPES.getBundleFileName(), errorTypeContracts);
     }
 
+    public void exportIntegrationSystemConfigAsJsonToZip(IntegrationSystem integrationSystem, ZipOutputStream zos) throws IOException {
+        logger.debug("Processing IntegrationSystemConfig");
+        List<IntegrationSystemConfig> integrationSystemConfigs = integrationSystemConfigRepository.getAllByIntegrationSystem(integrationSystem);
+        List<IntegrationSystemConfigContract> integrationSystemConfigContracts = integrationSystemConfigs
+            .stream()
+            .map(IntegrationSystemConfigContract::fromIntegrationSystemConfig).toList();
+        addFileToZip(zos, BundleFileName.INTEGRATION_SYSTEM_CONFIG.getBundleFileName(), integrationSystemConfigContracts);
+    }
+
     public byte[] exportBundle(IntegrationSystem currentIntegrationSystem) throws IOException {
         logger.info("Starting bundle export for " + currentIntegrationSystem.getName());
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -101,6 +118,7 @@ public class BundleService {
             exportMappingGroupAsJsonToZip(currentIntegrationSystem, zos);
             exportMappingTypeAsJsonToZip(currentIntegrationSystem, zos);
             exportErrorTypeAsJsonToZip(currentIntegrationSystem, zos);
+            exportIntegrationSystemConfigAsJsonToZip(currentIntegrationSystem, zos);
         }
         logger.info("Completed bundle export for " + currentIntegrationSystem.getName());
         return baos.toByteArray();
@@ -184,6 +202,12 @@ public class BundleService {
                 ErrorTypeContract[] errorTypeContracts = convertString(fileData, ErrorTypeContract[].class);
                 for (ErrorTypeContract errorTypeContract: errorTypeContracts) {
                     errorTypeService.createOrUpdateErrorType(errorTypeContract, integrationSystem);
+                }
+            }
+            case "integrationSystemConfigs.json" -> {
+                IntegrationSystemConfigContract[] integrationSystemConfigContracts = convertString(fileData, IntegrationSystemConfigContract[].class);
+                for (IntegrationSystemConfigContract integrationSystemConfigContract : integrationSystemConfigContracts) {
+                    integrationSystemConfigService.createOrUpdateIntegrationSystemConfig(integrationSystemConfigContract, integrationSystem);
                 }
             }
         }
