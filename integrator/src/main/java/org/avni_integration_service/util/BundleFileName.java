@@ -16,4 +16,13 @@ public enum BundleFileName {
     BundleFileName(String bundleFileName) {
         this.bundleFileName = bundleFileName;
     }
+
+    public static BundleFileName fromString(String fileName) {
+        for (BundleFileName b : BundleFileName.values()) {
+            if (b.bundleFileName.equalsIgnoreCase(fileName)) {
+                return b;
+            }
+        }
+        return null;
+    }
 }

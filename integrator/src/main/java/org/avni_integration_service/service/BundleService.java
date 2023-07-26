@@ -47,12 +47,12 @@ public class BundleService {
     private final MappingMetadataService mappingMetadataService;
     private final ErrorTypeService errorTypeService;
     private final IntegrationSystemConfigService integrationSystemConfigService;
-    private final List<String> fileSequence = new ArrayList<>() {{
-        add(BundleFileName.MAPPING_TYPES.getBundleFileName());
-        add(BundleFileName.MAPPING_GROUPS.getBundleFileName());
-        add(BundleFileName.MAPPING_METADATA.getBundleFileName());
-        add(BundleFileName.ERROR_TYPES.getBundleFileName());
-        add(BundleFileName.INTEGRATION_SYSTEM_CONFIG.getBundleFileName());
+    private final List<BundleFileName> fileSequence = new ArrayList<>() {{
+        add(BundleFileName.MAPPING_TYPES);
+        add(BundleFileName.MAPPING_GROUPS);
+        add(BundleFileName.MAPPING_METADATA);
+        add(BundleFileName.ERROR_TYPES);
+        add(BundleFileName.INTEGRATION_SYSTEM_CONFIG);
     }};
     private static final int BUFFER_SIZE = 2048;
     private final ObjectMapper objectMapper;
@@ -128,13 +128,12 @@ public class BundleService {
         logger.info("Starting bundle import for " + currentIntegrationSystem.getName());
 
         String bundleZipFilePath = copyBundleToTmp(bundleZip);
-        Map<String, BundleFile> bundleFiles = unzipBundle(bundleZipFilePath);
-        logger.debug(bundleFiles);
+        Map<BundleFileName, BundleFile> bundleFiles = unzipBundle(bundleZipFilePath);
 
-        for (String fileName : fileSequence) {
-            logger.debug("Checking bundle for " + fileName);
+        for (BundleFileName fileName : fileSequence) {
+            logger.debug("Checking bundle for " + fileName.getBundleFileName());
             if (bundleFiles.get(fileName) != null) {
-                logger.debug("Found " + fileName);
+                logger.debug("Found " + fileName.getBundleFileName());
                 importFile(fileName, new String(bundleFiles.get(fileName).getContent(), StandardCharsets.UTF_8), currentIntegrationSystem);
             }
         }
@@ -150,26 +149,30 @@ public class BundleService {
         return filePath;
     }
 
-    private Map<String, BundleFile> unzipBundle(String zipFilePath) throws IOException {
+    private Map<BundleFileName, BundleFile> unzipBundle(String zipFilePath) throws IOException {
         logger.debug("Unzipping " + zipFilePath);
         byte[] buffer = new byte[BUFFER_SIZE];
         ZipInputStream zis = new ZipInputStream(new FileInputStream(zipFilePath));
         ZipEntry zipEntry = zis.getNextEntry();
-        Map<String, BundleFile> bundleFiles = new HashMap<>();
+        Map<BundleFileName, BundleFile> bundleFiles = new HashMap<>();
 
         while (zipEntry != null) {
-            logger.debug("Unzipping " + zipEntry.getName());
-            logger.debug(zipEntry.getSize());
-            logger.debug(zipEntry.isDirectory());
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            BundleFileName bundleFileName = BundleFileName.fromString(zipEntry.getName());
+            if (bundleFileName == null) {
+                logger.error("Found unsupported fileName in Bundle. Skipping " + zipEntry.getName());
+            } else {
+                logger.debug("Unzipping " + zipEntry.getName());
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
-            int len;
-            while ((len = zis.read(buffer)) > 0) {
-                baos.write(buffer, 0, len);
+                int len;
+                while ((len = zis.read(buffer)) > 0) {
+                    baos.write(buffer, 0, len);
+                }
+                BundleFile bundleFile = new BundleFile(zipEntry.getName(), baos.toByteArray());
+                baos.close();
+
+                bundleFiles.put(bundleFileName, bundleFile);
             }
-            BundleFile bundleFile = new BundleFile(zipEntry.getName(), baos.toByteArray());
-            baos.close();
-            bundleFiles.put(zipEntry.getName(), bundleFile);
             zipEntry = zis.getNextEntry();
         }
         zis.closeEntry();
@@ -177,41 +180,41 @@ public class BundleService {
         return bundleFiles;
     }
 
-    public void importFile(String fileName, String fileData, IntegrationSystem integrationSystem) throws IOException {
-        logger.debug("Importing " + fileName);
+    public void importFile(BundleFileName fileName, String fileData, IntegrationSystem integrationSystem) throws IOException {
+        logger.debug("Importing " + fileName.getBundleFileName());
         switch (fileName) {
-            case "mappingTypes.json" -> {
+            case MAPPING_TYPES -> {
                 NamedEntityContract[] mappingTypeContracts = convertString(fileData, NamedEntityContract[].class);
                 for (NamedEntityContract mappingTypeContract : mappingTypeContracts) {
                     mappingTypeService.createOrUpdateMappingType(mappingTypeContract, integrationSystem);
                 }
             }
-            case "mappingGroups.json" -> {
+            case MAPPING_GROUPS -> {
                 NamedEntityContract[] mappingGroupContracts = convertString(fileData, NamedEntityContract[].class);
                 for (NamedEntityContract mappingGroupContract : mappingGroupContracts) {
                     mappingGroupService.createOrUpdateMappingGroup(mappingGroupContract, integrationSystem);
                 }
             }
-            case "mappingMetadata.json" -> {
+            case MAPPING_METADATA -> {
                 MappingMetadataContract[] mappingMetadataContracts = convertString(fileData, MappingMetadataContract[].class);
                 for (MappingMetadataContract mappingMetadataContract : mappingMetadataContracts) {
                     mappingMetadataService.createOrUpdateMappingMetadata(mappingMetadataContract, integrationSystem);
                 }
             }
-            case "errorTypes.json" -> {
+            case ERROR_TYPES -> {
                 ErrorTypeContract[] errorTypeContracts = convertString(fileData, ErrorTypeContract[].class);
-                for (ErrorTypeContract errorTypeContract: errorTypeContracts) {
+                for (ErrorTypeContract errorTypeContract : errorTypeContracts) {
                     errorTypeService.createOrUpdateErrorType(errorTypeContract, integrationSystem);
                 }
             }
-            case "integrationSystemConfigs.json" -> {
+            case INTEGRATION_SYSTEM_CONFIG -> {
                 IntegrationSystemConfigContract[] integrationSystemConfigContracts = convertString(fileData, IntegrationSystemConfigContract[].class);
                 for (IntegrationSystemConfigContract integrationSystemConfigContract : integrationSystemConfigContracts) {
                     integrationSystemConfigService.createOrUpdateIntegrationSystemConfig(integrationSystemConfigContract, integrationSystem);
                 }
             }
         }
-        logger.debug("Imported " + fileName);
+        logger.debug("Imported " + fileName.getBundleFileName());
     }
 
     private <T> T convertString(String data, Class<T> convertTo) throws IOException {
