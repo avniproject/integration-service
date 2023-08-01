@@ -40,13 +40,13 @@ public class AvniGoonjErrorService {
     private void saveAvniError(String uuid, GoonjErrorType goonjErrorType, AvniEntityType avniEntityType, String errorMsg) {
         ErrorType errorType = getErrorType(goonjErrorType);
         ErrorRecord errorRecord = errorRecordRepository.findByAvniEntityTypeAndEntityId(avniEntityType, uuid);
-        if (errorRecord != null && errorRecord.hasThisAsLastErrorType(errorType)) {
+        if (errorRecord != null && errorRecord.hasThisAsLastErrorTypeAndErrorMessage(errorType, errorMsg)) {
             logger.info(String.format("Same error as the last processing for entity uuid %s, and type %s", uuid, avniEntityType));
             if (!errorRecord.isProcessingDisabled()) {
                 errorRecord.setProcessingDisabled(true);
                 errorRecordRepository.save(errorRecord);
             }
-        } else if (errorRecord != null && !errorRecord.hasThisAsLastErrorType(errorType)) {
+        } else if (errorRecord != null && !errorRecord.hasThisAsLastErrorTypeAndErrorMessage(errorType, errorMsg)) {
             errorRecord.addErrorType(errorType, errorMsg);
             errorRecordRepository.save(errorRecord);
         } else {
@@ -65,21 +65,23 @@ public class AvniGoonjErrorService {
 
     private ErrorRecord saveGoonjError(String uuid, GoonjErrorType goonjErrorType, GoonjEntityType goonjEntityType, String errorMsg) {
         ErrorRecord errorRecord = errorRecordRepository.findByIntegratingEntityTypeAndEntityId(goonjEntityType.name(), uuid);
-        if (errorRecord != null && errorRecord.hasThisAsLastErrorType(getErrorType(goonjErrorType))) {
+        ErrorType errorType = getErrorType(goonjErrorType);
+        if (errorRecord != null && errorRecord.hasThisAsLastErrorTypeAndErrorMessage(errorType, errorMsg)) {
             logger.info(String.format("Same error as the last processing for entity uuid %s, and type %s", uuid, goonjEntityType));
             if (!errorRecord.isProcessingDisabled()) {
                 errorRecord.setProcessingDisabled(true);
                 errorRecordRepository.save(errorRecord);
             }
-        } else if (errorRecord != null && !errorRecord.hasThisAsLastErrorType(getErrorType(goonjErrorType))) {
+            errorRecord.addErrorType(errorType, errorMsg);
+        } else if (errorRecord != null && !errorRecord.hasThisAsLastErrorTypeAndErrorMessage(errorType, errorMsg)) {
             logger.info(String.format("New error for entity uuid %s, and type %s", uuid, goonjEntityType));
-            errorRecord.addErrorType(getErrorType(goonjErrorType), errorMsg);
+            errorRecord.addErrorType(errorType, errorMsg);
             errorRecordRepository.save(errorRecord);
         } else {
             errorRecord = new ErrorRecord();
             errorRecord.setIntegratingEntityType(goonjEntityType.name());
             errorRecord.setEntityId(uuid);
-            errorRecord.addErrorType(getErrorType(goonjErrorType), errorMsg);
+            errorRecord.addErrorType(errorType, errorMsg);
             errorRecord.setProcessingDisabled(false);
             errorRecord.setIntegrationSystem(integrationSystemRepository.findEntity(goonjContextProvider.get().getIntegrationSystem().getId()));
             errorRecordRepository.save(errorRecord);

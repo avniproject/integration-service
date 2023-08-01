@@ -38,13 +38,13 @@ public class AvniAmritErrorService {
     private void saveAvniError(String uuid, AmritErrorType amritErrorType, AvniEntityType avniEntityType, String errorMsg) {
         ErrorType errorType = getErrorType(amritErrorType);
         ErrorRecord errorRecord = errorRecordRepository.findByAvniEntityTypeAndEntityId(avniEntityType, uuid);
-        if (errorRecord != null && errorRecord.hasThisAsLastErrorType(errorType)) {
+        if (errorRecord != null && errorRecord.hasThisAsLastErrorTypeAndErrorMessage(errorType, errorMsg)) {
             logger.info(String.format("Same error as the last processing for entity uuid %s, and type %s", uuid, avniEntityType));
             if (!errorRecord.isProcessingDisabled()) {
                 errorRecord.setProcessingDisabled(true);
                 errorRecordRepository.save(errorRecord);
             }
-        } else if (errorRecord != null && !errorRecord.hasThisAsLastErrorType(errorType)) {
+        } else if (errorRecord != null && !errorRecord.hasThisAsLastErrorTypeAndErrorMessage(errorType, errorMsg)) {
             errorRecord.addErrorType(errorType, errorMsg);
             errorRecordRepository.save(errorRecord);
         } else {
@@ -63,13 +63,13 @@ public class AvniAmritErrorService {
 
     private ErrorRecord saveAmritError(String uuid, AmritErrorType amritErrorType, AmritEntityType AmritEntityType, String errorMsg) {
         ErrorRecord errorRecord = errorRecordRepository.findByIntegratingEntityTypeAndEntityId(AmritEntityType.name(), uuid);
-        if (errorRecord != null && errorRecord.hasThisAsLastErrorType(getErrorType(amritErrorType))) {
+        if (errorRecord != null && errorRecord.hasThisAsLastErrorTypeAndErrorMessage(getErrorType(amritErrorType), errorMsg)) {
             logger.info(String.format("Same error as the last processing for entity uuid %s, and type %s", uuid, AmritEntityType));
             if (!errorRecord.isProcessingDisabled()) {
                 errorRecord.setProcessingDisabled(true);
                 errorRecordRepository.save(errorRecord);
             }
-        } else if (errorRecord != null && !errorRecord.hasThisAsLastErrorType(getErrorType(amritErrorType))) {
+        } else if (errorRecord != null && !errorRecord.hasThisAsLastErrorTypeAndErrorMessage(getErrorType(amritErrorType), errorMsg)) {
             logger.info(String.format("New error for entity uuid %s, and type %s", uuid, AmritEntityType));
             errorRecord.addErrorType(getErrorType(amritErrorType), errorMsg);
             errorRecordRepository.save(errorRecord);

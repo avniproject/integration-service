@@ -3,6 +3,7 @@ package org.avni_integration_service.integration_data.domain.error;
 import org.avni_integration_service.integration_data.domain.AvniEntityType;
 import org.avni_integration_service.integration_data.domain.framework.BaseEntity;
 import org.avni_integration_service.integration_data.domain.framework.BaseIntegrationSpecificEntity;
+import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
 import java.util.*;
@@ -51,8 +52,17 @@ public class ErrorRecord extends BaseIntegrationSpecificEntity {
     }
 
     public boolean hasThisAsLastErrorType(ErrorType errorType) {
+        return hasThisAsLastErrorTypeAndErrorMessage(errorType, null);
+    }
+
+    public boolean hasThisAsLastErrorTypeAndErrorMessage(ErrorType errorType, String errorMsg) {
         ErrorRecordLog errorRecordLog = this.errorRecordLogs.stream().sorted(Comparator.comparing(BaseEntity::getId)).reduce((first, second) -> second).orElse(null);
-        return Objects.equals(errorRecordLog.getErrorType(), errorType);
+        if(StringUtils.hasText(errorMsg)) {
+            return Objects.equals(errorRecordLog.getErrorType(), errorType)
+                    && errorMsg.equals(errorRecordLog.getErrorMsg());
+        } else {
+            return Objects.equals(errorRecordLog.getErrorType(), errorType);
+        }
     }
 
     public void addErrorType(ErrorType errorType) {
