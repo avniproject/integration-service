@@ -18,7 +18,7 @@ public class MappingTypeService {
         if (mappingTypeContract.getUuid() == null) {
             throw new RuntimeException("MappingType without uuid! " + mappingTypeContract);
         }
-        MappingType mappingType = mappingTypeRepository.findByUuid(mappingTypeContract.getUuid());
+        MappingType mappingType = mappingTypeRepository.findByUuidAndIntegrationSystem(mappingTypeContract.getUuid(), integrationSystem);
         if (mappingType == null) {
             mappingType = createMappingType(mappingTypeContract);
         }

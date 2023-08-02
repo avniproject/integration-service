@@ -161,7 +161,7 @@ public class BundleService {
             if (bundleFileName == null) {
                 logger.error("Found unsupported fileName in Bundle. Skipping " + zipEntry.getName());
             } else {
-                logger.debug("Unzipping " + zipEntry.getName());
+                logger.debug("Extracting " + zipEntry.getName());
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
                 int len;

@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface IntegrationSystemConfigRepository extends BaseRepository<IntegrationSystemConfig> {
     List<IntegrationSystemConfig> getAllByIntegrationSystem(IntegrationSystem integrationSystem);
-
+    IntegrationSystemConfig findByUuidAndIntegrationSystem(String uuid, IntegrationSystem integrationSystem);
     default IntegrationSystemConfigCollection getInstanceConfiguration(IntegrationSystem integrationSystem) {
         return new IntegrationSystemConfigCollection(this.getAllByIntegrationSystem(integrationSystem));
     }

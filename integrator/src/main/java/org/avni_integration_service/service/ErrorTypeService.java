@@ -18,7 +18,7 @@ public class ErrorTypeService {
         if (errorTypeContract.getUuid() == null) {
             throw new RuntimeException("ErrorType without uuid! " + errorTypeContract);
         }
-        ErrorType errorType = errorTypeRepository.findByUuid(errorTypeContract.getUuid());
+        ErrorType errorType = errorTypeRepository.findByUuidAndIntegrationSystem(errorTypeContract.getUuid(), integrationSystem);
         if (errorType == null) {
             errorType = createErrorType(errorTypeContract);
         }

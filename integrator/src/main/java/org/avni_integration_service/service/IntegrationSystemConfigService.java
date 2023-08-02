@@ -19,7 +19,7 @@ public class IntegrationSystemConfigService {
         if (integrationSystemConfigContract.getUuid() == null) {
             throw new RuntimeException("IntegrationSystemConfig without uuid! " + integrationSystemConfigContract);
         }
-        IntegrationSystemConfig integrationSystemConfig = integrationSystemConfigRepository.findByUuid(integrationSystemConfigContract.getUuid());
+        IntegrationSystemConfig integrationSystemConfig = integrationSystemConfigRepository.findByUuidAndIntegrationSystem(integrationSystemConfigContract.getUuid(), integrationSystem);
         if (integrationSystemConfig == null) {
             integrationSystemConfig = createIntegrationSystemConfig(integrationSystemConfigContract);
         } else {

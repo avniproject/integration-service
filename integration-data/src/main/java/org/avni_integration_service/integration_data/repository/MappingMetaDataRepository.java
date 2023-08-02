@@ -7,7 +7,6 @@ import org.avni_integration_service.integration_data.domain.MappingType;
 import org.avni_integration_service.integration_data.domain.framework.MappingException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
@@ -17,7 +16,7 @@ import java.util.List;
 public interface MappingMetaDataRepository extends BaseRepository<MappingMetaData> {
     MappingMetaData findByIdAndIntegrationSystem(int id, IntegrationSystem integrationSystem);
     MappingMetaData findByIdAndIntegrationSystemAndIsVoidedFalse(int id, IntegrationSystem integrationSystem);
-
+    MappingMetaData findByUuidAndIntegrationSystem(String uuid, IntegrationSystem integrationSystem);
     MappingMetaData findByMappingGroupAndMappingType(MappingGroup mappingGroup, MappingType mappingType);
     MappingMetaData findByMappingGroupAndMappingTypeAndIsVoidedFalse(MappingGroup mappingGroup, MappingType mappingType);
 

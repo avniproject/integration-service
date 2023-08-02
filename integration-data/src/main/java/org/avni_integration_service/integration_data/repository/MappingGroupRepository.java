@@ -9,5 +9,6 @@ import java.util.List;
 @Repository
 public interface MappingGroupRepository extends BaseRepository<MappingGroup> {
     MappingGroup findByNameAndIsVoidedFalse(String name);
+    MappingGroup findByUuidAndIntegrationSystem(String uuid, IntegrationSystem integrationSystem);
     List<MappingGroup> findAllByIntegrationSystem(IntegrationSystem integrationSystem);
 }

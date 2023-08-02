@@ -10,5 +10,6 @@ import java.util.List;
 public interface MappingTypeRepository extends BaseRepository<MappingType> {
     MappingType findByName(String name);
     MappingType findByNameAndIsVoidedFalse(String name);
+    MappingType findByUuidAndIntegrationSystem(String uuid, IntegrationSystem integrationSystem);
     List<MappingType> findAllByIntegrationSystem(IntegrationSystem integrationSystem);
 }

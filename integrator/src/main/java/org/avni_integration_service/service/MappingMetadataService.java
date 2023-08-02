@@ -24,7 +24,7 @@ public class MappingMetadataService {
         if (mappingMetadataContract.getUuid() == null) {
             throw new RuntimeException("MappingMetadata without uuid! " + mappingMetadataContract);
         }
-        MappingMetaData mappingMetaData = mappingMetaDataRepository.findByUuid(mappingMetadataContract.getUuid());
+        MappingMetaData mappingMetaData = mappingMetaDataRepository.findByUuidAndIntegrationSystem(mappingMetadataContract.getUuid(), integrationSystem);
         if (mappingMetaData == null) {
             mappingMetaData = createMappingMetadata(mappingMetadataContract);
         }
@@ -40,8 +40,8 @@ public class MappingMetadataService {
     public void updateAndSaveMappingMetadata(MappingMetaData mappingMetaData, MappingMetadataContract mappingMetadataContract, IntegrationSystem integrationSystem) {
         mappingMetaData.setIntegrationSystem(integrationSystem);
         mappingMetaData.setVoided(mappingMetadataContract.isVoided());
-        mappingMetaData.setMappingGroup(mappingGroupRepository.findByUuid(mappingMetadataContract.getMappingGroupUuid()));
-        mappingMetaData.setMappingType(mappingTypeRepository.findByUuid(mappingMetadataContract.getMappingTypeUuid()));
+        mappingMetaData.setMappingGroup(mappingGroupRepository.findByUuidAndIntegrationSystem(mappingMetadataContract.getMappingGroupUuid(), integrationSystem));
+        mappingMetaData.setMappingType(mappingTypeRepository.findByUuidAndIntegrationSystem(mappingMetadataContract.getMappingTypeUuid(), integrationSystem));
         mappingMetaData.setAbout(mappingMetadataContract.getAbout());
         mappingMetaData.setAvniValue(mappingMetadataContract.getAvniValue());
         mappingMetaData.setIntSystemValue(mappingMetadataContract.getIntSystemValue());

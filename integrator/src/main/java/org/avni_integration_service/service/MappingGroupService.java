@@ -18,7 +18,7 @@ public class MappingGroupService {
         if (mappingGroupContract.getUuid() == null) {
             throw new RuntimeException("MappingGroup without uuid! " + mappingGroupContract);
         }
-        MappingGroup mappingGroup = mappingGroupRepository.findByUuid(mappingGroupContract.getUuid());
+        MappingGroup mappingGroup = mappingGroupRepository.findByUuidAndIntegrationSystem(mappingGroupContract.getUuid(), integrationSystem);
         if (mappingGroup == null) {
             mappingGroup = createMappingGroup(mappingGroupContract);
         }
