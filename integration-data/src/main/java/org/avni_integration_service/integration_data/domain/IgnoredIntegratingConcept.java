@@ -4,7 +4,6 @@ import org.avni_integration_service.integration_data.domain.framework.BaseEntity
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import java.util.UUID;
 
 @Entity
 public class IgnoredIntegratingConcept extends BaseEntity {
@@ -12,11 +11,12 @@ public class IgnoredIntegratingConcept extends BaseEntity {
     private String conceptId;
 
     public IgnoredIntegratingConcept() {
+        super();
     }
 
     public IgnoredIntegratingConcept(String conceptId) {
+        super();
         this.conceptId = conceptId;
-        this.setUuid(UUID.randomUUID().toString());
     }
 
     public String getConceptId() {

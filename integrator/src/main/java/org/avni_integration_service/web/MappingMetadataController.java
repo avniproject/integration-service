@@ -85,7 +85,6 @@ public class MappingMetadataController extends BaseController {
         MappingMetaData mappingMetaData;
         if (request.getId() == 0) {
             mappingMetaData = new MappingMetaData();
-            mappingMetaData.setUuid(UUID.randomUUID().toString());
         } else {
             mappingMetaData = mappingMetaDataRepository.findByIdAndIntegrationSystemAndIsVoidedFalse(request.getId(), iSystem);
         }

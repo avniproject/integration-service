@@ -2,6 +2,7 @@ package org.avni_integration_service.integration_data.domain.framework;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.UUID;
 
 @MappedSuperclass
 public abstract class BaseEntity {
@@ -16,6 +17,12 @@ public abstract class BaseEntity {
 
     @Column
     private boolean isVoided;
+
+    public BaseEntity() {
+        super();
+        uuid = UUID.randomUUID().toString();
+        isVoided = false;
+    }
 
     public Integer getId() {
         return id;

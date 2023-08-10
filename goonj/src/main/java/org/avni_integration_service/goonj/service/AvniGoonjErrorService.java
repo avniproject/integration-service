@@ -55,6 +55,7 @@ public class AvniGoonjErrorService {
             errorRecord.setEntityId(uuid);
             errorRecord.addErrorType(errorType, errorMsg);
             errorRecord.setProcessingDisabled(false);
+            errorRecord.setIntegrationSystem(integrationSystemRepository.findEntity(goonjContextProvider.get().getIntegrationSystem().getId()));
             errorRecordRepository.save(errorRecord);
         }
     }

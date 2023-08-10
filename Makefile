@@ -22,7 +22,7 @@ dbPort=5432
 define _build_db
 	-psql -h localhost -p $(dbPort) -U $(SU) -d postgres -c "create user $(ADMIN_USER) with password 'password' createrole";
 	-psql -h localhost -p $(dbPort) -U $(SU) -d postgres -c 'create database $1 with owner $(ADMIN_USER)';
-	-psql -h localhost -p $(dbPort) -U $(SU) -d $(DB) -c 'create extension if not exists "uuid-ossp"';
+	-psql -h localhost -p $(dbPort) -U $(SU) -d $1 -c 'create extension if not exists "uuid-ossp"';
 endef
 
 define _drop_db
@@ -52,6 +52,9 @@ rebuild-db-schema: rebuild-db build-db-schema
 
 build-db:
 	$(call _build_db,avni_int)
+
+build-test-db:
+	$(call _build_db,avni_int_test)
 
 build-db-schema:
 	./gradlew --stacktrace :integration-data:migrateDb

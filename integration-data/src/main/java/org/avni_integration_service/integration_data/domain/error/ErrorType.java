@@ -17,26 +17,29 @@ public class ErrorType extends NamedIntegrationSpecificEntity {
     private String comparisonValue;
 
     public ErrorType() {
+        super();
     }
+
     public ErrorType(String name, IntegrationSystem integrationSystem) {
+        super();
         this.setName(name);
         this.setIntegrationSystem(integrationSystem);
     }
 
     public ErrorType(String name, IntegrationSystem integrationSystem, ErrorTypeComparisonOperatorEnum comparisonOperator, String comparisonValue) {
+        super();
         this.setName(name);
         this.setIntegrationSystem(integrationSystem);
         this.setComparisonOperator(comparisonOperator);
         this.setComparisonValue(comparisonValue);
-        this.setUuid(UUID.randomUUID().toString());
     }
 
     public ErrorType(String name, IntegrationSystem integrationSystem, String comparisonOperator, String comparisonValue) {
+        super();
         this.setName(name);
         this.setIntegrationSystem(integrationSystem);
         this.setComparisonOperator(comparisonOperator);
         this.setComparisonValue(comparisonValue);
-        this.setUuid(UUID.randomUUID().toString());
     }
 
     public ErrorTypeComparisonOperatorEnum getComparisonOperator() {

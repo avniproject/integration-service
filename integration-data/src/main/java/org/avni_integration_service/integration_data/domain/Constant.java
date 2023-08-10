@@ -3,7 +3,6 @@ package org.avni_integration_service.integration_data.domain;
 import org.avni_integration_service.integration_data.domain.framework.BaseEntity;
 
 import javax.persistence.*;
-import java.util.UUID;
 
 @Entity
 @Table(name = "constants") //constant is reserved in postgres
@@ -15,12 +14,13 @@ public class Constant extends BaseEntity {
     private String value;
 
     public Constant() {
+        super();
     }
 
     public Constant(String key, String value) {
+        super();
         this.key = key;
         this.value = value;
-        this.setUuid(UUID.randomUUID().toString());
     }
 
     public String getKey() {

@@ -53,6 +53,7 @@ public class AvniAmritErrorService {
             errorRecord.setEntityId(uuid);
             errorRecord.addErrorType(errorType, errorMsg);
             errorRecord.setProcessingDisabled(false);
+            errorRecord.setIntegrationSystem(integrationSystemRepository.findBySystemType(IntegrationSystem.IntegrationSystemType.Amrit));
             errorRecordRepository.save(errorRecord);
         }
     }

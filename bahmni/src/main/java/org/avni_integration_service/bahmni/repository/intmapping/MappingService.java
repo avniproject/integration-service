@@ -3,28 +3,32 @@ package org.avni_integration_service.bahmni.repository.intmapping;
 import org.avni_integration_service.bahmni.BahmniMappingGroup;
 import org.avni_integration_service.bahmni.BahmniMappingType;
 import org.avni_integration_service.bahmni.MappingMetaDataCollection;
+import org.avni_integration_service.integration_data.domain.IntegrationSystem;
 import org.avni_integration_service.integration_data.domain.MappingGroup;
 import org.avni_integration_service.integration_data.domain.MappingMetaData;
 import org.avni_integration_service.integration_data.domain.MappingType;
+import org.avni_integration_service.integration_data.repository.IntegrationSystemRepository;
 import org.avni_integration_service.integration_data.repository.MappingMetaDataRepository;
 import org.avni_integration_service.util.ObsDataType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.UUID;
 
 @Component
 public class MappingService {
     private final MappingMetaDataRepository mappingMetaDataRepository;
     private final BahmniMappingGroup bahmniMappingGroup;
     private final BahmniMappingType bahmniMappingType;
+    private final IntegrationSystemRepository integrationSystemRepository;
+
     @Autowired
     public MappingService(MappingMetaDataRepository mappingMetaDataRepository, BahmniMappingGroup bahmniMappingGroup,
-                          BahmniMappingType bahmniMappingType) {
+                          BahmniMappingType bahmniMappingType, IntegrationSystemRepository integrationSystemRepository) {
         this.mappingMetaDataRepository = mappingMetaDataRepository;
         this.bahmniMappingGroup = bahmniMappingGroup;
         this.bahmniMappingType = bahmniMappingType;
+        this.integrationSystemRepository = integrationSystemRepository;
     }
 
     public MappingMetaDataCollection findAll(MappingGroup mappingGroup, List<MappingType> mappingTypes) {
@@ -69,7 +73,7 @@ public class MappingService {
         mappingMetaData.setMappingType(mappingType);
         mappingMetaData.setIntSystemValue(bahmniValue);
         mappingMetaData.setAvniValue(avniValue);
-        mappingMetaData.setUuid(UUID.randomUUID().toString());
+        mappingMetaData.setIntegrationSystem(integrationSystemRepository.findBySystemType(IntegrationSystem.IntegrationSystemType.bahmni));
         return mappingMetaData;
     }
 
