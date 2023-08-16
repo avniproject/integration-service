@@ -62,16 +62,13 @@ public class InventoryEventWorker extends GoonjEventWorker implements ErrorRecor
     }
 
     public void processError(String inventoryUuid) throws Exception {
-        logger.warn(String.format("Not processing errored Inventory Items, " +
-                "as Salesforce API does not yet support filter by inventoryId: %s", inventoryUuid));
-        //TODO Uncomment below after Salesforce API starts to support filter by inventoryId
-        /*HashMap<String, Object> inventoryItem = inventoryService.getImplementationInventory(inventoryUuid);
+        HashMap<String, Object> inventoryItem = inventoryService.getImplementationInventory(inventoryUuid);
         if (inventoryItem == null) {
             logger.warn(String.format("Inventory Items has been deleted now: %s", inventoryUuid));
             updateErrorRecordAndSyncStatus(null, false, inventoryUuid);
             return;
         }
-        process(inventoryItem, false);*/
+        process(inventoryItem, false);
     }
 
     @Override
