@@ -21,6 +21,7 @@ public interface ActivityConstants {
     String NUMBER_OF_WORKING_DAYS = "No of working days";
     String NUMBER_OF_PARTICIPANTS_MALE = "Number of Participants (Male)";
     String NUMBER_OF_PARTICIPANTS_FEMALE = "Number of Participants (Female)";
+    String NUMBER_OF_PARTICIPANTS_OTHER = "Number of Participants (Other)";
     String NUMBER_OF_PARTICIPANTS = "Number of Participants";
     String NUMBER_OF_DAYS_OF_PARTICIPATION = "Number of Days of Participation";
     String ACTIVITY_CONDUCTED_WITH_STUDENTS = "Activity Conducted With Students";

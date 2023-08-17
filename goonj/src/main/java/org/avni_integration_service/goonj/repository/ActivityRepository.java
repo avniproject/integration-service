@@ -32,9 +32,6 @@ import static org.avni_integration_service.goonj.config.GoonjMappingDbConstants.
 public class ActivityRepository extends GoonjBaseRepository implements ActivityConstants {
 
     protected static final Logger logger = LoggerFactory.getLogger(ActivityRepository.class);
-    public static final String NUMBER_MALE_PARTICIPANTS = "526b0d5d-51cc-4004-8c12-7a6c71c6c516";
-    public static final String NUMBER_FEMALE_PARTICIPANTS = "2966afcc-2c07-44cf-8711-3fc23f52a6b5";
-    public static final String NUMBER_OTHER_PARTICIPANTS = "a043fea3-1658-4b5e-becd-ee55ab305a03";
     private final MappingMetaDataRepository mappingMetaDataRepository;
 
     @Autowired
@@ -112,9 +109,9 @@ public class ActivityRepository extends GoonjBaseRepository implements ActivityC
         if (subject.getObservation(TYPE_OF_INITIATIVE).equals("CFW")) {
             /* Participation fields */
             activityDTO.setNoofWorkingDays((subject.getObservation(NUMBER_OF_WORKING_DAYS) == null) ? 0L : (Integer) subject.getObservation(NUMBER_OF_WORKING_DAYS));
-            activityDTO.setNoofparticipantsMaleCFW((Integer) subject.getObservation(NUMBER_MALE_PARTICIPANTS));
-            activityDTO.setNoofparticipantsFemaleCFW((Integer) subject.getObservation(NUMBER_FEMALE_PARTICIPANTS));
-            activityDTO.setNoofparticipantsCFWOther((Integer) subject.getObservation(NUMBER_OTHER_PARTICIPANTS));
+            activityDTO.setNoofparticipantsMaleCFW((Integer) subject.getObservation(NUMBER_OF_PARTICIPANTS_MALE));
+            activityDTO.setNoofparticipantsFemaleCFW((Integer) subject.getObservation(NUMBER_OF_PARTICIPANTS_FEMALE));
+            activityDTO.setNoofparticipantsCFWOther((Integer) subject.getObservation(NUMBER_OF_PARTICIPANTS_OTHER));
             /* Activity description fields */
             activityDTO.setActivityCategory((String) subject.getObservation(ACTIVITY_CATEGORY));
             mapActivityType(activityDTO, subject);
@@ -147,9 +144,9 @@ public class ActivityRepository extends GoonjBaseRepository implements ActivityC
         if (subject.getObservation(TYPE_OF_INITIATIVE).equals("NJPC")) {
             /* Participation fields */
             activityDTO.setNoofdaysofParticipationNJPC((subject.getObservation(NUMBER_OF_DAYS_OF_PARTICIPATION) == null) ? 0L : (Integer) subject.getObservation(NUMBER_OF_DAYS_OF_PARTICIPATION));
-            activityDTO.setNoofparticipantsMaleNJPC((Integer) subject.getObservation(NUMBER_MALE_PARTICIPANTS));
-            activityDTO.setNoofparticipantsFemaleNJPC((Integer) subject.getObservation(NUMBER_FEMALE_PARTICIPANTS));
-            activityDTO.setNoofparticipantsNJPCOther((Integer) subject.getObservation(NUMBER_OTHER_PARTICIPANTS));
+            activityDTO.setNoofparticipantsMaleNJPC((Integer) subject.getObservation(NUMBER_OF_PARTICIPANTS_MALE));
+            activityDTO.setNoofparticipantsFemaleNJPC((Integer) subject.getObservation(NUMBER_OF_PARTICIPANTS_FEMALE));
+            activityDTO.setNoofparticipantsNJPCOther((Integer) subject.getObservation(NUMBER_OF_PARTICIPANTS_OTHER));
             /* Photograph fields */
             activityDTO.setNjpcPhotograph(getPhotographStrings(PHOTOGRAPH, subject));
         }
