@@ -136,6 +136,9 @@ open-test-results-integration-data:
 
 
 ####### Tunnels
+tunnel-staging-db:
+	ssh avni-int -L 6015:stagingdb.openchs.org:5432
+
 tunnel-server-debug-vagrant:
 	ssh -p 2222 -i ~/.vagrant.d/insecure_private_key vagrant@127.0.0.1 -L 6031:localhost:6031
 #######
