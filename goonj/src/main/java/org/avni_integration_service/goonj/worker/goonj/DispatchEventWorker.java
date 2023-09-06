@@ -92,7 +92,7 @@ public class DispatchEventWorker extends GoonjEventWorker implements ErrorRecord
         if(materialsDispatched != null && materialsDispatched.size() > 0) {
             materialsDispatched.removeIf(md -> md.get("Dispatch Line Item Id").equals(deletedEntity.getDispatchStatusLineItemId()));
         }
-        avniSubjectRepository.update(dispatchStatus);
+        avniSubjectRepository.update(dispatchStatus.getUuid(), dispatchStatus);
     }
 
     private void processDispatchDeletion(String deletedEntity) {
