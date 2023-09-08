@@ -8,4 +8,5 @@ include 'bahmni'
 include 'util'
 include 'amrit'
 include 'power'
+include 'lahi'
 

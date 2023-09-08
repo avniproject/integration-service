@@ -105,6 +105,10 @@ jobs:
           destination: testReports/power
 
       - store_artifacts:
+          path: ~/avni-int/lahi/build/reports/tests/test
+          destination: testReports/lahi
+
+      - store_artifacts:
           path: ~/avni-int/util/build/reports/tests/test
           destination: testReports/util
 
