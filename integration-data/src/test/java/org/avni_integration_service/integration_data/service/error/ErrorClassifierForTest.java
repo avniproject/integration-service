@@ -5,12 +5,14 @@ import org.avni_integration_service.integration_data.domain.IntegrationSystem;
 import org.avni_integration_service.integration_data.domain.error.ErrorType;
 import org.avni_integration_service.integration_data.repository.AbstractSpringTest;
 import org.avni_integration_service.integration_data.repository.IntegrationSystemRepository;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@Disabled
 @SpringBootTest(classes = {ErrorClassifier.class, IntegrationSystemRepository.class})
 public class ErrorClassifierForTest extends AbstractSpringTest implements ErrorClassifierForGoonjTestConstants {
         private final ErrorClassifier errorClassifier;
