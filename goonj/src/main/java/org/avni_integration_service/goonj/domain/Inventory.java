@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Inventory implements GoonjEntity {
 
-    private static final String InventoryStateField = "CenterFieldOfficeState";
+        private static final String InventoryStateField = "CenterFieldOfficeState";
     private static final String InventoryDistrictField = "CenterFieldOfficeDistrict";
     private static final String InventoryLastModifiedBy = "LastModifiedBy";
     private static final String InventoryNameField = "ImplementationInventoryName";
@@ -51,7 +51,7 @@ public class Inventory implements GoonjEntity {
         subject.setSubjectType("Inventory Item");
         Date InventoryDate = DateTimeUtil.offsetTimeZone(new Date(), DateTimeUtil.UTC, DateTimeUtil.IST);
         subject.setRegistrationDate(InventoryDate);
-        subject.setAddress(MapUtil.getString(InventoryStateField, response) +", "+MapUtil.getString(InventoryDistrictField, response));
+        subject.setAddress(getAddress(InventoryStateField, InventoryDistrictField, response));
         subject.setFirstName(MapUtil.getString(InventoryNameField, response));
         subject.setExternalId(MapUtil.getString(InventoryIdField, response));
         subject.setVoided(MapUtil.getBoolean(InventoryIsVoidedField, response));
