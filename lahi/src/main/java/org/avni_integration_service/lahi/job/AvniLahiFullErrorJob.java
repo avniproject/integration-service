@@ -4,6 +4,7 @@ import com.bugsnag.Bugsnag;
 import org.apache.log4j.Logger;
 import org.avni_integration_service.avni.client.AvniHttpClient;
 import org.avni_integration_service.lahi.config.LahiAvniSessionFactory;
+import org.avni_integration_service.lahi.worker.LahiErrorStudentWorker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -20,12 +21,15 @@ public class AvniLahiFullErrorJob {
     @Autowired
     private AvniHttpClient avniHttpClient;
 
+    @Autowired
+    private LahiErrorStudentWorker lahiErrorStudentWorker;
+
     public void execute() {
         try {
             logger.info("Starting to process the error records for call details");
             avniHttpClient.setAvniSession(lahiAvniSessionFactory.createSession());
-//            lahiErrorRecordWorker.processErrors();
-//todo
+            lahiErrorStudentWorker.processErrors();
+            // TODO: 08/09/23  
         } catch (Exception e) {
             logger.error("Failed", e);
             bugsnag.notify(e);
