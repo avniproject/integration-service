@@ -6,7 +6,6 @@ import org.avni_integration_service.avni.client.AvniHttpClient;
 import org.avni_integration_service.lahi.config.LahiAvniSessionFactory;
 import org.avni_integration_service.lahi.worker.StudentWorker;
 import org.avni_integration_service.util.HealthCheckService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -16,20 +15,25 @@ public class AvniLahiMainJob {
 
     private static final String HEALTHCHECK_SLUG = "lahi";
 
-    @Autowired
-    private Bugsnag bugsnag;
+    private final Bugsnag bugsnag;
 
-    @Autowired
-    private HealthCheckService healthCheckService;
+    private final HealthCheckService healthCheckService;
 
-    @Autowired
-    LahiAvniSessionFactory lahiAvniSessionFactory;
+    private final LahiAvniSessionFactory lahiAvniSessionFactory;
 
-    @Autowired
-    private AvniHttpClient avniHttpClient;
+    private final AvniHttpClient avniHttpClient;
 
-    @Autowired
-    private StudentWorker studentWorker;
+    private final StudentWorker studentWorker;
+
+    public AvniLahiMainJob(Bugsnag bugsnag, HealthCheckService healthCheckService,
+                           LahiAvniSessionFactory lahiAvniSessionFactory, AvniHttpClient avniHttpClient,
+                           StudentWorker studentWorker) {
+        this.bugsnag = bugsnag;
+        this.healthCheckService = healthCheckService;
+        this.lahiAvniSessionFactory = lahiAvniSessionFactory;
+        this.avniHttpClient = avniHttpClient;
+        this.studentWorker = studentWorker;
+    }
 
     public void execute() {
         try {
