@@ -12,6 +12,7 @@ public class Subject extends AvniBaseContract {
     public static final String ExternalIdFieldName = "External ID";
     public static final String FirstNameFieldName = "First name";
     public static final String RegistrationDateFieldName = "Registration date";
+    public static final String GenderName = "Gender";
 
     public String getId(String avniIdentifierConcept) {
         return (String) getObservation(avniIdentifierConcept);
@@ -71,5 +72,14 @@ public class Subject extends AvniBaseContract {
     @JsonIgnore
     public String getAddress() {
         return MapUtil.getString(AddressFieldName, this.map);
+    }
+
+    @JsonIgnore
+    public String getGender() {
+        return (String) getObservation(GenderName);
+    }
+
+    public void setGender(String gender) {
+        set(GenderName, gender);
     }
 }

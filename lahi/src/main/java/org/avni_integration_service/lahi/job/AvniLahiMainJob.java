@@ -37,6 +37,7 @@ public class AvniLahiMainJob {
 
     public void execute() {
         try {
+            logger.info("Lahi Main Job Started !!!!!");
             avniHttpClient.setAvniSession(lahiAvniSessionFactory.createSession());
             studentWorker.fetchDetails();
             // TODO: 08/09/23  

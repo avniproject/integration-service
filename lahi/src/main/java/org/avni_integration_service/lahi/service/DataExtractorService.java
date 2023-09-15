@@ -2,6 +2,7 @@ package org.avni_integration_service.lahi.service;
 
 import com.google.cloud.bigquery.*;
 import org.avni_integration_service.lahi.config.BigQueryConnector;
+import org.avni_integration_service.lahi.repository.StudentRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -11,11 +12,11 @@ public class DataExtractorService {
 
     private final BigQueryConnector bigQueryConnector;
 
-    public DataExtractorService( BigQueryConnector bigQueryConnector) {
+    public DataExtractorService(BigQueryConnector bigQueryConnector) {
         this.bigQueryConnector = bigQueryConnector;
     }
 
-    public void queryToBigQuery(String sqlQuery) throws InterruptedException {
+    public TableResult queryToBigQuery(String sqlQuery) throws InterruptedException {
 
         QueryJobConfiguration queryConfig =
                 QueryJobConfiguration.newBuilder(
@@ -41,14 +42,9 @@ public class DataExtractorService {
 
         // Get the results.
         TableResult result = queryJob.getQueryResults();
+        return result;
 
-        // TODO return result set
-        // Print all pages of the results.
-        for (FieldValueList row : result.iterateAll()) {
-            // String type
-            String name = row.get("name").getStringValue();
-            String age = row.get("age").getNumericValue().toPlainString();
-            System.out.printf("%s is of the age %s \n", name, age);
-        }
+
+
     }
 }
