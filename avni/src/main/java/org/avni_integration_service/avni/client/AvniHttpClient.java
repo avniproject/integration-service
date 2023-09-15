@@ -56,6 +56,7 @@ public class AvniHttpClient {
                 getAvniSession().clearAuthInformation();
                 return restTemplate.exchange(uri, method, getRequestEntity(json), returnType);
             }
+            logger.error(String.format("Errored Request body: %s", json));
             throw e;
         }
     }
@@ -68,41 +69,27 @@ public class AvniHttpClient {
         return get(url, new HashMap<>(), returnType);
     }
 
-    public <T, U> ResponseEntity<U> post(String url, T t, Class<U> returnType) {
+    public <T, U> ResponseEntity<U> post(String url, T requestBody, Class<U> returnType) {
         logger.info(String.format("POST: %s", url));
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(getAvniSession().apiUrl(url));
-        String json = ObjectJsonMapper.writeValueAsString(t);
+        String json = ObjectJsonMapper.writeValueAsString(requestBody);
         return getResponseEntity(returnType, builder.build().toUri(), HttpMethod.POST, json);
     }
 
     public <T, U> ResponseEntity<U> put(String url, T requestBody, Class<U> returnType) {
         logger.info(String.format("PUT: %s", url));
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(getAvniSession().apiUrl(url));
-        try {
-            return restTemplate.exchange(builder.build().toUri(), HttpMethod.PUT, new HttpEntity<>(requestBody, authHeaders()), returnType);
-        } catch (HttpServerErrorException.InternalServerError e) {
-            if (e.getMessage().contains("TokenExpiredException")) {
-                getAvniSession().clearAuthInformation();
-                return restTemplate.exchange(builder.build().toUri(), HttpMethod.PUT, new HttpEntity<>(requestBody, authHeaders()), returnType);
-            }
-            throw e;
-        }
+        String json = ObjectJsonMapper.writeValueAsString(requestBody);
+        return getResponseEntity(returnType, builder.build().toUri(), HttpMethod.PUT, json);
     }
 
     public <T> ResponseEntity<T> delete(String url,  Map<String, String> queryParams, String json, Class<T> returnType) {
+        logger.info(String.format("DELETE: %s", url));
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(getAvniSession().apiUrl(url));
-        try {
-            for (var entry : queryParams.entrySet()) {
-                builder.queryParam(entry.getKey(), entry.getValue());
-            }
-            return restTemplate.exchange(builder.build().toUri(), HttpMethod.DELETE,
-                    new HttpEntity<>(getRequestEntity(json), authHeaders()), returnType);
-        } catch (HttpServerErrorException.InternalServerError e) {
-            if (e.getMessage().contains("TokenExpiredException")) {
-                getAvniSession().clearAuthInformation();
-            }
-            throw e;
+        for (var entry : queryParams.entrySet()) {
+            builder.queryParam(entry.getKey(), entry.getValue());
         }
+        return getResponseEntity(returnType, builder.build().toUri(), HttpMethod.DELETE, json);
     }
 
     private HttpHeaders authHeaders() {
