@@ -41,6 +41,7 @@ public class CallDetailsWorker {
     }
 
     public void fetchCallDetails() {
+        List<TaskCreationStatusHolder> taskCreationStatusHolderList = new ArrayList<>();
         Set<String> allCallPhoneNumbers = powerMappingMetadataService.findAllCallPhoneNumbers();
         for (String phoneNumber : allCallPhoneNumbers) {
             String state = powerMappingMetadataService.getStateValueForMobileNumber(phoneNumber);
@@ -57,8 +58,14 @@ public class CallDetailsWorker {
                 logger.info(String.format("Found %d newer calls for %s phoneNumber", newCalls.size(), phoneNumber));
                 taskCreationStatusHolder.addStatuses(processCalls(newCalls, state, program));
             }
+            taskCreationStatusHolderList.add(taskCreationStatusHolder);
             logger.info(taskCreationStatusHolder.getTaskCreationStatus());
         }
+        taskCreationStatusHolderList.stream().filter(taskCreationStatusHolder
+                        -> taskCreationStatusHolder.countByStatus(TaskCreationStatus.Failure) > 0)
+                .findAny().ifPresent(it -> {
+                    throw new RuntimeException("Task creation failed for atleast one of the phoneNumbers");
+                });
     }
 
     private List<TaskCreationStatus> processCalls(List<HashMap<String, Object>> newCalls, String state, String program) {

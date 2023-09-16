@@ -20,7 +20,7 @@ public class TaskCreationStatusHolder {
         return taskCreationStatuses.size();
     }
 
-    private long countByStatus(TaskCreationStatus taskCreationStatus) {
+    public long countByStatus(TaskCreationStatus taskCreationStatus) {
         return taskCreationStatuses.stream().filter(ts -> ts.equals(taskCreationStatus)).count();
     }
 
