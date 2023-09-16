@@ -56,7 +56,10 @@ public class AvniHttpClient {
                 getAvniSession().clearAuthInformation();
                 return restTemplate.exchange(uri, method, getRequestEntity(json), returnType);
             }
-            logger.error(String.format("Errored Request body: %s", json));
+            logger.error(String.format("URI: %s, Errored Request body: %s", uri, json));
+            throw e;
+        } catch (Exception e) {
+            logger.error(String.format("URI: %s, Errored Request body: %s", uri, json));
             throw e;
         }
     }
