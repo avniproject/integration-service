@@ -3,6 +3,8 @@ package org.avni_integration_service.goonj.job;
 import com.bugsnag.Bugsnag;
 import org.apache.log4j.Logger;
 import org.avni_integration_service.avni.SyncDirection;
+import org.avni_integration_service.avni.client.AvniHttpClient;
+import org.avni_integration_service.goonj.config.GoonjAvniSessionFactory;
 import org.avni_integration_service.goonj.config.GoonjConfig;
 import org.avni_integration_service.goonj.config.GoonjContextProvider;
 import org.avni_integration_service.goonj.worker.AvniGoonjErrorRecordsWorker;
@@ -20,10 +22,18 @@ public class AvniGoonjFullErrorJob {
     private Bugsnag bugsnag;
 
     @Autowired
+    private AvniHttpClient avniHttpClient;
+
+    @Autowired
+    private GoonjAvniSessionFactory goonjAvniSessionFactory;
+
+    @Autowired
     private GoonjContextProvider goonjContextProvider;
 
     public void execute(GoonjConfig goonjConfig) {
+        logger.info("Executing Goonj Error Job");
         goonjContextProvider.set(goonjConfig);
+        avniHttpClient.setAvniSession(goonjAvniSessionFactory.createSession());
         try {
             /**
              * All our Error Records for Goonj, i.e. Demand, Dispatch, Distro, DispatchReceipt and Activity
