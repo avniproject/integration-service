@@ -42,6 +42,7 @@ public class AvniLahiMainJob {
             studentWorker.fetchDetails();
             // TODO: 08/09/23  
             healthCheckService.success(HEALTHCHECK_SLUG);
+            logger.info("Lahi Main Job Ended !!!!!");
         } catch (Throwable e) {
             healthCheckService.failure(HEALTHCHECK_SLUG);
             logger.error("Failed", e);

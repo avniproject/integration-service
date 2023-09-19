@@ -3,9 +3,11 @@ package org.avni_integration_service.lahi.service;
 import com.google.cloud.bigquery.FieldValueList;
 import com.google.cloud.bigquery.TableResult;
 import org.apache.log4j.Logger;
+import org.avni_integration_service.avni.domain.ObservationHolder;
 import org.avni_integration_service.avni.domain.Subject;
 import org.avni_integration_service.integration_data.repository.IntegrationSystemRepository;
 import org.avni_integration_service.integration_data.repository.MappingMetaDataRepository;
+import org.avni_integration_service.lahi.domain.GlificStudent;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -23,9 +25,9 @@ public class LahiMappingMetadataService {
         this.integrationSystemRepository = integrationSystemRepository;
     }
 
-    //todo
+    //todo remove this dummy method
     public List<Subject> mappingMetadata(TableResult tableResult){
-        logger.info("mappingMetadata is calling !!!!!!!!!");
+        logger.info("mappingMetadata is started !!!!!!!!!");
         List<Subject> doctorList = new LinkedList<>();
         for (FieldValueList row : tableResult.iterateAll()) {
             // String type
@@ -42,6 +44,10 @@ public class LahiMappingMetadataService {
             doctorList.add(subject);
         }
         return doctorList;
+    }
+
+    public void populateObservation(ObservationHolder observationHolder, GlificStudent glificStudent){
+        //TODO
     }
 
 

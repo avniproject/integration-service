@@ -127,6 +127,9 @@ open-test-results-goonj:
 open-test-results-amrit:
 	open amrit/build/reports/tests/test/index.html
 
+open-test-results-lahi:
+	open lahi/build/reports/tests/test/index.html
+
 open-test-results-migrator:
 	open metadata-migrator/build/reports/tests/test/index.html
 
@@ -165,5 +168,6 @@ deploy-to-vagrant: build-server deploy-to-vagrant-only
 setup: setup-log-dir
 	touch goonj/src/test/resources/goonj-secret.properties
 	touch goonj/src/test/resources/avni-secret.properties
-	touch goonj/src/test/resources/bahmni-secret.properties
+	touch bahmni/src/test/resources/bahmni-secret.properties
 	touch amrit/src/test/resources/amrit-secret.properties
+	touch lahi/src/test/resources/lahi-secret.properties
