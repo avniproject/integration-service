@@ -16,7 +16,7 @@ public class DataExtractorService {
 
     private final BigQueryConnector bigQueryConnector;
 
-    private final BigQuery bigquery = BigQueryOptions.getDefaultInstance().getService();
+//    private final BigQuery bigquery = BigQueryOptions.getDefaultInstance().getService();
 
     private static final Logger logger = Logger.getLogger(DataExtractorService.class);
 

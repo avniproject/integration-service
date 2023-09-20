@@ -116,6 +116,12 @@ jobs:
     docker:
       - image: cimg/openjdk:17.0.5
 
+      - image: cimg/postgres:12.7
+        environment:
+          - POSTGRES_USER: openchs
+          - POSTGRES_DB: avni_int
+          - POSTGRES_PASSWORD: password
+
     working_directory: ~/avni-int
 
     environment:
@@ -127,9 +133,11 @@ jobs:
     steps:
       - checkout
 
-      - run: sudo apt-get install make openssl
+      - run: sudo apt-get install make openssl postgresql-client
 
-      - run: make build-server
+      - run: make create-extensions
+
+      - run: make test-server
 
       - run: mkdir -p ~/artifacts;
 
