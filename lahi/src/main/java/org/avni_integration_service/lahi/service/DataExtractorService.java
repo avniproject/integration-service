@@ -5,8 +5,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.apache.log4j.Logger;
 import org.avni_integration_service.lahi.config.BigQueryConnector;
-import org.avni_integration_service.lahi.domain.GlificStudent;
-import org.avni_integration_service.lahi.domain.GlificStudentResult;
+import org.avni_integration_service.lahi.domain.ResultField;
+import org.avni_integration_service.lahi.domain.StudentConstants;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -14,9 +14,8 @@ import java.util.*;
 @Service
 public class DataExtractorService {
 
+    public static final String RESULTS = "results";
     private final BigQueryConnector bigQueryConnector;
-
-//    private final BigQuery bigquery = BigQueryOptions.getDefaultInstance().getService();
 
     private static final Logger logger = Logger.getLogger(DataExtractorService.class);
 
@@ -62,70 +61,35 @@ public class DataExtractorService {
     }
 
 
-    public List<Map<String,String>> filterData(TableResult response){
+    public List<Map<String,Object>> filterData(TableResult response){
         Schema schema = response.getSchema();
-        List<Map<String,String>> list1 = new LinkedList<>();
+        List<Map<String,Object>> list1 = new LinkedList<>();
         for (FieldValueList row : response.iterateAll()) {
-            Map<String, String> resultMap1 = new HashMap<>();
+            Map<String, Object> resultMap = new HashMap<>();
             for (int i = 0; i < schema.getFields().size(); i++) {
                 Field field = schema.getFields().get(i);
                 FieldValue fieldValue = row.get(i);
                 String fieldName = field.getName();
-                resultMap1.put(fieldName,fieldValue.getStringValue());
+                if(fieldName.equals(RESULTS) ){
+                    getResultData(resultMap,fieldValue.getStringValue());
+                }
+                resultMap.put(fieldName,fieldValue.getStringValue());
             }
-            list1.add(resultMap1);
+            list1.add(resultMap);
         }
         return list1;
     }
 
-
-    public List<GlificStudent> mappingToGlificStudentList(List<Map<String,String>> list){
-        List<GlificStudent> glificStudentList = new LinkedList<>();
-        list.stream().forEach(map->{
-            GlificStudent glificStudent = new GlificStudent();
-            glificStudent.setName(map.get("name"));
-            glificStudent.setId(map.get("id"));
-            glificStudent.setStatus(map.get("status"));
-            glificStudent.setCompleted_at(map.get("completed_at"));
-            glificStudent.setContact_id(map.get("contact_id"));
-            glificStudent.setContact_phone(map.get("contact_phone"));
-            glificStudent.setFlow_id(map.get("flow_id"));
-            glificStudent.setResults(map.get("results"));
-            glificStudent.setUpdated_at(map.get("updated_at"));
-            glificStudent.setInserted_at(map.get("inserted_at"));
-            glificStudentList.add(glificStudent);
-        });
-        return glificStudentList;
-    }
-
-    public GlificStudentResult mapToGlificStudentResult(GlificStudent glificStudent){
-        String result = glificStudent.getResults();
+    public void getResultData(Map<String,Object> map,String result){
         JsonObject jsonObject = new JsonParser().parse(result).getAsJsonObject();
-
-        GlificStudentResult glificStudentResult = new GlificStudentResult();
-        glificStudentResult.setAvni_first_name(getDataFromJson(jsonObject,"avni_first_name"));
-        glificStudentResult.setAvni_last_name(getDataFromJson(jsonObject,"avni_last_name"));
-        glificStudentResult.setAvni_date_of_birth(getDataFromJson(jsonObject,"avni_date_of_birth"));
-        glificStudentResult.setAvni_gender(getDataFromJson(jsonObject,"avni_gender"));
-        glificStudentResult.setAvni_state(getDataFromJson(jsonObject,"avni_state"));
-        glificStudentResult.setAvni_district_name(getDataFromJson(jsonObject,"avni_district_name"));
-        glificStudentResult.setAvni_school_name(getDataFromJson(jsonObject,"avni_school_name"));
-        glificStudentResult.setAvni_alternate_contact(getDataFromJson(jsonObject,"avni_alternate_contact"));
-        glificStudentResult.setAvni_email(getDataFromJson(jsonObject,"avni_email"));
-        glificStudentResult.setAvni_highest_qualification(getDataFromJson(jsonObject,"avni_highest_qualification"));
-        glificStudentResult.setAvni_other_qualification(getDataFromJson(jsonObject,"avni_other_qualification"));
-        glificStudentResult.setAvni_qualification_status(getDataFromJson(jsonObject,"avni_qualification_status"));
-        glificStudentResult.setAvni_academic_year(getDataFromJson(jsonObject,"avni_academic_year"));
-        glificStudentResult.setAvni_vocational(getDataFromJson(jsonObject,"avni_vocational"));
-
-        return glificStudentResult;
-
+        StudentConstants.ResultFieldList.forEach(field->{
+            map.put(field,getDataFromJson(jsonObject,field));
+        });
     }
+
 
     public String getDataFromJson(JsonObject jsonObject,String field){
         return  (jsonObject.has(field))?jsonObject.getAsJsonObject(field).get("input").getAsString():null;
     }
-
-
 
 }

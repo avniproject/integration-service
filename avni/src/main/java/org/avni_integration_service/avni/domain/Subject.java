@@ -11,8 +11,11 @@ public class Subject extends AvniBaseContract {
     public static final String AddressFieldName = "Address";
     public static final String ExternalIdFieldName = "External ID";
     public static final String FirstNameFieldName = "First name";
+    public static final String LastNameFieldName = "Last name";
     public static final String RegistrationDateFieldName = "Registration date";
     public static final String GenderName = "Gender";
+
+    public static final String DateOfBirth = "Date of birth";
 
     public String getId(String avniIdentifierConcept) {
         return (String) getObservation(avniIdentifierConcept);
@@ -29,12 +32,20 @@ public class Subject extends AvniBaseContract {
 
     @JsonIgnore
     public String getLastName() {
-        return (String) getObservation("Last name");
+        return (String) getObservation(LastNameFieldName);
+    }
+
+    public void setLastName(String lastName) {
+        set(LastNameFieldName, lastName);
     }
 
     @JsonIgnore
     public String getDateOfBirth() {
-        return (String) getObservation("Date of birth");
+        return (String) getObservation(DateOfBirth);
+    }
+
+    public void setDateOfBirth(Date date) {
+        set(DateOfBirth, FormatAndParseUtil.toISODateString(date));
     }
 
     public void setRegistrationDate(Date date) {

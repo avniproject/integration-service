@@ -1,7 +1,9 @@
 package org.avni_integration_service.lahi.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.apache.log4j.Logger;
 import org.avni_integration_service.avni.domain.Subject;
+import org.avni_integration_service.lahi.util.DateTimeUtil;
 
 import java.util.Arrays;
 import java.util.List;
@@ -11,6 +13,7 @@ import java.util.stream.Collectors;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Student implements LahiEntity, StudentConstants {
     private Map<String, Object> response;
+    private static final Logger logger = Logger.getLogger(Student.class);
 
     private static final List<String> Core_Fields = Arrays.asList(FIRST_NAME,LAST_NAME,DATE_OF_BIRTH,
     DATE_OF_REGISTRATION,GENDER);
@@ -22,27 +25,20 @@ public class Student implements LahiEntity, StudentConstants {
         return student;
     }
 
+
     public Subject subjectWithoutObservations() {
         Subject subject = new Subject();
         subject.setSubjectType("Student");
         subject.setAddress(STUDENT_ADDRESS);
-//        Date demandDate = DateTimeUtil.offsetTimeZone(new Date(), DateTimeUtil.UTC, DateTimeUtil.IST);
-//        subject.setRegistrationDate(demandDate);
-//        subject.setAddress(MapUtil.getString(DemandStateField, response) +", "+MapUtil.getString(DemandDistrictField, response));
-//        subject.setExternalId(MapUtil.getString(DemandIdField, response));
-//        subject.setFirstName(MapUtil.getString(DemandNameField, response));
-//        subject.setVoided(MapUtil.getBoolean(DemandIsVoidedField, response));
-//        String[] arrayOfTCs = MapUtil.getString(DemandTargetCommunity, response) != null ? MapUtil.getString(DemandTargetCommunity, response).split(";") : null;
-//        subject.("Target Community", arrayOfTCs);
-//        subject.addObservation("Type of Disaster", demandDto.getTypeOfDisaster());
-//        subject.addObservation("Number of people", this.getNumberOfPeople());
-//        subject.addObservation("Account Name", this.getAccountName());
-//        subject.addObservation("AccountId", this.getAccountId());
-//        subject.addObservation("DemandId", demandDto.getDemandId());
-//        subject.addObservation("demandName", demandDto.getDemandName());
-//        subject.addObservation("District", demandDto.getDistrict());
+        subject.setFirstName(response.get(FIRST_NAME).toString());
+        subject.setLastName(response.get(LAST_NAME).toString());
+        subject.setRegistrationDate(DateTimeUtil.registrationDate(response.get(DATE_OF_REGISTRATION).toString()));
+        subject.setDateOfBirth(DateTimeUtil.dateOfBirth(response.get(DATE_OF_BIRTH).toString()));
+        subject.setGender(response.get(GENDER).toString());
         return subject;
     }
+
+
 
     @Override
     public List<String> getObservationFields() {

@@ -2,37 +2,29 @@ package org.avni_integration_service.lahi.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.TimeZone;
 
 public class DateTimeUtil {
+    // TODO: 20/09/23  If needed we have to change date type
+    public static final String REGISTRATION_DATE = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS";
+    public static final String DATE_OF_BIRTH = "dd-MM-yyyy";
 
-    private static final String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
-    private static final SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DATE_TIME_FORMAT);
-
-    public static String formatDateTime(Date localDateTime) {
-        return simpleDateFormat.format(localDateTime);
-    }
-
-    public static Date convertToDate(String localDateTime) {
+    public static Date toDate(String dateString,String format){
+        SimpleDateFormat sdf = new SimpleDateFormat(format);
         try {
-            return simpleDateFormat.parse(localDateTime);
+            Date date = sdf.parse(dateString);
+            return date;
         } catch (ParseException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
+        return null;
     }
 
-    public static String getCurrentDateStringInIST() {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DATE_TIME_FORMAT);
-        simpleDateFormat.setTimeZone(TimeZone.getTimeZone("Asia/Kolkata"));
-        return simpleDateFormat.format(new Date());
+    public static Date registrationDate(String dateString){
+        return toDate(dateString,REGISTRATION_DATE);
     }
 
-    public static Date addTimeToJavaUtilDate(Date date, int units, int field) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-        calendar.add(field, units);
-        return calendar.getTime();
+    public static Date dateOfBirth(String dateString){
+        return toDate(dateString,DATE_OF_BIRTH);
     }
 }

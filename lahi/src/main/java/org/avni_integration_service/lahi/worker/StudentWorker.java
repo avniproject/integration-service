@@ -3,8 +3,8 @@ package org.avni_integration_service.lahi.worker;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.cloud.bigquery.*;
 import org.apache.log4j.Logger;
-import org.avni_integration_service.lahi.domain.GlificStudent;
-import org.avni_integration_service.lahi.domain.GlificStudentResult;
+import org.avni_integration_service.avni.domain.Subject;
+import org.avni_integration_service.lahi.domain.Student;
 import org.avni_integration_service.lahi.repository.StudentRepository;
 import org.avni_integration_service.lahi.service.DataExtractorService;
 import org.avni_integration_service.lahi.service.LahiMappingMetadataService;
@@ -64,12 +64,12 @@ public class StudentWorker {
     public void fetchDetails() throws InterruptedException, JsonProcessingException {
         logger.info("fetch detail starting !!!!!!!!!!");
         TableResult response   = dataExtractorService.queryWithPagination(BULK_FETCH_QUERY,"2023-07-28T12:15:40", LIMIT);
-        List<Map<String,String>> filterData = dataExtractorService.filterData(response);
-        List<GlificStudent> glificStudentList = dataExtractorService.mappingToGlificStudentList(filterData);
-        GlificStudent glificStudent = glificStudentList.get(0);
-        GlificStudentResult glificStudentResult = dataExtractorService.mapToGlificStudentResult(glificStudent);
-        glificStudent.setGlificStudentResult(glificStudentResult);
-        logger.info(glificStudentResult);
+        List<Map<String,Object>> filterData = dataExtractorService.filterData(response);
+        Map<String,Object> data = filterData.get(0);
+        Student student = (Student) Student.from(data);
+        // TODO: 20/09/23 need to add validation if needed
+        List<Subject> subjectList = Arrays.asList(student.subjectWithoutObservations());
+        studentRepository.insert(subjectList);
         logger.info("fetching ended");
     }
 

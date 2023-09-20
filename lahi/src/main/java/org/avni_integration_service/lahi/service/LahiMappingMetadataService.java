@@ -7,10 +7,12 @@ import org.avni_integration_service.avni.domain.ObservationHolder;
 import org.avni_integration_service.avni.domain.Subject;
 import org.avni_integration_service.integration_data.repository.IntegrationSystemRepository;
 import org.avni_integration_service.integration_data.repository.MappingMetaDataRepository;
-import org.avni_integration_service.lahi.domain.GlificStudent;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class LahiMappingMetadataService {
@@ -46,7 +48,7 @@ public class LahiMappingMetadataService {
         return doctorList;
     }
 
-    public void populateObservation(ObservationHolder observationHolder, GlificStudent glificStudent){
+    public void populateObservation(ObservationHolder observationHolder, Map<String,Object> glificStudent){
         //TODO
     }
 
