@@ -149,7 +149,40 @@ jobs:
             - avni-int.jar
 
       - store_artifacts:
-          path: ~/artifacts
+          path: amrit/build/reports/tests/test
+          destination: testReports/amrit
+
+      - store_artifacts:
+          path: avni/build/reports/tests/test
+          destination: testReports/avni
+
+      - store_artifacts:
+          path: bahmni/build/reports/tests/test
+          destination: testReports/bahmni
+
+      - store_artifacts:
+          path: goonj/build/reports/tests/test
+          destination: testReports/goonj
+
+      - store_artifacts:
+          path: integration-data/build/reports/tests/test
+          destination: testReports/integration-data
+
+      - store_artifacts:
+          path: lahi/build/reports/tests/test
+          destination: testReports/lahi
+
+      - store_artifacts:
+          path: integrator/build/reports/tests/test
+          destination: testReports/integrator
+
+      - store_artifacts:
+          path: power/build/reports/tests/test
+          destination: testReports/power
+
+      - store_artifacts:
+          path: util/build/reports/tests/test
+          destination: testReports/util
 
   STAGING_deploy:
     docker:
