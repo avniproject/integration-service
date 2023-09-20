@@ -93,6 +93,9 @@ run-migrator: build-server
 	$(call _run_migrator)
 
 test-server-only:
+	-touch amrit/src/test/resources/amrit-secret.properties
+	-touch goonj/src/test/resources/goonj-secret.properties
+	-touch goonj/src/test/resources/avni-secret.properties
 	./gradlew clean build
 
 test-server-starts:
