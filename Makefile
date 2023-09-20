@@ -169,5 +169,5 @@ setup: setup-log-dir
 	touch amrit/src/test/resources/amrit-secret.properties
 	touch lahi/src/test/resources/lahi-secret.properties
 
-create-extensions:
-	-psql -h localhost -Uopenchs openchs_test -c 'create extension if not exists "uuid-ossp"';
+create-test-db-extensions:
+	-psql -h localhost -Uavni_int avni_int_test -c 'create extension if not exists "uuid-ossp"';
