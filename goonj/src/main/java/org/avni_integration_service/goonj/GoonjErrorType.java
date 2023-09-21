@@ -1,9 +1,7 @@
 package org.avni_integration_service.goonj;
 
 public enum GoonjErrorType {
-    AddressNotFoundError, NoDemandWithId, NoDispatchWithId, NoImplementationInventoryWithId, DemandIdChanged, DispatchIdChanged,
-    ImplementationInventoryIdChanged, EntityIsDeleted, NoSubjectWithId, SubjectIdChanged,
-    MultipleSubjectsWithId, SubjectIdNull, ErroredAvniEncounter,
+    AddressNotFoundError, EntityIsDeleted,
     DemandAttributesMismatch, DispatchAttributesMismatch, DispatchReceiptAttributesMismatch,
     DistributionAttributesMismatch, ActivityAttributesMismatch, ImplementationInventoryAttributesMismatch,
     DemandDeletionFailure, DispatchDeletionFailure, DispatchLineItemsDeletionFailure, UnclassifiedError;
