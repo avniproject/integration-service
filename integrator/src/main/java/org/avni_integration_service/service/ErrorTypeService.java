@@ -20,12 +20,12 @@ public class ErrorTypeService {
         }
         ErrorType errorType = errorTypeRepository.findByUuidAndIntegrationSystem(errorTypeContract.getUuid(), integrationSystem);
         if (errorType == null) {
-            errorType = createErrorType(errorTypeContract);
+            errorType = createBasicErrorType(errorTypeContract);
         }
         this.updateAndSaveErrorType(errorType, errorTypeContract, integrationSystem);
     }
 
-    public ErrorType createErrorType(ErrorTypeContract errorTypeContract) {
+    public ErrorType createBasicErrorType(ErrorTypeContract errorTypeContract) {
         ErrorType errorType = new ErrorType();
         errorType.setUuid(errorTypeContract.getUuid());
         return errorType;
@@ -37,6 +37,7 @@ public class ErrorTypeService {
         errorType.setName(errorTypeContract.getName());
         errorType.setComparisonOperator(errorTypeContract.getComparisonOperator());
         errorType.setComparisonValue(errorTypeContract.getComparisonValue());
+        errorType.setFollowUpStep(errorTypeContract.getFollowUpStep());
         errorTypeRepository.save(errorType);
     }
 }

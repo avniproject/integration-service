@@ -59,7 +59,12 @@ public class BundleService {
 
 
     @Autowired
-    public BundleService(MappingMetaDataRepository mappingMetaDataRepository, MappingGroupRepository mappingGroupRepository, MappingTypeRepository mappingTypeRepository, ErrorTypeRepository errorTypeRepository, IntegrationSystemConfigRepository integrationSystemConfigRepository, MappingTypeService mappingTypeService, MappingGroupService mappingGroupService, MappingMetadataService mappingMetadataService, ErrorTypeService errorTypeService, IntegrationSystemConfigService integrationSystemConfigService, ObjectMapper objectMapper) {
+    public BundleService(MappingMetaDataRepository mappingMetaDataRepository, MappingGroupRepository mappingGroupRepository,
+                         MappingTypeRepository mappingTypeRepository, ErrorTypeRepository errorTypeRepository,
+                         IntegrationSystemConfigRepository integrationSystemConfigRepository,
+                         MappingTypeService mappingTypeService, MappingGroupService mappingGroupService,
+                         MappingMetadataService mappingMetadataService, ErrorTypeService errorTypeService,
+                         IntegrationSystemConfigService integrationSystemConfigService, ObjectMapper objectMapper) {
         this.mappingMetaDataRepository = mappingMetaDataRepository;
         this.mappingGroupRepository = mappingGroupRepository;
         this.mappingTypeRepository = mappingTypeRepository;

@@ -2,6 +2,7 @@ package org.avni_integration_service.integration_data.repository;
 
 import org.avni_integration_service.integration_data.domain.IntegrationSystem;
 import org.avni_integration_service.integration_data.domain.error.ErrorType;
+import org.avni_integration_service.integration_data.domain.error.ErrorTypeFollowUpStep;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -12,6 +13,7 @@ public interface ErrorTypeRepository extends BaseRepository<ErrorType> {
     ErrorType findByNameAndIntegrationSystem(String name, IntegrationSystem integrationSystem);
     ErrorType findByUuidAndIntegrationSystem(String uuid, IntegrationSystem integrationSystem);
     ErrorType findByNameAndIntegrationSystemId(String name, int integrationSystemId);
+    List<ErrorType> findByIntegrationSystemIdAndFollowUpStep(int integrationSystemId, ErrorTypeFollowUpStep followUpStep);
     List<ErrorType> findAllByIntegrationSystemId(int id);
     List<ErrorType> findAllByIntegrationSystem(IntegrationSystem integrationSystem);
 }

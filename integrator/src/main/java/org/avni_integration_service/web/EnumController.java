@@ -105,7 +105,7 @@ public class EnumController extends BaseController {
     @Transactional
     public ErrorTypeContract postErrorType(@RequestBody ErrorTypeContract errorTypeContract, Principal principal) {
         ErrorType errorType = new ErrorType(errorTypeContract.getName(), getCurrentIntegrationSystem(principal),
-                errorTypeContract.getComparisonOperator(), errorTypeContract.getComparisonValue());
+                errorTypeContract.getComparisonOperator(), errorTypeContract.getComparisonValue(), errorTypeContract.getFollowUpStep());
         return new ErrorTypeContract(errorTypeRepository.save(errorType));
     }
 

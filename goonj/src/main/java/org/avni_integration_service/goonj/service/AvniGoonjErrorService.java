@@ -7,13 +7,13 @@ import org.avni_integration_service.goonj.config.GoonjContextProvider;
 import org.avni_integration_service.integration_data.domain.AvniEntityType;
 import org.avni_integration_service.integration_data.domain.error.ErrorRecord;
 import org.avni_integration_service.integration_data.domain.error.ErrorType;
+import org.avni_integration_service.integration_data.domain.error.ErrorTypeFollowUpStep;
 import org.avni_integration_service.integration_data.repository.ErrorRecordRepository;
 import org.avni_integration_service.integration_data.repository.ErrorTypeRepository;
 import org.avni_integration_service.integration_data.repository.IntegrationSystemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -34,7 +34,7 @@ public class AvniGoonjErrorService {
     }
 
     public List<ErrorType> getUnprocessableErrorTypes() {
-        return Arrays.asList( getErrorType(GoonjErrorType.EntityIsDeleted));
+        return getErrorTypeBy(ErrorTypeFollowUpStep.Terminal);
     }
 
     private void saveAvniError(String uuid, GoonjErrorType goonjErrorType, AvniEntityType avniEntityType, String errorMsg) {
@@ -62,6 +62,11 @@ public class AvniGoonjErrorService {
 
     private ErrorType getErrorType(GoonjErrorType goonjErrorType) {
         return errorTypeRepository.findByNameAndIntegrationSystemId(goonjErrorType.name(), goonjContextProvider.get().getIntegrationSystem().getId());
+    }
+
+    private List<ErrorType> getErrorTypeBy(ErrorTypeFollowUpStep followUpStep) {
+        return errorTypeRepository.findByIntegrationSystemIdAndFollowUpStep(
+                goonjContextProvider.get().getIntegrationSystem().getId(), followUpStep);
     }
 
     private ErrorRecord saveGoonjError(String uuid, GoonjErrorType goonjErrorType, GoonjEntityType goonjEntityType, String errorMsg) {

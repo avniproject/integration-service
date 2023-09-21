@@ -5,6 +5,7 @@ import org.avni_integration_service.integration_data.domain.framework.NamedInteg
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 @Entity
@@ -16,6 +17,10 @@ public class ErrorType extends NamedIntegrationSpecificEntity {
     @Column(name = "comparison_value", columnDefinition = "TEXT")
     private String comparisonValue;
 
+    @NotNull
+    @Column(name = "follow_up_step")
+    private ErrorTypeFollowUpStep followUpStep;
+
     public ErrorType() {
         super();
     }
@@ -24,22 +29,26 @@ public class ErrorType extends NamedIntegrationSpecificEntity {
         super();
         this.setName(name);
         this.setIntegrationSystem(integrationSystem);
+        this.setFollowUpStep(ErrorTypeFollowUpStep.Process);
     }
 
-    public ErrorType(String name, IntegrationSystem integrationSystem, ErrorTypeComparisonOperatorEnum comparisonOperator, String comparisonValue) {
+    public ErrorType(String name, IntegrationSystem integrationSystem, ErrorTypeComparisonOperatorEnum comparisonOperator,
+                     String comparisonValue, ErrorTypeFollowUpStep followUpStep) {
         super();
         this.setName(name);
         this.setIntegrationSystem(integrationSystem);
         this.setComparisonOperator(comparisonOperator);
         this.setComparisonValue(comparisonValue);
+        this.setFollowUpStep(followUpStep);
     }
 
-    public ErrorType(String name, IntegrationSystem integrationSystem, String comparisonOperator, String comparisonValue) {
+    public ErrorType(String name, IntegrationSystem integrationSystem, String comparisonOperator, String comparisonValue, ErrorTypeFollowUpStep followUpStep) {
         super();
         this.setName(name);
         this.setIntegrationSystem(integrationSystem);
         this.setComparisonOperator(comparisonOperator);
         this.setComparisonValue(comparisonValue);
+        this.setFollowUpStep(followUpStep);
     }
 
     public ErrorTypeComparisonOperatorEnum getComparisonOperator() {
@@ -60,6 +69,14 @@ public class ErrorType extends NamedIntegrationSpecificEntity {
 
     public void setComparisonValue(String comparisonValue) {
         this.comparisonValue = comparisonValue;
+    }
+
+    public ErrorTypeFollowUpStep getFollowUpStep() {
+        return followUpStep;
+    }
+
+    public void setFollowUpStep(ErrorTypeFollowUpStep followUpStep) {
+        this.followUpStep = followUpStep;
     }
 
     @Override
