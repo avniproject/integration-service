@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 import org.avni_integration_service.avni.SyncDirection;
 import org.avni_integration_service.avni.worker.ErrorRecordWorker;
 import org.avni_integration_service.goonj.GoonjEntityType;
+import org.avni_integration_service.goonj.config.GoonjConstants;
 import org.avni_integration_service.goonj.config.GoonjContextProvider;
 import org.avni_integration_service.goonj.service.AvniGoonjErrorService;
 import org.avni_integration_service.goonj.worker.avni.ActivityWorker;
@@ -12,17 +13,25 @@ import org.avni_integration_service.goonj.worker.avni.DistributionWorker;
 import org.avni_integration_service.goonj.worker.goonj.DemandEventWorker;
 import org.avni_integration_service.goonj.worker.goonj.DispatchEventWorker;
 import org.avni_integration_service.goonj.worker.goonj.InventoryEventWorker;
+import org.avni_integration_service.integration_data.domain.IntegratingEntityStatus;
 import org.avni_integration_service.integration_data.domain.error.ErrorRecord;
+import org.avni_integration_service.integration_data.domain.error.ErrorRecordLog;
+import org.avni_integration_service.integration_data.domain.error.ErrorTypeFollowUpStep;
+import org.avni_integration_service.integration_data.repository.ErrorRecordLogRepository;
 import org.avni_integration_service.integration_data.repository.ErrorRecordRepository;
+import org.avni_integration_service.integration_data.repository.IntegratingEntityStatusRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Component
 public class AvniGoonjErrorRecordsWorker {
+
     @Autowired
     private ErrorRecordRepository errorRecordRepository;
     @Autowired
@@ -41,6 +50,10 @@ public class AvniGoonjErrorRecordsWorker {
     private InventoryEventWorker inventoryEventWorker;
     @Autowired
     private GoonjContextProvider goonjContextProvider;
+    @Autowired
+    private IntegratingEntityStatusRepository integrationEntityStatusRepository;
+    @Autowired
+    private ErrorRecordLogRepository errorRecordLogRepository;
 
     private static final Logger logger = Logger.getLogger(AvniGoonjErrorRecordsWorker.class);
 
@@ -85,5 +98,20 @@ public class AvniGoonjErrorRecordsWorker {
             if (errorRecord.getIntegratingEntityType().equals(GoonjEntityType.Inventory.name())) return inventoryEventWorker;
         }
         throw new AssertionError(String.format("Invalid error record with AvniEntityType=%s / GoonjEntityType=%s", errorRecord.getAvniEntityType(), errorRecord.getIntegratingEntityType()));
+    }
+
+    public Map<ErrorTypeFollowUpStep, Long> evaluateNewErrors() {
+        IntegratingEntityStatus goonjErrorRecordLogIES = integrationEntityStatusRepository.findByEntityType(GoonjConstants.GoonjErrorRecordLog);
+        ErrorRecordLog lastErrorRecordLog = errorRecordLogRepository.findTopByOrderByLoggedAtDesc();
+        int integrationSystemId = goonjContextProvider.get().getIntegrationSystem().getId();
+        Map<ErrorTypeFollowUpStep, Long> errorTypeFollowUpStepLongMap = new HashMap<>();
+        for (ErrorTypeFollowUpStep followUpStep: ErrorTypeFollowUpStep.values()) {
+            long numberOfErrors = errorRecordLogRepository.countByLoggedAtIsBetweenAndErrorTypeFollowUpStepAndErrorRecordIntegrationSystemId(
+                    goonjErrorRecordLogIES.getReadUptoDateTime(), lastErrorRecordLog.getLoggedAt(), String.valueOf(followUpStep.ordinal()), integrationSystemId);
+            errorTypeFollowUpStepLongMap.put(followUpStep, numberOfErrors);
+        }
+        goonjErrorRecordLogIES.setReadUptoDateTime(lastErrorRecordLog.getLoggedAt());
+        integrationEntityStatusRepository.save(goonjErrorRecordLogIES);
+        return errorTypeFollowUpStepLongMap;
     }
 }

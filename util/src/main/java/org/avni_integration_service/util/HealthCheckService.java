@@ -25,10 +25,10 @@ public class HealthCheckService {
         this.restTemplate = restTemplate;
     }
 
-    private void ping(String slug, String status) {
+    public void ping(String slug, Status status) {
         try {
             if (!healthCheckPingKey.equals("dummy"))
-                restTemplate.exchange(URI.create(String.format("%s/%s/%s/%s", PING_BASE_URL, healthCheckPingKey, slug, status)), HttpMethod.GET, null, String.class);
+                restTemplate.exchange(URI.create(String.format("%s/%s/%s/%s", PING_BASE_URL, healthCheckPingKey, slug, status.getValue())), HttpMethod.GET, null, String.class);
         }
         catch(Exception e) {
             logger.error("Health check ping failed:", e);
@@ -36,12 +36,25 @@ public class HealthCheckService {
     }
 
     public void start(String slug) {
-        ping(slug, "start");
+        ping(slug, Status.START);
     }
     public void success(String slug) {
-        ping(slug, "0");
+        ping(slug, Status.SUCCESS);
     }
     public void failure(String slug) {
-        ping(slug, "fail");
+        ping(slug,  Status.FAILURE);
+    }
+
+    public enum Status {
+        START("start"), SUCCESS("0"), FAILURE("fail");
+        String value;
+
+        Status(String status) {
+            this.value = status;
+        }
+
+        public String getValue() {
+            return value;
+        }
     }
 }

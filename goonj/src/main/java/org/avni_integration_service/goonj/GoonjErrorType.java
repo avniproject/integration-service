@@ -7,7 +7,10 @@ public enum GoonjErrorType {
     AddressNotFoundError, DemandAttributesMismatch,
     DispatchAttributesMismatch, DispatchReceiptAttributesMismatch,
     DistributionAttributesMismatch, ActivityAttributesMismatch,
-    ImplementationInventoryAttributesMismatch, UnclassifiedError;
+    ImplementationInventoryAttributesMismatch, UnclassifiedError,
+    BadValueForRestrictedPicklist, MustNotHave2SimilarElements,
+    FieldCustomValidationException, AnswerMappingIsNull,
+    TargetCommunityIsNullError, ClassCastException;
 
     public static GoonjErrorType safeGetValueOf(String stringValue, GoonjErrorType fallback) {
         for (GoonjErrorType ge : GoonjErrorType.values()) {

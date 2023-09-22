@@ -4,9 +4,9 @@ import com.bugsnag.Bugsnag;
 import org.apache.log4j.Logger;
 import org.avni_integration_service.avni.SyncDirection;
 import org.avni_integration_service.avni.client.AvniHttpClient;
-import org.avni_integration_service.avni.client.AvniSession;
 import org.avni_integration_service.goonj.config.GoonjAvniSessionFactory;
 import org.avni_integration_service.goonj.config.GoonjConfig;
+import org.avni_integration_service.goonj.config.GoonjConstants;
 import org.avni_integration_service.goonj.config.GoonjContextProvider;
 import org.avni_integration_service.goonj.worker.AvniGoonjErrorRecordsWorker;
 import org.avni_integration_service.goonj.worker.avni.ActivityWorker;
@@ -15,15 +15,18 @@ import org.avni_integration_service.goonj.worker.avni.DistributionWorker;
 import org.avni_integration_service.goonj.worker.goonj.DemandWorker;
 import org.avni_integration_service.goonj.worker.goonj.DispatchWorker;
 import org.avni_integration_service.goonj.worker.goonj.InventoryWorker;
+import org.avni_integration_service.integration_data.domain.error.ErrorTypeFollowUpStep;
 import org.avni_integration_service.util.HealthCheckService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Map;
 
 @Component
 public class AvniGoonjMainJob {
+    public static final long LONG_CONSTANT_ZERO = 0l;
+
     private static final Logger logger = Logger.getLogger(AvniGoonjMainJob.class);
 
     @Autowired
@@ -68,7 +71,6 @@ public class AvniGoonjMainJob {
             goonjContextProvider.set(goonjConfig);
             avniHttpClient.setAvniSession(goonjAvniSessionFactory.createSession());
 
-
             List<IntegrationTask> tasks = IntegrationTask.getTasks(goonjConfig.getTasks());
             processDemandAndDispatch(tasks);
             processActivity(tasks);
@@ -80,7 +82,20 @@ public class AvniGoonjMainJob {
             healthCheckService.failure(goonjConfig.getIntegrationSystem().getName().toLowerCase());
             logger.error("Failed AvniGoonjMainJob", e);
             bugsnag.notify(e);
+        } finally {
+            performAdditionalHealthChecks();
         }
+    }
+
+    private void performAdditionalHealthChecks() {
+        Map<ErrorTypeFollowUpStep, Long> errorTypeFollowUpStepLongMap = errorRecordsWorker.evaluateNewErrors();
+        pingGoonjInternalHealthCheckStatus(errorTypeFollowUpStepLongMap, ErrorTypeFollowUpStep.Internal, GoonjConstants.HEALTHCHECK_SLUG_GOONJ_INTEGRATION);
+        pingGoonjInternalHealthCheckStatus(errorTypeFollowUpStepLongMap, ErrorTypeFollowUpStep.External, GoonjConstants.HEALTHCHECK_SLUG_GOONJ_SALESFORCE);
+    }
+
+    private void pingGoonjInternalHealthCheckStatus(Map<ErrorTypeFollowUpStep, Long> errorTypeFollowUpStepLongMap, ErrorTypeFollowUpStep errorTypeFollowUpStep, String slug) {
+        healthCheckService.ping(slug, errorTypeFollowUpStepLongMap.get(errorTypeFollowUpStep) > LONG_CONSTANT_ZERO ?
+                        HealthCheckService.Status.FAILURE : HealthCheckService.Status.SUCCESS);
     }
 
     private void processDemandAndDispatch(List<IntegrationTask> tasks) {
