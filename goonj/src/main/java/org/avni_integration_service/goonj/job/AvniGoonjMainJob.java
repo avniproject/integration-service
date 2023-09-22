@@ -76,7 +76,6 @@ public class AvniGoonjMainJob {
             processActivity(tasks);
             processDispatchReceiptAndDistribution(tasks);
             processInventory(tasks);
-            processErrors(tasks);
             healthCheckService.success(goonjConfig.getIntegrationSystem().getName().toLowerCase());
         } catch (Throwable e) {
             healthCheckService.failure(goonjConfig.getIntegrationSystem().getName().toLowerCase());
@@ -169,27 +168,6 @@ public class AvniGoonjMainJob {
             logger.error("Failed processInventory", e);
             bugsnag.notify(e);
         }
-    }
-
-    private void processErrors(List<IntegrationTask> tasks) {
-        try {
-            /**
-             * All our Error Records for Goonj, i.e. Demand, Dispatch, Distro, DispatchReceipt and Activity
-             * are stored using integrating_entity_type column, hence only SyncDirection.GoonjToAvni matters
-             * and not the other-way(SyncDirection.AvniToGoonj) around.
-             */
-            if (hasTask(tasks, IntegrationTask.GoonjErrorRecords)) {
-                logger.info("Processing GoonjErrorRecords");
-                processErrorRecords(SyncDirection.GoonjToAvni);
-            }
-        } catch (Throwable e) {
-            logger.error("Failed processErrors", e);
-            bugsnag.notify(e);
-        }
-    }
-
-    private void processErrorRecords(SyncDirection syncDirection) throws Exception {
-        errorRecordsWorker.process(syncDirection, false);
     }
 
     private boolean hasTask(List<IntegrationTask> tasks, IntegrationTask task) {
