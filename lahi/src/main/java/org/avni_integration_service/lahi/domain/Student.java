@@ -12,6 +12,14 @@ import java.util.stream.Collectors;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Student implements LahiEntity, StudentConstants {
+    public Map<String, Object> getResponse() {
+        return response;
+    }
+
+    public void setResponse(Map<String, Object> response) {
+        this.response = response;
+    }
+
     private Map<String, Object> response;
     private static final Logger logger = Logger.getLogger(Student.class);
 
@@ -19,7 +27,7 @@ public class Student implements LahiEntity, StudentConstants {
     DATE_OF_REGISTRATION,GENDER);
     //TODO add address fields to above and also anyother fields
 
-    public static StudentConstants from(Map<String, Object> studentResponse) {
+    public static Student from(Map<String, Object> studentResponse) {
         Student student = new Student();
         student.response = studentResponse;
         return student;
@@ -30,6 +38,8 @@ public class Student implements LahiEntity, StudentConstants {
         Subject subject = new Subject();
         subject.setSubjectType("Student");
         subject.setAddress(STUDENT_ADDRESS);
+        // TODO: 21/09/23 set external id and latter remove after all testing
+        subject.setExternalId("12345");
         subject.setFirstName(response.get(FIRST_NAME).toString());
         subject.setLastName(response.get(LAST_NAME).toString());
         subject.setRegistrationDate(DateTimeUtil.registrationDate(response.get(DATE_OF_REGISTRATION).toString()));
