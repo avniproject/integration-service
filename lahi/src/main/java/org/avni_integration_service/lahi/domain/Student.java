@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Student implements LahiEntity, StudentConstants {
+    //todo organise methods to below attribute declarations
     public Map<String, Object> getResponse() {
         return response;
     }

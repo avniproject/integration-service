@@ -23,6 +23,8 @@ public class StudentRepository {
 
     public void insert(List<Subject> list){
             logger.info("inserting record !!!!!");
+            //todo 1. handle error during create for one subject//
+            //todo 2. Should we stop processing or proceed to next student, design decision.?
             list.forEach(avniSubjectRepository::create);
 
     }
