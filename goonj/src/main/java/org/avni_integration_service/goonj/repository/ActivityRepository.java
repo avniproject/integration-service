@@ -171,8 +171,9 @@ public class ActivityRepository extends GoonjBaseRepository implements ActivityC
         if (subject.getObservation(photo) instanceof ArrayList) {
             List<String> images = (ArrayList<String>) subject.getObservation(photo);
             if (images == null) return null;
-            return images.stream().map(
-                    x -> goonjContextProvider.get().getMediaUrl() + x).collect(Collectors.joining(";"));
+            return images.stream()
+                    .filter(Objects::nonNull)
+                    .map(x -> goonjContextProvider.get().getMediaUrl() + x).collect(Collectors.joining(";"));
         } else {
             String image = (String) subject.getObservation(photo);
             return goonjContextProvider.get().getMediaUrl() + image;
