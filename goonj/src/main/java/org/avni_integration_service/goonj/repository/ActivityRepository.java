@@ -168,15 +168,17 @@ public class ActivityRepository extends GoonjBaseRepository implements ActivityC
     }
 
     private String getPhotographStrings(String photo, Subject subject) {
-        if (subject.getObservation(photo) instanceof ArrayList) {
-            List<String> images = (ArrayList<String>) subject.getObservation(photo);
-            if (images == null) return null;
-            return images.stream()
-                    .filter(Objects::nonNull)
-                    .map(x -> goonjContextProvider.get().getMediaUrl() + x).collect(Collectors.joining(";"));
+        Object imageObservation = subject.getObservation(photo);
+        if (imageObservation == null) {
+            return null;
+        }
+        String mediaUrl = goonjContextProvider.get().getMediaUrl();
+        if (imageObservation instanceof List) {
+            return ((ArrayList<String>) imageObservation).stream()
+                    .map(image -> mediaUrl + image)
+                    .collect(Collectors.joining(";"));
         } else {
-            String image = (String) subject.getObservation(photo);
-            return goonjContextProvider.get().getMediaUrl() + image;
+            return mediaUrl + imageObservation;
         }
     }
 }
