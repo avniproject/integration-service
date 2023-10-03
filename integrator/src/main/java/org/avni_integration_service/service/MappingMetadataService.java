@@ -45,6 +45,7 @@ public class MappingMetadataService {
         mappingMetaData.setAbout(mappingMetadataContract.getAbout());
         mappingMetaData.setAvniValue(mappingMetadataContract.getAvniValue());
         mappingMetaData.setIntSystemValue(mappingMetadataContract.getIntSystemValue());
+        mappingMetaData.setDataTypeHint(mappingMetadataContract.getDataTypeHint());
         mappingMetaDataRepository.save(mappingMetaData);
     }
 }

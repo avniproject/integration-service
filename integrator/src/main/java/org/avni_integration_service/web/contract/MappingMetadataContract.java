@@ -30,7 +30,7 @@ public class MappingMetadataContract extends MappingMetadataWebContract
         mappingMetadataContract.setMappingTypeUuid(mappingMetaData.getMappingType().getUuid());
         mappingMetadataContract.setAvniValue(mappingMetaData.getAvniValue());
         mappingMetadataContract.setIntSystemValue(mappingMetaData.getIntSystemValue());
-        mappingMetadataContract.setCoded(mappingMetadataContract.isCoded());
+        mappingMetadataContract.setDataTypeHint(mappingMetaData.getDataTypeHint());
         return mappingMetadataContract;
     }
 }
