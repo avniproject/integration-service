@@ -57,7 +57,7 @@ public class MappingMetadataController extends BaseController {
         mappingMetadataWebContract.setIntSystemValue(mappingMetaData.getIntSystemValue());
         mappingMetadataWebContract.setAvniValue(mappingMetaData.getAvniValue());
         mappingMetadataWebContract.setId(mappingMetaData.getId());
-        mappingMetadataWebContract.setCoded(mappingMetaData.isCoded());
+        mappingMetadataWebContract.setDataTypeHint(mappingMetaData.getDataTypeHint());
         return mappingMetadataWebContract;
     }
 
@@ -93,7 +93,7 @@ public class MappingMetadataController extends BaseController {
         mappingMetaData.setMappingType(mappingTypeRepository.findById(request.getMappingType()).get());
         mappingMetaData.setIntSystemValue(request.getIntSystemValue());
         mappingMetaData.setAvniValue(request.getAvniValue());
-        mappingMetaData.setDataTypeHint(request.isCoded() ? ObsDataType.Coded : null);
+        mappingMetaData.setDataTypeHint(request.getDataTypeHint());
         mappingMetaData.setIntegrationSystem(iSystem);
         mappingMetaData.setUuid(request.getUuid() != null ? request.getUuid() : UUID.randomUUID().toString());
         MappingMetaData saved = mappingMetaDataRepository.save(mappingMetaData);

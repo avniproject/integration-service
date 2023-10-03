@@ -1,11 +1,13 @@
 package org.avni_integration_service.web.contract;
 
+import org.avni_integration_service.util.ObsDataType;
+
 public class MappingMetadataWebContract extends BaseIntSystemSpecificContract {
     private int mappingGroup;
     private int mappingType;
     private String avniValue;
     private String intSystemValue;
-    private boolean coded;
+    private ObsDataType dataTypeHint;
     private String about;
 
     public int getMappingGroup() {
@@ -40,12 +42,12 @@ public class MappingMetadataWebContract extends BaseIntSystemSpecificContract {
         this.intSystemValue = intSystemValue;
     }
 
-    public boolean isCoded() {
-        return coded;
+    public ObsDataType getDataTypeHint() {
+        return dataTypeHint;
     }
 
-    public void setCoded(boolean coded) {
-        this.coded = coded;
+    public void setDataTypeHint(ObsDataType dataTypeHint) {
+        this.dataTypeHint = dataTypeHint;
     }
 
     public String getAbout() {
