@@ -49,7 +49,7 @@ public class InventoryEventWorker extends GoonjEventWorker implements ErrorRecor
             processImplementationInventory(event);
             updateErrorRecordAndSyncStatus(event, updateSyncStatus, (String) event.get("ImplementationInventoryId"));
         } catch (Exception e) {
-            handleError(event, e, "ImplementationInventoryId", GoonjErrorType.ImplementationInventoryAttributesMismatch);
+            handleError(event, e, "ImplementationInventoryId", GoonjErrorType.ImplementationInventoryAttributesMismatch, updateSyncStatus);
         }
     }
 

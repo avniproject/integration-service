@@ -43,7 +43,7 @@ public class DispatchEventWorker extends GoonjEventWorker implements ErrorRecord
             processDispatch(event);
             updateErrorRecordAndSyncStatus(event, updateSyncStatus, (String) event.get("DispatchStatusId"));
         } catch (Exception exception) {
-            handleError(event, exception, "DispatchStatusId", GoonjErrorType.DispatchAttributesMismatch);
+            handleError(event, exception, "DispatchStatusId", GoonjErrorType.DispatchAttributesMismatch, updateSyncStatus);
         }
     }
 

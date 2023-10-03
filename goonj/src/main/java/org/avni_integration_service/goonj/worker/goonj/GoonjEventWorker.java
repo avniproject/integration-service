@@ -62,7 +62,7 @@ public abstract class GoonjEventWorker {
         integratingEntityStatusRepository.save(intEnt);
     }
 
-    protected void handleError(Map<String, Object> event, Exception exception, String entityId, GoonjErrorType goonjErrorType) throws Exception {
+    protected void handleError(Map<String, Object> event, Exception exception, String entityId, GoonjErrorType goonjErrorType, boolean updateSyncStatus) throws Exception {
         logger.error(String.format("Goonj %s %s could not be synced to Goonj Salesforce. ", entityType, event.get(entityId)), exception);
         ErrorType classifiedErrorType = errorClassifier.classify(goonjContextProvider.get().getIntegrationSystem(),
                 exception, goonjContextProvider.get().getBypassErrors(),  GoonjErrorType.UnclassifiedError.name());
@@ -70,7 +70,7 @@ public abstract class GoonjEventWorker {
             throw exception;
         }
         GoonjErrorType errorType = GoonjErrorType.safeGetValueOf(classifiedErrorType.getName(), goonjErrorType);
-        createOrUpdateErrorRecordAndSyncStatus(event, true, (String) event.get(entityId),
+        createOrUpdateErrorRecordAndSyncStatus(event, updateSyncStatus, (String) event.get(entityId),
                 errorType , exception.getLocalizedMessage());
     }
 

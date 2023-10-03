@@ -42,7 +42,7 @@ public class DemandEventWorker extends GoonjEventWorker implements ErrorRecordWo
             processDemand(event);
             updateErrorRecordAndSyncStatus(event, updateSyncStatus, (String) event.get("DemandId"));
         } catch (Exception e) {
-            handleError(event, e, "DemandId", GoonjErrorType.DemandAttributesMismatch);
+            handleError(event, e, "DemandId", GoonjErrorType.DemandAttributesMismatch, updateSyncStatus);
         }
     }
 
