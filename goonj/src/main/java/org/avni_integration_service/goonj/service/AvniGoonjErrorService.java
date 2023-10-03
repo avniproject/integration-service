@@ -66,7 +66,7 @@ public class AvniGoonjErrorService {
 
     private List<ErrorType> getErrorTypeBy(ErrorTypeFollowUpStep followUpStep) {
         return errorTypeRepository.findByIntegrationSystemIdAndFollowUpStep(
-                goonjContextProvider.get().getIntegrationSystem().getId(), followUpStep);
+                goonjContextProvider.get().getIntegrationSystem().getId(), String.valueOf(followUpStep.ordinal()));
     }
 
     private ErrorRecord saveGoonjError(String uuid, GoonjErrorType goonjErrorType, GoonjEntityType goonjEntityType, String errorMsg) {

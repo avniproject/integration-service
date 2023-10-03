@@ -3,7 +3,6 @@ package org.avni_integration_service.integration_data.repository;
 import org.avni_integration_service.integration_data.domain.IntegrationSystem;
 import org.avni_integration_service.integration_data.domain.error.ErrorRecordLog;
 import org.avni_integration_service.integration_data.domain.error.ErrorType;
-import org.avni_integration_service.integration_data.domain.error.ErrorTypeFollowUpStep;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
