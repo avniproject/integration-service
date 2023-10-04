@@ -11,6 +11,7 @@ import org.avni_integration_service.util.ObjectJsonMapper;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.web.client.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.util.*;
@@ -19,6 +20,8 @@ public abstract class GoonjBaseRepository {
     private static final Logger logger = Logger.getLogger(GoonjBaseRepository.class);
     private static final String DELETION_RECORD_ID = "recordId";
     private static final String DELETION_SOURCE_ID = "sourceId";
+    public static final String API_QUERY_PARAM_ACCOUNT_KEY = "account";
+    public static final String API_QUERY_PARAM_ACCOUNT_VALUE = "Goonj Palghar";
     private final IntegratingEntityStatusRepository integratingEntityStatusRepository;
     private final RestTemplate goonjRestTemplate;
     private final String entityType;
@@ -46,15 +49,27 @@ public abstract class GoonjBaseRepository {
 
     }
 
-    protected <T> T getResponse(Date dateTime, String resource,  Class<T> returnType, String dateTimeParam) {
-        URI uri = URI.create(String.format("%s/%s?%s=%s", goonjContextProvider.get().getAppUrl(), resource,
-                dateTimeParam, DateTimeUtil.formatDateTime(dateTime)));
+    protected <T> T getResponse(Date dateTime, String resource, Class<T> returnType, String dateTimeParam) {
+        HashMap<String, String> queryParams = new HashMap<>();
+        queryParams.put(dateTimeParam, DateTimeUtil.formatDateTime(dateTime));
+        //TODO Make this GET Goonj Entities param filter configurable
+        queryParams.put(API_QUERY_PARAM_ACCOUNT_KEY, API_QUERY_PARAM_ACCOUNT_VALUE);
+        URI uri = getUri(String.format("%s/%s", goonjContextProvider.get().getAppUrl(), resource), queryParams);
         ResponseEntity<T> responseEntity = goonjRestTemplate.exchange(uri, HttpMethod.GET, null, returnType);
         if(responseEntity.getStatusCode().is2xxSuccessful()) {
             return responseEntity.getBody();
         }
         logger.error(String.format("Failed to fetch data for resource %s, response status code is %s", resource, responseEntity.getStatusCode()));
         throw new HttpServerErrorException(responseEntity.getStatusCode());
+    }
+
+    private URI getUri(String url, HashMap<String, String> queryParams) {
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url);
+        for (var entry : queryParams.entrySet()) {
+            builder.queryParam(entry.getKey(), entry.getValue());
+        }
+        URI uri = builder.build().toUri();
+        return uri;
     }
 
     /**
