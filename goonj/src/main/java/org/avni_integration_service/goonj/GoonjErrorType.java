@@ -10,7 +10,8 @@ public enum GoonjErrorType {
     ImplementationInventoryAttributesMismatch, UnclassifiedError,
     BadValueForRestrictedPicklist, MustNotHave2SimilarElements,
     FieldCustomValidationException, AnswerMappingIsNull,
-    TargetCommunityIsNullError, ClassCastException;
+    TargetCommunityIsNullError, ClassCastException,
+    InvalidAddressError;
 
     public static GoonjErrorType safeGetValueOf(String stringValue, GoonjErrorType fallback) {
         for (GoonjErrorType ge : GoonjErrorType.values()) {
