@@ -51,18 +51,27 @@ public class ErrorRecord extends BaseIntegrationSpecificEntity {
         this.entityId = entityId;
     }
 
+    public boolean hasThisAsLastErrorTypeFollowUpStep(ErrorTypeFollowUpStep followUpStep) {
+        ErrorRecordLog errorRecordLog = getLastErrorRecordLog();
+        return errorRecordLog.getErrorType().getFollowUpStep().equals(followUpStep);
+    }
+
     public boolean hasThisAsLastErrorType(ErrorType errorType) {
         return hasThisAsLastErrorTypeAndErrorMessage(errorType, null);
     }
 
     public boolean hasThisAsLastErrorTypeAndErrorMessage(ErrorType errorType, String errorMsg) {
-        ErrorRecordLog errorRecordLog = this.errorRecordLogs.stream().sorted(Comparator.comparing(BaseEntity::getId))
-                .reduce((first, second) -> second).orElse(null);
+        ErrorRecordLog errorRecordLog = getLastErrorRecordLog();
         boolean errorTypesAreSame = Objects.equals(errorRecordLog.getErrorType(), errorType);
         boolean errorMsgsAreSame = (StringUtils.hasText(errorMsg) && StringUtils.hasText(errorRecordLog.getErrorMsg()))
                     && errorMsg.equals(errorRecordLog.getErrorMsg());
         boolean errorMsgsAreNotPresent = (!StringUtils.hasText(errorMsg) && !StringUtils.hasText(errorRecordLog.getErrorMsg()));
         return errorTypesAreSame && (errorMsgsAreSame || errorMsgsAreNotPresent);
+    }
+
+    private ErrorRecordLog getLastErrorRecordLog() {
+        return this.errorRecordLogs.stream().sorted(Comparator.comparing(BaseEntity::getId))
+                .reduce((first, second) -> second).orElse(null);
     }
 
     public void addErrorType(ErrorType errorType) {

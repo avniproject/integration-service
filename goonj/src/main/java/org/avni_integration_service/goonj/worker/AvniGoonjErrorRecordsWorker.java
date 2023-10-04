@@ -28,6 +28,7 @@ import org.springframework.stereotype.Component;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Component
 public class AvniGoonjErrorRecordsWorker {
@@ -75,10 +76,14 @@ public class AvniGoonjErrorRecordsWorker {
             else if (syncDirection.equals(SyncDirection.GoonjToAvni) && allErrors)
                 errorRecordPage = errorRecordRepository.findAllByIntegratingEntityTypeNotNullAndErrorRecordLogsErrorTypeNotInAndIntegrationSystemIdOrderById(
                         avniGoonjErrorService.getUnprocessableErrorTypes(), integrationSystemId, pageRequest);
-            else
+            else {
                 throw new RuntimeException("Invalid arguments");
+            }
 
-            List<ErrorRecord> errorRecords = errorRecordPage.getContent();
+            List<ErrorRecord> errorRecords = errorRecordPage.getContent().stream()
+                    .distinct()
+                    .filter(er -> !er.hasThisAsLastErrorTypeFollowUpStep(ErrorTypeFollowUpStep.Terminal))
+                    .collect(Collectors.toList());
             for (ErrorRecord errorRecord : errorRecords) {
                 ErrorRecordWorker errorRecordWorker = getErrorRecordWorker(errorRecord);
                 errorRecordWorker.processError(errorRecord.getEntityId());
