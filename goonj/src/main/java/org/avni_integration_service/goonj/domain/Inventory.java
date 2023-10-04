@@ -15,17 +15,18 @@ import java.util.stream.Collectors;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Inventory implements GoonjEntity {
 
-        private static final String InventoryStateField = "CenterFieldOfficeState";
+    private static final String InventoryStateField = "CenterFieldOfficeState";
     private static final String InventoryDistrictField = "CenterFieldOfficeDistrict";
     private static final String InventoryLastModifiedBy = "LastModifiedBy";
     private static final String InventoryNameField = "ImplementationInventoryName";
     private static final String InventoryIdField = "ImplementationInventoryId";
-    private static final String InventoryDateField = "LastModifiedDate";
+    private static final String LastModifiedDate = "LastModifiedDate";
+    private static final String InventoryDateField = "DateOfReceiving";
     private static final String InventoryCreatedBy = "CreatedBy";
     private static final String InventoryIsVoidedField = "IsVoided";
     private static final String InventorySourceOfMaterialField = "SourceOfMaterial";
     private static final List<String> Core_Fields = Arrays.asList(InventoryStateField, InventoryDistrictField,
-            InventoryLastModifiedBy, InventoryNameField, InventoryIdField, InventoryDateField,
+            InventoryLastModifiedBy, InventoryNameField, InventoryIdField, LastModifiedDate, InventoryDateField,
             InventoryCreatedBy, InventoryIsVoidedField);
     private static final List<String> Ignored_Fields = Arrays.asList(InventorySourceOfMaterialField);
     public static final String KIT = "Kit";
@@ -49,7 +50,7 @@ public class Inventory implements GoonjEntity {
     public Subject subjectWithoutObservations() {
         Subject subject = new Subject();
         subject.setSubjectType("Inventory Item");
-        Date InventoryDate = DateTimeUtil.offsetTimeZone(new Date(), DateTimeUtil.UTC, DateTimeUtil.IST);
+        Date InventoryDate = DateTimeUtil.convertToDateFromGoonjDateString(MapUtil.getString(InventoryDateField, response));
         subject.setRegistrationDate(InventoryDate);
         subject.setAddress(getAddress(InventoryStateField, InventoryDistrictField, response));
         subject.setFirstName(MapUtil.getString(InventoryNameField, response));
@@ -65,14 +66,11 @@ public class Inventory implements GoonjEntity {
             sourceOfMaterial = KIT;
         } else if (sourceOfMaterial.equals(PURCHASED)) {
             sourceOfMaterial = PURCHASED_ITEM;
-        }
-        else if (sourceOfMaterial.equals(CONTRIBUTED)) {
+        } else if (sourceOfMaterial.equals(CONTRIBUTED)) {
             sourceOfMaterial = CONTRIBUTED_ITEM;
-        }
-        else if (sourceOfMaterial.equals(CONTRIBUTED_TRACK)) {
+        } else if (sourceOfMaterial.equals(CONTRIBUTED_TRACK)) {
             sourceOfMaterial = CONTRIBUTED_TRACK1;
-        }
-        else if (sourceOfMaterial.equals(GOONJ_PRODUCT)) {
+        } else if (sourceOfMaterial.equals(GOONJ_PRODUCT)) {
             sourceOfMaterial = GOONJ_PRODUCT1;
         }
         subject.addObservation(TYPE_OF_MATERIAL, sourceOfMaterial);
