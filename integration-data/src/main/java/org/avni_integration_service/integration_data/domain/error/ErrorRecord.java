@@ -56,13 +56,13 @@ public class ErrorRecord extends BaseIntegrationSpecificEntity {
     }
 
     public boolean hasThisAsLastErrorTypeAndErrorMessage(ErrorType errorType, String errorMsg) {
-        ErrorRecordLog errorRecordLog = this.errorRecordLogs.stream().sorted(Comparator.comparing(BaseEntity::getId)).reduce((first, second) -> second).orElse(null);
-        if(StringUtils.hasText(errorMsg)) {
-            return Objects.equals(errorRecordLog.getErrorType(), errorType)
+        ErrorRecordLog errorRecordLog = this.errorRecordLogs.stream().sorted(Comparator.comparing(BaseEntity::getId))
+                .reduce((first, second) -> second).orElse(null);
+        boolean errorTypesAreSame = Objects.equals(errorRecordLog.getErrorType(), errorType);
+        boolean errorMsgsAreSame = (StringUtils.hasText(errorMsg) && StringUtils.hasText(errorRecordLog.getErrorMsg()))
                     && errorMsg.equals(errorRecordLog.getErrorMsg());
-        } else {
-            return Objects.equals(errorRecordLog.getErrorType(), errorType);
-        }
+        boolean errorMsgsAreNotPresent = (!StringUtils.hasText(errorMsg) && !StringUtils.hasText(errorRecordLog.getErrorMsg()));
+        return errorTypesAreSame && (errorMsgsAreSame || errorMsgsAreNotPresent);
     }
 
     public void addErrorType(ErrorType errorType) {
