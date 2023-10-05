@@ -26,11 +26,11 @@ public class HealthCheckService {
     }
 
     public void ping(String slug, Status status) {
+        logger.info("Health check ping for slug:"+ slug+" status: "+ status);
         try {
             if (!healthCheckPingKey.equals("dummy"))
                 restTemplate.exchange(URI.create(String.format("%s/%s/%s/%s", PING_BASE_URL, healthCheckPingKey, slug, status.getValue())), HttpMethod.GET, null, String.class);
-        }
-        catch(Exception e) {
+        } catch(Exception e) {
             logger.error("Health check ping failed:", e);
         }
     }

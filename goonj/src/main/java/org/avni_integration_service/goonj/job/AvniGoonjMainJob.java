@@ -78,18 +78,23 @@ public class AvniGoonjMainJob {
             processInventory(tasks);
             healthCheckService.success(goonjConfig.getIntegrationSystem().getName().toLowerCase());
         } catch (Throwable e) {
-            healthCheckService.failure(goonjConfig.getIntegrationSystem().getName().toLowerCase());
             logger.error("Failed AvniGoonjMainJob", e);
             bugsnag.notify(e);
+            healthCheckService.failure(goonjConfig.getIntegrationSystem().getName().toLowerCase());
         } finally {
             performAdditionalHealthChecks();
         }
     }
 
     private void performAdditionalHealthChecks() {
-        Map<ErrorTypeFollowUpStep, Long> errorTypeFollowUpStepLongMap = errorRecordsWorker.evaluateNewErrors();
-        pingGoonjInternalHealthCheckStatus(errorTypeFollowUpStepLongMap, ErrorTypeFollowUpStep.Internal, GoonjConstants.HEALTHCHECK_SLUG_GOONJ_INTEGRATION);
-        pingGoonjInternalHealthCheckStatus(errorTypeFollowUpStepLongMap, ErrorTypeFollowUpStep.External, GoonjConstants.HEALTHCHECK_SLUG_GOONJ_SALESFORCE);
+        try {
+            Map<ErrorTypeFollowUpStep, Long> errorTypeFollowUpStepLongMap = errorRecordsWorker.evaluateNewErrors();
+            pingGoonjInternalHealthCheckStatus(errorTypeFollowUpStepLongMap, ErrorTypeFollowUpStep.Internal, GoonjConstants.HEALTHCHECK_SLUG_GOONJ_INTEGRATION);
+            pingGoonjInternalHealthCheckStatus(errorTypeFollowUpStepLongMap, ErrorTypeFollowUpStep.External, GoonjConstants.HEALTHCHECK_SLUG_GOONJ_SALESFORCE);
+        } catch (Throwable e) {
+            logger.error("Failed performing additional health checks", e);
+            bugsnag.notify(e);
+        }
     }
 
     private void pingGoonjInternalHealthCheckStatus(Map<ErrorTypeFollowUpStep, Long> errorTypeFollowUpStepLongMap, ErrorTypeFollowUpStep errorTypeFollowUpStep, String slug) {
