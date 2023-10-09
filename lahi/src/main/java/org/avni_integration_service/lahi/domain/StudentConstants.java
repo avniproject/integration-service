@@ -29,6 +29,7 @@ public interface StudentConstants {
     String FATHER_NAME = "avni_father_name";
     String STREAM = "avni_stream";
     String QUALIFICATION_STREAM = "avni_other_qualification_stream";
+    String FLOWRESULT_ID = "flowresult_id";
 
     List<String> ResultFieldList =
             Arrays.asList(
@@ -52,7 +53,8 @@ public interface StudentConstants {
                     TRADE,
                     AVNI_OPTIN,
                     STREAM,
-                    QUALIFICATION_STREAM
+                    QUALIFICATION_STREAM,
+                    FLOWRESULT_ID
             );
 
     List<String> MandatoryField =

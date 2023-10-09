@@ -17,6 +17,8 @@ public interface LahiMappingDbConstants {
             entry("Does student give permission to LAHI to Send Whatsapp/SMS/Call for any career opportunities?","Yes"),
             entry("Career options you are interested in", Arrays.asList("Other")),
             entry("User","LAHI Program Team"),
-            entry("Student/Trainee Type","Regular")
+            entry("Student/Trainee Type","Regular"),
+            entry("Registration Source","Glific"),
+            entry("Trade/Sector","Other")
     );
 }

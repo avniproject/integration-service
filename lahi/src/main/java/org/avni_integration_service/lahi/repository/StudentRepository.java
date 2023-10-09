@@ -22,10 +22,13 @@ public class StudentRepository {
 
 
     public void insert(List<Subject> list){
-            logger.info("inserting record !!!!!");
             //todo 1. handle error during create for one subject//
             //todo 2. Should we stop processing or proceed to next student, design decision.?
+            logger.info("inserting multiple records !!!!!");
             list.forEach(avniSubjectRepository::create);
-
+    }
+    public void insert(Subject subject){
+        logger.info("inserting single record !!!!!");
+        avniSubjectRepository.create(subject);
     }
 }

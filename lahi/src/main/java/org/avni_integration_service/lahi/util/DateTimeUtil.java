@@ -2,6 +2,8 @@ package org.avni_integration_service.lahi.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class DateTimeUtil {
@@ -21,11 +23,26 @@ public class DateTimeUtil {
         return null;
     }
 
+    public static LocalDate toLocalDate(String dateString,String format){
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern(format);
+        try {
+            LocalDate date = LocalDate.parse(dateString,dtf);
+            return date;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public static Date registrationDate(String dateString){
         return toDate(dateString,REGISTRATION_DATE);
     }
 
     public static Date dateOfBirth(String dateString){
         return toDate(dateString,DATE_OF_BIRTH);
+    }
+
+    public static LocalDate dob(String dateString){
+        return toLocalDate(dateString,DATE_OF_BIRTH);
     }
 }

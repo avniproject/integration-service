@@ -1,18 +1,17 @@
 package org.avni_integration_service.lahi.service;
 
-import com.google.cloud.bigquery.FieldValueList;
-import com.google.cloud.bigquery.TableResult;
 import org.apache.log4j.Logger;
 import org.avni_integration_service.avni.domain.ObservationHolder;
-import org.avni_integration_service.avni.domain.Subject;
+import org.avni_integration_service.integration_data.domain.MappingMetaData;
+import org.avni_integration_service.integration_data.domain.framework.MappingException;
 import org.avni_integration_service.integration_data.repository.IntegrationSystemRepository;
 import org.avni_integration_service.integration_data.repository.MappingMetaDataRepository;
+import org.avni_integration_service.lahi.config.LahiMappingDbConstants;
+import org.avni_integration_service.lahi.domain.LahiEntity;
+import org.avni_integration_service.util.ObsDataType;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class LahiMappingMetadataService {
@@ -27,30 +26,28 @@ public class LahiMappingMetadataService {
         this.integrationSystemRepository = integrationSystemRepository;
     }
 
-    //todo remove this dummy method
-    public List<Subject> mappingMetadata(TableResult tableResult){
-        logger.info("mappingMetadata is started !!!!!!!!!");
-        List<Subject> doctorList = new LinkedList<>();
-        for (FieldValueList row : tableResult.iterateAll()) {
-            // String type
-            String name = row.get("name").getStringValue();
-            String age = row.get("age").getNumericValue().toPlainString();
-            logger.info(String.format("%s is of the age %s \n", name, age));
-            Subject subject = new Subject();
-            subject.setSubjectType("Doctor");
-            subject.setFirstName(name);
-            subject.setGender("Male");
-            Date date = new Date();
-            subject.setRegistrationDate(date);
-            subject.setAddress("Sample Location");
-            doctorList.add(subject);
+    public  void populateObservations(ObservationHolder observationHolder, LahiEntity lahiEntity, String mappingGroup) {
+        List<String> observationFields = lahiEntity.getObservationFields();
+        for (String obsField : observationFields) {
+            MappingMetaData mapping = mappingMetaDataRepository.getAvniMappingIfPresent(mappingGroup, LahiMappingDbConstants.MAPPINGTYPE_OBS, obsField, 5);
+            if(mapping == null) {
+                logger.error("Mapping entry not found for observation field: " + obsField);
+                continue;
+            }
+            ObsDataType dataTypeHint = mapping.getDataTypeHint();
+            if (dataTypeHint == null)
+                observationHolder.addObservation(mapping.getAvniValue(), lahiEntity.getValue(obsField));
+            else if (dataTypeHint == ObsDataType.Coded && lahiEntity.getValue(obsField) != null) {
+                MappingMetaData answerMapping = mappingMetaDataRepository.getAvniMappingIfPresent(mappingGroup, LahiMappingDbConstants.MAPPINGTYPE_OBS, lahiEntity.getValue(obsField).toString(), 5);
+                if(answerMapping == null) {
+                    String errorMessage = "Answer Mapping entry not found for coded concept answer field: " + obsField;
+                    logger.error(errorMessage);
+                    throw new MappingException(errorMessage);
+                }
+                observationHolder.addObservation(mapping.getAvniValue(), answerMapping.getAvniValue());
+            }
         }
-        return doctorList;
+        // TODO: 22/09/23 Handle Other qualifications and Other qualification stream
     }
-
-    public void populateObservation(ObservationHolder observationHolder, Map<String,Object> glificStudent){
-        //TODO
-    }
-
 
 }
