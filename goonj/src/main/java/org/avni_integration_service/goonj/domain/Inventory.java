@@ -21,7 +21,7 @@ public class Inventory implements GoonjEntity {
     private static final String InventoryNameField = "ImplementationInventoryName";
     private static final String InventoryIdField = "ImplementationInventoryId";
     private static final String LastModifiedDate = "LastModifiedDate";
-    private static final String InventoryDateField = "DateOfReceiving";
+    private static final String InventoryDateField = "CreatedDate";
     private static final String InventoryCreatedBy = "CreatedBy";
     private static final String InventoryIsVoidedField = "IsVoided";
     private static final String InventorySourceOfMaterialField = "SourceOfMaterial";
@@ -30,6 +30,7 @@ public class Inventory implements GoonjEntity {
             InventoryCreatedBy, InventoryIsVoidedField);
     private static final List<String> Ignored_Fields = Arrays.asList(InventorySourceOfMaterialField);
     public static final String KIT = "Kit";
+    public static final String IMPLEMENTATION_INVENTORY_ID = "Implementation Inventory Id";
     public static final String TYPE_OF_MATERIAL = "Type Of Material";
     public static final String PURCHASED = "Purchased";
     public static final String PURCHASED_ITEM = "Purchased item";
@@ -54,7 +55,9 @@ public class Inventory implements GoonjEntity {
         subject.setRegistrationDate(InventoryDate);
         subject.setAddress(getAddress(InventoryStateField, InventoryDistrictField, response));
         subject.setFirstName(MapUtil.getString(InventoryNameField, response));
-        subject.setExternalId(MapUtil.getString(InventoryIdField, response));
+        String implementationInventoryId = MapUtil.getString(InventoryIdField, response);
+        subject.setExternalId(implementationInventoryId);
+        subject.addObservation(IMPLEMENTATION_INVENTORY_ID, implementationInventoryId);
         subject.setVoided(MapUtil.getBoolean(InventoryIsVoidedField, response));
         initializeSourceOfMaterial(subject);
         return subject;
