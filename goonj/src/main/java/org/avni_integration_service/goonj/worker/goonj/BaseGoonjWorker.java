@@ -29,8 +29,10 @@ public abstract class BaseGoonjWorker {
     protected List<String> fetchDeletionEvents() {
         List<String> deletionEvents = crudRepository.fetchDeletionEvents();
         if(deletionEvents == null) {
+            logger.info("No entities to delete");
             return new ArrayList<>();
         }
+        logger.info(String.format("Deleting %d number of entities", fetchDeletionEvents().size()));
         return deletionEvents;
     }
 

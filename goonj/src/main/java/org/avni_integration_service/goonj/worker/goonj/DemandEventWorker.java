@@ -71,7 +71,7 @@ public class DemandEventWorker extends GoonjEventWorker implements ErrorRecordWo
 
     private void processDemandDeletion(String deletedEntity) {
         try {
-            logger.debug(String.format("Processing demand deletion: externalId %s", deletedEntity));
+            logger.info(String.format("Processing demand deletion: externalId %s", deletedEntity));
             avniSubjectRepository.delete(deletedEntity);
         } catch (HttpClientErrorException.NotFound e) {
             logger.error(String.format("Failed to delete non-existent demand: externalId %s", deletedEntity));

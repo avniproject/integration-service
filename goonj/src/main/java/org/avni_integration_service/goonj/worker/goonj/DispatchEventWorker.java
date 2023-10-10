@@ -97,7 +97,7 @@ public class DispatchEventWorker extends GoonjEventWorker implements ErrorRecord
 
     private void processDispatchDeletion(String deletedEntity) {
         try {
-            logger.debug(String.format("Processing dispatch deletion: externalId %s", deletedEntity));
+            logger.info(String.format("Processing dispatch deletion: externalId %s", deletedEntity));
             avniSubjectRepository.delete(deletedEntity);
         } catch (HttpClientErrorException.NotFound e) {
             logger.error(String.format("Failed to delete non-existent dispatch: externalId %s", deletedEntity));
