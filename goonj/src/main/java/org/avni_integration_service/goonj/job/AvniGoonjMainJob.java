@@ -106,7 +106,6 @@ public class AvniGoonjMainJob {
         try {
             if (hasTask(tasks, IntegrationTask.GoonjDemand)) {
                 logger.info("Processing GoonjDemand");
-                demandWorker.process();
                 /*
                   We are triggering deletion tagged along with Demand creations, as the Goonj System sends
                   the Deleted Demands info as part of the same getDemands API, but as a separate list,
@@ -114,10 +113,10 @@ public class AvniGoonjMainJob {
                   Therefore, we invoke the Delete API for subject using DemandId as externalId to mark a Demand as Voided.
                  */
                 demandWorker.processDeletions();
+                demandWorker.process();
             }
             if (hasTask(tasks, IntegrationTask.GoonjDispatch)) {
                 logger.info("Processing GoonjDispatch");
-                dispatchWorker.process();
                 /*
                   We are triggering deletion tagged along with DispatchStatus creations, as the Goonj System sends
                   the Deleted DispatchStatuses info as part of the same getDispatchStatus API, but as a separate list,
@@ -125,8 +124,9 @@ public class AvniGoonjMainJob {
                   Therefore, we invoke the Delete API for DispatchStatus using DispatchStatusId as externalId to mark a DispatchStatus as Voided.
                  */
                 dispatchWorker.processDeletions();
-                // Todo: Dispatch line items to  be deleted!
                 dispatchWorker.processDispatchLineItemDeletions();
+                dispatchWorker.process();
+
             }
         } catch (Throwable e) {
             logger.error("Failed processDemandAndDispatch", e);
@@ -166,8 +166,8 @@ public class AvniGoonjMainJob {
         try {
             if (hasTask(tasks, IntegrationTask.GoonjInventory)) {
                 logger.info("Processing GoonjInventory");
-                inventoryWorker.process();
                 inventoryWorker.processDeletions();
+                inventoryWorker.process();
             }
         } catch (Throwable e) {
             logger.error("Failed processInventory", e);

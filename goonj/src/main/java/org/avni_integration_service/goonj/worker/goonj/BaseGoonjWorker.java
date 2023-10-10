@@ -32,7 +32,7 @@ public abstract class BaseGoonjWorker {
             logger.info("No entities to delete");
             return new ArrayList<>();
         }
-        logger.info(String.format("Deleting %d number of entities", fetchDeletionEvents().size()));
+        logger.info(String.format("Deleting %d number of entities", deletionEvents.size()));
         return deletionEvents;
     }
 
