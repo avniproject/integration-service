@@ -16,7 +16,7 @@ public class StudentWorker {
 
     public void fetchDetails() throws InterruptedException {
         logger.info("fetch detail starting !!!!!!!!!!");
-        studentService.extractDatafromBigdata();
+        studentService.extractDataFromBigdata();
         logger.info("fetching ended");
     }
 

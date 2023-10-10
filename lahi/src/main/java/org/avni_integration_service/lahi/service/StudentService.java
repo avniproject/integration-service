@@ -2,124 +2,165 @@ package org.avni_integration_service.lahi.service;
 
 import com.google.cloud.bigquery.TableResult;
 import org.avni_integration_service.avni.domain.Subject;
+import org.avni_integration_service.integration_data.domain.IntegratingEntityStatus;
+import org.avni_integration_service.integration_data.repository.IntegratingEntityStatusRepository;
 import org.avni_integration_service.lahi.config.LahiMappingDbConstants;
 import org.avni_integration_service.lahi.domain.Student;
 import org.avni_integration_service.lahi.domain.StudentValidator;
 import org.avni_integration_service.lahi.repository.StudentRepository;
+import org.avni_integration_service.lahi.util.DateTimeUtil;
 import org.springframework.stereotype.Service;
 import org.apache.log4j.Logger;
+
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import static org.avni_integration_service.lahi.domain.StudentConstants.DATE_OF_BIRTH;
+import static org.avni_integration_service.lahi.domain.StudentConstants.DATE_OF_REGISTRATION;
 
 @Service
 public class StudentService {
+    public static final String ENTITYTYPE = "Student";
     private final StudentMappingService studentMappingService;
     private final DataExtractorService dataExtractorService;
     private final StudentValidator studentValidator;
     private final StudentRepository studentRepository;
-    public static final String BULK_FETCH_QUERY = "select fr.contact_phone, fr.results,fr.id as flowresult_id, s.inserted_at\n" +
-            "from `glific-lms-lahi.918956411022.contacts` c, UNNEST(c.fields) AS s\n" +
-            "join `glific-lms-lahi.918956411022.flow_results` fr \n" +
-            "on fr.contact_phone = c.phone \n" +
-            "WHERE\n" +
-            "(s.label, s.value) = ('avni_reg_complete', 'Yes')\n" +
-            "AND\n" +
-            "fr.name = 'Avni Students Registrations Flow'\n" +
-            "AND \n" +
-            "s.inserted_at >= @updated_at\n" +
-            "order by s.inserted_at\n" +
-            "limit @limit_count\n" +
-            "offset 0\n";
+    private final IntegratingEntityStatusRepository integratingEntityStatusRepository;
+    public static final String BULK_FETCH_QUERY = """
+            select fr.contact_phone, fr.results,fr.id as flowresult_id, s.inserted_at
+            from `glific-lms-lahi.918956411022.contacts` c, UNNEST(c.fields) AS s
+            join `glific-lms-lahi.918956411022.flow_results` fr\s
+            on fr.contact_phone = c.phone\s
+            WHERE
+            (s.label, s.value) = ('avni_reg_complete', 'Yes')
+            AND
+            fr.name = 'Avni Students Registrations Flow'
+            AND\s
+            s.inserted_at >= @updated_at
+            order by s.inserted_at
+            limit @limit_count
+            offset 0
+            """;
 
-    public static final int LIMIT = 10;
+    public static final int LIMIT = 1000;
     private static final Logger logger = Logger.getLogger(StudentService.class);
 
-
-    public StudentService(StudentMappingService studentMappingService, DataExtractorService dataExtractorService, StudentValidator studentValidator, StudentRepository studentRepository) {
+    public StudentService(StudentMappingService studentMappingService,
+                          DataExtractorService dataExtractorService,
+                          StudentValidator studentValidator,
+                          StudentRepository studentRepository,
+                          IntegratingEntityStatusRepository integratingEntityStatusRepository) {
         this.studentMappingService = studentMappingService;
         this.dataExtractorService = dataExtractorService;
         this.studentValidator = studentValidator;
         this.studentRepository = studentRepository;
+        this.integratingEntityStatusRepository = integratingEntityStatusRepository;
     }
 
-    public void extractDatafromBigdata(){
-        TableResult response   = null;
+    public void extractDataFromBigdata(){
         try {
-            response = dataExtractorService.queryWithPagination(BULK_FETCH_QUERY,"2023-07-28T12:15:40", LIMIT);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            // TODO: 10/10/23 get date avni_entity_status
+            String fetchtime = getIntegratingEntityStatus().getReadUptoDateTime().toString();
+            TableResult response = dataExtractorService.queryWithPagination(BULK_FETCH_QUERY,fetchtime, LIMIT);
+            List<Map<String,Object>> filterData = dataExtractorService.filterData(response);
+            logger.info(String.format("%s Data get after fetching from glific",filterData.size()));
+            splitAndProcess(filterData);
+        } catch (Throwable t) {
+            //TODO invoke LAHI Failure HealthCheck
         }
-        List<Map<String,Object>> filterData = dataExtractorService.filterData(response);
-        logger.info(String.format("%s Data get after fetching from glific",filterData.size()));
-        spliter(filterData);
     }
 
-    private void spliter(List<Map<String,Object>> filterData){
-        logger.info("Spliting the record");
-        filterData.stream().forEach(data->{
-            processing(data);
-        });
+    private void splitAndProcess(List<Map<String,Object>> filterData){
+        logger.info("Splitting the record and doing next step !!!");
+        filterData.forEach(this::processing);
     }
 
-    public void processing(Map<String,Object> data){
-        boolean flag = preprocessing(data);
-        if(flag){
-            logger.info("preprocessing completed going for syncprocessing");
+    private void processing(Map<String,Object> data){
+        try {
+            logger.info("record preprocessing started");
+            preprocessing(data);
+            logger.info("record syncprocessing started");
             syncprocessing(data);
+            logger.info("record postprocessing started");
+            postprocessing();
+        } catch (Throwable t) {
+            //TODO handle error by creating errorRecord
         }
     }
+
 
     /*
+
     in preprocessing we will handle
     mandatory field check
-    validation
-     */
-    public boolean preprocessing(Map<String,Object> data){
+    validation of age
 
-        try {
-            if(checkAge(data)){
-                return true;
-            }else {
-                // TODO: 09/10/23 add data to error log
-                logger.info("age is not satisfied");
-                return  false;
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+    */
+    private void preprocessing(Map<String,Object> data){
+        checkAge(data);
+        //TODO introduce additional validations
     }
 
-    // TODO: 09/10/23 check mandatory field
-    private void checkMandatory(List<Map<String,Object>> filterData){
-       filterData =  filterData.stream().filter(map -> studentValidator.validateMandatoryField(map)).toList();
+    private void checkMandatory(Map<String,Object> data){
+       studentValidator.validateMandatoryField(data);
     }
 
-    private boolean checkAge(Map<String,Object> data) throws Exception {
-        boolean flag = studentValidator.checkAge(data.get(DATE_OF_BIRTH).toString());
-        if(!flag)
-            throw new Exception("Age is not valid");
-        return flag;
+    private void checkAge(Map<String,Object> data) {
+        studentValidator.checkAge(data.get(DATE_OF_BIRTH).toString());
     }
 
 
-    /*
-    In syncprocessing we are doing following task
-    set subject field
-    set observation field
-    set other field
-     */
-    public void syncprocessing(Map<String,Object> data){
+/*
+
+In syncprocessing we are doing following task
+set subject field
+set observation field
+set other field
+
+*/
+    private void syncprocessing(Map<String,Object> data){
             Student student = Student.from(data);
             Subject subject = student.subjectWithoutObservations();
             studentMappingService.populateObservations(subject,student, LahiMappingDbConstants.MAPPINGGROUP_STUDENT);
             studentMappingService.setOtherObservation(subject,student);
-            insert(subject);
+            insert(subject,student);
     }
 
-    public void insert(Subject subject){
-         studentRepository.insert(subject);
+/*
+
+In postprocessing
+updating integrating_entity_status
+
+*/
+    private void postprocessing() {
+//        updateIntegrationStatus(new Date());
     }
+
+    private void updateIntegrationStatus(Date readUptoDateTime){
+        IntegratingEntityStatus integratingEntityStatus = getIntegratingEntityStatus();
+        // TODO: 10/10/23 getFetching record
+        integratingEntityStatus.setReadUptoDateTime(readUptoDateTime);
+        integratingEntityStatusRepository.save(integratingEntityStatus);
+        logger.info(String.format("Updating integrating_entity_status with %s date",integratingEntityStatus.getReadUptoDateTime()));
+    }
+
+
+    private void insert(Subject subject, Student student){
+         studentRepository.insert(subject);
+         Date date = DateTimeUtil.registrationDate(student.getResponse().get(DATE_OF_REGISTRATION).toString());
+         logger.info("date is================>"+date);
+         updateIntegrationStatus(date);
+    }
+
+    private IntegratingEntityStatus getIntegratingEntityStatus(){
+        IntegratingEntityStatus integratingEntityStatus = integratingEntityStatusRepository.findByEntityType(ENTITYTYPE);
+        if(integratingEntityStatus == null) {
+            throw new RuntimeException("unable to find IntegratingEntityStatus");
+        }
+        return integratingEntityStatus;
+    }
+
+
 
 }
