@@ -11,7 +11,8 @@ public enum GoonjErrorType {
     BadValueForRestrictedPicklist, MustNotHave2SimilarElements,
     FieldCustomValidationException, AnswerMappingIsNull,
     TargetCommunityIsNullError, ClassCastException,
-    InvalidAddressError;
+    InvalidAddressError, AnswerMappingNotFoundForCodedConcept,
+    BadGateway;
 
     public static GoonjErrorType safeGetValueOf(String stringValue, GoonjErrorType fallback) {
         for (GoonjErrorType ge : GoonjErrorType.values()) {
