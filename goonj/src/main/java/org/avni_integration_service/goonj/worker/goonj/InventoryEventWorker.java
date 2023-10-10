@@ -88,7 +88,7 @@ public class InventoryEventWorker extends GoonjEventWorker implements ErrorRecor
 
     private void processInventoryDeletion(String deletedEntity) {
         try {
-            logger.debug(String.format("Processing inventory deletion: externalId %s", deletedEntity));
+            logger.info(String.format("Processing inventory deletion: externalId %s", deletedEntity));
             avniSubjectRepository.delete(deletedEntity);
         } catch (HttpClientErrorException.NotFound e) {
             logger.error(String.format("Failed to delete non-existent inventory: externalId %s", deletedEntity));

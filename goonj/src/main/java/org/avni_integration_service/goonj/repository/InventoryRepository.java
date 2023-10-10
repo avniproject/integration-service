@@ -29,7 +29,7 @@ public class InventoryRepository extends GoonjBaseRepository {
 
     @Override
     public List<String> fetchDeletionEvents() {
-        return Arrays.stream(getInventoryItemsDTOS(getCutOffDateTime()).getDeletedItemsDTOS()).filter(obj -> obj instanceof String).map(obj -> (String) obj).collect(Collectors.toList());
+        return getInventoryItemsDTOS(getCutOffDateTime()).getDeletedItemsDTOS();
     }
 
     @Override

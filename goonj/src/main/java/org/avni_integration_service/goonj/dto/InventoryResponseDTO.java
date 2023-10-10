@@ -4,9 +4,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({"ImplementationInventory", "deletedImplementationInventory"})
@@ -15,7 +14,7 @@ public class InventoryResponseDTO {
     @JsonProperty("ImplementationInventory")
     private HashMap<String, Object>[] inventoryItemsDTOS = null;
     @JsonProperty("deletedImplementationInventory")
-    private Object[] deletedItemsDTOS = null;
+    private List<String> deletedItemsDTOS = null;
 
     /**
      * No args constructor for use in serialization
@@ -27,7 +26,7 @@ public class InventoryResponseDTO {
      * @param inventoryItemsDTOS
      * @param deletedItemsDTOS
      */
-    public InventoryResponseDTO(HashMap<String, Object>[] inventoryItemsDTOS, Object[] deletedItemsDTOS) {
+    public InventoryResponseDTO(HashMap<String, Object>[] inventoryItemsDTOS, List<String> deletedItemsDTOS) {
         super();
         this.inventoryItemsDTOS = inventoryItemsDTOS;
         this.deletedItemsDTOS = deletedItemsDTOS;
@@ -44,12 +43,12 @@ public class InventoryResponseDTO {
     }
 
     @JsonProperty("deletedImplementationInventory")
-    public Object[] getDeletedItemsDTOS() {
+    public List<String> getDeletedItemsDTOS() {
         return deletedItemsDTOS;
     }
 
     @JsonProperty("deletedImplementationInventory")
-    public void setDeletedItemsDTOS(Object[] deletedItemsDTOS) {
+    public void setDeletedItemsDTOS(List<String> deletedItemsDTOS) {
         this.deletedItemsDTOS = deletedItemsDTOS;
     }
 }
