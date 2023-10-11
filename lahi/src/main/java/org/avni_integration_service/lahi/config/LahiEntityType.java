@@ -1,6 +1,8 @@
 package org.avni_integration_service.lahi.config;
 
-public enum LahiEntityType {
+import org.avni_integration_service.integration_data.domain.framework.IntegrationEntityType;
+
+public enum LahiEntityType implements IntegrationEntityType {
     Student("Student");
 
     final String dbName;

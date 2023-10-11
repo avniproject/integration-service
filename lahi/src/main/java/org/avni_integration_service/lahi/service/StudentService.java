@@ -1,23 +1,24 @@
 package org.avni_integration_service.lahi.service;
 
 import com.google.cloud.bigquery.TableResult;
+import org.apache.log4j.Logger;
 import org.avni_integration_service.avni.domain.Subject;
+import org.avni_integration_service.integration_data.domain.AvniEntityType;
 import org.avni_integration_service.integration_data.domain.IntegratingEntityStatus;
 import org.avni_integration_service.integration_data.repository.IntegratingEntityStatusRepository;
 import org.avni_integration_service.lahi.config.LahiMappingDbConstants;
 import org.avni_integration_service.lahi.domain.Student;
+import org.avni_integration_service.lahi.domain.StudentErrorType;
 import org.avni_integration_service.lahi.domain.StudentValidator;
 import org.avni_integration_service.lahi.repository.StudentRepository;
 import org.avni_integration_service.lahi.util.DateTimeUtil;
 import org.springframework.stereotype.Service;
-import org.apache.log4j.Logger;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import static org.avni_integration_service.lahi.domain.StudentConstants.DATE_OF_BIRTH;
-import static org.avni_integration_service.lahi.domain.StudentConstants.DATE_OF_REGISTRATION;
+import static org.avni_integration_service.lahi.domain.StudentConstants.*;
 
 @Service
 public class StudentService {
@@ -27,6 +28,22 @@ public class StudentService {
     private final StudentValidator studentValidator;
     private final StudentRepository studentRepository;
     private final IntegratingEntityStatusRepository integratingEntityStatusRepository;
+    private final StudentErrorService studentErrorService;
+
+    public StudentService(StudentMappingService studentMappingService,
+                          DataExtractorService dataExtractorService,
+                          StudentValidator studentValidator,
+                          StudentRepository studentRepository,
+                          IntegratingEntityStatusRepository integratingEntityStatusRepository,
+                          StudentErrorService studentErrorService) {
+        this.studentMappingService = studentMappingService;
+        this.dataExtractorService = dataExtractorService;
+        this.studentValidator = studentValidator;
+        this.studentRepository = studentRepository;
+        this.integratingEntityStatusRepository = integratingEntityStatusRepository;
+        this.studentErrorService = studentErrorService;
+    }
+
     public static final String BULK_FETCH_QUERY = """
             select fr.contact_phone, fr.results,fr.id as flowresult_id, s.inserted_at
             from `glific-lms-lahi.918956411022.contacts` c, UNNEST(c.fields) AS s
@@ -45,18 +62,6 @@ public class StudentService {
 
     public static final int LIMIT = 1000;
     private static final Logger logger = Logger.getLogger(StudentService.class);
-
-    public StudentService(StudentMappingService studentMappingService,
-                          DataExtractorService dataExtractorService,
-                          StudentValidator studentValidator,
-                          StudentRepository studentRepository,
-                          IntegratingEntityStatusRepository integratingEntityStatusRepository) {
-        this.studentMappingService = studentMappingService;
-        this.dataExtractorService = dataExtractorService;
-        this.studentValidator = studentValidator;
-        this.studentRepository = studentRepository;
-        this.integratingEntityStatusRepository = integratingEntityStatusRepository;
-    }
 
     public void extractDataFromBigdata(){
         try {
@@ -84,8 +89,11 @@ public class StudentService {
             syncprocessing(data);
             logger.info("record postprocessing started");
             postprocessing();
+            throw new RuntimeException("error log testing");
         } catch (Throwable t) {
             //TODO handle error by creating errorRecord
+            String entity_id = data.get(FLOWRESULT_ID).toString();
+            studentErrorService.errorOccurred(entity_id, StudentErrorType.CommonError, AvniEntityType.Subject,t.getMessage());
         }
     }
 
@@ -149,7 +157,6 @@ updating integrating_entity_status
     private void insert(Subject subject, Student student){
          studentRepository.insert(subject);
          Date date = DateTimeUtil.registrationDate(student.getResponse().get(DATE_OF_REGISTRATION).toString());
-         logger.info("date is================>"+date);
          updateIntegrationStatus(date);
     }
 
