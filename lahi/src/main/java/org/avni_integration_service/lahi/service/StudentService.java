@@ -45,17 +45,13 @@ public class StudentService {
     }
 
     public static final String BULK_FETCH_QUERY = """
-            select fr.contact_phone, fr.results,fr.id as flowresult_id, s.inserted_at
-            from `glific-lms-lahi.918956411022.contacts` c, UNNEST(c.fields) AS s
-            join `glific-lms-lahi.918956411022.flow_results` fr\s
-            on fr.contact_phone = c.phone\s
+            select fr.contact_phone, fr.results,fr.id as flowresult_id, fr.inserted_at, fr.updated_at
+            from `glific-lms-lahi.918956411022.flow_results` fr\s
             WHERE
-            (s.label, s.value) = ('avni_reg_complete', 'Yes')
-            AND
             fr.name = 'Avni Students Registrations Flow'
             AND\s
-            s.inserted_at >= @updated_at
-            order by s.inserted_at
+            fr.updated_at >= @updated_at
+            order by fr.updated_at
             limit @limit_count
             offset 0
             """;
@@ -156,7 +152,7 @@ updating integrating_entity_status
 
     private void insert(Subject subject, Student student){
          studentRepository.insert(subject);
-         Date date = DateTimeUtil.registrationDate(student.getResponse().get(DATE_OF_REGISTRATION).toString());
+         Date date = DateTimeUtil.lastUpdatedDate(student.getResponse().get(FLOW_RESULT_UPDATED_AT).toString());
          updateIntegrationStatus(date);
     }
 

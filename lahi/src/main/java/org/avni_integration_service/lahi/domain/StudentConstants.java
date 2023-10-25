@@ -9,6 +9,7 @@ public interface StudentConstants {
     String LAST_NAME = "avni_last_name";
     String DATE_OF_BIRTH = "avni_date_of_birth";
     String DATE_OF_REGISTRATION = "inserted_at";
+    String FLOW_RESULT_UPDATED_AT = "updated_at";
     String GENDER = "avni_gender";
     String STATE = "avni_state";
     String OTHER_STATE = "avni_other_state";
