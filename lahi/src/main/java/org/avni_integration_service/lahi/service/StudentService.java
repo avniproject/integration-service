@@ -45,11 +45,11 @@ public class StudentService {
     }
 
     public static final String BULK_FETCH_QUERY = """
-            select fr.contact_phone, fr.results,fr.id as flowresult_id, fr.inserted_at, fr.updated_at
-            from `glific-lms-lahi.918956411022.flow_results` fr\s
+            select fr.contact_phone, fr.results, fr.id as flowresult_id, fr.inserted_at, fr.updated_at
+            from `glific-lms-lahi.918956411022.flow_results` fr
             WHERE
             fr.name = 'Avni Students Registrations Flow'
-            AND\s
+            AND
             fr.updated_at >= @updated_at
             order by fr.updated_at
             limit @limit_count
