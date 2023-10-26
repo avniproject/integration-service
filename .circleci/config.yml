@@ -105,12 +105,22 @@ jobs:
           destination: testReports/power
 
       - store_artifacts:
+          path: ~/avni-int/lahi/build/reports/tests/test
+          destination: testReports/lahi
+
+      - store_artifacts:
           path: ~/avni-int/util/build/reports/tests/test
           destination: testReports/util
 
   build:
     docker:
       - image: cimg/openjdk:17.0.5
+
+      - image: cimg/postgres:12.7
+        environment:
+          - POSTGRES_USER: avni_int
+          - POSTGRES_DB: avni_int_test
+          - POSTGRES_PASSWORD: password
 
     working_directory: ~/avni-int
 
@@ -123,9 +133,11 @@ jobs:
     steps:
       - checkout
 
-      - run: sudo apt-get install make openssl
+      - run: sudo apt-get install make openssl postgresql-client
 
-      - run: make build-server
+      - run: make create-test-db-extensions
+
+      - run: make test-server
 
       - run: mkdir -p ~/artifacts;
 
@@ -137,7 +149,40 @@ jobs:
             - avni-int.jar
 
       - store_artifacts:
-          path: ~/artifacts
+          path: amrit/build/reports/tests/test
+          destination: testReports/amrit
+
+      - store_artifacts:
+          path: avni/build/reports/tests/test
+          destination: testReports/avni
+
+      - store_artifacts:
+          path: bahmni/build/reports/tests/test
+          destination: testReports/bahmni
+
+      - store_artifacts:
+          path: goonj/build/reports/tests/test
+          destination: testReports/goonj
+
+      - store_artifacts:
+          path: integration-data/build/reports/tests/test
+          destination: testReports/integration-data
+
+      - store_artifacts:
+          path: lahi/build/reports/tests/test
+          destination: testReports/lahi
+
+      - store_artifacts:
+          path: integrator/build/reports/tests/test
+          destination: testReports/integrator
+
+      - store_artifacts:
+          path: power/build/reports/tests/test
+          destination: testReports/power
+
+      - store_artifacts:
+          path: util/build/reports/tests/test
+          destination: testReports/util
 
   STAGING_deploy:
     docker:

@@ -66,9 +66,6 @@ drop-db:
 create-test-db:
 	$(call _build_db,avni_int_test)
 
-build-test-db: create-test-db
-	./gradlew :integration-data:migrateTestDb
-
 drop-test-db:
 	$(call _drop_db,avni_int_test)
 
@@ -96,9 +93,12 @@ run-migrator: build-server
 	$(call _run_migrator)
 
 test-server-only:
+	-touch amrit/src/test/resources/amrit-secret.properties
+	-touch goonj/src/test/resources/goonj-secret.properties
+	-touch goonj/src/test/resources/avni-secret.properties
 	./gradlew clean build
 
-test-server-starts: build-server
+test-server-starts:
 	AVNI_INT_DATASOURCE=jdbc:postgresql://localhost:5432/avni_int_test AVNI_INT_AUTO_CLOSE=true java -jar integrator/build/libs/$(application_jar)
 
 test-server: drop-test-db build-test-db test-server-only test-server-starts
@@ -126,6 +126,9 @@ open-test-results-goonj:
 
 open-test-results-amrit:
 	open amrit/build/reports/tests/test/index.html
+
+open-test-results-lahi:
+	open lahi/build/reports/tests/test/index.html
 
 open-test-results-migrator:
 	open metadata-migrator/build/reports/tests/test/index.html
@@ -165,5 +168,9 @@ deploy-to-vagrant: build-server deploy-to-vagrant-only
 setup: setup-log-dir
 	touch goonj/src/test/resources/goonj-secret.properties
 	touch goonj/src/test/resources/avni-secret.properties
-	touch goonj/src/test/resources/bahmni-secret.properties
+	touch bahmni/src/test/resources/bahmni-secret.properties
 	touch amrit/src/test/resources/amrit-secret.properties
+	touch lahi/src/test/resources/lahi-secret.properties
+
+create-test-db-extensions:
+	-psql -h localhost -Uavni_int avni_int_test -c 'create extension if not exists "uuid-ossp"';

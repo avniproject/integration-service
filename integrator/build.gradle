@@ -39,6 +39,7 @@ dependencies {
     implementation project(':goonj')
     implementation project(':power')
     implementation project(':amrit')
+    implementation project(':lahi')
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-data-rest'
@@ -76,6 +77,7 @@ sourceSets {
             srcDir '../goonj/src/main/resources'
             srcDir '../amrit/src/main/resources'
             srcDir '../power/src/main/resources'
+            srcDir '../lahi/src/main/resources'
         }
     }
     test {
