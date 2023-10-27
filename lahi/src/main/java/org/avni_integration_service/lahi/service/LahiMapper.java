@@ -4,29 +4,22 @@ import org.apache.log4j.Logger;
 import org.avni_integration_service.avni.domain.ObservationHolder;
 import org.avni_integration_service.integration_data.domain.MappingMetaData;
 import org.avni_integration_service.integration_data.domain.framework.MappingException;
-import org.avni_integration_service.integration_data.repository.IntegrationSystemRepository;
 import org.avni_integration_service.integration_data.repository.MappingMetaDataRepository;
 import org.avni_integration_service.lahi.config.LahiMappingDbConstants;
 import org.avni_integration_service.lahi.domain.LahiEntity;
 import org.avni_integration_service.util.ObsDataType;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
-public class LahiMappingMetadataService {
-
+public abstract class LahiMapper {
     private final MappingMetaDataRepository mappingMetaDataRepository;
-
-    private final IntegrationSystemRepository integrationSystemRepository;
     private static final Logger logger = Logger.getLogger(AvniLahiErrorService.class);
 
-    public LahiMappingMetadataService(MappingMetaDataRepository mappingMetaDataRepository, IntegrationSystemRepository integrationSystemRepository) {
+    public LahiMapper(MappingMetaDataRepository mappingMetaDataRepository) {
         this.mappingMetaDataRepository = mappingMetaDataRepository;
-        this.integrationSystemRepository = integrationSystemRepository;
     }
 
-    public  void populateObservations(ObservationHolder observationHolder, LahiEntity lahiEntity, String mappingGroup) {
+    protected void populateObservations(ObservationHolder observationHolder, LahiEntity lahiEntity, String mappingGroup) {
         List<String> observationFields = lahiEntity.getObservationFields();
         for (String obsField : observationFields) {
             MappingMetaData mapping = mappingMetaDataRepository.getAvniMappingIfPresent(mappingGroup, LahiMappingDbConstants.MAPPINGTYPE_OBS, obsField, 5);

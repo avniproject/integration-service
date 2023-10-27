@@ -39,7 +39,7 @@ public class AvniLahiMainJob {
         try {
             logger.info("Lahi Main Job Started !!!!!");
             avniHttpClient.setAvniSession(lahiAvniSessionFactory.createSession());
-            studentWorker.processStudent();
+            studentWorker.processStudents();
             // TODO: 08/09/23
             healthCheckService.success(HEALTHCHECK_SLUG);
             logger.info("Lahi Main Job Ended !!!!!");

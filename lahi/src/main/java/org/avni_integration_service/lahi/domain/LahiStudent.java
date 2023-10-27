@@ -13,8 +13,15 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Student implements LahiEntity, StudentConstants {
-    //todo organise methods to below attribute declarations
+public class LahiStudent extends LahiEntity implements StudentConstants {
+    private static final Logger logger = Logger.getLogger(LahiStudent.class);
+    private static final List<String> Core_Fields = Arrays.asList(FIRST_NAME,LAST_NAME,DATE_OF_BIRTH, DATE_OF_REGISTRATION,GENDER);
+
+    public LahiStudent(Map<String, Object> response) {
+        super(response);
+        this.response = response;
+    }
+
     public Map<String, Object> getResponse() {
         return response;
     }
@@ -22,20 +29,6 @@ public class Student implements LahiEntity, StudentConstants {
     public void setResponse(Map<String, Object> response) {
         this.response = response;
     }
-
-    private Map<String, Object> response;
-    private static final Logger logger = Logger.getLogger(Student.class);
-
-    private static final List<String> Core_Fields = Arrays.asList(FIRST_NAME,LAST_NAME,DATE_OF_BIRTH,
-    DATE_OF_REGISTRATION,GENDER);
-    //TODO add address fields to above and also anyother fields
-
-    public static Student from(Map<String, Object> studentResponse) {
-        Student student = new Student();
-        student.response = studentResponse;
-        return student;
-    }
-
 
     public Subject subjectWithoutObservations() {
         Subject subject = new Subject();
@@ -58,8 +51,6 @@ public class Student implements LahiEntity, StudentConstants {
         subject.setSubjectType("Student");
         return subject;
     }
-
-
 
     @Override
     public List<String> getObservationFields() {
