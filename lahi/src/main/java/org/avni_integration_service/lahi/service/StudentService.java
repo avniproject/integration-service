@@ -1,6 +1,5 @@
 package org.avni_integration_service.lahi.service;
 
-import com.google.cloud.bigquery.TableResult;
 import org.apache.log4j.Logger;
 import org.avni_integration_service.avni.domain.Subject;
 import org.avni_integration_service.glific.bigQuery.BigQueryClient;
@@ -62,8 +61,7 @@ public class StudentService {
 
     public void extractDataFromBigdata() {
         String fetchtime = getIntegratingEntityStatus().getReadUptoDateTime().toString();
-        TableResult response = bigQueryClient.queryWithPagination(BULK_FETCH_QUERY, fetchtime, LIMIT);
-        List<Map<String, Object>> filterData = bigQueryClient.filterData(response, ResultFieldList);
+        List<Map<String, Object>> filterData = bigQueryClient.queryWithPagination(BULK_FETCH_QUERY, fetchtime, LIMIT, ResultFieldList);
         logger.info(String.format("%s Data get after fetching from glific", filterData.size()));
         logger.info("Splitting the record and doing next step !!!");
         filterData.forEach(this::processing);

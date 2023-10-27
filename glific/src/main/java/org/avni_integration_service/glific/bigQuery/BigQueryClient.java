@@ -19,16 +19,17 @@ public class BigQueryClient {
         this.bigQueryConnector = bigQueryConnector;
     }
 
-    public TableResult queryWithPagination(String query, String date, int limit) {
+    public List<Map<String, Object>> queryWithPagination(String query, String date, int limit, List<String> fields) {
         QueryJobConfiguration queryConfig =
                 QueryJobConfiguration.newBuilder(query)
                         .addNamedParameter("updated_at", QueryParameterValue.string(date))
                         .addNamedParameter("limit_count", QueryParameterValue.int64(limit))
                         .build();
-        return queryCall(queryConfig);
+        TableResult tableResult = queryCall(queryConfig);
+        return this.filterData(tableResult, fields);
     }
 
-    public TableResult queryCall(QueryJobConfiguration queryJobConfiguration) {
+    private TableResult queryCall(QueryJobConfiguration queryJobConfiguration) {
         try {
             JobId jobId = JobId.of(UUID.randomUUID().toString());
             Job queryJob = bigQueryConnector.getBigQuery().create(JobInfo.newBuilder(queryJobConfiguration).setJobId(jobId).build());
@@ -50,7 +51,7 @@ public class BigQueryClient {
         }
     }
 
-    public List<Map<String, Object>> filterData(TableResult response, List<String> resultFields) {
+    private List<Map<String, Object>> filterData(TableResult response, List<String> resultFields) {
         Schema schema = response.getSchema();
         List<Map<String, Object>> list1 = new LinkedList<>();
         for (FieldValueList row : response.iterateAll()) {
@@ -69,14 +70,14 @@ public class BigQueryClient {
         return list1;
     }
 
-    public void getResultData(Map<String, Object> map, String result, List<String> resultFields) {
+    private void getResultData(Map<String, Object> map, String result, List<String> resultFields) {
         JsonObject jsonObject = new JsonParser().parse(result).getAsJsonObject();
         resultFields.forEach(field -> {
             map.put(field, getDataFromJson(jsonObject, field));
         });
     }
 
-    public String getDataFromJson(JsonObject jsonObject, String field) {
+    private String getDataFromJson(JsonObject jsonObject, String field) {
         return (jsonObject.has(field)) ? jsonObject.getAsJsonObject(field).get("input").getAsString() : null;
     }
 }
