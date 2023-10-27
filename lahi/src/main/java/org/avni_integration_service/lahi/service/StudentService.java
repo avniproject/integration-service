@@ -24,14 +24,14 @@ import static org.avni_integration_service.lahi.domain.StudentConstants.*;
 public class StudentService {
     public static final String ENTITYTYPE = "Student";
     private final StudentMappingService studentMappingService;
-    private final DataExtractorService dataExtractorService;
+    private final BigQueryClient dataExtractorService;
     private final StudentValidator studentValidator;
     private final StudentRepository studentRepository;
     private final IntegratingEntityStatusRepository integratingEntityStatusRepository;
     private final StudentErrorService studentErrorService;
 
     public StudentService(StudentMappingService studentMappingService,
-                          DataExtractorService dataExtractorService,
+                          BigQueryClient dataExtractorService,
                           StudentValidator studentValidator,
                           StudentRepository studentRepository,
                           IntegratingEntityStatusRepository integratingEntityStatusRepository,
@@ -59,111 +59,73 @@ public class StudentService {
     public static final int LIMIT = 1000;
     private static final Logger logger = Logger.getLogger(StudentService.class);
 
-    public void extractDataFromBigdata(){
-        try {
-            // TODO: 10/10/23 get date avni_entity_status
-            String fetchtime = getIntegratingEntityStatus().getReadUptoDateTime().toString();
-            TableResult response = dataExtractorService.queryWithPagination(BULK_FETCH_QUERY,fetchtime, LIMIT);
-            List<Map<String,Object>> filterData = dataExtractorService.filterData(response);
-            logger.info(String.format("%s Data get after fetching from glific",filterData.size()));
-            splitAndProcess(filterData);
-        } catch (Throwable t) {
-            //TODO invoke LAHI Failure HealthCheck
-        }
-    }
-
-    private void splitAndProcess(List<Map<String,Object>> filterData){
+    public void extractDataFromBigdata() {
+        String fetchtime = getIntegratingEntityStatus().getReadUptoDateTime().toString();
+        TableResult response = dataExtractorService.queryWithPagination(BULK_FETCH_QUERY, fetchtime, LIMIT);
+        List<Map<String, Object>> filterData = dataExtractorService.filterData(response);
+        logger.info(String.format("%s Data get after fetching from glific", filterData.size()));
         logger.info("Splitting the record and doing next step !!!");
         filterData.forEach(this::processing);
     }
 
-    private void processing(Map<String,Object> data){
+    private void processing(Map<String, Object> data) {
         try {
             logger.info("record preprocessing started");
             preprocessing(data);
             logger.info("record syncprocessing started");
-            syncprocessing(data);
+            syncProcessing(data);
             logger.info("record postprocessing started");
             postprocessing();
             throw new RuntimeException("error log testing");
         } catch (Throwable t) {
             //TODO handle error by creating errorRecord
             String entity_id = data.get(FLOWRESULT_ID).toString();
-            studentErrorService.errorOccurred(entity_id, StudentErrorType.CommonError, AvniEntityType.Subject,t.getMessage());
+            studentErrorService.errorOccurred(entity_id, StudentErrorType.CommonError, AvniEntityType.Subject, t.getMessage());
         }
     }
 
 
-    /*
-
-    in preprocessing we will handle
-    mandatory field check
-    validation of age
-
-    */
-    private void preprocessing(Map<String,Object> data){
+    private void preprocessing(Map<String, Object> data) {
         checkAge(data);
-        //TODO introduce additional validations
     }
 
-    private void checkMandatory(Map<String,Object> data){
-       studentValidator.validateMandatoryField(data);
+    private void checkMandatory(Map<String, Object> data) {
+        studentValidator.validateMandatoryField(data);
     }
 
-    private void checkAge(Map<String,Object> data) {
+    private void checkAge(Map<String, Object> data) {
         studentValidator.checkAge(data.get(DATE_OF_BIRTH).toString());
     }
 
-
-/*
-
-In syncprocessing we are doing following task
-set subject field
-set observation field
-set other field
-
-*/
-    private void syncprocessing(Map<String,Object> data){
-            Student student = Student.from(data);
-            Subject subject = student.subjectWithoutObservations();
-            studentMappingService.populateObservations(subject,student, LahiMappingDbConstants.MAPPINGGROUP_STUDENT);
-            studentMappingService.setOtherObservation(subject,student);
-            insert(subject,student);
+    private void syncProcessing(Map<String, Object> data) {
+        Student student = Student.from(data);
+        Subject subject = student.subjectWithoutObservations();
+        studentMappingService.populateObservations(subject, student, LahiMappingDbConstants.MAPPINGGROUP_STUDENT);
+        studentMappingService.setOtherObservation(subject, student);
+        insert(subject, student);
     }
 
-/*
-
-In postprocessing
-updating integrating_entity_status
-
-*/
     private void postprocessing() {
-//        updateIntegrationStatus(new Date());
     }
 
-    private void updateIntegrationStatus(Date readUptoDateTime){
+    private void updateIntegrationStatus(Date readUptoDateTime) {
         IntegratingEntityStatus integratingEntityStatus = getIntegratingEntityStatus();
-        // TODO: 10/10/23 getFetching record
         integratingEntityStatus.setReadUptoDateTime(readUptoDateTime);
         integratingEntityStatusRepository.save(integratingEntityStatus);
-        logger.info(String.format("Updating integrating_entity_status with %s date",integratingEntityStatus.getReadUptoDateTime()));
+        logger.info(String.format("Updating integrating_entity_status with %s date", integratingEntityStatus.getReadUptoDateTime()));
     }
 
-
-    private void insert(Subject subject, Student student){
-         studentRepository.insert(subject);
-         Date date = DateTimeUtil.lastUpdatedDate(student.getResponse().get(FLOW_RESULT_UPDATED_AT).toString());
-         updateIntegrationStatus(date);
+    private void insert(Subject subject, Student student) {
+        studentRepository.insert(subject);
+        Date date = DateTimeUtil.lastUpdatedDate(student.getResponse().get(FLOW_RESULT_UPDATED_AT).toString());
+        updateIntegrationStatus(date);
     }
 
-    private IntegratingEntityStatus getIntegratingEntityStatus(){
+    private IntegratingEntityStatus getIntegratingEntityStatus() {
         IntegratingEntityStatus integratingEntityStatus = integratingEntityStatusRepository.findByEntityType(ENTITYTYPE);
-        if(integratingEntityStatus == null) {
+        if (integratingEntityStatus == null) {
             throw new RuntimeException("unable to find IntegratingEntityStatus");
         }
         return integratingEntityStatus;
     }
-
-
-
 }

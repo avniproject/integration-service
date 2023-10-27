@@ -1,7 +1,7 @@
 package org.avni_integration_service.lahi.domain;
 
 import org.apache.log4j.Logger;
-import org.avni_integration_service.lahi.service.DataExtractorService;
+import org.avni_integration_service.lahi.service.BigQueryClient;
 import org.avni_integration_service.lahi.util.DateTimeUtil;
 import org.springframework.stereotype.Component;
 
@@ -12,7 +12,7 @@ import java.util.Map;
 
 @Component
 public class StudentValidator {
-    private static final Logger logger = Logger.getLogger(DataExtractorService.class);
+    private static final Logger logger = Logger.getLogger(BigQueryClient.class);
     public void validateMandatoryField(Map<String,Object> map){
         long count =  StudentConstants.MandatoryField.stream().filter(field->{
             if(map.getOrDefault(field,null)==null){

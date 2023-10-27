@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class StudentWorker {
-
     private static final Logger logger = Logger.getLogger(StudentWorker.class);
     private final StudentService studentService;
 
@@ -14,11 +13,7 @@ public class StudentWorker {
         this.studentService = studentService;
     }
 
-    public void fetchDetails() throws InterruptedException {
-        logger.info("fetch detail starting !!!!!!!!!!");
+    public void processStudent() {
         studentService.extractDataFromBigdata();
-        logger.info("fetching ended");
     }
-
-
 }
