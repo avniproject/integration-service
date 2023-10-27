@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public interface StudentConstants {
-
     String FIRST_NAME = "avni_first_name";
     String LAST_NAME = "avni_last_name";
     String DATE_OF_BIRTH = "avni_date_of_birth";

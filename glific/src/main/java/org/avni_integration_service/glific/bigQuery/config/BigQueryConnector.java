@@ -1,4 +1,4 @@
-package org.avni_integration_service.lahi.config;
+package org.avni_integration_service.glific.bigQuery.config;
 
 import com.google.cloud.bigquery.BigQuery;
 import org.slf4j.Logger;

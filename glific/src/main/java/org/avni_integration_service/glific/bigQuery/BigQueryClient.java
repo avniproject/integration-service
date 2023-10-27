@@ -1,11 +1,10 @@
-package org.avni_integration_service.lahi.service;
+package org.avni_integration_service.glific.bigQuery;
 
 import com.google.cloud.bigquery.*;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.apache.log4j.Logger;
-import org.avni_integration_service.lahi.config.BigQueryConnector;
-import org.avni_integration_service.lahi.domain.StudentConstants;
+import org.avni_integration_service.glific.bigQuery.config.BigQueryConnector;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
@@ -51,7 +50,7 @@ public class BigQueryClient {
         }
     }
 
-    public List<Map<String, Object>> filterData(TableResult response) {
+    public List<Map<String, Object>> filterData(TableResult response, List<String> resultFields) {
         Schema schema = response.getSchema();
         List<Map<String, Object>> list1 = new LinkedList<>();
         for (FieldValueList row : response.iterateAll()) {
@@ -61,7 +60,7 @@ public class BigQueryClient {
                 FieldValue fieldValue = row.get(i);
                 String fieldName = field.getName();
                 if (fieldName.equals(RESULTS)) {
-                    getResultData(resultMap, fieldValue.getStringValue());
+                    getResultData(resultMap, fieldValue.getStringValue(), resultFields);
                 }
                 resultMap.put(fieldName, fieldValue.getStringValue());
             }
@@ -70,9 +69,9 @@ public class BigQueryClient {
         return list1;
     }
 
-    public void getResultData(Map<String, Object> map, String result) {
+    public void getResultData(Map<String, Object> map, String result, List<String> resultFields) {
         JsonObject jsonObject = new JsonParser().parse(result).getAsJsonObject();
-        StudentConstants.ResultFieldList.forEach(field -> {
+        resultFields.forEach(field -> {
             map.put(field, getDataFromJson(jsonObject, field));
         });
     }

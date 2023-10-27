@@ -1,7 +1,7 @@
 package org.avni_integration_service.lahi.domain;
 
 import org.apache.log4j.Logger;
-import org.avni_integration_service.lahi.service.BigQueryClient;
+import org.avni_integration_service.glific.bigQuery.BigQueryClient;
 import org.avni_integration_service.lahi.util.DateTimeUtil;
 import org.springframework.stereotype.Component;
 

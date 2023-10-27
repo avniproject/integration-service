@@ -3,6 +3,7 @@ package org.avni_integration_service.lahi.service;
 import com.google.cloud.bigquery.TableResult;
 import org.apache.log4j.Logger;
 import org.avni_integration_service.avni.domain.Subject;
+import org.avni_integration_service.glific.bigQuery.BigQueryClient;
 import org.avni_integration_service.integration_data.domain.AvniEntityType;
 import org.avni_integration_service.integration_data.domain.IntegratingEntityStatus;
 import org.avni_integration_service.integration_data.repository.IntegratingEntityStatusRepository;
@@ -24,20 +25,20 @@ import static org.avni_integration_service.lahi.domain.StudentConstants.*;
 public class StudentService {
     public static final String ENTITYTYPE = "Student";
     private final StudentMappingService studentMappingService;
-    private final BigQueryClient dataExtractorService;
+    private final BigQueryClient bigQueryClient;
     private final StudentValidator studentValidator;
     private final StudentRepository studentRepository;
     private final IntegratingEntityStatusRepository integratingEntityStatusRepository;
     private final StudentErrorService studentErrorService;
 
     public StudentService(StudentMappingService studentMappingService,
-                          BigQueryClient dataExtractorService,
+                          BigQueryClient bigQueryClient,
                           StudentValidator studentValidator,
                           StudentRepository studentRepository,
                           IntegratingEntityStatusRepository integratingEntityStatusRepository,
                           StudentErrorService studentErrorService) {
         this.studentMappingService = studentMappingService;
-        this.dataExtractorService = dataExtractorService;
+        this.bigQueryClient = bigQueryClient;
         this.studentValidator = studentValidator;
         this.studentRepository = studentRepository;
         this.integratingEntityStatusRepository = integratingEntityStatusRepository;
@@ -61,8 +62,8 @@ public class StudentService {
 
     public void extractDataFromBigdata() {
         String fetchtime = getIntegratingEntityStatus().getReadUptoDateTime().toString();
-        TableResult response = dataExtractorService.queryWithPagination(BULK_FETCH_QUERY, fetchtime, LIMIT);
-        List<Map<String, Object>> filterData = dataExtractorService.filterData(response);
+        TableResult response = bigQueryClient.queryWithPagination(BULK_FETCH_QUERY, fetchtime, LIMIT);
+        List<Map<String, Object>> filterData = bigQueryClient.filterData(response, ResultFieldList);
         logger.info(String.format("%s Data get after fetching from glific", filterData.size()));
         logger.info("Splitting the record and doing next step !!!");
         filterData.forEach(this::processing);

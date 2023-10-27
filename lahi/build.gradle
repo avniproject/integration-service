@@ -38,6 +38,7 @@ ext {
 
 dependencies {
     implementation project(':integration-data')
+    implementation project(':glific')
     implementation project(':avni')
     implementation project(':util')
     implementation "log4j:log4j:1.2.17"
