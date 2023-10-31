@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 
 import static org.avni_integration_service.lahi.domain.StudentConstants.FLOW_RESULT_UPDATED_AT;
-import static org.avni_integration_service.lahi.service.StudentService.ENTITYTYPE;
+import static org.avni_integration_service.lahi.service.LahiStudentService.ENTITYTYPE;
 
 @Service
 public class LahiIntegrationDataService {

@@ -4,8 +4,6 @@ import org.apache.log4j.Logger;
 import org.avni_integration_service.glific.bigQuery.BigQueryClient;
 import org.avni_integration_service.integration_data.repository.IntegratingEntityStatusRepository;
 import org.avni_integration_service.lahi.domain.LahiStudent;
-import org.avni_integration_service.lahi.domain.StudentValidator;
-import org.avni_integration_service.lahi.repository.AvniStudentRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,7 +13,7 @@ import java.util.stream.Collectors;
 import static org.avni_integration_service.lahi.domain.StudentConstants.ResultFieldList;
 
 @Service
-public class StudentService {
+public class LahiStudentService {
     public static final String ENTITYTYPE = "Student";
     private final BigQueryClient bigQueryClient;
     private final IntegratingEntityStatusRepository integratingEntityStatusRepository;
@@ -33,10 +31,10 @@ public class StudentService {
             """;
 
     public static final int LIMIT = 1000;
-    private static final Logger logger = Logger.getLogger(StudentService.class);
+    private static final Logger logger = Logger.getLogger(LahiStudentService.class);
 
-    public StudentService(BigQueryClient bigQueryClient,
-                          IntegratingEntityStatusRepository integratingEntityStatusRepository) {
+    public LahiStudentService(BigQueryClient bigQueryClient,
+                              IntegratingEntityStatusRepository integratingEntityStatusRepository) {
         this.bigQueryClient = bigQueryClient;
         this.integratingEntityStatusRepository = integratingEntityStatusRepository;
     }

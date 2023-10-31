@@ -30,28 +30,6 @@ public class LahiStudent extends LahiEntity implements StudentConstants {
         this.response = response;
     }
 
-    public Subject subjectWithoutObservations() {
-        Subject subject = new Subject();
-
-        String firstName = StringUtils.capitalize(response.get(FIRST_NAME).toString());
-        String lastName = StringUtils.capitalize(response.get(LAST_NAME).toString());
-        Date registrationDate = DateTimeUtil.registrationDate(response.get(DATE_OF_REGISTRATION).toString());
-        Date dob = DateTimeUtil.dateOfBirth(response.get(DATE_OF_BIRTH).toString());
-        String gender = response.get(GENDER).toString();
-        String external_id = response.get(FLOWRESULT_ID).toString();
-
-        // TODO: 21/09/23 set external id and latter remove after all testing
-        subject.setExternalId(external_id);
-        subject.setAddress(STUDENT_ADDRESS);
-        subject.setFirstName(firstName);
-        subject.setLastName(lastName);
-        subject.setRegistrationDate(registrationDate);
-        subject.setDateOfBirth(dob);
-        subject.setGender(gender);
-        subject.setSubjectType("Student");
-        return subject;
-    }
-
     @Override
     public List<String> getObservationFields() {
         return response.keySet().stream().filter(s -> !Core_Fields.contains(s)).collect(Collectors.toList());

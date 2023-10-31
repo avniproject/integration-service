@@ -5,44 +5,37 @@ import org.avni_integration_service.avni.domain.Subject;
 import org.avni_integration_service.integration_data.domain.AvniEntityType;
 import org.avni_integration_service.lahi.domain.LahiStudent;
 import org.avni_integration_service.lahi.domain.StudentErrorType;
-import org.avni_integration_service.lahi.repository.AvniStudentRepository;
-import org.avni_integration_service.lahi.service.LahiIntegrationDataService;
-import org.avni_integration_service.lahi.service.StudentErrorService;
-import org.avni_integration_service.lahi.service.StudentMapper;
-import org.avni_integration_service.lahi.service.StudentService;
+import org.avni_integration_service.lahi.service.*;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-import static org.avni_integration_service.lahi.domain.StudentConstants.FLOWRESULT_ID;
-
 @Component
 public class StudentWorker {
     private static final Logger logger = Logger.getLogger(StudentWorker.class);
-    private final StudentService studentService;
+    private final LahiStudentService lahiStudentService;
     private final StudentMapper studentMapper;
-    private final AvniStudentRepository avniStudentRepository;
+    private final AvniStudentService avniStudentService;
     private final LahiIntegrationDataService lahiIntegrationDataService;
     private final StudentErrorService studentErrorService;
 
-    public StudentWorker(StudentService studentService, StudentMapper studentMapper, AvniStudentRepository avniStudentRepository, LahiIntegrationDataService lahiIntegrationDataService, StudentErrorService studentErrorService) {
-        this.studentService = studentService;
+    public StudentWorker(LahiStudentService lahiStudentService, StudentMapper studentMapper, AvniStudentService avniStudentService, LahiIntegrationDataService lahiIntegrationDataService, StudentErrorService studentErrorService) {
+        this.lahiStudentService = lahiStudentService;
         this.studentMapper = studentMapper;
-        this.avniStudentRepository = avniStudentRepository;
+        this.avniStudentService = avniStudentService;
         this.lahiIntegrationDataService = lahiIntegrationDataService;
         this.studentErrorService = studentErrorService;
     }
 
     public void processStudents() {
-        List<LahiStudent> students = studentService.getStudents();
-        students.forEach(student -> {
+        List<LahiStudent> lahiStudents = lahiStudentService.getStudents();
+        lahiStudents.forEach(lahiStudent -> {
             try {
-                Subject subject = student.subjectWithoutObservations();
-                studentMapper.mapToSubject(subject, student);
-                avniStudentRepository.addSubject(subject);
-                lahiIntegrationDataService.studentProcessed(student);
+                Subject subject = studentMapper.mapToSubject(lahiStudent);
+                avniStudentService.saveStudent(subject);
+                lahiIntegrationDataService.studentProcessed(lahiStudent);
             } catch (Throwable t) {
-                studentErrorService.errorOccurred(student.getFlowResult(), StudentErrorType.CommonError, AvniEntityType.Subject, t.getMessage());
+                studentErrorService.errorOccurred(lahiStudent.getFlowResult(), StudentErrorType.CommonError, AvniEntityType.Subject, t.getMessage());
             }
         });
     }

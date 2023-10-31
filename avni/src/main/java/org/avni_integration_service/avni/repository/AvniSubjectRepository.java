@@ -40,7 +40,8 @@ public class AvniSubjectRepository extends BaseAvniRepository {
     public Subject[] getSubjects(Date lastModifiedDateTime, String subjectType, HashMap<String, Object> concepts) {
         String fromTime = FormatAndParseUtil.toISODateTimeString(lastModifiedDateTime);
         HashMap<String, String> queryParams = new HashMap<>();
-        queryParams.put("lastModifiedDateTime", fromTime);
+        if (lastModifiedDateTime != null)
+            queryParams.put("lastModifiedDateTime", fromTime);
         queryParams.put("subjectType", subjectType);
         queryParams.put("concepts", ObjectJsonMapper.writeValueAsString(concepts));
         ResponseEntity<SubjectsResponse> responseEntity = avniHttpClient.get("/api/subjects", queryParams, SubjectsResponse.class);
