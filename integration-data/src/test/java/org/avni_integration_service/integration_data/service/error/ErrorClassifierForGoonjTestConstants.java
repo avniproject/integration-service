@@ -12,7 +12,7 @@ public interface ErrorClassifierForGoonjTestConstants {
     String ERROR_MSG_DISPATCH_RECEIPT_LINE_ITEM_MISMATCH = "FIELD_CUSTOM_VALIDATION_EXCEPTION, Material Received can not be inserted or updated as Related Dispatch Status have no Line Item";
     String ERROR_MSG_DISTRIBUTION_DISASTER_MISSING = "FIELD_CUSTOM_VALIDATION_EXCEPTION, Please fill in the Disaster Type, if the Type of Initiative contains Rahat.";
     String ERROR_MSG_ACTIVITY_MEASUREMENT_TYPE_MISSING = "FIELD_CUSTOM_VALIDATION_EXCEPTION, Please fill in Measurement Type.";
-    String ERROR_MSG_DEMAND_ADDRESS_NOT_FOUND = "500 : \"Address 'Assam, Golaghat' not found\"";
-    String ERROR_MSG_DISPATCH_ADDRESS_NOT_FOUND = "500 : \"Address 'Punjab, Amritsar' not found\"";
-    String ERROR_MSG_DISPATCH_ADDRESS_NOT_FOUND_INVALID = "500 : \"Address 'Punjab, Amritsar' is not found\"";
+    String ERROR_MSG_DEMAND_ADDRESS_NOT_FOUND = "500 : \"java.lang.IllegalArgumentException: Address 'Maharashtra, Thane' not found<LF> at org.avni.server.web.api.SubjectApiController.updateSubjectDetails(SubjectApiController.java:189)<LF>\"";
+    String ERROR_MSG_DISPATCH_ADDRESS_NOT_FOUND = "500 : \"java.lang.IllegalArgumentException: Address 'Punjab, Amritsar' not found<LF> at org.avni.server.web.api.SubjectApiController.updateSubjectDetails(SubjectApiController.java:189)<LF>\"";
+    String ERROR_MSG_DISPATCH_ADDRESS_NOT_FOUND_INVALID = "500 : Invalid address, \"Address 'Punjab, Amritsar' is not found\"";
 }
