@@ -7,6 +7,8 @@ import org.apache.log4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Map;
 
 public class ObjectJsonMapper {
     private static final Logger logger = Logger.getLogger(ObjectJsonMapper.class);
@@ -42,6 +44,14 @@ public class ObjectJsonMapper {
         try {
             return (T) objectMapper.readValue(json, typeReference);
         } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static <T> T readValue(InputStream stream, Class<Map> typeReference) {
+        try {
+            return (T) objectMapper.readValue(stream, typeReference);
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }

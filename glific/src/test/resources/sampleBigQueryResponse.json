@@ -1,0 +1,30 @@
+[
+  {
+    "contact_phone": "919903244183",
+    "flowresult_id": "11041268",
+    "inserted_at": "2023-09-07T11:39:28.134500",
+    "results": "{\"avni_first_name\":{\"category\":\"^[A-Za-z ]+$\",\"input\":\"Raghav\",\"inserted_at\":\"2023-09-07T06:09:52.961071Z\",\"intent\":null},\"avni_last_name\":{\"category\":\"^[A-Za-z ]+$\",\"input\":\"Kumar\",\"inserted_at\":\"2023-09-07T06:09:59.008525Z\",\"intent\":null},\"avni_optin\":{\"category\":\"Yes\",\"input\":\"Yes\",\"inserted_at\":\"2023-09-07T06:09:44.764400Z\",\"intent\":null,\"interactive\":{\"id\":\"\",\"postbackText\":\"\",\"reply\":\"Yes 1\",\"title\":\"Yes\"}},\"child\":{\"Language\":{\"category\":\"English\",\"input\":\"English\",\"inserted_at\":\"2023-09-07T06:09:37.461253Z\",\"intent\":null,\"interactive\":{\"description\":\"\",\"id\":\"\",\"postbackText\":\"\",\"reply\":\"English 1\",\"title\":\"English\"}}},\"flow_keyword\":{\"category\":\"registerme\",\"input\":\"registerme\",\"inserted_at\":\"2023-09-07T06:09:28.125929Z\"}}",
+    "updated_at": "2023-09-07T11:39:59.011236"
+  },
+  {
+    "contact_phone": "919873249733",
+    "flowresult_id": "11041211",
+    "inserted_at": "2023-09-07T11:27:46.245475",
+    "results": "{\"avni_first_name\":{\"category\":\"^[A-Za-z ]+$\",\"input\":\"Ramesh\",\"inserted_at\":\"2023-09-07T05:58:34.653513Z\",\"intent\":null},\"avni_last_name\":{\"category\":\"^[A-Za-z ]+$\",\"input\":\"Kumar\",\"inserted_at\":\"2023-09-07T05:58:51.431716Z\",\"intent\":null},\"avni_optin\":{\"category\":\"Yes\",\"input\":\"Yes\",\"inserted_at\":\"2023-09-07T05:58:23.609434Z\",\"intent\":null,\"interactive\":{\"id\":\"\",\"postbackText\":\"\",\"reply\":\"Yes 1\",\"title\":\"Yes\"}},\"child\":{\"Language\":{\"category\":\"English\",\"input\":\"English\",\"inserted_at\":\"2023-09-07T05:58:09.972092Z\",\"intent\":null,\"interactive\":{\"description\":\"\",\"id\":\"\",\"postbackText\":\"\",\"reply\":\"English 1\",\"title\":\"English\"}}},\"flow_keyword\":{\"category\":\"registerme\",\"input\":\"registerme\",\"inserted_at\":\"2023-09-07T05:57:46.237686Z\"}}",
+    "updated_at": "2023-09-07T11:28:51.436290"
+  },
+  {
+    "contact_phone": "919930370545",
+    "flowresult_id": "10427672",
+    "inserted_at": "2023-08-21T14:15:54.542957",
+    "results": "{\"avni_first_name\":{\"category\":\"^[A-Za-z ]+$\",\"input\":\"Pinky\",\"inserted_at\":\"2023-08-21T08:46:34.140088Z\",\"intent\":null},\"avni_last_name\":{\"category\":\"^[A-Za-z ]+$\",\"input\":\"Yadav\",\"inserted_at\":\"2023-08-21T08:46:44.420595Z\",\"intent\":null},\"avni_optin\":{\"category\":\"Yes\",\"input\":\"Yes\",\"inserted_at\":\"2023-08-21T08:46:26.843587Z\",\"intent\":null,\"interactive\":{\"id\":\"\",\"postbackText\":\"\",\"reply\":\"Yes 1\",\"title\":\"Yes\"}},\"child\":{\"Language\":{\"category\":\"English\",\"input\":\"English\",\"inserted_at\":\"2023-08-21T08:46:17.715479Z\",\"intent\":null,\"interactive\":{\"description\":\"\",\"id\":\"\",\"postbackText\":\"\",\"reply\":\"English 1\",\"title\":\"English\"}}},\"flow_keyword\":{\"category\":\"registerme\",\"input\":\"registerme\",\"inserted_at\":\"2023-08-21T08:45:54.533500Z\"}}",
+    "updated_at": "2023-08-21T14:16:44.423956"
+  },
+  {
+    "contact_phone": "919357103013",
+    "flowresult_id": "9843637",
+    "inserted_at": "2023-08-08T11:04:43.915985",
+    "results": "{\"avni_optin\":{\"category\":\"Other\",\"input\":\"skillsonwheels\",\"inserted_at\":\"2023-08-18T09:53:26.753549Z\",\"intent\":null},\"child\":{\"Language\":{\"category\":\"English\",\"input\":\"English\",\"inserted_at\":\"2023-08-08T05:35:17.430486Z\",\"intent\":null,\"interactive\":{\"description\":\"\",\"id\":\"\",\"postbackText\":\"\",\"reply\":\"English 1\",\"title\":\"English\"}}},\"flow_keyword\":{\"category\":\"registerme\",\"input\":\"registerme\",\"inserted_at\":\"2023-08-08T05:34:43.903087Z\"}}",
+    "updated_at": "2023-08-18T15:23:26.759526"
+  }
+]
