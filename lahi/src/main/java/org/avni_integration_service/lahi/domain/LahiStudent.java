@@ -2,18 +2,14 @@ package org.avni_integration_service.lahi.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.apache.log4j.Logger;
-import org.avni_integration_service.avni.domain.Subject;
-import org.avni_integration_service.lahi.util.DateTimeUtil;
-import org.springframework.util.StringUtils;
 
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class LahiStudent extends LahiEntity implements StudentConstants {
+public class LahiStudent extends LahiEntity implements LahiStudentConstants {
     private static final Logger logger = Logger.getLogger(LahiStudent.class);
     private static final List<String> Core_Fields = Arrays.asList(FIRST_NAME,LAST_NAME,DATE_OF_BIRTH, DATE_OF_REGISTRATION,GENDER);
 

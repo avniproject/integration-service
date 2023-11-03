@@ -9,7 +9,7 @@ import org.avni_integration_service.integration_data.repository.MappingMetaDataR
 import org.avni_integration_service.lahi.config.LahiMappingDbConstants;
 import org.avni_integration_service.lahi.domain.LahiEntity;
 import org.avni_integration_service.lahi.domain.LahiStudent;
-import org.avni_integration_service.lahi.domain.StudentConstants;
+import org.avni_integration_service.lahi.domain.LahiStudentConstants;
 import org.avni_integration_service.lahi.util.DateTimeUtil;
 import org.avni_integration_service.util.ObsDataType;
 import org.springframework.stereotype.Service;
@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class StudentMapper implements StudentConstants {
+public class StudentMapper implements LahiStudentConstants {
     private static final Logger logger = Logger.getLogger(StudentMapper.class);
     private final MappingMetaDataRepository mappingMetaDataRepository;
 
@@ -30,9 +30,9 @@ public class StudentMapper implements StudentConstants {
 
     public Subject mapToSubject(LahiStudent lahiStudent) {
         Subject subject = this.subjectWithoutObservations(lahiStudent.getResponse());
-        this.populateObservations(subject, lahiStudent, LahiMappingDbConstants.MAPPINGGROUP_STUDENT);
+        this.populateObservations(subject, lahiStudent, LahiMappingDbConstants.MAPPING_GROUP_STUDENT);
         Map<String, Object> observations = subject.getObservations();
-        LahiMappingDbConstants.DEFAUL_STUDENT_OBSVALUE_MAP.forEach(observations::put);
+        LahiMappingDbConstants.DEFAULT_STUDENT_OBS_VALUE_MAP.forEach(observations::put);
         setOtherAddress(subject, lahiStudent);
         setPhoneNumber(subject, lahiStudent);
         return subject;
@@ -41,7 +41,7 @@ public class StudentMapper implements StudentConstants {
     private void populateObservations(ObservationHolder observationHolder, LahiEntity lahiEntity, String mappingGroup) {
         List<String> observationFields = lahiEntity.getObservationFields();
         for (String obsField : observationFields) {
-            MappingMetaData mapping = mappingMetaDataRepository.getAvniMappingIfPresent(mappingGroup, LahiMappingDbConstants.MAPPINGTYPE_OBS, obsField, 5);
+            MappingMetaData mapping = mappingMetaDataRepository.getAvniMappingIfPresent(mappingGroup, LahiMappingDbConstants.MAPPING_TYPE_OBS, obsField, 5);
             if(mapping == null) {
                 logger.error("Mapping entry not found for observation field: " + obsField);
                 continue;
@@ -50,7 +50,7 @@ public class StudentMapper implements StudentConstants {
             if (dataTypeHint == null)
                 observationHolder.addObservation(mapping.getAvniValue(), lahiEntity.getValue(obsField));
             else if (dataTypeHint == ObsDataType.Coded && lahiEntity.getValue(obsField) != null) {
-                MappingMetaData answerMapping = mappingMetaDataRepository.getAvniMappingIfPresent(mappingGroup, LahiMappingDbConstants.MAPPINGTYPE_OBS, lahiEntity.getValue(obsField).toString(), 5);
+                MappingMetaData answerMapping = mappingMetaDataRepository.getAvniMappingIfPresent(mappingGroup, LahiMappingDbConstants.MAPPING_TYPE_OBS, lahiEntity.getValue(obsField).toString(), 5);
                 if(answerMapping == null) {
                     String errorMessage = "Answer Mapping entry not found for coded concept answer field: " + obsField;
                     logger.error(errorMessage);
@@ -65,28 +65,28 @@ public class StudentMapper implements StudentConstants {
         Map<String, Object> subjectObservations = subject.getObservations();
         Map<String, Object> studentResponse = student.getResponse();
         StringBuilder stringBuilder = new StringBuilder();
-        setAddressString(stringBuilder, (String) studentResponse.getOrDefault(StudentConstants.STATE, ""));
-        setAddressString(stringBuilder, (String) studentResponse.getOrDefault(StudentConstants.OTHER_STATE, ""));
-        setAddressString(stringBuilder, (String) studentResponse.getOrDefault(StudentConstants.DISTRICT, ""));
-        setAddressString(stringBuilder, (String) studentResponse.getOrDefault(StudentConstants.CITY_NAME, ""));
-        setAddressString(stringBuilder, (String) studentResponse.getOrDefault(StudentConstants.SCHOOL, ""));
+        setAddressString(stringBuilder, (String) studentResponse.getOrDefault(LahiStudentConstants.STATE, ""));
+        setAddressString(stringBuilder, (String) studentResponse.getOrDefault(LahiStudentConstants.OTHER_STATE, ""));
+        setAddressString(stringBuilder, (String) studentResponse.getOrDefault(LahiStudentConstants.DISTRICT, ""));
+        setAddressString(stringBuilder, (String) studentResponse.getOrDefault(LahiStudentConstants.CITY_NAME, ""));
+        setAddressString(stringBuilder, (String) studentResponse.getOrDefault(LahiStudentConstants.SCHOOL, ""));
         if (stringBuilder.length() > 0) {
             subjectObservations.put("Other School name", stringBuilder.toString());
         }
     }
 
     private void setAddressString(StringBuilder stringBuilder, String string) {
-        if (string != null && !string.equals("")) {
-            stringBuilder.append(string + " ");
+        if (StringUtils.hasLength(string)) {
+            stringBuilder.append(string).append(" ");
         }
     }
 
     private void setPhoneNumber(Subject subject, LahiStudent student) {
         Map<String, Object> subjectObservations = subject.getObservations();
         String contactPhoneNumber = null;
-        if (student.getValue(StudentConstants.STUDENT_CONTACT_NUMBER) != null
-                && student.getValue(StudentConstants.STUDENT_CONTACT_NUMBER).toString().length() == 12) {
-            contactPhoneNumber = ((String) student.getValue(StudentConstants.STUDENT_CONTACT_NUMBER)).substring(2);
+        Object contactNumber = student.getValue(LahiStudentConstants.STUDENT_CONTACT_NUMBER);
+        if (contactNumber != null && contactNumber.toString().length() == 12) {
+            contactPhoneNumber = ((String) contactNumber).substring(2);
             subjectObservations.put(LahiMappingDbConstants.CONTACT_PHONE_NUMBER, contactPhoneNumber);
         }
         setAlternatePhoneNumber(student, subjectObservations, contactPhoneNumber);
@@ -94,7 +94,7 @@ public class StudentMapper implements StudentConstants {
 
     private void setAlternatePhoneNumber(LahiStudent student, Map<String, Object> subjectObservations, String contactPhoneNumber) {
         Long alternatePhoneNumber;
-        String alternateNumber = (String) student.getValue(StudentConstants.ALTERNATE_NUMBER);
+        String alternateNumber = (String) student.getValue(LahiStudentConstants.ALTERNATE_NUMBER);
         if (StringUtils.hasText(alternateNumber) && alternateNumber.length() == 12) {
             alternateNumber = alternateNumber.substring(2);
         }

@@ -14,7 +14,7 @@ public class StudentValidator {
     private static final Logger logger = Logger.getLogger(BigQueryClient.class);
 
     public void validateMandatoryField(Map<String, Object> map) {
-        long count = StudentConstants.MandatoryField.stream().filter(field -> {
+        long count = LahiStudentConstants.MandatoryFields.stream().filter(field -> {
             if (map.getOrDefault(field, null) == null) {
                 logger.error(String.format("%s missing for id:%s", field, map.get("id")));
                 return false;

@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static org.avni_integration_service.lahi.domain.StudentConstants.ResultFieldList;
+import static org.avni_integration_service.lahi.domain.LahiStudentConstants.ResultFieldList;
 
 @Service
 public class LahiStudentService {

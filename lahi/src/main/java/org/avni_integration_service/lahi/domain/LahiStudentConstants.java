@@ -3,7 +3,7 @@ package org.avni_integration_service.lahi.domain;
 import java.util.Arrays;
 import java.util.List;
 
-public interface StudentConstants {
+public interface LahiStudentConstants {
     String FIRST_NAME = "avni_first_name";
     String LAST_NAME = "avni_last_name";
     String DATE_OF_BIRTH = "avni_date_of_birth";
@@ -57,7 +57,7 @@ public interface StudentConstants {
                     FLOWRESULT_ID
             );
 
-    List<String> MandatoryField =
+    List<String> MandatoryFields =
             Arrays.asList(
                     FIRST_NAME,
                     LAST_NAME,
