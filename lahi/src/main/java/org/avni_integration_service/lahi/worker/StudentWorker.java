@@ -8,7 +8,7 @@ import org.avni_integration_service.lahi.domain.StudentErrorType;
 import org.avni_integration_service.lahi.service.*;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
+import java.util.Iterator;
 
 @Component
 public class StudentWorker {
@@ -28,15 +28,16 @@ public class StudentWorker {
     }
 
     public void processStudents() {
-        List<LahiStudent> lahiStudents = lahiStudentService.getStudents();
-        lahiStudents.forEach(lahiStudent -> {
+        Iterator<LahiStudent> lahiStudents = lahiStudentService.getStudents();
+        while (lahiStudents.hasNext()) {
+            LahiStudent student = lahiStudents.next();
             try {
-                Subject subject = studentMapper.mapToSubject(lahiStudent);
+                Subject subject = studentMapper.mapToSubject(student);
                 avniStudentService.saveStudent(subject);
-                lahiIntegrationDataService.studentProcessed(lahiStudent);
+                lahiIntegrationDataService.studentProcessed(student);
             } catch (Throwable t) {
-                studentErrorService.errorOccurred(lahiStudent.getFlowResult(), StudentErrorType.CommonError, AvniEntityType.Subject, t.getMessage());
+                studentErrorService.errorOccurred(student.getFlowResultId(), StudentErrorType.CommonError, AvniEntityType.Subject, t.getMessage());
             }
-        });
+        }
     }
 }

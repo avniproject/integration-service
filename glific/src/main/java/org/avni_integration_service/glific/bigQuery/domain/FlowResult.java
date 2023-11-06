@@ -34,6 +34,18 @@ public class FlowResult {
         return (String) getResult(key).get("category");
     }
 
+    public String getFlowResultId() {
+        return (String) fields.get("flowresult_id");
+    }
+
+    public String lastUpdatedAt() {
+        return (String) fields.get("updated_at");
+    }
+
+    public String insertedAt() {
+        return (String) fields.get("inserted_at");
+    }
+
     private Map<String, Object> getResult(String key) {
         return (Map<String, Object>) results.getOrDefault(key, new HashMap<>());
     }

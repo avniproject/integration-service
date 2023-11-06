@@ -14,7 +14,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class BigQueryClientNewTest {
+public class BigQueryClientTest {
 
     @Test
     public void shouldMapResponseToMapper() throws InterruptedException {
@@ -31,7 +31,7 @@ public class BigQueryClientNewTest {
         when(job.getStatus()).thenReturn(jobStatus);
         when(jobStatus.getError()).thenReturn(null);
 
-        Iterator<FlowResult> results = new BigQueryClientNew(bqConnector).getResults("query", "2023-01-01", 5, flowResultMapper);
+        Iterator<FlowResult> results = new BigQueryClient(bqConnector).getResults("query", "2023-01-01", 5, flowResultMapper);
 
         FlowResult firstFlowResult = results.next();
         assertEquals("919317217785", firstFlowResult.getContactPhone());

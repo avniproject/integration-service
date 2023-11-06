@@ -1,17 +1,17 @@
 package org.avni_integration_service.glific.bigQuery;
 
 import com.google.cloud.bigquery.*;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import org.apache.log4j.Logger;
 import org.avni_integration_service.glific.bigQuery.config.BigQueryConnector;
+import org.avni_integration_service.glific.bigQuery.mapper.BigQueryResultMapper;
+import org.avni_integration_service.glific.bigQuery.mapper.BigQueryResultsMapper;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.Iterator;
+import java.util.UUID;
 
 @Component
 public class BigQueryClient {
-    public static final String RESULTS = "results";
     private final BigQueryConnector bigQueryConnector;
     private static final Logger logger = Logger.getLogger(BigQueryClient.class);
 
@@ -19,17 +19,17 @@ public class BigQueryClient {
         this.bigQueryConnector = bigQueryConnector;
     }
 
-    public List<Map<String, Object>> queryWithPagination(String query, String date, int limit, List<String> fields) {
+    public <T> Iterator<T> getResults(String query, String date, int limit, BigQueryResultMapper<T> resultMapper) {
         QueryJobConfiguration queryConfig =
                 QueryJobConfiguration.newBuilder(query)
                         .addNamedParameter("updated_at", QueryParameterValue.string(date))
                         .addNamedParameter("limit_count", QueryParameterValue.int64(limit))
                         .build();
-        TableResult tableResult = queryCall(queryConfig);
-        return this.filterData(tableResult, fields);
+        TableResult tableResult = run(queryConfig);
+        return new BigQueryResultsMapper<T>().map(tableResult, resultMapper);
     }
 
-    private TableResult queryCall(QueryJobConfiguration queryJobConfiguration) {
+    private TableResult run(QueryJobConfiguration queryJobConfiguration) {
         try {
             JobId jobId = JobId.of(UUID.randomUUID().toString());
             Job queryJob = bigQueryConnector.getBigQuery().create(JobInfo.newBuilder(queryJobConfiguration).setJobId(jobId).build());
@@ -49,35 +49,5 @@ public class BigQueryClient {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    private List<Map<String, Object>> filterData(TableResult response, List<String> resultFields) {
-        Schema schema = response.getSchema();
-        List<Map<String, Object>> list1 = new LinkedList<>();
-        for (FieldValueList row : response.iterateAll()) {
-            Map<String, Object> resultMap = new HashMap<>();
-            for (int i = 0; i < schema.getFields().size(); i++) {
-                Field field = schema.getFields().get(i);
-                FieldValue fieldValue = row.get(i);
-                String fieldName = field.getName();
-                if (fieldName.equals(RESULTS)) {
-                    getResultData(resultMap, fieldValue.getStringValue(), resultFields);
-                }
-                resultMap.put(fieldName, fieldValue.getStringValue());
-            }
-            list1.add(resultMap);
-        }
-        return list1;
-    }
-
-    private void getResultData(Map<String, Object> map, String result, List<String> resultFields) {
-        JsonObject jsonObject = new JsonParser().parse(result).getAsJsonObject();
-        resultFields.forEach(field -> {
-            map.put(field, getDataFromJson(jsonObject, field));
-        });
-    }
-
-    private String getDataFromJson(JsonObject jsonObject, String field) {
-        return (jsonObject.has(field)) ? jsonObject.getAsJsonObject(field).get("input").getAsString() : null;
     }
 }

@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 
-import static org.avni_integration_service.lahi.domain.LahiStudentConstants.FLOW_RESULT_UPDATED_AT;
 import static org.avni_integration_service.lahi.service.LahiStudentService.ENTITYTYPE;
 
 @Service
@@ -22,7 +21,7 @@ public class LahiIntegrationDataService {
     }
 
     public void studentProcessed(LahiStudent student) {
-        Date date = DateTimeUtil.lastUpdatedDate(student.getResponse().get(FLOW_RESULT_UPDATED_AT).toString());
+        Date date = DateTimeUtil.lastUpdatedDate(student.getLastUpdatedAt());
         IntegratingEntityStatus integratingEntityStatus = integratingEntityStatusRepository.findByEntityType(ENTITYTYPE);
         integratingEntityStatus.setReadUptoDateTime(date);
         integratingEntityStatusRepository.save(integratingEntityStatus);

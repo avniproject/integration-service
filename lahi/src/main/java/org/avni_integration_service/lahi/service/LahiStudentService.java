@@ -2,15 +2,13 @@ package org.avni_integration_service.lahi.service;
 
 import org.apache.log4j.Logger;
 import org.avni_integration_service.glific.bigQuery.BigQueryClient;
+import org.avni_integration_service.glific.bigQuery.domain.FlowResult;
+import org.avni_integration_service.glific.bigQuery.mapper.FlowResultMapper;
 import org.avni_integration_service.integration_data.repository.IntegratingEntityStatusRepository;
 import org.avni_integration_service.lahi.domain.LahiStudent;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
-import static org.avni_integration_service.lahi.domain.LahiStudentConstants.ResultFieldList;
+import java.util.Iterator;
 
 @Service
 public class LahiStudentService {
@@ -39,10 +37,19 @@ public class LahiStudentService {
         this.integratingEntityStatusRepository = integratingEntityStatusRepository;
     }
 
-    public List<LahiStudent> getStudents() {
+    public Iterator<LahiStudent> getStudents() {
         String fetchTime = integratingEntityStatusRepository.findByEntityType(ENTITYTYPE).getReadUptoDateTime().toString();
-        List<Map<String, Object>> studentsResponse = bigQueryClient.queryWithPagination(BULK_FETCH_QUERY, fetchTime, LIMIT, ResultFieldList);
-        logger.info(String.format("%s Data get after fetching from glific", studentsResponse.size()));
-        return studentsResponse.stream().map(LahiStudent::new).collect(Collectors.toList());
+        Iterator<FlowResult> results = bigQueryClient.getResults(BULK_FETCH_QUERY, fetchTime, LIMIT, new FlowResultMapper());
+        return new Iterator<>() {
+            @Override
+            public boolean hasNext() {
+                return results.hasNext();
+            }
+
+            @Override
+            public LahiStudent next() {
+                return new LahiStudent(results.next());
+            }
+        };
     }
 }
