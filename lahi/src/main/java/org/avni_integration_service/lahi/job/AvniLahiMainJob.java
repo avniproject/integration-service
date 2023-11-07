@@ -47,7 +47,6 @@ public class AvniLahiMainJob {
             avniHttpClient.setAvniSession(lahiAvniSessionFactory.createSession());
             IntegrationContext.set(new ContextIntegrationSystem(integrationSystemRepository.findBySystemTypeAndName(IntegrationSystem.IntegrationSystemType.lahi, "lahi")));
             studentWorker.processStudents();
-            // TODO: 08/09/23
             healthCheckService.success(HEALTHCHECK_SLUG);
             logger.info("Lahi Main Job Ended !!!!!");
         } catch (Throwable e) {

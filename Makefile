@@ -1,5 +1,6 @@
 include bahmni/bahmni.mk
 include externalDB.mk
+include util/util.mk
 
 help:
 	@IFS=$$'\n' ; \

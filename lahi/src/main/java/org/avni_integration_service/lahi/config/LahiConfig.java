@@ -32,7 +32,4 @@ public class LahiConfig {
     public String getLahiSubdomain() {
         return glificSubdomain;
     }
-
-
-
-    }
+}

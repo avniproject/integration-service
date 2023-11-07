@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class BigQueryConnector {
-
     private final Logger log = LoggerFactory.getLogger(BigQueryConnector.class);
 
     private static final String DATASET_LOCATION = "US";
@@ -30,5 +29,4 @@ public class BigQueryConnector {
     public String getDataSetName() {
         return dataSetName;
     }
-
 }

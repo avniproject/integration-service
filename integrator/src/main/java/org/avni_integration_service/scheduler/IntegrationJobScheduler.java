@@ -76,13 +76,13 @@ public class IntegrationJobScheduler {
 
     @PostConstruct
     public void scheduleAll() {
-        if (CronExpression.isValidExpression(powerCron)) taskScheduler.schedule(avniPowerMainJob::execute, new CronTrigger(powerCron));
-        if (CronExpression.isValidExpression(powerCronError)) taskScheduler.schedule(avniPowerFullErrorJob::execute, new CronTrigger(powerCronError));
-        if (CronExpression.isValidExpression(lahiCron)) taskScheduler.schedule(avniLahiMainJob::execute, new CronTrigger(lahiCron));
-        if (CronExpression.isValidExpression(lahiCronError)) taskScheduler.schedule(avniLahiFullErrorJob::execute, new CronTrigger(lahiCronError));
-        if (CronExpression.isValidExpression(amritCron)) taskScheduler.schedule(avniAmritMainJob::execute, new CronTrigger(amritCron));
-        if (CronExpression.isValidExpression(amritCronError)) taskScheduler.schedule(avniAmritFullErrorJob::execute, new CronTrigger(amritCronError));
+        schedulePower();
+        scheduleLahi();
+        scheduleAmrit();
+        scheduleGoonj();
+    }
 
+    private void scheduleGoonj() {
         List<IntegrationSystem> goonjSystems = integrationSystemRepository.findAllBySystemType(IntegrationSystem.IntegrationSystemType.Goonj);
         goonjSystems.forEach(goonjSystem -> {
             IntegrationSystemConfigCollection integrationSystemConfigs = integrationSystemConfigRepository.getInstanceConfiguration(goonjSystem);
@@ -96,5 +96,20 @@ public class IntegrationJobScheduler {
             if (CronExpression.isValidExpression(errorScheduledJobCron))
                 taskScheduler.schedule(() -> avniGoonjFullErrorJob.execute(goonjConfig), new CronTrigger(errorScheduledJobCron));
         });
+    }
+
+    private void scheduleAmrit() {
+        if (CronExpression.isValidExpression(amritCron)) taskScheduler.schedule(avniAmritMainJob::execute, new CronTrigger(amritCron));
+        if (CronExpression.isValidExpression(amritCronError)) taskScheduler.schedule(avniAmritFullErrorJob::execute, new CronTrigger(amritCronError));
+    }
+
+    private void scheduleLahi() {
+        if (CronExpression.isValidExpression(lahiCron)) taskScheduler.schedule(avniLahiMainJob::execute, new CronTrigger(lahiCron));
+        if (CronExpression.isValidExpression(lahiCronError)) taskScheduler.schedule(avniLahiFullErrorJob::execute, new CronTrigger(lahiCronError));
+    }
+
+    private void schedulePower() {
+        if (CronExpression.isValidExpression(powerCron)) taskScheduler.schedule(avniPowerMainJob::execute, new CronTrigger(powerCron));
+        if (CronExpression.isValidExpression(powerCronError)) taskScheduler.schedule(avniPowerFullErrorJob::execute, new CronTrigger(powerCronError));
     }
 }
