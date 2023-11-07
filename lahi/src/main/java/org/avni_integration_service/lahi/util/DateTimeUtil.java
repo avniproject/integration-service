@@ -10,9 +10,9 @@ public class DateTimeUtil {
     // TODO: 20/09/23  If needed we have to change date type
     //  public static final String REGISTRATION_DATE = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS";
     public static final String DATE_TIME = "yyyy-MM-dd'T'HH:mm:ss";
-    public static final String DATE_OF_BIRTH = "dd-MM-yyyy";
+    public static final String DD_MM_YYYY = "dd-MM-yyyy";
 
-    public static Date toDate(String dateString,String format){
+    public static Date toDate(String dateString, String format) {
         SimpleDateFormat sdf = new SimpleDateFormat(format);
         try {
             Date date = sdf.parse(dateString);
@@ -23,30 +23,14 @@ public class DateTimeUtil {
         return null;
     }
 
-    public static LocalDate toLocalDate(String dateString,String format){
+    public static LocalDate toLocalDate(String dateString, String format) {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern(format);
         try {
-            LocalDate date = LocalDate.parse(dateString,dtf);
+            LocalDate date = LocalDate.parse(dateString, dtf);
             return date;
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
-    }
-
-    public static Date registrationDate(String dateString){
-        return toDate(dateString, DATE_TIME);
-    }
-
-    public static Date lastUpdatedDate(String dateString){
-        return toDate(dateString, DATE_TIME);
-    }
-
-    public static Date dateOfBirth(String dateString){
-        return toDate(dateString,DATE_OF_BIRTH);
-    }
-
-    public static LocalDate dob(String dateString){
-        return toLocalDate(dateString,DATE_OF_BIRTH);
     }
 }

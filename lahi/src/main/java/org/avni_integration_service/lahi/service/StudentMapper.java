@@ -71,15 +71,15 @@ public class StudentMapper implements LahiStudentConstants {
         subjectObservations.put(AvniStudentRepository.ALTERNATE_PHONE_NUMBER, alternatePhoneNumber);
     }
 
-    private Subject subjectWithoutObservations(LahiStudent student) {
+    private Subject subjectWithoutObservations(LahiStudent lahiStudent) {
         Subject subject = new Subject();
 
-        String firstName = StringUtils.capitalize(student.getFirstName());
-        String lastName = StringUtils.capitalize(student.getLastName());
-        Date registrationDate = DateTimeUtil.registrationDate(student.getDateOfRegistration());
-        Date dob = DateTimeUtil.dateOfBirth(student.getDateOfBirth());
-        String gender = student.getGender();
-        String externalId = student.getFlowResultId();
+        String firstName = StringUtils.capitalize(lahiStudent.getFirstName());
+        String lastName = StringUtils.capitalize(lahiStudent.getLastName());
+        Date registrationDate = DateTimeUtil.toDate(lahiStudent.getDateOfRegistration(), DateTimeUtil.DATE_TIME);
+        Date dob = DateTimeUtil.toDate(lahiStudent.getDateOfBirth(), DateTimeUtil.DD_MM_YYYY);
+        String gender = lahiStudent.getGender();
+        String externalId = lahiStudent.getFlowResultId();
 
         subject.setExternalId(externalId);
         subject.setAddress(STUDENT_ADDRESS);

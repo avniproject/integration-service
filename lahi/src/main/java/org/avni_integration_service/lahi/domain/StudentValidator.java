@@ -30,7 +30,7 @@ public class StudentValidator {
         if (dateOfBirth == null) {
             isNotValid = true;
         }
-        if (Period.between(DateTimeUtil.dob(dateOfBirth), LocalDate.now()).getYears() < 14) {
+        if (Period.between(DateTimeUtil.toLocalDate(dateOfBirth, DateTimeUtil.DD_MM_YYYY), LocalDate.now()).getYears() < 14) {
             isNotValid = true;
         }
         if (isNotValid) {
