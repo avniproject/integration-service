@@ -1,17 +1,13 @@
 package org.avni_integration_service.lahi.service;
 
-import org.apache.log4j.Logger;
 import org.apache.logging.log4j.util.Strings;
 import org.avni_integration_service.avni.domain.ObservationHolder;
 import org.avni_integration_service.avni.domain.Subject;
-import org.avni_integration_service.integration_data.domain.MappingMetaData;
-import org.avni_integration_service.integration_data.domain.framework.MappingException;
-import org.avni_integration_service.integration_data.repository.MappingMetaDataRepository;
 import org.avni_integration_service.lahi.config.LahiMappingDbConstants;
 import org.avni_integration_service.lahi.domain.LahiStudentConstants;
 import org.avni_integration_service.lahi.domain.LahiStudent;
 import org.avni_integration_service.lahi.util.DateTimeUtil;
-import org.avni_integration_service.util.ObsDataType;
+import org.avni_integration_service.common.ObservationMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -20,11 +16,10 @@ import java.util.Map;
 
 @Service
 public class StudentMapper implements LahiStudentConstants {
-    private static final Logger logger = Logger.getLogger(StudentMapper.class);
-    private final MappingMetaDataRepository mappingMetaDataRepository;
+    private final ObservationMapper observationMapper;
 
-    public StudentMapper(MappingMetaDataRepository mappingMetaDataRepository) {
-        this.mappingMetaDataRepository = mappingMetaDataRepository;
+    public StudentMapper(ObservationMapper observationMapper) {
+        this.observationMapper = observationMapper;
     }
 
     public Subject mapToSubject(LahiStudent lahiStudent) {
@@ -38,26 +33,7 @@ public class StudentMapper implements LahiStudentConstants {
     }
 
     private void populateObservations(ObservationHolder observationHolder, LahiStudent student) {
-        Map<String, String> observationFields = student.getObservations();
-        observationFields.forEach((key, value) -> {
-            MappingMetaData mapping = mappingMetaDataRepository.getAvniMappingIfPresent(LahiMappingDbConstants.MAPPING_GROUP_STUDENT, LahiMappingDbConstants.MAPPING_TYPE_OBS, key);
-            if (mapping == null) {
-                logger.error("Mapping entry not found for observation field: " + key);
-                return;
-            }
-            ObsDataType dataTypeHint = mapping.getDataTypeHint();
-            if (dataTypeHint == null)
-                observationHolder.addObservation(mapping.getAvniValue(), value);
-            else if (dataTypeHint == ObsDataType.Coded && value != null) {
-                MappingMetaData answerMapping = mappingMetaDataRepository.getAvniMappingIfPresent(LahiMappingDbConstants.MAPPING_GROUP_STUDENT, LahiMappingDbConstants.MAPPING_TYPE_OBS, value);
-                if (answerMapping == null) {
-                    String errorMessage = "Answer Mapping entry not found for coded concept answer field: " + value;
-                    logger.error(errorMessage);
-                    throw new MappingException(errorMessage);
-                }
-                observationHolder.addObservation(mapping.getAvniValue(), answerMapping.getAvniValue());
-            }
-        });
+        observationMapper.mapObservations(observationHolder, student.getObservations(), LahiMappingDbConstants.MAPPING_GROUP_STUDENT, LahiMappingDbConstants.MAPPING_TYPE_OBS);
     }
 
     private void setOtherAddress(Subject subject, LahiStudent student) {

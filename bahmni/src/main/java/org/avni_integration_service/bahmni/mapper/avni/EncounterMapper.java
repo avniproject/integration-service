@@ -18,11 +18,11 @@ import java.util.*;
 @Component
 public class EncounterMapper {
     private final MappingService mappingService;
-    private final ObservationMapper observationMapper;
+    private final BahmniModuleObservationMapper observationMapper;
     private final BahmniMappingGroup bahmniMappingGroup;
     private final BahmniMappingType bahmniMappingType;
 
-    public EncounterMapper(MappingService mappingService, ObservationMapper observationMapper,
+    public EncounterMapper(MappingService mappingService, BahmniModuleObservationMapper observationMapper,
                            BahmniMappingGroup bahmniMappingGroup, BahmniMappingType bahmniMappingType) {
         this.mappingService = mappingService;
         this.observationMapper = observationMapper;

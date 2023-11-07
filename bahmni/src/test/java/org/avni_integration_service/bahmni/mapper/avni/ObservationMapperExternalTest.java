@@ -23,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @Disabled
 public class ObservationMapperExternalTest {
     @Autowired
-    private ObservationMapper observationMapper;
+    private BahmniModuleObservationMapper observationMapper;
 
     @Autowired
     private MappingService mappingService;

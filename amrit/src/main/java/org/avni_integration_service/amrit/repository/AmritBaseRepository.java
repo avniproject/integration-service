@@ -99,7 +99,7 @@ public abstract class AmritBaseRepository {
         throw getRestClientResponseException(responseEntity.getHeaders(), responseEntity.getStatusCode(), null);
     }
 
-    protected <T extends AmritBaseResponse> T createSingleEntity(String resource, HttpEntity<?> requestEntity,Class<T> returnType) throws RestClientResponseException {
+    protected <T extends AmritBaseResponse> T createSingleEntity(String resource, HttpEntity<?> requestEntity, Class<T> returnType) throws RestClientResponseException {
         logger.info("Request body:" + ObjectJsonMapper.writeValueAsString(requestEntity.getBody()));
         URI uri = URI.create(String.format("%s/%s", amritApplicationConfig.getAmritServerUrl(), resource));
         ResponseEntity<T> responseEntity = amritRestTemplate.exchange(uri, HttpMethod.POST, requestEntity, returnType);
@@ -122,7 +122,7 @@ public abstract class AmritBaseRepository {
 
     protected RestClientException handleError(ResponseEntity<? extends AmritBaseResponse> responseEntity, HttpStatus statusCode) {
         AmritBaseResponse responseBody = responseEntity.getBody();
-        if(statusCode.equals(HttpStatus.BAD_REQUEST) && responseBody.getErrorMessage()
+        if (statusCode.equals(HttpStatus.BAD_REQUEST) && responseBody.getErrorMessage()
                 .equalsIgnoreCase(INVALID_LOGIN_KEY_OR_SESSION_IS_EXPIRED)) {
             amritTokenService.loginAndGenerateToken();
         }
@@ -139,7 +139,7 @@ public abstract class AmritBaseRepository {
         for (MappingMetaData amritField : amritFields) {
             MappingMetaData mapping = mappingMetaDataRepository
                     .getAvniMappingIfPresent(mappingGroup, mappingType, amritField.getIntSystemValue(), integrationSystem);
-            if(mapping == null) {
+            if (mapping == null) {
                 logger.warn("Mapping entry not found for amrit field: " + amritField.getIntSystemValue());
                 continue;
             }
@@ -150,7 +150,7 @@ public abstract class AmritBaseRepository {
             } else if (dataTypeHint == ObsDataType.Coded && getValue(avniEntity, obsField) != null) {
                 MappingMetaData answerMapping = mappingMetaDataRepository.getIntSystemMappingIfPresent(mappingGroup,
                         mappingTypeCodedObservations, getValue(avniEntity, obsField).toString(), integrationSystem);
-                if(answerMapping != null) {
+                if (answerMapping != null) {
                     observationHolder.put(mapping.getIntSystemValue(), answerMapping.getIntSystemValue());
                 } else {
                     logger.error(String.format("Unable to find coded mapping for attribute %s", mapping.getIntSystemValue()));
@@ -159,14 +159,14 @@ public abstract class AmritBaseRepository {
                 //Fetch corresponding ID from group MAPPING_GROUP_MASTER_IDS for the same mappingType
                 MappingMetaData answerMapping = mappingMetaDataRepository.getIntSystemMappingIfPresent(MAPPING_GROUP_MASTER_IDS,
                         mapping.getIntSystemValue(), getValue(avniEntity, obsField).toString(), integrationSystem);
-                if(answerMapping != null) {
+                if (answerMapping != null) {
                     observationHolder.put(mapping.getIntSystemValue(), answerMapping.getIntSystemValue());
                 } else {
                     logger.error(String.format("Unable to find numeric mapping for attribute %s", mapping.getIntSystemValue()));
                 }
             } else if (dataTypeHint == ObsDataType.Text && getValue(avniEntity, obsField) != null) {
                 Object answer = getValue(avniEntity, obsField);
-                if(answer instanceof List<?>) {
+                if (answer instanceof List<?>) {
                     //Convert string array to single string
                     List<String> answers = (List<String>) answer;
                     answer = String.join(",", answers);
@@ -215,7 +215,7 @@ public abstract class AmritBaseRepository {
 
     public AmritFetchIdentityResponse getAmritId(String individualUUID) {
         return getSingleEntityResponse(amritApplicationConfig.getIdentityApiPrefix() + FETCH_AMRIT_ID_RESOURCE_PATH,
-                new HttpEntity<>(new String[] {individualUUID}), AmritFetchIdentityResponse.class);
+                new HttpEntity<>(new String[]{individualUUID}), AmritFetchIdentityResponse.class);
     }
 
 }

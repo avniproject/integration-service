@@ -70,8 +70,8 @@ public class LahiStudent implements LahiStudentConstants {
         return flowResult.getFlowResultId();
     }
 
-    public Map<String, String> getObservations() {
-        HashMap<String, String> observations = new HashMap<>();
+    public Map<String, Object> getObservations() {
+        HashMap<String, Object> observations = new HashMap<>();
 
         PRIMITIVE_OBS_FIELDS.forEach(fieldName -> observations.put(fieldName, getInput(fieldName)));
         CODED_OBS_FIELDS.forEach(fieldName -> observations.put(fieldName, getCategory(fieldName)));

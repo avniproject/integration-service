@@ -17,13 +17,13 @@ import java.util.*;
 @Component
 public class EnrolmentMapper {
 
-    private final ObservationMapper observationMapper;
+    private final BahmniModuleObservationMapper observationMapper;
     private final MappingService mappingService;
     private final BahmniMappingGroup bahmniMappingGroup;
     private final BahmniMappingType bahmniMappingType;
 
     @Autowired
-    public EnrolmentMapper(MappingService mappingService, ObservationMapper observationMapper,
+    public EnrolmentMapper(MappingService mappingService, BahmniModuleObservationMapper observationMapper,
                            BahmniMappingGroup bahmniMappingGroup, BahmniMappingType bahmniMappingType) {
         this.mappingService = mappingService;
         this.observationMapper = observationMapper;

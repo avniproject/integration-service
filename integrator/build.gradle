@@ -35,6 +35,7 @@ dependencies {
     implementation project(':util')
     implementation project(':avni')
     implementation project(':integration-data')
+    implementation project(':integration-common')
     implementation project(':bahmni')
     implementation project(':goonj')
     implementation project(':power')

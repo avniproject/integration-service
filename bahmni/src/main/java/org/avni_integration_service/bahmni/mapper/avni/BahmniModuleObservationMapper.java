@@ -15,13 +15,13 @@ import java.util.*;
 import static org.avni_integration_service.bahmni.contract.OpenMRSSaveObservation.createVoidedObs;
 
 @Component
-public class ObservationMapper {
+public class BahmniModuleObservationMapper {
     private final MappingService mappingService;
     private final BahmniMappingGroup bahmniMappingGroup;
 
     private final BahmniMappingType bahmniMappingType;
     @Autowired
-    public ObservationMapper(MappingService mappingService, BahmniMappingGroup bahmniMappingGroup, BahmniMappingType bahmniMappingType) {
+    public BahmniModuleObservationMapper(MappingService mappingService, BahmniMappingGroup bahmniMappingGroup, BahmniMappingType bahmniMappingType) {
         this.mappingService = mappingService;
         this.bahmniMappingGroup = bahmniMappingGroup;
         this.bahmniMappingType = bahmniMappingType;
