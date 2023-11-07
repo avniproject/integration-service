@@ -31,7 +31,7 @@ public class AvniLahiErrorService {
     }
 
     private ErrorType getErrorType(LahiErrorType lahiErrorType) {
-        return errorTypeRepository.findByNameAndIntegrationSystem(lahiErrorType.name(), integrationSystemRepository.findBySystemType(IntegrationSystem.IntegrationSystemType.lahi));
+        return errorTypeRepository.findByNameAndIntegrationSystem(lahiErrorType.name(), integrationSystemRepository.find());
     }
 
     public List<ErrorType> getUnprocessableErrorTypes() {
@@ -57,7 +57,7 @@ public class AvniLahiErrorService {
             errorRecord.setEntityId(uuid);
             errorRecord.addErrorType(getErrorType(lahiErrorType));
             errorRecord.setProcessingDisabled(false);
-            errorRecord.setIntegrationSystem(integrationSystemRepository.findBySystemType(IntegrationSystem.IntegrationSystemType.lahi));
+            errorRecord.setIntegrationSystem(integrationSystemRepository.find());
             errorRecordRepository.save(errorRecord);
         }
         return errorRecord;

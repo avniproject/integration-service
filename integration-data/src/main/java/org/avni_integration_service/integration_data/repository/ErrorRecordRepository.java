@@ -1,15 +1,18 @@
 package org.avni_integration_service.integration_data.repository;
 
+import org.avni_integration_service.integration_data.context.IntegrationContext;
 import org.avni_integration_service.integration_data.domain.AvniEntityType;
 import org.avni_integration_service.integration_data.domain.IntegrationSystem;
 import org.avni_integration_service.integration_data.domain.error.ErrorRecord;
 import org.avni_integration_service.integration_data.domain.error.ErrorType;
+import org.avni_integration_service.integration_data.repository.framework.RepositoryProvider;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ErrorRecordRepository extends PagingAndSortingRepository<ErrorRecord, Integer> {
@@ -25,4 +28,13 @@ public interface ErrorRecordRepository extends PagingAndSortingRepository<ErrorR
     Page<ErrorRecord> findAllByIntegratingEntityTypeNotNullAndErrorRecordLogsErrorTypeNotInAndIntegrationSystemIdOrderById(List<ErrorType> errorTypes, int integrationSystemId, Pageable pageable);
 
     List<ErrorRecord> findAllByAvniEntityTypeNotNull();
+
+    default ErrorRecord saveErrorRecord(ErrorRecord errorRecord) {
+        errorRecord.setIntegrationSystem(getIntegrationSystem());
+        return this.save(errorRecord);
+    }
+
+    private IntegrationSystem getIntegrationSystem() {
+        return RepositoryProvider.getIntegrationSystemRepository().findById(IntegrationContext.getIntegrationSystemId()).get();
+    }
 }

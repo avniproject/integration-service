@@ -2,12 +2,13 @@ package org.avni_integration_service.lahi.service;
 
 import org.apache.log4j.Logger;
 import org.avni_integration_service.integration_data.domain.AvniEntityType;
-import org.avni_integration_service.integration_data.domain.IntegrationSystem;
 import org.avni_integration_service.integration_data.domain.error.ErrorRecord;
 import org.avni_integration_service.integration_data.domain.error.ErrorType;
 import org.avni_integration_service.integration_data.repository.ErrorRecordRepository;
 import org.avni_integration_service.integration_data.repository.ErrorTypeRepository;
 import org.avni_integration_service.integration_data.repository.IntegrationSystemRepository;
+import org.avni_integration_service.lahi.config.LahiEntityType;
+import org.avni_integration_service.lahi.domain.LahiStudent;
 import org.avni_integration_service.lahi.domain.StudentErrorType;
 import org.springframework.stereotype.Service;
 
@@ -25,21 +26,21 @@ public class StudentErrorService {
         this.errorTypeRepository = errorTypeRepository;
     }
 
-    public void errorOccurred(String entityUuid, StudentErrorType studentErrorType, AvniEntityType avniEntityType, String errorMsg) {
-        ErrorType errorType = getErrorType(studentErrorType);
+    public void studentProcessingError(LahiStudent lahiStudent, Throwable throwable) {
+        ErrorType errorType = getErrorType(StudentErrorType.CommonError);
         ErrorRecord errorRecord = new ErrorRecord();
         errorRecord.setIntegratingEntityType("Student");
-        errorRecord.setIntegrationSystem(integrationSystemRepository.findBySystemType(IntegrationSystem.IntegrationSystemType.lahi));
-        errorRecord.setEntityId(entityUuid);
-        errorRecord.setProcessingDisabled(true);
-        errorRecord.setAvniEntityType(avniEntityType);
-        errorRecord.addErrorType(errorType, errorMsg);
-        errorRecordRepository.save(errorRecord);
+        errorRecord.setIntegrationSystem(integrationSystemRepository.find());
+        errorRecord.setEntityId(lahiStudent.getFlowResultId());
+        errorRecord.setProcessingDisabled(false);
+        errorRecord.setAvniEntityType(AvniEntityType.Subject);
+        errorRecord.setIntegratingEntityType(LahiEntityType.Student.name());
+        errorRecord.addErrorType(errorType, throwable.getMessage());
+        errorRecordRepository.saveErrorRecord(errorRecord);
     }
 
     private ErrorType getErrorType(StudentErrorType studentErrorType) {
         String name = studentErrorType.name();
-        IntegrationSystem  system = integrationSystemRepository.findBySystemType(IntegrationSystem.IntegrationSystemType.lahi);
-        return errorTypeRepository.findByNameAndIntegrationSystem(name, system);
+        return errorTypeRepository.findByNameAndIntegrationSystem(name, integrationSystemRepository.find());
     }
 }

@@ -37,7 +37,7 @@ public class StudentWorker {
                 lahiIntegrationDataService.studentProcessed(student);
             } catch (Throwable t) {
                 logger.error("Error while process glific student", t);
-                studentErrorService.errorOccurred(student.getFlowResultId(), StudentErrorType.CommonError, AvniEntityType.Subject, t.getMessage());
+                studentErrorService.studentProcessingError(student, t);
             }
         }
     }
