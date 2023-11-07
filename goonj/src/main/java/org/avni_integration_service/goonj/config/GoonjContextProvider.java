@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 // Using thread local in a component is not a recommended approach. Since GoonjConfig class is used in several places this is a simplest way to achieve this without change a lot of code.
 @Component
 public class GoonjContextProvider {
-    private static ThreadLocal<GoonjConfig> goonjConfigs = new ThreadLocal<>();
+    private static final ThreadLocal<GoonjConfig> goonjConfigs = new ThreadLocal<>();
 
     public void set(GoonjConfig goonjConfig) {
         goonjConfigs.set(goonjConfig);

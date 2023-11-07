@@ -20,7 +20,7 @@ public class IntegrationSystem extends BaseEntity {
         return systemType;
     }
 
-    public static enum IntegrationSystemType {
+    public enum IntegrationSystemType {
         Goonj, power, lahi, Amrit, bahmni
     }
 

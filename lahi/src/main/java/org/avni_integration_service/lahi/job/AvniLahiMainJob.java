@@ -3,6 +3,10 @@ package org.avni_integration_service.lahi.job;
 import com.bugsnag.Bugsnag;
 import org.apache.log4j.Logger;
 import org.avni_integration_service.avni.client.AvniHttpClient;
+import org.avni_integration_service.integration_data.context.ContextIntegrationSystem;
+import org.avni_integration_service.integration_data.context.IntegrationContext;
+import org.avni_integration_service.integration_data.domain.IntegrationSystem;
+import org.avni_integration_service.integration_data.repository.IntegrationSystemRepository;
 import org.avni_integration_service.lahi.config.LahiAvniSessionFactory;
 import org.avni_integration_service.lahi.worker.StudentWorker;
 import org.avni_integration_service.util.HealthCheckService;
@@ -24,21 +28,24 @@ public class AvniLahiMainJob {
     private final AvniHttpClient avniHttpClient;
 
     private final StudentWorker studentWorker;
+    private final IntegrationSystemRepository integrationSystemRepository;
 
     public AvniLahiMainJob(Bugsnag bugsnag, HealthCheckService healthCheckService,
                            LahiAvniSessionFactory lahiAvniSessionFactory, AvniHttpClient avniHttpClient,
-                           StudentWorker studentWorker) {
+                           StudentWorker studentWorker, IntegrationSystemRepository integrationSystemRepository) {
         this.bugsnag = bugsnag;
         this.healthCheckService = healthCheckService;
         this.lahiAvniSessionFactory = lahiAvniSessionFactory;
         this.avniHttpClient = avniHttpClient;
         this.studentWorker = studentWorker;
+        this.integrationSystemRepository = integrationSystemRepository;
     }
 
     public void execute() {
         try {
             logger.info("Lahi Main Job Started !!!!!");
             avniHttpClient.setAvniSession(lahiAvniSessionFactory.createSession());
+            IntegrationContext.set(new ContextIntegrationSystem(integrationSystemRepository.findBySystemTypeAndName(IntegrationSystem.IntegrationSystemType.lahi, "lahi")));
             studentWorker.processStudents();
             // TODO: 08/09/23
             healthCheckService.success(HEALTHCHECK_SLUG);

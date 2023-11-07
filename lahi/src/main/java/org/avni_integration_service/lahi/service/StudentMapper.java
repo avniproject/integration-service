@@ -29,7 +29,7 @@ public class StudentMapper implements LahiStudentConstants {
 
     public Subject mapToSubject(LahiStudent lahiStudent) {
         Subject subject = this.subjectWithoutObservations(lahiStudent);
-        this.populateObservations(subject, lahiStudent, LahiMappingDbConstants.MAPPING_GROUP_STUDENT);
+        this.populateObservations(subject, lahiStudent);
         Map<String, Object> observations = subject.getObservations();
         LahiMappingDbConstants.DEFAULT_STUDENT_OBS_VALUE_MAP.forEach(observations::put);
         setOtherAddress(subject, lahiStudent);
@@ -37,10 +37,10 @@ public class StudentMapper implements LahiStudentConstants {
         return subject;
     }
 
-    private void populateObservations(ObservationHolder observationHolder, LahiStudent student, String mappingGroup) {
+    private void populateObservations(ObservationHolder observationHolder, LahiStudent student) {
         Map<String, String> observationFields = student.getObservations();
         observationFields.forEach((key, value) -> {
-            MappingMetaData mapping = mappingMetaDataRepository.getAvniMappingIfPresent(mappingGroup, LahiMappingDbConstants.MAPPING_TYPE_OBS, key, 5);
+            MappingMetaData mapping = mappingMetaDataRepository.getAvniMappingIfPresent(LahiMappingDbConstants.MAPPING_GROUP_STUDENT, LahiMappingDbConstants.MAPPING_TYPE_OBS, key);
             if (mapping == null) {
                 logger.error("Mapping entry not found for observation field: " + key);
                 return;
@@ -49,7 +49,7 @@ public class StudentMapper implements LahiStudentConstants {
             if (dataTypeHint == null)
                 observationHolder.addObservation(mapping.getAvniValue(), value);
             else if (dataTypeHint == ObsDataType.Coded && value != null) {
-                MappingMetaData answerMapping = mappingMetaDataRepository.getAvniMappingIfPresent(mappingGroup, LahiMappingDbConstants.MAPPING_TYPE_OBS, value, 5);
+                MappingMetaData answerMapping = mappingMetaDataRepository.getAvniMappingIfPresent(LahiMappingDbConstants.MAPPING_GROUP_STUDENT, LahiMappingDbConstants.MAPPING_TYPE_OBS, value);
                 if (answerMapping == null) {
                     String errorMessage = "Answer Mapping entry not found for coded concept answer field: " + value;
                     logger.error(errorMessage);
