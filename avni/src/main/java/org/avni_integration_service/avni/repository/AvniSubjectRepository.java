@@ -8,9 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashMap;
+import java.util.*;
 
 @Component
 public class AvniSubjectRepository extends BaseAvniRepository {
@@ -37,6 +35,11 @@ public class AvniSubjectRepository extends BaseAvniRepository {
         return response;
     }
 
+    public Subject[] getSubjects(String subjectType, HashMap<String, Object> observationParam) {
+        return this.getSubjects(getStartingTime(), subjectType, observationParam);
+    }
+
+    @Deprecated // for getting some subjects use without lastModifiedDateTime method
     public Subject[] getSubjects(Date lastModifiedDateTime, String subjectType, HashMap<String, Object> concepts) {
         String fromTime = FormatAndParseUtil.toISODateTimeString(lastModifiedDateTime);
         HashMap<String, String> queryParams = new HashMap<>();
@@ -50,6 +53,15 @@ public class AvniSubjectRepository extends BaseAvniRepository {
         return Arrays.stream(subjects).filter(subject -> !subject.getVoided()).toArray(Subject[]::new);
     }
 
+    public Subject getSubject(String subjectType, HashMap<String, Object> concepts) {
+        return pickAndExpectOne(getSubjects(getStartingTime(), subjectType, concepts));
+    }
+
+    private Date getStartingTime() {
+        return new GregorianCalendar(1900, Calendar.JANUARY, 1).getTime();
+    }
+
+    @Deprecated // for getting subject use without lastModifiedDateTime method
     public Subject getSubject(Date lastModifiedDateTime, String subjectType, HashMap<String, Object> concepts) {
         return pickAndExpectOne(getSubjects(lastModifiedDateTime, subjectType, concepts));
     }

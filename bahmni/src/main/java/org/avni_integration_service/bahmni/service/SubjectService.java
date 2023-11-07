@@ -43,21 +43,13 @@ public class SubjectService {
         LinkedHashMap<String, Object> subjectCriteria = new LinkedHashMap<>();
         String prefix = constants.getValue(ConstantKey.BahmniIdentifierPrefix.name());
         subjectCriteria.put(patientToSubjectMetaData.avniIdentifierConcept(), identifier.replace(prefix, ""));
-        return avniSubjectRepository.getSubject(
-                new GregorianCalendar(1900, Calendar.JANUARY, 1).getTime(),
-                constants.getValue(ConstantKey.IntegrationAvniSubjectType.name()),
-                subjectCriteria
-        );
+        return avniSubjectRepository.getSubject(constants.getValue(ConstantKey.IntegrationAvniSubjectType.name()), subjectCriteria);
     }
 
     public Subject[] findSubjects(Subject subject, SubjectToPatientMetaData subjectToPatientMetaData, Constants constants) {
         LinkedHashMap<String, Object> subjectCriteria = new LinkedHashMap<>();
         subjectCriteria.put(subjectToPatientMetaData.avniIdentifierConcept(), subject.getId(subjectToPatientMetaData.avniIdentifierConcept()));
-        return avniSubjectRepository.getSubjects(
-                new GregorianCalendar(1900, Calendar.JANUARY, 1).getTime(),
-                constants.getValue(ConstantKey.IntegrationAvniSubjectType.name()),
-                subjectCriteria
-        );
+        return avniSubjectRepository.getSubjects(constants.getValue(ConstantKey.IntegrationAvniSubjectType.name()), subjectCriteria);
     }
 
     public void createRegistrationEncounter(OpenMRSPatient openMRSPatient, Subject subject, PatientToSubjectMetaData patientToSubjectMetaData) {

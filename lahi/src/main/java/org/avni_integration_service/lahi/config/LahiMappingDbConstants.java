@@ -9,9 +9,6 @@ public interface LahiMappingDbConstants {
     String MAPPING_TYPE_OBS = "Observations";
     String MAPPING_GROUP_STUDENT = "Student";
 
-    String CONTACT_PHONE_NUMBER = "Student contact number";
-    String ALTERNATE_PHONE_NUMBER = "Alternate (Whatsapp number)";
-
     Map<String,Object> DEFAULT_STUDENT_OBS_VALUE_MAP = Map.ofEntries(
             entry("Does student give permission to LAHI to Send Whatsapp/SMS/Call for any career opportunities?","Yes"),
             entry("Career options you are interested in", Collections.singletonList("Other")),

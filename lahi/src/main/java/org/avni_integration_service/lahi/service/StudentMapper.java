@@ -1,11 +1,11 @@
 package org.avni_integration_service.lahi.service;
 
 import org.apache.logging.log4j.util.Strings;
-import org.avni_integration_service.avni.domain.ObservationHolder;
 import org.avni_integration_service.avni.domain.Subject;
 import org.avni_integration_service.lahi.config.LahiMappingDbConstants;
 import org.avni_integration_service.lahi.domain.LahiStudentConstants;
 import org.avni_integration_service.lahi.domain.LahiStudent;
+import org.avni_integration_service.lahi.repository.AvniStudentRepository;
 import org.avni_integration_service.lahi.util.DateTimeUtil;
 import org.avni_integration_service.common.ObservationMapper;
 import org.springframework.stereotype.Service;
@@ -24,16 +24,12 @@ public class StudentMapper implements LahiStudentConstants {
 
     public Subject mapToSubject(LahiStudent lahiStudent) {
         Subject subject = this.subjectWithoutObservations(lahiStudent);
-        this.populateObservations(subject, lahiStudent);
+        observationMapper.mapObservations(subject, lahiStudent.getObservations(), LahiMappingDbConstants.MAPPING_GROUP_STUDENT, LahiMappingDbConstants.MAPPING_TYPE_OBS);
         Map<String, Object> observations = subject.getObservations();
         LahiMappingDbConstants.DEFAULT_STUDENT_OBS_VALUE_MAP.forEach(observations::put);
         setOtherAddress(subject, lahiStudent);
         setPhoneNumber(subject, lahiStudent);
         return subject;
-    }
-
-    private void populateObservations(ObservationHolder observationHolder, LahiStudent student) {
-        observationMapper.mapObservations(observationHolder, student.getObservations(), LahiMappingDbConstants.MAPPING_GROUP_STUDENT, LahiMappingDbConstants.MAPPING_TYPE_OBS);
     }
 
     private void setOtherAddress(Subject subject, LahiStudent student) {
@@ -59,7 +55,7 @@ public class StudentMapper implements LahiStudentConstants {
         String contactNumber = student.getContactPhone();
         if (contactNumber != null && contactNumber.length() == 12) {
             contactPhoneNumber = contactNumber.substring(2);
-            subjectObservations.put(LahiMappingDbConstants.CONTACT_PHONE_NUMBER, contactPhoneNumber);
+            subjectObservations.put(AvniStudentRepository.CONTACT_PHONE_NUMBER, contactPhoneNumber);
         }
         setAlternatePhoneNumber(student, subjectObservations, contactPhoneNumber);
     }
@@ -72,7 +68,7 @@ public class StudentMapper implements LahiStudentConstants {
         }
         alternatePhoneNumber = Long.parseLong((StringUtils.hasText(alternateNumber) && alternateNumber.length() == 10) ?
                 alternateNumber : contactPhoneNumber);
-        subjectObservations.put(LahiMappingDbConstants.ALTERNATE_PHONE_NUMBER, alternatePhoneNumber);
+        subjectObservations.put(AvniStudentRepository.ALTERNATE_PHONE_NUMBER, alternatePhoneNumber);
     }
 
     private Subject subjectWithoutObservations(LahiStudent student) {
@@ -92,7 +88,7 @@ public class StudentMapper implements LahiStudentConstants {
         subject.setRegistrationDate(registrationDate);
         subject.setDateOfBirth(dob);
         subject.setGender(gender);
-        subject.setSubjectType("Student");
+        subject.setSubjectType(AvniStudentRepository.STUDENT_SUBJECT_TYPE);
         return subject;
     }
 }
