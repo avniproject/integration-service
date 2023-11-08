@@ -35,13 +35,12 @@ public class AvniStudentRepository {
         LinkedHashMap<String, Object> subjectSearchCriteria = new LinkedHashMap<>();
         subjectSearchCriteria.put(CONTACT_PHONE_NUMBER, subject.getObservation(CONTACT_PHONE_NUMBER));
         Subject[] subjects = avniSubjectRepository.getSubjects(STUDENT_SUBJECT_TYPE, subjectSearchCriteria);
-//        First Name, Last Name, Father Name, DOB, Gender
-        return Arrays.stream(subjects).filter(x ->
-                ObjectUtil.nullSafeEqualsIgnoreCase(x.getFirstName(), subject.getFirstName())
-                        && ObjectUtil.nullSafeEqualsIgnoreCase(x.getLastName(), subject.getLastName())
-                        && ObjectUtil.nullSafeEqualsIgnoreCase(x.getGender(), subject.getGender())
-                        && ObjectUtil.nullSafeEqualsIgnoreCase(x.getDateOfBirth(), subject.getDateOfBirth())
-                        && ObjectUtil.nullSafeEqualsIgnoreCase(x.getObservation(FATHERS_NAME_CONCEPT), subject.getObservation(FATHERS_NAME_CONCEPT))
+        return Arrays.stream(subjects).filter(x -> ObjectUtil.nullSafeEqualsIgnoreCase(x.getFirstName(), subject.getFirstName())
+                && ObjectUtil.nullSafeEqualsIgnoreCase(x.getLastName(), subject.getLastName())
+                && ObjectUtil.nullSafeEqualsIgnoreCase(x.getGender(), subject.getGender())
+                && ObjectUtil.nullSafeEqualsIgnoreCase(x.getDateOfBirth(), subject.getDateOfBirth())
+                && ObjectUtil.nullSafeEqualsIgnoreCase(x.getObservation(FATHERS_NAME_CONCEPT), subject.getObservation(FATHERS_NAME_CONCEPT))
+
         ).collect(Collectors.toList());
     }
 }

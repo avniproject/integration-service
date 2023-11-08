@@ -27,7 +27,7 @@ public class Subject extends AvniBaseContract {
     }
 
     public void setFirstName(String firstName) {
-        set(FirstNameFieldName, firstName);
+        addObservation(FirstNameFieldName, firstName);
     }
 
     @JsonIgnore
@@ -36,7 +36,7 @@ public class Subject extends AvniBaseContract {
     }
 
     public void setLastName(String lastName) {
-        set(LastNameFieldName, lastName);
+        addObservation(LastNameFieldName, lastName);
     }
 
     @JsonIgnore
@@ -45,7 +45,7 @@ public class Subject extends AvniBaseContract {
     }
 
     public void setDateOfBirth(Date date) {
-        set(DateOfBirth, FormatAndParseUtil.toISODateString(date));
+        addObservation(DateOfBirth, FormatAndParseUtil.toISODateString(date));
     }
 
     public void setRegistrationDate(Date date) {
@@ -91,6 +91,6 @@ public class Subject extends AvniBaseContract {
     }
 
     public void setGender(String gender) {
-        set(GenderName, gender);
+        addObservation(GenderName, gender);
     }
 }
