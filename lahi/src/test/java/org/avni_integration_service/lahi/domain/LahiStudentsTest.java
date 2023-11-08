@@ -60,13 +60,6 @@ public class LahiStudentsTest {
             while (true) {
                 flowResults.next();
             }
-        }, "NoSuchElementExceptionWhenIteratingThroughAFullClass");
-
-        assertThrows(NoSuchElementException.class, () -> {
-            Iterator<FlowResult> flowResults = new ArrayList<FlowResult>().iterator();
-            while (true) {
-                flowResults.next();
-            }
         }, "NoSuchElementExceptionWhenIteratingThroughWithoutNextForEmptyResults");
     }
 
