@@ -7,8 +7,8 @@ import org.avni_integration_service.glific.bigQuery.domain.FlowResult;
 import java.util.*;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class LahiStudent implements LahiStudentConstants {
-    private static final Logger logger = Logger.getLogger(LahiStudent.class);
+public class Student implements LahiStudentConstants {
+    private static final Logger logger = Logger.getLogger(Student.class);
     private static final List<String> Core_Fields = Arrays.asList(FIRST_NAME,LAST_NAME,DATE_OF_BIRTH, GENDER);
     private static final List<String> PRIMITIVE_OBS_FIELDS = Arrays.asList(OTHER_STATE, DISTRICT, CITY_NAME, SCHOOL,
 //            STUDENT_CONTACT_NUMBER, ALTERNATE_NUMBER,
@@ -18,7 +18,7 @@ public class LahiStudent implements LahiStudentConstants {
 
     private FlowResult flowResult;
 
-    public LahiStudent(FlowResult flowResult) {
+    public Student(FlowResult flowResult) {
         this.flowResult = flowResult;
     }
 

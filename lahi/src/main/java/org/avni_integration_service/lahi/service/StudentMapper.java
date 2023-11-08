@@ -4,7 +4,7 @@ import org.apache.logging.log4j.util.Strings;
 import org.avni_integration_service.avni.domain.Subject;
 import org.avni_integration_service.lahi.config.LahiMappingDbConstants;
 import org.avni_integration_service.lahi.domain.LahiStudentConstants;
-import org.avni_integration_service.lahi.domain.LahiStudent;
+import org.avni_integration_service.lahi.domain.Student;
 import org.avni_integration_service.lahi.repository.AvniStudentRepository;
 import org.avni_integration_service.lahi.util.DateTimeUtil;
 import org.avni_integration_service.common.ObservationMapper;
@@ -22,7 +22,7 @@ public class StudentMapper implements LahiStudentConstants {
         this.observationMapper = observationMapper;
     }
 
-    public Subject mapToSubject(LahiStudent lahiStudent) {
+    public Subject mapToSubject(Student lahiStudent) {
         Subject subject = this.subjectWithoutObservations(lahiStudent);
         observationMapper.mapObservations(subject, lahiStudent.getObservations(), LahiMappingDbConstants.MAPPING_GROUP_STUDENT, LahiMappingDbConstants.MAPPING_TYPE_OBS);
         Map<String, Object> observations = subject.getObservations();
@@ -32,7 +32,7 @@ public class StudentMapper implements LahiStudentConstants {
         return subject;
     }
 
-    private void setOtherAddress(Subject subject, LahiStudent student) {
+    private void setOtherAddress(Subject subject, Student student) {
         Map<String, Object> subjectObservations = subject.getObservations();
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(wrapNulls(student.getInput(LahiStudentConstants.STATE)))
@@ -49,7 +49,7 @@ public class StudentMapper implements LahiStudentConstants {
         return input == null ? Strings.EMPTY : input;
     }
 
-    private void setPhoneNumber(Subject subject, LahiStudent student) {
+    private void setPhoneNumber(Subject subject, Student student) {
         Map<String, Object> subjectObservations = subject.getObservations();
         String contactPhoneNumber = null;
         String contactNumber = student.getContactPhone();
@@ -60,7 +60,7 @@ public class StudentMapper implements LahiStudentConstants {
         setAlternatePhoneNumber(student, subjectObservations, contactPhoneNumber);
     }
 
-    private void setAlternatePhoneNumber(LahiStudent student, Map<String, Object> subjectObservations, String contactPhoneNumber) {
+    private void setAlternatePhoneNumber(Student student, Map<String, Object> subjectObservations, String contactPhoneNumber) {
         Long alternatePhoneNumber;
         String alternateNumber = student.getAlternatePhoneNumber();
         if (StringUtils.hasText(alternateNumber) && alternateNumber.length() == 12) {
@@ -71,7 +71,7 @@ public class StudentMapper implements LahiStudentConstants {
         subjectObservations.put(AvniStudentRepository.ALTERNATE_PHONE_NUMBER, alternatePhoneNumber);
     }
 
-    private Subject subjectWithoutObservations(LahiStudent lahiStudent) {
+    private Subject subjectWithoutObservations(Student lahiStudent) {
         Subject subject = new Subject();
 
         String firstName = StringUtils.capitalize(lahiStudent.getFirstName());

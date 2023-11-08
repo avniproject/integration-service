@@ -2,13 +2,10 @@ package org.avni_integration_service.lahi.worker;
 
 import org.apache.log4j.Logger;
 import org.avni_integration_service.avni.domain.Subject;
-import org.avni_integration_service.integration_data.domain.AvniEntityType;
-import org.avni_integration_service.lahi.domain.LahiStudent;
-import org.avni_integration_service.lahi.domain.StudentErrorType;
+import org.avni_integration_service.lahi.domain.Student;
+import org.avni_integration_service.lahi.domain.Students;
 import org.avni_integration_service.lahi.service.*;
 import org.springframework.stereotype.Component;
-
-import java.util.Iterator;
 
 @Component
 public class StudentWorker {
@@ -28,9 +25,9 @@ public class StudentWorker {
     }
 
     public void processStudents() {
-        Iterator<LahiStudent> lahiStudents = lahiStudentService.getStudents();
-        while (lahiStudents.hasNext()) {
-            LahiStudent student = lahiStudents.next();
+        Students students = lahiStudentService.getStudents();
+        while (students.hasNext()) {
+            Student student = students.next();
             try {
                 Subject subject = studentMapper.mapToSubject(student);
                 avniStudentService.saveStudent(subject);

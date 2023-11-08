@@ -3,7 +3,7 @@ package org.avni_integration_service.lahi.service;
 import org.apache.log4j.Logger;
 import org.avni_integration_service.integration_data.domain.IntegratingEntityStatus;
 import org.avni_integration_service.integration_data.repository.IntegratingEntityStatusRepository;
-import org.avni_integration_service.lahi.domain.LahiStudent;
+import org.avni_integration_service.lahi.domain.Student;
 import org.avni_integration_service.lahi.util.DateTimeUtil;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +20,7 @@ public class LahiIntegrationDataService {
         this.integratingEntityStatusRepository = integratingEntityStatusRepository;
     }
 
-    public void studentProcessed(LahiStudent student) {
+    public void studentProcessed(Student student) {
         Date date = DateTimeUtil.toDate(student.getLastUpdatedAt(), DateTimeUtil.DATE_TIME);
         IntegratingEntityStatus integratingEntityStatus = integratingEntityStatusRepository.findByEntityType(ENTITYTYPE);
         integratingEntityStatus.setReadUptoDateTime(date);

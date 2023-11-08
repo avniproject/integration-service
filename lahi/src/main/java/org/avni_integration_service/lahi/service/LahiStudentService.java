@@ -5,7 +5,7 @@ import org.avni_integration_service.glific.bigQuery.BigQueryClient;
 import org.avni_integration_service.glific.bigQuery.domain.FlowResult;
 import org.avni_integration_service.glific.bigQuery.mapper.FlowResultMapper;
 import org.avni_integration_service.integration_data.repository.IntegratingEntityStatusRepository;
-import org.avni_integration_service.lahi.domain.LahiStudent;
+import org.avni_integration_service.lahi.domain.Students;
 import org.springframework.stereotype.Service;
 
 import java.util.Iterator;
@@ -37,19 +37,9 @@ public class LahiStudentService {
         this.integratingEntityStatusRepository = integratingEntityStatusRepository;
     }
 
-    public Iterator<LahiStudent> getStudents() {
+    public Students getStudents() {
         String fetchTime = integratingEntityStatusRepository.findByEntityType(ENTITYTYPE).getReadUptoDateTime().toString();
         Iterator<FlowResult> results = bigQueryClient.getResults(BULK_FETCH_QUERY, fetchTime, LIMIT, new FlowResultMapper());
-        return new Iterator<>() {
-            @Override
-            public boolean hasNext() {
-                return results.hasNext();
-            }
-
-            @Override
-            public LahiStudent next() {
-                return new LahiStudent(results.next());
-            }
-        };
+        return new Students(results);
     }
 }
