@@ -8,8 +8,8 @@ import org.avni_integration_service.integration_data.repository.ErrorRecordRepos
 import org.avni_integration_service.integration_data.repository.ErrorTypeRepository;
 import org.avni_integration_service.integration_data.repository.IntegrationSystemRepository;
 import org.avni_integration_service.lahi.config.LahiEntityType;
+import org.avni_integration_service.lahi.config.LahiErrorType;
 import org.avni_integration_service.lahi.domain.Student;
-import org.avni_integration_service.lahi.domain.StudentErrorType;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -27,7 +27,7 @@ public class StudentErrorService {
     }
 
     public void studentProcessingError(Student lahiStudent, Throwable throwable) {
-        ErrorType errorType = getErrorType(StudentErrorType.CommonError);
+        ErrorType errorType = getErrorType(LahiErrorType.CommonError);
         ErrorRecord errorRecord = new ErrorRecord();
         errorRecord.setIntegratingEntityType("Student");
         errorRecord.setIntegrationSystem(integrationSystemRepository.find());
@@ -39,8 +39,8 @@ public class StudentErrorService {
         errorRecordRepository.saveErrorRecord(errorRecord);
     }
 
-    private ErrorType getErrorType(StudentErrorType studentErrorType) {
-        String name = studentErrorType.name();
+    private ErrorType getErrorType(LahiErrorType errorType) {
+        String name = errorType.name();
         return errorTypeRepository.findByNameAndIntegrationSystem(name, integrationSystemRepository.find());
     }
 }

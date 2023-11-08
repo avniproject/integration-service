@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.apache.log4j.Logger;
 
+import java.text.MessageFormat;
 import java.util.Map;
 
 @Component
@@ -25,8 +26,7 @@ public class ObservationMapper {
         externalSystemObservations.forEach((key, value) -> {
             MappingMetaData mapping = mappingMetaDataRepository.getAvniMappingIfPresent(mappingGroupName, mappingTypeName, key);
             if (mapping == null) {
-                logger.error("Mapping entry not found for observation field: " + key);
-                return;
+                throw new MappingException(MessageFormat.format("Mapping entry not found for observation field: {0}", key));
             }
             ObsDataType dataTypeHint = mapping.getDataTypeHint();
             if (dataTypeHint == null)
@@ -34,9 +34,7 @@ public class ObservationMapper {
             else if (dataTypeHint == ObsDataType.Coded && value != null) {
                 MappingMetaData answerMapping = mappingMetaDataRepository.getAvniMappingIfPresent(mappingGroupName, mappingTypeName, (String) value);
                 if (answerMapping == null) {
-                    String errorMessage = "Answer Mapping entry not found for coded concept answer field: " + value;
-                    logger.error(errorMessage);
-                    throw new MappingException(errorMessage);
+                    throw new MappingException(MessageFormat.format("Answer mapping not found for coded concept {0} answer field: {1}", key, value));
                 }
                 observationHolder.addObservation(mapping.getAvniValue(), answerMapping.getAvniValue());
             }
