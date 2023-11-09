@@ -9,13 +9,15 @@ public class FlowResult {
     private final Map<String, Object> fields;
     private final Map<String, Object> results;
 
+    public static String STUDENT_CONTACT_NUMBER = "contact_phone";
+
     public FlowResult(Map<String, Object> fields) {
         this.fields = fields;
         results = readValue((String)this.fields.get("results"), Map.class);
     }
 
     public String getContactPhone() {
-        return (String) fields.get("contact_phone");
+        return (String) fields.get(STUDENT_CONTACT_NUMBER);
     }
 
     public String getInsertedAt() {

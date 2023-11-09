@@ -2,6 +2,8 @@ package org.avni_integration_service.lahi.service;
 
 import org.apache.log4j.Logger;
 import org.avni_integration_service.avni.domain.Subject;
+import org.avni_integration_service.common.MessageUnprocessableException;
+import org.avni_integration_service.common.UnknownException;
 import org.avni_integration_service.lahi.repository.AvniStudentRepository;
 import org.springframework.stereotype.Service;
 
@@ -16,13 +18,17 @@ public class AvniStudentService {
         this.avniStudentRepository = avniStudentRepository;
     }
 
-    public void saveStudent(Subject subject) {
+    public void saveStudent(Subject subject) throws MessageUnprocessableException, UnknownException {
         List<Subject> matchingStudents = avniStudentRepository.findMatchingStudents(subject);
         if (matchingStudents.size() > 0) {
             logger.warn(String.format("Found %d students with matching details, skipping", matchingStudents.size()));
-            return;
+            throw new MessageUnprocessableException("Avni has at least one such existing student");
         }
 
-        avniStudentRepository.addSubject(subject);
+        try {
+            avniStudentRepository.addSubject(subject);
+        } catch (Exception e) {
+            throw new UnknownException(e);
+        }
     }
 }

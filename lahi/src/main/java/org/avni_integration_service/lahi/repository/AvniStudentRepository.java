@@ -18,7 +18,7 @@ public class AvniStudentRepository {
     public static final String STUDENT_SUBJECT_TYPE = "Student";
     public static final String CONTACT_PHONE_NUMBER = "Student contact number";
     public static final String ALTERNATE_PHONE_NUMBER = "Alternate (Whatsapp number)";
-    public static final String FATHERS_NAME_CONCEPT = "";
+    public static final String FATHERS_NAME_CONCEPT = "Father's name";
 
     private static final Logger logger = Logger.getLogger(AvniStudentRepository.class);
     private final AvniSubjectRepository avniSubjectRepository;

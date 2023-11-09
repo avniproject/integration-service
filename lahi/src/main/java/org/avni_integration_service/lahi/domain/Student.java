@@ -1,22 +1,33 @@
 package org.avni_integration_service.lahi.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.apache.log4j.Logger;
+import org.avni_integration_service.common.PlatformException;
+import org.avni_integration_service.common.MessageUnprocessableException;
 import org.avni_integration_service.glific.bigQuery.domain.FlowResult;
+import org.avni_integration_service.lahi.util.DateTimeUtil;
+import org.springframework.util.StringUtils;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Student implements LahiStudentConstants {
-    private static final Logger logger = Logger.getLogger(Student.class);
-    private static final List<String> Core_Fields = Arrays.asList(FIRST_NAME,LAST_NAME,DATE_OF_BIRTH, GENDER);
-    private static final List<String> PRIMITIVE_OBS_FIELDS = Arrays.asList(OTHER_STATE, DISTRICT, CITY_NAME, SCHOOL,
-//            STUDENT_CONTACT_NUMBER, ALTERNATE_NUMBER,
-            EMAIL, OTHER_QUALIFICATION, FATHER_NAME, QUALIFICATION_STREAM);
-    private static final List<String> CODED_OBS_FIELDS = Arrays.asList(STATE, HIGHEST_QUALIFICATION,
-            QUALIFICATION_STATUS, ACADEMIC_YEAR, VOCATIONAL, TRADE, STREAM);
+    private static final List<String> MandatoryFields =
+            Arrays.asList(
+                    FIRST_NAME,
+                    LAST_NAME,
+                    DATE_OF_BIRTH,
+                    GENDER
+            );
 
-    private FlowResult flowResult;
+    private static final List<String> OtherPrimitiveFields = Arrays.asList(EMAIL, OTHER_QUALIFICATION, FATHER_NAME, QUALIFICATION_STREAM);
+    private static final List<String> OtherCodedFields = Arrays.asList(HIGHEST_QUALIFICATION,
+            QUALIFICATION_STATUS, ACADEMIC_YEAR, VOCATIONAL, TRADE, STREAM);
+    private static final List<String> Genders = Arrays.asList("Male", "Female", "Other");
+
+    private final FlowResult flowResult;
 
     public Student(FlowResult flowResult) {
         this.flowResult = flowResult;
@@ -73,9 +84,20 @@ public class Student implements LahiStudentConstants {
     public Map<String, Object> getObservations() {
         HashMap<String, Object> observations = new HashMap<>();
 
-        PRIMITIVE_OBS_FIELDS.forEach(fieldName -> observations.put(fieldName, getInput(fieldName)));
-        CODED_OBS_FIELDS.forEach(fieldName -> observations.put(fieldName, getCategory(fieldName)));
+        OtherPrimitiveFields.forEach(fieldName -> observations.put(fieldName, getInput(fieldName)));
+        OtherCodedFields.forEach(fieldName -> observations.put(fieldName, getCategory(fieldName)));
 
         return observations;
+    }
+
+    public void validate() throws PlatformException, MessageUnprocessableException {
+        List<String> missingFields = MandatoryFields.stream().filter(field -> !StringUtils.hasLength(getInput(field))).collect(Collectors.toList());
+        if (missingFields.size() > 0)
+            throw new PlatformException(String.format("Missing fields: %s", String.join(",", missingFields)));
+        if (!Genders.contains(getGender()))
+            throw new PlatformException(String.format("Gender value is wrong: %s", getGender()));
+        boolean ageLessThan14 = Period.between(Objects.requireNonNull(DateTimeUtil.toLocalDate(getDateOfBirth(), DateTimeUtil.DD_MM_YYYY)), LocalDate.now()).getYears() < 14;
+        if (ageLessThan14)
+            throw new MessageUnprocessableException(String.format("Age is less than 14: %s", getDateOfBirth()));
     }
 }

@@ -2,6 +2,9 @@ package org.avni_integration_service.lahi.worker;
 
 import org.apache.log4j.Logger;
 import org.avni_integration_service.avni.domain.Subject;
+import org.avni_integration_service.common.MessageUnprocessableException;
+import org.avni_integration_service.common.PlatformException;
+import org.avni_integration_service.common.UnknownException;
 import org.avni_integration_service.lahi.domain.Student;
 import org.avni_integration_service.lahi.domain.Students;
 import org.avni_integration_service.lahi.service.*;
@@ -32,9 +35,14 @@ public class StudentWorker {
                 Subject subject = studentMapper.mapToSubject(student);
                 avniStudentService.saveStudent(subject);
                 lahiIntegrationDataService.studentProcessed(student);
-            } catch (Throwable t) {
-                logger.error("Error while process glific student", t);
-                studentErrorService.studentProcessingError(student, t);
+            } catch (PlatformException e) {
+                logger.error("Platform level issue. Stop processing.", e);
+                throw new RuntimeException(e);
+            } catch (MessageUnprocessableException e) {
+                logger.error("Problem with message. Continue processing.", e);
+            } catch (UnknownException e) {
+                logger.error("Unknown error. Adding to error record.", e);
+                studentErrorService.studentProcessingError(student, e);
             }
         }
     }

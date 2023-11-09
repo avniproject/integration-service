@@ -2,6 +2,8 @@ package org.avni_integration_service.lahi.service;
 
 import org.apache.logging.log4j.util.Strings;
 import org.avni_integration_service.avni.domain.Subject;
+import org.avni_integration_service.common.PlatformException;
+import org.avni_integration_service.integration_data.domain.framework.MappingException;
 import org.avni_integration_service.lahi.config.LahiMappingDbConstants;
 import org.avni_integration_service.lahi.domain.LahiStudentConstants;
 import org.avni_integration_service.lahi.domain.Student;
@@ -22,9 +24,14 @@ public class StudentMapper implements LahiStudentConstants {
         this.observationMapper = observationMapper;
     }
 
-    public Subject mapToSubject(Student lahiStudent) {
+    public Subject mapToSubject(Student lahiStudent) throws PlatformException {
         Subject subject = this.subjectWithoutObservations(lahiStudent);
-        observationMapper.mapObservations(subject, lahiStudent.getObservations(), LahiMappingDbConstants.MAPPING_GROUP_STUDENT, LahiMappingDbConstants.MAPPING_TYPE_OBS);
+        try {
+            observationMapper.mapObservations(subject, lahiStudent.getObservations(), LahiMappingDbConstants.MAPPING_GROUP_STUDENT, LahiMappingDbConstants.MAPPING_TYPE_OBS);
+        } catch (MappingException mappingException) {
+            throw new PlatformException(mappingException);
+        }
+
         Map<String, Object> observations = subject.getObservations();
         LahiMappingDbConstants.DEFAULT_STUDENT_OBS_VALUE_MAP.forEach(observations::put);
         setOtherAddress(subject, lahiStudent);
