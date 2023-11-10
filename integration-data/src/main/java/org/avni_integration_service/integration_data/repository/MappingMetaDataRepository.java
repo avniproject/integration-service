@@ -34,7 +34,7 @@ public interface MappingMetaDataRepository extends BaseRepository<MappingMetaDat
         return findByMappingGroupNameAndMappingTypeNameAndIntSystemValueAndIntegrationSystemId(mappingGroup, mappingType, intSystemValue, integrationSystemId);
     }
 
-    default MappingMetaData getAvniMappingIfPresent(String mappingGroup, String mappingType, String intSystemValue) {
+    default MappingMetaData getAvniMapping(String mappingGroup, String mappingType, String intSystemValue) {
         return findByMappingGroupNameAndMappingTypeNameAndIntSystemValueAndIntegrationSystemId(mappingGroup, mappingType, intSystemValue, IntegrationContext.getIntegrationSystemId());
     }
 

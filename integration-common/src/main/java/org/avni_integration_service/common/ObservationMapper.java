@@ -24,7 +24,7 @@ public class ObservationMapper {
 
     public void mapObservations(ObservationHolder observationHolder, Map<String, Object> externalSystemObservations, String mappingGroupName, String mappingTypeName) {
         externalSystemObservations.forEach((key, value) -> {
-            MappingMetaData mapping = mappingMetaDataRepository.getAvniMappingIfPresent(mappingGroupName, mappingTypeName, key);
+            MappingMetaData mapping = mappingMetaDataRepository.getAvniMapping(mappingGroupName, mappingTypeName, key);
             if (mapping == null) {
                 throw new MappingException(MessageFormat.format("Mapping entry not found for observation field: {0}", key));
             }
@@ -32,7 +32,7 @@ public class ObservationMapper {
             if (dataTypeHint == null)
                 observationHolder.addObservation(mapping.getAvniValue(), value);
             else if (dataTypeHint == ObsDataType.Coded && value != null) {
-                MappingMetaData answerMapping = mappingMetaDataRepository.getAvniMappingIfPresent(mappingGroupName, mappingTypeName, (String) value);
+                MappingMetaData answerMapping = mappingMetaDataRepository.getAvniMapping(mappingGroupName, mappingTypeName, (String) value);
                 if (answerMapping == null) {
                     throw new MappingException(MessageFormat.format("Answer mapping not found for coded concept {0} answer field: {1}", key, value));
                 }

@@ -22,7 +22,7 @@ public class LahiIntegrationDataService {
 
     public void studentProcessed(Student student) {
         Date date = DateTimeUtil.toDate(student.getLastUpdatedAt(), DateTimeUtil.DATE_TIME);
-        IntegratingEntityStatus integratingEntityStatus = integratingEntityStatusRepository.findByEntityType(ENTITYTYPE);
+        IntegratingEntityStatus integratingEntityStatus = integratingEntityStatusRepository.find(ENTITYTYPE);
         integratingEntityStatus.setReadUptoDateTime(date);
         integratingEntityStatusRepository.save(integratingEntityStatus);
         logger.info(String.format("Updating integrating_entity_status with %s date", integratingEntityStatus.getReadUptoDateTime()));

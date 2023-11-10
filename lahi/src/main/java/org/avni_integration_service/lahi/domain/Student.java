@@ -91,13 +91,16 @@ public class Student implements LahiStudentConstants {
     }
 
     public void validate() throws PlatformException, MessageUnprocessableException {
+        if (!this.flowResult.isComplete())
+            throw new MessageUnprocessableException(String.format("FlowResultId: %s. Message is incomplete.", this.flowResult.getFlowResultId()));
+
         List<String> missingFields = MandatoryFields.stream().filter(field -> !StringUtils.hasLength(getInput(field))).collect(Collectors.toList());
         if (missingFields.size() > 0)
-            throw new PlatformException(String.format("Missing fields: %s", String.join(",", missingFields)));
+            throw new PlatformException(String.format("FlowResultId: %s. Missing fields: %s", this.flowResult.getFlowResultId(), String.join(",", missingFields)));
         if (!Genders.contains(getGender()))
-            throw new PlatformException(String.format("Gender value is wrong: %s", getGender()));
+            throw new PlatformException(String.format("FlowResultId: %s. Gender value is wrong: %s", this.flowResult.getFlowResultId(), getGender()));
         boolean ageLessThan14 = Period.between(Objects.requireNonNull(DateTimeUtil.toLocalDate(getDateOfBirth(), DateTimeUtil.DD_MM_YYYY)), LocalDate.now()).getYears() < 14;
         if (ageLessThan14)
-            throw new MessageUnprocessableException(String.format("Age is less than 14: %s", getDateOfBirth()));
+            throw new MessageUnprocessableException(String.format("FlowResultId: %s. Age is less than 14: %s", this.flowResult.getFlowResultId(), getDateOfBirth()));
     }
 }

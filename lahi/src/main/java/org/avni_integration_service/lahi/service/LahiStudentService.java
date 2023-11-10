@@ -54,7 +54,7 @@ public class LahiStudentService {
     }
 
     public Students getStudents() {
-        String fetchTime = integratingEntityStatusRepository.findByEntityType(ENTITYTYPE).getReadUptoDateTime().toString();
+        String fetchTime = integratingEntityStatusRepository.find(ENTITYTYPE).getReadUptoDateTime().toString();
         Iterator<FlowResult> results = bigQueryClient.getResults(BULK_FETCH_QUERY, fetchTime, LIMIT, new FlowResultMapper());
         return new Students(results);
     }

@@ -35,20 +35,6 @@ public class LahiStudentsTest {
     }
 
     @Test
-    public void shouldFilterOutStudentsWhoHaveNotCompletedRegistrationFlows() {
-        Iterator<FlowResult> flowResults = Arrays.asList(flowResultWithoutFlowCompleteVariable, completeFlowResult, incompleteFlowResult).iterator();
-        Students lahiStudents = new Students(flowResults);
-        int countOfStudents = 0;
-        Student student = null;
-        while (lahiStudents.hasNext()) {
-            student = lahiStudents.next();
-            countOfStudents++;
-        }
-        assertEquals(1, countOfStudents);
-        assertEquals("713652322176", student.getContactPhone());
-    }
-
-    @Test
     public void shouldWorkWellWhenThereAreNoStudents() {
         Iterator<FlowResult> flowResults = new ArrayList<FlowResult>().iterator();
         int countOfStudents = 0;

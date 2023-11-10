@@ -39,13 +39,8 @@ public class Students implements Iterator<Student> {
     private void moveToNext() {
         if (!nextIsPicked()) return;
 
-        while (results.hasNext()) {
-            FlowResult flowResult = results.next();
-            if (flowResult.isComplete()) {
-                nextResult = flowResult;
-                return;
-            }
-            logger.warn(String.format("Record: %s is in-complete: %s. skipping", flowResult.getFlowResultId(), flowResult.getRegistrationFlowCompleteValue()));
+        if (results.hasNext()) {
+            nextResult = results.next();
         }
     }
 

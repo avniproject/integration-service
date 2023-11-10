@@ -41,9 +41,11 @@ public class StudentWorker {
                 studentErrorService.platformError(student, e);
             } catch (MessageUnprocessableException e) {
                 logger.error("Problem with message. Continue processing.", e);
+                lahiIntegrationDataService.studentProcessed(student);
             } catch (UnknownException e) {
                 logger.error("Unknown error. Adding to error record.", e);
                 studentErrorService.studentProcessingError(student, e);
+                lahiIntegrationDataService.studentProcessed(student);
             }
         }
     }
