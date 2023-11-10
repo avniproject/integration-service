@@ -45,7 +45,7 @@ public class Students implements Iterator<Student> {
                 nextResult = flowResult;
                 return;
             }
-            logger.warn(String.format("Record: %s is in-complete. skipping", flowResult.getFlowResultId()));
+            logger.warn(String.format("Record: %s is in-complete: %s. skipping", flowResult.getFlowResultId(), flowResult.getRegistrationFlowCompleteValue()));
         }
     }
 

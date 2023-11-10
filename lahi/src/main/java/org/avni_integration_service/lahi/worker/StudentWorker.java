@@ -32,6 +32,7 @@ public class StudentWorker {
         while (students.hasNext()) {
             Student student = students.next();
             try {
+                student.validate();
                 Subject subject = studentMapper.mapToSubject(student);
                 avniStudentService.saveStudent(subject);
                 lahiIntegrationDataService.studentProcessed(student);

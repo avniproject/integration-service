@@ -53,7 +53,11 @@ public class FlowResult {
     }
 
     public boolean isComplete() {
-        String registrationFlowComplete = this.getInput("registration_flow_complete");
+        String registrationFlowComplete = getRegistrationFlowCompleteValue();
         return registrationFlowComplete != null && registrationFlowComplete.equalsIgnoreCase("Yes");
+    }
+
+    public String getRegistrationFlowCompleteValue() {
+        return this.getInput("registration_flow_complete");
     }
 }
