@@ -3,7 +3,6 @@ package org.avni_integration_service.lahi.service;
 import org.apache.log4j.Logger;
 import org.avni_integration_service.lahi.config.LahiEntityType;
 import org.avni_integration_service.lahi.config.LahiErrorType;
-import org.avni_integration_service.integration_data.domain.IntegrationSystem;
 import org.avni_integration_service.integration_data.domain.error.ErrorRecord;
 import org.avni_integration_service.integration_data.domain.error.ErrorType;
 import org.avni_integration_service.integration_data.repository.ErrorRecordRepository;
@@ -49,13 +48,13 @@ public class AvniLahiErrorService {
             }
         } else if (errorRecord != null && !errorRecord.hasThisAsLastErrorType(getErrorType(lahiErrorType))) {
             logger.info(String.format("New error for entity uuid %s, and type %s", uuid, lahiEntityType));
-            errorRecord.addErrorType(getErrorType(lahiErrorType));
+            errorRecord.addErrorLog(getErrorType(lahiErrorType));
             errorRecordRepository.save(errorRecord);
         } else {
             errorRecord = new ErrorRecord();
             errorRecord.setIntegratingEntityType(lahiEntityType.name());
             errorRecord.setEntityId(uuid);
-            errorRecord.addErrorType(getErrorType(lahiErrorType));
+            errorRecord.addErrorLog(getErrorType(lahiErrorType));
             errorRecord.setProcessingDisabled(false);
             errorRecord.setIntegrationSystem(integrationSystemRepository.find());
             errorRecordRepository.save(errorRecord);

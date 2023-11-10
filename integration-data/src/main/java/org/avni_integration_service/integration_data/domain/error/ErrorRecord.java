@@ -74,11 +74,11 @@ public class ErrorRecord extends BaseIntegrationSpecificEntity {
                 .reduce((first, second) -> second).orElse(null);
     }
 
-    public void addErrorType(ErrorType errorType) {
-        addErrorType(errorType, EMPTY_STRING);
+    public void addErrorLog(ErrorType errorType) {
+        addErrorLog(errorType, EMPTY_STRING);
     }
 
-    public void addErrorType(ErrorType errorType, String errorMsg) {
+    public void addErrorLog(ErrorType errorType, String errorMsg) {
         ErrorRecordLog errorRecordLog = new ErrorRecordLog();
         errorRecordLog.setErrorType(errorType);
         errorRecordLog.setErrorMsg(errorMsg);

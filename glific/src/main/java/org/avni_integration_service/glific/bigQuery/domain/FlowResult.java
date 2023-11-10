@@ -51,4 +51,9 @@ public class FlowResult {
     private Map<String, Object> getResult(String key) {
         return (Map<String, Object>) results.getOrDefault(key, new HashMap<>());
     }
+
+    public boolean isComplete() {
+        String registrationFlowComplete = this.getInput("registration_flow_complete");
+        return registrationFlowComplete != null && registrationFlowComplete.equalsIgnoreCase("Yes");
+    }
 }

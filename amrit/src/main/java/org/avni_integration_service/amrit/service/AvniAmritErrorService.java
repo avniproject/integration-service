@@ -45,13 +45,13 @@ public class AvniAmritErrorService {
                 errorRecordRepository.save(errorRecord);
             }
         } else if (errorRecord != null && !errorRecord.hasThisAsLastErrorTypeAndErrorMessage(errorType, errorMsg)) {
-            errorRecord.addErrorType(errorType, errorMsg);
+            errorRecord.addErrorLog(errorType, errorMsg);
             errorRecordRepository.save(errorRecord);
         } else {
             errorRecord = new ErrorRecord();
             errorRecord.setAvniEntityType(avniEntityType);
             errorRecord.setEntityId(uuid);
-            errorRecord.addErrorType(errorType, errorMsg);
+            errorRecord.addErrorLog(errorType, errorMsg);
             errorRecord.setProcessingDisabled(false);
             errorRecord.setIntegrationSystem(integrationSystemRepository.findBySystemType(IntegrationSystem.IntegrationSystemType.Amrit));
             errorRecordRepository.save(errorRecord);
@@ -72,13 +72,13 @@ public class AvniAmritErrorService {
             }
         } else if (errorRecord != null && !errorRecord.hasThisAsLastErrorTypeAndErrorMessage(getErrorType(amritErrorType), errorMsg)) {
             logger.info(String.format("New error for entity uuid %s, and type %s", uuid, AmritEntityType));
-            errorRecord.addErrorType(getErrorType(amritErrorType), errorMsg);
+            errorRecord.addErrorLog(getErrorType(amritErrorType), errorMsg);
             errorRecordRepository.save(errorRecord);
         } else {
             errorRecord = new ErrorRecord();
             errorRecord.setIntegratingEntityType(AmritEntityType.name());
             errorRecord.setEntityId(uuid);
-            errorRecord.addErrorType(getErrorType(amritErrorType), errorMsg);
+            errorRecord.addErrorLog(getErrorType(amritErrorType), errorMsg);
             errorRecord.setProcessingDisabled(false);
             errorRecord.setIntegrationSystem(integrationSystemRepository.findBySystemType(IntegrationSystem.IntegrationSystemType.Amrit));
             errorRecordRepository.save(errorRecord);

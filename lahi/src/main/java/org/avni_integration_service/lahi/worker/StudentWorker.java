@@ -37,7 +37,7 @@ public class StudentWorker {
                 lahiIntegrationDataService.studentProcessed(student);
             } catch (PlatformException e) {
                 logger.error("Platform level issue. Stop processing.", e);
-                throw new RuntimeException(e);
+                studentErrorService.platformError(student, e);
             } catch (MessageUnprocessableException e) {
                 logger.error("Problem with message. Continue processing.", e);
             } catch (UnknownException e) {

@@ -47,13 +47,13 @@ public class AvniGoonjErrorService {
                 errorRecordRepository.save(errorRecord);
             }
         } else if (errorRecord != null && !errorRecord.hasThisAsLastErrorTypeAndErrorMessage(errorType, errorMsg)) {
-            errorRecord.addErrorType(errorType, errorMsg);
+            errorRecord.addErrorLog(errorType, errorMsg);
             errorRecordRepository.save(errorRecord);
         } else {
             errorRecord = new ErrorRecord();
             errorRecord.setAvniEntityType(avniEntityType);
             errorRecord.setEntityId(uuid);
-            errorRecord.addErrorType(errorType, errorMsg);
+            errorRecord.addErrorLog(errorType, errorMsg);
             errorRecord.setProcessingDisabled(false);
             errorRecord.setIntegrationSystem(integrationSystemRepository.findEntity(goonjContextProvider.get().getIntegrationSystem().getId()));
             errorRecordRepository.save(errorRecord);
@@ -78,16 +78,16 @@ public class AvniGoonjErrorService {
                 errorRecord.setProcessingDisabled(true);
                 errorRecordRepository.save(errorRecord);
             }
-            errorRecord.addErrorType(errorType, errorMsg);
+            errorRecord.addErrorLog(errorType, errorMsg);
         } else if (errorRecord != null && !errorRecord.hasThisAsLastErrorTypeAndErrorMessage(errorType, errorMsg)) {
             logger.info(String.format("New error for entity uuid %s, and type %s", uuid, goonjEntityType));
-            errorRecord.addErrorType(errorType, errorMsg);
+            errorRecord.addErrorLog(errorType, errorMsg);
             errorRecordRepository.save(errorRecord);
         } else {
             errorRecord = new ErrorRecord();
             errorRecord.setIntegratingEntityType(goonjEntityType.name());
             errorRecord.setEntityId(uuid);
-            errorRecord.addErrorType(errorType, errorMsg);
+            errorRecord.addErrorLog(errorType, errorMsg);
             errorRecord.setProcessingDisabled(false);
             errorRecord.setIntegrationSystem(integrationSystemRepository.findEntity(goonjContextProvider.get().getIntegrationSystem().getId()));
             errorRecordRepository.save(errorRecord);

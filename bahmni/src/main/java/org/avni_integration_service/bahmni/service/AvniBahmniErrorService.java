@@ -51,13 +51,13 @@ public class AvniBahmniErrorService {
                 errorRecordRepository.save(errorRecord);
             }
         } else if (errorRecord != null && !errorRecord.hasThisAsLastErrorType(errorType)) {
-            errorRecord.addErrorType(errorType);
+            errorRecord.addErrorLog(errorType);
             errorRecordRepository.save(errorRecord);
         } else {
             errorRecord = new ErrorRecord();
             errorRecord.setAvniEntityType(avniEntityType);
             errorRecord.setEntityId(uuid);
-            errorRecord.addErrorType(errorType);
+            errorRecord.addErrorLog(errorType);
             errorRecord.setProcessingDisabled(false);
             errorRecord.setIntegrationSystem(integrationSystemRepository.findBySystemType(IntegrationSystem.IntegrationSystemType.bahmni));
             errorRecordRepository.save(errorRecord);
@@ -92,13 +92,13 @@ public class AvniBahmniErrorService {
             }
         } else if (errorRecord != null && !errorRecord.hasThisAsLastErrorType(getErrorType(bahmniErrorType))) {
             logger.info(String.format("New error for entity uuid %s, and type %s", uuid, bahmniEntityType));
-            errorRecord.addErrorType(getErrorType(bahmniErrorType));
+            errorRecord.addErrorLog(getErrorType(bahmniErrorType));
             errorRecordRepository.save(errorRecord);
         } else {
             errorRecord = new ErrorRecord();
             errorRecord.setIntegratingEntityType(bahmniEntityType.name());
             errorRecord.setEntityId(uuid);
-            errorRecord.addErrorType(getErrorType(bahmniErrorType));
+            errorRecord.addErrorLog(getErrorType(bahmniErrorType));
             errorRecord.setProcessingDisabled(false);
             errorRecord.setIntegrationSystem(integrationSystemRepository.findBySystemType(IntegrationSystem.IntegrationSystemType.bahmni));
             errorRecordRepository.save(errorRecord);

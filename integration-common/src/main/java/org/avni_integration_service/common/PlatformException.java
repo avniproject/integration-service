@@ -9,6 +9,6 @@ public class PlatformException extends Exception {
     }
 
     public PlatformException(Throwable cause) {
-        super(cause);
+        super(cause.getMessage(), cause);
     }
 }

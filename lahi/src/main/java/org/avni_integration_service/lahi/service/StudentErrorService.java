@@ -27,16 +27,24 @@ public class StudentErrorService {
     }
 
     public void studentProcessingError(Student lahiStudent, Throwable throwable) {
-        ErrorType errorType = getErrorType(LahiErrorType.CommonError);
+        saveStudentError(lahiStudent, throwable, LahiErrorType.CommonError);
+    }
+
+    private void saveStudentError(Student lahiStudent, Throwable throwable, LahiErrorType lahiErrorType) {
+        ErrorType errorType = getErrorType(lahiErrorType);
         ErrorRecord errorRecord = new ErrorRecord();
         errorRecord.setIntegratingEntityType("Student");
         errorRecord.setIntegrationSystem(integrationSystemRepository.find());
         errorRecord.setEntityId(lahiStudent.getFlowResultId());
-        errorRecord.setProcessingDisabled(false);
         errorRecord.setAvniEntityType(AvniEntityType.Subject);
         errorRecord.setIntegratingEntityType(LahiEntityType.Student.name());
-        errorRecord.addErrorType(errorType, throwable.getMessage());
+        errorRecord.addErrorLog(errorType, throwable.getMessage());
+        errorRecord.setProcessingDisabled(false);
         errorRecordRepository.saveErrorRecord(errorRecord);
+    }
+
+    public void platformError(Student lahiStudent, Throwable throwable) {
+        saveStudentError(lahiStudent, throwable, LahiErrorType.PlatformError);
     }
 
     private ErrorType getErrorType(LahiErrorType errorType) {

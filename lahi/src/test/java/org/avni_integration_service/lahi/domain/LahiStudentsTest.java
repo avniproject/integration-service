@@ -23,6 +23,18 @@ public class LahiStudentsTest {
     }
 
     @Test
+    public void iterator() {
+        Iterator<FlowResult> flowResults = Arrays.asList(completeFlowResult, completeFlowResult).iterator();
+        Students lahiStudents = new Students(flowResults);
+        int countOfStudents = 0;
+        while (lahiStudents.hasNext()) {
+            lahiStudents.next();
+            countOfStudents++;
+        }
+        assertEquals(2, countOfStudents);
+    }
+
+    @Test
     public void shouldFilterOutStudentsWhoHaveNotCompletedRegistrationFlows() {
         Iterator<FlowResult> flowResults = Arrays.asList(flowResultWithoutFlowCompleteVariable, completeFlowResult, incompleteFlowResult).iterator();
         Students lahiStudents = new Students(flowResults);

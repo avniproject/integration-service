@@ -48,13 +48,13 @@ public class AvniPowerErrorService {
             }
         } else if (errorRecord != null && !errorRecord.hasThisAsLastErrorType(getErrorType(powerErrorType))) {
             logger.info(String.format("New error for entity uuid %s, and type %s", uuid, powerEntityType));
-            errorRecord.addErrorType(getErrorType(powerErrorType));
+            errorRecord.addErrorLog(getErrorType(powerErrorType));
             errorRecordRepository.save(errorRecord);
         } else {
             errorRecord = new ErrorRecord();
             errorRecord.setIntegratingEntityType(powerEntityType.name());
             errorRecord.setEntityId(uuid);
-            errorRecord.addErrorType(getErrorType(powerErrorType));
+            errorRecord.addErrorLog(getErrorType(powerErrorType));
             errorRecord.setProcessingDisabled(false);
             errorRecord.setIntegrationSystem(integrationSystemRepository.findBySystemType(IntegrationSystem.IntegrationSystemType.power));
             errorRecordRepository.save(errorRecord);

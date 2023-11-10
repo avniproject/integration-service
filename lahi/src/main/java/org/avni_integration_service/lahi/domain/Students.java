@@ -1,12 +1,14 @@
 package org.avni_integration_service.lahi.domain;
 
+import org.apache.log4j.Logger;
 import org.avni_integration_service.glific.bigQuery.domain.FlowResult;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 public class Students implements Iterator<Student> {
-    private Iterator<FlowResult> results;
+    private static final Logger logger = Logger.getLogger(Students.class);
+    private final Iterator<FlowResult> results;
     private FlowResult nextResult;
 
     public Students(Iterator<FlowResult> results) {
@@ -35,27 +37,19 @@ public class Students implements Iterator<Student> {
     }
 
     private void moveToNext() {
-        if (nextIsNotYetPicked()) return;
+        if (!nextIsPicked()) return;
 
         while (results.hasNext()) {
-            FlowResult next = results.next();
-            if (resultIsComplete(next)) {
-                nextResult = next;
+            FlowResult flowResult = results.next();
+            if (flowResult.isComplete()) {
+                nextResult = flowResult;
                 return;
             }
+            logger.warn(String.format("Record: %s is in-complete. skipping", flowResult.getFlowResultId()));
         }
-    }
-
-    private boolean nextIsNotYetPicked() {
-        return !nextIsPicked();
     }
 
     private boolean nextIsPicked() {
         return nextResult == null;
-    }
-
-    private boolean resultIsComplete(FlowResult next) {
-        String registration_flow_complete = next.getInput("registration_flow_complete");
-        return registration_flow_complete != null && registration_flow_complete.equalsIgnoreCase("Yes");
     }
 }

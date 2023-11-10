@@ -5,6 +5,6 @@ package org.avni_integration_service.common;
  */
 public class UnknownException extends Exception {
     public UnknownException(Throwable cause) {
-        super(cause);
+        super(cause.getMessage(), cause);
     }
 }
