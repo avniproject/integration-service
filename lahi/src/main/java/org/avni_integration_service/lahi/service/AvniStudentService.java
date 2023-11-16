@@ -22,7 +22,7 @@ public class AvniStudentService {
         List<Subject> matchingStudents = avniStudentRepository.findMatchingStudents(subject);
         if (matchingStudents.size() > 0) {
             logger.warn(String.format("Found %d students with matching details, skipping", matchingStudents.size()));
-            throw new MessageUnprocessableException("Avni has at least one such existing student");
+            throw new MessageUnprocessableException(String.format("Avni has at least one such existing student: %s", subject.getExternalId()));
         }
 
         try {
