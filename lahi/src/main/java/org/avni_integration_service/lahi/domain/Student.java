@@ -90,8 +90,17 @@ public class Student implements LahiStudentConstants {
         return observations;
     }
 
+    public boolean isComplete() {
+        String registrationFlowComplete = getRegistrationFlowCompleteValue();
+        return registrationFlowComplete != null && registrationFlowComplete.equalsIgnoreCase("Yes");
+    }
+
+    public String getRegistrationFlowCompleteValue() {
+        return this.flowResult.getInput("registration_flow_complete");
+    }
+
     public void validate() throws PlatformException, MessageUnprocessableException {
-        if (!this.flowResult.isComplete())
+        if (!this.isComplete())
             throw new MessageUnprocessableException(String.format("FlowResultId: %s. Message is incomplete.", this.flowResult.getFlowResultId()));
 
         List<String> missingFields = MandatoryFields.stream().filter(field -> !StringUtils.hasLength(getInput(field))).collect(Collectors.toList());

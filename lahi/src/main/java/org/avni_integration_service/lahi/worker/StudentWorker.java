@@ -40,7 +40,7 @@ public class StudentWorker {
                 logger.error("Platform level issue. Stop processing.", e);
                 studentErrorService.platformError(student, e);
             } catch (MessageUnprocessableException e) {
-                logger.error("Problem with message. Continue processing.", e);
+                logger.warn("Problem with message. Continue processing.", e);
                 lahiIntegrationDataService.studentProcessed(student);
             } catch (UnknownException e) {
                 logger.error("Unknown error. Adding to error record.", e);

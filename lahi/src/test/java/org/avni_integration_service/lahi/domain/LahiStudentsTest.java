@@ -11,20 +11,20 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class LahiStudentsTest {
-    private FlowResult flowResultWithoutFlowCompleteVariable;
-    private FlowResult completeFlowResult;
-    private FlowResult incompleteFlowResult;
+    private FlowResult one;
+    private FlowResult two;
+    private FlowResult three;
 
     @BeforeEach
     public void setup() {
-        flowResultWithoutFlowCompleteVariable = new FlowResult(getJson("/flowResults/flowResultWithoutFlowCompleteFlag.json"));
-        completeFlowResult = new FlowResult(getJson("/flowResults/flowResultWithFlowComplete.json"));
-        incompleteFlowResult = new FlowResult(getJson("/flowResults/flowResultWithFlowIncomplete.json"));
+        one = new FlowResult(getJson("/flowResults/flowResultWithoutFlowCompleteFlag.json"));
+        two = new FlowResult(getJson("/flowResults/flowResultWithFlowComplete.json"));
+        three = new FlowResult(getJson("/flowResults/flowResultWithFlowIncomplete.json"));
     }
 
     @Test
     public void iterator() {
-        Iterator<FlowResult> flowResults = Arrays.asList(completeFlowResult, completeFlowResult).iterator();
+        Iterator<FlowResult> flowResults = Arrays.asList(two, two).iterator();
         Students lahiStudents = new Students(flowResults);
         int countOfStudents = 0;
         while (lahiStudents.hasNext()) {
@@ -47,7 +47,7 @@ public class LahiStudentsTest {
     @Test
     public void shouldThrowNoSuchElementExceptionWhenJustUsingNext() {
         assertThrows(NoSuchElementException.class, () -> {
-            Iterator<FlowResult> flowResults = Arrays.asList(flowResultWithoutFlowCompleteVariable, completeFlowResult, incompleteFlowResult).iterator();
+            Iterator<FlowResult> flowResults = Arrays.asList(one, two, three).iterator();
             while (true) {
                 flowResults.next();
             }
