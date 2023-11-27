@@ -43,9 +43,13 @@ public class StudentMapper implements LahiStudentConstants {
         Map<String, Object> subjectObservations = subject.getObservations();
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(wrapNulls(student.getInput(LahiStudentConstants.STATE)))
+                .append(LahiStudentConstants.STRING_CONSTANT_COMMA)
                 .append(wrapNulls(student.getInput(LahiStudentConstants.OTHER_STATE)))
+                .append(LahiStudentConstants.STRING_CONSTANT_COMMA)
                 .append(wrapNulls(student.getInput(LahiStudentConstants.DISTRICT)))
+                .append(LahiStudentConstants.STRING_CONSTANT_COMMA)
                 .append(wrapNulls(student.getInput(LahiStudentConstants.CITY_NAME)))
+                .append(LahiStudentConstants.STRING_CONSTANT_COMMA)
                 .append(wrapNulls(student.getInput(LahiStudentConstants.SCHOOL)));
         if (stringBuilder.length() > 0) {
             subjectObservations.put("Other School name", stringBuilder.toString());

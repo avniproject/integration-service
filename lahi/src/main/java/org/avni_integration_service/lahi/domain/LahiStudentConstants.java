@@ -23,4 +23,5 @@ public interface LahiStudentConstants {
     String STREAM = "avni_stream";
     String QUALIFICATION_STREAM = "avni_other_qualification_stream";
     String FLOWRESULT_ID = "flowresult_id";
+    String STRING_CONSTANT_COMMA = ", ";
 }
