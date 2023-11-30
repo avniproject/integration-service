@@ -13,7 +13,7 @@ import java.util.Iterator;
 
 @Service
 public class LahiStudentService {
-    public static final String ENTITYTYPE = "Student";
+    public static final String STUDENT_ENTITY_TYPE = "Student";
     private final BigQueryClient bigQueryClient;
     private final IntegratingEntityStatusRepository integratingEntityStatusRepository;
 
@@ -54,7 +54,7 @@ public class LahiStudentService {
     }
 
     public Students getStudents() {
-        String fetchTime = integratingEntityStatusRepository.find(ENTITYTYPE).getReadUptoDateTime().toString();
+        String fetchTime = integratingEntityStatusRepository.find(STUDENT_ENTITY_TYPE).getReadUptoDateTime().toString();
         Iterator<FlowResult> results = bigQueryClient.getResults(BULK_FETCH_QUERY, fetchTime, LIMIT, new FlowResultMapper());
         return new Students(results);
     }

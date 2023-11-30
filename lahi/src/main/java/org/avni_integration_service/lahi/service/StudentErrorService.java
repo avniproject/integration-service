@@ -26,11 +26,15 @@ public class StudentErrorService {
         this.errorTypeRepository = errorTypeRepository;
     }
 
+    public void platformError(Student lahiStudent, Throwable throwable) {
+        saveStudentError(lahiStudent, throwable, LahiErrorType.PlatformError);
+    }
+
     public void studentProcessingError(Student lahiStudent, Throwable throwable) {
         saveStudentError(lahiStudent, throwable, LahiErrorType.CommonError);
     }
 
-    private void saveStudentError(Student lahiStudent, Throwable throwable, LahiErrorType lahiErrorType) {
+    public void saveStudentError(Student lahiStudent, Throwable throwable, LahiErrorType lahiErrorType) {
         ErrorType errorType = getErrorType(lahiErrorType);
         ErrorRecord errorRecord = new ErrorRecord();
         errorRecord.setIntegratingEntityType("Student");
@@ -43,8 +47,12 @@ public class StudentErrorService {
         errorRecordRepository.saveErrorRecord(errorRecord);
     }
 
-    public void platformError(Student lahiStudent, Throwable throwable) {
-        saveStudentError(lahiStudent, throwable, LahiErrorType.PlatformError);
+    public void deleteStudentError(Student lahiStudent) {
+        ErrorRecord errorRecord = errorRecordRepository.
+                findByIntegratingEntityTypeAndEntityId(LahiEntityType.Student.name(), lahiStudent.getFlowResultId());
+        if (errorRecord != null) {
+            errorRecordRepository.delete(errorRecord);
+        }
     }
 
     private ErrorType getErrorType(LahiErrorType errorType) {
