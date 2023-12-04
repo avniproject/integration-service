@@ -6,9 +6,10 @@ import org.avni_integration_service.glific.bigQuery.domain.FlowResult;
 import java.util.*;
 
 public class FlowResultMapper implements BigQueryResultMapper<FlowResult> {
-
     @Override
     public FlowResult map(Schema schema, FieldValueList fieldValues) {
+        if (fieldValues == null) return null;
+
         HashMap<String, Object> fields = schema.getFields().stream()
                 .reduce(new HashMap<>(),
                         (hashMap, field) -> {

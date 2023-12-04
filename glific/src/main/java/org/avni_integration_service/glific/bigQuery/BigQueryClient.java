@@ -3,12 +3,15 @@ package org.avni_integration_service.glific.bigQuery;
 import com.google.cloud.bigquery.*;
 import org.apache.log4j.Logger;
 import org.avni_integration_service.glific.bigQuery.config.BigQueryConnector;
+import org.avni_integration_service.glific.bigQuery.domain.FlowResult;
 import org.avni_integration_service.glific.bigQuery.mapper.BigQueryResultMapper;
 import org.avni_integration_service.glific.bigQuery.mapper.BigQueryResultsMapper;
+import org.avni_integration_service.glific.bigQuery.mapper.FlowResultMapper;
 import org.springframework.stereotype.Component;
 
 import java.util.Iterator;
 import java.util.UUID;
+import java.util.stream.StreamSupport;
 
 @Component
 public class BigQueryClient {
@@ -27,6 +30,16 @@ public class BigQueryClient {
                         .build();
         TableResult tableResult = run(queryConfig);
         return new BigQueryResultsMapper<T>().map(tableResult, resultMapper);
+    }
+
+    public FlowResult getResult(String query, FlowResultMapper flowResultMapper, String paramName, String paramValue) {
+        QueryJobConfiguration queryConfig =
+                QueryJobConfiguration.newBuilder(query)
+                        .addNamedParameter(paramName, QueryParameterValue.string(paramValue))
+                        .build();
+        TableResult tableResult = run(queryConfig);
+        FieldValueList fieldValues = StreamSupport.stream(tableResult.getValues().spliterator(), false).findAny().orElse(null);
+        return flowResultMapper.map(tableResult.getSchema(), fieldValues);
     }
 
     private TableResult run(QueryJobConfiguration queryJobConfiguration) {

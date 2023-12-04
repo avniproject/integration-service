@@ -59,7 +59,8 @@ public class LahiStudentService {
         return new Students(results);
     }
 
-    public Student getStudent() {
-        return null;
+    public Student getStudent(String id) {
+        FlowResult flowResult = bigQueryClient.getResult(STUDENT_FETCH_QUERY, new FlowResultMapper(), "flowResultId", id);
+        return new Student(flowResult);
     }
 }

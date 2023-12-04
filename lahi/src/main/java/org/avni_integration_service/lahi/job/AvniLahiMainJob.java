@@ -43,13 +43,13 @@ public class AvniLahiMainJob {
 
     public void execute() {
         try {
-            logger.info("Lahi Main Job Started !!!!!");
+            logger.info("Lahi Main Job Started");
             avniHttpClient.setAvniSession(lahiAvniSessionFactory.createSession());
             IntegrationContext.set(new ContextIntegrationSystem(integrationSystemRepository.findBySystemTypeAndName(IntegrationSystem.IntegrationSystemType.lahi, "lahi")));
             studentWorker.processStudents();
             healthCheckService.success(HEALTHCHECK_SLUG);
-            logger.info("Lahi Main Job Ended !!!!!");
-        } catch (Throwable e) {
+            logger.info("Lahi Main Job Ended");
+        } catch (Exception e) {
             healthCheckService.failure(HEALTHCHECK_SLUG);
             logger.error("Failed", e);
             bugsnag.notify(e);

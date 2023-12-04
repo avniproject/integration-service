@@ -12,7 +12,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Stream;
 
 @Repository
 public interface ErrorRecordRepository extends PagingAndSortingRepository<ErrorRecord, Integer> {
@@ -37,4 +37,9 @@ public interface ErrorRecordRepository extends PagingAndSortingRepository<ErrorR
     private IntegrationSystem getIntegrationSystem() {
         return RepositoryProvider.getIntegrationSystemRepository().findById(IntegrationContext.getIntegrationSystemId()).get();
     }
+
+    default Stream<ErrorRecord> getProcessableErrorRecords() {
+        return findAllByProcessingDisabledFalseAndIntegrationSystem(getIntegrationSystem());
+    }
+    Stream<ErrorRecord> findAllByProcessingDisabledFalseAndIntegrationSystem(IntegrationSystem integrationSystem);
 }
