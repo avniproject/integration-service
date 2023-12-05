@@ -38,8 +38,8 @@ public interface ErrorRecordRepository extends PagingAndSortingRepository<ErrorR
         return RepositoryProvider.getIntegrationSystemRepository().findById(IntegrationContext.getIntegrationSystemId()).get();
     }
 
-    default Stream<ErrorRecord> getProcessableErrorRecords() {
+    default List<ErrorRecord> getProcessableErrorRecords() {
         return findAllByProcessingDisabledFalseAndIntegrationSystem(getIntegrationSystem());
     }
-    Stream<ErrorRecord> findAllByProcessingDisabledFalseAndIntegrationSystem(IntegrationSystem integrationSystem);
+    List<ErrorRecord> findAllByProcessingDisabledFalseAndIntegrationSystem(IntegrationSystem integrationSystem);
 }

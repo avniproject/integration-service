@@ -32,10 +32,10 @@ public class BigQueryClient {
         return new BigQueryResultsMapper<T>().map(tableResult, resultMapper);
     }
 
-    public FlowResult getResult(String query, FlowResultMapper flowResultMapper, String paramName, String paramValue) {
+    public FlowResult getResult(String query, FlowResultMapper flowResultMapper, String paramName, long paramValue) {
         QueryJobConfiguration queryConfig =
                 QueryJobConfiguration.newBuilder(query)
-                        .addNamedParameter(paramName, QueryParameterValue.string(paramValue))
+                        .addNamedParameter(paramName, QueryParameterValue.int64(paramValue))
                         .build();
         TableResult tableResult = run(queryConfig);
         FieldValueList fieldValues = StreamSupport.stream(tableResult.getValues().spliterator(), false).findAny().orElse(null);

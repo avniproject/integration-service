@@ -39,11 +39,11 @@ public class StudentWorker {
                 lahiIntegrationDataService.updateSyncStatus(student);
             } catch (PlatformException e) {
                 logger.error("Platform level issue. Adding to error record.", e);
-                studentErrorService.platformError(student, e);
+                studentErrorService.saveStudentError(student, e);
                 lahiIntegrationDataService.updateSyncStatus(student);
             } catch (UnknownException e) {
                 logger.error("Unknown error. Adding to error record.", e);
-                studentErrorService.studentProcessingError(student, e);
+                studentErrorService.saveStudentError(student, e);
                 lahiIntegrationDataService.updateSyncStatus(student);
             } catch (MessageUnprocessableException e) {
                 logger.warn(String.format("Problem with message. Continue processing. %s", e.getMessage()));
@@ -69,6 +69,7 @@ public class StudentWorker {
                 studentErrorService.processed(errorRecord, false);
             } catch (PlatformException | UnknownException e) {
                 logger.error("Platform level issue again.", e);
+                studentErrorService.saveStudentError(student, e, errorRecord);
             }
         });
     }

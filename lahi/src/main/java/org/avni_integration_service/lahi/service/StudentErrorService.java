@@ -25,23 +25,20 @@ public class StudentErrorService {
         this.errorTypeRepository = errorTypeRepository;
     }
 
-    public void platformError(Student lahiStudent, Throwable throwable) {
-        saveStudentError(lahiStudent, throwable, LahiErrorType.PlatformError);
-    }
-
-    public void studentProcessingError(Student lahiStudent, Throwable throwable) {
-        saveStudentError(lahiStudent, throwable, LahiErrorType.CommonError);
-    }
-
-    private ErrorRecord saveStudentError(Student lahiStudent, Throwable throwable, LahiErrorType lahiErrorType) {
+    public void saveStudentError(Student lahiStudent, Exception exception) {
         ErrorRecord errorRecord = getErrorRecord(lahiStudent);
-        ErrorType errorType = getErrorType(lahiErrorType);
-        String errorMsg = throwable.getMessage();
+        saveStudentError(lahiStudent, exception, errorRecord);
+    }
+
+    public void saveStudentError(Student lahiStudent, Exception exception, ErrorRecord errorRecord) {
+        ErrorType errorType = getErrorType(LahiErrorType.getErrorType(exception));
+        String errorMsg = exception.getMessage();
         String lahiEntityType = LahiEntityType.Student.name();
         String flowResultId = lahiStudent.getFlowResultId();
         if (errorRecord != null) {
-            logger.info(String.format("Same error as the last processing for entity flowResultId %s, and type %s", flowResultId, lahiEntityType));
-            if (!errorRecord.hasThisAsLastErrorTypeAndErrorMessage(errorType, errorMsg))
+            if (errorRecord.hasThisAsLastErrorTypeAndErrorMessage(errorType, errorMsg))
+                logger.info(String.format("Same error as the last processing for entity flowResultId %s, and type %s", flowResultId, lahiEntityType));
+            else
                 errorRecord.addErrorLog(errorType, errorMsg);
         } else {
             errorRecord = new ErrorRecord();
@@ -51,7 +48,7 @@ public class StudentErrorService {
             errorRecord.addErrorLog(errorType, errorMsg);
             errorRecord.setProcessingDisabled(false);
         }
-        return errorRecordRepository.save(errorRecord);
+        errorRecordRepository.save(errorRecord);
     }
 
     private ErrorRecord getErrorRecord(Student lahiStudent) {
