@@ -7,7 +7,6 @@ import com.google.cloud.bigquery.TableResult;
 import java.util.Iterator;
 
 public class BigQueryResultsMapper<T> {
-
     public Iterator<T> map(TableResult response, BigQueryResultMapper<T> resultMapper) {
         Schema schema = response.getSchema();
         Iterator<FieldValueList> iterator = response.iterateAll().iterator();
@@ -24,5 +23,4 @@ public class BigQueryResultsMapper<T> {
             }
         };
     }
-
 }
