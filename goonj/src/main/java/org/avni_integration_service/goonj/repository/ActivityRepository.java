@@ -122,10 +122,10 @@ public class ActivityRepository extends GoonjBaseRepository implements ActivityC
             /* Measurement fields */
             activityDTO.setMeasurementType((String) subject.getObservation(MEASUREMENTS_TYPE));
             activityDTO.setNos((Integer) subject.getObservation(NOS));
-            activityDTO.setBreadth((subject.getObservation(BREADTH) == null) ? 0L : (Integer) subject.getObservation(BREADTH));
-            activityDTO.setDiameter((subject.getObservation(DIAMETER) == null) ? 0L : (Integer) subject.getObservation(DIAMETER));
-            activityDTO.setLength((subject.getObservation(LENGTH) == null) ? 0L : (Integer) subject.getObservation(LENGTH));
-            activityDTO.setDepthHeight((subject.getObservation(HEIGHT_DEPTH) == null) ? 0L : (Integer) subject.getObservation(HEIGHT_DEPTH));
+            activityDTO.setBreadth((subject.getObservation(BREADTH) == null) ? 0D : (Double) subject.getObservation(BREADTH));
+            activityDTO.setDiameter((subject.getObservation(DIAMETER) == null) ? 0D : (Double) subject.getObservation(DIAMETER));
+            activityDTO.setLength((subject.getObservation(LENGTH) == null) ? 0D : (Double) subject.getObservation(LENGTH));
+            activityDTO.setDepthHeight((subject.getObservation(HEIGHT_DEPTH) == null) ? 0D : (Double) subject.getObservation(HEIGHT_DEPTH));
             /* Photograph fields */
             activityDTO.setBeforeImplementationPhotograph(getPhotographStrings(BEFORE_IMPLEMENTATION_PHOTOGRAPH, subject));
             activityDTO.setDuringImplementationPhotograph(getPhotographStrings(DURING_IMPLEMENTATION_PHOTOGRAPH, subject));
