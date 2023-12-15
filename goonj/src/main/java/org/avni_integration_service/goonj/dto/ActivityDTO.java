@@ -84,15 +84,15 @@ public class ActivityDTO {
     @JsonProperty("OtherVillage")
     private String otherVillage;
     @JsonProperty("Breadth")
-    private Long breadth;
+    private Double breadth;
     @JsonProperty("DepthHeight")
-    private Long depthHeight;
+    private Double depthHeight;
     @JsonProperty("Diameter")
-    private Long diameter;
+    private Double diameter;
     @JsonProperty("District")
     private String district;
     @JsonProperty("Length")
-    private Long length;
+    private Double length;
     @JsonProperty("LocalityVillageName")
     private String localityVillageName;
     @JsonProperty("tolaMohalla")
@@ -199,7 +199,7 @@ public class ActivityDTO {
     public ActivityDTO(String sourceId, String nameOfAccount, String activityCategory, String activityConductedWithStudents,
                        String typeOfSchool, String s2sPhotograph, String njpcPhotograph, String activityEndDate,
                        String activityStartDate, String activitySubType, String activityType, String block, String otherBlock,
-                       String otherVillage, Long breadth, Long depthHeight, Long diameter, String district, Long length,
+                       String otherVillage, Double breadth, Double depthHeight, Double diameter, String district, Double length,
                        String localityVillageName, String tolaMohalla, String measurementType, Long noofdaysofParticipationNJPC,
                        Long noofdaysofParticipationS2S, int noofparticipantsFemaleCFW, int noofparticipantsFemaleNJPC,
                        int noofparticipantsMaleCFW, int noofparticipantsMaleNJPC, int noofparticipantsNJPCOther,
@@ -392,32 +392,32 @@ public class ActivityDTO {
     }
 
     @JsonProperty("Breadth")
-    public Long getBreadth() {
+    public Double getBreadth() {
         return breadth;
     }
 
     @JsonProperty("Breadth")
-    public void setBreadth(Long breadth) {
+    public void setBreadth(Double breadth) {
         this.breadth = breadth;
     }
 
     @JsonProperty("DepthHeight")
-    public Long getDepthHeight() {
+    public Double getDepthHeight() {
         return depthHeight;
     }
 
     @JsonProperty("DepthHeight")
-    public void setDepthHeight(Long depthHeight) {
+    public void setDepthHeight(Double depthHeight) {
         this.depthHeight = depthHeight;
     }
 
     @JsonProperty("Diameter")
-    public Long getDiameter() {
+    public Double getDiameter() {
         return diameter;
     }
 
     @JsonProperty("Diameter")
-    public void setDiameter(Long diameter) {
+    public void setDiameter(Double diameter) {
         this.diameter = diameter;
     }
 
@@ -432,12 +432,12 @@ public class ActivityDTO {
     }
 
     @JsonProperty("Length")
-    public Long getLength() {
+    public Double getLength() {
         return length;
     }
 
     @JsonProperty("Length")
-    public void setLength(Long length) {
+    public void setLength(Double length) {
         this.length = length;
     }
 
