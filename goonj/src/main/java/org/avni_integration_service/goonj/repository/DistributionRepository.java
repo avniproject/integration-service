@@ -88,6 +88,7 @@ public class DistributionRepository extends GoonjBaseRepository implements Distr
         distributionDTO.setNameOfAccount((String) subject.getObservation(ACCOUNT_NAME));
         /* Distribution Related fields*/
         Date distributionDate = DateTimeUtil.convertToDate((String) subject.getObservation(DISTRIBUTION_DATE));
+        distributionDate = DateTimeUtil.offsetTimeZone(distributionDate, DateTimeUtil.UTC, DateTimeUtil.IST);
         distributionDTO.setDateOfDistribution(DateTimeUtil.formatDate(distributionDate));
         distributionDTO.setTypeOfCommunity((String) subject.getObservation(TARGET_COMMUNITY));
         distributionDTO.setDisasterType((String) subject.getObservation(TYPE_OF_DISASTER));
