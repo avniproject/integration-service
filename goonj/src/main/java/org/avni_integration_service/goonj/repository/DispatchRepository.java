@@ -54,6 +54,6 @@ public class DispatchRepository extends GoonjBaseRepository {
 
     public HashMap<String, Object> getDispatch(String uuid) {
         DispatchesResponseDTO response = super.getSingleEntityResponse("DispatchService/getDispatch", "dispatchStatusId", uuid, DispatchesResponseDTO.class);
-        return response.getDispatchStatuses()[0];
+        return response.getDispatchStatuses().length > 0 ? response.getDispatchStatuses()[0] : null;
     }
 }

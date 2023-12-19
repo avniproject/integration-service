@@ -48,6 +48,6 @@ public class InventoryRepository extends GoonjBaseRepository {
 
     public HashMap<String, Object> getInventoryItemsDTO(String uuid) {
         InventoryResponseDTO response = super.getSingleEntityResponse("ImplementationInventoryService/getImplementationInventories", "inventoryId", uuid, InventoryResponseDTO.class);
-        return response.getInventoryItemsDTOS()[0];
+        return response.getInventoryItemsDTOS().length > 0 ? response.getInventoryItemsDTOS()[0] : null;
     }
 }

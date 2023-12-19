@@ -85,12 +85,21 @@ public class AvniGoonjErrorRecordsWorker {
                     .filter(er -> !er.hasThisAsLastErrorTypeFollowUpStep(ErrorTypeFollowUpStep.Terminal))
                     .collect(Collectors.toList());
             for (ErrorRecord errorRecord : errorRecords) {
-                ErrorRecordWorker errorRecordWorker = getErrorRecordWorker(errorRecord);
-                errorRecordWorker.processError(errorRecord.getEntityId());
+                retryErroredEntitySync(errorRecord);
             }
             logger.info(String.format("Completed page number: %d with number of errors: %d, for sync direction: %s", pageNumber, errorRecords.size(), syncDirection.name()));
             pageNumber++;
         } while (errorRecordPage.getNumberOfElements() == pageSize);
+    }
+
+    private void retryErroredEntitySync(ErrorRecord errorRecord) {
+        ErrorRecordWorker errorRecordWorker = getErrorRecordWorker(errorRecord);
+        try {
+            errorRecordWorker.processError(errorRecord.getEntityId());
+        } catch (Exception exception) {
+            logger.error(String.format("Failed to process errorRecord of type: %s with entityId : %s ",
+                    errorRecord.getIntegratingEntityType(), errorRecord.getEntityId()), exception);
+        }
     }
 
     private ErrorRecordWorker getErrorRecordWorker(ErrorRecord errorRecord) {
