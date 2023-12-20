@@ -1,6 +1,7 @@
 package org.avni_integration_service.util;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
@@ -21,7 +22,7 @@ public class HealthCheckService {
     private String healthCheckPingKey;
 
     @Autowired
-    public HealthCheckService(RestTemplate restTemplate) {
+    public HealthCheckService(@Qualifier("UtilRestTemplate") RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 

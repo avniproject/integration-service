@@ -1,6 +1,7 @@
 package org.avni_integration_service.util;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,19 +13,15 @@ import java.time.Duration;
 
 @Configuration
 public class BeanConfiguration {
-    private final RestTemplate restTemplate;
+    private final RestTemplate utilRestTemplate;
 
     @Autowired
     public BeanConfiguration(Environment environment, RestTemplateBuilder restTemplateBuilder) {
-        Duration timeout = Duration.ofSeconds(20);
-        restTemplate = restTemplateBuilder.setConnectTimeout(timeout)
-                .setReadTimeout(timeout)
-                .build();
+        utilRestTemplate = restTemplateBuilder.build();
     }
 
-    @Bean
-    @Primary
-    public RestTemplate restTemplate() {
-        return restTemplate;
+    @Bean("UtilRestTemplate")
+    public RestTemplate utilRestTemplate() {
+        return utilRestTemplate;
     }
 }

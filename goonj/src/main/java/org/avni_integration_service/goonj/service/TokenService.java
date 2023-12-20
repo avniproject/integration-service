@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 import org.avni_integration_service.goonj.config.GoonjConfig;
 import org.avni_integration_service.goonj.config.GoonjContextProvider;
 import org.avni_integration_service.goonj.domain.AuthResponse;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -33,7 +34,7 @@ public class TokenService {
     @Value("${goonj.sf.tokenExpiry}")
     private int tokenExpiry;
 
-    public TokenService(RestTemplate restTemplate, GoonjContextProvider goonjContextProvider) {
+    public TokenService(@Qualifier("UtilRestTemplate") RestTemplate restTemplate, GoonjContextProvider goonjContextProvider) {
         this.restTemplate = restTemplate;
         this.goonjContextProvider = goonjContextProvider;
     }

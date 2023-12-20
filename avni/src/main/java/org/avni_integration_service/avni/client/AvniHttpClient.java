@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 import org.avni_integration_service.avni.domain.auth.IdpDetailsResponse;
 import org.avni_integration_service.util.ObjectJsonMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -20,6 +21,7 @@ import java.util.Map;
 @Component
 public class AvniHttpClient {
     @Autowired
+    @Qualifier("AvniRestTemplate")
     private RestTemplate restTemplate;
 
     private static final Logger logger = Logger.getLogger(AvniHttpClient.class);
