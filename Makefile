@@ -175,3 +175,12 @@ setup: setup-log-dir
 
 create-test-db-extensions:
 	-psql -h localhost -Uavni_int avni_int_test -c 'create extension if not exists "uuid-ossp"';
+
+generatePasswordHash:
+ifndef password
+	$(error ERROR: password not provided.)
+endif
+ifndef base_url
+	$(error ERROR: base_url not provided.)
+endif
+	curl -d '{"password":"$(password)"}' -H "Content-Type: application/json" -X POST $(base_url)/int/test/passwordHash
