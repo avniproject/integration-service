@@ -22,7 +22,7 @@ import java.util.Date;
 import java.util.HashMap;
 
 public abstract class SubjectWorker implements ErrorRecordWorker {
-    public static final int SECONDS_TO_ADD = 1;
+    public static final int MILLI_SECONDS_TO_ADD = 1;
     private static final int INT_CONSTANT_ONE = 1;
     private final AvniSubjectRepository avniSubjectRepository;
     private final AvniIgnoredConceptsRepository avniIgnoredConceptsRepository;
@@ -81,7 +81,7 @@ public abstract class SubjectWorker implements ErrorRecordWorker {
      * @return EffectiveCutoffDateTime
      */
     private Date getEffectiveCutoffDateTime(IntegratingEntityStatus status) {
-        return new Date(status.getReadUptoDateTime().toInstant().plusSeconds(SECONDS_TO_ADD)
+        return new Date(status.getReadUptoDateTime().toInstant().plusMillis(MILLI_SECONDS_TO_ADD)
                 .toEpochMilli());
     }
 
