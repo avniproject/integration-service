@@ -25,7 +25,6 @@ import java.util.Date;
 import java.util.HashMap;
 
 public abstract class GeneralEncounterWorker implements ErrorRecordWorker {
-    public static final int MILLI_SECONDS_TO_ADD = 1;
     private static final int INT_CONSTANT_ONE = 1;
     private final AvniEncounterRepository avniEncounterRepository;
     private final AvniSubjectRepository avniSubjectRepository;
@@ -79,14 +78,12 @@ public abstract class GeneralEncounterWorker implements ErrorRecordWorker {
     }
 
     /**
-     * Add an offset to avoid syncing the last Avni encounter to Goonj
      *
      * @param status
      * @return EffectiveCutoffDateTime
      */
     private Date getEffectiveCutoffDateTime(IntegratingEntityStatus status) {
-        return new Date(status.getReadUptoDateTime().toInstant().plusMillis(MILLI_SECONDS_TO_ADD)
-                .toEpochMilli());
+        return new Date(status.getReadUptoDateTime().toInstant().toEpochMilli());
     }
 
     @Override
