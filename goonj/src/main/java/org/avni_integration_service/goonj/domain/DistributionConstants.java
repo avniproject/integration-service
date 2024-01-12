@@ -24,6 +24,8 @@ public interface DistributionConstants {
     String QUANTITY = "Quantity";
     String UNIT = "Unit";
     String ACTIVITIES_DONE = "Activities Done";
+    String IS_ACTIVITY_AVAILABLE_FOR_LINKING = "Is the activity available for linking?";
+    String NO = "No";
     String NUMBER_OF_PERSONS = "Number of persons";
     String SURVEYED_BY = "Surveyed by";
     String MONITORED_BY_DISTRIBUTOR = "Monitored by / Distributor";

@@ -1,5 +1,6 @@
 package org.avni_integration_service.goonj.repository;
 
+import com.nimbusds.oauth2.sdk.util.StringUtils;
 import org.avni_integration_service.avni.client.AvniHttpClient;
 import org.avni_integration_service.avni.domain.GeneralEncounter;
 import org.avni_integration_service.avni.domain.Subject;
@@ -177,8 +178,11 @@ public class DistributionRepository extends GoonjBaseRepository implements Distr
     }
 
     private List<DistributionActivities> fetchActivities(Subject subject) {
+        String isActivityAvailableForLinking = (String) subject.getObservation(IS_ACTIVITY_AVAILABLE_FOR_LINKING);
         ArrayList<HashMap<String, Object>> md = (ArrayList<HashMap<String, Object>>) subject.getObservations().get(ACTIVITY_DETAILS);
-        if (md == null) return Collections.emptyList();
+        if (StringUtils.isBlank(isActivityAvailableForLinking)
+                || isActivityAvailableForLinking.equalsIgnoreCase(NO)
+                || md == null) return Collections.emptyList();
         return md.stream().map(this::createDistributionActivities)
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList());
