@@ -12,7 +12,7 @@ public enum GoonjErrorType {
     FieldCustomValidationException, AnswerMappingIsNull,
     TargetCommunityIsNullError, ClassCastException,
     InvalidAddressError, AnswerMappingNotFoundForCodedConcept,
-    BadGateway;
+    BadGateway, TooManyRows;
 
     public static GoonjErrorType safeGetValueOf(String stringValue, GoonjErrorType fallback) {
         for (GoonjErrorType ge : GoonjErrorType.values()) {
