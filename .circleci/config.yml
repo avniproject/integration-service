@@ -186,7 +186,7 @@ jobs:
 
   STAGING_deploy:
     docker:
-      - image: cimg/deploy:2023.09
+      - image: cimg/deploy:2024.03
         environment:
           ANSIBLE_HOST_KEY_CHECKING: no
     working_directory: ~/
@@ -197,7 +197,7 @@ jobs:
 
   PRODUCTION_deploy:
     docker:
-      - image: cimg/deploy:2023.09
+      - image: cimg/deploy:2024.03
     working_directory: ~/
     steps:
       - deploy:
