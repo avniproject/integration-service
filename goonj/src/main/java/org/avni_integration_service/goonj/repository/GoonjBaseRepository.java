@@ -63,7 +63,7 @@ public abstract class GoonjBaseRepository {
      * @return cutOffDate
      */
     protected Date getCutOffDate() {
-        return integratingEntityStatusRepository.find(entityType).getReadUptoDateTime();
+        return integratingEntityStatusRepository.findByEntityType(entityType).getReadUptoDateTime();
     }
 
     protected Date getCutOffDateTime() {
