@@ -92,7 +92,7 @@ public abstract class GeneralEncounterWorker implements ErrorRecordWorker {
         if (generalEncounter == null) {
             String message = String.format("GeneralEncounter has been deleted now: %s", entityUuid);
             logger.warn(message);
-            avniGoonjErrorService.errorOccurred(entityUuid, GoonjErrorType.EntityIsDeleted, AvniEntityType.GeneralEncounter, message);
+            avniGoonjErrorService.errorOccurred(entityUuid, GoonjErrorType.EntityIsDeleted.name(), AvniEntityType.GeneralEncounter, message);
             return;
         }
 
@@ -133,9 +133,8 @@ public abstract class GeneralEncounterWorker implements ErrorRecordWorker {
         if (classifiedErrorType == null) {
             throw exception;
         }
-        GoonjErrorType errorType = GoonjErrorType.safeGetValueOf(classifiedErrorType.getName(), goonjErrorType);
         createOrUpdateErrorRecordAndSyncStatus(generalEncounter, updateSyncStatus, generalEncounter.getUuid(),
-                errorType, exception.getLocalizedMessage());
+                classifiedErrorType.getName(), exception.getLocalizedMessage());
     }
 
     protected abstract void createOrUpdateGeneralEncounter(GeneralEncounter generalEncounter, Subject subject);
@@ -160,8 +159,8 @@ public abstract class GeneralEncounterWorker implements ErrorRecordWorker {
         updateSyncStatus(generalEncounter, updateSyncStatus);
     }
 
-    private void createOrUpdateErrorRecordAndSyncStatus(GeneralEncounter generalEncounter, boolean updateSyncStatus, String sid, GoonjErrorType goonjErrorType, String errorMsg) {
-        avniGoonjErrorService.errorOccurred(sid, goonjErrorType, entityType, errorMsg);
+    private void createOrUpdateErrorRecordAndSyncStatus(GeneralEncounter generalEncounter, boolean updateSyncStatus, String sid, String goonjErrorTypeName, String errorMsg) {
+        avniGoonjErrorService.errorOccurred(sid, goonjErrorTypeName, entityType, errorMsg);
         updateSyncStatus(generalEncounter, updateSyncStatus);
     }
 

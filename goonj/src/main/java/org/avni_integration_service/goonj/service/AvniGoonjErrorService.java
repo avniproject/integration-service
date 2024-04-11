@@ -2,7 +2,6 @@ package org.avni_integration_service.goonj.service;
 
 import org.apache.log4j.Logger;
 import org.avni_integration_service.goonj.GoonjEntityType;
-import org.avni_integration_service.goonj.GoonjErrorType;
 import org.avni_integration_service.goonj.config.GoonjContextProvider;
 import org.avni_integration_service.integration_data.domain.AvniEntityType;
 import org.avni_integration_service.integration_data.domain.error.ErrorRecord;
@@ -37,8 +36,9 @@ public class AvniGoonjErrorService {
         return getErrorTypeBy(ErrorTypeFollowUpStep.Terminal);
     }
 
-    private void saveAvniError(String uuid, GoonjErrorType goonjErrorType, AvniEntityType avniEntityType, String errorMsg) {
-        ErrorType errorType = getErrorType(goonjErrorType);
+
+    private void saveAvniError(String uuid, String goonjErrorTypeName, AvniEntityType avniEntityType, String errorMsg) {
+        ErrorType errorType = getErrorType(goonjErrorTypeName);
         ErrorRecord errorRecord = errorRecordRepository.findByAvniEntityTypeAndEntityId(avniEntityType, uuid);
         if (errorRecord != null && errorRecord.hasThisAsLastErrorTypeAndErrorMessage(errorType, errorMsg)) {
             logger.info(String.format("Same error as the last processing for entity uuid %s, and type %s", uuid, avniEntityType));
@@ -60,8 +60,8 @@ public class AvniGoonjErrorService {
         }
     }
 
-    private ErrorType getErrorType(GoonjErrorType goonjErrorType) {
-        return errorTypeRepository.findByNameAndIntegrationSystemId(goonjErrorType.name(), goonjContextProvider.get().getIntegrationSystem().getId());
+    private ErrorType getErrorType(String goonjErrorTypeName) {
+        return errorTypeRepository.findByNameAndIntegrationSystemId(goonjErrorTypeName, goonjContextProvider.get().getIntegrationSystem().getId());
     }
 
     private List<ErrorType> getErrorTypeBy(ErrorTypeFollowUpStep followUpStep) {
@@ -69,9 +69,9 @@ public class AvniGoonjErrorService {
                 goonjContextProvider.get().getIntegrationSystem().getId(), String.valueOf(followUpStep.ordinal()));
     }
 
-    private ErrorRecord saveGoonjError(String uuid, GoonjErrorType goonjErrorType, GoonjEntityType goonjEntityType, String errorMsg) {
+    private ErrorRecord saveGoonjError(String uuid, String goonjErrorTypeName, GoonjEntityType goonjEntityType, String errorMsg) {
         ErrorRecord errorRecord = errorRecordRepository.findByIntegratingEntityTypeAndEntityId(goonjEntityType.name(), uuid);
-        ErrorType errorType = getErrorType(goonjErrorType);
+        ErrorType errorType = getErrorType(goonjErrorTypeName);
         if (errorRecord != null && errorRecord.hasThisAsLastErrorTypeAndErrorMessage(errorType, errorMsg)) {
             logger.info(String.format("Same error as the last processing for entity uuid %s, and type %s", uuid, goonjEntityType));
             if (!errorRecord.isProcessingDisabled()) {
@@ -96,12 +96,12 @@ public class AvniGoonjErrorService {
     }
 
 
-    public ErrorRecord errorOccurred(String entityUuid, GoonjErrorType goonjErrorType, GoonjEntityType goonjEntityType, String errorMsg) {
-        return saveGoonjError(entityUuid, goonjErrorType, goonjEntityType, errorMsg);
+    public ErrorRecord errorOccurred(String entityUuid, String goonjErrorTypeName, GoonjEntityType goonjEntityType, String errorMsg) {
+        return saveGoonjError(entityUuid, goonjErrorTypeName, goonjEntityType, errorMsg);
     }
 
-    public void errorOccurred(String entityUuid, GoonjErrorType goonjErrorType, AvniEntityType avniEntityType, String errorMsg) {
-        saveAvniError(entityUuid, goonjErrorType, avniEntityType, errorMsg);
+    public void errorOccurred(String entityUuid, String goonjErrorTypeName, AvniEntityType avniEntityType, String errorMsg) {
+        saveAvniError(entityUuid, goonjErrorTypeName, avniEntityType, errorMsg);
     }
 
     private void successfullyProcessedGoonjEntity(GoonjEntityType goonjEntityType, String uuid) {
