@@ -83,15 +83,8 @@ public class ErrorRecord extends BaseIntegrationSpecificEntity {
         errorRecordLog.setErrorType(errorType);
         errorRecordLog.setErrorMsg(errorMsg);
         errorRecordLog.setLoggedAt(new Date());
-        errorRecordLog.setErrorRecord(this);
-        replaceOrAddErrorRecordLog(errorRecordLog);
-    }
-
-    private void replaceOrAddErrorRecordLog(ErrorRecordLog errorRecordLog) {
-        if(errorRecordLogs.contains(errorRecordLog)) {
-            errorRecordLogs.remove(errorRecordLog);
-        }
         errorRecordLogs.add(errorRecordLog);
+        errorRecordLog.setErrorRecord(this);
     }
 
     public boolean isProcessingDisabled() {

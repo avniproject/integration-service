@@ -72,12 +72,15 @@ public class AvniGoonjErrorService {
     private ErrorRecord saveGoonjError(String uuid, String goonjErrorTypeName, GoonjEntityType goonjEntityType, String errorMsg) {
         ErrorRecord errorRecord = errorRecordRepository.findByIntegratingEntityTypeAndEntityId(goonjEntityType.name(), uuid);
         ErrorType errorType = getErrorType(goonjErrorTypeName);
-        if (errorRecord != null) {
-            if(errorRecord.hasThisAsLastErrorTypeAndErrorMessage(errorType, errorMsg)) {
-                logger.info(String.format("Same error as the last processing for entity uuid %s, and type %s", uuid, goonjEntityType));
-            } else {
-                logger.info(String.format("New error for entity uuid %s, and type %s", uuid, goonjEntityType));
+        if (errorRecord != null && errorRecord.hasThisAsLastErrorTypeAndErrorMessage(errorType, errorMsg)) {
+            logger.info(String.format("Same error as the last processing for entity uuid %s, and type %s", uuid, goonjEntityType));
+            if (!errorRecord.isProcessingDisabled()) {
+                errorRecord.setProcessingDisabled(true);
+                errorRecordRepository.save(errorRecord);
             }
+            errorRecord.addErrorLog(errorType, errorMsg);
+        } else if (errorRecord != null && !errorRecord.hasThisAsLastErrorTypeAndErrorMessage(errorType, errorMsg)) {
+            logger.info(String.format("New error for entity uuid %s, and type %s", uuid, goonjEntityType));
             errorRecord.addErrorLog(errorType, errorMsg);
             errorRecordRepository.save(errorRecord);
         } else {
