@@ -74,11 +74,8 @@ public class AvniGoonjErrorService {
         ErrorType errorType = getErrorType(goonjErrorTypeName);
         if (errorRecord != null && errorRecord.hasThisAsLastErrorTypeAndErrorMessage(errorType, errorMsg)) {
             logger.info(String.format("Same error as the last processing for entity uuid %s, and type %s", uuid, goonjEntityType));
-            if (!errorRecord.isProcessingDisabled()) {
-                errorRecord.setProcessingDisabled(true);
-                errorRecordRepository.save(errorRecord);
-            }
-            errorRecord.addErrorLog(errorType, errorMsg);
+            errorRecord.updateLoggedAtForLastErrorRecordLog();
+            errorRecordRepository.save(errorRecord);
         } else if (errorRecord != null && !errorRecord.hasThisAsLastErrorTypeAndErrorMessage(errorType, errorMsg)) {
             logger.info(String.format("New error for entity uuid %s, and type %s", uuid, goonjEntityType));
             errorRecord.addErrorLog(errorType, errorMsg);
