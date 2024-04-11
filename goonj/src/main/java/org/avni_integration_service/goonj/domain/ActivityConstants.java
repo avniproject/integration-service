@@ -39,4 +39,7 @@ public interface ActivityConstants {
     String BEFORE_IMPLEMENTATION_PHOTOGRAPH = "Before implementation";
     String DURING_IMPLEMENTATION_PHOTOGRAPH = "During Implementation";
     String AFTER_IMPLEMENTATION_PHOTOGRAPH = "After implementation";
+    String WORK_OBJECTIVE = "Work Objective";
+    String WAS_DISCLAIMER_FORM_FILLED = "Was Disclaimer Form Filled?";
+    String FORM_CROSS_CHECKED ="Form Cross Checked?";
 }

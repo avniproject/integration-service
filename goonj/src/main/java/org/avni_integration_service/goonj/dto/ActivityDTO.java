@@ -51,7 +51,9 @@ import java.util.ArrayList;
         "Nos",
         "BeforeImplementationPhotograph",
         "DuringImplementationPhotograph",
-        "AfterImplementationPhotograph"
+        "AfterImplementationPhotograph",
+        "WasDisclaimerFormFilled",
+        "FormCrossChecked"
 })
 public class ActivityDTO {
 
@@ -143,7 +145,10 @@ public class ActivityDTO {
     private String duringImplementationPhotograph;
     @JsonProperty("AfterImplementationPhotograph")
     private String afterImplementationPhotograph;
-
+    @JsonProperty("WasDisclaimerFormFilled")
+    private String wasDisclaimerFormFilled;
+    @JsonProperty("FormCrossChecked")
+    private String formCrossChecked;
     /**
      * No args constructor for use in serialization
      */
@@ -207,7 +212,7 @@ public class ActivityDTO {
                        Long noofWorkingDays, Integer nos, String objectiveofCFWwork, String schoolAanganwadiLearningCenterName,
                        String state, String typeofInitiative, String otherObjective, String otherSubType,
                        String createdBy, String modifiedBy, String beforeImplementationPhotograph, String duringImplementationPhotograph,
-                       String afterImplementationPhotograph) {
+                       String afterImplementationPhotograph, String wasDisclaimerFormFilled, String formCrossChecked) {
         super();
         this.sourceId = sourceId;
         this.nameOfAccount = nameOfAccount;
@@ -253,6 +258,8 @@ public class ActivityDTO {
         this.beforeImplementationPhotograph = beforeImplementationPhotograph;
         this.duringImplementationPhotograph = duringImplementationPhotograph;
         this.afterImplementationPhotograph = afterImplementationPhotograph;
+        this.wasDisclaimerFormFilled = wasDisclaimerFormFilled;
+        this.formCrossChecked = formCrossChecked;
     }
 
     @JsonProperty("SourceId")
@@ -689,5 +696,21 @@ public class ActivityDTO {
     @JsonProperty("AfterImplementationPhotograph")
     public void setAfterImplementationPhotograph(String afterImplementationPhotograph) {
         this.afterImplementationPhotograph = afterImplementationPhotograph;
+    }
+    @JsonProperty("WasDisclaimerFormFilled")
+    public String getWasDisclaimerFormFilled() {
+        return wasDisclaimerFormFilled;
+    }
+    @JsonProperty("WasDisclaimerFormFilled")
+    public void setWasDisclaimerFormFilled(String wasDisclaimerFormFilled) {
+        this.wasDisclaimerFormFilled = wasDisclaimerFormFilled;
+    }
+    @JsonProperty("FormCrossChecked")
+    public String getFormCrossChecked() {
+        return formCrossChecked;
+    }
+    @JsonProperty("FormCrossChecked")
+    public void setFormCrossChecked(String formCrossChecked) {
+        this.formCrossChecked = formCrossChecked;
     }
 }

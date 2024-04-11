@@ -117,7 +117,15 @@ public class ActivityRepository extends GoonjBaseRepository implements ActivityC
             mapActivityType(activityDTO, subject);
             activityDTO.setActivitySubType((String) subject.getObservation(ACTIVITY_SUB_TYPE));
             activityDTO.setOtherSubType((String) subject.getObservation(SPECIFY_OTHER_SUB_TYPE));
-            activityDTO.setObjectiveofCFWwork((String) subject.getObservation(OBJECTIVE_OF_WORK));
+            activityDTO.setWasDisclaimerFormFilled((String) subject.getObservation(WAS_DISCLAIMER_FORM_FILLED));
+            activityDTO.setFormCrossChecked((String) subject.getObservation(FORM_CROSS_CHECKED));
+            /*changed 'Objective of Work' to 'Work Objective'*/
+            List<String> workObjective = (ArrayList<String>) subject.getObservation(WORK_OBJECTIVE);
+            if(workObjective != null){
+                activityDTO.setObjectiveofCFWwork(String.join(";", workObjective));
+            }else {
+                activityDTO.setObjectiveofCFWwork((String) subject.getObservation(OBJECTIVE_OF_WORK));
+            }
             activityDTO.setOtherObjective((String) subject.getObservation(SPECIFY_OTHER_FOR_OBJECTIVE_OF_WORK));
             /* Measurement fields */
             activityDTO.setMeasurementType((String) subject.getObservation(MEASUREMENTS_TYPE));
