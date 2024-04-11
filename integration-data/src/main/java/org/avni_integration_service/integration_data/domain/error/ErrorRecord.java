@@ -24,6 +24,10 @@ public class ErrorRecord extends BaseIntegrationSpecificEntity {
     @Column
     private boolean processingDisabled;
 
+    public Set<ErrorRecordLog> getErrorRecordLogs() {
+        return errorRecordLogs;
+    }
+
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "errorRecord")
     private Set<ErrorRecordLog> errorRecordLogs = new HashSet<>();
 
