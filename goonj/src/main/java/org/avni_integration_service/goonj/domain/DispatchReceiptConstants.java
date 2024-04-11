@@ -6,4 +6,5 @@ public interface DispatchReceiptConstants {
     String DISPATCH_STATUS_ID = "Dispatch Status Id";
     String DISPATCH_RECEIVED_DATE = "Dispatch Received Date";
     String RECEIVED_MATERIAL = "Received Material";
+    String REMARKS = "Remarks";
 }

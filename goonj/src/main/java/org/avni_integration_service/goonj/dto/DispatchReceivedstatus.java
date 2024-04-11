@@ -14,6 +14,7 @@ import java.util.List;
     "DispatchStatusId",
     "ReceivedDate",
     "DispatchReceivedStatusLineItems",
+     "Remarks",
         "CreatedBy",
         "ModifiedBy"
 })
@@ -27,6 +28,7 @@ public class DispatchReceivedstatus {
     private String receivedDate;
     @JsonProperty("DispatchReceivedStatusLineItems")
     private List<DispatchReceivedStatusLineItem> dispatchReceivedStatusLineItems = new ArrayList<DispatchReceivedStatusLineItem>();
+    private String remarks;
     @JsonProperty("CreatedBy")
     private String createdBy;
     @JsonProperty("ModifiedBy")
@@ -48,7 +50,7 @@ public class DispatchReceivedstatus {
      * @param modifiedBy
      */
     public DispatchReceivedstatus(String sourceId, String dispatchStatusId, String receivedDate
-            , List<DispatchReceivedStatusLineItem> dispatchReceivedStatusLineItems, String createdBy, String modifiedBy) {
+            , List<DispatchReceivedStatusLineItem> dispatchReceivedStatusLineItems,String remarks, String createdBy, String modifiedBy) {
         super();
         this.sourceId = sourceId;
         this.dispatchStatusId = dispatchStatusId;
@@ -96,6 +98,15 @@ public class DispatchReceivedstatus {
     @JsonProperty("DispatchReceivedStatusLineItems")
     public void setDispatchReceivedStatusLineItems(List<DispatchReceivedStatusLineItem> dispatchReceivedStatusLineItems) {
         this.dispatchReceivedStatusLineItems = dispatchReceivedStatusLineItems;
+    }
+
+    @JsonProperty("Remarks")
+    public String getRemarks() {
+        return remarks;
+    }
+    @JsonProperty("Remarks")
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
     }
 
     @JsonProperty("CreatedBy")
