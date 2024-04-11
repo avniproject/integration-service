@@ -78,7 +78,7 @@ public class DispatchEventWorker extends GoonjEventWorker implements ErrorRecord
         } catch (Exception e) {
             logger.error(String.format("Failed to delete dispatch line items: externalId %s", deletedEntity.getDispatchStatusLineItemId()));
             createOrUpdateErrorRecordAndSyncStatus(null, false, deletedEntity.getDispatchStatusLineItemId(),
-                    GoonjErrorType.DispatchLineItemsDeletionFailure, e.getLocalizedMessage());
+                    GoonjErrorType.DispatchLineItemsDeletionFailure.name(), e.getLocalizedMessage());
         }
     }
 

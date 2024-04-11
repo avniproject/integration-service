@@ -39,8 +39,8 @@ public abstract class GoonjEventWorker {
     }
 
     void createOrUpdateErrorRecordAndSyncStatus(Map<String, Object> callResponse, boolean updateSyncStatus, String sid,
-                                                GoonjErrorType goonjErrorType, String errorMsg) {
-        avniGoonjErrorService.errorOccurred(sid, goonjErrorType, entityType, errorMsg);
+                                                String goonjErrorTypeName, String errorMsg) {
+        avniGoonjErrorService.errorOccurred(sid, goonjErrorTypeName, entityType, errorMsg);
         updateSyncStatus(callResponse, updateSyncStatus);
     }
 
@@ -69,9 +69,8 @@ public abstract class GoonjEventWorker {
         if(classifiedErrorType == null) {
             throw exception;
         }
-        GoonjErrorType errorType = GoonjErrorType.safeGetValueOf(classifiedErrorType.getName(), goonjErrorType);
         createOrUpdateErrorRecordAndSyncStatus(event, updateSyncStatus, (String) event.get(entityId),
-                errorType , exception.getLocalizedMessage());
+                classifiedErrorType.getName() , exception.getLocalizedMessage());
     }
 
     public abstract void processDeletion(String deletedEntity);
