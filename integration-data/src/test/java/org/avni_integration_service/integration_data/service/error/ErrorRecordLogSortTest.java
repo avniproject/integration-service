@@ -65,16 +65,17 @@ public class ErrorRecordLogSortTest extends AbstractSpringTest implements ErrorC
                 this.errorTypeRepository.save(errorType4);
                 final String ERROR_MSG_4 = "errorMsg4";
                 this.errorRecord.addErrorLog(errorType4, ERROR_MSG_4);
-                this.errorRecordRepository.save(errorRecord);
-                this.errorRecordLogRepository.saveAll(errorRecord.getErrorRecordLogs());
-                assertEquals(true, errorRecord.hasThisAsLastErrorTypeAndErrorMessage(errorType4, ERROR_MSG_4));
-//                errorRecord.getErrorRecordLogs().stream().forEach(erl -> System.out.println(erl.getId()+" erl: "+erl.getErrorType()+" "+erl.getLoggedAt().toInstant()));
-                Date before = errorRecord.getErrorRecordLogs().stream().filter(erl -> erl.getErrorType().equals(errorType4)).findFirst().get().getLoggedAt();
-                errorRecord.updateLoggedAtForLastErrorRecordLog();
-                errorRecordRepository.save(errorRecord);
-                assertEquals(true, errorRecord.hasThisAsLastErrorTypeAndErrorMessage(errorType4, ERROR_MSG_4));
-                Date after = errorRecord.getErrorRecordLogs().stream().filter(erl -> erl.getErrorType().equals(errorType4)).findFirst().get().getLoggedAt();
-//                errorRecord.getErrorRecordLogs().stream().forEach(erl -> System.out.println(erl.getId()+" erl: "+erl.getErrorType()+" "+erl.getLoggedAt().toInstant()));
+                ErrorRecord updatedErrorRecord = this.errorRecordRepository.save(errorRecord);
+                this.errorRecordLogRepository.saveAll(updatedErrorRecord.getErrorRecordLogs());
+                assertEquals(true, updatedErrorRecord.hasThisAsLastErrorTypeAndErrorMessage(errorType4, ERROR_MSG_4));
+                updatedErrorRecord.getErrorRecordLogs().stream().forEach(erl -> System.out.println(erl.getId()+" erl: "+erl.getErrorType()+" "+erl.getLoggedAt().toInstant()));
+                Date before = updatedErrorRecord.getErrorRecordLogs().stream().filter(erl -> erl.getErrorType().equals(errorType4)).findFirst().get().getLoggedAt();
+                updatedErrorRecord.updateLoggedAtForLastErrorRecordLog();
+                updatedErrorRecord = errorRecordRepository.save(updatedErrorRecord);
+                this.errorRecordLogRepository.saveAll(updatedErrorRecord.getErrorRecordLogs());
+                assertEquals(true, updatedErrorRecord.hasThisAsLastErrorTypeAndErrorMessage(errorType4, ERROR_MSG_4));
+                Date after = updatedErrorRecord.getErrorRecordLogs().stream().filter(erl -> erl.getErrorType().equals(errorType4)).findFirst().get().getLoggedAt();
+                updatedErrorRecord.getErrorRecordLogs().stream().forEach(erl -> System.out.println(erl.getId()+" erl: "+erl.getErrorType()+" "+erl.getLoggedAt().toInstant()));
                 assertEquals(true, after.after(before));
         }
 

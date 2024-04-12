@@ -74,7 +74,7 @@ public class ErrorRecord extends BaseIntegrationSpecificEntity {
     }
 
     private ErrorRecordLog getLastErrorRecordLog() {
-        return this.errorRecordLogs.stream().sorted(Comparator.comparing(BaseEntity::getId))
+        return this.errorRecordLogs.stream().sorted(Comparator.comparing(ErrorRecordLog::getLoggedAt))
                 .reduce((first, second) -> second).orElse(null);
     }
 
