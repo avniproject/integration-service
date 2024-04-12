@@ -10,12 +10,12 @@ import java.util.List;
 //@JsonInclude(JsonInclude.Include.NON_EMPTY)
 @JsonPropertyOrder({"source_id", "state", "district", "block", "localityVillageName", "tolaMohalla", "dateOfDistribution",
         "accountCode", "nameOfAccount", "typeOfCommunity", "typeOfInitiative", "photographInformation", "createdBy",
-        "modifiedBy", "distributionLines", "distributedTo", "inventoryIds", "numberOfDistributions", "quantity", "unit",
+        "modifiedBy", "distributionLines", "distributedTo", "inventoryIds",  "quantity", "unit",
         "activities", "surveyedBy", "monitoredByOrDistributor", "approvedOrVerifiedBy", "teamOrExternal", "nameOfPOC",
         "pocContactNo", "reachedTo", "totalNumberOfReceivers", "groupName", "anyOtherDocumentSubmitted", "reportsCrosschecked",
         "name", "gender", "age", "fatherMotherName", "phoneNumber", "presentOccupation", "monthlyIncome", "noOfFamilyMember",
         "centreName", "shareABriefProvidedMaterial", "howtheMaterialMakesaDifference", "materialGivenFor", "noOfIndividualReached",
-        "remarks", "TypeOfSchool", "SchoolAanganwadiLearningCenterName"})
+        "remarks", "TypeOfSchool", "SchoolAanganwadiLearningCenterName","DisclaimerPhotographs","ReceiverListPhotographs"})
 public class DistributionDTO {
 
     @JsonProperty("sourceId")
@@ -112,7 +112,10 @@ public class DistributionDTO {
     private String TypeOfSchool;
     @JsonProperty("SchoolAanganwadiLearningCenterName")
     private String SchoolAanganwadiLearningCenterName;
-
+    @JsonProperty("DisclaimerPhotographs")
+    private String disclaimerPhotographs;
+    @JsonProperty("ReceiverListPhotographs")
+    private String receiverListPhotographs;
     /**
      * No args constructor for use in serialization
      */
@@ -181,7 +184,8 @@ public class DistributionDTO {
                            Integer monthlyIncome, Integer noOfFamilyMember, String centreName,
                            String shareABriefProvidedMaterial, String howtheMaterialMakesaDifference,
                            String materialGivenFor, Integer noOfIndividualReached, Integer noOfFamiliesReached,
-                           String remarks, String TypeOfSchool, String SchoolAanganwadiLearningCenterName) {
+                           String remarks, String TypeOfSchool, String SchoolAanganwadiLearningCenterName,
+                           String disclaimerPhotographs,String receiverListPhotographs) {
         super();
         this.source_id = source_id;
         this.state = state;
@@ -230,6 +234,8 @@ public class DistributionDTO {
         this.remarks = remarks;
         this.TypeOfSchool = TypeOfSchool;
         this.SchoolAanganwadiLearningCenterName = SchoolAanganwadiLearningCenterName;
+        this.disclaimerPhotographs = disclaimerPhotographs;
+        this.receiverListPhotographs = receiverListPhotographs;
     }
 
     @JsonProperty("sourceId")
@@ -700,5 +706,23 @@ public class DistributionDTO {
     @JsonProperty("SchoolAanganwadiLearningCenterName")
     public void setSchoolAanganwadiLearningCenterName(String schoolAanganwadiLearningCenterName) {
         SchoolAanganwadiLearningCenterName = schoolAanganwadiLearningCenterName;
+    }
+
+    @JsonProperty("DisclaimerPhotographs")
+    public String getDisclaimerPhotographs() {
+        return disclaimerPhotographs;
+    }
+
+    @JsonProperty("DisclaimerPhotographs")
+    public void setDisclaimerPhotographs(String disclaimerPhotographs) {
+        this.disclaimerPhotographs = disclaimerPhotographs;
+    }
+    @JsonProperty("ReceiverListPhotographs")
+    public String getReceiverListPhotographs() {
+        return receiverListPhotographs;
+    }
+    @JsonProperty("ReceiverListPhotographs")
+    public void setReceiverListPhotographs(String receiverListPhotographs) {
+        this.receiverListPhotographs = receiverListPhotographs;
     }
 }

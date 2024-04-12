@@ -69,5 +69,8 @@ public interface DistributionConstants {
     String ONLY_S_2_S = "Only S2S";
     String TYPE_OF_SCHOOL = "Type of school";
     String SCHOOL_ANGANWADI_NAME = "School / Aanganwadi / Learning Center Name";
-
+    String DISCLAIMER_PHOTOGRAPHS = "Disclaimer Photographs";
+    String RECEIVER_LIST_PHOTOGRAPHS = "Receiver List Photographs";
+    String TYPE_OF_COMMUNITY = "Type Of Community";
+    String TOTAL_NUMBER_OF_RECEIVERS = "Total Number of Receivers inventory";
 }

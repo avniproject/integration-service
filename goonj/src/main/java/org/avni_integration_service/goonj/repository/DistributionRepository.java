@@ -91,10 +91,21 @@ public class DistributionRepository extends GoonjBaseRepository implements Distr
         Date distributionDate = DateTimeUtil.convertToDate((String) subject.getObservation(DISTRIBUTION_DATE));
         distributionDate = DateTimeUtil.offsetTimeZone(distributionDate, DateTimeUtil.UTC, DateTimeUtil.IST);
         distributionDTO.setDateOfDistribution(DateTimeUtil.formatDate(distributionDate));
-        distributionDTO.setTypeOfCommunity((String) subject.getObservation(TARGET_COMMUNITY));
+        List<String> typeOfCommunity = (ArrayList<String>) subject.getObservation(TYPE_OF_COMMUNITY);
+        if(typeOfCommunity!= null){
+            distributionDTO.setTypeOfCommunity(String.join(";",typeOfCommunity));
+        }else{
+          distributionDTO.setTypeOfCommunity((String) subject.getObservation(TARGET_COMMUNITY));
+        }
         distributionDTO.setDisasterType((String) subject.getObservation(TYPE_OF_DISASTER));
         List<String> images = subject.getObservation(IMAGES) == null ? new ArrayList<>() : (ArrayList<String>) subject.getObservation(IMAGES);
         distributionDTO.setPhotographInformation(images.stream().map(
+                x -> goonjContextProvider.get().getMediaUrl() + x).collect(Collectors.joining(";")));
+        List<String> disclaimerImage = subject.getObservation(DISCLAIMER_PHOTOGRAPHS) == null ? new ArrayList<>() : (ArrayList<String>) subject.getObservation(DISCLAIMER_PHOTOGRAPHS);
+        distributionDTO.setDisclaimerPhotographs(disclaimerImage.stream().map(
+                x -> goonjContextProvider.get().getMediaUrl() + x).collect(Collectors.joining(";")));
+        List<String> receiverImages = subject.getObservation(RECEIVER_LIST_PHOTOGRAPHS) == null ? new ArrayList<>() : (ArrayList<String>) subject.getObservation(RECEIVER_LIST_PHOTOGRAPHS);
+        distributionDTO.setReceiverListPhotographs(receiverImages.stream().map(
                 x -> goonjContextProvider.get().getMediaUrl() + x).collect(Collectors.joining(";")));
         List<DistributionLine> d = fetchDistributionLineItems(subject);
         distributionDTO.setDistributionLines(d);
