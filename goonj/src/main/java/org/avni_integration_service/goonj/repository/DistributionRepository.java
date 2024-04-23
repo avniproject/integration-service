@@ -111,6 +111,7 @@ public class DistributionRepository extends GoonjBaseRepository implements Distr
         distributionDTO.setDistributionLines(d);
         List<DistributionActivities> activities = fetchActivities(subject);
         distributionDTO.setActivities(activities);
+        distributionDTO.setTotalNumberOfReceivers((Integer) subject.getObservation(NUMBER_OF_RECEIVERS));
         if (subject.getObservation(TYPE_OF_INITIATIVE).equals(CFW)) {
             distributionDTO.setTypeOfInitiative(ONLY_CFW);
         } else if (subject.getObservation(TYPE_OF_INITIATIVE).equals(NJPC)) {
@@ -150,7 +151,6 @@ public class DistributionRepository extends GoonjBaseRepository implements Distr
             }
             if (subject.getObservation(REACHED_TO).equals("Group")) {
                 distributionDTO.setGroupName((String) subject.getObservation(GROUP_NAME));
-                distributionDTO.setTotalNumberOfReceivers((Integer) subject.getObservation(NUMBER_OF_RECEIVERS));
             }
         } else if (subject.getObservation(TYPE_OF_INITIATIVE).equals(SPECIFIC_INITIATIVE)) {
             distributionDTO.setTypeOfInitiative((String) subject.getObservation(TYPE_OF_INITIATIVE));
