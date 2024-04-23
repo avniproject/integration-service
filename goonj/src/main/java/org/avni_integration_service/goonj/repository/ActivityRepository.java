@@ -27,6 +27,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static org.avni_integration_service.goonj.config.GoonjMappingDbConstants.*;
+import static org.avni_integration_service.goonj.util.NumberUtil.getInteger;
 
 @Component("ActivityRepository")
 public class ActivityRepository extends GoonjBaseRepository implements ActivityConstants {
@@ -129,7 +130,7 @@ public class ActivityRepository extends GoonjBaseRepository implements ActivityC
             activityDTO.setOtherObjective((String) subject.getObservation(SPECIFY_OTHER_FOR_OBJECTIVE_OF_WORK));
             /* Measurement fields */
             activityDTO.setMeasurementType((String) subject.getObservation(MEASUREMENTS_TYPE));
-            activityDTO.setNos((Integer) subject.getObservation(NOS));
+            activityDTO.setNos(getInteger((subject.getObservation(NOS))));
             activityDTO.setBreadth((subject.getObservation(BREADTH) == null) ? 0D : Double.valueOf(subject.getObservation(BREADTH).toString()));
             activityDTO.setDiameter((subject.getObservation(DIAMETER) == null) ? 0D : Double.valueOf(subject.getObservation(DIAMETER).toString()));
             activityDTO.setLength((subject.getObservation(LENGTH) == null) ? 0D : Double.valueOf(subject.getObservation(LENGTH).toString()));
