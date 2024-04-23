@@ -24,6 +24,10 @@ public class ErrorRecord extends BaseIntegrationSpecificEntity {
     @Column
     private boolean processingDisabled;
 
+    public Set<ErrorRecordLog> getErrorRecordLogs() {
+        return errorRecordLogs;
+    }
+
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "errorRecord")
     private Set<ErrorRecordLog> errorRecordLogs = new HashSet<>();
 
@@ -70,7 +74,7 @@ public class ErrorRecord extends BaseIntegrationSpecificEntity {
     }
 
     private ErrorRecordLog getLastErrorRecordLog() {
-        return this.errorRecordLogs.stream().sorted(Comparator.comparing(BaseEntity::getId))
+        return this.errorRecordLogs.stream().sorted(Comparator.comparing(ErrorRecordLog::getLoggedAt))
                 .reduce((first, second) -> second).orElse(null);
     }
 
@@ -83,8 +87,13 @@ public class ErrorRecord extends BaseIntegrationSpecificEntity {
         errorRecordLog.setErrorType(errorType);
         errorRecordLog.setErrorMsg(errorMsg);
         errorRecordLog.setLoggedAt(new Date());
-        errorRecordLogs.add(errorRecordLog);
         errorRecordLog.setErrorRecord(this);
+        errorRecordLogs.add(errorRecordLog);
+    }
+
+    public void updateLoggedAtForLastErrorRecordLog() {
+        ErrorRecordLog lastERL = getLastErrorRecordLog();
+        lastERL.setLoggedAt(new Date());
     }
 
     public boolean isProcessingDisabled() {
