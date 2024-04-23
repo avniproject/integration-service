@@ -20,7 +20,6 @@ public interface DistributionConstants {
     String DISTRIBUTED_TO = "Distributed to";
     String INVENTORY_ID = "Inventory Id";
     String TYPE_OF_MATERIAL = "Type Of Material";
-    String NUMBER_OF_DISTRIBUTIONS = "Number of distributions";
     String QUANTITY = "Quantity";
     String UNIT = "Unit";
     String ACTIVITIES_DONE = "Activities Done";

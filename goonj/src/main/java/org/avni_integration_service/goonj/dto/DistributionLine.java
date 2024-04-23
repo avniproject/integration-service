@@ -10,7 +10,6 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "sourceId",
     "distributedTo",
     "implementationInventoryId",
-    "numberOfdistributions",
     "quantity",
     "unit"
 })
@@ -22,8 +21,6 @@ public class DistributionLine {
     private String distributedTo;
     @JsonProperty("implementationInventoryId")
     private String implementationInventoryId;
-    @JsonProperty("numberOfdistributions")
-    private int numberofdistributions;
     @JsonProperty("quantity")
     private int quantity;
     @JsonProperty("unit")
@@ -31,26 +28,24 @@ public class DistributionLine {
 
     /**
      * No args constructor for use in serialization
-     * 
+     *
      */
     public DistributionLine() {
     }
 
     /**
-     * 
+     *
      * @param sourceId
      * @param distributedTo
      * @param quantity
      * @param unit
      * @param implementationInventoryId
-     * @param numberofdistributions
      */
-    public DistributionLine(String sourceId, String distributedTo, String implementationInventoryId, int numberofdistributions, int quantity, String unit) {
+    public DistributionLine(String sourceId, String distributedTo, String implementationInventoryId, int quantity, String unit) {
         super();
         this.sourceId = sourceId;
         this.distributedTo = distributedTo;
         this.implementationInventoryId = implementationInventoryId;
-        this.numberofdistributions = numberofdistributions;
         this.quantity = quantity;
         this.unit = unit;
     }
@@ -78,14 +73,6 @@ public class DistributionLine {
     @JsonProperty("implementationInventoryId")
     public void setimplementationInventoryId(String implementationInventoryId) {
         this.implementationInventoryId = implementationInventoryId;
-    }
-    @JsonProperty("numberOfdistributions")
-    public int getNumberofdistributions() {
-        return numberofdistributions;
-    }
-    @JsonProperty("numberOfdistributions")
-    public void setNumberofdistributions(int numberofdistributions) {
-        this.numberofdistributions = numberofdistributions;
     }
     @JsonProperty("quantity")
     public int getQuantity() {
