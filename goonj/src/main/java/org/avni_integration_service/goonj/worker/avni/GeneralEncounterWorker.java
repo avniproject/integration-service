@@ -160,7 +160,7 @@ public abstract class GeneralEncounterWorker implements ErrorRecordWorker {
     }
 
     private void createOrUpdateErrorRecordAndSyncStatus(GeneralEncounter generalEncounter, boolean updateSyncStatus, String sid, String goonjErrorTypeName, String errorMsg) {
-        avniGoonjErrorService.errorOccurred(sid, goonjErrorTypeName, entityType, "Subject ID: " + generalEncounter.getSubjectExternalID() + ". Message: " + errorMsg);
+        avniGoonjErrorService.errorOccurred(sid, goonjErrorTypeName, entityType, "Subject IDs: " + generalEncounter.getSubjectExternalID() + ", " + generalEncounter.getSubjectId() + ". Message: " + errorMsg);
         updateSyncStatus(generalEncounter, updateSyncStatus);
     }
 
