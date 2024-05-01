@@ -91,8 +91,8 @@ public class DistributionRepository extends GoonjBaseRepository implements Distr
         Date distributionDate = DateTimeUtil.convertToDate((String) subject.getObservation(DISTRIBUTION_DATE));
         distributionDate = DateTimeUtil.offsetTimeZone(distributionDate, DateTimeUtil.UTC, DateTimeUtil.IST);
         distributionDTO.setDateOfDistribution(DateTimeUtil.formatDate(distributionDate));
-        List<String> typeOfCommunity = (ArrayList<String>) subject.getObservation(TYPE_OF_COMMUNITY);
-        if(typeOfCommunity!= null){
+        if(subject.getObservation(TYPE_OF_COMMUNITY)!= null){
+            List<String> typeOfCommunity = (ArrayList<String>) subject.getObservation(TYPE_OF_COMMUNITY);
             distributionDTO.setTypeOfCommunity(String.join(";",typeOfCommunity));
         }else{
           distributionDTO.setTypeOfCommunity((String) subject.getObservation(TARGET_COMMUNITY));
