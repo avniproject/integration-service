@@ -247,9 +247,6 @@ workflows:
             - build
       - STAGING_deploy:
           context: non-prod-deploy
-          filters:
-            branches:
-              only: main
           requires:
             - STAGING_approve
       - PRODUCTION_approve:
