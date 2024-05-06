@@ -30,6 +30,9 @@ public class AvniGoonjFullErrorJob {
     @Autowired
     private GoonjContextProvider goonjContextProvider;
 
+    @Autowired
+    private AvniGoonjErrorRecordsWorker errorRecordsWorker;
+
     public void execute(GoonjConfig goonjConfig) {
         logger.info("Executing Goonj Error Job");
         goonjContextProvider.set(goonjConfig);
@@ -44,6 +47,8 @@ public class AvniGoonjFullErrorJob {
         } catch (Exception e) {
             logger.error("Failed AvniGoonjFullErrorJob", e);
             bugsnag.notify(e);
+        } finally {
+            errorRecordsWorker.evaluateNewErrors();
         }
     }
 }
