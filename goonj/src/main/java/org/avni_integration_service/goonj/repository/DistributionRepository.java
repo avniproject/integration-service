@@ -201,8 +201,7 @@ public class DistributionRepository extends GoonjBaseRepository implements Distr
     private DistributionActivities createDistributionActivities(HashMap<String, Object> entry) {
         String activitySourceId = (String) entry.get(ACTIVITIES_DONE);
         if (activitySourceId != null) {
-            int numberOfPersons = (Integer) entry.get(NUMBER_OF_PERSONS);
-            return new DistributionActivities(activitySourceId, numberOfPersons);
+            return new DistributionActivities(activitySourceId);
         }
         return null;
     }
