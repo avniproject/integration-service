@@ -6,8 +6,6 @@ public class DistributionActivities {
 
     @JsonProperty("ActivitySourceId")
     private String ActivitySourceId;
-    @JsonProperty("numberOfPersons")
-    private int numberOfPersons;
 
     /**
      * No args constructor for use in serialization
@@ -17,12 +15,10 @@ public class DistributionActivities {
 
     /**
      * @param ActivitySourceId
-     * @param numberOfPersons
      */
-    public DistributionActivities(String ActivitySourceId, int numberOfPersons) {
+    public DistributionActivities(String ActivitySourceId) {
         super();
         this.ActivitySourceId = ActivitySourceId;
-        this.numberOfPersons = numberOfPersons;
     }
 
     @JsonProperty("ActivitySourceId")
@@ -33,16 +29,6 @@ public class DistributionActivities {
     @JsonProperty("ActivitySourceId")
     public void setActivityId(String activitySourceId) {
         this.ActivitySourceId = activitySourceId;
-    }
-
-    @JsonProperty("numberOfPersons")
-    public int getNumberOfPersons() {
-        return numberOfPersons;
-    }
-
-    @JsonProperty("numberOfPersons")
-    public void setNumberOfPersons(int numberOfPersons) {
-        this.numberOfPersons = numberOfPersons;
     }
 
 }
