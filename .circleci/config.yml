@@ -1,4 +1,6 @@
 version: 2.1
+orbs:
+  aws-cli: circleci/aws-cli@4.1.1
 
 commands:
   deploy:
@@ -41,6 +43,25 @@ commands:
           VAULT_PASSWORD_FILE=~/.vault-pass.txt app_zip_path=~/artifacts/ make deploy-int-server-<< parameters.env >>
 
       - run: rm ~/.vault-pass.txt
+
+  setup_server_access:
+    description: Generate and copy temporary keys to server
+    parameters:
+      instance-id:
+        type: string
+      os-user:
+        type: string
+        default: ubuntu
+      availability-zone:
+        type: string
+        default: ap-south-1a
+    steps:
+      - run: rm -rf /tmp/temp_rsa_key*
+      - run: ssh-keygen -b 2048 -t rsa -f /tmp/temp_rsa_key -q -N ""
+      - run: eval `ssh-agent -s`
+      - run: ssh-add /tmp/temp_rsa_key
+      - run: |
+          aws ec2-instance-connect send-ssh-public-key --instance-id << parameters.instance-id >> --availability-zone << parameters.availability-zone >> --instance-os-user << parameters.os-user >> --no-paginate --ssh-public-key file:///tmp/temp_rsa_key.pub --output text | head -1
 
 jobs:
   test:
@@ -191,6 +212,12 @@ jobs:
           ANSIBLE_HOST_KEY_CHECKING: no
     working_directory: ~/
     steps:
+      - aws-cli/setup:
+          role_arn: "arn:aws:iam::118388513628:role/avni_circleci_instance_connect"
+          region: "ap-south-1"
+      - setup_server_access:
+          instance-id: "i-029f9587b33d91f35"
+          availability-zone: "ap-south-1a"
       - deploy:
           hostname: "int-staging.avniproject.org"
           env: "staging"
@@ -200,6 +227,12 @@ jobs:
       - image: cimg/deploy:2024.03
     working_directory: ~/
     steps:
+      - aws-cli/setup:
+          role_arn: "arn:aws:iam::118388513628:role/avni_circleci_instance_connect"
+          region: "ap-south-1"
+      - setup_server_access:
+          instance-id: "i-07e5114eea30b3b61"
+          availability-zone: "ap-south-1a"
       - deploy:
           hostname: "int-prod.avniproject.org"
           env: "prod"
