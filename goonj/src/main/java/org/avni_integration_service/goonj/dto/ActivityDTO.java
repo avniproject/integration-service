@@ -149,6 +149,8 @@ public class ActivityDTO {
     private String wasDisclaimerFormFilled;
     @JsonProperty("FormCrossChecked")
     private String formCrossChecked;
+    @JsonProperty("Remarks")
+    private String remarks;
     /**
      * No args constructor for use in serialization
      */
@@ -200,6 +202,7 @@ public class ActivityDTO {
      * @param beforeImplementationPhotograph
      * @param duringImplementationPhotograph
      * @param afterImplementationPhotograph
+     * @param remarks
      */
     public ActivityDTO(String sourceId, String nameOfAccount, String activityCategory, String activityConductedWithStudents,
                        String typeOfSchool, String s2sPhotograph, String njpcPhotograph, String activityEndDate,
@@ -212,7 +215,7 @@ public class ActivityDTO {
                        Long noofWorkingDays, Integer nos, String objectiveofCFWwork, String schoolAanganwadiLearningCenterName,
                        String state, String typeofInitiative, String otherObjective, String otherSubType,
                        String createdBy, String modifiedBy, String beforeImplementationPhotograph, String duringImplementationPhotograph,
-                       String afterImplementationPhotograph, String wasDisclaimerFormFilled, String formCrossChecked) {
+                       String afterImplementationPhotograph, String wasDisclaimerFormFilled, String formCrossChecked, String remarks) {
         super();
         this.sourceId = sourceId;
         this.nameOfAccount = nameOfAccount;
@@ -260,6 +263,7 @@ public class ActivityDTO {
         this.afterImplementationPhotograph = afterImplementationPhotograph;
         this.wasDisclaimerFormFilled = wasDisclaimerFormFilled;
         this.formCrossChecked = formCrossChecked;
+        this.remarks = remarks;
     }
 
     @JsonProperty("SourceId")
@@ -712,5 +716,14 @@ public class ActivityDTO {
     @JsonProperty("FormCrossChecked")
     public void setFormCrossChecked(String formCrossChecked) {
         this.formCrossChecked = formCrossChecked;
+    }
+
+    @JsonProperty("Remarks")
+    public String getRemarks() {
+        return remarks;
+    }
+    @JsonProperty("Remarks")
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
     }
 }

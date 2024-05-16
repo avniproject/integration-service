@@ -42,4 +42,5 @@ public interface ActivityConstants {
     String WORK_OBJECTIVE = "Work Objective";
     String WAS_DISCLAIMER_FORM_FILLED = "Was Disclaimer Form Filled?";
     String FORM_CROSS_CHECKED ="Form Cross Checked?";
+    String REMARKS ="Remarks";
 }

@@ -159,9 +159,11 @@ public class ActivityRepository extends GoonjBaseRepository implements ActivityC
             /* Photograph fields */
             activityDTO.setNjpcPhotograph(getPhotographStrings(PHOTOGRAPH, subject));
         }
+        activityDTO.setRemarks((String) subject.getObservation(REMARKS));
         /* Other fields */
         activityDTO.setCreatedBy(subject.getCreatedBy());
         activityDTO.setModifiedBy(subject.getLastModifiedBy());
+
         return activityDTO;
     }
 
