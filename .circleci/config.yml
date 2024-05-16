@@ -81,6 +81,25 @@ commands:
       - run: |
           aws ec2-instance-connect send-ssh-public-key --instance-id << parameters.instance-id >> --availability-zone << parameters.availability-zone >> --instance-os-user << parameters.os-user >> --no-paginate --ssh-public-key file:///tmp/temp_rsa_key.pub --output text | head -1
 
+  setup_server_access:
+    description: Generate and copy temporary keys to server
+    parameters:
+      instance-id:
+        type: string
+      os-user:
+        type: string
+        default: ubuntu
+      availability-zone:
+        type: string
+        default: ap-south-1a
+    steps:
+      - run: rm -rf /tmp/temp_rsa_key*
+      - run: ssh-keygen -b 2048 -t rsa -f /tmp/temp_rsa_key -q -N ""
+      - run: eval `ssh-agent -s`
+      - run: ssh-add /tmp/temp_rsa_key
+      - run: |
+          aws ec2-instance-connect send-ssh-public-key --instance-id << parameters.instance-id >> --availability-zone << parameters.availability-zone >> --instance-os-user << parameters.os-user >> --no-paginate --ssh-public-key file:///tmp/temp_rsa_key.pub --output text | head -1
+
 jobs:
   test:
     docker:
