@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "sourceId",
     "distributedTo",
     "implementationInventoryId",
+    "avniImplementationInventory",
     "quantity",
     "unit"
 })
@@ -21,6 +22,8 @@ public class DistributionLine {
     private String distributedTo;
     @JsonProperty("implementationInventoryId")
     private String implementationInventoryId;
+    @JsonProperty("avniImplementationInventory")
+    private String avniImplementationInventory;
     @JsonProperty("quantity")
     private int quantity;
     @JsonProperty("unit")
@@ -40,14 +43,17 @@ public class DistributionLine {
      * @param quantity
      * @param unit
      * @param implementationInventoryId
+     * @param avniImplementationInventory
      */
-    public DistributionLine(String sourceId, String distributedTo, String implementationInventoryId, int quantity, String unit) {
+    public DistributionLine(String sourceId, String distributedTo, String implementationInventoryId, int quantity, String unit,
+                            String avniImplementationInventory) {
         super();
         this.sourceId = sourceId;
         this.distributedTo = distributedTo;
         this.implementationInventoryId = implementationInventoryId;
         this.quantity = quantity;
         this.unit = unit;
+        this.avniImplementationInventory = avniImplementationInventory;
     }
 
     @JsonProperty("sourceId")
@@ -73,6 +79,14 @@ public class DistributionLine {
     @JsonProperty("implementationInventoryId")
     public void setimplementationInventoryId(String implementationInventoryId) {
         this.implementationInventoryId = implementationInventoryId;
+    }
+    @JsonProperty("avniImplementationInventory")
+    public String getAvniImplementationInventory() {
+        return avniImplementationInventory;
+    }
+    @JsonProperty("avniImplementationInventory")
+    public void setAvniImplementationInventory(String avniImplementationInventory) {
+        this.avniImplementationInventory = avniImplementationInventory;
     }
     @JsonProperty("quantity")
     public int getQuantity() {
