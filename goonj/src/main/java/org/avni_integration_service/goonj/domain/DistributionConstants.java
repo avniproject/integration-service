@@ -71,4 +71,5 @@ public interface DistributionConstants {
     String DISCLAIMER_PHOTOGRAPHS = "Disclaimer Photographs";
     String RECEIVER_LIST_PHOTOGRAPHS = "Receiver List Photographs";
     String TYPE_OF_COMMUNITY = "Type Of Community";
+    String ANY_OTHER_MATERIAL_GIVEN = "Any other material given";
 }

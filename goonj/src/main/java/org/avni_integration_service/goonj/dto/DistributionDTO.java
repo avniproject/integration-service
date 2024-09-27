@@ -15,7 +15,7 @@ import java.util.List;
         "pocContactNo", "reachedTo", "totalNumberOfReceivers", "groupName", "anyOtherDocumentSubmitted", "reportsCrosschecked",
         "name", "gender", "age", "fatherMotherName", "phoneNumber", "presentOccupation", "monthlyIncome", "noOfFamilyMember",
         "centreName", "shareABriefProvidedMaterial", "howtheMaterialMakesaDifference", "materialGivenFor", "noOfIndividualReached",
-        "remarks", "TypeOfSchool", "SchoolAanganwadiLearningCenterName","DisclaimerPhotographs","ReceiverListPhotographs"})
+        "remarks", "TypeOfSchool", "SchoolAanganwadiLearningCenterName","DisclaimerPhotographs","ReceiverListPhotographs","otherMaterialGiven"})
 public class DistributionDTO {
 
     @JsonProperty("sourceId")
@@ -116,6 +116,8 @@ public class DistributionDTO {
     private String disclaimerPhotographs;
     @JsonProperty("ReceiverListPhotographs")
     private String receiverListPhotographs;
+    @JsonProperty("otherMaterialGiven")
+    private String otherMaterialGiven;
     /**
      * No args constructor for use in serialization
      */
@@ -185,7 +187,7 @@ public class DistributionDTO {
                            String shareABriefProvidedMaterial, String howtheMaterialMakesaDifference,
                            String materialGivenFor, Integer noOfIndividualReached, Integer noOfFamiliesReached,
                            String remarks, String TypeOfSchool, String SchoolAanganwadiLearningCenterName,
-                           String disclaimerPhotographs,String receiverListPhotographs) {
+                           String disclaimerPhotographs,String receiverListPhotographs,String otherMaterialGiven) {
         super();
         this.source_id = source_id;
         this.state = state;
@@ -236,6 +238,7 @@ public class DistributionDTO {
         this.SchoolAanganwadiLearningCenterName = SchoolAanganwadiLearningCenterName;
         this.disclaimerPhotographs = disclaimerPhotographs;
         this.receiverListPhotographs = receiverListPhotographs;
+        this.otherMaterialGiven = otherMaterialGiven;
     }
 
     @JsonProperty("sourceId")
@@ -724,5 +727,13 @@ public class DistributionDTO {
     @JsonProperty("ReceiverListPhotographs")
     public void setReceiverListPhotographs(String receiverListPhotographs) {
         this.receiverListPhotographs = receiverListPhotographs;
+    }
+    @JsonProperty("otherMaterialGiven")
+    public String getOtherMaterialGiven() {
+        return otherMaterialGiven;
+    }
+    @JsonProperty("otherMaterialGiven")
+    public void setOtherMaterialGiven(String otherMaterialGiven) {
+        this.otherMaterialGiven = otherMaterialGiven;
     }
 }
