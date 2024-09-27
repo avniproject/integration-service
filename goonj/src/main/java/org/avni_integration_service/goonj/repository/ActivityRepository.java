@@ -105,6 +105,7 @@ public class ActivityRepository extends GoonjBaseRepository implements ActivityC
         if (studentActivities != null) {
             activityDTO.setActivityConductedWithStudents(String.join(";", studentActivities));
         }
+        activityDTO.setOtherActivity((String) subject.getObservation(OTHER_ACTIVITY));
         activityDTO.setSchoolAanganwadiLearningCenterName((String) subject.getObservation(SCHOOL_AANGANWADI_LEARNINGCENTER_NAME));
 
         if (subject.getObservation(TYPE_OF_INITIATIVE).equals("CFW")) {

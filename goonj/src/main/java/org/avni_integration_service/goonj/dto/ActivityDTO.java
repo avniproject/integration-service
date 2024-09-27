@@ -151,6 +151,8 @@ public class ActivityDTO {
     private String formCrossChecked;
     @JsonProperty("Remarks")
     private String remarks;
+    @JsonProperty("otherActivity")
+    private String otherActivity;
     /**
      * No args constructor for use in serialization
      */
@@ -215,7 +217,8 @@ public class ActivityDTO {
                        Long noofWorkingDays, Integer nos, String objectiveofCFWwork, String schoolAanganwadiLearningCenterName,
                        String state, String typeofInitiative, String otherObjective, String otherSubType,
                        String createdBy, String modifiedBy, String beforeImplementationPhotograph, String duringImplementationPhotograph,
-                       String afterImplementationPhotograph, String wasDisclaimerFormFilled, String formCrossChecked, String remarks) {
+                       String afterImplementationPhotograph, String wasDisclaimerFormFilled, String formCrossChecked, String remarks,
+                       String otherActivity) {
         super();
         this.sourceId = sourceId;
         this.nameOfAccount = nameOfAccount;
@@ -264,6 +267,7 @@ public class ActivityDTO {
         this.wasDisclaimerFormFilled = wasDisclaimerFormFilled;
         this.formCrossChecked = formCrossChecked;
         this.remarks = remarks;
+        this.otherActivity = otherActivity;
     }
 
     @JsonProperty("SourceId")
@@ -725,5 +729,15 @@ public class ActivityDTO {
     @JsonProperty("Remarks")
     public void setRemarks(String remarks) {
         this.remarks = remarks;
+    }
+
+    @JsonProperty("otherActivity")
+    public String getOtherActivity() {
+        return otherActivity;
+    }
+
+    @JsonProperty("otherActivity")
+    public void setOtherActivity(String otherActivity) {
+        this.otherActivity = otherActivity;
     }
 }
