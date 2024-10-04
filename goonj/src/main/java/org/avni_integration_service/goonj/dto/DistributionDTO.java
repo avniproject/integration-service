@@ -172,6 +172,7 @@ public class DistributionDTO {
      * @param remarks
      * @param TypeOfSchool
      * @param SchoolAanganwadiLearningCenterName
+     * @param otherMaterialGiven
      */
     public DistributionDTO(String source_id, String state, String district, String block, String otherBlock, String otherVillage,
                            String localityVillageName, String tolaMohalla, String dateOfDistribution,
