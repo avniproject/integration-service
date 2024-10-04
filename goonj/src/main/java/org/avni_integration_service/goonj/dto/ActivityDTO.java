@@ -42,6 +42,7 @@ import java.util.ArrayList;
         "NJPCPhotograph",
         "ObjectiveofCFWwork",
         "OtherObjective",
+        "OtherActivity",
         "SchoolAanganwadiLearningCenterName",
         "MeasurementType",
         "DepthHeight",
@@ -151,7 +152,7 @@ public class ActivityDTO {
     private String formCrossChecked;
     @JsonProperty("Remarks")
     private String remarks;
-    @JsonProperty("otherActivity")
+    @JsonProperty("OtherActivity")
     private String otherActivity;
     /**
      * No args constructor for use in serialization
@@ -205,6 +206,7 @@ public class ActivityDTO {
      * @param duringImplementationPhotograph
      * @param afterImplementationPhotograph
      * @param remarks
+     * @param otherActivity
      */
     public ActivityDTO(String sourceId, String nameOfAccount, String activityCategory, String activityConductedWithStudents,
                        String typeOfSchool, String s2sPhotograph, String njpcPhotograph, String activityEndDate,
@@ -731,12 +733,12 @@ public class ActivityDTO {
         this.remarks = remarks;
     }
 
-    @JsonProperty("otherActivity")
+    @JsonProperty("OtherActivity")
     public String getOtherActivity() {
         return otherActivity;
     }
 
-    @JsonProperty("otherActivity")
+    @JsonProperty("OtherActivity")
     public void setOtherActivity(String otherActivity) {
         this.otherActivity = otherActivity;
     }
