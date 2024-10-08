@@ -10,10 +10,8 @@ import org.avni_integration_service.goonj.domain.ActivityConstants;
 import org.avni_integration_service.goonj.dto.ActivityDTO;
 import org.avni_integration_service.goonj.dto.ActivityRequestDTO;
 import org.avni_integration_service.goonj.util.DateTimeUtil;
-import org.avni_integration_service.integration_data.domain.IntegrationSystem;
 import org.avni_integration_service.integration_data.domain.MappingMetaData;
 import org.avni_integration_service.integration_data.repository.IntegratingEntityStatusRepository;
-import org.avni_integration_service.integration_data.repository.IntegrationSystemRepository;
 import org.avni_integration_service.integration_data.repository.MappingMetaDataRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -105,7 +103,7 @@ public class ActivityRepository extends GoonjBaseRepository implements ActivityC
         if (studentActivities != null) {
             activityDTO.setActivityConductedWithStudents(String.join(";", studentActivities));
         }
-        activityDTO.setOtherActivity((String) subject.getObservation(OTHER_ACTIVITY));
+        activityDTO.setOtherDetails((String) subject.getObservation(OTHER_ACTIVITY));
         activityDTO.setSchoolAanganwadiLearningCenterName((String) subject.getObservation(SCHOOL_AANGANWADI_LEARNINGCENTER_NAME));
 
         if (subject.getObservation(TYPE_OF_INITIATIVE).equals("CFW")) {
@@ -119,7 +117,6 @@ public class ActivityRepository extends GoonjBaseRepository implements ActivityC
             mapActivityType(activityDTO, subject);
             activityDTO.setActivitySubType((String) subject.getObservation(ACTIVITY_SUB_TYPE));
             activityDTO.setOtherSubType((String) subject.getObservation(SPECIFY_OTHER_SUB_TYPE));
-            activityDTO.setWasDisclaimerFormFilled((String) subject.getObservation(WAS_DISCLAIMER_FORM_FILLED));
             activityDTO.setFormCrossChecked((String) subject.getObservation(FORM_CROSS_CHECKED));
             /*changed 'Objective of Work' to 'Work Objective'*/
             List<String> workObjective = (ArrayList<String>) subject.getObservation(WORK_OBJECTIVE);
@@ -160,6 +157,7 @@ public class ActivityRepository extends GoonjBaseRepository implements ActivityC
             /* Photograph fields */
             activityDTO.setNjpcPhotograph(getPhotographStrings(PHOTOGRAPH, subject));
         }
+        activityDTO.setWasUndertakingFormFilled((String) subject.getObservation(WAS_DISCLAIMER_FORM_FILLED));
         activityDTO.setRemarks((String) subject.getObservation(REMARKS));
         /* Other fields */
         activityDTO.setCreatedBy(subject.getCreatedBy());

@@ -4,8 +4,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-import java.util.ArrayList;
-
 
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 @JsonPropertyOrder({
@@ -42,7 +40,7 @@ import java.util.ArrayList;
         "NJPCPhotograph",
         "ObjectiveofCFWwork",
         "OtherObjective",
-        "OtherActivity",
+        "OtherDetails",
         "SchoolAanganwadiLearningCenterName",
         "MeasurementType",
         "DepthHeight",
@@ -53,7 +51,7 @@ import java.util.ArrayList;
         "BeforeImplementationPhotograph",
         "DuringImplementationPhotograph",
         "AfterImplementationPhotograph",
-        "WasDisclaimerFormFilled",
+        "WasUndertakingFormFilled",
         "FormCrossChecked"
 })
 public class ActivityDTO {
@@ -146,14 +144,14 @@ public class ActivityDTO {
     private String duringImplementationPhotograph;
     @JsonProperty("AfterImplementationPhotograph")
     private String afterImplementationPhotograph;
-    @JsonProperty("WasDisclaimerFormFilled")
-    private String wasDisclaimerFormFilled;
+    @JsonProperty("WasUndertakingFormFilled")
+    private String wasUndertakingFormFilled;
     @JsonProperty("FormCrossChecked")
     private String formCrossChecked;
     @JsonProperty("Remarks")
     private String remarks;
-    @JsonProperty("OtherActivity")
-    private String otherActivity;
+    @JsonProperty("OtherDetails")
+    private String otherDetails;
     /**
      * No args constructor for use in serialization
      */
@@ -205,8 +203,10 @@ public class ActivityDTO {
      * @param beforeImplementationPhotograph
      * @param duringImplementationPhotograph
      * @param afterImplementationPhotograph
+     * @param wasUndertakingFormFilled
+     * @param formCrossChecked
      * @param remarks
-     * @param otherActivity
+     * @param otherDetails
      */
     public ActivityDTO(String sourceId, String nameOfAccount, String activityCategory, String activityConductedWithStudents,
                        String typeOfSchool, String s2sPhotograph, String njpcPhotograph, String activityEndDate,
@@ -219,8 +219,8 @@ public class ActivityDTO {
                        Long noofWorkingDays, Integer nos, String objectiveofCFWwork, String schoolAanganwadiLearningCenterName,
                        String state, String typeofInitiative, String otherObjective, String otherSubType,
                        String createdBy, String modifiedBy, String beforeImplementationPhotograph, String duringImplementationPhotograph,
-                       String afterImplementationPhotograph, String wasDisclaimerFormFilled, String formCrossChecked, String remarks,
-                       String otherActivity) {
+                       String afterImplementationPhotograph, String wasUndertakingFormFilled, String formCrossChecked, String remarks,
+                       String otherDetails) {
         super();
         this.sourceId = sourceId;
         this.nameOfAccount = nameOfAccount;
@@ -266,10 +266,10 @@ public class ActivityDTO {
         this.beforeImplementationPhotograph = beforeImplementationPhotograph;
         this.duringImplementationPhotograph = duringImplementationPhotograph;
         this.afterImplementationPhotograph = afterImplementationPhotograph;
-        this.wasDisclaimerFormFilled = wasDisclaimerFormFilled;
+        this.wasUndertakingFormFilled = wasUndertakingFormFilled;
         this.formCrossChecked = formCrossChecked;
         this.remarks = remarks;
-        this.otherActivity = otherActivity;
+        this.otherDetails = otherDetails;
     }
 
     @JsonProperty("SourceId")
@@ -707,13 +707,13 @@ public class ActivityDTO {
     public void setAfterImplementationPhotograph(String afterImplementationPhotograph) {
         this.afterImplementationPhotograph = afterImplementationPhotograph;
     }
-    @JsonProperty("WasDisclaimerFormFilled")
-    public String getWasDisclaimerFormFilled() {
-        return wasDisclaimerFormFilled;
+    @JsonProperty("WasUndertakingFormFilled")
+    public String getWasUndertakingFormFilled() {
+        return wasUndertakingFormFilled;
     }
-    @JsonProperty("WasDisclaimerFormFilled")
-    public void setWasDisclaimerFormFilled(String wasDisclaimerFormFilled) {
-        this.wasDisclaimerFormFilled = wasDisclaimerFormFilled;
+    @JsonProperty("WasUndertakingFormFilled")
+    public void setWasUndertakingFormFilled(String wasUndertakingFormFilled) {
+        this.wasUndertakingFormFilled = wasUndertakingFormFilled;
     }
     @JsonProperty("FormCrossChecked")
     public String getFormCrossChecked() {
@@ -733,13 +733,13 @@ public class ActivityDTO {
         this.remarks = remarks;
     }
 
-    @JsonProperty("OtherActivity")
-    public String getOtherActivity() {
-        return otherActivity;
+    @JsonProperty("OtherDetails")
+    public String getOtherDetails() {
+        return otherDetails;
     }
 
-    @JsonProperty("OtherActivity")
-    public void setOtherActivity(String otherActivity) {
-        this.otherActivity = otherActivity;
+    @JsonProperty("OtherDetails")
+    public void setOtherDetails(String otherDetails) {
+        this.otherDetails = otherDetails;
     }
 }
