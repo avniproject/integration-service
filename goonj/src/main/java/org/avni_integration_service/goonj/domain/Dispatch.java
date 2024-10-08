@@ -35,9 +35,10 @@ public class Dispatch implements GoonjEntity {
     public static final String DISPATCH_DISTRICT = "DispatchDistrict";
     private static final String DispatchStatusField = "Status";
     private static final String DispatchStageField = "DispatchStage";
+    private static final String LOADING_AND_TRUCK_IMAGES = "LoadingAndTruckImagesLink";
     private static final List<String> Core_Fields = Arrays.asList(DispatchDateField, DispatchLineItemsField);
     private static final List<String> Ignored_Fields = Arrays.asList(LAST_UPDATED_DATE_TIME, TARGET_COMMUNITY,
-            LOCAL_DEMAND, DISASTER_TYPE, ACCOUNT_ID, ACCOUNT_CODE, DISPATCH_STATE, DISPATCH_DISTRICT);
+            LOCAL_DEMAND, DISASTER_TYPE, ACCOUNT_ID, ACCOUNT_CODE, DISPATCH_STATE, DISPATCH_DISTRICT, LOADING_AND_TRUCK_IMAGES);
 
     private Map<String, Object> response;
 

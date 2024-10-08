@@ -30,6 +30,7 @@ dependencies {
 
     implementation "log4j:log4j:1.2.17"
     implementation group: 'org.json', name: 'json', version: '20201115'
+    implementation 'com.fasterxml.uuid:java-uuid-generator:5.0.0'
 }
 
 test {

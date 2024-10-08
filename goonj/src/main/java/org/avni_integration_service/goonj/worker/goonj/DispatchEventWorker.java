@@ -11,11 +11,9 @@ import org.avni_integration_service.goonj.domain.Dispatch;
 import org.avni_integration_service.goonj.dto.DeletedDispatchStatusLineItem;
 import org.avni_integration_service.goonj.service.AvniGoonjErrorService;
 import org.avni_integration_service.goonj.service.DispatchService;
-import org.avni_integration_service.integration_data.domain.IntegrationSystem;
 import org.avni_integration_service.integration_data.repository.IntegratingEntityStatusRepository;
 import org.avni_integration_service.integration_data.service.error.ErrorClassifier;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
 
@@ -48,10 +46,16 @@ public class DispatchEventWorker extends GoonjEventWorker implements ErrorRecord
     }
 
     private void processDispatch(Map<String, Object> dispatchResponse) {
-        logger.debug(String.format("Processing dispatch: name %s || uuid %s", dispatchResponse.get("DispatchStatusName"), dispatchResponse.get("DispatchStatusId")));
+        String dispatchStatusName = (String) dispatchResponse.get("DispatchStatusName");
+        String dispatchStatusId = (String) dispatchResponse.get("DispatchStatusId");
+        logger.debug(String.format("Processing dispatch: name %s || id %s", dispatchStatusName, dispatchStatusId));
         Dispatch dispatch = Dispatch.from(dispatchResponse);
         Subject subject = dispatch.subjectWithoutObservations();
         dispatchService.populateObservations(subject, dispatch);
+        Subject oldSubject = avniSubjectRepository.getSubject((String) dispatchResponse.get("DispatchStatusId"));
+        String subjectUUID = oldSubject != null ? oldSubject.getUuid() : "";
+        logger.debug(String.format("Already Available Dispatch in avni for name %s || id %s || avniuuid %s",dispatchStatusName, dispatchStatusId, subjectUUID));
+        dispatchService.populateImageConcepts(oldSubject, subject, dispatch);
         avniSubjectRepository.create(subject);
     }
 

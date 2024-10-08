@@ -5,17 +5,17 @@ import org.avni_integration_service.avni.domain.auth.IdpDetailsResponse;
 import org.avni_integration_service.util.ObjectJsonMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.http.*;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.io.File;
 import java.net.URI;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -89,6 +89,24 @@ public class AvniHttpClient {
         return getResponseEntity(returnType, builder.build().toUri(), HttpMethod.PUT, json);
     }
 
+    public ResponseEntity<String> putMedia(String url,String foldername,String filename,MediaType contentType){
+        try {
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(contentType);
+            File file = new File(foldername,filename);
+            URL requestUrl = new URL(url);
+            UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url);
+            FileSystemResource fileResource = new FileSystemResource(file);
+            HttpEntity<FileSystemResource> requestEntity = new HttpEntity<>(fileResource, headers);
+            logger.info(String.format("PUT for upload %s to %s",file.getAbsoluteFile(), builder.build().toUri()));
+            return restTemplate.exchange(requestUrl.toURI(), HttpMethod.PUT, requestEntity, String.class);
+        }
+        catch (Exception e) {
+            logger.error(String.format("URI: %s, Errored Filepath: %s",url,filename));
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(e.getMessage());
+        }
+    }
     public <T> ResponseEntity<T> delete(String url,  Map<String, String> queryParams, String json, Class<T> returnType) {
         logger.info(String.format("DELETE: %s", url));
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(getAvniSession().apiUrl(url));
