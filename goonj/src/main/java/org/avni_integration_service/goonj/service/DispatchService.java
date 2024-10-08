@@ -56,7 +56,7 @@ public class DispatchService extends BaseGoonjService {
     private void processImages(Subject oldSubject, Subject subject, Dispatch dispatch, String goonjImagesFieldName, String avniImagesConceptName, String invalidPhotographUrlsReceived){
         List<GoonjMedia> imageList = goonjMediaService.getSalesforceImageList(dispatch, goonjImagesFieldName);
         Map<GoonjMedia, Boolean> goonjMediaBooleanMap = goonjMediaService.processMedia(oldSubject, imageList, MediaType.IMAGE_PNG, avniImagesConceptName);
-        subject.addObservation(avniImagesConceptName, goonjMediaService.fetchListOfAvniUrlsToBeStoredAsConceptValue(imageList, avniImagesConceptName, goonjMediaBooleanMap));
+        subject.addObservation(avniImagesConceptName, goonjMediaService.fetchListOfAvniUrlsToBeStoredAsConceptValue(imageList, goonjMediaBooleanMap));
         subject.addObservation(invalidPhotographUrlsReceived, goonjMediaService.hasAtleastOneInvalidImagesLink(goonjMediaBooleanMap).toString());
     }
 

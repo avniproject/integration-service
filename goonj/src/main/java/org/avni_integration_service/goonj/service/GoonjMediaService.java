@@ -113,8 +113,7 @@ public class GoonjMediaService {
         return goonjMediaBooleanMap;
     }
 
-    public List<String> fetchListOfAvniUrlsToBeStoredAsConceptValue(List<GoonjMedia> goonjMediaList,
-                                                                    String avniImagesConceptName, Map<GoonjMedia, Boolean> goonjMediaBooleanMap) {
+    public List<String> fetchListOfAvniUrlsToBeStoredAsConceptValue(List<GoonjMedia> goonjMediaList, Map<GoonjMedia, Boolean> goonjMediaBooleanMap) {
         return goonjMediaList.stream()
                 .filter(goonjMedia -> goonjMediaBooleanMap.get(goonjMedia) == null || goonjMediaBooleanMap.get(goonjMedia))
                 .map(GoonjMedia::getAvniUrl)
