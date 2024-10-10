@@ -1,5 +1,6 @@
 package org.avni_integration_service.goonj.service;
 
+import org.avni_integration_service.avni.domain.AvniMediaConstants;
 import org.avni_integration_service.avni.domain.QuestionGroupObservations;
 import org.avni_integration_service.avni.domain.Subject;
 import org.avni_integration_service.goonj.config.GoonjContextProvider;
@@ -9,7 +10,6 @@ import org.avni_integration_service.goonj.domain.GoonjMedia;
 import org.avni_integration_service.goonj.repository.DispatchRepository;
 import org.avni_integration_service.integration_data.repository.MappingMetaDataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -55,9 +55,10 @@ public class DispatchService extends BaseGoonjService {
 
     private void processImages(Subject oldSubject, Subject subject, Dispatch dispatch, String goonjImagesFieldName, String avniImagesConceptName, String invalidPhotographUrlsReceived){
         List<GoonjMedia> imageList = goonjMediaService.getSalesforceImageList(dispatch, goonjImagesFieldName);
-        Map<GoonjMedia, Boolean> goonjMediaBooleanMap = goonjMediaService.processMedia(oldSubject, imageList, MediaType.IMAGE_PNG, avniImagesConceptName);
-        subject.addObservation(avniImagesConceptName, goonjMediaService.fetchListOfAvniUrlsToBeStoredAsConceptValue(imageList, goonjMediaBooleanMap));
-        subject.addObservation(invalidPhotographUrlsReceived, goonjMediaService.hasAtleastOneInvalidImagesLink(goonjMediaBooleanMap).toString());
+        List<String> storedAvniUrls = goonjMediaService.getStoredMediaUrls(oldSubject,avniImagesConceptName);
+        Map<GoonjMedia, Boolean> goonjMediaDownloadAndUploadResultMap = goonjMediaService.processMedia(storedAvniUrls, imageList, AvniMediaConstants.IMAGE);
+        subject.addObservation(avniImagesConceptName, goonjMediaService.fetchListOfAvniUrlsToBeStoredAsConceptValue(imageList,goonjMediaDownloadAndUploadResultMap));
+        subject.addObservation(invalidPhotographUrlsReceived, goonjMediaService.hasAtleastOneInvalidImagesLink(goonjMediaDownloadAndUploadResultMap).toString());
     }
 
 }

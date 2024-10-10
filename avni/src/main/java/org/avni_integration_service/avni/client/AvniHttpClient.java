@@ -102,8 +102,7 @@ public class AvniHttpClient {
             return restTemplate.exchange(requestUrl.toURI(), HttpMethod.PUT, requestEntity, String.class);
         }
         catch (Exception e) {
-            logger.error(String.format("URI: %s, Errored Filepath: %s",url,filename));
-            e.printStackTrace();
+            logger.error(String.format("URI: %s, Errored Filepath: %s",url,filename),e);
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(e.getMessage());
         }
     }

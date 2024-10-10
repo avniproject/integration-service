@@ -1,6 +1,7 @@
 package org.avni_integration_service.goonj.domain;
 
 import org.avni_integration_service.avni.domain.AvniMedia;
+import org.springframework.http.MediaType;
 
 public class GoonjMedia implements AvniMedia
 {
@@ -8,12 +9,16 @@ public class GoonjMedia implements AvniMedia
     private String externalId;
     private String avniUrl;
     private String uuid;
+    private String extention;
+    private MediaType contentType;
 
-    public GoonjMedia(String externalDownloadLink, String externalId, String avniUrl, String uuid) {
+    public GoonjMedia(String externalDownloadLink, String externalId, String avniUrl, String uuid,String extention,MediaType contentType) {
         this.externalDownloadLink = externalDownloadLink;
         this.externalId = externalId;
         this.avniUrl = avniUrl;
         this.uuid = uuid;
+        this.extention = extention;
+        this.contentType = contentType;
     }
 
     public String getExternalDownloadLink() {
@@ -50,6 +55,22 @@ public class GoonjMedia implements AvniMedia
         this.avniUrl = avniUrl;
     }
 
+    public String getExtention() {
+        return extention;
+    }
+
+    public void setExtention(String extention) {
+        this.extention = extention;
+    }
+
+    public MediaType getContentType() {
+        return contentType;
+    }
+
+    public void setContentType(MediaType contentType) {
+        this.contentType = contentType;
+    }
+
     @Override
     public String toString() {
         return "GoonjMedia{" +
@@ -57,6 +78,8 @@ public class GoonjMedia implements AvniMedia
                 ", externalId='" + externalId + '\'' +
                 ", avniUrl='" + avniUrl + '\'' +
                 ", uuid='" + uuid + '\'' +
+                ", extention='" + extention + '\'' +
+                ", contentType=" + contentType +
                 '}';
     }
 }
