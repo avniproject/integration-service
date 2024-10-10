@@ -4,6 +4,7 @@ package org.avni_integration_service.goonj.service;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.avni_integration_service.avni.domain.AvniBaseContract;
 import org.avni_integration_service.avni.service.AvniMediaService;
+import org.avni_integration_service.goonj.config.GoonjContextProvider;
 import org.avni_integration_service.goonj.domain.GoonjEntity;
 import org.avni_integration_service.goonj.domain.GoonjMedia;
 import org.slf4j.Logger;
@@ -27,8 +28,6 @@ import java.util.stream.Collectors;
 public class GoonjMediaService {
 
     protected static final Logger logger = LoggerFactory.getLogger(BaseGoonjService.class);
-    private final String AVNI_MEDIA_SOURCE = ""; //todo set with configuration
-
     public static final String LINK = "Link";
     public static final String IMAGE_ID = "ImageId";
     public static final String LOADING_AND_TRUCK_IMAGES = "Loading And Truck Images";
@@ -38,10 +37,12 @@ public class GoonjMediaService {
 
     private final RestTemplate restTemplate;
     private final AvniMediaService avniMediaService;
+    private final GoonjContextProvider goonjContextProvider;
 
-    public GoonjMediaService(@Qualifier("GoonjRestTemplate") RestTemplate restTemplate, AvniMediaService avniMediaService) {
+    public GoonjMediaService(@Qualifier("GoonjRestTemplate") RestTemplate restTemplate, AvniMediaService avniMediaService,GoonjContextProvider goonjContextProvider) {
         this.restTemplate = restTemplate;
         this.avniMediaService = avniMediaService;
+        this.goonjContextProvider = goonjContextProvider;
     }
 
     private Map<GoonjMedia, Boolean> downloadMedia(List<GoonjMedia> goonjMediaList, String allowedMedia){
@@ -62,10 +63,11 @@ public class GoonjMediaService {
                             response.getHeaders().getContentLength()));
                     MediaType avniContentType = avniMediaService.checkAndGetMediaType(allowedMedia, contentType);
                     if(statusCode.is2xxSuccessful() && avniContentType!=null){
+                        String avniMediaPath = goonjContextProvider.get().getS3Url();
                         String extension = contentType.getSubtype();
                         String uuid = goonjMedia.getUuid();
                         goonjMedia.setExtention(extension);
-                        goonjMedia.setAvniUrl(String.format("%s%s.%s",AVNI_MEDIA_SOURCE,uuid,extension));
+                        goonjMedia.setAvniUrl(String.format("%s%s.%s",avniMediaPath,uuid,extension));
                         goonjMedia.setContentType(avniContentType);
                         File tempFile = new File(AvniMediaService.DIRECTORY_PATH, String.format("%s.%s",uuid,extension));
                         FileOutputStream fileOutputStream = new FileOutputStream(tempFile, false);

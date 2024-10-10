@@ -77,4 +77,7 @@ public class GoonjConfig {
     public boolean getBypassErrors() {
         return Boolean.parseBoolean(getStringConfigValue("goonj_bypass_errors", "true"));
     }
+    public String getS3Url(){
+        return getStringConfigValue("avni_s3_url_prefix","dummy");
+    }
 }
