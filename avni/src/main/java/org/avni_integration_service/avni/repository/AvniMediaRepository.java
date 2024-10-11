@@ -8,8 +8,12 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class AvniMediaRepository {
-    @Autowired
-    private AvniHttpClient avniHttpClient;
+
+    private final AvniHttpClient avniHttpClient;
+
+    public AvniMediaRepository(AvniHttpClient avniHttpClient) {
+        this.avniHttpClient = avniHttpClient;
+    }
 
     public String generateUploadUrl(String fileName){
         ResponseEntity<String> responseEntity = avniHttpClient.get(String.format("/media/uploadUrl/%s", fileName), String.class);
