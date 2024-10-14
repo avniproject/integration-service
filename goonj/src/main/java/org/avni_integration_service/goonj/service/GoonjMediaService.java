@@ -34,12 +34,11 @@ public class GoonjMediaService {
     public static final String IMAGES_LINK = "ImagesLink";
     public static final String INVALID_PHOTOGRAPH_URLS_RECEIVED = "InvalidPhotographURLsReceived";
 
-
     private final RestTemplate restTemplate;
     private final AvniMediaService avniMediaService;
     private final GoonjContextProvider goonjContextProvider;
 
-    public GoonjMediaService(@Qualifier("GoonjRestTemplate") RestTemplate restTemplate, AvniMediaService avniMediaService,GoonjContextProvider goonjContextProvider) {
+    public GoonjMediaService(@Qualifier("GoonjRestTemplate") RestTemplate restTemplate, AvniMediaService avniMediaService, GoonjContextProvider goonjContextProvider) {
         this.restTemplate = restTemplate;
         this.avniMediaService = avniMediaService;
         this.goonjContextProvider = goonjContextProvider;

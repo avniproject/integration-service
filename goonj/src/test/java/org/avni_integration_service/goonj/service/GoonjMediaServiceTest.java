@@ -1,5 +1,6 @@
 package org.avni_integration_service.goonj.service;
 
+import org.avni_integration_service.avni.client.AvniHttpClient;
 import org.avni_integration_service.avni.domain.AvniMediaConstants;
 import org.avni_integration_service.avni.domain.Subject;
 import org.avni_integration_service.avni.repository.AvniMediaRepository;
@@ -12,7 +13,10 @@ import org.avni_integration_service.goonj.domain.GoonjMedia;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.Assert;
@@ -23,27 +27,37 @@ import java.util.List;
 import java.util.Map;
 
 
-@SpringBootTest(classes = {GoonjContextProvider.class, GoonjAvniSessionFactory.class, AvniMediaService.class})
+@ExtendWith(MockitoExtension.class)
+@SpringBootTest(classes = {GoonjContextProvider.class, GoonjAvniSessionFactory.class})
 public class GoonjMediaServiceTest extends BaseGoonjSpringTest {
     public static final String IMAGE_ID = GoonjMediaService.IMAGE_ID;
     public static final String LINK = GoonjMediaService.LINK;
     public static final String IMAGES_LINK = GoonjMediaService.IMAGES_LINK;
     public static final String LOADING_AND_TRUCK_IMAGES = GoonjMediaService.LOADING_AND_TRUCK_IMAGES;
     public static final String IMAGE = AvniMediaConstants.IMAGE;
-    @Autowired
-    private GoonjContextProvider goonjContextProvider;
+
+    //Manually initialized
+    private Dispatch dispatch;
+
+    //Mocked
     @Mock
-    private RestTemplate restTemplateMock;
+    private RestTemplate restTemplate;
+    @Mock
+    private AvniHttpClient avniHttpClient;
+    @Mock
     private AvniMediaRepository avniMediaRepository;
+
+    //Injected with Mocks
     @Autowired
+    @InjectMocks
     private AvniMediaService avniMediaService;
 
+    @Autowired
+    @InjectMocks
     private GoonjMediaService goonjMediaService;
-    private Dispatch dispatch;
 
     @BeforeEach
     public void init() {
-        goonjMediaService = new GoonjMediaService(restTemplateMock, avniMediaService, goonjContextProvider);
         Map<String, Object> dispatchResponse = new HashMap<>();
         dispatch = Dispatch.from(dispatchResponse);
     }
