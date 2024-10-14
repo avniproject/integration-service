@@ -1,7 +1,6 @@
 package org.avni_integration_service.avni.service;
 
 import com.fasterxml.uuid.Generators;
-import com.fasterxml.uuid.impl.NameBasedGenerator;
 import org.apache.log4j.Logger;
 import org.avni_integration_service.avni.domain.AvniBaseContract;
 import org.avni_integration_service.avni.domain.AvniMedia;
@@ -13,12 +12,10 @@ import org.springframework.stereotype.Service;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class AvniMediaService {
     private static final Logger logger = Logger.getLogger(AvniMediaService.class);
-    private final UUID namespace = NameBasedGenerator.NAMESPACE_URL;
     public static final  String DIRECTORY_PATH = "/tmp/";
     private final AvniMediaRepository avniMediaRepository;
 
@@ -56,20 +53,25 @@ public class AvniMediaService {
     }
 
     public MediaType checkAndGetMediaType(String avniMediaType, MediaType contentType){
-        switch (avniMediaType){
-            case AvniMediaConstants.IMAGE:
-                return AvniMediaConstants.SUPPORTED_IMAGE_MEDIATYPE_SET.stream().filter(contentType::equalsTypeAndSubtype).findFirst().orElse(null);
-            default:
-                return null;
-        }
+        return switch (avniMediaType) {
+            case AvniMediaConstants.IMAGE ->
+                    AvniMediaConstants.SUPPORTED_IMAGE_MEDIATYPE_SET.stream().filter(contentType::equalsTypeAndSubtype).findFirst().orElse(null);
+            default -> null;
+        };
     }
 
     public List<String> getCodedStoredConceptValue(AvniBaseContract avniBaseContract,String avniMediaField){
-        List<String> avniUrls = (avniBaseContract == null) ? null : (List<String>) avniBaseContract.getObservation(avniMediaField);
-        if(avniUrls == null ){
-            return Collections.emptyList();
+        try {
+            List<String> avniUrls = (avniBaseContract == null) ? null : (List<String>) avniBaseContract.getObservation(avniMediaField);
+            if (avniUrls == null) {
+                return Collections.emptyList();
+            }
+            return avniUrls;
         }
-        return avniUrls;
+        catch (Exception e){
+            logger.warn(String.format("unable to convert to list for concept %s",avniMediaField));
+        }
+        return Collections.emptyList();
     }
 
     public String getAvniUrlFromExternalId(List<String> avniUrls, String externalId){

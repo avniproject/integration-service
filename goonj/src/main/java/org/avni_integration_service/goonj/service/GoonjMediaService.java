@@ -62,7 +62,12 @@ public class GoonjMediaService {
                             contentType,
                             response.getHeaders().getContentLength()));
                     MediaType avniContentType = avniMediaService.checkAndGetMediaType(allowedMedia, contentType);
-                    if(statusCode.is2xxSuccessful() && avniContentType!=null){
+                    if(statusCode.is2xxSuccessful() && contentType.equalsTypeAndSubtype(MediaType.TEXT_HTML)){
+                        String body = StreamUtils.copyToString(response.getBody(), StandardCharsets.UTF_8);
+                        logger.error("Errored HTML response: "+body);
+                        return false;
+                    }
+                    else if(statusCode.is2xxSuccessful() && avniContentType!=null){
                         String avniMediaPath = goonjContextProvider.get().getS3Url();
                         String extension = contentType.getSubtype();
                         String uuid = goonjMedia.getUuid();
@@ -73,13 +78,6 @@ public class GoonjMediaService {
                         FileOutputStream fileOutputStream = new FileOutputStream(tempFile, false);
                         IOUtils.copy(response.getBody(), fileOutputStream);
                         return true;
-                    }
-                    else {
-                        if (contentType.equalsTypeAndSubtype(MediaType.TEXT_HTML)) {
-                            String body = StreamUtils.copyToString(response.getBody(), StandardCharsets.UTF_8);
-                            logger.error("Errored HTML response: " + body);
-                            return false;
-                        }
                     }
                     return false;
                 });
@@ -142,14 +140,27 @@ public class GoonjMediaService {
     }
 
     public List<GoonjMedia> getSalesforceImageList(GoonjEntity goonjEntity, String goonjImagesFieldName){
-        List<Map<String, String>> mediaMap = (List<Map<String, String>>) goonjEntity.getValue(goonjImagesFieldName);
-        if(mediaMap != null) {
-            return mediaMap.stream().map(mediaResponse -> {
-                String externalId= mediaResponse.get(IMAGE_ID);
-                String uuid = avniMediaService.getUniqueUUIDFORMediaUniqueID(externalId);
-                return new GoonjMedia(mediaResponse.get(LINK).trim(), externalId,
-                        null, uuid,null,null);
-            }).collect(Collectors.toList());
+        try {
+            List<Map<String, String>> mediaMap = (List<Map<String, String>>) goonjEntity.getValue(goonjImagesFieldName);
+            if (mediaMap != null) {
+                return mediaMap.stream()
+                        .filter(mediaResponse ->{
+                            if(mediaResponse.get(IMAGE_ID)==null || mediaResponse.get(LINK)==null){
+                                logger.warn(String.format("unable to find find %s or %s in %s",IMAGE_ID,LINK,mediaResponse));
+                                return false;
+                            }
+                            return true;
+                        })
+                        .map(mediaResponse -> {
+                            String externalId = mediaResponse.get(IMAGE_ID);
+                            String link = mediaResponse.get(LINK).trim();
+                            String uuid = avniMediaService.getUniqueUUIDFORMediaUniqueID(externalId);
+                            return new GoonjMedia(link, externalId, null, uuid, null, null);
+                        }).collect(Collectors.toList());
+            }
+        }
+        catch (Exception e){
+            logger.warn(String.format("unable to convert to salesforce media for field %s",goonjImagesFieldName));
         }
         return Collections.emptyList();
     }
