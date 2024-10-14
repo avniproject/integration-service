@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StreamUtils;
+import org.springframework.web.client.ResponseExtractor;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.File;
@@ -51,35 +52,7 @@ public class GoonjMediaService {
             Boolean isSuccessful = false;
             try {
                 URI uri = new URI(goonjMedia.getExternalDownloadLink());
-                isSuccessful = restTemplate.execute(uri, HttpMethod.GET, null, response -> {
-                    MediaType contentType = response.getHeaders().getContentType();
-                    HttpStatus statusCode = response.getStatusCode();
-                    logger.info(String.format("URL : %s || File : %s || response code : %s || content-type : %s || content-length %s",
-                            uri,
-                            goonjMedia.getExternalId(),
-                            statusCode,
-                            contentType,
-                            response.getHeaders().getContentLength()));
-                    MediaType avniContentType = avniMediaService.checkAndGetMediaType(allowedMedia, contentType);
-                    if(statusCode.is2xxSuccessful() && contentType.equalsTypeAndSubtype(MediaType.TEXT_HTML)){
-                        String body = StreamUtils.copyToString(response.getBody(), StandardCharsets.UTF_8);
-                        logger.error("Errored HTML response: "+body);
-                        return false;
-                    }
-                    else if(statusCode.is2xxSuccessful() && avniContentType!=null){
-                        String avniMediaPath = goonjContextProvider.get().getS3Url();
-                        String extension = contentType.getSubtype();
-                        String uuid = goonjMedia.getUuid();
-                        goonjMedia.setExtention(extension);
-                        goonjMedia.setAvniUrl(String.format("%s%s.%s",avniMediaPath,uuid,extension));
-                        goonjMedia.setContentType(avniContentType);
-                        File tempFile = new File(AvniMediaService.DIRECTORY_PATH, String.format("%s.%s",uuid,extension));
-                        FileOutputStream fileOutputStream = new FileOutputStream(tempFile, false);
-                        IOUtils.copy(response.getBody(), fileOutputStream);
-                        return true;
-                    }
-                    return false;
-                });
+                isSuccessful = restTemplate.execute(uri, HttpMethod.GET, null, getDownloadMediaResponseExtractor(allowedMedia, goonjMedia, uri));
             }  catch (Exception e) {
                 logger.error("Error during download of media for "+goonjMedia.getExternalId(), e);
             }
@@ -87,6 +60,37 @@ public class GoonjMediaService {
         }
         logger.info("Downloading result : " + downloadResult);
         return downloadResult;
+    }
+
+    private ResponseExtractor<Boolean> getDownloadMediaResponseExtractor(String allowedMedia, GoonjMedia goonjMedia, URI uri) {
+        return response -> {
+            MediaType contentType = response.getHeaders().getContentType();
+            HttpStatus statusCode = response.getStatusCode();
+            logger.info(String.format("URL : %s || File : %s || response code : %s || content-type : %s || content-length %s",
+                    uri,
+                    goonjMedia.getExternalId(),
+                    statusCode,
+                    contentType,
+                    response.getHeaders().getContentLength()));
+            MediaType avniContentType = avniMediaService.checkAndGetMediaType(allowedMedia, contentType);
+            if (statusCode.is2xxSuccessful() && contentType.equalsTypeAndSubtype(MediaType.TEXT_HTML)) {
+                String body = StreamUtils.copyToString(response.getBody(), StandardCharsets.UTF_8);
+                logger.error("Errored HTML response: " + body);
+                return false;
+            } else if (statusCode.is2xxSuccessful() && avniContentType != null) {
+                String avniMediaPath = goonjContextProvider.get().getS3Url();
+                String extension = contentType.getSubtype();
+                String uuid = goonjMedia.getUuid();
+                goonjMedia.setExtention(extension);
+                goonjMedia.setAvniUrl(String.format("%s%s.%s", avniMediaPath, uuid, extension));
+                goonjMedia.setContentType(avniContentType);
+                File tempFile = new File(AvniMediaService.DIRECTORY_PATH, String.format("%s.%s", uuid, extension));
+                FileOutputStream fileOutputStream = new FileOutputStream(tempFile, false);
+                IOUtils.copy(response.getBody(), fileOutputStream);
+                return true;
+            }
+            return false;
+        };
     }
 
     private void uploadMedia(Map<GoonjMedia, Boolean> goonjMediaBooleanMap) {
@@ -117,7 +121,7 @@ public class GoonjMediaService {
         }
     }
 
-    public Map<GoonjMedia, Boolean> processMedia(List<String> storedAvniUrls, List<GoonjMedia> goonjMediaList,String avniMediaType) {
+    public Map<GoonjMedia, Boolean> processMedia(List<String> storedAvniUrls, List<GoonjMedia> goonjMediaList, String avniMediaType) {
         List<GoonjMedia> mediaForInsertion = avniMediaService.processSourceMediaListAndGetMediaForInsertion(storedAvniUrls, goonjMediaList);
         Map<GoonjMedia, Boolean> goonjMediaBooleanMap = downloadMedia(mediaForInsertion, avniMediaType);
         uploadMedia(goonjMediaBooleanMap);

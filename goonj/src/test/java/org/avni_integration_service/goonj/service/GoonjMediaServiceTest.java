@@ -13,21 +13,20 @@ import org.avni_integration_service.goonj.domain.GoonjMedia;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.Assert;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.when;
 
-@ExtendWith(MockitoExtension.class)
 @SpringBootTest(classes = {GoonjContextProvider.class, GoonjAvniSessionFactory.class})
 public class GoonjMediaServiceTest extends BaseGoonjSpringTest {
     public static final String IMAGE_ID = GoonjMediaService.IMAGE_ID;
@@ -38,6 +37,12 @@ public class GoonjMediaServiceTest extends BaseGoonjSpringTest {
 
     //Manually initialized
     private Dispatch dispatch;
+    private List<GoonjMedia> imageList;
+    private List<String> storedMediaUrls;
+    private Map<String, String> goonjMedia;
+    private Map<String, Object> observation;
+    private Map<String, Object> dispatchResponse;
+    private Map<GoonjMedia, Boolean> goonjMediaDownloadAndUploadResultMap;
 
     //Mocked
     @Mock
@@ -46,33 +51,34 @@ public class GoonjMediaServiceTest extends BaseGoonjSpringTest {
     private AvniHttpClient avniHttpClient;
     @Mock
     private AvniMediaRepository avniMediaRepository;
+    @Mock
+    private GoonjContextProvider goonjContextProvider;
 
     //Injected with Mocks
-    @Autowired
-    @InjectMocks
     private AvniMediaService avniMediaService;
-
-    @Autowired
-    @InjectMocks
     private GoonjMediaService goonjMediaService;
 
     @BeforeEach
     public void init() {
-        Map<String, Object> dispatchResponse = new HashMap<>();
+        avniMediaService = new AvniMediaService(avniMediaRepository);
+        goonjMediaService = new GoonjMediaService(restTemplate, avniMediaService, goonjContextProvider);
         dispatch = Dispatch.from(dispatchResponse);
+        imageList = new ArrayList<>();
+        storedMediaUrls = new ArrayList<>();
+        goonjMedia = new HashMap<>();
+        observation = new HashMap<>();
+        dispatchResponse = new HashMap<>();
     }
 
     @DisplayName("getSalesforceImageList")
     @Test
     public void test_getSalesforceImageList() {
-        List<GoonjMedia> imageList = goonjMediaService.getSalesforceImageList(dispatch, GoonjMediaService.IMAGES_LINK);
+        imageList = goonjMediaService.getSalesforceImageList(dispatch, GoonjMediaService.IMAGES_LINK);
         Assert.isTrue(imageList.size() ==0, "imageList should have been empty for empty data in dispatch");
 
-        Map<String,String> goonjMedia = new HashMap<>();
         goonjMedia.put(IMAGE_ID,"abc");
         goonjMedia.put(LINK,"www.abc.com");
 
-        Map<String, Object> dispatchResponse = new HashMap<>();
         dispatchResponse.put(IMAGES_LINK,List.of(goonjMedia));
         dispatch = Dispatch.from(dispatchResponse);
         imageList = goonjMediaService.getSalesforceImageList(dispatch, IMAGES_LINK);
@@ -96,10 +102,9 @@ public class GoonjMediaServiceTest extends BaseGoonjSpringTest {
     @DisplayName("getStoredMediaUrls")
     @Test
     public void test_getStoredMediaUrls(){
-        List<String> storedMediaUrls = goonjMediaService.getStoredMediaUrls(null, LOADING_AND_TRUCK_IMAGES);
+        storedMediaUrls = goonjMediaService.getStoredMediaUrls(null, LOADING_AND_TRUCK_IMAGES);
         Assert.isTrue(storedMediaUrls.size() ==0, "storedMediaUrls should give size 0 after if there is no image");
 
-        Map<String, Object> observation = new HashMap<>();
         observation.put(LOADING_AND_TRUCK_IMAGES,"abc");
 
         Subject subject = new Subject();
@@ -112,5 +117,46 @@ public class GoonjMediaServiceTest extends BaseGoonjSpringTest {
         subject.setObservations(observation);
         storedMediaUrls = goonjMediaService.getStoredMediaUrls(subject, LOADING_AND_TRUCK_IMAGES);
         Assert.isTrue(storedMediaUrls.size() ==2, "storedMediaUrls should give size as observations");
+    }
+
+    @DisplayName("processMedia")
+    @Test
+    public void test_processMedia(){
+        Subject subject = new Subject();
+        List<String> urls = List.of("https://s3.com/env-media/org-media/a9993e36-4706-516a-ba3e-25717850c26c.jpg",
+                "https://s3.com/env-media/org-media/589c2233-5a38-5f12-ad12-9225f5c0ba30.jpg");
+        observation.put(LOADING_AND_TRUCK_IMAGES,urls);
+        subject.setObservations(observation);
+
+        // test for image already present
+        dispatchResponse.clear();
+        goonjMedia.put(IMAGE_ID,"abc");
+        goonjMedia.put(LINK,"www.abc.com");
+
+        dispatchResponse.put(IMAGES_LINK,List.of(goonjMedia));
+        dispatch = Dispatch.from(dispatchResponse);
+
+        imageList = goonjMediaService.getSalesforceImageList(dispatch, GoonjMediaService.IMAGES_LINK);
+        storedMediaUrls = goonjMediaService.getStoredMediaUrls(subject, LOADING_AND_TRUCK_IMAGES);
+        goonjMediaDownloadAndUploadResultMap = goonjMediaService.processMedia(storedMediaUrls, imageList, AvniMediaConstants.IMAGE);
+        Assert.isTrue(goonjMediaDownloadAndUploadResultMap.size() == 0, "goonjMediaDownloadAndUploadResultMap should have size 0");
+
+
+        //test for missing image in target dispatch
+        dispatchResponse.clear();
+        goonjMedia.put(IMAGE_ID,"ghi");
+        goonjMedia.put(LINK,"www.ghi.com");
+
+        dispatchResponse.put(IMAGES_LINK,List.of(goonjMedia));
+        dispatch = Dispatch.from(dispatchResponse);
+
+        imageList = goonjMediaService.getSalesforceImageList(dispatch, GoonjMediaService.IMAGES_LINK);
+        storedMediaUrls = goonjMediaService.getStoredMediaUrls(subject, LOADING_AND_TRUCK_IMAGES);
+        when(restTemplate.execute(any(), any(), any(), any())).thenReturn(true, true); //mocking upload and download
+        when(avniMediaRepository.generateUploadUrl(anyString())).thenReturn("dummy"); //mocking generateUploadUrl
+        when(avniMediaRepository.addMedia(anyString(), anyString(), anyString(), any())).thenReturn(true); //mocking addMedia
+        goonjMediaDownloadAndUploadResultMap = goonjMediaService.processMedia(storedMediaUrls, imageList, AvniMediaConstants.IMAGE);
+        Assert.isTrue(goonjMediaDownloadAndUploadResultMap.size() == 1, "goonjMediaDownloadAndUploadResultMap should have size 1");
+        Assert.isTrue(goonjMediaDownloadAndUploadResultMap.values().stream().findFirst().get() , "goonjMediaDownloadAndUploadResultMap value should have been true");
     }
 }
