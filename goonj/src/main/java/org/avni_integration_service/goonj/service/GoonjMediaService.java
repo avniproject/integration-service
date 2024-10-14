@@ -81,7 +81,7 @@ public class GoonjMediaService {
                 String avniMediaPath = goonjContextProvider.get().getS3Url();
                 String extension = contentType.getSubtype();
                 String uuid = goonjMedia.getUuid();
-                goonjMedia.setExtention(extension);
+                goonjMedia.setExtension(extension);
                 goonjMedia.setAvniUrl(String.format("%s%s.%s", avniMediaPath, uuid, extension));
                 goonjMedia.setContentType(avniContentType);
                 File tempFile = new File(AvniMediaService.DIRECTORY_PATH, String.format("%s.%s", uuid, extension));
@@ -107,14 +107,14 @@ public class GoonjMediaService {
 
     private boolean uploadMediaEntry(GoonjMedia goonjMedia, Boolean wasDownloadedSuccessfully) {
         if (wasDownloadedSuccessfully) {
-            String fileName = String.format("%s.%s",goonjMedia.getUuid(),goonjMedia.getExtention());
+            String fileName = String.format("%s.%s",goonjMedia.getUuid(),goonjMedia.getExtension());
             return avniMediaService.uploadToAvni(AvniMediaService.DIRECTORY_PATH, fileName, goonjMedia.getContentType());
         }
         return false;
     }
 
     private static void deleteTempMediaFile(GoonjMedia goonjMedia) {
-        String fileName = String.format("%s.%s",goonjMedia.getUuid(),goonjMedia.getExtention());
+        String fileName = String.format("%s.%s",goonjMedia.getUuid(),goonjMedia.getExtension());
         File file = new File(AvniMediaService.DIRECTORY_PATH, fileName);
         if(file.exists()){
             file.delete();

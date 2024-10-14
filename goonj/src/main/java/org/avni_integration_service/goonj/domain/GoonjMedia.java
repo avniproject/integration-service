@@ -9,15 +9,15 @@ public class GoonjMedia implements AvniMedia
     private String externalId;
     private String avniUrl;
     private String uuid;
-    private String extention;
+    private String extension;
     private MediaType contentType;
 
-    public GoonjMedia(String externalDownloadLink, String externalId, String avniUrl, String uuid,String extention,MediaType contentType) {
+    public GoonjMedia(String externalDownloadLink, String externalId, String avniUrl, String uuid, String extension, MediaType contentType) {
         this.externalDownloadLink = externalDownloadLink;
         this.externalId = externalId;
         this.avniUrl = avniUrl;
         this.uuid = uuid;
-        this.extention = extention;
+        this.extension = extension;
         this.contentType = contentType;
     }
 
@@ -55,12 +55,12 @@ public class GoonjMedia implements AvniMedia
         this.avniUrl = avniUrl;
     }
 
-    public String getExtention() {
-        return extention;
+    public String getExtension() {
+        return extension;
     }
 
-    public void setExtention(String extention) {
-        this.extention = extention;
+    public void setExtension(String extension) {
+        this.extension = extension;
     }
 
     public MediaType getContentType() {
@@ -78,7 +78,7 @@ public class GoonjMedia implements AvniMedia
                 ", externalId='" + externalId + '\'' +
                 ", avniUrl='" + avniUrl + '\'' +
                 ", uuid='" + uuid + '\'' +
-                ", extention='" + extention + '\'' +
+                ", extension='" + extension + '\'' +
                 ", contentType=" + contentType +
                 '}';
     }
