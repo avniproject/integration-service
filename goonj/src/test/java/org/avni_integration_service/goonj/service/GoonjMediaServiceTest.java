@@ -29,8 +29,8 @@ import static org.mockito.Mockito.*;
 
 @SpringBootTest(classes = {GoonjContextProvider.class, GoonjAvniSessionFactory.class})
 public class GoonjMediaServiceTest extends BaseGoonjSpringTest {
-    public static final String IMAGE_ID = GoonjMediaService.IMAGE_ID;
-    public static final String LINK = GoonjMediaService.LINK;
+    public static final String IMAGE_ID_KEY = GoonjMediaService.IMAGE_ID;
+    public static final String LINK_KEY = GoonjMediaService.LINK;
     public static final String IMAGES_LINK = GoonjMediaService.IMAGES_LINK;
     public static final String LOADING_AND_TRUCK_IMAGES = GoonjMediaService.LOADING_AND_TRUCK_IMAGES;
     public static final String IMAGE = AvniMediaConstants.IMAGE;
@@ -84,11 +84,12 @@ public class GoonjMediaServiceTest extends BaseGoonjSpringTest {
     @DisplayName("getSalesforceImageList")
     @Test
     public void test_getSalesforceImageList() {
+        // TODO: 14/10/24 Break into smaller separate tests
         imageList = goonjMediaService.getSalesforceImageList(dispatch, GoonjMediaService.IMAGES_LINK);
         Assert.isTrue(imageList.size() ==0, "imageList should have been empty for empty data in dispatch");
 
-        goonjMedia.put(IMAGE_ID, IMAGE_ID_1);
-        goonjMedia.put(LINK, IMAGE_ID_1_LINK);
+        goonjMedia.put(IMAGE_ID_KEY, IMAGE_ID_1);
+        goonjMedia.put(LINK_KEY, IMAGE_ID_1_LINK);
 
         dispatchResponse.put(IMAGES_LINK,List.of(goonjMedia));
         dispatch = Dispatch.from(dispatchResponse);
@@ -113,6 +114,7 @@ public class GoonjMediaServiceTest extends BaseGoonjSpringTest {
     @DisplayName("getStoredMediaUrls")
     @Test
     public void test_getStoredMediaUrls(){
+        // TODO: 14/10/24 Break into smaller separate tests
         storedMediaUrls = goonjMediaService.getStoredMediaUrls(null, LOADING_AND_TRUCK_IMAGES);
         Assert.isTrue(storedMediaUrls.size() ==0, "storedMediaUrls should give size 0 after if there is no image");
 
@@ -142,8 +144,8 @@ public class GoonjMediaServiceTest extends BaseGoonjSpringTest {
         // test for image already present
         dispatchResponse.clear();
         goonjMedia.clear();
-        goonjMedia.put(IMAGE_ID, IMAGE_ID_1);
-        goonjMedia.put(LINK, IMAGE_ID_1_LINK);
+        goonjMedia.put(IMAGE_ID_KEY, IMAGE_ID_1);
+        goonjMedia.put(LINK_KEY, IMAGE_ID_1_LINK);
 
         dispatchResponse.put(IMAGES_LINK, List.of(goonjMedia));
         dispatch = Dispatch.from(dispatchResponse);
@@ -168,10 +170,10 @@ public class GoonjMediaServiceTest extends BaseGoonjSpringTest {
 
         dispatchResponse.clear();
         goonjMedia.clear();
-        goonjMedia.put(IMAGE_ID, IMAGE_ID_1);
-        goonjMedia.put(LINK, IMAGE_ID_1_LINK);
-        goonjMedia.put(IMAGE_ID, IMAGE_ID_3);
-        goonjMedia.put(LINK, IMAGE_ID_3_LINK);
+        goonjMedia.put(IMAGE_ID_KEY, IMAGE_ID_1);
+        goonjMedia.put(LINK_KEY, IMAGE_ID_1_LINK);
+        goonjMedia.put(IMAGE_ID_KEY, IMAGE_ID_3);
+        goonjMedia.put(LINK_KEY, IMAGE_ID_3_LINK);
 
         dispatchResponse.put(IMAGES_LINK, List.of(goonjMedia));
         dispatch = Dispatch.from(dispatchResponse);
@@ -207,10 +209,10 @@ public class GoonjMediaServiceTest extends BaseGoonjSpringTest {
 
         dispatchResponse.clear();
         goonjMedia.clear();
-        goonjMedia.put(IMAGE_ID, IMAGE_ID_1);
-        goonjMedia.put(LINK, IMAGE_ID_1_LINK);
-        goonjMedia.put(IMAGE_ID, IMAGE_ID_3);
-        goonjMedia.put(LINK, IMAGE_ID_3_LINK);
+        goonjMedia.put(IMAGE_ID_KEY, IMAGE_ID_1);
+        goonjMedia.put(LINK_KEY, IMAGE_ID_1_LINK);
+        goonjMedia.put(IMAGE_ID_KEY, IMAGE_ID_3);
+        goonjMedia.put(LINK_KEY, IMAGE_ID_3_LINK);
 
         dispatchResponse.put(IMAGES_LINK,List.of(goonjMedia));
         dispatch = Dispatch.from(dispatchResponse);
@@ -234,4 +236,9 @@ public class GoonjMediaServiceTest extends BaseGoonjSpringTest {
         verifyNoMoreInteractions(avniMediaRepository);
 
     }
+
+    // TODO: 14/10/24 1. Create unit tests for  goonjMediaService.fetchListOfAvniUrlsToBeStoredAsConceptValue(imageList,goonjMediaDownloadAndUploadResultMap)
+    // TODO: 14/10/24 2. Create unit tests for  goonjMediaService.hasAtleastOneInvalidImagesLink(goonjMediaDownloadAndUploadResultMap)
+    // TODO: 14/10/24 3. Create unit tests for  goonjMediaService.getDownloadMediaResponseExtractor() (For validImage, expiredImage, anyOtherError)
+
 }
