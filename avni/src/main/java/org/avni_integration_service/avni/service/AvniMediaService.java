@@ -55,7 +55,7 @@ public class AvniMediaService {
     public MediaType checkAndGetMediaType(String avniMediaType, MediaType contentType){
         return switch (avniMediaType) {
             case AvniMediaConstants.IMAGE ->
-                    AvniMediaConstants.SUPPORTED_IMAGE_MEDIATYPE_SET.stream().filter(contentType::equalsTypeAndSubtype).findFirst().orElse(null);
+                    AvniMediaConstants.SUPPORTED_IMAGE_MEDIA_TYPE_SET.stream().filter(contentType::equalsTypeAndSubtype).findFirst().orElse(null);
             default -> null;
         };
     }
