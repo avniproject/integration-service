@@ -7,6 +7,7 @@ import org.avni_integration_service.avni.repository.AvniMediaRepository;
 import org.avni_integration_service.avni.service.AvniMediaService;
 import org.avni_integration_service.goonj.BaseGoonjSpringTest;
 import org.avni_integration_service.goonj.config.GoonjAvniSessionFactory;
+import org.avni_integration_service.goonj.config.GoonjConfig;
 import org.avni_integration_service.goonj.config.GoonjContextProvider;
 import org.avni_integration_service.goonj.domain.Dispatch;
 import org.avni_integration_service.goonj.domain.GoonjMedia;
@@ -15,9 +16,18 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.util.Assert;
+import org.springframework.web.client.ResponseExtractor;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,23 +36,31 @@ import java.util.Map;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
+import static org.springframework.http.HttpHeaders.CONTENT_LENGTH;
+import static org.springframework.http.HttpHeaders.CONTENT_TYPE;
 
 @SpringBootTest(classes = {GoonjContextProvider.class, GoonjAvniSessionFactory.class})
 public class GoonjMediaServiceTest extends BaseGoonjSpringTest {
-    public static final String IMAGE_ID_KEY = GoonjMediaService.IMAGE_ID;
-    public static final String LINK_KEY = GoonjMediaService.LINK;
-    public static final String IMAGES_LINK = GoonjMediaService.IMAGES_LINK;
-    public static final String LOADING_AND_TRUCK_IMAGES = GoonjMediaService.LOADING_AND_TRUCK_IMAGES;
-    public static final String IMAGE = AvniMediaConstants.IMAGE;
-    public static final String IMAGE_ID_1 = "abc";
-    public static final String IMAGE_ID_2 = "def";
-    public static final String IMAGE_ID_3 = "ghi";
-    public static final String IMAGE_ID_1_LINK = "www.abc.com";
-    public static final String IMAGE_ID_2_LINK = "www.def.com";
-    public static final String IMAGE_ID_3_LINK = "www.ghi.com";
-    public static final String IMAGE_ID_1_AVNI_URL = "https://s3.com/env-media/org-media/a9993e36-4706-516a-ba3e-25717850c26c.jpg";
-    public static final String IMAGE_ID_2_AVNI_URL = "https://s3.com/env-media/org-media/589c2233-5a38-5f12-ad12-9225f5c0ba30.jpg";
-    public static final String DUMMY = "dummy";
+    private static final String IMAGE_ID_KEY = GoonjMediaService.IMAGE_ID;
+    private static final String LINK_KEY = GoonjMediaService.LINK;
+    private static final String IMAGES_LINK = GoonjMediaService.IMAGES_LINK;
+    private static final String LOADING_AND_TRUCK_IMAGES = GoonjMediaService.LOADING_AND_TRUCK_IMAGES;
+    private static final String IMAGE = AvniMediaConstants.IMAGE;
+    private static final String IMAGE_ID_1 = "abc";
+    private static final String IMAGE_ID_2 = "def";
+    private static final String IMAGE_ID_3 = "ghi";
+    private static final String IMAGE_ID_1_LINK = "www.abc.com";
+    private static final String IMAGE_ID_2_LINK = "www.def.com";
+    private static final String IMAGE_ID_3_LINK = "www.ghi.com";
+    private static final String IMAGE_ID_1_UUID = "a9993e36-4706-516a-ba3e-25717850c26c";
+    private static final String IMAGE_ID_2_UUID = "589c2233-5a38-5f12-ad12-9225f5c0ba30";
+    private static final String IMAGE_ID_3_UUID = "481743d6-32b8-5d39-bc27-71d19be3ca30";
+    private static final String AVNI_S3_MEDIA_PATH = "https://s3.com/env-media/org-media/";
+    private static final String IMAGE_ID_1_AVNI_URL = String.format("%s%s.%s", AVNI_S3_MEDIA_PATH, IMAGE_ID_1_UUID, MediaType.IMAGE_JPEG.getSubtype());
+    private static final String IMAGE_ID_2_AVNI_URL = String.format("%s%s.%s", AVNI_S3_MEDIA_PATH, IMAGE_ID_2_UUID, MediaType.IMAGE_JPEG.getSubtype());
+    private static final String IMAGE_ID_3_AVNI_URL = String.format("%s%s.%s", AVNI_S3_MEDIA_PATH, IMAGE_ID_3_UUID, MediaType.IMAGE_JPEG.getSubtype());
+    private static final String DUMMY = "dummy";
+    private static final byte[] DUMMY_FILE_CONTENT = DUMMY.getBytes();
 
     //Manually initialized
     private Dispatch dispatch;
@@ -62,6 +80,10 @@ public class GoonjMediaServiceTest extends BaseGoonjSpringTest {
     private AvniMediaRepository avniMediaRepository;
     @Mock
     private GoonjContextProvider goonjContextProvider;
+    @Mock
+    private GoonjConfig goonjConfig;
+    @Mock
+    private ClientHttpResponse validImageResponse;
 
     //Injected with Mocks
     private AvniMediaService avniMediaService;
@@ -78,7 +100,7 @@ public class GoonjMediaServiceTest extends BaseGoonjSpringTest {
         observation = new HashMap<>();
         dispatchResponse = new HashMap<>();
 
-        reset(restTemplate, avniHttpClient, avniMediaRepository, goonjContextProvider);
+        reset(restTemplate, avniHttpClient, avniMediaRepository, goonjContextProvider, goonjConfig, validImageResponse);
     }
 
     @DisplayName("getSalesforceImageList")
@@ -261,6 +283,118 @@ public class GoonjMediaServiceTest extends BaseGoonjSpringTest {
     }
 
     // TODO: 14/10/24 2. Create unit tests for  goonjMediaService.hasAtleastOneInvalidImagesLink(goonjMediaDownloadAndUploadResultMap)
-    // TODO: 14/10/24 3. Create unit tests for  goonjMediaService.getDownloadMediaResponseExtractor() (For validImage, expiredImage, anyOtherError)
+    
+    @DisplayName("test_getDownloadMediaResponseExtractor validImageResponse")
+    @Test
+    public void test_getDownloadMediaResponseExtractor_validImageResponse() throws URISyntaxException, IOException {
+        Subject subject = new Subject();
+        List<String> urls = List.of(IMAGE_ID_1_AVNI_URL,
+                IMAGE_ID_2_AVNI_URL);
+        observation.put(LOADING_AND_TRUCK_IMAGES, urls);
+        subject.setObservations(observation);
 
+        dispatchResponse.clear();
+        goonjMedia.clear();
+        goonjMedia.put(IMAGE_ID_KEY, IMAGE_ID_1);
+        goonjMedia.put(LINK_KEY, IMAGE_ID_1_LINK);
+        goonjMedia.put(IMAGE_ID_KEY, IMAGE_ID_3);
+        goonjMedia.put(LINK_KEY, IMAGE_ID_3_LINK);
+
+        dispatchResponse.put(IMAGES_LINK, List.of(goonjMedia));
+        dispatch = Dispatch.from(dispatchResponse);
+
+        imageList = goonjMediaService.getSalesforceImageList(dispatch, GoonjMediaService.IMAGES_LINK);
+        storedMediaUrls = goonjMediaService.getStoredMediaUrls(subject, LOADING_AND_TRUCK_IMAGES);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(CONTENT_TYPE, MediaType.IMAGE_JPEG_VALUE);
+        headers.add(CONTENT_LENGTH, String.valueOf(DUMMY_FILE_CONTENT.length));
+
+        //stub
+        when(goonjContextProvider.get()).thenReturn(goonjConfig);
+        when(goonjConfig.getS3Url()).thenReturn(AVNI_S3_MEDIA_PATH);
+        when(validImageResponse.getHeaders()).thenReturn(headers);
+        when(validImageResponse.getStatusCode()).thenReturn(HttpStatus.OK);
+        when(validImageResponse.getHeaders()).thenReturn(headers);
+        when(validImageResponse.getBody()).thenReturn(new ByteArrayInputStream(DUMMY_FILE_CONTENT));
+        when(validImageResponse.getBody()).thenReturn(new ByteArrayInputStream(DUMMY_FILE_CONTENT));
+
+        //init
+        GoonjMedia goonjMediaEntity = imageList.get(0);
+
+        //Invoke
+        ResponseExtractor<Boolean> responseExtractor = goonjMediaService.getDownloadMediaResponseExtractor(AvniMediaConstants.IMAGE, goonjMediaEntity, new URI(goonjMediaEntity.getExternalDownloadLink()));
+        Boolean extractionResult = responseExtractor.extractData(validImageResponse);
+
+        //assert
+        Assert.isTrue(extractionResult, "getDownloadMediaResponseExtractor should have returned true");
+        Assert.isTrue(goonjMediaEntity.getExtension().equals(MediaType.IMAGE_JPEG.getSubtype()), "goonjMediaEntity extension should have been JPEG");
+        Assert.isTrue(goonjMediaEntity.getAvniUrl().equals(IMAGE_ID_3_AVNI_URL), "goonjMediaEntity extension should have been IMAGE_ID_3_AVNI_URL");
+        Assert.isTrue(goonjMediaEntity.getContentType().equals(MediaType.IMAGE_JPEG), "goonjMediaEntity contentType should have been JPEG");
+
+        //verify
+        verify(goonjContextProvider).get();
+        verifyNoMoreInteractions(goonjContextProvider);
+
+        verify(goonjConfig).getS3Url();
+        verifyNoMoreInteractions(goonjConfig);
+
+        verify(validImageResponse, times(2)).getHeaders();
+        verify(validImageResponse).getStatusCode();
+        verify(validImageResponse).getBody();
+        verifyNoMoreInteractions(validImageResponse);
+    }
+
+    @DisplayName("test_getDownloadMediaResponseExtractor expiredImageResponse")
+    @Test
+    public void test_getDownloadMediaResponseExtractor_expiredImageResponse() throws URISyntaxException, IOException {
+        Subject subject = new Subject();
+        List<String> urls = List.of(IMAGE_ID_1_AVNI_URL,
+                IMAGE_ID_2_AVNI_URL);
+        observation.put(LOADING_AND_TRUCK_IMAGES, urls);
+        subject.setObservations(observation);
+
+        dispatchResponse.clear();
+        goonjMedia.clear();
+        goonjMedia.put(IMAGE_ID_KEY, IMAGE_ID_1);
+        goonjMedia.put(LINK_KEY, IMAGE_ID_1_LINK);
+        goonjMedia.put(IMAGE_ID_KEY, IMAGE_ID_3);
+        goonjMedia.put(LINK_KEY, IMAGE_ID_3_LINK);
+
+        dispatchResponse.put(IMAGES_LINK, List.of(goonjMedia));
+        dispatch = Dispatch.from(dispatchResponse);
+
+        imageList = goonjMediaService.getSalesforceImageList(dispatch, GoonjMediaService.IMAGES_LINK);
+        storedMediaUrls = goonjMediaService.getStoredMediaUrls(subject, LOADING_AND_TRUCK_IMAGES);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(CONTENT_TYPE, MediaType.TEXT_HTML_VALUE);
+        headers.add(CONTENT_LENGTH, String.valueOf(DUMMY_FILE_CONTENT.length));
+
+        //stub
+        when(goonjContextProvider.get()).thenReturn(goonjConfig);
+        when(goonjConfig.getS3Url()).thenReturn(AVNI_S3_MEDIA_PATH);
+        when(validImageResponse.getHeaders()).thenReturn(headers);
+        when(validImageResponse.getStatusCode()).thenReturn(HttpStatus.OK);
+        when(validImageResponse.getHeaders()).thenReturn(headers);
+        when(validImageResponse.getBody()).thenReturn(new ByteArrayInputStream(DUMMY_FILE_CONTENT));
+        when(validImageResponse.getBody()).thenReturn(new ByteArrayInputStream(DUMMY_FILE_CONTENT));
+
+        //init
+        GoonjMedia goonjMediaEntity = imageList.get(0);
+
+        //Invoke
+        ResponseExtractor<Boolean> responseExtractor = goonjMediaService.getDownloadMediaResponseExtractor(AvniMediaConstants.IMAGE, goonjMediaEntity, new URI(goonjMediaEntity.getExternalDownloadLink()));
+        Boolean extractionResult = responseExtractor.extractData(validImageResponse);
+
+        //assert
+        Assert.isTrue(!extractionResult, "getDownloadMediaResponseExtractor should have returned false");
+
+        //verify
+        verifyNoMoreInteractions(goonjContextProvider);
+        verifyNoMoreInteractions(goonjConfig);
+
+        verify(validImageResponse, times(2)).getHeaders();
+        verify(validImageResponse).getStatusCode();
+        verify(validImageResponse).getBody();
+        verifyNoMoreInteractions(validImageResponse);
+    }
 }

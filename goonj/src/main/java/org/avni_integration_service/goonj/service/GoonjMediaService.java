@@ -62,7 +62,7 @@ public class GoonjMediaService {
         return downloadResult;
     }
 
-    private ResponseExtractor<Boolean> getDownloadMediaResponseExtractor(String allowedMedia, GoonjMedia goonjMedia, URI uri) {
+    public ResponseExtractor<Boolean> getDownloadMediaResponseExtractor(String allowedMedia, GoonjMedia goonjMedia, URI uri) {
         return response -> {
             MediaType contentType = response.getHeaders().getContentType();
             HttpStatus statusCode = response.getStatusCode();
