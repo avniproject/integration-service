@@ -132,7 +132,7 @@ public class GoonjMediaServiceTest extends BaseGoonjSpringTest {
         Assert.isTrue(storedMediaUrls.size() ==2, "storedMediaUrls should give size as observations");
     }
 
-    @DisplayName("processMedia")
+    @DisplayName("processMedia ignoreForAlreadyPresentImage")
     @Test
     public void test_processMedia_ignoreForAlreadyPresentImage() {
         Subject subject = new Subject();
@@ -238,6 +238,28 @@ public class GoonjMediaServiceTest extends BaseGoonjSpringTest {
     }
 
     // TODO: 14/10/24 1. Create unit tests for  goonjMediaService.fetchListOfAvniUrlsToBeStoredAsConceptValue(imageList,goonjMediaDownloadAndUploadResultMap)
+    @DisplayName("fetchListOfAvniUrlsToBeStoredAsConceptValue ifNotAnyDownload")
+    @Test
+    public void test_fetchListOfAvniUrlsToBeStoredAsConceptValue_ifNotAnyDownload(){
+        Subject subject = new Subject();
+        List<String> urls = List.of(IMAGE_ID_1_AVNI_URL);
+        observation.put(LOADING_AND_TRUCK_IMAGES, urls);
+        subject.setObservations(observation);
+
+        dispatchResponse.clear();
+        goonjMedia.clear();
+        goonjMedia.put(IMAGE_ID_KEY, IMAGE_ID_1);
+        goonjMedia.put(LINK_KEY, IMAGE_ID_1_LINK);
+
+        dispatchResponse.put(IMAGES_LINK,List.of(goonjMedia));
+        dispatch = Dispatch.from(dispatchResponse);
+        imageList = goonjMediaService.getSalesforceImageList(dispatch, IMAGES_LINK);
+        storedMediaUrls = goonjMediaService.getStoredMediaUrls(subject, LOADING_AND_TRUCK_IMAGES);
+        goonjMediaDownloadAndUploadResultMap = goonjMediaService.processMedia(storedMediaUrls, imageList, IMAGE);
+        List<String> conceptValue = goonjMediaService.fetchListOfAvniUrlsToBeStoredAsConceptValue(imageList, goonjMediaDownloadAndUploadResultMap);
+        Assert.isTrue(urls.get(0).equals(conceptValue.get(0)) ,"give concept value as already stored url");
+    }
+
     // TODO: 14/10/24 2. Create unit tests for  goonjMediaService.hasAtleastOneInvalidImagesLink(goonjMediaDownloadAndUploadResultMap)
     // TODO: 14/10/24 3. Create unit tests for  goonjMediaService.getDownloadMediaResponseExtractor() (For validImage, expiredImage, anyOtherError)
 
