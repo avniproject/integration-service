@@ -106,7 +106,6 @@ public class GoonjMediaServiceTest extends BaseGoonjSpringTest {
     @DisplayName("getSalesforceImageList")
     @Test
     public void test_getSalesforceImageList() {
-        // TODO: 14/10/24 Break into smaller separate tests
         imageList = goonjMediaService.getSalesforceImageList(dispatch, GoonjMediaService.IMAGES_LINK);
         Assert.isTrue(imageList.size() ==0, "imageList should have been empty for empty data in dispatch");
 
@@ -136,7 +135,6 @@ public class GoonjMediaServiceTest extends BaseGoonjSpringTest {
     @DisplayName("getStoredMediaUrls")
     @Test
     public void test_getStoredMediaUrls(){
-        // TODO: 14/10/24 Break into smaller separate tests
         storedMediaUrls = goonjMediaService.getStoredMediaUrls(null, LOADING_AND_TRUCK_IMAGES);
         Assert.isTrue(storedMediaUrls.size() ==0, "storedMediaUrls should give size 0 after if there is no image");
 
@@ -259,7 +257,6 @@ public class GoonjMediaServiceTest extends BaseGoonjSpringTest {
 
     }
 
-    // TODO: 14/10/24 1. Create unit tests for  goonjMediaService.fetchListOfAvniUrlsToBeStoredAsConceptValue(imageList,goonjMediaDownloadAndUploadResultMap)
     @DisplayName("fetchListOfAvniUrlsToBeStoredAsConceptValue ifNotAnyDownload")
     @Test
     public void test_fetchListOfAvniUrlsToBeStoredAsConceptValue_ifNotAnyDownload(){
@@ -282,8 +279,7 @@ public class GoonjMediaServiceTest extends BaseGoonjSpringTest {
         Assert.isTrue(urls.get(0).equals(conceptValue.get(0)) ,"give concept value as already stored url");
     }
 
-    // TODO: 14/10/24 2. Create unit tests for  goonjMediaService.hasAtleastOneInvalidImagesLink(goonjMediaDownloadAndUploadResultMap)
-    
+
     @DisplayName("test_getDownloadMediaResponseExtractor validImageResponse")
     @Test
     public void test_getDownloadMediaResponseExtractor_validImageResponse() throws URISyntaxException, IOException {
