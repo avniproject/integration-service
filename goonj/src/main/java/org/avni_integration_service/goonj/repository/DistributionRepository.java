@@ -102,7 +102,7 @@ public class DistributionRepository extends GoonjBaseRepository implements Distr
         distributionDTO.setPhotographInformation(images.stream().map(
                 x -> goonjContextProvider.get().getMediaUrl() + x).collect(Collectors.joining(";")));
         List<String> disclaimerImage = subject.getObservation(DISCLAIMER_PHOTOGRAPHS) == null ? new ArrayList<>() : (ArrayList<String>) subject.getObservation(DISCLAIMER_PHOTOGRAPHS);
-        distributionDTO.setDisclaimerPhotographs(disclaimerImage.stream().map(
+        distributionDTO.setUndertakingFormPhotographs(disclaimerImage.stream().map(
                 x -> goonjContextProvider.get().getMediaUrl() + x).collect(Collectors.joining(";")));
         List<String> receiverImages = subject.getObservation(RECEIVER_LIST_PHOTOGRAPHS) == null ? new ArrayList<>() : (ArrayList<String>) subject.getObservation(RECEIVER_LIST_PHOTOGRAPHS);
         distributionDTO.setReceiverListPhotographs(receiverImages.stream().map(
@@ -158,7 +158,7 @@ public class DistributionRepository extends GoonjBaseRepository implements Distr
             distributionDTO.setShareABriefProvidedMaterial((String) subject.getObservation(PROVIDED_MATERIAL));
             distributionDTO.setHowtheMaterialMakesaDifference((String) subject.getObservation(MATERIAL_MAKES_DIFFERENCE));
             distributionDTO.setMaterialGivenFor((String) subject.getObservation(MATERIAL_GIVEN_FOR));
-            distributionDTO.setOtherMaterialGiven((String) subject.getObservation(ANY_OTHER_MATERIAL_GIVEN));
+            distributionDTO.setOtherDetails((String) subject.getObservation(ANY_OTHER_MATERIAL_GIVEN));
             distributionDTO.setNoOfFamiliesReached((Integer) subject.getObservation(NUMBER_OF_FAMILIES_REACHED));
             distributionDTO.setNoOfIndividualReached((Integer) subject.getObservation(NUMBER_OF_INDIVIDUALS_REACHED));
 
