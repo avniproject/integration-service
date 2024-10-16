@@ -33,6 +33,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static java.util.Map.entry;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
@@ -277,6 +278,31 @@ public class GoonjMediaServiceTest extends BaseGoonjSpringTest {
         goonjMediaDownloadAndUploadResultMap = goonjMediaService.processMedia(storedMediaUrls, imageList, IMAGE);
         List<String> conceptValue = goonjMediaService.fetchListOfAvniUrlsToBeStoredAsConceptValue(imageList, goonjMediaDownloadAndUploadResultMap);
         Assert.isTrue(urls.get(0).equals(conceptValue.get(0)) ,"give concept value as already stored url");
+    }
+
+    @DisplayName("hasAtleastOneInvalidImagesLink")
+    @Test
+    public void test_hasAtleastOneInvalidImagesLink() {
+        goonjMediaDownloadAndUploadResultMap = new HashMap<>();
+        Assert.isTrue(!goonjMediaService.hasAtleastOneInvalidImagesLink(goonjMediaDownloadAndUploadResultMap), "should have returned false");
+
+        goonjMediaDownloadAndUploadResultMap = Map.ofEntries(
+                entry(new GoonjMedia(IMAGE_ID_1_LINK, IMAGE_ID_1, null, IMAGE_ID_1_UUID, null, null), true),
+                entry(new GoonjMedia(IMAGE_ID_2_LINK, IMAGE_ID_2, null, IMAGE_ID_2_UUID, null, null), false)
+        );
+        Assert.isTrue(goonjMediaService.hasAtleastOneInvalidImagesLink(goonjMediaDownloadAndUploadResultMap), "should have returned true");
+
+        goonjMediaDownloadAndUploadResultMap = Map.ofEntries(
+                entry(new GoonjMedia(IMAGE_ID_1_LINK, IMAGE_ID_1, null, IMAGE_ID_1_UUID, null, null), true),
+                entry(new GoonjMedia(IMAGE_ID_2_LINK, IMAGE_ID_2, null, IMAGE_ID_2_UUID, null, null), true)
+        );
+        Assert.isTrue(!goonjMediaService.hasAtleastOneInvalidImagesLink(goonjMediaDownloadAndUploadResultMap), "should have returned false");
+
+        goonjMediaDownloadAndUploadResultMap = Map.ofEntries(
+                entry(new GoonjMedia(IMAGE_ID_1_LINK, IMAGE_ID_1, null, IMAGE_ID_1_UUID, null, null), false),
+                entry(new GoonjMedia(IMAGE_ID_2_LINK, IMAGE_ID_2, null, IMAGE_ID_2_UUID, null, null), false)
+        );
+        Assert.isTrue(goonjMediaService.hasAtleastOneInvalidImagesLink(goonjMediaDownloadAndUploadResultMap), "should have returned true");
     }
 
 
