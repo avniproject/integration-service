@@ -35,6 +35,11 @@ define _run_server
 	java -jar --enable-preview integrator/build/libs/$(application_jar) --app.cron.main="0/3 * * * * ?" --app.cron.full.error="0 1 * * * ?" --avni.api.url=https://staging.avniproject.org/ --avni.impl.username=test-user@bahmni_ashwini --avni.impl.password=password
 endef
 
+define _debug_server
+	java -Xmx2048m -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005 -jar --enable-preview integrator/build/libs/$(application_jar) --app.cron.main="0/3 * * * * ?" --app.cron.full.error="0 1 * * * ?" --avni.api.url=https://staging.avniproject.org/ --avni.impl.username=test-user@bahmni_ashwini --avni.impl.password=password
+endef
+
+
 define _run_migrator
     . ./conf/local-test.conf
 	java -jar --enable-preview metadata-migrator/build/libs/metadata-migrator-0.0.2-SNAPSHOT.jar run
@@ -86,6 +91,9 @@ setup-log-dir:
 
 run-server: build-db build-server
 	$(call _run_server)
+
+debug-server: build-db build-server
+	$(call _debug_server)
 
 run-server-without-background: build-server
 	java -jar --enable-preview integrator/build/libs/$(application_jar) --app.cron.main="0 0 6 6 9 ? 2035" --avni.api.url=https://example.com/ --avni.impl.username=foo --avni.impl.password=bar

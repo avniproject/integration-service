@@ -7,6 +7,7 @@ import org.avni_integration_service.util.ObjectJsonMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.*;
 
@@ -72,8 +73,12 @@ public class AvniSubjectRepository extends BaseAvniRepository {
     }
 
     public Subject getSubject(String id) {
-        ResponseEntity<Subject> responseEntity = avniHttpClient.get(String.format("/api/subject/%s", id), Subject.class);
-        return responseEntity.getBody();
+        try {
+            ResponseEntity<Subject> responseEntity = avniHttpClient.get(String.format("/api/subject/%s", id), Subject.class);
+            return responseEntity.getBody();
+        } catch (HttpClientErrorException e) {
+            return null;
+        }
     }
 
     public Subject create(Subject subject) {
