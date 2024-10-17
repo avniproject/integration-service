@@ -25,10 +25,10 @@ public interface ActivityConstants {
     String NUMBER_OF_PARTICIPANTS = "Number of Participants";
     String NUMBER_OF_DAYS_OF_PARTICIPATION = "Number of Days of Participation";
     String ACTIVITY_CONDUCTED_WITH_STUDENTS = "Activity Conducted With Students";
-    String TYPE_OF_SCHOOL = "Type of school";
+    String TYPE_OF_SCHOOL = "Type of Educational Institute";
     String PHOTOGRAPH = "Photograph";
     String OBJECTIVE_OF_WORK = "Objective of Work";
-    String SPECIFY_OTHER_FOR_OBJECTIVE_OF_WORK = "Specify other for objective of work";
+    String SPECIFY_OTHER_FOR_OBJECTIVE_OF_WORK = "Any other not given above, Specify other";
     String SCHOOL_AANGANWADI_LEARNINGCENTER_NAME = "School / Anganwadi / Learning Center Name";
     String MEASUREMENTS_TYPE = "Measurements Type";
     String NOS = "Nos";
