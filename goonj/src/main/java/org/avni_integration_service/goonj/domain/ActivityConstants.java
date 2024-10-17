@@ -29,7 +29,7 @@ public interface ActivityConstants {
     String PHOTOGRAPH = "Photograph";
     String OBJECTIVE_OF_WORK = "Objective of Work";
     String SPECIFY_OTHER_FOR_OBJECTIVE_OF_WORK = "Specify other for objective of work";
-    String SCHOOL_AANGANWADI_LEARNINGCENTER_NAME = "School / Aanganwadi / Learning Center Name";
+    String SCHOOL_AANGANWADI_LEARNINGCENTER_NAME = "School / Anganwadi / Learning Center Name";
     String MEASUREMENTS_TYPE = "Measurements Type";
     String NOS = "Nos";
     String LENGTH = "Length";
@@ -40,7 +40,7 @@ public interface ActivityConstants {
     String DURING_IMPLEMENTATION_PHOTOGRAPH = "During Implementation";
     String AFTER_IMPLEMENTATION_PHOTOGRAPH = "After implementation";
     String WORK_OBJECTIVE = "Work Objective";
-    String WAS_DISCLAIMER_FORM_FILLED = "Was Disclaimer Form Filled?";
+    String WAS_DISCLAIMER_FORM_FILLED = "Was Undertaking Form Filled?";
     String FORM_CROSS_CHECKED ="Form Cross Checked?";
     String REMARKS ="Remarks";
     String OTHER_ACTIVITY = "Specify other activity";
