@@ -3,9 +3,7 @@ package org.avni_integration_service.goonj.worker.goonj;
 import org.apache.log4j.Logger;
 import org.avni_integration_service.goonj.repository.GoonjBaseRepository;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public abstract class BaseGoonjWorker {
     private static final Logger logger = Logger.getLogger(BaseGoonjWorker.class);
@@ -18,16 +16,16 @@ public abstract class BaseGoonjWorker {
         this.eventWorker = eventWorker;
     }
 
-    protected HashMap<String, Object>[] fetchEvents() {
-        HashMap<String, Object>[] events = crudRepository.fetchEvents();
+    protected HashMap<String, Object>[] fetchEvents(Map<String, Object> filters) {
+        HashMap<String, Object>[] events = crudRepository.fetchEvents(filters);
         if(events == null) {
             return new HashMap[0];
         }
         return events;
     }
 
-    protected List<String> fetchDeletionEvents() {
-        List<String> deletionEvents = crudRepository.fetchDeletionEvents();
+    protected List<String> fetchDeletionEvents(Map<String, Object> filters) {
+        List<String> deletionEvents = crudRepository.fetchDeletionEvents(filters);
         if(deletionEvents == null) {
             logger.info("No entities to delete");
             return new ArrayList<>();
@@ -36,6 +34,15 @@ public abstract class BaseGoonjWorker {
         return deletionEvents;
     }
 
-    public abstract void process() throws Exception;
-    public abstract void processDeletions();
+    public void performAllProcesses() throws Exception {
+        performAllProcesses(Collections.emptyMap(), true);
+    }
+
+    public void performAllProcesses(Map<String, Object> filters, boolean updateSyncStatus) throws Exception {
+        processDeletions(filters);
+        process(filters, updateSyncStatus);
+    }
+
+    public abstract void process(Map<String, Object> filters, boolean updateSyncStatus) throws Exception;
+    public abstract void processDeletions(Map<String, Object> filters);
 }

@@ -10,6 +10,8 @@ import org.avni_integration_service.integration_data.repository.IntegratingEntit
 import org.avni_integration_service.util.ObjectJsonMapper;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
+import org.springframework.lang.NonNull;
+import org.springframework.util.StringUtils;
 import org.springframework.web.client.*;
 
 import java.net.URI;
@@ -19,6 +21,12 @@ public abstract class GoonjBaseRepository {
     private static final Logger logger = Logger.getLogger(GoonjBaseRepository.class);
     private static final String DELETION_RECORD_ID = "recordId";
     private static final String DELETION_SOURCE_ID = "sourceId";
+    private static final String EMPTY_STRING = "";
+    public static final String FILTER_KEY_STATE = "state";
+    public static final String FILTER_KEY_ACCOUNT = "account";
+    public static final String FILTER_KEY_TIMESTAMP = "dateTimestamp";
+    public static final String API_PARAMS_DELIMITER = "&";
+    public static final String FILTER_PARAM_FORMAT = "%s=%s";
     private final IntegratingEntityStatusRepository integratingEntityStatusRepository;
     private final RestTemplate goonjRestTemplate;
     private final String entityType;
@@ -46,9 +54,9 @@ public abstract class GoonjBaseRepository {
 
     }
 
-    protected <T> T getResponse(Date dateTime, String resource,  Class<T> returnType, String dateTimeParam) {
-        URI uri = URI.create(String.format("%s/%s?%s=%s", goonjContextProvider.get().getAppUrl(), resource,
-                dateTimeParam, DateTimeUtil.formatDateTime(dateTime)));
+    protected <T> T getResponse(String resource,  Class<T> returnType, String filters) {
+        URI uri = URI.create(String.format("%s/%s?%s", goonjContextProvider.get().getAppUrl(), resource,
+                filters));
         ResponseEntity<T> responseEntity = goonjRestTemplate.exchange(uri, HttpMethod.GET, null, returnType);
         if(responseEntity.getStatusCode().is2xxSuccessful()) {
             return responseEntity.getBody();
@@ -68,6 +76,17 @@ public abstract class GoonjBaseRepository {
 
     protected Date getCutOffDateTime() {
         return getCutOffDate();
+    }
+
+    protected String getAPIFilters(String dateTimeParam, Date cutoffDateTime, @NonNull Map<String, Object> filters) {
+        Object taskDateTimeFilter = filters.getOrDefault(FILTER_KEY_TIMESTAMP, cutoffDateTime);
+        Object stateFilterValue = filters.getOrDefault(FILTER_KEY_STATE, EMPTY_STRING);
+        Object accountFilterValue = filters.getOrDefault(FILTER_KEY_ACCOUNT, EMPTY_STRING);
+        Date dateTimeValue = Objects.nonNull(taskDateTimeFilter) ? (Date) taskDateTimeFilter : cutoffDateTime;
+        String dateTimeOffsetFilter=String.format(FILTER_PARAM_FORMAT, dateTimeParam, DateTimeUtil.formatDateTime(dateTimeValue));
+        String stateFilter=String.format(FILTER_PARAM_FORMAT, FILTER_KEY_STATE, stateFilterValue);
+        String accountFilter=String.format(FILTER_PARAM_FORMAT, FILTER_KEY_ACCOUNT, accountFilterValue);
+        return String.join(API_PARAMS_DELIMITER, dateTimeOffsetFilter, stateFilter, accountFilter);
     }
 
     protected <T> T getSingleEntityResponse(String resource, String filter, String uuid, Class<T> returnType) {
@@ -124,19 +143,17 @@ public abstract class GoonjBaseRepository {
         return requestEntity;
     }
 
-    public abstract HashMap<String, Object>[] fetchEvents();
-
-    public abstract List<String> fetchDeletionEvents();
-    public abstract HashMap<String, Object>[] createEvent(Subject subject);
-    public abstract HashMap<String, Object>[] createEvent(Subject subject, GeneralEncounter encounter);
-
-    public boolean wasEventCreatedSuccessfully(HashMap<String, Object>[] response) {
-        return (response != null && response[0].get("errorCode") == null);
-    }
-
     public Object deleteEvent(String resourceType, GeneralEncounter encounter) {
         HttpEntity<Map<String, List>> requestEntity = getDeleteEncounterHttpRequestEntity(encounter);
         return deleteSingleEntity(resourceType, requestEntity);
     }
 
+    public boolean wasEventCreatedSuccessfully(HashMap<String, Object>[] response) {
+        return (response != null && response[0].get("errorCode") == null);
+    }
+
+    public abstract HashMap<String, Object>[] fetchEvents(Map<String, Object> filters);
+    public abstract List<String> fetchDeletionEvents(Map<String, Object> filters);
+    public abstract HashMap<String, Object>[] createEvent(Subject subject);
+    public abstract HashMap<String, Object>[] createEvent(Subject subject, GeneralEncounter encounter);
 }

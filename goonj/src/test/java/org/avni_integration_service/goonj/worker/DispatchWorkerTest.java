@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Collections;
+
 @SpringBootTest(classes = {DispatchWorker.class})
 @Disabled
 public class DispatchWorkerTest extends BaseGoonjSpringTest {
@@ -16,7 +18,7 @@ public class DispatchWorkerTest extends BaseGoonjSpringTest {
     @Test
     public void process() {
         try {
-            dispatchWorker.process();
+            dispatchWorker.process(Collections.emptyMap(), true);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

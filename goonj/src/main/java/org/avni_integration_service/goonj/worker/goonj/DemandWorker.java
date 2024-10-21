@@ -18,16 +18,16 @@ public class DemandWorker extends BaseGoonjWorker {
     }
 
     @Override
-    public void process() throws Exception {
-        HashMap<String, Object>[] demands = fetchEvents();
+    public void process(Map<String, Object> filters, boolean updateSyncStatus) throws Exception {
+        HashMap<String, Object>[] demands = fetchEvents(filters);
         for (Map<String, Object> demand : demands) {
-            eventWorker.process(demand, true);
+            eventWorker.process(demand, updateSyncStatus);
         }
     }
 
     @Override
-    public void processDeletions() {
-        List<String> deletedDemands = fetchDeletionEvents();
+    public void processDeletions(Map<String, Object> filters) {
+        List<String> deletedDemands = fetchDeletionEvents(filters);
         for (String deletedDemand : deletedDemands) {
             eventWorker.processDeletion(deletedDemand);
         }

@@ -112,8 +112,7 @@ public class AvniGoonjMainJob {
                   without any TimeStamp and other minimal information details required to make an Update Subject as Voided call.
                   Therefore, we invoke the Delete API for subject using DemandId as externalId to mark a Demand as Voided.
                  */
-                demandWorker.processDeletions();
-                demandWorker.process();
+                demandWorker.performAllProcesses();
             }
             if (hasTask(tasks, IntegrationTask.GoonjDispatch)) {
                 logger.info("Processing GoonjDispatch");
@@ -123,10 +122,7 @@ public class AvniGoonjMainJob {
                   without any TimeStamp and other minimal information details required to make an Update DispatchStatus as Voided call.
                   Therefore, we invoke the Delete API for DispatchStatus using DispatchStatusId as externalId to mark a DispatchStatus as Voided.
                  */
-                dispatchWorker.processDeletions();
-                dispatchWorker.processDispatchLineItemDeletions();
-                dispatchWorker.process();
-
+                dispatchWorker.performAllProcesses();
             }
         } catch (Throwable e) {
             logger.error("Failed processDemandAndDispatch", e);
@@ -166,8 +162,7 @@ public class AvniGoonjMainJob {
         try {
             if (hasTask(tasks, IntegrationTask.GoonjInventory)) {
                 logger.info("Processing GoonjInventory");
-                inventoryWorker.processDeletions();
-                inventoryWorker.process();
+                inventoryWorker.performAllProcesses();
             }
         } catch (Throwable e) {
             logger.error("Failed processInventory", e);
