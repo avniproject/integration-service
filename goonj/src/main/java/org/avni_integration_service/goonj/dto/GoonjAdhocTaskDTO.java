@@ -5,17 +5,23 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.Map;
 
 public class GoonjAdhocTaskDTO {
+    @NotBlank(message = "task can't be null or blank")
     private String task;
     private Map<String, String> taskConfig;
-    private int frequency;
+    @NotBlank(message = "frequency can't be null or blank")
+    private String frequency;
     @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy:MM:dd hh:mm:ss")
-    private Date cutoffdatetime;
-    @JsonProperty(value = "isSuccessFull",access = JsonProperty.Access.READ_ONLY)
-    private boolean isSuccessFull;
+    @NotNull(message = "cutoffdatetime can't be null or blank")
+    private Date cutOffDateTime;
+    private String uuid;
+    @JsonProperty(value = "is_voided")
+    private Boolean is_voided;
 
     public String getTask() {
         return task;
@@ -33,30 +39,38 @@ public class GoonjAdhocTaskDTO {
         this.taskConfig = taskConfig;
     }
 
-    public int getFrequency() {
+    public String getFrequency() {
         return frequency;
     }
 
-    public void setFrequency(int frequency) {
+    public void setFrequency(String frequency) {
         this.frequency = frequency;
     }
 
-    public Date getCutoffdatetime() {
-        return cutoffdatetime;
+    public Date getCutOffDateTime() {
+        return cutOffDateTime;
     }
 
-    public void setCutoffdatetime(Date cutoffdatetime) {
-        this.cutoffdatetime = cutoffdatetime;
+    public void setCutOffDateTime(Date cutOffDateTime) {
+        this.cutOffDateTime = cutOffDateTime;
     }
 
-    @JsonGetter("isSuccessFull")
-    public boolean isSuccessFull() {
-        return isSuccessFull;
+    public String getUuid() {
+        return uuid;
     }
 
-    @JsonSetter("isSuccessFull")
-    public void setSuccessFull(boolean isSuccessFull) {
-        this.isSuccessFull = isSuccessFull;
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
+
+    @JsonGetter(value = "is_voided")
+    public Boolean isVoided() {
+        return is_voided;
+    }
+
+    @JsonSetter(value = "is_voided")
+    public void setIsVoided(Boolean is_voided) {
+        this.is_voided = is_voided;
     }
 
     @Override
@@ -65,8 +79,9 @@ public class GoonjAdhocTaskDTO {
                 "task='" + task + '\'' +
                 ", taskConfig=" + taskConfig +
                 ", frequency='" + frequency + '\'' +
-                ", cutoffdatetime=" + cutoffdatetime +
-                ", isSuccessFull=" + isSuccessFull +
+                ", cutOffDateTime=" + cutOffDateTime +
+                ", uuid='" + uuid + '\'' +
+                ", is_voided=" + is_voided +
                 '}';
     }
 }
