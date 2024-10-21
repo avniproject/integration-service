@@ -22,11 +22,12 @@ public abstract class GoonjBaseRepository {
     private static final String DELETION_RECORD_ID = "recordId";
     private static final String DELETION_SOURCE_ID = "sourceId";
     private static final String EMPTY_STRING = "";
-    public static final String FILTER_KEY_STATE = "state";
-    public static final String FILTER_KEY_ACCOUNT = "account";
-    public static final String FILTER_KEY_TIMESTAMP = "dateTimestamp";
-    public static final String API_PARAMS_DELIMITER = "&";
-    public static final String FILTER_PARAM_FORMAT = "%s=%s";
+    private static final String FILTER_KEY_STATE = "state";
+    private static final String FILTER_KEY_ACCOUNT = "account";
+    private static final String FILTER_KEY_TIMESTAMP = "dateTimestamp";
+    private static final String API_PARAMS_DELIMITER = "&";
+    private static final String FILTER_PARAM_FORMAT = "%s=%s";
+
     private final IntegratingEntityStatusRepository integratingEntityStatusRepository;
     private final RestTemplate goonjRestTemplate;
     private final String entityType;

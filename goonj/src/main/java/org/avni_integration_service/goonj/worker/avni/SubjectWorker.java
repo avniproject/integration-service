@@ -20,6 +20,7 @@ import org.avni_integration_service.integration_data.service.error.ErrorClassifi
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Objects;
 
 public abstract class SubjectWorker implements ErrorRecordWorker {
     private static final int INT_CONSTANT_ONE = 1;
@@ -55,16 +56,21 @@ public abstract class SubjectWorker implements ErrorRecordWorker {
     }
 
     public void processSubjects() throws Exception {
+        processSubjects(true, null);
+    }
+
+    public void processSubjects(boolean updateSyncStatus, Date taskDateTimeFilter) throws Exception {
+        IntegratingEntityStatus status = integrationEntityStatusRepository.findByEntityType(subjectType);
+        Date readUptoDateTime = Objects.nonNull(taskDateTimeFilter) ? taskDateTimeFilter : getEffectiveCutoffDateTime(status);
         while (true) {
-            IntegratingEntityStatus status = integrationEntityStatusRepository.findByEntityType(subjectType);
-            Date readUptoDateTime = getEffectiveCutoffDateTime(status);
             SubjectsResponse response = avniSubjectRepository.getSubjects(readUptoDateTime, subjectType);
             Subject[] subjects = response.getContent();
             int totalPages = response.getTotalPages();
             logger.info(String.format("Found %d subjects that are newer than %s", subjects.length, readUptoDateTime));
             if (subjects.length == 0) break;
             for (Subject subject : subjects) {
-                processSubject(subject, true, goonjErrorType);
+                processSubject(subject, updateSyncStatus, goonjErrorType);
+                readUptoDateTime = DateTimeUtil.convertToDate(subject.getLastModifiedDateTime().toString());
             }
             if (totalPages == INT_CONSTANT_ONE) {
                 logger.info("Finished processing all pages");
@@ -79,7 +85,7 @@ public abstract class SubjectWorker implements ErrorRecordWorker {
      * @return EffectiveCutoffDateTime
      */
     private Date getEffectiveCutoffDateTime(IntegratingEntityStatus status) {
-        return new Date(status.getReadUptoDateTime().toInstant().toEpochMilli());
+        return status.getReadUptoDateTime();
     }
 
     @Override

@@ -23,6 +23,7 @@ import org.avni_integration_service.integration_data.service.error.ErrorClassifi
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Objects;
 
 public abstract class GeneralEncounterWorker implements ErrorRecordWorker {
     private static final int INT_CONSTANT_ONE = 1;
@@ -59,16 +60,21 @@ public abstract class GeneralEncounterWorker implements ErrorRecordWorker {
     }
 
     public void processEncounters() throws Exception {
+        processEncounters(true, null);
+    }
+
+    public void processEncounters(boolean updateSyncStatus, Date taskDateTimeFilter) throws Exception {
+        IntegratingEntityStatus status = integrationEntityStatusRepository.findByEntityType(encounterType);
+        Date readUptoDateTime = Objects.nonNull(taskDateTimeFilter) ? taskDateTimeFilter : getEffectiveCutoffDateTime(status);
         while (true) {
-            IntegratingEntityStatus status = integrationEntityStatusRepository.findByEntityType(encounterType);
-            Date readUptoDateTime = getEffectiveCutoffDateTime(status);
             GeneralEncountersResponse response = avniEncounterRepository.getGeneralEncounters(readUptoDateTime, encounterType);
             GeneralEncounter[] generalEncounters = response.getContent();
             int totalPages = response.getTotalPages();
             logger.info(String.format("Found %d encounters that are newer than %s", generalEncounters.length, readUptoDateTime));
             if (generalEncounters.length == 0) break;
             for (GeneralEncounter generalEncounter : generalEncounters) {
-                processGeneralEncounter(generalEncounter, true, goonjErrorType);
+                processGeneralEncounter(generalEncounter, updateSyncStatus, goonjErrorType);
+                readUptoDateTime = DateTimeUtil.convertToDate(generalEncounter.getLastModifiedDateTime().toString());
             }
             if (totalPages == INT_CONSTANT_ONE) {
                 logger.info("Finished processing all pages");
