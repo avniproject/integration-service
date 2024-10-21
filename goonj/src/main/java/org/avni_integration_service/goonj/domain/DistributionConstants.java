@@ -16,7 +16,7 @@ public interface DistributionConstants {
     String TARGET_COMMUNITY = "Target Community";
     String TYPE_OF_INITIATIVE = "Type of Initiative";
     String TYPE_OF_DISASTER = "Type of Disaster";
-    String IMAGES = "Images";
+    String IMAGES = "Distribution Images";
     String DISTRIBUTED_TO = "Distributed to";
     String INVENTORY_ID = "Inventory Id";
     String TYPE_OF_MATERIAL = "Type Of Material";
@@ -66,10 +66,10 @@ public interface DistributionConstants {
     String ONLY_NJPC = "Only NJPC";
     String ONLY_RAHAT = "Only Rahat";
     String ONLY_S_2_S = "Only S2S";
-    String TYPE_OF_SCHOOL = "Type of school";
-    String SCHOOL_ANGANWADI_NAME = "School / Aanganwadi / Learning Center Name";
-    String DISCLAIMER_PHOTOGRAPHS = "Disclaimer Photographs";
+    String TYPE_OF_SCHOOL = "Type of Educational Institute";
+    String SCHOOL_ANGANWADI_NAME = "School / Anganwadi / Learning Center Name";
+    String DISCLAIMER_PHOTOGRAPHS = "Undertaking Form Photographs";
     String RECEIVER_LIST_PHOTOGRAPHS = "Receiver List Photographs";
     String TYPE_OF_COMMUNITY = "Type Of Community";
-    String ANY_OTHER_MATERIAL_GIVEN = "Any other material given";
+    String ANY_OTHER_MATERIAL_GIVEN = "Details for Any other (SI)";
 }
