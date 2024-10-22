@@ -58,7 +58,7 @@ public abstract class SubjectWorker implements ErrorRecordWorker {
     }
 
     public void processSubjects() throws Exception {
-        processSubjects(Collections.emptyMap(), true);
+        processSubjects(Collections.emptyMap(), UPDATE_SYNC_STATUS_GOONJ_MAIN_JOB);
     }
 
     public void processSubjects(@NonNull Map<String, Object> filters, boolean updateSyncStatus) throws Exception {
@@ -182,22 +182,21 @@ public abstract class SubjectWorker implements ErrorRecordWorker {
         integrationEntityStatusRepository.save(intEnt);
     }
 
-    public void process() throws Exception {
+    public void performAllProcesses() throws Exception {
         processSubjects();
     }
 
     /**
-     *
+     * To be invoked by GoonjAdhocTask Jobs only
      * @param filters
      *       {
      *          "dateTimestamp": "2024-10-10 12:34:56.123456Z",
      *          "locationIds": "1234,2345",
      *          "concepts": "{"Account name": "Goonj Karnataka"}"
      *       }
-     * @param updateSyncStatus => Specify false for Adhoc tasks
      * @throws Exception
      */
-    public void process(Map<String, Object> filters, boolean updateSyncStatus) throws Exception {
-        processSubjects(filters, updateSyncStatus);
+    public void performAllProcesses(Map<String, Object> filters) throws Exception {
+        processSubjects(filters, UPDATE_SYNC_STATUS_GOONJ_ADHOC_JOB);
     }
 }

@@ -12,4 +12,6 @@ public class GoonjConstants {
     public static final String FILTER_KEY_STATE = "state";
     public static final String FILTER_KEY_TIMESTAMP = "dateTimestamp";
     public static final String FILTER_PARAM_FORMAT = "%s=%s";
+    public static final boolean UPDATE_SYNC_STATUS_GOONJ_MAIN_JOB = true;
+    public static final boolean UPDATE_SYNC_STATUS_GOONJ_ADHOC_JOB = false;
 }

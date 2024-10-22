@@ -19,10 +19,11 @@ import org.avni_integration_service.integration_data.domain.IntegratingEntitySta
 import org.avni_integration_service.integration_data.domain.error.ErrorType;
 import org.avni_integration_service.integration_data.repository.IntegratingEntityStatusRepository;
 import org.avni_integration_service.integration_data.service.error.ErrorClassifier;
+import org.springframework.lang.NonNull;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Objects;
+import java.util.*;
+
+import static org.avni_integration_service.goonj.config.GoonjConstants.*;
 
 public abstract class GeneralEncounterWorker implements ErrorRecordWorker {
     private static final int INT_CONSTANT_ONE = 1;
@@ -59,12 +60,15 @@ public abstract class GeneralEncounterWorker implements ErrorRecordWorker {
     }
 
     public void processEncounters() throws Exception {
-        processEncounters(null, true);
+        processEncounters(Collections.emptyMap(), UPDATE_SYNC_STATUS_GOONJ_MAIN_JOB);
     }
 
-    public void processEncounters(Date taskDateTimeFilter, boolean updateSyncStatus) throws Exception {
+    public void processEncounters(@NonNull Map<String, Object> filters, boolean updateSyncStatus) throws Exception {
         IntegratingEntityStatus status = integrationEntityStatusRepository.findByEntityType(encounterType);
-        Date readUptoDateTime = Objects.nonNull(taskDateTimeFilter) ? taskDateTimeFilter : getEffectiveCutoffDateTime(status);
+        Date cutoffDateTime = getEffectiveCutoffDateTime(status);
+        Object taskDateTimeFilter = filters.getOrDefault(FILTER_KEY_TIMESTAMP, cutoffDateTime);
+        Date readUptoDateTime = Objects.nonNull(taskDateTimeFilter) && (taskDateTimeFilter instanceof Date)
+                ? (Date) taskDateTimeFilter : cutoffDateTime; //Use db CutOffDateTime
         while (true) {
             GeneralEncountersResponse response = avniEncounterRepository.getGeneralEncounters(readUptoDateTime, encounterType);
             GeneralEncounter[] generalEncounters = response.getContent();
@@ -181,17 +185,19 @@ public abstract class GeneralEncounterWorker implements ErrorRecordWorker {
         integrationEntityStatusRepository.save(intEnt);
     }
 
-    public void process() throws Exception {
+    public void performAllProcesses() throws Exception {
         processEncounters();
     }
 
     /**
-     *
-     * @param taskDateTimeFilter => "2024-10-10 12:34:56.123456Z"}
-     * @param updateSyncStatus => Specify false for Adhoc tasks
+     * To be invoked by GoonjAdhocTask Jobs only
+     * @param filters
+     *       {
+     *          "dateTimestamp": "2024-10-10 12:34:56.123456Z",
+     *       }
      * @throws Exception
      */
-    public void process(Date taskDateTimeFilter, boolean updateSyncStatus) throws Exception {
-        processEncounters(taskDateTimeFilter, updateSyncStatus);
+    public void performAllProcesses(Map<String, Object> filters) throws Exception {
+        processEncounters(filters, UPDATE_SYNC_STATUS_GOONJ_ADHOC_JOB);
     }
 }

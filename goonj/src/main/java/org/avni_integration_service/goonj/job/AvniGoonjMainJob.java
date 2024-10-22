@@ -2,7 +2,6 @@ package org.avni_integration_service.goonj.job;
 
 import com.bugsnag.Bugsnag;
 import org.apache.log4j.Logger;
-import org.avni_integration_service.avni.SyncDirection;
 import org.avni_integration_service.avni.client.AvniHttpClient;
 import org.avni_integration_service.goonj.config.GoonjAvniSessionFactory;
 import org.avni_integration_service.goonj.config.GoonjConfig;
@@ -134,7 +133,7 @@ public class AvniGoonjMainJob {
         try {
             if (hasTask(tasks, IntegrationTask.AvniActivity)) {
                 logger.info("Processing AvniActivity");
-                activityWorker.process();
+                activityWorker.performAllProcesses();
             }
         } catch (Throwable e) {
             logger.error("Failed processActivity", e);
@@ -146,11 +145,11 @@ public class AvniGoonjMainJob {
         try {
             if (hasTask(tasks, IntegrationTask.AvniDispatchReceipt)) {
                 logger.info("Processing AvniDispatchReceipt");
-                dispatchReceiptWorker.process();
+                dispatchReceiptWorker.performAllProcesses();
             }
             if (hasTask(tasks, IntegrationTask.AvniDistribution)) {
                 logger.info("Processing AvniDistribution");
-                distributionWorker.process();
+                distributionWorker.performAllProcesses();
             }
         } catch (Throwable e) {
             logger.error("Failed processDispatchReceiptAndDistribution", e);
