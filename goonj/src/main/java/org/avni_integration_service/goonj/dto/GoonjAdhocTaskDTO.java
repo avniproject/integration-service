@@ -1,15 +1,13 @@
 package org.avni_integration_service.goonj.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.Map;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class GoonjAdhocTaskDTO {
     @NotBlank(message = "task can't be null or blank")
     private String task;

@@ -20,6 +20,11 @@ public class GoonjAdhocTaskService {
     public static final String NONE_TASK_ERROR_MESSAGE = "None can't be use for adhoc task";
     public static final IntegrationSystem.IntegrationSystemType INTEGRATION_SYSTEM_TYPE = IntegrationSystem.IntegrationSystemType.Goonj;
     public static final String NO_ADHOC_TASK_ERROR_MESSAGE = "There is no Goonj Adhoc Task for: ";
+    public static final String INTEGRATION_SYSTEM_NAME = "Goonj";
+    public static final String FILTER_KEY_STATE = "state";
+    public static final String FILTER_KEY_ACCOUNT = "account";
+    public static final String FILTER_KEY_TIMESTAMP = "dateTimestamp";
+    private static final List<String> FILTER_CONFIG = List.of(FILTER_KEY_STATE,FILTER_KEY_ACCOUNT,FILTER_KEY_TIMESTAMP);
     private final GoonjAdhocTaskRepository goonjAdhocTaskRepository;
     private final IntegrationSystemRepository integrationSystemRepository;
 
@@ -31,13 +36,11 @@ public class GoonjAdhocTaskService {
     public List<String> getValidTasks(){
         return Arrays.stream(IntegrationTask.values()).filter(task->!task.equals(IntegrationTask.None)).map(Enum::name).collect(Collectors.toList());
     }
-    public GoonjAdhocTask dtoToEntity(GoonjAdhocTaskDTO goonjAdhocTaskDTO){
-        GoonjAdhocTask goonjAdhocTask = new GoonjAdhocTask();
+    public void dtoToEntity(GoonjAdhocTaskDTO goonjAdhocTaskDTO,GoonjAdhocTask goonjAdhocTask){
         goonjAdhocTask.setIntegrationTask(IntegrationTask.valueOf(goonjAdhocTaskDTO.getTask()));
         goonjAdhocTask.setCron(goonjAdhocTaskDTO.getFrequency());
         goonjAdhocTask.setTaskConfig(goonjAdhocTaskDTO.getTaskConfig());
         goonjAdhocTask.setCutOffDateTime(goonjAdhocTaskDTO.getCutOffDateTime());
-        return  goonjAdhocTask;
     }
 
     public GoonjAdhocTaskDTO entityToDto(GoonjAdhocTask goonjAdhocTask){
@@ -53,8 +56,9 @@ public class GoonjAdhocTaskService {
 
     public GoonjAdhocTaskDTO createAdhocTask(GoonjAdhocTaskDTO goonjAdhocTaskDTO){
         validateDTO(goonjAdhocTaskDTO);
-        IntegrationSystem integrationSystem = integrationSystemRepository.findBySystemType(INTEGRATION_SYSTEM_TYPE);
-        GoonjAdhocTask goonjAdhocTask = dtoToEntity(goonjAdhocTaskDTO);
+        IntegrationSystem integrationSystem = integrationSystemRepository.findBySystemTypeAndName(INTEGRATION_SYSTEM_TYPE, INTEGRATION_SYSTEM_NAME);
+        GoonjAdhocTask goonjAdhocTask = new GoonjAdhocTask();
+        dtoToEntity(goonjAdhocTaskDTO,goonjAdhocTask);
 
         goonjAdhocTask.setUuid(UUID.randomUUID().toString());
         goonjAdhocTask.setVoided(false);
@@ -67,39 +71,61 @@ public class GoonjAdhocTaskService {
     }
 
     public GoonjAdhocTaskDTO getAdhocTask(String uuid) {
-        Optional<GoonjAdhocTask> optional = goonjAdhocTaskRepository.findByUuid(uuid);
-        if(optional.isEmpty()){
-            throw new GoonjAdhocException(NO_ADHOC_TASK_ERROR_MESSAGE +uuid,HttpStatus.NOT_FOUND);
-        }
-        GoonjAdhocTask goonjAdhocTask = optional.get();
+        GoonjAdhocTask goonjAdhocTask = findAdhocTask(uuid);
         return entityToDto(goonjAdhocTask);
     }
 
-    public GoonjAdhocTaskDTO deleteAdhocTask(String uuid) {
+    private GoonjAdhocTask findAdhocTask(String uuid) {
         Optional<GoonjAdhocTask> optional = goonjAdhocTaskRepository.findByUuid(uuid);
         if(optional.isEmpty()){
-            throw new GoonjAdhocException(NO_ADHOC_TASK_ERROR_MESSAGE +uuid,HttpStatus.NOT_FOUND);
+            throw new GoonjAdhocException(NO_ADHOC_TASK_ERROR_MESSAGE + uuid,HttpStatus.NOT_FOUND);
         }
         GoonjAdhocTask goonjAdhocTask = optional.get();
+        return goonjAdhocTask;
+    }
+
+    public GoonjAdhocTaskDTO deleteAdhocTask(String uuid) {
+        GoonjAdhocTask goonjAdhocTask = findAdhocTask(uuid);
         goonjAdhocTask.setGoonjAdhocTaskSatus(GoonjAdhocTaskSatus.DELETED);
         goonjAdhocTask.setVoided(true);
         GoonjAdhocTask updateGoonjAdhocTask = goonjAdhocTaskRepository.save(goonjAdhocTask);
         return entityToDto(updateGoonjAdhocTask);
     }
 
-    public List<GoonjAdhocTaskDTO> getAdhocTasks() {
+    public List<GoonjAdhocTaskDTO> getAllAdhocTasks() {
         List<GoonjAdhocTask> goonjAdhocTasks = goonjAdhocTaskRepository.findAllByVoidedIsFalse();
         return goonjAdhocTasks.stream().map(this::entityToDto).collect(Collectors.toList());
+    }
+    public GoonjAdhocTaskDTO updateAdhocTask(String uuid,GoonjAdhocTaskDTO goonjAdhocTaskDTO) {
+        validateDTO(goonjAdhocTaskDTO);
+        GoonjAdhocTask goonjAdhocTask = findAdhocTask(uuid);
+        dtoToEntity(goonjAdhocTaskDTO,goonjAdhocTask);
+        goonjAdhocTask.setGoonjAdhocTaskSatus(GoonjAdhocTaskSatus.UPDATED);
+        goonjAdhocTaskRepository.save(goonjAdhocTask);
+        GoonjAdhocTaskDTO response = entityToDto(goonjAdhocTask);
+        return response;
     }
     private void validateDTO(GoonjAdhocTaskDTO goonjAdhocTaskDTO){
         List<String> errorMessageList = new LinkedList<>();
         validateCron(goonjAdhocTaskDTO,errorMessageList);
         validateTask(goonjAdhocTaskDTO,errorMessageList);
+        validateTaskConfig(goonjAdhocTaskDTO,errorMessageList);
         if(errorMessageList.size()>0){
             throw new GoonjAdhocException(String.join(" & ",errorMessageList), HttpStatus.BAD_REQUEST);
         }
 
     }
+
+    private void validateTaskConfig(GoonjAdhocTaskDTO goonjAdhocTaskDTO, List<String> errorMessageList) {
+        Map<String, String> taskConfigs = goonjAdhocTaskDTO.getTaskConfig();
+        if (taskConfigs != null) {
+            boolean find = taskConfigs.keySet().stream().anyMatch(key -> !FILTER_CONFIG.contains(key));
+            if (find) {
+                errorMessageList.add(String.format("please enter valid task config value from %s", FILTER_CONFIG));
+            }
+        }
+    }
+
     private void validateTask(GoonjAdhocTaskDTO goonjAdhocTaskDTO,List<String> errorMessageList){
         try{
             IntegrationTask integrationTask = IntegrationTask.valueOf(goonjAdhocTaskDTO.getTask());

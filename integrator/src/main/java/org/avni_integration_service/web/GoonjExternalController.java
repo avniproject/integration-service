@@ -36,7 +36,7 @@ public class GoonjExternalController extends BaseController{
     @GetMapping("/v1/task")
     public ResponseEntity<?> getAdhocTasks(){
         logger.info("finding all non voided goonj adhoc task");
-        var response = goonjAdhocTaskService.getAdhocTasks();
+        var response = goonjAdhocTaskService.getAllAdhocTasks();
         return new ResponseEntity<>(response,HttpStatus.OK);
     }
 
@@ -51,7 +51,14 @@ public class GoonjExternalController extends BaseController{
     public ResponseEntity<?> deleteAdhocTask(@PathVariable String uuid){
         logger.info("deleting goonj adhoc task for "+uuid);
         var response = goonjAdhocTaskService.deleteAdhocTask(uuid);
-        return new ResponseEntity<>(response,HttpStatus.OK);
+        return new ResponseEntity<>(response,HttpStatus.ACCEPTED);
+    }
+
+    @PutMapping("/v1/task/{uuid}")
+    public ResponseEntity<?> updateAdhocTask(@PathVariable String uuid,@Validated @RequestBody GoonjAdhocTaskDTO goonjAdhocTaskDTO){
+        logger.info(String.format("updating goonj adhoc task for %s and updating details are :%s",uuid,goonjAdhocTaskDTO));
+        var response = goonjAdhocTaskService.updateAdhocTask(uuid,goonjAdhocTaskDTO);
+        return new ResponseEntity<>(response,HttpStatus.ACCEPTED);
     }
 
 }
