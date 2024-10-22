@@ -18,16 +18,16 @@ public class InventoryWorker extends BaseGoonjWorker {
     }
 
     @Override
-    public void process() throws Exception {
-        HashMap<String, Object>[] inventoryItems = fetchEvents();
+    public void process(Map<String, Object> filters, boolean updateSyncStatus) throws Exception {
+        HashMap<String, Object>[] inventoryItems = fetchEvents(filters);
         for (Map<String, Object> items : inventoryItems) {
-            eventWorker.process(items, true);
+            eventWorker.process(items, updateSyncStatus);
         }
     }
 
     @Override
-    public void processDeletions() {
-        List<String> deletedItems = fetchDeletionEvents();
+    public void processDeletions(Map<String, Object> filters) {
+        List<String> deletedItems = fetchDeletionEvents(filters);
         for (String deletedDS : deletedItems) {
             eventWorker.processDeletion(deletedDS);
         }

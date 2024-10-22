@@ -13,7 +13,7 @@ public interface ErrorRecordWorker {
      * @return EffectiveCutoffDateTime
      */
     default Date getEffectiveCutoffDateTime(IntegratingEntityStatus status) {
-        return new Date(status.getReadUptoDateTime().toInstant().toEpochMilli());
+        return status.getReadUptoDateTime();
     }
 
     void processError(ErrorRecord errorRecord);

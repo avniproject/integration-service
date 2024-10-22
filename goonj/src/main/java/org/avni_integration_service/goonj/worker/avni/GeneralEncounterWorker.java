@@ -16,13 +16,14 @@ import org.avni_integration_service.goonj.service.AvniGoonjErrorService;
 import org.avni_integration_service.goonj.util.DateTimeUtil;
 import org.avni_integration_service.integration_data.domain.AvniEntityType;
 import org.avni_integration_service.integration_data.domain.IntegratingEntityStatus;
-import org.avni_integration_service.integration_data.domain.IntegrationSystem;
 import org.avni_integration_service.integration_data.domain.error.ErrorType;
 import org.avni_integration_service.integration_data.repository.IntegratingEntityStatusRepository;
 import org.avni_integration_service.integration_data.service.error.ErrorClassifier;
+import org.springframework.lang.NonNull;
 
-import java.util.Date;
-import java.util.HashMap;
+import java.util.*;
+
+import static org.avni_integration_service.goonj.config.GoonjConstants.*;
 
 public abstract class GeneralEncounterWorker implements ErrorRecordWorker {
     private static final int INT_CONSTANT_ONE = 1;
@@ -59,16 +60,24 @@ public abstract class GeneralEncounterWorker implements ErrorRecordWorker {
     }
 
     public void processEncounters() throws Exception {
+        processEncounters(Collections.emptyMap(), UPDATE_SYNC_STATUS_GOONJ_MAIN_JOB);
+    }
+
+    public void processEncounters(@NonNull Map<String, Object> filters, boolean updateSyncStatus) throws Exception {
+        IntegratingEntityStatus status = integrationEntityStatusRepository.findByEntityType(encounterType);
+        Date cutoffDateTime = getEffectiveCutoffDateTime(status);
+        Object taskDateTimeFilter = filters.getOrDefault(FILTER_KEY_TIMESTAMP, cutoffDateTime);
+        Date readUptoDateTime = Objects.nonNull(taskDateTimeFilter) && (taskDateTimeFilter instanceof Date)
+                ? (Date) taskDateTimeFilter : cutoffDateTime; //Use db CutOffDateTime
         while (true) {
-            IntegratingEntityStatus status = integrationEntityStatusRepository.findByEntityType(encounterType);
-            Date readUptoDateTime = getEffectiveCutoffDateTime(status);
             GeneralEncountersResponse response = avniEncounterRepository.getGeneralEncounters(readUptoDateTime, encounterType);
             GeneralEncounter[] generalEncounters = response.getContent();
             int totalPages = response.getTotalPages();
             logger.info(String.format("Found %d encounters that are newer than %s", generalEncounters.length, readUptoDateTime));
             if (generalEncounters.length == 0) break;
             for (GeneralEncounter generalEncounter : generalEncounters) {
-                processGeneralEncounter(generalEncounter, true, goonjErrorType);
+                processGeneralEncounter(generalEncounter, updateSyncStatus, goonjErrorType);
+                readUptoDateTime = DateTimeUtil.convertToDate(generalEncounter.getLastModifiedDateTime().toString());
             }
             if (totalPages == INT_CONSTANT_ONE) {
                 logger.info("Finished processing all pages");
@@ -174,5 +183,21 @@ public abstract class GeneralEncounterWorker implements ErrorRecordWorker {
         IntegratingEntityStatus intEnt = integrationEntityStatusRepository.findByEntityType(encounterType);
         intEnt.setReadUptoDateTime(DateTimeUtil.convertToDate(generalEncounter.getLastModifiedDateTime().toString()));
         integrationEntityStatusRepository.save(intEnt);
+    }
+
+    public void performAllProcesses() throws Exception {
+        processEncounters();
+    }
+
+    /**
+     * To be invoked by GoonjAdhocTask Jobs only
+     * @param filters
+     *       {
+     *          "dateTimestamp": "2024-10-10 12:34:56.123456Z",
+     *       }
+     * @throws Exception
+     */
+    public void performAllProcesses(Map<String, Object> filters) throws Exception {
+        processEncounters(filters, UPDATE_SYNC_STATUS_GOONJ_ADHOC_JOB);
     }
 }

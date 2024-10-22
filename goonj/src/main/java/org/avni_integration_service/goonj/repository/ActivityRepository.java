@@ -44,12 +44,12 @@ public class ActivityRepository extends GoonjBaseRepository implements ActivityC
     }
 
     @Override
-    public HashMap<String, Object>[] fetchEvents() {
+    public HashMap<String, Object>[] fetchEvents(Map<String, Object> filters) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public List<String> fetchDeletionEvents() {
+    public List<String> fetchDeletionEvents(Map<String, Object> filters) {
         throw new UnsupportedOperationException();
     }
 

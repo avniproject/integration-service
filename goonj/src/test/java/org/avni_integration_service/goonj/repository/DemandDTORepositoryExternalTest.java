@@ -12,6 +12,7 @@ import java.sql.Date;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.Collections;
 
 @SpringBootTest(classes = {DemandRepository.class})
 @Disabled
@@ -22,7 +23,7 @@ public class DemandDTORepositoryExternalTest extends BaseGoonjSpringTest {
     @Test
     public void demandDownload() {
         Instant instant = LocalDateTime.of(2021, 4, 1, 0, 0).toInstant(ZoneOffset.UTC);
-        DemandsResponseDTO demands = demandRepositoryGoonj.getDemands(Date.from(instant));
+        DemandsResponseDTO demands = demandRepositoryGoonj.getDemands(Date.from(instant), Collections.emptyMap());
         Assertions.assertNotNull(demands);
         Assertions.assertNotEquals(0, demands.getDemands().length);
         Assertions.assertNotNull(demands.getDemands()[0].get("DemandId"));

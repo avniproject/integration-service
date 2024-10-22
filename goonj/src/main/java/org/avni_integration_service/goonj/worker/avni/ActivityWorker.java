@@ -6,15 +6,12 @@ import org.avni_integration_service.avni.repository.AvniIgnoredConceptsRepositor
 import org.avni_integration_service.avni.repository.AvniSubjectRepository;
 import org.avni_integration_service.goonj.GoonjEntityType;
 import org.avni_integration_service.goonj.GoonjErrorType;
-import org.avni_integration_service.goonj.GoonjMappingGroup;
 import org.avni_integration_service.goonj.config.GoonjContextProvider;
 import org.avni_integration_service.goonj.repository.ActivityRepository;
 import org.avni_integration_service.goonj.service.AvniGoonjErrorService;
-import org.avni_integration_service.integration_data.domain.IntegrationSystem;
 import org.avni_integration_service.integration_data.repository.IntegratingEntityStatusRepository;
 import org.avni_integration_service.integration_data.service.error.ErrorClassifier;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -33,9 +30,6 @@ public class ActivityWorker extends SubjectWorker {
                 GoonjErrorType.ActivityAttributesMismatch, GoonjEntityType.Activity, Logger.getLogger(ActivityWorker.class),
                 errorClassifier, goonjContextProvider);
         this.activityRepository = activityRepository;
-    }
-    public void process() throws Exception {
-        processSubjects();
     }
     @Override
     protected void createSubject(Subject subject) {

@@ -17,9 +17,12 @@ import org.avni_integration_service.integration_data.domain.IntegratingEntitySta
 import org.avni_integration_service.integration_data.domain.error.ErrorType;
 import org.avni_integration_service.integration_data.repository.IntegratingEntityStatusRepository;
 import org.avni_integration_service.integration_data.service.error.ErrorClassifier;
+import org.springframework.lang.NonNull;
+import org.springframework.util.StringUtils;
 
-import java.util.Date;
-import java.util.HashMap;
+import java.util.*;
+
+import static org.avni_integration_service.goonj.config.GoonjConstants.*;
 
 public abstract class SubjectWorker implements ErrorRecordWorker {
     private static final int INT_CONSTANT_ONE = 1;
@@ -55,16 +58,31 @@ public abstract class SubjectWorker implements ErrorRecordWorker {
     }
 
     public void processSubjects() throws Exception {
+        processSubjects(Collections.emptyMap(), UPDATE_SYNC_STATUS_GOONJ_MAIN_JOB);
+    }
+
+    public void processSubjects(@NonNull Map<String, Object> filters, boolean updateSyncStatus) throws Exception {
+        IntegratingEntityStatus status = integrationEntityStatusRepository.findByEntityType(subjectType);
+        Date cutoffDateTime = getEffectiveCutoffDateTime(status);
+        Object taskDateTimeFilter = filters.getOrDefault(FILTER_KEY_TIMESTAMP, cutoffDateTime);
+        Map<String, Object> conceptsFilterValue = (Map<String, Object>) filters.getOrDefault(FILTER_KEY_CONCEPTS, Collections.emptyMap());
+        String locationIdsFilterValue = (String) filters.getOrDefault(FILTER_KEY_LOCATION_IDS, EMPTY_STRING);
+        Date readUptoDateTime = Objects.nonNull(taskDateTimeFilter) && (taskDateTimeFilter instanceof Date)
+                ? (Date) taskDateTimeFilter : cutoffDateTime; //Use db CutOffDateTime
         while (true) {
-            IntegratingEntityStatus status = integrationEntityStatusRepository.findByEntityType(subjectType);
-            Date readUptoDateTime = getEffectiveCutoffDateTime(status);
-            SubjectsResponse response = avniSubjectRepository.getSubjects(readUptoDateTime, subjectType);
+            SubjectsResponse response;
+            if(StringUtils.hasText(locationIdsFilterValue) || (Objects.nonNull(conceptsFilterValue) && !conceptsFilterValue.isEmpty())) {
+                response = avniSubjectRepository.getSubjects(readUptoDateTime, subjectType, locationIdsFilterValue, conceptsFilterValue);
+            } else {
+                response = avniSubjectRepository.getSubjects(readUptoDateTime, subjectType);
+            }
             Subject[] subjects = response.getContent();
             int totalPages = response.getTotalPages();
             logger.info(String.format("Found %d subjects that are newer than %s", subjects.length, readUptoDateTime));
             if (subjects.length == 0) break;
             for (Subject subject : subjects) {
-                processSubject(subject, true, goonjErrorType);
+                processSubject(subject, updateSyncStatus, goonjErrorType);
+                readUptoDateTime = DateTimeUtil.convertToDate(subject.getLastModifiedDateTime().toString());
             }
             if (totalPages == INT_CONSTANT_ONE) {
                 logger.info("Finished processing all pages");
@@ -79,7 +97,7 @@ public abstract class SubjectWorker implements ErrorRecordWorker {
      * @return EffectiveCutoffDateTime
      */
     private Date getEffectiveCutoffDateTime(IntegratingEntityStatus status) {
-        return new Date(status.getReadUptoDateTime().toInstant().toEpochMilli());
+        return status.getReadUptoDateTime();
     }
 
     @Override
@@ -162,5 +180,23 @@ public abstract class SubjectWorker implements ErrorRecordWorker {
         IntegratingEntityStatus intEnt = integrationEntityStatusRepository.findByEntityType(subjectType);
         intEnt.setReadUptoDateTime(DateTimeUtil.convertToDate(subject.getLastModifiedDateTime().toString()));
         integrationEntityStatusRepository.save(intEnt);
+    }
+
+    public void performAllProcesses() throws Exception {
+        processSubjects();
+    }
+
+    /**
+     * To be invoked by GoonjAdhocTask Jobs only
+     * @param filters
+     *       {
+     *          "dateTimestamp": "2024-10-10 12:34:56.123456Z",
+     *          "locationIds": "1234,2345",
+     *          "concepts": "{"Account name": "Goonj Karnataka"}"
+     *       }
+     * @throws Exception
+     */
+    public void performAllProcesses(Map<String, Object> filters) throws Exception {
+        processSubjects(filters, UPDATE_SYNC_STATUS_GOONJ_ADHOC_JOB);
     }
 }
