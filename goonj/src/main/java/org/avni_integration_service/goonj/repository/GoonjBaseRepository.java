@@ -83,7 +83,8 @@ public abstract class GoonjBaseRepository {
         Object taskDateTimeFilter = filters.getOrDefault(FILTER_KEY_TIMESTAMP, cutoffDateTime);
         Object stateFilterValue = filters.getOrDefault(FILTER_KEY_STATE, EMPTY_STRING);
         Object accountFilterValue = filters.getOrDefault(FILTER_KEY_ACCOUNT, EMPTY_STRING);
-        Date dateTimeValue = Objects.nonNull(taskDateTimeFilter) ? (Date) taskDateTimeFilter : cutoffDateTime;
+        Date dateTimeValue = Objects.nonNull(taskDateTimeFilter) && (taskDateTimeFilter instanceof Date) ?
+                (Date) taskDateTimeFilter : cutoffDateTime; //Use db CutOffDateTime
         String dateTimeOffsetFilter=String.format(FILTER_PARAM_FORMAT, dateTimeParam, DateTimeUtil.formatDateTime(dateTimeValue));
         String stateFilter=String.format(FILTER_PARAM_FORMAT, FILTER_KEY_STATE, stateFilterValue);
         String accountFilter=String.format(FILTER_PARAM_FORMAT, FILTER_KEY_ACCOUNT, accountFilterValue);
