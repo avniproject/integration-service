@@ -4,4 +4,12 @@ public class GoonjConstants {
     public static final String GoonjErrorRecordLog = "GoonjErrorRecordLog";
     public static final String HEALTHCHECK_SLUG_GOONJ_INTEGRATION = "goonj-integration";
     public static final String HEALTHCHECK_SLUG_GOONJ_SALESFORCE = "goonj-salesforce";
+    public static final String EMPTY_STRING = "";
+    public static final String API_PARAMS_DELIMITER = "&";
+    public static final String FILTER_KEY_ACCOUNT = "account";
+    public static final String FILTER_KEY_CONCEPTS = "concepts";
+    public static final String FILTER_KEY_LOCATION_IDS = "locationIds";
+    public static final String FILTER_KEY_STATE = "state";
+    public static final String FILTER_KEY_TIMESTAMP = "dateTimestamp";
+    public static final String FILTER_PARAM_FORMAT = "%s=%s";
 }

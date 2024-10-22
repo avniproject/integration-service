@@ -17,8 +17,12 @@ import org.avni_integration_service.integration_data.domain.IntegratingEntitySta
 import org.avni_integration_service.integration_data.domain.error.ErrorType;
 import org.avni_integration_service.integration_data.repository.IntegratingEntityStatusRepository;
 import org.avni_integration_service.integration_data.service.error.ErrorClassifier;
+import org.springframework.lang.NonNull;
+import org.springframework.util.StringUtils;
 
 import java.util.*;
+
+import static org.avni_integration_service.goonj.config.GoonjConstants.*;
 
 public abstract class SubjectWorker implements ErrorRecordWorker {
     private static final int INT_CONSTANT_ONE = 1;
@@ -54,14 +58,24 @@ public abstract class SubjectWorker implements ErrorRecordWorker {
     }
 
     public void processSubjects() throws Exception {
-        processSubjects(null, null, Collections.emptyMap(), true);
+        processSubjects(Collections.emptyMap(), true);
     }
 
-    public void processSubjects(Date taskDateTimeFilter, String locationIds, Map<String, Object> concepts, boolean updateSyncStatus) throws Exception {
+    public void processSubjects(@NonNull Map<String, Object> filters, boolean updateSyncStatus) throws Exception {
         IntegratingEntityStatus status = integrationEntityStatusRepository.findByEntityType(subjectType);
-        Date readUptoDateTime = Objects.nonNull(taskDateTimeFilter) ? taskDateTimeFilter : getEffectiveCutoffDateTime(status);
+        Date cutoffDateTime = getEffectiveCutoffDateTime(status);
+        Object taskDateTimeFilter = filters.getOrDefault(FILTER_KEY_TIMESTAMP, cutoffDateTime);
+        Map<String, Object> conceptsFilterValue = (Map<String, Object>) filters.getOrDefault(FILTER_KEY_CONCEPTS, Collections.emptyMap());
+        String locationIdsFilterValue = (String) filters.getOrDefault(FILTER_KEY_LOCATION_IDS, EMPTY_STRING);
+        Date readUptoDateTime = Objects.nonNull(taskDateTimeFilter) && (taskDateTimeFilter instanceof Date)
+                ? (Date) taskDateTimeFilter : cutoffDateTime; //Use db CutOffDateTime
         while (true) {
-            SubjectsResponse response = avniSubjectRepository.getSubjects(readUptoDateTime, subjectType, locationIds, concepts);
+            SubjectsResponse response;
+            if(StringUtils.hasText(locationIdsFilterValue) || (Objects.nonNull(conceptsFilterValue) && !conceptsFilterValue.isEmpty())) {
+                response = avniSubjectRepository.getSubjects(readUptoDateTime, subjectType, locationIdsFilterValue, conceptsFilterValue);
+            } else {
+                response = avniSubjectRepository.getSubjects(readUptoDateTime, subjectType);
+            }
             Subject[] subjects = response.getContent();
             int totalPages = response.getTotalPages();
             logger.info(String.format("Found %d subjects that are newer than %s", subjects.length, readUptoDateTime));
@@ -174,13 +188,16 @@ public abstract class SubjectWorker implements ErrorRecordWorker {
 
     /**
      *
-     * @param taskDateTimeFilter => "2024-10-10 12:34:56.123456Z"}
-     * @param locationIds => "1234,2345"
-     * @param concepts => "{"Account name": "Goonj Karnataka"}"
+     * @param filters
+     *       {
+     *          "dateTimestamp": "2024-10-10 12:34:56.123456Z",
+     *          "locationIds": "1234,2345",
+     *          "concepts": "{"Account name": "Goonj Karnataka"}"
+     *       }
      * @param updateSyncStatus => Specify false for Adhoc tasks
      * @throws Exception
      */
-    public void process(Date taskDateTimeFilter, String locationIds, Map<String, Object> concepts, boolean updateSyncStatus) throws Exception {
-        processSubjects(taskDateTimeFilter, locationIds, concepts, updateSyncStatus);
+    public void process(Map<String, Object> filters, boolean updateSyncStatus) throws Exception {
+        processSubjects(filters, updateSyncStatus);
     }
 }

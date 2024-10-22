@@ -11,22 +11,17 @@ import org.avni_integration_service.util.ObjectJsonMapper;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.lang.NonNull;
-import org.springframework.util.StringUtils;
 import org.springframework.web.client.*;
 
 import java.net.URI;
 import java.util.*;
 
+import static org.avni_integration_service.goonj.config.GoonjConstants.*;
+
 public abstract class GoonjBaseRepository {
     private static final Logger logger = Logger.getLogger(GoonjBaseRepository.class);
     private static final String DELETION_RECORD_ID = "recordId";
     private static final String DELETION_SOURCE_ID = "sourceId";
-    private static final String EMPTY_STRING = "";
-    private static final String FILTER_KEY_STATE = "state";
-    private static final String FILTER_KEY_ACCOUNT = "account";
-    private static final String FILTER_KEY_TIMESTAMP = "dateTimestamp";
-    private static final String API_PARAMS_DELIMITER = "&";
-    private static final String FILTER_PARAM_FORMAT = "%s=%s";
 
     private final IntegratingEntityStatusRepository integratingEntityStatusRepository;
     private final RestTemplate goonjRestTemplate;
@@ -83,8 +78,8 @@ public abstract class GoonjBaseRepository {
         Object taskDateTimeFilter = filters.getOrDefault(FILTER_KEY_TIMESTAMP, cutoffDateTime);
         Object stateFilterValue = filters.getOrDefault(FILTER_KEY_STATE, EMPTY_STRING);
         Object accountFilterValue = filters.getOrDefault(FILTER_KEY_ACCOUNT, EMPTY_STRING);
-        Date dateTimeValue = Objects.nonNull(taskDateTimeFilter) && (taskDateTimeFilter instanceof Date) ?
-                (Date) taskDateTimeFilter : cutoffDateTime; //Use db CutOffDateTime
+        Date dateTimeValue = Objects.nonNull(taskDateTimeFilter) && (taskDateTimeFilter instanceof Date)
+                ? (Date) taskDateTimeFilter : cutoffDateTime; //Use db CutOffDateTime
         String dateTimeOffsetFilter=String.format(FILTER_PARAM_FORMAT, dateTimeParam, DateTimeUtil.formatDateTime(dateTimeValue));
         String stateFilter=String.format(FILTER_PARAM_FORMAT, FILTER_KEY_STATE, stateFilterValue);
         String accountFilter=String.format(FILTER_PARAM_FORMAT, FILTER_KEY_ACCOUNT, accountFilterValue);
