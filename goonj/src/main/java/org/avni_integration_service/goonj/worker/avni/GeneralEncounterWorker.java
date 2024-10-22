@@ -16,7 +16,6 @@ import org.avni_integration_service.goonj.service.AvniGoonjErrorService;
 import org.avni_integration_service.goonj.util.DateTimeUtil;
 import org.avni_integration_service.integration_data.domain.AvniEntityType;
 import org.avni_integration_service.integration_data.domain.IntegratingEntityStatus;
-import org.avni_integration_service.integration_data.domain.IntegrationSystem;
 import org.avni_integration_service.integration_data.domain.error.ErrorType;
 import org.avni_integration_service.integration_data.repository.IntegratingEntityStatusRepository;
 import org.avni_integration_service.integration_data.service.error.ErrorClassifier;
@@ -60,10 +59,10 @@ public abstract class GeneralEncounterWorker implements ErrorRecordWorker {
     }
 
     public void processEncounters() throws Exception {
-        processEncounters(true, null);
+        processEncounters(null, true);
     }
 
-    public void processEncounters(boolean updateSyncStatus, Date taskDateTimeFilter) throws Exception {
+    public void processEncounters(Date taskDateTimeFilter, boolean updateSyncStatus) throws Exception {
         IntegratingEntityStatus status = integrationEntityStatusRepository.findByEntityType(encounterType);
         Date readUptoDateTime = Objects.nonNull(taskDateTimeFilter) ? taskDateTimeFilter : getEffectiveCutoffDateTime(status);
         while (true) {
@@ -188,11 +187,11 @@ public abstract class GeneralEncounterWorker implements ErrorRecordWorker {
 
     /**
      *
-     * @param updateSyncStatus => Specify false for Adhoc tasks
      * @param taskDateTimeFilter => "2024-10-10 12:34:56.123456Z"}
+     * @param updateSyncStatus => Specify false for Adhoc tasks
      * @throws Exception
      */
-    public void process(boolean updateSyncStatus, Date taskDateTimeFilter) throws Exception {
-        processEncounters(updateSyncStatus, taskDateTimeFilter);
+    public void process(Date taskDateTimeFilter, boolean updateSyncStatus) throws Exception {
+        processEncounters(taskDateTimeFilter, updateSyncStatus);
     }
 }

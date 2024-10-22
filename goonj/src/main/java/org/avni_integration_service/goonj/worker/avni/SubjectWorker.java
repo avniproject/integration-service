@@ -54,10 +54,10 @@ public abstract class SubjectWorker implements ErrorRecordWorker {
     }
 
     public void processSubjects() throws Exception {
-        processSubjects(true, null, null, Collections.emptyMap());
+        processSubjects(null, null, Collections.emptyMap(), true);
     }
 
-    public void processSubjects(boolean updateSyncStatus, Date taskDateTimeFilter, String locationIds, Map<String, Object> concepts) throws Exception {
+    public void processSubjects(Date taskDateTimeFilter, String locationIds, Map<String, Object> concepts, boolean updateSyncStatus) throws Exception {
         IntegratingEntityStatus status = integrationEntityStatusRepository.findByEntityType(subjectType);
         Date readUptoDateTime = Objects.nonNull(taskDateTimeFilter) ? taskDateTimeFilter : getEffectiveCutoffDateTime(status);
         while (true) {
@@ -174,13 +174,13 @@ public abstract class SubjectWorker implements ErrorRecordWorker {
 
     /**
      *
-     * @param updateSyncStatus => Specify false for Adhoc tasks
      * @param taskDateTimeFilter => "2024-10-10 12:34:56.123456Z"}
      * @param locationIds => "1234,2345"
      * @param concepts => "{"Account name": "Goonj Karnataka"}"
+     * @param updateSyncStatus => Specify false for Adhoc tasks
      * @throws Exception
      */
-    public void process(boolean updateSyncStatus, Date taskDateTimeFilter, String locationIds, Map<String, Object> concepts) throws Exception {
-        processSubjects(updateSyncStatus, taskDateTimeFilter, locationIds, concepts);
+    public void process(Date taskDateTimeFilter, String locationIds, Map<String, Object> concepts, boolean updateSyncStatus) throws Exception {
+        processSubjects(taskDateTimeFilter, locationIds, concepts, updateSyncStatus);
     }
 }
