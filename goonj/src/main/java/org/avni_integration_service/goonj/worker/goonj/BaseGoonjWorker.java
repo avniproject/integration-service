@@ -38,6 +38,12 @@ public abstract class BaseGoonjWorker {
         performAllProcesses(Collections.emptyMap(), true);
     }
 
+    /**
+     *
+     * @param filters => {"state": "Karnataka", "account": "Goonj Karnataka", "dateTimestamp": "2024-10-10 12:34:56.123456Z"}
+     * @param updateSyncStatus => Specify false for Adhoc tasks
+     * @throws Exception
+     */
     public void performAllProcesses(Map<String, Object> filters, boolean updateSyncStatus) throws Exception {
         processDeletions(filters);
         process(filters, updateSyncStatus);

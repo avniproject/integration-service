@@ -18,9 +18,7 @@ import org.avni_integration_service.integration_data.domain.error.ErrorType;
 import org.avni_integration_service.integration_data.repository.IntegratingEntityStatusRepository;
 import org.avni_integration_service.integration_data.service.error.ErrorClassifier;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Objects;
+import java.util.*;
 
 public abstract class SubjectWorker implements ErrorRecordWorker {
     private static final int INT_CONSTANT_ONE = 1;
@@ -56,14 +54,14 @@ public abstract class SubjectWorker implements ErrorRecordWorker {
     }
 
     public void processSubjects() throws Exception {
-        processSubjects(true, null);
+        processSubjects(true, null, null, Collections.emptyMap());
     }
 
-    public void processSubjects(boolean updateSyncStatus, Date taskDateTimeFilter) throws Exception {
+    public void processSubjects(boolean updateSyncStatus, Date taskDateTimeFilter, String locationIds, Map<String, Object> concepts) throws Exception {
         IntegratingEntityStatus status = integrationEntityStatusRepository.findByEntityType(subjectType);
         Date readUptoDateTime = Objects.nonNull(taskDateTimeFilter) ? taskDateTimeFilter : getEffectiveCutoffDateTime(status);
         while (true) {
-            SubjectsResponse response = avniSubjectRepository.getSubjects(readUptoDateTime, subjectType);
+            SubjectsResponse response = avniSubjectRepository.getSubjects(readUptoDateTime, subjectType, locationIds, concepts);
             Subject[] subjects = response.getContent();
             int totalPages = response.getTotalPages();
             logger.info(String.format("Found %d subjects that are newer than %s", subjects.length, readUptoDateTime));
@@ -168,5 +166,21 @@ public abstract class SubjectWorker implements ErrorRecordWorker {
         IntegratingEntityStatus intEnt = integrationEntityStatusRepository.findByEntityType(subjectType);
         intEnt.setReadUptoDateTime(DateTimeUtil.convertToDate(subject.getLastModifiedDateTime().toString()));
         integrationEntityStatusRepository.save(intEnt);
+    }
+
+    public void process() throws Exception {
+        processSubjects();
+    }
+
+    /**
+     *
+     * @param updateSyncStatus => Specify false for Adhoc tasks
+     * @param taskDateTimeFilter => "2024-10-10 12:34:56.123456Z"}
+     * @param locationIds => "1234,2345"
+     * @param concepts => "{"Account name": "Goonj Karnataka"}"
+     * @throws Exception
+     */
+    public void process(boolean updateSyncStatus, Date taskDateTimeFilter, String locationIds, Map<String, Object> concepts) throws Exception {
+        processSubjects(updateSyncStatus, taskDateTimeFilter, locationIds, concepts);
     }
 }

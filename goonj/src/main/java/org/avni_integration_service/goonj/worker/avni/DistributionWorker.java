@@ -37,9 +37,6 @@ public class DistributionWorker extends SubjectWorker {
         this.distributionRepository = distributionRepository;
 
     }
-    public void process() throws Exception {
-        processSubjects();
-    }
     @Override
     protected void createSubject(Subject subject) {
         processDistributionEvent(subject);

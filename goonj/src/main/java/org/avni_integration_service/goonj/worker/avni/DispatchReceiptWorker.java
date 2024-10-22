@@ -36,9 +36,6 @@ public class DispatchReceiptWorker extends GeneralEncounterWorker {
                 errorClassifier, goonjContextProvider);
         this.dispatchReceiptRepository = dispatchReceiptRepository;
     }
-    public void process() throws Exception {
-        processEncounters();
-    }
     @Override
     protected void createOrUpdateGeneralEncounter(GeneralEncounter generalEncounter, Subject subject) {
         processDispatchReceiptEvent(generalEncounter, subject);

@@ -181,4 +181,18 @@ public abstract class GeneralEncounterWorker implements ErrorRecordWorker {
         intEnt.setReadUptoDateTime(DateTimeUtil.convertToDate(generalEncounter.getLastModifiedDateTime().toString()));
         integrationEntityStatusRepository.save(intEnt);
     }
+
+    public void process() throws Exception {
+        processEncounters();
+    }
+
+    /**
+     *
+     * @param updateSyncStatus => Specify false for Adhoc tasks
+     * @param taskDateTimeFilter => "2024-10-10 12:34:56.123456Z"}
+     * @throws Exception
+     */
+    public void process(boolean updateSyncStatus, Date taskDateTimeFilter) throws Exception {
+        processEncounters(updateSyncStatus, taskDateTimeFilter);
+    }
 }
