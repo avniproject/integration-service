@@ -1,6 +1,7 @@
 package org.avni_integration_service.goonj.service;
 
 import org.avni_integration_service.goonj.GoonjAdhocTaskSatus;
+import org.avni_integration_service.goonj.config.GoonjConstants;
 import org.avni_integration_service.goonj.domain.GoonjAdhocTask;
 import org.avni_integration_service.goonj.dto.GoonjAdhocTaskDTO;
 import org.avni_integration_service.goonj.exceptions.GoonjAdhocException;
@@ -21,16 +22,14 @@ public class GoonjAdhocTaskService {
     public static final IntegrationSystem.IntegrationSystemType INTEGRATION_SYSTEM_TYPE = IntegrationSystem.IntegrationSystemType.Goonj;
     public static final String NO_ADHOC_TASK_ERROR_MESSAGE = "There is no Goonj Adhoc Task for: ";
     public static final String INTEGRATION_SYSTEM_NAME = "Goonj";
-    public static final String FILTER_KEY_STATE = "state";
-    public static final String FILTER_KEY_ACCOUNT = "account";
-    public static final String FILTER_KEY_TIMESTAMP = "dateTimestamp";
-    private static final List<String> FILTER_CONFIG = List.of(FILTER_KEY_STATE,FILTER_KEY_ACCOUNT,FILTER_KEY_TIMESTAMP);
     private final GoonjAdhocTaskRepository goonjAdhocTaskRepository;
     private final IntegrationSystemRepository integrationSystemRepository;
+    private final AdhocTaskSchedulerService adhocTaskSchedulerService;
 
-    public GoonjAdhocTaskService(GoonjAdhocTaskRepository goonjAdhocTaskRepository, IntegrationSystemRepository integrationSystemRepository) {
+    public GoonjAdhocTaskService(GoonjAdhocTaskRepository goonjAdhocTaskRepository, IntegrationSystemRepository integrationSystemRepository, AdhocTaskSchedulerService adhocTaskSchedulerService) {
         this.goonjAdhocTaskRepository = goonjAdhocTaskRepository;
         this.integrationSystemRepository = integrationSystemRepository;
+        this.adhocTaskSchedulerService = adhocTaskSchedulerService;
     }
 
     public List<String> getValidTasks(){
@@ -65,8 +64,8 @@ public class GoonjAdhocTaskService {
         goonjAdhocTask.setIntegrationSystem(integrationSystem);
         goonjAdhocTask.setGoonjAdhocTaskSatus(GoonjAdhocTaskSatus.CREATED);
         GoonjAdhocTask savedTask = goonjAdhocTaskRepository.save(goonjAdhocTask);
-
         GoonjAdhocTaskDTO response = entityToDto(savedTask);
+        adhocTaskSchedulerService.schedule(goonjAdhocTask);
         return response;
     }
 
@@ -119,9 +118,9 @@ public class GoonjAdhocTaskService {
     private void validateTaskConfig(GoonjAdhocTaskDTO goonjAdhocTaskDTO, List<String> errorMessageList) {
         Map<String, String> taskConfigs = goonjAdhocTaskDTO.getTaskConfig();
         if (taskConfigs != null) {
-            boolean find = taskConfigs.keySet().stream().anyMatch(key -> !FILTER_CONFIG.contains(key));
+            boolean find = taskConfigs.keySet().stream().anyMatch(key -> !GoonjConstants.FILTER_SET.contains(key));
             if (find) {
-                errorMessageList.add(String.format("please enter valid task config value from %s", FILTER_CONFIG));
+                errorMessageList.add(String.format("please enter valid task config value from %s", GoonjConstants.FILTER_SET));
             }
         }
     }

@@ -1,5 +1,7 @@
 package org.avni_integration_service.goonj.config;
 
+import java.util.Set;
+
 public class GoonjConstants {
     public static final String GoonjErrorRecordLog = "GoonjErrorRecordLog";
     public static final String HEALTHCHECK_SLUG_GOONJ_INTEGRATION = "goonj-integration";
@@ -14,4 +16,5 @@ public class GoonjConstants {
     public static final String FILTER_PARAM_FORMAT = "%s=%s";
     public static final boolean UPDATE_SYNC_STATUS_GOONJ_MAIN_JOB = true;
     public static final boolean UPDATE_SYNC_STATUS_GOONJ_ADHOC_JOB = false;
+    public static final Set<String> FILTER_SET = Set.of(FILTER_KEY_ACCOUNT,FILTER_KEY_CONCEPTS,FILTER_KEY_LOCATION_IDS,FILTER_KEY_STATE,FILTER_KEY_TIMESTAMP);
 }

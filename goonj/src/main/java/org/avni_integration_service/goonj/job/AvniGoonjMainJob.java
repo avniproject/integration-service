@@ -11,6 +11,7 @@ import org.avni_integration_service.goonj.worker.AvniGoonjErrorRecordsWorker;
 import org.avni_integration_service.goonj.worker.avni.ActivityWorker;
 import org.avni_integration_service.goonj.worker.avni.DispatchReceiptWorker;
 import org.avni_integration_service.goonj.worker.avni.DistributionWorker;
+import org.avni_integration_service.goonj.worker.goonj.BaseGoonjWorker;
 import org.avni_integration_service.goonj.worker.goonj.DemandWorker;
 import org.avni_integration_service.goonj.worker.goonj.DispatchWorker;
 import org.avni_integration_service.goonj.worker.goonj.InventoryWorker;
@@ -171,5 +172,15 @@ public class AvniGoonjMainJob {
 
     private boolean hasTask(List<IntegrationTask> tasks, IntegrationTask task) {
         return tasks.stream().filter(integrationTask -> integrationTask.equals(task)).findAny().orElse(null) != null;
+    }
+    
+    public void executeAdhoc(GoonjConfig goonjConfig, BaseGoonjWorker baseGoonjWorker, Map<String, Object> filter){
+        try {
+            goonjContextProvider.set(goonjConfig);
+            baseGoonjWorker.performAllProcesses(filter);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }
