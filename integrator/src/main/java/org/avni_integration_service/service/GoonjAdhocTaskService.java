@@ -1,4 +1,4 @@
-package org.avni_integration_service.goonj.service;
+package org.avni_integration_service.service;
 
 import org.avni_integration_service.goonj.GoonjAdhocTaskSatus;
 import org.avni_integration_service.goonj.config.GoonjConstants;
@@ -9,8 +9,10 @@ import org.avni_integration_service.goonj.job.IntegrationTask;
 import org.avni_integration_service.goonj.repository.GoonjAdhocTaskRepository;
 import org.avni_integration_service.integration_data.domain.IntegrationSystem;
 import org.avni_integration_service.integration_data.repository.IntegrationSystemRepository;
+import org.avni_integration_service.scheduler.AdhocTaskSchedulerService;
+import org.joda.time.DateTime;
+import org.joda.time.Days;
 import org.springframework.http.HttpStatus;
-import org.springframework.scheduling.support.CronExpression;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -24,20 +26,18 @@ public class GoonjAdhocTaskService {
     public static final String INTEGRATION_SYSTEM_NAME = "Goonj";
     private final GoonjAdhocTaskRepository goonjAdhocTaskRepository;
     private final IntegrationSystemRepository integrationSystemRepository;
-    private final AdhocTaskSchedulerService adhocTaskSchedulerService;
 
-    public GoonjAdhocTaskService(GoonjAdhocTaskRepository goonjAdhocTaskRepository, IntegrationSystemRepository integrationSystemRepository, AdhocTaskSchedulerService adhocTaskSchedulerService) {
+    public GoonjAdhocTaskService(GoonjAdhocTaskRepository goonjAdhocTaskRepository, IntegrationSystemRepository integrationSystemRepository) {
         this.goonjAdhocTaskRepository = goonjAdhocTaskRepository;
         this.integrationSystemRepository = integrationSystemRepository;
-        this.adhocTaskSchedulerService = adhocTaskSchedulerService;
     }
 
     public List<String> getValidTasks(){
         return Arrays.stream(IntegrationTask.values()).filter(task->!task.equals(IntegrationTask.None)).map(Enum::name).collect(Collectors.toList());
     }
-    public void dtoToEntity(GoonjAdhocTaskDTO goonjAdhocTaskDTO,GoonjAdhocTask goonjAdhocTask){
+    public void dtoToEntity(GoonjAdhocTaskDTO goonjAdhocTaskDTO, GoonjAdhocTask goonjAdhocTask){
         goonjAdhocTask.setIntegrationTask(IntegrationTask.valueOf(goonjAdhocTaskDTO.getTask()));
-        goonjAdhocTask.setCron(goonjAdhocTaskDTO.getFrequency());
+        goonjAdhocTask.setTriggerDateTime(goonjAdhocTaskDTO.getTriggerDateTime());
         goonjAdhocTask.setTaskConfig(goonjAdhocTaskDTO.getTaskConfig());
         goonjAdhocTask.setCutOffDateTime(goonjAdhocTaskDTO.getCutOffDateTime());
     }
@@ -45,7 +45,7 @@ public class GoonjAdhocTaskService {
     public GoonjAdhocTaskDTO entityToDto(GoonjAdhocTask goonjAdhocTask){
         GoonjAdhocTaskDTO goonjAdhocTaskDTO = new GoonjAdhocTaskDTO();
         goonjAdhocTaskDTO.setUuid(goonjAdhocTask.getUuid());
-        goonjAdhocTaskDTO.setFrequency(goonjAdhocTask.getCron());
+        goonjAdhocTaskDTO.setTriggerDateTime(goonjAdhocTask.getTriggerDateTime());
         goonjAdhocTaskDTO.setTaskConfig(goonjAdhocTask.getTaskConfig());
         goonjAdhocTaskDTO.setCutOffDateTime(goonjAdhocTask.getCutOffDateTime());
         goonjAdhocTaskDTO.setTask(goonjAdhocTask.getIntegrationTask().toString());
@@ -53,20 +53,16 @@ public class GoonjAdhocTaskService {
         return goonjAdhocTaskDTO;
     }
 
-    public GoonjAdhocTaskDTO createAdhocTask(GoonjAdhocTaskDTO goonjAdhocTaskDTO){
+    public GoonjAdhocTask createAdhocTask(GoonjAdhocTaskDTO goonjAdhocTaskDTO){
         validateDTO(goonjAdhocTaskDTO);
         IntegrationSystem integrationSystem = integrationSystemRepository.findBySystemTypeAndName(INTEGRATION_SYSTEM_TYPE, INTEGRATION_SYSTEM_NAME);
         GoonjAdhocTask goonjAdhocTask = new GoonjAdhocTask();
-        dtoToEntity(goonjAdhocTaskDTO,goonjAdhocTask);
-
+        dtoToEntity(goonjAdhocTaskDTO, goonjAdhocTask);
         goonjAdhocTask.setUuid(UUID.randomUUID().toString());
         goonjAdhocTask.setVoided(false);
         goonjAdhocTask.setIntegrationSystem(integrationSystem);
         goonjAdhocTask.setGoonjAdhocTaskSatus(GoonjAdhocTaskSatus.CREATED);
-        GoonjAdhocTask savedTask = goonjAdhocTaskRepository.save(goonjAdhocTask);
-        GoonjAdhocTaskDTO response = entityToDto(savedTask);
-        adhocTaskSchedulerService.schedule(goonjAdhocTask);
-        return response;
+        return goonjAdhocTaskRepository.save(goonjAdhocTask);
     }
 
     public GoonjAdhocTaskDTO getAdhocTask(String uuid) {
@@ -95,6 +91,7 @@ public class GoonjAdhocTaskService {
         List<GoonjAdhocTask> goonjAdhocTasks = goonjAdhocTaskRepository.findAllByVoidedIsFalse();
         return goonjAdhocTasks.stream().map(this::entityToDto).collect(Collectors.toList());
     }
+
     public GoonjAdhocTaskDTO updateAdhocTask(String uuid,GoonjAdhocTaskDTO goonjAdhocTaskDTO) {
         validateDTO(goonjAdhocTaskDTO);
         GoonjAdhocTask goonjAdhocTask = findAdhocTask(uuid);
@@ -106,7 +103,7 @@ public class GoonjAdhocTaskService {
     }
     private void validateDTO(GoonjAdhocTaskDTO goonjAdhocTaskDTO){
         List<String> errorMessageList = new LinkedList<>();
-        validateCron(goonjAdhocTaskDTO,errorMessageList);
+        validateTrigger(goonjAdhocTaskDTO,errorMessageList);
         validateTask(goonjAdhocTaskDTO,errorMessageList);
         validateTaskConfig(goonjAdhocTaskDTO,errorMessageList);
         if(errorMessageList.size()>0){
@@ -137,9 +134,10 @@ public class GoonjAdhocTaskService {
             errorMessageList.add(String.format("%s is not valid task",goonjAdhocTaskDTO.getTask()));
         }
     }
-    private void validateCron(GoonjAdhocTaskDTO goonjAdhocTaskDTO,List<String> errorMessageList){
-        if(!CronExpression.isValidExpression(goonjAdhocTaskDTO.getFrequency())){
-            errorMessageList.add(String.format("%s is not valid cron frequency",goonjAdhocTaskDTO.getFrequency()));
+    private void validateTrigger(GoonjAdhocTaskDTO goonjAdhocTaskDTO, List<String> errorMessageList){
+        int days =Days.daysBetween(DateTime.now(), new DateTime(goonjAdhocTaskDTO.getTriggerDateTime())).getDays();
+        if( days < -1 || days > 1 ){
+            errorMessageList.add(String.format("Trigger DateTime should be within range of +/- 1 day",goonjAdhocTaskDTO.getTriggerDateTime()));
         }
     }
 

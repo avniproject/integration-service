@@ -25,7 +25,8 @@ public class GoonjAdhocTask extends AuditableEntity {
     @ColumnTransformer(write = "?::jsonb")
     private Map<String,String> taskConfig;
 
-    private String cron;
+    @Column(name = "trigger_date_time")
+    private Date triggerDateTime;
 
     @Column(name = "cut_off_date_time")
     private Date cutOffDateTime;
@@ -50,12 +51,12 @@ public class GoonjAdhocTask extends AuditableEntity {
         this.taskConfig = taskConfig;
     }
 
-    public String getCron() {
-        return cron;
+    public Date getTriggerDateTime() {
+        return triggerDateTime;
     }
 
-    public void setCron(String cron) {
-        this.cron = cron;
+    public void setTriggerDateTime(Date triggerDateTime) {
+        this.triggerDateTime = triggerDateTime;
     }
 
     public Date getCutOffDateTime() {

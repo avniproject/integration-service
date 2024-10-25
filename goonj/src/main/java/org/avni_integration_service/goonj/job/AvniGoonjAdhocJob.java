@@ -5,18 +5,13 @@ import org.apache.log4j.Logger;
 import org.avni_integration_service.avni.client.AvniHttpClient;
 import org.avni_integration_service.goonj.config.GoonjAvniSessionFactory;
 import org.avni_integration_service.goonj.config.GoonjConfig;
-import org.avni_integration_service.goonj.config.GoonjConstants;
 import org.avni_integration_service.goonj.config.GoonjContextProvider;
-import org.avni_integration_service.goonj.worker.AvniGoonjErrorRecordsWorker;
 import org.avni_integration_service.goonj.worker.avni.ActivityWorker;
 import org.avni_integration_service.goonj.worker.avni.DispatchReceiptWorker;
 import org.avni_integration_service.goonj.worker.avni.DistributionWorker;
-import org.avni_integration_service.goonj.worker.goonj.BaseGoonjWorker;
 import org.avni_integration_service.goonj.worker.goonj.DemandWorker;
 import org.avni_integration_service.goonj.worker.goonj.DispatchWorker;
 import org.avni_integration_service.goonj.worker.goonj.InventoryWorker;
-import org.avni_integration_service.integration_data.domain.error.ErrorTypeFollowUpStep;
-import org.avni_integration_service.util.HealthCheckService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -24,10 +19,8 @@ import java.util.List;
 import java.util.Map;
 
 @Component
-public class AvniGoonjMainJob {
-    public static final long LONG_CONSTANT_ZERO = 0l;
-
-    private static final Logger logger = Logger.getLogger(AvniGoonjMainJob.class);
+public class AvniGoonjAdhocJob {
+    private static final Logger logger = Logger.getLogger(AvniGoonjAdhocJob.class);
 
     @Autowired
     private DemandWorker demandWorker;
@@ -48,16 +41,10 @@ public class AvniGoonjMainJob {
     private InventoryWorker inventoryWorker;
 
     @Autowired
-    private AvniGoonjErrorRecordsWorker errorRecordsWorker;
-
-    @Autowired
     private Bugsnag bugsnag;
 
     @Autowired
     private AvniHttpClient avniHttpClient;
-
-    @Autowired
-    private HealthCheckService healthCheckService;
 
     @Autowired
     private GoonjAvniSessionFactory goonjAvniSessionFactory;
@@ -65,44 +52,32 @@ public class AvniGoonjMainJob {
     @Autowired
     private GoonjContextProvider goonjContextProvider;
 
-    public void execute(GoonjConfig goonjConfig) {
+    public void execute(GoonjConfig goonjConfig, IntegrationTask integrationTask, Map<String, Object> filters) {
         try {
-            logger.info("Executing Goonj Main Job");
+            logger.info("Executing Goonj Adhoc Job");
             goonjContextProvider.set(goonjConfig);
             avniHttpClient.setAvniSession(goonjAvniSessionFactory.createSession());
 
             List<IntegrationTask> tasks = IntegrationTask.getTasks(goonjConfig.getTasks());
-            processDemandAndDispatch(tasks);
-            processActivity(tasks);
-            processDispatchReceiptAndDistribution(tasks);
-            processInventory(tasks);
-            healthCheckService.success(goonjConfig.getIntegrationSystem().getName().toLowerCase());
+            switch(integrationTask) {
+                case GoonjDemand -> processDemand(tasks, filters);
+                case GoonjDispatch -> processDispatch(tasks, filters);
+                case GoonjInventory -> processInventory(tasks, filters);
+                case AvniActivity -> processActivity(tasks, filters);
+                case AvniDistribution -> processDistribution(tasks, filters);
+                case AvniDispatchReceipt -> processDispatchReceipt(tasks, filters);
+                case default -> {
+                    return;
+                }
+            }
         } catch (Throwable e) {
-            logger.error("Failed AvniGoonjMainJob", e);
+            logger.error("Failed AvniGoonjAdhocJob", e);
             bugsnag.notify(e);
-            healthCheckService.failure(goonjConfig.getIntegrationSystem().getName().toLowerCase());
         } finally {
-            performAdditionalHealthChecks();
         }
     }
 
-    private void performAdditionalHealthChecks() {
-        try {
-            Map<ErrorTypeFollowUpStep, Long> errorTypeFollowUpStepLongMap = errorRecordsWorker.evaluateNewErrors();
-            pingGoonjInternalHealthCheckStatus(errorTypeFollowUpStepLongMap, ErrorTypeFollowUpStep.Internal, GoonjConstants.HEALTHCHECK_SLUG_GOONJ_INTEGRATION);
-            pingGoonjInternalHealthCheckStatus(errorTypeFollowUpStepLongMap, ErrorTypeFollowUpStep.External, GoonjConstants.HEALTHCHECK_SLUG_GOONJ_SALESFORCE);
-        } catch (Throwable e) {
-            logger.error("Failed performing additional health checks", e);
-            bugsnag.notify(e);
-        }
-    }
-
-    private void pingGoonjInternalHealthCheckStatus(Map<ErrorTypeFollowUpStep, Long> errorTypeFollowUpStepLongMap, ErrorTypeFollowUpStep errorTypeFollowUpStep, String slug) {
-        healthCheckService.ping(slug, errorTypeFollowUpStepLongMap.get(errorTypeFollowUpStep) > LONG_CONSTANT_ZERO ?
-                        HealthCheckService.Status.FAILURE : HealthCheckService.Status.SUCCESS);
-    }
-
-    private void processDemandAndDispatch(List<IntegrationTask> tasks) {
+    private void processDemand(List<IntegrationTask> tasks, Map<String, Object> filters) {
         try {
             if (hasTask(tasks, IntegrationTask.GoonjDemand)) {
                 logger.info("Processing GoonjDemand");
@@ -112,8 +87,16 @@ public class AvniGoonjMainJob {
                   without any TimeStamp and other minimal information details required to make an Update Subject as Voided call.
                   Therefore, we invoke the Delete API for subject using DemandId as externalId to mark a Demand as Voided.
                  */
-                demandWorker.performAllProcesses();
+                demandWorker.performAllProcesses(filters);
             }
+        } catch (Throwable e) {
+            logger.error("Failed processDemand", e);
+            bugsnag.notify(e);
+        }
+    }
+
+    private void processDispatch(List<IntegrationTask> tasks, Map<String, Object> filters) {
+        try {
             if (hasTask(tasks, IntegrationTask.GoonjDispatch)) {
                 logger.info("Processing GoonjDispatch");
                 /*
@@ -122,19 +105,19 @@ public class AvniGoonjMainJob {
                   without any TimeStamp and other minimal information details required to make an Update DispatchStatus as Voided call.
                   Therefore, we invoke the Delete API for DispatchStatus using DispatchStatusId as externalId to mark a DispatchStatus as Voided.
                  */
-                dispatchWorker.performAllProcesses();
+                dispatchWorker.performAllProcesses(filters);
             }
         } catch (Throwable e) {
-            logger.error("Failed processDemandAndDispatch", e);
+            logger.error("Failed processDispatch", e);
             bugsnag.notify(e);
         }
     }
 
-    private void processActivity(List<IntegrationTask> tasks) {
+    private void processActivity(List<IntegrationTask> tasks, Map<String, Object> filters) {
         try {
             if (hasTask(tasks, IntegrationTask.AvniActivity)) {
                 logger.info("Processing AvniActivity");
-                activityWorker.performAllProcesses();
+                activityWorker.performAllProcesses(filters);
             }
         } catch (Throwable e) {
             logger.error("Failed processActivity", e);
@@ -142,27 +125,35 @@ public class AvniGoonjMainJob {
         }
     }
 
-    private void processDispatchReceiptAndDistribution(List<IntegrationTask> tasks) {
+    private void processDispatchReceipt(List<IntegrationTask> tasks, Map<String, Object> filters) {
         try {
             if (hasTask(tasks, IntegrationTask.AvniDispatchReceipt)) {
                 logger.info("Processing AvniDispatchReceipt");
-                dispatchReceiptWorker.performAllProcesses();
-            }
-            if (hasTask(tasks, IntegrationTask.AvniDistribution)) {
-                logger.info("Processing AvniDistribution");
-                distributionWorker.performAllProcesses();
+                dispatchReceiptWorker.performAllProcesses(filters);
             }
         } catch (Throwable e) {
-            logger.error("Failed processDispatchReceiptAndDistribution", e);
+            logger.error("Failed processDispatchReceipt", e);
             bugsnag.notify(e);
         }
     }
 
-    private void processInventory(List<IntegrationTask> tasks) {
+    private void processDistribution(List<IntegrationTask> tasks, Map<String, Object> filters) {
+        try {
+            if (hasTask(tasks, IntegrationTask.AvniDistribution)) {
+                logger.info("Processing AvniDistribution");
+                distributionWorker.performAllProcesses(filters);
+            }
+        } catch (Throwable e) {
+            logger.error("Failed processDistribution", e);
+            bugsnag.notify(e);
+        }
+    }
+
+    private void processInventory(List<IntegrationTask> tasks, Map<String, Object> filters) {
         try {
             if (hasTask(tasks, IntegrationTask.GoonjInventory)) {
                 logger.info("Processing GoonjInventory");
-                inventoryWorker.performAllProcesses();
+                inventoryWorker.performAllProcesses(filters);
             }
         } catch (Throwable e) {
             logger.error("Failed processInventory", e);

@@ -2,7 +2,8 @@ package org.avni_integration_service.web;
 
 import org.apache.log4j.Logger;
 import org.avni_integration_service.goonj.dto.GoonjAdhocTaskDTO;
-import org.avni_integration_service.goonj.service.GoonjAdhocTaskService;
+import org.avni_integration_service.scheduler.AdhocTaskSchedulerService;
+import org.avni_integration_service.service.GoonjAdhocTaskService;
 import org.avni_integration_service.integration_data.repository.UserRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,9 +18,13 @@ public class GoonjExternalController extends BaseController{
 
     private final Logger logger = Logger.getLogger(GoonjExternalController.class);
     private final GoonjAdhocTaskService goonjAdhocTaskService;
-    public GoonjExternalController(UserRepository userRepository, GoonjAdhocTaskService goonjAdhocTaskService) {
+    private final AdhocTaskSchedulerService adhocTaskSchedulerService;
+
+    public GoonjExternalController(UserRepository userRepository, GoonjAdhocTaskService goonjAdhocTaskService,
+                                   AdhocTaskSchedulerService adhocTaskSchedulerService) {
         super(userRepository);
         this.goonjAdhocTaskService = goonjAdhocTaskService;
+        this.adhocTaskSchedulerService = adhocTaskSchedulerService;
     }
     @GetMapping("/tasktype")
     public List<String> getValidTask(){
@@ -29,7 +34,9 @@ public class GoonjExternalController extends BaseController{
     @PostMapping("/v1/task")
     public ResponseEntity<?> creatAdhocTask(@Validated  @RequestBody GoonjAdhocTaskDTO goonjAdhocTaskDTO){
         logger.info("creating goonj adhoc task for "+goonjAdhocTaskDTO);
-        var response = goonjAdhocTaskService.createAdhocTask(goonjAdhocTaskDTO);
+        var savedTask = goonjAdhocTaskService.createAdhocTask(goonjAdhocTaskDTO);
+        adhocTaskSchedulerService.schedule(savedTask);
+        var response = goonjAdhocTaskService.entityToDto(savedTask);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 

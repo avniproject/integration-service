@@ -13,7 +13,7 @@ public class GoonjAdhocTaskDTO {
     private String task;
     private Map<String, String> taskConfig;
     @NotBlank(message = "frequency can't be null or blank")
-    private String frequency;
+    private Date triggerDateTime;
     @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy:MM:dd hh:mm:ss")
     @NotNull(message = "cutoffdatetime can't be null or blank")
     private Date cutOffDateTime;
@@ -37,12 +37,12 @@ public class GoonjAdhocTaskDTO {
         this.taskConfig = taskConfig;
     }
 
-    public String getFrequency() {
-        return frequency;
+    public Date getTriggerDateTime() {
+        return triggerDateTime;
     }
 
-    public void setFrequency(String frequency) {
-        this.frequency = frequency;
+    public void setTriggerDateTime(Date triggerDateTime) {
+        this.triggerDateTime = triggerDateTime;
     }
 
     public Date getCutOffDateTime() {
@@ -76,7 +76,7 @@ public class GoonjAdhocTaskDTO {
         return "GoonjAdhocTaskDTO{" +
                 "task='" + task + '\'' +
                 ", taskConfig=" + taskConfig +
-                ", frequency='" + frequency + '\'' +
+                ", frequency='" + triggerDateTime + '\'' +
                 ", cutOffDateTime=" + cutOffDateTime +
                 ", uuid='" + uuid + '\'' +
                 ", is_voided=" + is_voided +
