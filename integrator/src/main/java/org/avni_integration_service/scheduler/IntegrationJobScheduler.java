@@ -25,8 +25,6 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import java.util.List;
 
-import static java.util.stream.Collectors.groupingBy;
-
 @Component
 @EnableScheduling
 @ConditionalOnProperty(value = "avni.int.auto.close", havingValue = "false")

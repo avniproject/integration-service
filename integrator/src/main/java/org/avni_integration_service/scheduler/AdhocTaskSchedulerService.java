@@ -11,7 +11,6 @@ import org.avni_integration_service.integration_data.domain.config.IntegrationSy
 import org.avni_integration_service.integration_data.repository.IntegrationSystemRepository;
 import org.avni_integration_service.integration_data.repository.config.IntegrationSystemConfigRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.stereotype.Service;
@@ -22,7 +21,6 @@ import java.util.Map;
 
 @Service
 @EnableScheduling
-@ConditionalOnProperty(value = "avni.int.auto.close", havingValue = "false")
 public class AdhocTaskSchedulerService {
 
     private final Logger logger = Logger.getLogger(AdhocTaskSchedulerService.class);
