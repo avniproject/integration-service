@@ -6,7 +6,7 @@ CREATE TABLE goonj_adhoc_task
     is_voided            BOOLEAN,
     integration_task   CHARACTER VARYING(255) NOT NULL,
     task_config          JSONB,
-    cron                 CHARACTER VARYING(255) NOT NULL,
+    trigger_date_time    TIMESTAMP              NOT NULL,
     cut_off_date_time    TIMESTAMP              NOT NULL,
     status               CHARACTER VARYING(255) NOT NULL,
     created_date_time      TIMESTAMP              NOT NULL,
