@@ -47,17 +47,13 @@ public class AdhocTaskSchedulerService {
         Map<String, Object> filters = getFilters(goonjAdhocTask, taskConfig);
         GoonjConfig goonjConfig = getGoonjConfig();
         taskScheduler.schedule(() -> {
-            boolean isRunning = true;
             try {
                 logger.info(String.format("running start for  %s ", goonjAdhocTask));
                 avniGoonjAdhocJob.execute(goonjConfig, integrationTask, filters);
+                goonjAdhocTask.setGoonjAdhocTaskSatus(GoonjAdhocTaskSatus.COMPLETED);
             } catch (Exception e) {
                 logger.error(String.format("following exception comes during scheduling for %s", goonjAdhocTask.getUuid()), e);
                 goonjAdhocTask.setGoonjAdhocTaskSatus(GoonjAdhocTaskSatus.ERROR);
-                isRunning = false;
-            }
-            if(isRunning) {
-                goonjAdhocTask.setGoonjAdhocTaskSatus(GoonjAdhocTaskSatus.RUNNING);
             }
             goonjAdhocTaskRepository.save(goonjAdhocTask);
             logger.info(String.format("running end for %s ", goonjAdhocTask));

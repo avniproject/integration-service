@@ -5,5 +5,6 @@ public enum GoonjAdhocTaskSatus {
     UPDATED,
     RUNNING,
     ERROR,
-    DELETED;
+    DELETED,
+    COMPLETED;
 }
