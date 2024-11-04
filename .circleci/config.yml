@@ -67,17 +67,16 @@ jobs:
   test:
     docker:
       - image: cimg/openjdk:17.0.5
-
       - image: cimg/postgres:12.7
-        environment:
-          - POSTGRES_USER: circleci
-          - POSTGRES_DB: avni_int_test
-          - POSTGRES_PASSWORD: password
+
 
     working_directory: ~/avni-int
 
     environment:
-      MAVEN_OPTS: -Xmx3200m
+      - MAVEN_OPTS: -Xmx3200m
+      - POSTGRES_USER: avni_int
+      - POSTGRES_DB: avni_int_test
+      - POSTGRES_PASSWORD: password
 
     steps:
       - checkout
@@ -136,12 +135,8 @@ jobs:
   build:
     docker:
       - image: cimg/openjdk:17.0.5
-
       - image: cimg/postgres:12.7
-        environment:
-          - POSTGRES_USER: avni_int
-          - POSTGRES_DB: avni_int_test
-          - POSTGRES_PASSWORD: password
+
 
     working_directory: ~/avni-int
 
@@ -150,6 +145,9 @@ jobs:
       - ANSIBLE_LOCAL_TEMP: /home/circleci/.ansible/tmp
       - ANSIBLE_REMOTE_TEMP: /home/circleci/.ansible/tmp
       - MAVEN_OPTS: -Xmx3200m
+      - POSTGRES_USER: avni_int
+      - POSTGRES_DB: avni_int_test
+      - POSTGRES_PASSWORD: password
 
     steps:
       - checkout
