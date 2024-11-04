@@ -56,6 +56,8 @@ rebuild-db: drop-db build-db
 
 rebuild-db-schema: rebuild-db build-db-schema
 
+rebuild-test-db-schema: rebuild-test-db build-test-db-schema
+
 build-db:
 	$(call _build_db,avni_int)
 
@@ -65,6 +67,10 @@ build-test-db:
 build-db-schema:
 	./gradlew --stacktrace :integration-data:migrateDb
 	psql -h localhost -p $(dbPort) -U avni_int -d avni_int < integration-data/src/main/resources/db/util/superadmin.sql;
+
+build-test-db-schema:
+	./gradlew --stacktrace :integration-data:migrateDb
+	psql -h localhost -p $(dbPort) -U avni_int -d avni_int_test < integration-data/src/main/resources/db/util/superadmin.sql;
 
 drop-db:
 	$(call _drop_db,avni_int)
@@ -182,7 +188,7 @@ setup: setup-log-dir
 	touch lahi/src/test/resources/lahi-secret.properties
 
 create-test-db-extensions:
-	-psql -h localhost -Uavni_int avni_int_test -c 'create extension if not exists "uuid-ossp"';
+	-psql -h localhost -U avni_int -d avni_int_test -c 'create extension if not exists "uuid-ossp"';
 
 generatePasswordHash:
 ifndef password
