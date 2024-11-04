@@ -80,7 +80,7 @@ public class AvniGoonjAdhocJob {
     private void processDemand(List<IntegrationTask> tasks, Map<String, Object> filters) {
         try {
             if (hasTask(tasks, IntegrationTask.GoonjDemand)) {
-                logger.info("Processing GoonjDemand");
+                logger.info("Processing Goonj Adhoc Demand");
                 /*
                   We are triggering deletion tagged along with Demand creations, as the Goonj System sends
                   the Deleted Demands info as part of the same getDemands API, but as a separate list,
@@ -90,7 +90,7 @@ public class AvniGoonjAdhocJob {
                 demandWorker.performAllProcesses(filters);
             }
         } catch (Throwable e) {
-            logger.error("Failed processDemand", e);
+            logger.error("Failed adhoc processDemand", e);
             bugsnag.notify(e);
         }
     }
@@ -98,7 +98,7 @@ public class AvniGoonjAdhocJob {
     private void processDispatch(List<IntegrationTask> tasks, Map<String, Object> filters) {
         try {
             if (hasTask(tasks, IntegrationTask.GoonjDispatch)) {
-                logger.info("Processing GoonjDispatch");
+                logger.info("Processing Goonj Adhoc Dispatch");
                 /*
                   We are triggering deletion tagged along with DispatchStatus creations, as the Goonj System sends
                   the Deleted DispatchStatuses info as part of the same getDispatchStatus API, but as a separate list,
@@ -108,7 +108,7 @@ public class AvniGoonjAdhocJob {
                 dispatchWorker.performAllProcesses(filters);
             }
         } catch (Throwable e) {
-            logger.error("Failed processDispatch", e);
+            logger.error("Failed adhoc processDispatch", e);
             bugsnag.notify(e);
         }
     }
@@ -116,11 +116,11 @@ public class AvniGoonjAdhocJob {
     private void processActivity(List<IntegrationTask> tasks, Map<String, Object> filters) {
         try {
             if (hasTask(tasks, IntegrationTask.AvniActivity)) {
-                logger.info("Processing AvniActivity");
+                logger.info("Processing Adhoc AvniActivity");
                 activityWorker.performAllProcesses(filters);
             }
         } catch (Throwable e) {
-            logger.error("Failed processActivity", e);
+            logger.error("Failed adhoc processActivity", e);
             bugsnag.notify(e);
         }
     }
@@ -128,11 +128,11 @@ public class AvniGoonjAdhocJob {
     private void processDispatchReceipt(List<IntegrationTask> tasks, Map<String, Object> filters) {
         try {
             if (hasTask(tasks, IntegrationTask.AvniDispatchReceipt)) {
-                logger.info("Processing AvniDispatchReceipt");
+                logger.info("Processing Adhoc AvniDispatchReceipt");
                 dispatchReceiptWorker.performAllProcesses(filters);
             }
         } catch (Throwable e) {
-            logger.error("Failed processDispatchReceipt", e);
+            logger.error("Failed adhoc processDispatchReceipt", e);
             bugsnag.notify(e);
         }
     }
@@ -140,11 +140,11 @@ public class AvniGoonjAdhocJob {
     private void processDistribution(List<IntegrationTask> tasks, Map<String, Object> filters) {
         try {
             if (hasTask(tasks, IntegrationTask.AvniDistribution)) {
-                logger.info("Processing AvniDistribution");
+                logger.info("Processing Adhoc AvniDistribution");
                 distributionWorker.performAllProcesses(filters);
             }
         } catch (Throwable e) {
-            logger.error("Failed processDistribution", e);
+            logger.error("Failed adhoc processDistribution", e);
             bugsnag.notify(e);
         }
     }
@@ -152,11 +152,11 @@ public class AvniGoonjAdhocJob {
     private void processInventory(List<IntegrationTask> tasks, Map<String, Object> filters) {
         try {
             if (hasTask(tasks, IntegrationTask.GoonjInventory)) {
-                logger.info("Processing GoonjInventory");
+                logger.info("Processing Adhoc GoonjInventory");
                 inventoryWorker.performAllProcesses(filters);
             }
         } catch (Throwable e) {
-            logger.error("Failed processInventory", e);
+            logger.error("Failed adhoc processInventory", e);
             bugsnag.notify(e);
         }
     }

@@ -75,4 +75,14 @@ public class GoonjAdhocTask extends AuditableEntity {
         this.goonjAdhocTaskSatus = goonjAdhocTaskSatus;
     }
 
+    @Override
+    public String toString() {
+        return "GoonjAdhocTask{" +
+                "integrationTask=" + integrationTask +
+                ", taskConfig=" + taskConfig +
+                ", triggerDateTime=" + triggerDateTime +
+                ", cutOffDateTime=" + cutOffDateTime +
+                ", goonjAdhocTaskSatus=" + goonjAdhocTaskSatus +
+                '}';
+    }
 }

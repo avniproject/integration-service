@@ -12,7 +12,8 @@ public class GoonjAdhocTaskDTO {
     @NotBlank(message = "task can't be null or blank")
     private String task;
     private Map<String, String> taskConfig;
-    @NotBlank(message = "frequency can't be null or blank")
+    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy:MM:dd hh:mm:ss")
+    @NotNull(message = "frequency can't be null or blank")
     private Date triggerDateTime;
     @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy:MM:dd hh:mm:ss")
     @NotNull(message = "cutoffdatetime can't be null or blank")
@@ -71,12 +72,13 @@ public class GoonjAdhocTaskDTO {
         this.is_voided = is_voided;
     }
 
+
     @Override
     public String toString() {
         return "GoonjAdhocTaskDTO{" +
                 "task='" + task + '\'' +
                 ", taskConfig=" + taskConfig +
-                ", frequency='" + triggerDateTime + '\'' +
+                ", triggerDateTime='" + triggerDateTime + '\'' +
                 ", cutOffDateTime=" + cutOffDateTime +
                 ", uuid='" + uuid + '\'' +
                 ", is_voided=" + is_voided +
