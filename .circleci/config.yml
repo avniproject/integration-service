@@ -67,7 +67,12 @@ jobs:
   test:
     docker:
       - image: cimg/openjdk:17.0.5
+
       - image: cimg/postgres:12.7
+        environment:
+          POSTGRES_USER: avni_int
+          POSTGRES_DB: avni_int_test
+          POSTGRES_PASSWORD: password
 
 
     working_directory: ~/avni-int
@@ -135,8 +140,12 @@ jobs:
   build:
     docker:
       - image: cimg/openjdk:17.0.5
-      - image: cimg/postgres:12.7
 
+      - image: cimg/postgres:12.7
+        environment:
+          POSTGRES_USER: avni_int
+          POSTGRES_DB: avni_int_test
+          POSTGRES_PASSWORD: password
 
     working_directory: ~/avni-int
 
