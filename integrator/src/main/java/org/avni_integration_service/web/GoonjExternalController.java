@@ -2,9 +2,9 @@ package org.avni_integration_service.web;
 
 import org.apache.log4j.Logger;
 import org.avni_integration_service.goonj.dto.GoonjAdhocTaskDTO;
+import org.avni_integration_service.integration_data.repository.UserRepository;
 import org.avni_integration_service.scheduler.AdhocTaskSchedulerService;
 import org.avni_integration_service.service.GoonjAdhocTaskService;
-import org.avni_integration_service.integration_data.repository.UserRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -66,6 +66,7 @@ public class GoonjExternalController extends BaseController{
         logger.info(String.format("updating goonj adhoc task for %s and updating details are :%s",uuid,goonjAdhocTaskDTO));
         var response = goonjAdhocTaskService.updateAdhocTask(uuid,goonjAdhocTaskDTO);
         return new ResponseEntity<>(response,HttpStatus.ACCEPTED);
+
     }
 
 }

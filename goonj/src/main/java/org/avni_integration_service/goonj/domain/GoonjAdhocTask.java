@@ -23,7 +23,7 @@ public class GoonjAdhocTask extends AuditableEntity {
     @Column(name = "task_config",columnDefinition = "jsonb")
     @Convert(converter = MapToJsonConverter.class)
     @ColumnTransformer(write = "?::jsonb")
-    private Map<String,String> taskConfig;
+    private Map<String,Object> taskConfig;
 
     @Column(name = "trigger_date_time")
     private Date triggerDateTime;
@@ -43,11 +43,11 @@ public class GoonjAdhocTask extends AuditableEntity {
         this.integrationTask = integrationTask;
     }
 
-    public Map<String, String> getTaskConfig() {
+    public Map<String, Object> getTaskConfig() {
         return taskConfig;
     }
 
-    public void setTaskConfig(Map<String,String> taskConfig) {
+    public void setTaskConfig(Map<String,Object> taskConfig) {
         this.taskConfig = taskConfig;
     }
 

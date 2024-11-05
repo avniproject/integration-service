@@ -9,7 +9,6 @@ import org.avni_integration_service.goonj.job.IntegrationTask;
 import org.avni_integration_service.goonj.repository.GoonjAdhocTaskRepository;
 import org.avni_integration_service.integration_data.domain.IntegrationSystem;
 import org.avni_integration_service.integration_data.repository.IntegrationSystemRepository;
-import org.avni_integration_service.scheduler.AdhocTaskSchedulerService;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.springframework.http.HttpStatus;
@@ -50,6 +49,7 @@ public class GoonjAdhocTaskService {
         goonjAdhocTaskDTO.setCutOffDateTime(goonjAdhocTask.getCutOffDateTime());
         goonjAdhocTaskDTO.setTask(goonjAdhocTask.getIntegrationTask().toString());
         goonjAdhocTaskDTO.setIsVoided(goonjAdhocTask.isVoided());
+        goonjAdhocTaskDTO.setStatus(goonjAdhocTask.getGoonjAdhocTaskSatus().name());
         return goonjAdhocTaskDTO;
     }
 
@@ -113,7 +113,7 @@ public class GoonjAdhocTaskService {
     }
 
     private void validateTaskConfig(GoonjAdhocTaskDTO goonjAdhocTaskDTO, List<String> errorMessageList) {
-        Map<String, String> taskConfigs = goonjAdhocTaskDTO.getTaskConfig();
+        Map<String, Object> taskConfigs = goonjAdhocTaskDTO.getTaskConfig();
         if (taskConfigs != null) {
             boolean find = taskConfigs.keySet().stream().anyMatch(key -> !GoonjConstants.FILTER_SET.contains(key));
             if (find) {

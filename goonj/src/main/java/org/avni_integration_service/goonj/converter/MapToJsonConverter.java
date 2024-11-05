@@ -9,10 +9,10 @@ import com.fasterxml.jackson.core.type.TypeReference;
 
 
 @Converter
-public class MapToJsonConverter implements AttributeConverter<Map<String, String>, String> {
+public class MapToJsonConverter implements AttributeConverter<Map<String, Object>, String> {
     private final ObjectMapper objectMapper = new ObjectMapper();
     @Override
-    public String convertToDatabaseColumn(Map<String, String> map) {
+    public String convertToDatabaseColumn(Map<String, Object> map) {
         try {
             return objectMapper.writeValueAsString(map);
         } catch (Exception e) {
@@ -21,9 +21,9 @@ public class MapToJsonConverter implements AttributeConverter<Map<String, String
     }
 
     @Override
-    public Map<String, String> convertToEntityAttribute(String json) {
+    public Map<String, Object> convertToEntityAttribute(String json) {
         try {
-            return objectMapper.readValue(json, new TypeReference<Map<String, String>>() {});
+            return objectMapper.readValue(json, new TypeReference<Map<String, Object>>() {});
         } catch (Exception e) {
             throw new RuntimeException("Error converting JSON to map", e);
         }

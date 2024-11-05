@@ -43,7 +43,7 @@ public class AdhocTaskSchedulerService {
     public void schedule(GoonjAdhocTask goonjAdhocTask){
         logger.info(String.format("scheduling start %s for %s",goonjAdhocTask.getIntegrationTask(),goonjAdhocTask.getUuid()));
         IntegrationTask integrationTask = goonjAdhocTask.getIntegrationTask();
-        Map<String, String> taskConfig = goonjAdhocTask.getTaskConfig();
+        Map<String, Object> taskConfig = goonjAdhocTask.getTaskConfig();
         Map<String, Object> filters = getFilters(goonjAdhocTask, taskConfig);
         GoonjConfig goonjConfig = getGoonjConfig();
         taskScheduler.schedule(() -> {
@@ -67,7 +67,7 @@ public class AdhocTaskSchedulerService {
         return new GoonjConfig(integrationSystemConfigs, goonjSystem);
     }
 
-    private Map<String,Object> getFilters(GoonjAdhocTask goonjAdhocTask, Map<String, String> taskConfig) {
+    private Map<String,Object> getFilters(GoonjAdhocTask goonjAdhocTask, Map<String, Object> taskConfig) {
         Map<String,Object> filters = new HashMap<>();
         if(taskConfig !=null) {
             taskConfig.entrySet().stream().forEach(entry -> filters.put(entry.getKey(), entry.getValue()));

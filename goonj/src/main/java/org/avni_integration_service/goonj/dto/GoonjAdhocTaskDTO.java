@@ -11,7 +11,7 @@ import java.util.Map;
 public class GoonjAdhocTaskDTO {
     @NotBlank(message = "task can't be null or blank")
     private String task;
-    private Map<String, String> taskConfig;
+    private Map<String, Object> taskConfig;
     @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy:MM:dd hh:mm:ss")
     @NotNull(message = "frequency can't be null or blank")
     private Date triggerDateTime;
@@ -21,6 +21,8 @@ public class GoonjAdhocTaskDTO {
     private String uuid;
     @JsonProperty(value = "is_voided")
     private Boolean is_voided;
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private String status;
 
     public String getTask() {
         return task;
@@ -30,11 +32,11 @@ public class GoonjAdhocTaskDTO {
         this.task = string;
     }
 
-    public Map<String, String> getTaskConfig() {
+    public Map<String, Object> getTaskConfig() {
         return taskConfig;
     }
 
-    public void setTaskConfig(Map<String, String> taskConfig) {
+    public void setTaskConfig(Map<String, Object> taskConfig) {
         this.taskConfig = taskConfig;
     }
 
@@ -72,6 +74,13 @@ public class GoonjAdhocTaskDTO {
         this.is_voided = is_voided;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     @Override
     public String toString() {
