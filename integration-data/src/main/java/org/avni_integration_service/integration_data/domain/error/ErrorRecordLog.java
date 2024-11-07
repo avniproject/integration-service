@@ -1,9 +1,12 @@
 package org.avni_integration_service.integration_data.domain.error;
 
+import org.avni_integration_service.integration_data.converter.MapToJsonConverter;
 import org.avni_integration_service.integration_data.domain.framework.BaseEntity;
+import org.hibernate.annotations.ColumnTransformer;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Map;
 import java.util.Objects;
 
 @Entity
@@ -22,6 +25,11 @@ public class ErrorRecordLog extends BaseEntity {
 
     @Column(name = "error_msg")
     private String errorMsg;
+
+    @Column(name = "error_body",columnDefinition = "jsonb")
+    @Convert(converter = MapToJsonConverter.class)
+    @ColumnTransformer(write = "?::jsonb")
+    private Map<String,Object> body;
 
     public ErrorType getErrorType() {
         return errorType;
@@ -53,6 +61,14 @@ public class ErrorRecordLog extends BaseEntity {
 
     public void setErrorMsg(String errorMsg) {
         this.errorMsg = errorMsg;
+    }
+
+    public Map<String, Object> getBody() {
+        return body;
+    }
+
+    public void setBody(Map<String, Object> body) {
+        this.body = body;
     }
 
     @Override

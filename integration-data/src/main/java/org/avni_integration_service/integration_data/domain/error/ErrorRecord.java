@@ -90,6 +90,16 @@ public class ErrorRecord extends BaseIntegrationSpecificEntity {
         errorRecordLog.setErrorRecord(this);
         errorRecordLogs.add(errorRecordLog);
     }
+    public void addErrorLog(ErrorType errorType, String errorMsg,Map<String,Object> errorBody) {
+        ErrorRecordLog errorRecordLog = new ErrorRecordLog();
+        errorRecordLog.setErrorType(errorType);
+        errorRecordLog.setErrorMsg(errorMsg);
+        errorRecordLog.setLoggedAt(new Date());
+        errorRecordLog.setErrorRecord(this);
+        errorRecordLog.setBody(errorBody);
+        errorRecordLogs.add(errorRecordLog);
+    }
+
 
     public void updateLoggedAtForLastErrorRecordLog() {
         ErrorRecordLog lastERL = getLastErrorRecordLog();

@@ -106,7 +106,7 @@ public abstract class SubjectWorker implements ErrorRecordWorker {
         if (subject == null) {
             String message = String.format("Subject has been deleted now: %s", entityUuid);
             logger.warn(message);
-            avniGoonjErrorService.errorOccurred(entityUuid, GoonjErrorType.EntityIsDeleted.name(), AvniEntityType.Subject, message);
+            avniGoonjErrorService.errorOccurred(entityUuid, GoonjErrorType.EntityIsDeleted.name(), AvniEntityType.Subject, message,null);
             return;
         }
 
@@ -166,7 +166,8 @@ public abstract class SubjectWorker implements ErrorRecordWorker {
     }
 
     private void createOrUpdateErrorRecordAndSyncStatus(Subject subject, boolean updateSyncStatus, String sid, String goonjErrorTypeName, String errorMsg) {
-        avniGoonjErrorService.errorOccurred(sid, goonjErrorTypeName, entityType, errorMsg);
+        subject.getAddress();
+        avniGoonjErrorService.errorOccurred(sid, goonjErrorTypeName, entityType, errorMsg, subject.getObservations());
         updateSyncStatus(subject, updateSyncStatus);
     }
 

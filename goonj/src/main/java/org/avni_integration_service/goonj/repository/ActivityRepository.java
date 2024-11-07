@@ -58,6 +58,7 @@ public class ActivityRepository extends GoonjBaseRepository implements ActivityC
         ActivityRequestDTO requestDTO = convertSubjectToActivityRequest(subject);
         HttpEntity<ActivityRequestDTO> request = new HttpEntity<>(requestDTO);
         return super.createSingleEntity(RESOURCE_ACTIVITY, request);
+        // TODO: 07/11/24 catch exception include request dto and send throw exception
     }
 
     @Override

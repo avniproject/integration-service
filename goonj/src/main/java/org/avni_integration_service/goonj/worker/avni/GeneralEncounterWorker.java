@@ -101,7 +101,7 @@ public abstract class GeneralEncounterWorker implements ErrorRecordWorker {
         if (generalEncounter == null) {
             String message = String.format("GeneralEncounter has been deleted now: %s", entityUuid);
             logger.warn(message);
-            avniGoonjErrorService.errorOccurred(entityUuid, GoonjErrorType.EntityIsDeleted.name(), AvniEntityType.GeneralEncounter, message);
+            avniGoonjErrorService.errorOccurred(entityUuid, GoonjErrorType.EntityIsDeleted.name(), AvniEntityType.GeneralEncounter, message,null);
             return;
         }
 
@@ -169,7 +169,7 @@ public abstract class GeneralEncounterWorker implements ErrorRecordWorker {
     }
 
     private void createOrUpdateErrorRecordAndSyncStatus(GeneralEncounter generalEncounter, boolean updateSyncStatus, String sid, String goonjErrorTypeName, String errorMsg) {
-        avniGoonjErrorService.errorOccurred(sid, goonjErrorTypeName, entityType, "Subject IDs: " + generalEncounter.getSubjectExternalID() + ", " + generalEncounter.getSubjectId() + ". Message: " + errorMsg);
+        avniGoonjErrorService.errorOccurred(sid, goonjErrorTypeName, entityType, "Subject IDs: " + generalEncounter.getSubjectExternalID() + ", " + generalEncounter.getSubjectId() + ". Message: " + errorMsg,generalEncounter.getObservations() );
         updateSyncStatus(generalEncounter, updateSyncStatus);
     }
 

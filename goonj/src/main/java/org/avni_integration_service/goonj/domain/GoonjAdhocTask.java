@@ -1,8 +1,8 @@
 package org.avni_integration_service.goonj.domain;
 
 import org.avni_integration_service.goonj.GoonjAdhocTaskSatus;
-import org.avni_integration_service.goonj.converter.MapToJsonConverter;
 import org.avni_integration_service.goonj.job.IntegrationTask;
+import org.avni_integration_service.integration_data.converter.MapToJsonConverter;
 import org.avni_integration_service.integration_data.domain.framework.AuditableEntity;
 import org.hibernate.annotations.ColumnTransformer;
 

@@ -132,6 +132,7 @@ public abstract class GoonjBaseRepository {
             case SERVER_ERROR -> HttpServerErrorException.create(message, statusCode, null, headers, null, null);
             default -> new UnknownHttpStatusCodeException(message, statusCode.value(), null, headers, null, null);
         };
+        // TODO: 07/11/24 init request body 
     }
 
     private HttpEntity<Map<String, List>> getDeleteEncounterHttpRequestEntity(GeneralEncounter encounter) {

@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class AvniGoonjErrorService {
@@ -37,7 +38,7 @@ public class AvniGoonjErrorService {
     }
 
 
-    private void saveAvniError(String uuid, String goonjErrorTypeName, AvniEntityType avniEntityType, String errorMsg) {
+    private void saveAvniError(String uuid, String goonjErrorTypeName, AvniEntityType avniEntityType, String errorMsg, Map<String, Object> errorBody) {
         ErrorType errorType = getErrorType(goonjErrorTypeName);
         ErrorRecord errorRecord = errorRecordRepository.findByAvniEntityTypeAndEntityId(avniEntityType, uuid);
         if (errorRecord != null && errorRecord.hasThisAsLastErrorTypeAndErrorMessage(errorType, errorMsg)) {
@@ -53,7 +54,7 @@ public class AvniGoonjErrorService {
             errorRecord = new ErrorRecord();
             errorRecord.setAvniEntityType(avniEntityType);
             errorRecord.setEntityId(uuid);
-            errorRecord.addErrorLog(errorType, errorMsg);
+            errorRecord.addErrorLog(errorType, errorMsg,errorBody);
             errorRecord.setProcessingDisabled(false);
             errorRecord.setIntegrationSystem(integrationSystemRepository.findEntity(goonjContextProvider.get().getIntegrationSystem().getId()));
             errorRecordRepository.save(errorRecord);
@@ -69,7 +70,7 @@ public class AvniGoonjErrorService {
                 goonjContextProvider.get().getIntegrationSystem().getId(), String.valueOf(followUpStep.ordinal()));
     }
 
-    private ErrorRecord saveGoonjError(String uuid, String goonjErrorTypeName, GoonjEntityType goonjEntityType, String errorMsg) {
+    private ErrorRecord saveGoonjError(String uuid, String goonjErrorTypeName, GoonjEntityType goonjEntityType, String errorMsg, Map<String, Object> body) {
         ErrorRecord errorRecord = errorRecordRepository.findByIntegratingEntityTypeAndEntityId(goonjEntityType.name(), uuid);
         ErrorType errorType = getErrorType(goonjErrorTypeName);
         if (errorRecord != null && errorRecord.hasThisAsLastErrorTypeAndErrorMessage(errorType, errorMsg)) {
@@ -84,7 +85,7 @@ public class AvniGoonjErrorService {
             errorRecord = new ErrorRecord();
             errorRecord.setIntegratingEntityType(goonjEntityType.name());
             errorRecord.setEntityId(uuid);
-            errorRecord.addErrorLog(errorType, errorMsg);
+            errorRecord.addErrorLog(errorType, errorMsg,body);
             errorRecord.setProcessingDisabled(false);
             errorRecord.setIntegrationSystem(integrationSystemRepository.findEntity(goonjContextProvider.get().getIntegrationSystem().getId()));
             errorRecordRepository.save(errorRecord);
@@ -93,12 +94,12 @@ public class AvniGoonjErrorService {
     }
 
 
-    public ErrorRecord errorOccurred(String entityUuid, String goonjErrorTypeName, GoonjEntityType goonjEntityType, String errorMsg) {
-        return saveGoonjError(entityUuid, goonjErrorTypeName, goonjEntityType, errorMsg);
+    public ErrorRecord errorOccurred(String entityUuid, String goonjErrorTypeName, GoonjEntityType goonjEntityType, String errorMsg, Map<String, Object> errorBody) {
+        return saveGoonjError(entityUuid, goonjErrorTypeName, goonjEntityType, errorMsg, errorBody);
     }
 
-    public void errorOccurred(String entityUuid, String goonjErrorTypeName, AvniEntityType avniEntityType, String errorMsg) {
-        saveAvniError(entityUuid, goonjErrorTypeName, avniEntityType, errorMsg);
+    public void errorOccurred(String entityUuid, String goonjErrorTypeName, AvniEntityType avniEntityType, String errorMsg, Map<String, Object> errorBody) {
+        saveAvniError(entityUuid, goonjErrorTypeName, avniEntityType, errorMsg,errorBody);
     }
 
     private void successfullyProcessedGoonjEntity(GoonjEntityType goonjEntityType, String uuid) {
