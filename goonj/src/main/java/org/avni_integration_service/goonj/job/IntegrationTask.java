@@ -22,12 +22,4 @@ public enum IntegrationTask {
         }
         return tasks;
     }
-
-    public static boolean isAvniSourceTask(IntegrationTask task) {
-        return Arrays.asList( AvniDispatchReceipt, AvniActivity, AvniDistribution).contains(task);
-    }
-
-    public static boolean isSalesforceSourceTask(IntegrationTask task) {
-        return Arrays.asList( GoonjDemand, GoonjDispatch, GoonjInventory).contains(task);
-    }
 }
