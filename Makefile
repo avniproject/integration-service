@@ -69,7 +69,7 @@ build-db-schema:
 	psql -h localhost -p $(dbPort) -U avni_int -d avni_int < integration-data/src/main/resources/db/util/superadmin.sql;
 
 build-test-db-schema:
-	./gradlew --stacktrace :integration-data:migrateDb
+	./gradlew --stacktrace :integration-data:migrateTestDb
 	psql -h localhost -p $(dbPort) -U avni_int -d avni_int_test < integration-data/src/main/resources/db/util/superadmin.sql;
 
 drop-db:
