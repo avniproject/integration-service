@@ -128,7 +128,6 @@ public class GoonjAdhocTaskService {
             if(integrationTask.equals(IntegrationTask.None)){
                 errorMessageList.add(NONE_TASK_ERROR_MESSAGE);
             }
-
         }
         catch (IllegalArgumentException exception){
             errorMessageList.add(String.format("%s is not valid task",goonjAdhocTaskDTO.getTask()));

@@ -9,6 +9,7 @@ import org.avni_integration_service.avni.worker.ErrorRecordWorker;
 import org.avni_integration_service.goonj.GoonjEntityType;
 import org.avni_integration_service.goonj.GoonjErrorType;
 import org.avni_integration_service.goonj.config.GoonjContextProvider;
+import org.avni_integration_service.goonj.exceptions.GoonjAvniRestException;
 import org.avni_integration_service.goonj.repository.GoonjBaseRepository;
 import org.avni_integration_service.goonj.service.AvniGoonjErrorService;
 import org.avni_integration_service.goonj.util.DateTimeUtil;
@@ -126,13 +127,16 @@ public abstract class SubjectWorker implements ErrorRecordWorker {
         try {
             createSubject(subject);
             updateErrorRecordAndSyncStatus(subject, updateSyncStatus, subject.getUuid());
-        } catch (Exception e) {
-            handleError(subject, e, updateSyncStatus, goonjErrorType);
+        }catch (GoonjAvniRestException exception){
+            handleError(subject, exception, updateSyncStatus, goonjErrorType,exception.getErrorBody());
+        }
+        catch (Exception e) {
+            handleError(subject, e, updateSyncStatus, goonjErrorType,null);
         }
     }
 
     protected void handleError(Subject subject, Exception exception,
-                               boolean updateSyncStatus, GoonjErrorType goonjErrorType) throws Exception {
+                               boolean updateSyncStatus, GoonjErrorType goonjErrorType,Map<String,Object> errorBody) throws Exception {
         logger.error(String.format("Avni subject %s could not be synced to Goonj Salesforce. ", subject.getUuid()), exception);
         ErrorType classifiedErrorType = errorClassifier.classify(goonjContextProvider.get().getIntegrationSystem(),
                 exception, goonjContextProvider.get().getBypassErrors(), GoonjErrorType.UnclassifiedError.name());
@@ -140,7 +144,7 @@ public abstract class SubjectWorker implements ErrorRecordWorker {
             throw exception;
         }
         createOrUpdateErrorRecordAndSyncStatus(subject, updateSyncStatus, subject.getUuid(),
-                classifiedErrorType.getName(), exception.getLocalizedMessage());
+                classifiedErrorType.getName(), exception.getLocalizedMessage(),errorBody);
     }
 
     protected abstract void createSubject(Subject subject);
@@ -165,9 +169,9 @@ public abstract class SubjectWorker implements ErrorRecordWorker {
         updateSyncStatus(subject, updateSyncStatus);
     }
 
-    private void createOrUpdateErrorRecordAndSyncStatus(Subject subject, boolean updateSyncStatus, String sid, String goonjErrorTypeName, String errorMsg) {
+    private void createOrUpdateErrorRecordAndSyncStatus(Subject subject, boolean updateSyncStatus, String sid, String goonjErrorTypeName, String errorMsg,Map<String,Object> errorBody) {
         subject.getAddress();
-        avniGoonjErrorService.errorOccurred(sid, goonjErrorTypeName, entityType, errorMsg, subject.getObservations());
+        avniGoonjErrorService.errorOccurred(sid, goonjErrorTypeName, entityType, errorMsg, errorBody);
         updateSyncStatus(subject, updateSyncStatus);
     }
 

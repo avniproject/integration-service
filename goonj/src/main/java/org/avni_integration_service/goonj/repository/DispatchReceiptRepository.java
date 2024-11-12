@@ -12,11 +12,10 @@ import org.avni_integration_service.goonj.domain.DispatchReceivedStatusLineItemC
 import org.avni_integration_service.goonj.dto.DispatchReceivedStatusLineItem;
 import org.avni_integration_service.goonj.dto.DispatchReceivedStatusRequestDTO;
 import org.avni_integration_service.goonj.dto.DispatchReceivedstatus;
+import org.avni_integration_service.goonj.exceptions.GoonjAvniRestException;
 import org.avni_integration_service.goonj.util.DateTimeUtil;
-import org.avni_integration_service.integration_data.domain.IntegrationSystem;
 import org.avni_integration_service.integration_data.domain.MappingMetaData;
 import org.avni_integration_service.integration_data.repository.IntegratingEntityStatusRepository;
-import org.avni_integration_service.integration_data.repository.IntegrationSystemRepository;
 import org.avni_integration_service.integration_data.repository.MappingMetaDataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -75,7 +74,8 @@ public class DispatchReceiptRepository extends GoonjBaseRepository
         if (goonjConfig.getDeleteAndRecreateDispatchReceipt()) {
             try {
                 deleteEvent(RESOURCE_DELETE_DISPATCH_RECEIVED_STATUS, encounter);
-            } catch (HttpClientErrorException.NotFound | HttpClientErrorException.BadRequest  hce) {
+            } catch (HttpClientErrorException.NotFound | HttpClientErrorException.BadRequest |
+                     GoonjAvniRestException hce) {
                 logger.info(String.format("Ignoring failure to delete missing DispatchReceipt, %s", encounter.getUuid()));
             }
         }

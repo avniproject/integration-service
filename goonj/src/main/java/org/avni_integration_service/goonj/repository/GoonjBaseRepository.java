@@ -5,6 +5,7 @@ import org.avni_integration_service.avni.client.AvniHttpClient;
 import org.avni_integration_service.avni.domain.GeneralEncounter;
 import org.avni_integration_service.avni.domain.Subject;
 import org.avni_integration_service.goonj.config.GoonjContextProvider;
+import org.avni_integration_service.goonj.exceptions.GoonjAvniRestException;
 import org.avni_integration_service.goonj.util.DateTimeUtil;
 import org.avni_integration_service.integration_data.repository.IntegratingEntityStatusRepository;
 import org.avni_integration_service.util.ObjectJsonMapper;
@@ -93,46 +94,59 @@ public abstract class GoonjBaseRepository {
             return responseEntity.getBody();
         }
         logger.error(String.format("Failed to fetch data for resource %s, response status code is %s", resource, responseEntity.getStatusCode()));
-        throw getRestClientResponseException(responseEntity.getHeaders(), responseEntity.getStatusCode(), null);
+        throw getRestClientResponseException(responseEntity.getHeaders(), responseEntity.getStatusCode(), null, null);
     }
 
-    protected HashMap<String, Object>[] createSingleEntity(String resource, HttpEntity<?> requestEntity) throws RestClientResponseException {
-        logger.info("Request body:" + ObjectJsonMapper.writeValueAsString(requestEntity.getBody()));
+    protected HashMap<String, Object>[] createSingleEntity(String resource, HttpEntity<?> requestEntity) throws GoonjAvniRestException {
+        String requestBodyString = ObjectJsonMapper.writeValueAsString(requestEntity.getBody());
+        Map<String, Object> requestBody = ObjectJsonMapper.readValue(requestBodyString, Map.class);
         URI uri = URI.create(String.format("%s/%s", goonjContextProvider.get().getAppUrl(), resource));
         ParameterizedTypeReference<HashMap<String, Object>[]> responseType = new ParameterizedTypeReference<>() {};
-        ResponseEntity<HashMap<String, Object>[]> responseEntity = goonjRestTemplate.exchange(uri, HttpMethod.POST, requestEntity, responseType);
-        if (responseEntity.getStatusCode().is2xxSuccessful()) {
-            return responseEntity.getBody();
+        try {
+            ResponseEntity<HashMap<String, Object>[]> responseEntity = goonjRestTemplate.exchange(uri, HttpMethod.POST, requestEntity, responseType);
+            if (responseEntity.getStatusCode().is2xxSuccessful()) {
+                return responseEntity.getBody();
+            }
+            logger.error(String.format("Failed to create resource %s,  response status code is %s", resource, responseEntity.getStatusCode()));
+            throw handleError(responseEntity, responseEntity.getStatusCode(), requestBody);
         }
-        logger.error(String.format("Failed to create resource %s,  response status code is %s", resource, responseEntity.getStatusCode()));
-        throw handleError(responseEntity, responseEntity.getStatusCode());
+        catch (HttpClientErrorException | HttpServerErrorException exception){
+            throw getRestClientResponseException(requestEntity.getHeaders(),exception.getStatusCode(),exception.getMessage(),requestBody);
+        }
+        catch (RestClientException exception){
+            throw getRestClientResponseException(requestEntity.getHeaders(),null,exception.getMessage(),requestBody);
+        }
     }
 
     protected Object deleteSingleEntity(String resource, HttpEntity<?> requestEntity) throws RestClientResponseException {
-        logger.info("Request body:" + ObjectJsonMapper.writeValueAsString(requestEntity.getBody()));
+        String requestBodyString = ObjectJsonMapper.writeValueAsString(requestEntity.getBody());
+        Map<String, Object> requestBody = ObjectJsonMapper.readValue(requestBodyString, Map.class);
         URI uri = URI.create(String.format("%s/%s", goonjContextProvider.get().getAppUrl(), resource));
         ParameterizedTypeReference<Object> responseType = new ParameterizedTypeReference<>() {};
-        ResponseEntity<Object> responseEntity = goonjRestTemplate.exchange(uri, HttpMethod.POST, requestEntity, responseType);
-        if (responseEntity.getStatusCode().is2xxSuccessful()) {
-            return responseEntity.getBody();
+        try {
+            ResponseEntity<Object> responseEntity = goonjRestTemplate.exchange(uri, HttpMethod.POST, requestEntity, responseType);
+            if (responseEntity.getStatusCode().is2xxSuccessful()) {
+                return responseEntity.getBody();
+            }
+            logger.error(String.format("Failed to delete resource %s, response error message is %s", resource, responseEntity.getBody()));
+            throw getRestClientResponseException(responseEntity.getHeaders(), responseEntity.getStatusCode(), (String) responseEntity.getBody(), requestBody);
         }
-        logger.error(String.format("Failed to delete resource %s, response error message is %s", resource, responseEntity.getBody()));
-        throw getRestClientResponseException(responseEntity.getHeaders(), responseEntity.getStatusCode(), (String) responseEntity.getBody());
+        catch (HttpClientErrorException | HttpServerErrorException exception){
+            throw getRestClientResponseException(requestEntity.getHeaders(),exception.getStatusCode(),exception.getMessage(),requestBody);
+        }
+        catch (RestClientException exception){
+            throw getRestClientResponseException(requestEntity.getHeaders(),null,exception.getMessage(),requestBody);
+        }
     }
 
-    protected RestClientException handleError(ResponseEntity<HashMap<String, Object>[]> responseEntity, HttpStatus statusCode) {
+    protected GoonjAvniRestException handleError(ResponseEntity<HashMap<String, Object>[]> responseEntity, HttpStatus statusCode,Map<String,Object> requestBody) {
         HashMap<String, Object>[] responseBody = responseEntity.getBody();
         String message = (String) responseBody[0].get("message");
-        return getRestClientResponseException(responseEntity.getHeaders(), statusCode, message);
+        return getRestClientResponseException(responseEntity.getHeaders(), statusCode, message, requestBody);
     }
 
-    private RestClientResponseException getRestClientResponseException(HttpHeaders headers, HttpStatus statusCode, String message) {
-        return switch (statusCode.series()) {
-            case CLIENT_ERROR -> HttpClientErrorException.create(message, statusCode, null, headers, null, null);
-            case SERVER_ERROR -> HttpServerErrorException.create(message, statusCode, null, headers, null, null);
-            default -> new UnknownHttpStatusCodeException(message, statusCode.value(), null, headers, null, null);
-        };
-        // TODO: 07/11/24 init request body 
+    private GoonjAvniRestException getRestClientResponseException(HttpHeaders headers, HttpStatus statusCode, String message,Map<String,Object> errorBody) {
+        return new GoonjAvniRestException(headers,statusCode,message,errorBody);
     }
 
     private HttpEntity<Map<String, List>> getDeleteEncounterHttpRequestEntity(GeneralEncounter encounter) {
