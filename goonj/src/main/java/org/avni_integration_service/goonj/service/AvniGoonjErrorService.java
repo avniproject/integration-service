@@ -48,7 +48,7 @@ public class AvniGoonjErrorService {
                 errorRecordRepository.save(errorRecord);
             }
         } else if (errorRecord != null && !errorRecord.hasThisAsLastErrorTypeAndErrorMessage(errorType, errorMsg)) {
-            errorRecord.addErrorLog(errorType, errorMsg);
+            errorRecord.addErrorLog(errorType, errorMsg,errorBody);
             errorRecordRepository.save(errorRecord);
         } else {
             errorRecord = new ErrorRecord();
@@ -79,7 +79,7 @@ public class AvniGoonjErrorService {
             errorRecordRepository.save(errorRecord);
         } else if (errorRecord != null && !errorRecord.hasThisAsLastErrorTypeAndErrorMessage(errorType, errorMsg)) {
             logger.info(String.format("New error for entity uuid %s, and type %s", uuid, goonjEntityType));
-            errorRecord.addErrorLog(errorType, errorMsg);
+            errorRecord.addErrorLog(errorType, errorMsg,body);
             errorRecordRepository.save(errorRecord);
         } else {
             errorRecord = new ErrorRecord();
