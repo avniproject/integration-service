@@ -14,6 +14,8 @@ import java.util.*;
 
 @Component
 public class AvniSubjectRepository extends BaseAvniRepository {
+    public static final int API_VERSION_USING_ADDRESS_MAP_FOR_DATA_UPSERT = 3;
+    public static final int API_VERSION_USING_ADDRESS_CSV_FOR_DATA_UPSERT = 1;
     @Autowired
     private AvniHttpClient avniHttpClient;
 
@@ -28,7 +30,7 @@ public class AvniSubjectRepository extends BaseAvniRepository {
     public <T> T getSubjects(Date lastModifiedDateTime, String subjectType, String path,
                                         Class<T> responseType) {
         String fromTime = FormatAndParseUtil.toISODateTimeString(lastModifiedDateTime);
-        HashMap<String, String> queryParams = new HashMap<>(1);
+        HashMap<String, String> queryParams = new HashMap<>(3);
         queryParams.put("lastModifiedDateTime", fromTime);
         queryParams.put("subjectType", subjectType);
         queryParams.put("size", "10");
@@ -44,7 +46,7 @@ public class AvniSubjectRepository extends BaseAvniRepository {
     public <T> T getSubjects(Date lastModifiedDateTime, String subjectType, String locationIds, Map<String, Object> concepts,
                              String path, Class<T> responseType) {
         String fromTime = FormatAndParseUtil.toISODateTimeString(lastModifiedDateTime);
-        HashMap<String, String> queryParams = new HashMap<>(1);
+        HashMap<String, String> queryParams = new HashMap<>(3);
         queryParams.put("lastModifiedDateTime", fromTime);
         queryParams.put("subjectType", subjectType);
         queryParams.put("size", "10");
@@ -66,7 +68,7 @@ public class AvniSubjectRepository extends BaseAvniRepository {
     @Deprecated // for getting some subjects use without lastModifiedDateTime method
     public Subject[] getSubjects(Date lastModifiedDateTime, String subjectType, HashMap<String, Object> concepts) {
         String fromTime = FormatAndParseUtil.toISODateTimeString(lastModifiedDateTime);
-        HashMap<String, String> queryParams = new HashMap<>();
+        HashMap<String, String> queryParams = new HashMap<>(3);
         if (lastModifiedDateTime != null)
             queryParams.put("lastModifiedDateTime", fromTime);
         queryParams.put("subjectType", subjectType);
@@ -121,11 +123,11 @@ public class AvniSubjectRepository extends BaseAvniRepository {
         return responseEntity.getBody();
     }
 
-    private Integer subjectApiVersion(Subject subject){
+    private int subjectApiVersion(Subject subject){
         Map<String, String> addressMap = subject.getAddressMap();
         if(addressMap!=null && !addressMap.isEmpty()){
-            return 3;
+            return API_VERSION_USING_ADDRESS_MAP_FOR_DATA_UPSERT;
         }
-        return null;
+        return API_VERSION_USING_ADDRESS_CSV_FOR_DATA_UPSERT;
     }
 }
