@@ -5,6 +5,7 @@ import org.avni_integration_service.util.FormatAndParseUtil;
 import org.avni_integration_service.util.MapUtil;
 
 import java.util.Date;
+import java.util.Map;
 
 public class Subject extends AvniBaseContract {
     public static final String SubjectTypeFieldName = "Subject type";
@@ -16,6 +17,7 @@ public class Subject extends AvniBaseContract {
     public static final String GenderName = "Gender";
 
     public static final String DateOfBirth = "Date of birth";
+    public static final String ADDRESS_MAP = "Address map";
 
     public String getId(String avniIdentifierConcept) {
         return (String) getObservation(avniIdentifierConcept);
@@ -92,5 +94,14 @@ public class Subject extends AvniBaseContract {
 
     public void setGender(String gender) {
         set(GenderName, gender);
+    }
+
+    @JsonIgnore
+    public Map<String,String> getAddressMap(){
+        return MapUtil.getMap(ADDRESS_MAP,this.map);
+    }
+
+    public void setAddressMap(Map<String,String> addressMap){
+        map.put(ADDRESS_MAP,addressMap);
     }
 }

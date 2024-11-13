@@ -53,7 +53,8 @@ public class Inventory implements GoonjEntity {
         subject.setSubjectType("Inventory Item");
         Date InventoryDate = DateTimeUtil.convertToDateFromGoonjDateString(MapUtil.getString(InventoryDateField, response));
         subject.setRegistrationDate(InventoryDate);
-        subject.setAddress(getAddress(InventoryStateField, InventoryDistrictField, response));
+//        subject.setAddress(getAddress(InventoryStateField, InventoryDistrictField, response));
+        subject.setAddressMap(getAddressMap(InventoryStateField, InventoryDistrictField, response));
         subject.setFirstName(MapUtil.getString(InventoryNameField, response));
         String implementationInventoryId = MapUtil.getString(InventoryIdField, response);
         subject.setExternalId(implementationInventoryId);
