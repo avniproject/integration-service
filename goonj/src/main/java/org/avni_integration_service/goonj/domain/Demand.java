@@ -34,7 +34,6 @@ public class Demand implements GoonjEntity{
         subject.setSubjectType("Demand");
         Date demandDate = DateTimeUtil.offsetTimeZone(new Date(), DateTimeUtil.UTC, DateTimeUtil.IST);
         subject.setRegistrationDate(demandDate);
-//        subject.setAddress(getAddress(DemandStateField, DemandDistrictField, response));
         subject.setAddressMap(getAddressMap(DemandStateField,DemandDistrictField,response));
         subject.setExternalId(MapUtil.getString(DemandIdField, response));
         subject.setFirstName(MapUtil.getString(DemandNameField, response));
