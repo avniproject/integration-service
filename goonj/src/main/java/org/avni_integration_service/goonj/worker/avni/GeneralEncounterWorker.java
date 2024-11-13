@@ -93,7 +93,7 @@ public abstract class GeneralEncounterWorker implements ErrorRecordWorker {
      * @return EffectiveCutoffDateTime
      */
     private Date getEffectiveCutoffDateTime(IntegratingEntityStatus status) {
-        return new Date(status.getReadUptoDateTime().toInstant().toEpochMilli());
+        return status.getReadUptoDateTime();
     }
 
     @Override

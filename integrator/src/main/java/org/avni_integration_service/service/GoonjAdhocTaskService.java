@@ -71,12 +71,8 @@ public class GoonjAdhocTaskService {
     }
 
     private GoonjAdhocTask findAdhocTask(String uuid) {
-        Optional<GoonjAdhocTask> optional = goonjAdhocTaskRepository.findByUuid(uuid);
-        if(optional.isEmpty()){
-            throw new GoonjAdhocException(NO_ADHOC_TASK_ERROR_MESSAGE + uuid,HttpStatus.NOT_FOUND);
-        }
-        GoonjAdhocTask goonjAdhocTask = optional.get();
-        return goonjAdhocTask;
+        return goonjAdhocTaskRepository.findByUuid(uuid).orElseThrow(() ->
+                new GoonjAdhocException(NO_ADHOC_TASK_ERROR_MESSAGE + uuid, HttpStatus.NOT_FOUND));
     }
 
     public GoonjAdhocTaskDTO deleteAdhocTask(String uuid) {
@@ -92,15 +88,6 @@ public class GoonjAdhocTaskService {
         return goonjAdhocTasks.stream().map(this::entityToDto).collect(Collectors.toList());
     }
 
-    public GoonjAdhocTaskDTO updateAdhocTask(String uuid,GoonjAdhocTaskDTO goonjAdhocTaskDTO) {
-        validateDTO(goonjAdhocTaskDTO);
-        GoonjAdhocTask goonjAdhocTask = findAdhocTask(uuid);
-        dtoToEntity(goonjAdhocTaskDTO,goonjAdhocTask);
-        goonjAdhocTask.setGoonjAdhocTaskSatus(GoonjAdhocTaskSatus.UPDATED);
-        goonjAdhocTaskRepository.save(goonjAdhocTask);
-        GoonjAdhocTaskDTO response = entityToDto(goonjAdhocTask);
-        return response;
-    }
     private void validateDTO(GoonjAdhocTaskDTO goonjAdhocTaskDTO){
         List<String> errorMessageList = new LinkedList<>();
         validateTrigger(goonjAdhocTaskDTO,errorMessageList);
@@ -109,7 +96,6 @@ public class GoonjAdhocTaskService {
         if(errorMessageList.size()>0){
             throw new GoonjAdhocException(String.join(" & ",errorMessageList), HttpStatus.BAD_REQUEST);
         }
-
     }
 
     private void validateTaskConfig(GoonjAdhocTaskDTO goonjAdhocTaskDTO, List<String> errorMessageList) {
@@ -128,16 +114,15 @@ public class GoonjAdhocTaskService {
             if(integrationTask.equals(IntegrationTask.None)){
                 errorMessageList.add(NONE_TASK_ERROR_MESSAGE);
             }
-        }
-        catch (IllegalArgumentException exception){
+        } catch (IllegalArgumentException exception){
             errorMessageList.add(String.format("%s is not valid task",goonjAdhocTaskDTO.getTask()));
         }
     }
+
     private void validateTrigger(GoonjAdhocTaskDTO goonjAdhocTaskDTO, List<String> errorMessageList){
         int days =Days.daysBetween(DateTime.now(), new DateTime(goonjAdhocTaskDTO.getTriggerDateTime())).getDays();
         if( days < -1 || days > 1 ){
             errorMessageList.add(String.format("Trigger DateTime should be within range of +/- 1 day",goonjAdhocTaskDTO.getTriggerDateTime()));
         }
     }
-
 }

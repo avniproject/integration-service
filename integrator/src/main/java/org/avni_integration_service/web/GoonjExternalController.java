@@ -61,12 +61,4 @@ public class GoonjExternalController extends BaseController{
         return new ResponseEntity<>(response,HttpStatus.ACCEPTED);
     }
 
-    @PutMapping("/v1/task/{uuid}")
-    public ResponseEntity<?> updateAdhocTask(@PathVariable String uuid,@Validated @RequestBody GoonjAdhocTaskDTO goonjAdhocTaskDTO){
-        logger.info(String.format("updating goonj adhoc task for %s and updating details are :%s",uuid,goonjAdhocTaskDTO));
-        var response = goonjAdhocTaskService.updateAdhocTask(uuid,goonjAdhocTaskDTO);
-        return new ResponseEntity<>(response,HttpStatus.ACCEPTED);
-
-    }
-
 }
