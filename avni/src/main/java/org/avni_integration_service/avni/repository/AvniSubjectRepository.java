@@ -104,13 +104,13 @@ public class AvniSubjectRepository extends BaseAvniRepository {
         }
     }
 
-    public Subject create(Subject subject, Integer version) {
-        ResponseEntity<Subject> responseEntity = avniHttpClient.post(String.format("/api/subject?version=%s",version), subject, Subject.class);
+    public Subject create(Subject subject) {
+        ResponseEntity<Subject> responseEntity = avniHttpClient.post(String.format("/api/subject?version=%s", subjectApiVersion(subject)), subject, Subject.class);
         return responseEntity.getBody();
     }
 
     public Subject update(String id, Subject subject) {
-        ResponseEntity<Subject> responseEntity = avniHttpClient.put(String.format("/api/subject/%s", id), subject, Subject.class);
+        ResponseEntity<Subject> responseEntity = avniHttpClient.put(String.format("/api/subject/%s?version=%s", id, subjectApiVersion(subject)), subject, Subject.class);
         return responseEntity.getBody();
     }
 
@@ -119,5 +119,13 @@ public class AvniSubjectRepository extends BaseAvniRepository {
         HashMap<String, String> queryParams = new HashMap<>();
         ResponseEntity<Subject> responseEntity = avniHttpClient.delete(String.format("/api/subject/%s", deletedEntity), queryParams, json, Subject.class);
         return responseEntity.getBody();
+    }
+
+    private Integer subjectApiVersion(Subject subject){
+        Map<String, String> addressMap = subject.getAddressMap();
+        if(addressMap!=null && !addressMap.isEmpty()){
+            return 3;
+        }
+        return null;
     }
 }

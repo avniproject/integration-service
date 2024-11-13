@@ -56,7 +56,7 @@ public class DispatchEventWorker extends GoonjEventWorker implements ErrorRecord
         String subjectUUID = oldSubject != null ? oldSubject.getUuid() : "";
         logger.debug(String.format("Already Available Dispatch in avni for name %s || id %s || avniuuid %s",dispatchStatusName, dispatchStatusId, subjectUUID));
         dispatchService.populateImageConcepts(oldSubject, subject, dispatch);
-        avniSubjectRepository.create(subject, 3);
+        avniSubjectRepository.create(subject);
     }
 
     public void processError(String dispatchUuid) throws Exception {

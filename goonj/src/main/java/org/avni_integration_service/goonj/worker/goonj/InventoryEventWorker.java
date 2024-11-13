@@ -56,7 +56,7 @@ public class InventoryEventWorker extends GoonjEventWorker implements ErrorRecor
         Inventory inventoryItems = Inventory.from(inventoryResponse);
         Subject subject = inventoryItems.subjectWithoutObservations();
         inventoryService.populateObservations(subject, inventoryItems);
-        avniSubjectRepository.create(subject, 3);
+        avniSubjectRepository.create(subject);
     }
 
     public void processError(String inventoryUuid) throws Exception {

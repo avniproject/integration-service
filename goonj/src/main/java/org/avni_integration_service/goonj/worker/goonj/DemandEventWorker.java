@@ -49,7 +49,7 @@ public class DemandEventWorker extends GoonjEventWorker implements ErrorRecordWo
         Demand demand = Demand.from(demandResponse);
         Subject subject = demand.subjectWithoutObservations();
         demandService.populateObservations(subject, demand);
-        avniSubjectRepository.create(subject, 3);
+        avniSubjectRepository.create(subject);
     }
 
     public void processError(String demandUuid) throws Exception {

@@ -26,7 +26,7 @@ public class AvniStudentRepository {
     }
 
     public void addSubject(Subject subject) {
-        avniSubjectRepository.create(subject, null);
+        avniSubjectRepository.create(subject);
     }
 
     public List<Subject> findMatchingStudents(Subject subject) {
