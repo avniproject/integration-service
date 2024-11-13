@@ -12,11 +12,9 @@ import org.avni_integration_service.goonj.service.AvniGoonjErrorService;
 import org.avni_integration_service.goonj.service.InventoryService;
 import org.avni_integration_service.goonj.util.DateTimeUtil;
 import org.avni_integration_service.integration_data.domain.IntegratingEntityStatus;
-import org.avni_integration_service.integration_data.domain.IntegrationSystem;
 import org.avni_integration_service.integration_data.repository.IntegratingEntityStatusRepository;
 import org.avni_integration_service.integration_data.service.error.ErrorClassifier;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.HttpClientErrorException;
@@ -58,7 +56,7 @@ public class InventoryEventWorker extends GoonjEventWorker implements ErrorRecor
         Inventory inventoryItems = Inventory.from(inventoryResponse);
         Subject subject = inventoryItems.subjectWithoutObservations();
         inventoryService.populateObservations(subject, inventoryItems);
-        avniSubjectRepository.create(subject);
+        avniSubjectRepository.create(subject, 3);
     }
 
     public void processError(String inventoryUuid) throws Exception {

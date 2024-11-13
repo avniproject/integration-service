@@ -10,11 +10,9 @@ import org.avni_integration_service.goonj.config.GoonjContextProvider;
 import org.avni_integration_service.goonj.domain.Demand;
 import org.avni_integration_service.goonj.service.AvniGoonjErrorService;
 import org.avni_integration_service.goonj.service.DemandService;
-import org.avni_integration_service.integration_data.domain.IntegrationSystem;
 import org.avni_integration_service.integration_data.repository.IntegratingEntityStatusRepository;
 import org.avni_integration_service.integration_data.service.error.ErrorClassifier;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
 
@@ -51,7 +49,7 @@ public class DemandEventWorker extends GoonjEventWorker implements ErrorRecordWo
         Demand demand = Demand.from(demandResponse);
         Subject subject = demand.subjectWithoutObservations();
         demandService.populateObservations(subject, demand);
-        avniSubjectRepository.create(subject);
+        avniSubjectRepository.create(subject, 3);
     }
 
     public void processError(String demandUuid) throws Exception {

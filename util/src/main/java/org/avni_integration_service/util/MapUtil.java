@@ -20,4 +20,9 @@ public class MapUtil {
         if (value == null) return false;
         return Boolean.parseBoolean((String)value);
     }
+    public static  Map<String,String> getMap(String key,Map map){
+        Object value = map.get(key);
+        if (value == null) return null;
+        return (Map<String, String>) value;
+    }
 }

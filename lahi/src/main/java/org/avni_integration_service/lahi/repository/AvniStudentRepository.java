@@ -3,11 +3,9 @@ package org.avni_integration_service.lahi.repository;
 import org.apache.log4j.Logger;
 import org.avni_integration_service.avni.domain.Subject;
 import org.avni_integration_service.avni.repository.AvniSubjectRepository;
-import org.avni_integration_service.lahi.util.DateTimeUtil;
 import org.avni_integration_service.util.ObjectUtil;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -28,7 +26,7 @@ public class AvniStudentRepository {
     }
 
     public void addSubject(Subject subject) {
-        avniSubjectRepository.create(subject);
+        avniSubjectRepository.create(subject, null);
     }
 
     public List<Subject> findMatchingStudents(Subject subject) {

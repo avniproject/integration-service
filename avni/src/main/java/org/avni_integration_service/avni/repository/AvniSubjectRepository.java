@@ -104,8 +104,8 @@ public class AvniSubjectRepository extends BaseAvniRepository {
         }
     }
 
-    public Subject create(Subject subject) {
-        ResponseEntity<Subject> responseEntity = avniHttpClient.post("/api/subject", subject, Subject.class);
+    public Subject create(Subject subject, Integer version) {
+        ResponseEntity<Subject> responseEntity = avniHttpClient.post(String.format("/api/subject?version=%s",version), subject, Subject.class);
         return responseEntity.getBody();
     }
 
