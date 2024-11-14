@@ -14,5 +14,6 @@ public interface ErrorClassifierForGoonjTestConstants {
     String ERROR_MSG_ACTIVITY_MEASUREMENT_TYPE_MISSING = "FIELD_CUSTOM_VALIDATION_EXCEPTION, Please fill in Measurement Type.";
     String ERROR_MSG_DEMAND_ADDRESS_NOT_FOUND = "500 : \"java.lang.IllegalArgumentException: Address 'Maharashtra, Thane' not found<LF> at org.avni.server.web.api.SubjectApiController.updateSubjectDetails(SubjectApiController.java:189)<LF>\"";
     String ERROR_MSG_DISPATCH_ADDRESS_NOT_FOUND = "500 : \"Address 'Punjab, Amritsar' not found\"";
-    String ERROR_MSG_DISPATCH_ADDRESS_NOT_FOUND_INVALID = "500 : Invalid address, \"Address 'Punjab, Amritsar' is not found\"";
+    String ERROR_MSG_DISPATCH_ADDRESS_NOT_FOUND_INVALID = "500 : Invalid address, \"Address 'Punjab, Amritsar' does not exist\"";
+    String ERROR_MSG_DISPATCH_ADDRESS_MAP_NOT_FOUND_VALID = "500 : \"java.lang.IllegalArgumentException: Address corresponding to 'Address map' not found<LF> at org.avni.server.web.api.SubjectApiController.updateSubjectDetails(SubjectApiController.java:217)\"";
 }

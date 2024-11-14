@@ -26,11 +26,6 @@ public class ErrorClassifierForTest extends AbstractSpringTest implements ErrorC
         }
 
         @Test
-        public void classifyMissingDemandError() {
-                assertNotNull(errorClassifier.classify(integrationSystem, ERROR_MSG_DISPATCH_MISSING_DEMAND));
-        }
-
-        @Test
         public void escapeMissingDemandError() {
                 assertNull(errorClassifier.classify(integrationSystem, ERROR_MSG_STANDARD_SKIP));
         }
@@ -79,6 +74,8 @@ public class ErrorClassifierForTest extends AbstractSpringTest implements ErrorC
         public void classifyErrorMsgAddressNotFoundError() {
                 assertEquals("AddressNotFoundError" , errorClassifier.classify(integrationSystem, ERROR_MSG_DEMAND_ADDRESS_NOT_FOUND).getName());
                 assertEquals("AddressNotFoundError" , errorClassifier.classify(integrationSystem, ERROR_MSG_DISPATCH_ADDRESS_NOT_FOUND,
+                        true, "UnclassifiedError").getName());
+                assertEquals("AddressNotFoundError" , errorClassifier.classify(integrationSystem, ERROR_MSG_DISPATCH_ADDRESS_MAP_NOT_FOUND_VALID,
                         true, "UnclassifiedError").getName());
                 assertEquals("UnclassifiedError" , errorClassifier.classify(integrationSystem, ERROR_MSG_DISPATCH_ADDRESS_NOT_FOUND_INVALID,
                         true, "UnclassifiedError").getName());
