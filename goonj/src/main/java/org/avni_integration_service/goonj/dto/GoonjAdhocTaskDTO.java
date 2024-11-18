@@ -7,15 +7,18 @@ import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.Map;
 
+import static org.avni_integration_service.goonj.util.DateTimeUtil.IST;
+import static org.avni_integration_service.goonj.util.DateTimeUtil.adhocTaskDateFormatDTOPattern;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class GoonjAdhocTaskDTO {
     @NotBlank(message = "task can't be null or blank")
     private String task;
     private Map<String, Object> taskConfig;
-    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy:MM:dd hh:mm:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = adhocTaskDateFormatDTOPattern,timezone = IST)
     @NotNull(message = "frequency can't be null or blank")
     private Date triggerDateTime;
-    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy:MM:dd hh:mm:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = adhocTaskDateFormatDTOPattern,timezone = IST)
     @NotNull(message = "cutoffdatetime can't be null or blank")
     private Date cutOffDateTime;
     private String uuid;

@@ -7,7 +7,6 @@ import org.avni_integration_service.goonj.GoonjEntityType;
 import org.avni_integration_service.goonj.config.GoonjContextProvider;
 import org.avni_integration_service.goonj.dto.DeletedDispatchStatusLineItem;
 import org.avni_integration_service.goonj.dto.DispatchesResponseDTO;
-import org.avni_integration_service.goonj.util.DateTimeUtil;
 import org.avni_integration_service.integration_data.repository.IntegratingEntityStatusRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -57,7 +56,7 @@ public class DispatchRepository extends GoonjBaseRepository {
 
     public DispatchesResponseDTO getDispatches(Date dateTime, Map<String, Object> filters) {
         return super.getResponse(GET_DISPATCHES_PATH, DispatchesResponseDTO.class,
-                getAPIFilters(FILTER_BY_DATE_TIME_PARAM, dateTime, filters));
+                    getAPIFilters(FILTER_BY_DATE_TIME_PARAM, dateTime, filters));
     }
 
     public HashMap<String, Object> getDispatch(String uuid) {

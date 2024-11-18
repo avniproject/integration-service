@@ -8,6 +8,9 @@ import org.apache.log4j.Logger;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.HashMap;
 import java.util.Map;
 
 public class ObjectJsonMapper {
@@ -20,6 +23,19 @@ public class ObjectJsonMapper {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+    public static String writeQueryParameterAsEncodedString(Map<String, Object> params){
+        Map<String,String> encodedMap = new HashMap<>(params.size());
+        for(Map.Entry<String, Object> entry : params.entrySet()){
+            try {
+                String encodedKey = URLEncoder.encode(entry.getKey(), "UTF-8");
+                String encodedValue = URLEncoder.encode(String.valueOf(entry.getValue()), "UTF-8");
+                encodedMap.put(encodedKey, encodedValue);
+            } catch (UnsupportedEncodingException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return writeValueAsString(encodedMap);
     }
 
     public static <T> T readValue(String json, Class<T> klass) {

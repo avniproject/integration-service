@@ -68,8 +68,8 @@ public abstract class SubjectWorker implements ErrorRecordWorker {
         Object taskDateTimeFilter = filters.getOrDefault(FILTER_KEY_TIMESTAMP, cutoffDateTime);
         Map<String, Object> conceptsFilterValue = (Map<String, Object>) filters.getOrDefault(FILTER_KEY_CONCEPTS, Collections.emptyMap());
         String locationIdsFilterValue = (String) filters.getOrDefault(FILTER_KEY_LOCATION_IDS, EMPTY_STRING);
-        Date readUptoDateTime = Objects.nonNull(taskDateTimeFilter) && (taskDateTimeFilter instanceof Date)
-                ? (Date) taskDateTimeFilter : cutoffDateTime; //Use db CutOffDateTime
+        Date readUptoDateTime = Objects.nonNull(taskDateTimeFilter) && (taskDateTimeFilter instanceof String)
+                ? DateTimeUtil.convertToDate((String) taskDateTimeFilter) : cutoffDateTime; //Use db CutOffDateTime
         while (true) {
             SubjectsResponse response;
             if(StringUtils.hasText(locationIdsFilterValue) || (Objects.nonNull(conceptsFilterValue) && !conceptsFilterValue.isEmpty())) {

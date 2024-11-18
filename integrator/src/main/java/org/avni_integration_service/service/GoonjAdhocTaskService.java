@@ -7,6 +7,7 @@ import org.avni_integration_service.goonj.dto.GoonjAdhocTaskDTO;
 import org.avni_integration_service.goonj.exceptions.GoonjAdhocException;
 import org.avni_integration_service.goonj.job.IntegrationTask;
 import org.avni_integration_service.goonj.repository.GoonjAdhocTaskRepository;
+import org.avni_integration_service.goonj.util.DateTimeUtil;
 import org.avni_integration_service.integration_data.domain.IntegrationSystem;
 import org.avni_integration_service.integration_data.repository.IntegrationSystemRepository;
 import org.joda.time.DateTime;
@@ -25,6 +26,8 @@ public class GoonjAdhocTaskService {
     public static final String INTEGRATION_SYSTEM_NAME = "Goonj";
     private final GoonjAdhocTaskRepository goonjAdhocTaskRepository;
     private final IntegrationSystemRepository integrationSystemRepository;
+    private final Set<String> SALESFORCE_TASK = Set.of(IntegrationTask.GoonjDemand,IntegrationTask.GoonjDispatch,IntegrationTask.GoonjInventory).stream().map(IntegrationTask::name).collect(Collectors.toSet());
+    private final Set<String> AVNI_TASK = Set.of(IntegrationTask.AvniDistribution,IntegrationTask.AvniDispatchReceipt,IntegrationTask.AvniActivity).stream().map(IntegrationTask::name).collect(Collectors.toSet());
 
     public GoonjAdhocTaskService(GoonjAdhocTaskRepository goonjAdhocTaskRepository, IntegrationSystemRepository integrationSystemRepository) {
         this.goonjAdhocTaskRepository = goonjAdhocTaskRepository;
@@ -101,9 +104,18 @@ public class GoonjAdhocTaskService {
     private void validateTaskConfig(GoonjAdhocTaskDTO goonjAdhocTaskDTO, List<String> errorMessageList) {
         Map<String, Object> taskConfigs = goonjAdhocTaskDTO.getTaskConfig();
         if (taskConfigs != null) {
-            boolean find = taskConfigs.keySet().stream().anyMatch(key -> !GoonjConstants.FILTER_SET.contains(key));
-            if (find) {
-                errorMessageList.add(String.format("please enter valid task config value from %s", GoonjConstants.FILTER_SET));
+            String task = goonjAdhocTaskDTO.getTask();
+            if(SALESFORCE_TASK.contains(task)){
+                boolean find = taskConfigs.keySet().stream().anyMatch(key -> !GoonjConstants.GOONJ_API_FILTER.contains(key));
+                if (find) {
+                    errorMessageList.add(String.format("please enter valid task config value from %s", GoonjConstants.GOONJ_API_FILTER));
+                }
+            }
+            if(AVNI_TASK.contains(task)){
+                boolean find = taskConfigs.keySet().stream().anyMatch(key -> !GoonjConstants.AVNI_API_FILTER.contains(key));
+                if (find) {
+                    errorMessageList.add(String.format("please enter valid task config value from %s", GoonjConstants.AVNI_API_FILTER));
+                }
             }
         }
     }
@@ -120,7 +132,8 @@ public class GoonjAdhocTaskService {
     }
 
     private void validateTrigger(GoonjAdhocTaskDTO goonjAdhocTaskDTO, List<String> errorMessageList){
-        int days =Days.daysBetween(DateTime.now(), new DateTime(goonjAdhocTaskDTO.getTriggerDateTime())).getDays();
+        Date date = DateTimeUtil.offsetTimeZone(DateTime.now().toDate(),DateTimeUtil.UTC,DateTimeUtil.IST);
+        int days =Days.daysBetween(new DateTime(date), new DateTime(goonjAdhocTaskDTO.getTriggerDateTime())).getDays();
         if( days < -1 || days > 1 ){
             errorMessageList.add(String.format("Trigger DateTime should be within range of +/- 1 day",goonjAdhocTaskDTO.getTriggerDateTime()));
         }

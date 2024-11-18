@@ -14,7 +14,9 @@ import org.springframework.http.*;
 import org.springframework.lang.NonNull;
 import org.springframework.web.client.*;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
+import java.net.URLEncoder;
 import java.util.*;
 
 import static org.avni_integration_service.goonj.config.GoonjConstants.*;
@@ -79,12 +81,17 @@ public abstract class GoonjBaseRepository {
         Object taskDateTimeFilter = filters.getOrDefault(FILTER_KEY_TIMESTAMP, cutoffDateTime);
         Object stateFilterValue = filters.getOrDefault(FILTER_KEY_STATE, EMPTY_STRING);
         Object accountFilterValue = filters.getOrDefault(FILTER_KEY_ACCOUNT, EMPTY_STRING);
-        Date dateTimeValue = Objects.nonNull(taskDateTimeFilter) && (taskDateTimeFilter instanceof Date)
-                ? (Date) taskDateTimeFilter : cutoffDateTime; //Use db CutOffDateTime
-        String dateTimeOffsetFilter=String.format(FILTER_PARAM_FORMAT, dateTimeParam, DateTimeUtil.formatDateTime(dateTimeValue));
-        String stateFilter=String.format(FILTER_PARAM_FORMAT, FILTER_KEY_STATE, stateFilterValue);
-        String accountFilter=String.format(FILTER_PARAM_FORMAT, FILTER_KEY_ACCOUNT, accountFilterValue);
-        return String.join(API_PARAMS_DELIMITER, dateTimeOffsetFilter, stateFilter, accountFilter);
+        Date dateTimeValue = Objects.nonNull(taskDateTimeFilter) && (taskDateTimeFilter instanceof String)
+                ?  DateTimeUtil.convertToDate((String) taskDateTimeFilter) : cutoffDateTime; //Use db CutOffDateTime
+        String dateTimeOffsetFilter = String.format(FILTER_PARAM_FORMAT, dateTimeParam, DateTimeUtil.formatDateTime(dateTimeValue));
+        String stateFilter = String.format(FILTER_PARAM_FORMAT, FILTER_KEY_STATE, stateFilterValue);
+        try {
+            String accountFilter = String.format(FILTER_PARAM_FORMAT, FILTER_KEY_ACCOUNT, URLEncoder.encode((String) accountFilterValue,"UTF-8"));
+            return String.join(API_PARAMS_DELIMITER, dateTimeOffsetFilter, stateFilter, accountFilter);
+        }
+        catch (UnsupportedEncodingException exception){
+            throw new RuntimeException(exception);
+        }
     }
 
     protected <T> T getSingleEntityResponse(String resource, String filter, String uuid, Class<T> returnType) {

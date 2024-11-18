@@ -68,8 +68,8 @@ public abstract class GeneralEncounterWorker implements ErrorRecordWorker {
         IntegratingEntityStatus status = integrationEntityStatusRepository.findByEntityType(encounterType);
         Date cutoffDateTime = getEffectiveCutoffDateTime(status);
         Object taskDateTimeFilter = filters.getOrDefault(FILTER_KEY_TIMESTAMP, cutoffDateTime);
-        Date readUptoDateTime = Objects.nonNull(taskDateTimeFilter) && (taskDateTimeFilter instanceof Date)
-                ? (Date) taskDateTimeFilter : cutoffDateTime; //Use db CutOffDateTime
+        Date readUptoDateTime = Objects.nonNull(taskDateTimeFilter) && (taskDateTimeFilter instanceof String)
+                ? DateTimeUtil.getDate((String) taskDateTimeFilter) : cutoffDateTime; //Use db CutOffDateTime
         while (true) {
             GeneralEncountersResponse response = avniEncounterRepository.getGeneralEncounters(readUptoDateTime, encounterType);
             GeneralEncounter[] generalEncounters = response.getContent();

@@ -16,5 +16,6 @@ public class GoonjConstants {
     public static final String FILTER_PARAM_FORMAT = "%s=%s";
     public static final boolean UPDATE_SYNC_STATUS_GOONJ_MAIN_JOB = true;
     public static final boolean UPDATE_SYNC_STATUS_GOONJ_ADHOC_JOB = false;
-    public static final Set<String> FILTER_SET = Set.of(FILTER_KEY_ACCOUNT,FILTER_KEY_CONCEPTS,FILTER_KEY_LOCATION_IDS,FILTER_KEY_STATE,FILTER_KEY_TIMESTAMP);
+    public static final Set<String> GOONJ_API_FILTER = Set.of(FILTER_KEY_ACCOUNT,FILTER_KEY_STATE);
+    public static final Set<String> AVNI_API_FILTER = Set.of(FILTER_KEY_CONCEPTS,FILTER_KEY_LOCATION_IDS);
 }

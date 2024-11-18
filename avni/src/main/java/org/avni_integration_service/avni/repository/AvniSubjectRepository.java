@@ -51,7 +51,7 @@ public class AvniSubjectRepository extends BaseAvniRepository {
         queryParams.put("subjectType", subjectType);
         queryParams.put("size", "10");
         if(Objects.nonNull(concepts) && concepts.size() > 0) {
-            queryParams.put("concepts", ObjectJsonMapper.writeValueAsString(concepts));
+            queryParams.put("concepts", ObjectJsonMapper.writeQueryParameterAsEncodedString(concepts));
         }
         if(StringUtils.hasText(locationIds)) {
             queryParams.put("locationIds", locationIds);
