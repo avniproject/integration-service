@@ -30,4 +30,8 @@ public enum IntegrationTask {
     public static boolean isSalesforceSourceTask(IntegrationTask task) {
         return Arrays.asList( GoonjDemand, GoonjDispatch, GoonjInventory).contains(task);
     }
+
+    public static boolean isInvalidTask(IntegrationTask task) {
+        return !isAvniSourceTask(task) && !isSalesforceSourceTask(task);
+    }
 }

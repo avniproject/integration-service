@@ -82,14 +82,17 @@ public abstract class GoonjBaseRepository {
         Object stateFilterValue = filters.getOrDefault(FILTER_KEY_STATE, EMPTY_STRING);
         Object accountFilterValue = filters.getOrDefault(FILTER_KEY_ACCOUNT, EMPTY_STRING);
         Date dateTimeValue = Objects.nonNull(taskDateTimeFilter) && (taskDateTimeFilter instanceof String)
-                ?  DateTimeUtil.convertToDate((String) taskDateTimeFilter) : cutoffDateTime; //Use db CutOffDateTime
+                ? DateTimeUtil.convertToDate((String) taskDateTimeFilter) : cutoffDateTime; //Use db CutOffDateTime
         String dateTimeOffsetFilter = String.format(FILTER_PARAM_FORMAT, dateTimeParam, DateTimeUtil.formatDateTime(dateTimeValue));
-        String stateFilter = String.format(FILTER_PARAM_FORMAT, FILTER_KEY_STATE, stateFilterValue);
+        String stateFilter = getEncodedValue(FILTER_KEY_STATE, String.valueOf(stateFilterValue));
+        String accountFilter = getEncodedValue(FILTER_KEY_ACCOUNT, String.valueOf(accountFilterValue));
+        return String.join(API_PARAMS_DELIMITER, dateTimeOffsetFilter, stateFilter, accountFilter);
+    }
+
+    private String getEncodedValue(String filterKey, String filterValue) {
         try {
-            String accountFilter = String.format(FILTER_PARAM_FORMAT, FILTER_KEY_ACCOUNT, URLEncoder.encode((String) accountFilterValue,"UTF-8"));
-            return String.join(API_PARAMS_DELIMITER, dateTimeOffsetFilter, stateFilter, accountFilter);
-        }
-        catch (UnsupportedEncodingException exception){
+            return String.format(FILTER_PARAM_FORMAT, filterKey, URLEncoder.encode(filterValue, "UTF-8"));
+        } catch (UnsupportedEncodingException exception) {
             throw new RuntimeException(exception);
         }
     }

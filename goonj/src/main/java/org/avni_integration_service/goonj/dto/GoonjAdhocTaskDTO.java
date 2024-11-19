@@ -1,6 +1,7 @@
 package org.avni_integration_service.goonj.dto;
 
 import com.fasterxml.jackson.annotation.*;
+import org.avni_integration_service.goonj.job.IntegrationTask;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -13,12 +14,12 @@ import static org.avni_integration_service.goonj.util.DateTimeUtil.adhocTaskDate
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class GoonjAdhocTaskDTO {
     @NotBlank(message = "task can't be null or blank")
-    private String task;
+    private IntegrationTask task;
     private Map<String, Object> taskConfig;
-    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = adhocTaskDateFormatDTOPattern,timezone = IST)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = adhocTaskDateFormatDTOPattern, timezone = IST)
     @NotNull(message = "frequency can't be null or blank")
     private Date triggerDateTime;
-    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = adhocTaskDateFormatDTOPattern,timezone = IST)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = adhocTaskDateFormatDTOPattern, timezone = IST)
     @NotNull(message = "cutoffdatetime can't be null or blank")
     private Date cutOffDateTime;
     private String uuid;
@@ -27,12 +28,12 @@ public class GoonjAdhocTaskDTO {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private String status;
 
-    public String getTask() {
+    public IntegrationTask getTask() {
         return task;
     }
 
-    public void setTask(String string) {
-        this.task = string;
+    public void setTask(IntegrationTask task) {
+        this.task = task;
     }
 
     public Map<String, Object> getTaskConfig() {

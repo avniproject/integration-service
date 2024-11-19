@@ -13,7 +13,7 @@ public class DateTimeUtil {
 
     public static final String IST = "Asia/Kolkata";
     public static String UTC = "UTC";
-    public static final String adhocTaskDateFormatDTOPattern = "yyyy-MM-dd hh:mm:ss";
+    public static final String adhocTaskDateFormatDTOPattern = "yyyy-MM-dd HH:mm:ss";
     private static final DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
     private static final SimpleDateFormat adhocDateFormater = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy");
     private static final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
