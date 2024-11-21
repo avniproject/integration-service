@@ -13,7 +13,7 @@ import static org.avni_integration_service.goonj.util.DateTimeUtil.adhocTaskDate
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class GoonjAdhocTaskDTO {
-    @NotBlank(message = "task can't be null or blank")
+    @NotNull(message = "task can't be null or blank")
     private IntegrationTask task;
     private Map<String, Object> taskConfig;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = adhocTaskDateFormatDTOPattern, timezone = IST)
