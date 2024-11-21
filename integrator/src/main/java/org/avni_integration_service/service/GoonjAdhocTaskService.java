@@ -33,7 +33,7 @@ public class GoonjAdhocTaskService {
     }
 
     public List<String> getValidTasks() {
-        return Arrays.stream(IntegrationTask.values()).filter(task -> !task.equals(IntegrationTask.None)).map(Enum::name).collect(Collectors.toList());
+        return Arrays.stream(IntegrationTask.values()).filter(task -> !IntegrationTask.isInvalidTask(task)).map(Enum::name).collect(Collectors.toList());
     }
 
     public void dtoToEntity(GoonjAdhocTaskDTO goonjAdhocTaskDTO, GoonjAdhocTask goonjAdhocTask) {
