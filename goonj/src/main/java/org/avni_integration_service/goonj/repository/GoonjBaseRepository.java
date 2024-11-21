@@ -78,15 +78,20 @@ public abstract class GoonjBaseRepository {
     }
 
     protected String getAPIFilters(String dateTimeParam, Date cutoffDateTime, @NonNull Map<String, Object> filters) {
-        Object taskDateTimeFilter = filters.getOrDefault(FILTER_KEY_TIMESTAMP, cutoffDateTime);
+        Date dateTimeValue = getDateTimeValue(cutoffDateTime, filters.get(FILTER_KEY_TIMESTAMP));
         Object stateFilterValue = filters.getOrDefault(FILTER_KEY_STATE, EMPTY_STRING);
         Object accountFilterValue = filters.getOrDefault(FILTER_KEY_ACCOUNT, EMPTY_STRING);
-        Date dateTimeValue = Objects.nonNull(taskDateTimeFilter) && (taskDateTimeFilter instanceof String)
-                ? DateTimeUtil.convertToDate((String) taskDateTimeFilter) : cutoffDateTime; //Use db CutOffDateTime
         String dateTimeOffsetFilter = String.format(FILTER_PARAM_FORMAT, dateTimeParam, DateTimeUtil.formatDateTime(dateTimeValue));
         String stateFilter = getEncodedValue(FILTER_KEY_STATE, String.valueOf(stateFilterValue));
         String accountFilter = getEncodedValue(FILTER_KEY_ACCOUNT, String.valueOf(accountFilterValue));
         return String.join(API_PARAMS_DELIMITER, dateTimeOffsetFilter, stateFilter, accountFilter);
+    }
+
+    private Date getDateTimeValue(Date cutoffDateTime, Object taskDateTimeFilter) {
+        if(Objects.nonNull(taskDateTimeFilter) && (taskDateTimeFilter instanceof String)) {
+            return DateTimeUtil.offsetTimeZone(DateTimeUtil.convertToDate((String) taskDateTimeFilter), DateTimeUtil.UTC, DateTimeUtil.IST);
+        }
+        return cutoffDateTime; //Use db CutOffDateTime
     }
 
     private String getEncodedValue(String filterKey, String filterValue) {
