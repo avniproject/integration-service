@@ -1,7 +1,6 @@
 package org.avni_integration_service.integration_data.domain.error;
 
 import org.avni_integration_service.integration_data.domain.AvniEntityType;
-import org.avni_integration_service.integration_data.domain.framework.BaseEntity;
 import org.avni_integration_service.integration_data.domain.framework.BaseIntegrationSpecificEntity;
 import org.springframework.util.StringUtils;
 
@@ -101,9 +100,12 @@ public class ErrorRecord extends BaseIntegrationSpecificEntity {
     }
 
 
-    public void updateLoggedAtForLastErrorRecordLog() {
+    public void updateLoggedAtForLastErrorRecordLog(Map<String, Object> errorBody) {
         ErrorRecordLog lastERL = getLastErrorRecordLog();
         lastERL.setLoggedAt(new Date());
+        if (Objects.nonNull(errorBody) && (Objects.isNull(lastERL.getBody()) || lastERL.getBody().isEmpty())) {
+            lastERL.setBody(errorBody);
+        }
     }
 
     public boolean isProcessingDisabled() {

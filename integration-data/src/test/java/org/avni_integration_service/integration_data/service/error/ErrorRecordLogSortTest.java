@@ -70,7 +70,7 @@ public class ErrorRecordLogSortTest extends AbstractSpringTest implements ErrorC
                 assertEquals(true, updatedErrorRecord.hasThisAsLastErrorTypeAndErrorMessage(errorType4, ERROR_MSG_4));
                 updatedErrorRecord.getErrorRecordLogs().stream().forEach(erl -> System.out.println(erl.getId()+" erl: "+erl.getErrorType()+" "+erl.getLoggedAt().toInstant()));
                 Date before = updatedErrorRecord.getErrorRecordLogs().stream().filter(erl -> erl.getErrorType().equals(errorType4)).findFirst().get().getLoggedAt();
-                updatedErrorRecord.updateLoggedAtForLastErrorRecordLog();
+                updatedErrorRecord.updateLoggedAtForLastErrorRecordLog(null);
                 updatedErrorRecord = errorRecordRepository.save(updatedErrorRecord);
                 this.errorRecordLogRepository.saveAll(updatedErrorRecord.getErrorRecordLogs());
                 assertEquals(true, updatedErrorRecord.hasThisAsLastErrorTypeAndErrorMessage(errorType4, ERROR_MSG_4));
