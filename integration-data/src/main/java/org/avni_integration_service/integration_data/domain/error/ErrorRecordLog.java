@@ -12,6 +12,8 @@ import java.util.Objects;
 
 @Entity
 public class ErrorRecordLog extends BaseEntity {
+    public static final int ERR_MSG_BEGIN_INDEX = 0;
+    public static final int ERR_MSG_TRUNCATION_LENGTH = 1000;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "error_record_id")
     private ErrorRecord errorRecord;
@@ -61,7 +63,8 @@ public class ErrorRecordLog extends BaseEntity {
     }
 
     public void setErrorMsg(String errorMsg) {
-        this.errorMsg = StringUtils.isNotEmpty(errorMsg) ? errorMsg.substring(0, 1000) : errorMsg;
+        this.errorMsg = StringUtils.isNotEmpty(errorMsg)
+                ? errorMsg.substring(ERR_MSG_BEGIN_INDEX, ERR_MSG_TRUNCATION_LENGTH) : errorMsg;
     }
 
     public Map<String, Object> getBody() {
