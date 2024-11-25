@@ -1,6 +1,5 @@
 package org.avni_integration_service.integration_data.domain.error;
 
-import io.micrometer.core.instrument.util.StringUtils;
 import org.avni_integration_service.integration_data.converter.MapToJsonConverter;
 import org.avni_integration_service.integration_data.domain.framework.BaseEntity;
 import org.hibernate.annotations.ColumnTransformer;
@@ -61,7 +60,7 @@ public class ErrorRecordLog extends BaseEntity {
     }
 
     public void setErrorMsg(String errorMsg) {
-        this.errorMsg = StringUtils.isNotEmpty(errorMsg) ? errorMsg.substring(0, 1000) : errorMsg;
+        this.errorMsg = errorMsg;
     }
 
     public Map<String, Object> getBody() {
