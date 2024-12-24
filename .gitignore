@@ -8,7 +8,10 @@ logs
 dump.sql
 goonj/src/test/resources/goonj-secret.properties
 amrit/src/test/resources/amrit-secret.properties
+lahi/src/test/resources/lahi-secret.properties
+rwb/src/test/resources/rwb-secret.properties
 **/avni-secret.properties
+**/**-secret.properties
 
 **/bin/**
 *.iml

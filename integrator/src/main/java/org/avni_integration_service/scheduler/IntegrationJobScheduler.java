@@ -13,6 +13,7 @@ import org.avni_integration_service.job.AvniPowerFullErrorJob;
 import org.avni_integration_service.job.AvniPowerMainJob;
 import org.avni_integration_service.lahi.job.AvniLahiFullErrorJob;
 import org.avni_integration_service.lahi.job.AvniLahiMainJob;
+import org.avni_integration_service.rwb.job.AvniRwbMainJob;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -35,6 +36,7 @@ public class IntegrationJobScheduler {
     private final AvniPowerFullErrorJob avniPowerFullErrorJob;
     private final AvniLahiMainJob avniLahiMainJob;
     private final AvniLahiFullErrorJob avniLahiFullErrorJob;
+    private final AvniRwbMainJob avniRwbMainJob;
     private final AvniAmritMainJob avniAmritMainJob;
     private final AvniAmritFullErrorJob avniAmritFullErrorJob;
     private final TaskScheduler taskScheduler;
@@ -53,16 +55,24 @@ public class IntegrationJobScheduler {
     private String amritCron;
     @Value("${amrit.app.cron.full.error}")
     private String amritCronError;
+    @Value("${rwb.app.cron.main}")
+    private String rwbCron;
+    // TODO: 24/12/24 support rwbCronError
+//    @Value("${rwb.app.cron.full.error}")
+//    private String rwbCronError;
 
     @Autowired
     public IntegrationJobScheduler(AvniGoonjMainJob avniGoonjMainJob, AvniGoonjFullErrorJob avniGoonjFullErrorJob,
                                    AvniPowerMainJob avniPowerMainJob, AvniPowerFullErrorJob avniPowerFullErrorJob,
                                    AvniLahiMainJob avniLahiMainJob, AvniLahiFullErrorJob avniLahiFullErrorJob,
-                                   AvniAmritMainJob avniAmritMainJob, AvniAmritFullErrorJob avniAmritFullErrorJob, TaskScheduler taskScheduler, IntegrationSystemConfigRepository integrationSystemConfigRepository, IntegrationSystemRepository integrationSystemRepository) {
+                                   AvniAmritMainJob avniAmritMainJob, AvniAmritFullErrorJob avniAmritFullErrorJob,
+                                   AvniRwbMainJob avniRwbMainJob,
+                                   TaskScheduler taskScheduler, IntegrationSystemConfigRepository integrationSystemConfigRepository, IntegrationSystemRepository integrationSystemRepository) {
         this.avniGoonjMainJob = avniGoonjMainJob;
         this.avniGoonjFullErrorJob = avniGoonjFullErrorJob;
         this.avniPowerMainJob = avniPowerMainJob;
         this.avniPowerFullErrorJob = avniPowerFullErrorJob;
+        this.avniRwbMainJob = avniRwbMainJob;
         this.avniLahiMainJob = avniLahiMainJob;
         this.avniLahiFullErrorJob = avniLahiFullErrorJob;
         this.avniAmritMainJob = avniAmritMainJob;
@@ -76,6 +86,7 @@ public class IntegrationJobScheduler {
     public void scheduleAll() {
         schedulePower();
         scheduleLahi();
+        scheduleRwb();
         scheduleAmrit();
         scheduleGoonj();
     }
@@ -109,5 +120,11 @@ public class IntegrationJobScheduler {
     private void schedulePower() {
         if (CronExpression.isValidExpression(powerCron)) taskScheduler.schedule(avniPowerMainJob::execute, new CronTrigger(powerCron));
         if (CronExpression.isValidExpression(powerCronError)) taskScheduler.schedule(avniPowerFullErrorJob::execute, new CronTrigger(powerCronError));
+    }
+
+
+    private void scheduleRwb() {
+        if (CronExpression.isValidExpression(rwbCron)) taskScheduler.schedule(avniRwbMainJob::execute, new CronTrigger(rwbCron));
+        // TODO: 24/12/24 rwbCronError 
     }
 }
