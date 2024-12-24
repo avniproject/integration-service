@@ -2,7 +2,10 @@ package org.avni_integration_service.util;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.joda.JodaModule;
 import org.apache.log4j.Logger;
 
 import java.io.File;
@@ -15,7 +18,11 @@ import java.util.Map;
 
 public class ObjectJsonMapper {
     private static final Logger logger = Logger.getLogger(ObjectJsonMapper.class);
-    private static final ObjectMapper objectMapper = new ObjectMapper();
+    public static final ObjectMapper objectMapper = new ObjectMapper()
+            .registerModule(new JodaModule())
+            .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
+            .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+            .configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
 
     public static String writeValueAsString(Object o) {
         try {

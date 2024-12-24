@@ -55,6 +55,8 @@ dependencies {
     implementation 'software.amazon.awssdk:cognitoidentity'
     implementation platform('com.amazonaws:aws-java-sdk-bom:1.11.939')
     implementation 'com.amazonaws:aws-java-sdk-cognitoidp'
+    implementation "joda-time:joda-time:2.10.10"
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-joda:2.12.6'
 
     runtimeOnly group: 'mysql', name: 'mysql-connector-java', version: '5.1.6'
 

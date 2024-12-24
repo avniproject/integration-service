@@ -2,7 +2,6 @@ package org.avni_integration_service.service;
 
 import com.fasterxml.jackson.core.PrettyPrinter;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.log4j.Logger;
 import org.avni_integration_service.integration_data.domain.IntegrationSystem;
 import org.avni_integration_service.integration_data.domain.MappingGroup;
@@ -17,7 +16,6 @@ import org.avni_integration_service.integration_data.repository.MappingMetaDataR
 import org.avni_integration_service.integration_data.repository.MappingTypeRepository;
 import org.avni_integration_service.integration_data.repository.config.IntegrationSystemConfigRepository;
 import org.avni_integration_service.util.BundleFileName;
-import org.avni_integration_service.util.ObjectMapperSingleton;
 import org.avni_integration_service.web.contract.ErrorTypeContract;
 import org.avni_integration_service.web.contract.IntegrationSystemConfigContract;
 import org.avni_integration_service.web.contract.MappingMetadataContract;
@@ -32,6 +30,8 @@ import java.util.*;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
+
+import static org.avni_integration_service.util.ObjectJsonMapper.objectMapper;
 
 @Service
 public class BundleService {
@@ -55,8 +55,6 @@ public class BundleService {
         add(BundleFileName.INTEGRATION_SYSTEM_CONFIG);
     }};
     private static final int BUFFER_SIZE = 2048;
-    private final ObjectMapper objectMapper;
-
 
     @Autowired
     public BundleService(MappingMetaDataRepository mappingMetaDataRepository, MappingGroupRepository mappingGroupRepository,
@@ -64,7 +62,7 @@ public class BundleService {
                          IntegrationSystemConfigRepository integrationSystemConfigRepository,
                          MappingTypeService mappingTypeService, MappingGroupService mappingGroupService,
                          MappingMetadataService mappingMetadataService, ErrorTypeService errorTypeService,
-                         IntegrationSystemConfigService integrationSystemConfigService, ObjectMapper objectMapper) {
+                         IntegrationSystemConfigService integrationSystemConfigService) {
         this.mappingMetaDataRepository = mappingMetaDataRepository;
         this.mappingGroupRepository = mappingGroupRepository;
         this.mappingTypeRepository = mappingTypeRepository;
@@ -75,7 +73,6 @@ public class BundleService {
         this.mappingMetadataService = mappingMetadataService;
         this.errorTypeService = errorTypeService;
         this.integrationSystemConfigService = integrationSystemConfigService;
-        this.objectMapper = objectMapper;
     }
 
     public void exportMappingMetadataAsJsonToZip(IntegrationSystem integrationSystem, ZipOutputStream zos) throws IOException {
@@ -232,7 +229,7 @@ public class BundleService {
         zos.putNextEntry(entry);
         if (fileContent != null) {
             PrettyPrinter prettyPrinter = new DefaultPrettyPrinter();
-            byte[] bytes = ObjectMapperSingleton.getObjectMapper().writer(prettyPrinter).writeValueAsBytes(fileContent);
+            byte[] bytes = objectMapper.writer(prettyPrinter).writeValueAsBytes(fileContent);
             zos.write(bytes);
         }
         zos.closeEntry();

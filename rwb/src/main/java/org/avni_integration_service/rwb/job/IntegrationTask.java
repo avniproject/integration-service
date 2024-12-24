@@ -6,7 +6,8 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 public enum IntegrationTask {
-    STUDENT_FETCH;
+    // TODO: 24/12/24 Use IntegrationTask to filter if more than one rwb int task is present
+    USER_NUDGE;
     public static List<IntegrationTask> getTasks(String taskNames) {
         if (taskNames.equals("all"))
             return Arrays.asList(IntegrationTask.values());

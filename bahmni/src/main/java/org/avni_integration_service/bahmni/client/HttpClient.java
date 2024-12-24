@@ -10,7 +10,7 @@ import org.apache.log4j.Logger;
 import java.io.IOException;
 import java.net.URI;
 
-import static org.avni_integration_service.bahmni.client.ObjectMapperRepository.objectMapper;
+import static org.avni_integration_service.util.ObjectJsonMapper.objectMapper;
 
 public class HttpClient {
     private Authenticator authenticator;

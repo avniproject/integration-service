@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import org.avni_integration_service.migrator.domain.OpenMRSForm;
 import org.avni_integration_service.migrator.domain.StandardMappings;
 import org.avni_integration_service.integration_data.util.FileUtil;
-import org.avni_integration_service.migrator.util.ObjectJsonMapper;
+import org.avni_integration_service.util.ObjectJsonMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

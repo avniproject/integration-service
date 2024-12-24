@@ -21,7 +21,7 @@ public class AvniMessageRepository {
     }
 
     public String sendMessage(ManualMessageContract manualMessageContract) {
-        ResponseEntity<String> responseEntity = avniHttpClient.post("/sendMsg", manualMessageContract, String.class);
+        ResponseEntity<String> responseEntity = avniHttpClient.post("/web/message/sendMsg", manualMessageContract, String.class);
         if (responseEntity.getStatusCode().is2xxSuccessful()) {
             return responseEntity.getBody();
         }
