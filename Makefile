@@ -21,15 +21,18 @@ application_jar=integrator-0.0.2-SNAPSHOT.jar
 dbPort=5432
 
 define _build_db
-	-psql -h localhost -p $(dbPort) -U $(SU) -d postgres -c "create user $(ADMIN_USER) with password 'password' createrole";
-	-psql -h localhost -p $(dbPort) -U $(SU) -d postgres -c 'create database $1 with owner $(ADMIN_USER)';
-	-psql -h localhost -p $(dbPort) -U $(SU) -d $1 -c 'create extension if not exists "uuid-ossp"';
+	-psql -h localhost -p $(dbPort) -U $(postgres_user) -d postgres -c "create user $(ADMIN_USER) with password 'password' createrole";
+	-psql -h localhost -p $(dbPort) -U $(postgres_user) -d postgres -c 'create database $1 with owner $(ADMIN_USER)';
+	-psql -h localhost -p $(dbPort) -U $(postgres_user) -d $1 -c 'create extension if not exists "uuid-ossp"';
 endef
 
 define _drop_db
     -psql -h localhost -p $(dbPort) -U $(SU) -d postgres -c "SELECT pg_terminate_backend(pg_stat_activity.pid) FROM pg_stat_activity WHERE pg_stat_activity.datname = '$1' AND pid <> pg_backend_pid()"
     -psql -h localhost -p $(dbPort) -U $(SU) -d postgres -c 'drop database $1';
 endef
+
+_drop_roles:
+	-psql -h localhost -p $(dbPort) -U $(postgres_user) -d postgres -c 'drop role avni_int';
 
 define _run_server
 	java -jar --enable-preview integrator/build/libs/$(application_jar) --app.cron.main="0/3 * * * * ?" --app.cron.full.error="0 1 * * * ?" --avni.api.url=https://staging.avniproject.org/ --avni.impl.username=test-user@bahmni_ashwini --avni.impl.password=password
@@ -84,7 +87,7 @@ drop-test-db:
 rebuild-test-db: drop-test-db build-test-db
 
 drop-roles:
-	-psql -h localhost -p $(dbPort) -U $(SU) -d postgres -c 'drop role $(ADMIN_USER)';
+	-psql -h localhost -p $(dbPort) -U $(postgres_user) -d postgres -c 'drop role $(ADMIN_USER)';
 #######
 
 ####### BUILD, TEST, LOCAL RUN
@@ -111,6 +114,8 @@ test-server-only:
 	-touch amrit/src/test/resources/amrit-secret.properties
 	-touch goonj/src/test/resources/goonj-secret.properties
 	-touch goonj/src/test/resources/avni-secret.properties
+	-touch lahi/src/test/resources/lahi-secret.properties
+	-touch rwb/src/test/resources/rwb-secret.properties
 	./gradlew clean build
 
 test-server-starts:
@@ -186,6 +191,7 @@ setup: setup-log-dir
 	touch bahmni/src/test/resources/bahmni-secret.properties
 	touch amrit/src/test/resources/amrit-secret.properties
 	touch lahi/src/test/resources/lahi-secret.properties
+	touch rwb/src/test/resources/rwb-secret.properties
 
 create-test-db-extensions:
 	-psql -h localhost -U avni_int -d avni_int_test -c 'create extension if not exists "uuid-ossp"';
