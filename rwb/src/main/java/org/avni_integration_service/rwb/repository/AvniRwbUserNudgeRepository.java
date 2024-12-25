@@ -1,10 +1,12 @@
 package org.avni_integration_service.rwb.repository;
 
 import org.apache.log4j.Logger;
+import org.avni_integration_service.avni.domain.CustomQueryRequest;
+import org.avni_integration_service.avni.domain.CustomQueryResponse;
 import org.avni_integration_service.avni.domain.ManualMessageContract;
 import org.avni_integration_service.avni.domain.ReceiverType;
 import org.avni_integration_service.avni.repository.AvniMessageRepository;
-import org.avni_integration_service.integration_data.domain.User;
+import org.avni_integration_service.avni.repository.AvniQueryRepository;
 import org.springframework.stereotype.Component;
 import org.joda.time.DateTime;
 
@@ -13,9 +15,11 @@ public class AvniRwbUserNudgeRepository {
 
     private static final Logger logger = Logger.getLogger(AvniMessageRepository.class);
     private final AvniMessageRepository avniMessageRepository;
+    private final AvniQueryRepository avniQueryRepository;
 
-    public AvniRwbUserNudgeRepository(AvniMessageRepository avniMessageRepository) {
+    public AvniRwbUserNudgeRepository(AvniMessageRepository avniMessageRepository, AvniQueryRepository avniQueryRepository) {
         this.avniMessageRepository = avniMessageRepository;
+        this.avniQueryRepository = avniQueryRepository;
     }
 
     public void sendMessage(String userId) {
@@ -32,5 +36,8 @@ public class AvniRwbUserNudgeRepository {
         return manualMessageContract;
     }
 
+    public CustomQueryResponse executeCustomQuery(CustomQueryRequest customQueryRequest) {
+        return avniQueryRepository.invokeCustomQuery(customQueryRequest);
+    }
 
 }
