@@ -94,8 +94,8 @@ jobs:
 
       - run: |
           cd ~/avni-int
-          make rebuild-test-db-schema SU=avni_int
-          make test-server SU=avni_int
+          make rebuild-test-db-schema SU=avni_int postgres_user=avni_int
+          make test-server SU=avni_int postgres_user=avni_int
 
       - store_artifacts:
           path: ~/avni-int/amrit/build/reports/tests/test
@@ -163,9 +163,9 @@ jobs:
 
       - run: sudo apt-get install make openssl postgresql-client
 
-      - run: make create-test-db-extensions SU=avni_int
+      - run: make create-test-db-extensions SU=avni_int postgres_user=avni_int
 
-      - run: make test-server SU=avni_int
+      - run: make test-server SU=avni_int postgres_user=avni_int
 
       - run: mkdir -p ~/artifacts;
 
