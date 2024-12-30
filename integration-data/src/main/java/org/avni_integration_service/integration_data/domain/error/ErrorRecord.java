@@ -72,7 +72,7 @@ public class ErrorRecord extends BaseIntegrationSpecificEntity {
         return errorTypesAreSame && (errorMsgsAreSame || errorMsgsAreNotPresent);
     }
 
-    private ErrorRecordLog getLastErrorRecordLog() {
+    public ErrorRecordLog getLastErrorRecordLog() {
         return this.errorRecordLogs.stream().sorted(Comparator.comparing(ErrorRecordLog::getLoggedAt))
                 .reduce((first, second) -> second).orElse(null);
     }

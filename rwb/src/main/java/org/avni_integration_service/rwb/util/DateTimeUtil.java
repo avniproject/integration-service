@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.Date;
 
 public class DateTimeUtil {
@@ -32,5 +33,18 @@ public class DateTimeUtil {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static boolean differenceWithNowLessThanInterval(Date date, int interval, int unit) {
+        Calendar startCalendar = Calendar.getInstance();
+        startCalendar.setTime(date);
+        Date startTime = startCalendar.getTime();
+
+        Calendar endCalendar = Calendar.getInstance();
+        endCalendar.setTime(new Date());
+        endCalendar.add(unit, -interval);
+        Date endTime = endCalendar.getTime();
+
+        return startTime.after(endTime);
     }
 }

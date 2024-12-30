@@ -28,7 +28,7 @@ public class RwbUserNudgeService {
     }
 
     public List<String> getUsersThatHaveToReceiveNudge() {
-        //    TODO use BULK_FETCH_QUERY, 
+        //    TODO use BULK_FETCH_QUERY, for users without activity and atleast one work-order without endline form
         //     the query response has to be further filtered to send nudge only if not nudged in say past week or so
         CustomQueryResponse customQueryResponse = avniRwbUserNudgeRepository.executeCustomQuery(customQueryRequest);
         return customQueryResponse.getData().stream().map(row -> row.get(0).toString()).collect(Collectors.toList());
