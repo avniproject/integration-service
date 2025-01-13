@@ -6,6 +6,7 @@ import org.avni_integration_service.common.PlatformException;
 import org.avni_integration_service.common.UnknownException;
 import org.avni_integration_service.integration_data.domain.error.ErrorRecord;
 import org.avni_integration_service.rwb.config.RwbSendMsgErrorType;
+import org.avni_integration_service.rwb.dto.NudgeUserRequestDTO;
 import org.avni_integration_service.rwb.service.RwbUserNudgeErrorService;
 import org.avni_integration_service.rwb.service.RwbUserNudgeService;
 import org.avni_integration_service.rwb.util.DateTimeUtil;
@@ -25,9 +26,9 @@ public class RWBUsersNudgeWorker {
     }
 
     public void processUsers() {
-        rwbUserNudgeService.getUsersThatHaveToReceiveNudge().forEach(userId -> {
+        rwbUserNudgeService.getUsersThatHaveToReceiveNudge().forEach(nudgeUserRequestDTO -> {
             try {
-                processUser(userId);
+                processUser(nudgeUserRequestDTO);
             } catch (PlatformException e) {
                 logger.error("Platform level issue. Adding to error record.", e);
             } catch (UnknownException e) {
@@ -39,18 +40,18 @@ public class RWBUsersNudgeWorker {
 
     }
 
-    private void processUser(String userId) throws MessageUnprocessableException, PlatformException, UnknownException {
+    private void processUser(NudgeUserRequestDTO nudgeUserRequestDTO) throws MessageUnprocessableException, PlatformException, UnknownException {
         try {
-            ErrorRecord errorRecord = rwbUserNudgeErrorService.getErrorRecord(userId);
+            ErrorRecord errorRecord = rwbUserNudgeErrorService.getErrorRecord(nudgeUserRequestDTO.getUserId());
             if(errorRecord != null && errorRecord.getLastErrorRecordLog().getErrorType().getName().equals(RwbSendMsgErrorType.Success.name()) &&
                     DateTimeUtil.differenceWithNowLessThanInterval(errorRecord.getLastErrorRecordLog().getLoggedAt(), 7, Calendar.DAY_OF_MONTH)) {
-                logger.info(String.format("User has already been nudged successfully in the last 1 week %s", userId));
+                logger.info(String.format("User has already been nudged successfully in the last 1 week %s", nudgeUserRequestDTO.getUserId()));
                 return;
             }
-            rwbUserNudgeService.nudgeUser(userId);
-            rwbUserNudgeErrorService.saveUserNudgeSuccess(userId);
+            rwbUserNudgeService.nudgeUser(nudgeUserRequestDTO);
+            rwbUserNudgeErrorService.saveUserNudgeSuccess(nudgeUserRequestDTO.getUserId());
         } catch (Exception exception) {
-            rwbUserNudgeErrorService.saveUserNudgeError(userId, exception);
+            rwbUserNudgeErrorService.saveUserNudgeError(nudgeUserRequestDTO.getUserId(), exception);
             throw exception;
         }
     }

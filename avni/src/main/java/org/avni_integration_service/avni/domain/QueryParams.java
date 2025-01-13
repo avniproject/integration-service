@@ -1,13 +1,13 @@
 package org.avni_integration_service.avni.domain;
 
 public class QueryParams {
-    public String username;
+    public String noOfDays;
 
-    public QueryParams(String username) {
-        this.username = username;
+    public QueryParams(String noOfDays) {
+        this.noOfDays = noOfDays;
     }
 
-    public String getUsername() {
-        return username;
+    public String getNoOfDays() {
+        return noOfDays;
     }
 }

@@ -5,9 +5,9 @@ public class CustomQueryRequest {
     public String name;
     public QueryParams queryParams;
 
-    public CustomQueryRequest(String name, String username) {
+    public CustomQueryRequest(String name, String noOfDays) {
         this.name = name;
-        this.queryParams = new QueryParams(username);
+        this.queryParams = new QueryParams(noOfDays);
     }
 
     public String getName() {
