@@ -8,6 +8,7 @@ import org.avni_integration_service.integration_data.repository.IntegratingEntit
 import org.avni_integration_service.rwb.dto.NudgeUserRequestDTO;
 import org.avni_integration_service.rwb.repository.AvniRwbUserNudgeRepository;
 import org.avni_integration_service.util.FormatAndParseUtil;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,7 @@ public class RwbUserNudgeService {
     private final IntegratingEntityStatusRepository integratingEntityStatusRepository;
     private final AvniRwbUserNudgeRepository avniRwbUserNudgeRepository;
     private CustomQueryRequest customQueryRequest;
+    private int noOfDays;
 
     private static final Logger logger = Logger.getLogger(RwbUserNudgeService.class);
 
@@ -31,11 +33,13 @@ public class RwbUserNudgeService {
         this.integratingEntityStatusRepository = integratingEntityStatusRepository;
         this.avniRwbUserNudgeRepository = avniRwbUserNudgeRepository;
         this.customQueryRequest = new CustomQueryRequest(customQueryName, numberOfDays);
+        this.noOfDays = Integer.parseInt(numberOfDays);
     }
 
     public List<NudgeUserRequestDTO> getUsersThatHaveToReceiveNudge() {
         CustomQueryResponse customQueryResponse = avniRwbUserNudgeRepository.executeCustomQuery(customQueryRequest);
-        return customQueryResponse.getData().stream().map(row -> new NudgeUserRequestDTO(row.get(0).toString(), row.get(1).toString(), FormatAndParseUtil.toHumanReadableFormat(new Date()))).collect(Collectors.toList());
+        return customQueryResponse.getData().stream().map(row -> new NudgeUserRequestDTO(row.get(0).toString(), row.get(1).toString(),
+                FormatAndParseUtil.toHumanReadableFormat(DateTime.now().minusDays(noOfDays).toDate()))).collect(Collectors.toList());
     }
     
     public SendMessageResponse nudgeUser(NudgeUserRequestDTO nudgeUserRequestDTO) {

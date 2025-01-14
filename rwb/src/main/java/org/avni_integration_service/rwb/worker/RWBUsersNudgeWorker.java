@@ -27,21 +27,10 @@ public class RWBUsersNudgeWorker {
     }
 
     public void processUsers() {
-        rwbUserNudgeService.getUsersThatHaveToReceiveNudge().forEach(nudgeUserRequestDTO -> {
-            try {
-                processUser(nudgeUserRequestDTO);
-            } catch (PlatformException e) {
-                logger.error("Platform level issue. Adding to error record.", e);
-            } catch (UnknownException e) {
-                logger.error("Unknown error. Adding to error record.", e);
-            } catch (MessageUnprocessableException e) {
-                logger.warn(String.format("Problem with message. Continue processing. %s", e.getMessage()));
-            }
-        });
-
+        rwbUserNudgeService.getUsersThatHaveToReceiveNudge().forEach(nudgeUserRequestDTO -> processUser(nudgeUserRequestDTO));
     }
 
-    private void processUser(NudgeUserRequestDTO nudgeUserRequestDTO) throws MessageUnprocessableException, PlatformException, UnknownException {
+    private void processUser(NudgeUserRequestDTO nudgeUserRequestDTO) {
         try {
             ErrorRecord errorRecord = rwbUserNudgeErrorService.getErrorRecord(nudgeUserRequestDTO.getUserId());
             if(errorRecord != null && errorRecord.getLastErrorRecordLog().getErrorType().getName().equals(RwbSendMsgErrorType.Success.name()) &&
@@ -53,7 +42,6 @@ public class RWBUsersNudgeWorker {
             rwbUserNudgeErrorService.saveUserNudgeStatus(nudgeUserRequestDTO.getUserId(), sendMessageResponse);
         } catch (Exception exception) {
             rwbUserNudgeErrorService.saveUserNudgeError(nudgeUserRequestDTO.getUserId(), exception);
-            throw exception;
         }
     }
 }
