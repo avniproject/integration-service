@@ -1,10 +1,7 @@
 package org.avni_integration_service.rwb.repository;
 
 import org.apache.log4j.Logger;
-import org.avni_integration_service.avni.domain.CustomQueryRequest;
-import org.avni_integration_service.avni.domain.CustomQueryResponse;
-import org.avni_integration_service.avni.domain.ManualMessageContract;
-import org.avni_integration_service.avni.domain.ReceiverType;
+import org.avni_integration_service.avni.domain.*;
 import org.avni_integration_service.avni.repository.AvniMessageRepository;
 import org.avni_integration_service.avni.repository.AvniQueryRepository;
 import org.avni_integration_service.rwb.dto.NudgeUserRequestDTO;
@@ -27,8 +24,8 @@ public class AvniRwbUserNudgeRepository {
         this.nudgeMessageTemplateId = nudgeMessageTemplateId;
     }
 
-    public void sendMessage(NudgeUserRequestDTO nudgeUserRequestDTO) {
-        avniMessageRepository.sendMessage(createMessageRequestToNudgeUser(nudgeUserRequestDTO));
+    public SendMessageResponse sendMessage(NudgeUserRequestDTO nudgeUserRequestDTO) {
+        return avniMessageRepository.sendMessage(createMessageRequestToNudgeUser(nudgeUserRequestDTO));
     }
 
     private ManualMessageContract createMessageRequestToNudgeUser(NudgeUserRequestDTO nudgeUserRequestDTO) {

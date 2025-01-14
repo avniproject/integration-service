@@ -1,6 +1,7 @@
 package org.avni_integration_service.rwb.worker;
 
 import org.apache.log4j.Logger;
+import org.avni_integration_service.avni.domain.SendMessageResponse;
 import org.avni_integration_service.common.MessageUnprocessableException;
 import org.avni_integration_service.common.PlatformException;
 import org.avni_integration_service.common.UnknownException;
@@ -48,8 +49,8 @@ public class RWBUsersNudgeWorker {
                 logger.info(String.format("User has already been nudged successfully in the last 1 week %s", nudgeUserRequestDTO.getUserId()));
                 return;
             }
-            rwbUserNudgeService.nudgeUser(nudgeUserRequestDTO);
-            rwbUserNudgeErrorService.saveUserNudgeSuccess(nudgeUserRequestDTO.getUserId());
+            SendMessageResponse sendMessageResponse = rwbUserNudgeService.nudgeUser(nudgeUserRequestDTO);
+            rwbUserNudgeErrorService.saveUserNudgeStatus(nudgeUserRequestDTO.getUserId(), sendMessageResponse);
         } catch (Exception exception) {
             rwbUserNudgeErrorService.saveUserNudgeError(nudgeUserRequestDTO.getUserId(), exception);
             throw exception;

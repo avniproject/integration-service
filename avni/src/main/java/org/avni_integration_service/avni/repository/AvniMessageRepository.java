@@ -3,6 +3,7 @@ package org.avni_integration_service.avni.repository;
 import org.apache.log4j.Logger;
 import org.avni_integration_service.avni.client.AvniHttpClient;
 import org.avni_integration_service.avni.domain.ManualMessageContract;
+import org.avni_integration_service.avni.domain.SendMessageResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpServerErrorException;
@@ -20,14 +21,12 @@ public class AvniMessageRepository {
         this.avniHttpClient = avniHttpClient;
     }
 
-    public String sendMessage(ManualMessageContract manualMessageContract) {
-        ResponseEntity<String> responseEntity = avniHttpClient.post("/web/message/sendMsg", manualMessageContract, String.class);
-        if (responseEntity.getStatusCode().is2xxSuccessful()) {
-            return responseEntity.getBody();
+    public SendMessageResponse sendMessage(ManualMessageContract manualMessageContract) {
+        ResponseEntity<SendMessageResponse> responseEntity = avniHttpClient.post("/web/message/sendMsg", manualMessageContract, SendMessageResponse.class);
+        if (!responseEntity.getStatusCode().is2xxSuccessful()) {
+            logger.error(String.format("SendMessage to user %s, deliveryStatus %s, response status code is %s", manualMessageContract.getReceiverId(),
+                    responseEntity.getBody().getMessageDeliveryStatus(), responseEntity.getStatusCode()));
         }
-        logger.error(String.format("Failed to sendMessage to user %s, response status code is %s",
-                manualMessageContract.getReceiverId(), responseEntity.getStatusCode()));
-        throw new HttpServerErrorException(responseEntity.getStatusCode(), responseEntity.getStatusCode().getReasonPhrase(),
-                responseEntity.getBody().getBytes(StandardCharsets.UTF_8), StandardCharsets.UTF_8);
+        return responseEntity.getBody();
     }
 }

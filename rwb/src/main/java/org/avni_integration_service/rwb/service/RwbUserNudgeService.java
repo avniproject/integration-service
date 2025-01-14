@@ -3,6 +3,7 @@ package org.avni_integration_service.rwb.service;
 import org.apache.log4j.Logger;
 import org.avni_integration_service.avni.domain.CustomQueryRequest;
 import org.avni_integration_service.avni.domain.CustomQueryResponse;
+import org.avni_integration_service.avni.domain.SendMessageResponse;
 import org.avni_integration_service.integration_data.repository.IntegratingEntityStatusRepository;
 import org.avni_integration_service.rwb.dto.NudgeUserRequestDTO;
 import org.avni_integration_service.rwb.repository.AvniRwbUserNudgeRepository;
@@ -37,7 +38,7 @@ public class RwbUserNudgeService {
         return customQueryResponse.getData().stream().map(row -> new NudgeUserRequestDTO(row.get(0).toString(), row.get(1).toString(), FormatAndParseUtil.toHumanReadableFormat(new Date()))).collect(Collectors.toList());
     }
     
-    public void nudgeUser(NudgeUserRequestDTO nudgeUserRequestDTO) {
-        avniRwbUserNudgeRepository.sendMessage(nudgeUserRequestDTO);
+    public SendMessageResponse nudgeUser(NudgeUserRequestDTO nudgeUserRequestDTO) {
+        return avniRwbUserNudgeRepository.sendMessage(nudgeUserRequestDTO);
     }
 }

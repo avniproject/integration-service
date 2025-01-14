@@ -1,6 +1,7 @@
 package org.avni_integration_service.rwb.service;
 
 import org.apache.log4j.Logger;
+import org.avni_integration_service.avni.domain.SendMessageResponse;
 import org.avni_integration_service.integration_data.domain.error.ErrorRecord;
 import org.avni_integration_service.integration_data.domain.error.ErrorType;
 import org.avni_integration_service.integration_data.repository.ErrorRecordRepository;
@@ -34,6 +35,13 @@ public class RwbUserNudgeErrorService {
         ErrorRecord errorRecord = getErrorRecord(userId);
         ErrorType errorType = getErrorType(RwbSendMsgErrorType.getErrorType(exception));
         String errorMsg = exception.getMessage();
+        saveUserNudgeError(userId, errorRecord, errorType, errorMsg);
+    }
+
+    public void saveUserNudgeStatus(String userId, SendMessageResponse sendMessageResponse) {
+        ErrorRecord errorRecord = getErrorRecord(userId);
+        ErrorType errorType = getErrorType(RwbSendMsgErrorType.getErrorType(sendMessageResponse.getMessageDeliveryStatus()));
+        String errorMsg = sendMessageResponse.getErrorMessage();
         saveUserNudgeError(userId, errorRecord, errorType, errorMsg);
     }
 
