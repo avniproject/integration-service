@@ -1,13 +1,15 @@
 package org.avni_integration_service.avni.domain;
 
-public class QueryParams {
-    public String noOfDays;
+import java.util.Date;
 
-    public QueryParams(String noOfDays) {
-        this.noOfDays = noOfDays;
+public class QueryParams {
+    public Date cutOffDate;
+
+    public QueryParams(Date cutOffDate) {
+        this.cutOffDate = cutOffDate;
     }
 
-    public String getNoOfDays() {
-        return noOfDays;
+    public Date getCutOffDate() {
+        return cutOffDate;
     }
 }

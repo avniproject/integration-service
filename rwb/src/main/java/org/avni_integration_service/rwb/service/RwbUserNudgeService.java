@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,23 +22,23 @@ public class RwbUserNudgeService {
     private final IntegratingEntityStatusRepository integratingEntityStatusRepository;
     private final AvniRwbUserNudgeRepository avniRwbUserNudgeRepository;
     private CustomQueryRequest customQueryRequest;
-    private int noOfDays;
+    private int numberOfDays;
 
     private static final Logger logger = Logger.getLogger(RwbUserNudgeService.class);
 
     @Autowired
     public RwbUserNudgeService(IntegratingEntityStatusRepository integratingEntityStatusRepository, AvniRwbUserNudgeRepository avniRwbUserNudgeRepository,
-                               @Value("${rwb.avni.nudge.custom.query.name}") String customQueryName, @Value("${rwb.avni.nudge.no.of.days}") String numberOfDays) {
+                               @Value("${rwb.avni.nudge.custom.query.name}") String customQueryName, @Value("${rwb.avni.nudge.no.of.days}") int numberOfDays) {
         this.integratingEntityStatusRepository = integratingEntityStatusRepository;
         this.avniRwbUserNudgeRepository = avniRwbUserNudgeRepository;
         this.customQueryRequest = new CustomQueryRequest(customQueryName, numberOfDays);
-        this.noOfDays = Integer.parseInt(numberOfDays);
+        this.numberOfDays = numberOfDays;
     }
 
     public List<NudgeUserRequestDTO> getUsersThatHaveToReceiveNudge() {
         CustomQueryResponse customQueryResponse = avniRwbUserNudgeRepository.executeCustomQuery(customQueryRequest);
         return customQueryResponse.getData().stream().map(row -> new NudgeUserRequestDTO(row.get(0).toString(), row.get(1).toString(),
-                FormatAndParseUtil.toHumanReadableFormat(DateTime.now().minusDays(noOfDays).toDate()))).collect(Collectors.toList());
+                FormatAndParseUtil.toHumanReadableFormat(DateTime.now().minusDays(numberOfDays).toDate()))).collect(Collectors.toList());
     }
     
     public SendMessageResponse nudgeUser(NudgeUserRequestDTO nudgeUserRequestDTO) {
