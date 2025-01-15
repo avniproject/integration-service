@@ -98,7 +98,7 @@ setup-log-dir:
 	-sudo mkdir /var/log/avni-int-service
 	-sudo chown $(SU) /var/log/avni-int-service
 
-run-server: build-db build-server
+start-server: build-db build-server
 	$(call _run_server)
 
 debug-server: build-db build-server
