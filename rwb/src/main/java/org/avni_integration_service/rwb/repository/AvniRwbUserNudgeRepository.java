@@ -33,7 +33,7 @@ public class AvniRwbUserNudgeRepository {
         manualMessageContract.setReceiverId(nudgeUserRequestDTO.getUserId());
         manualMessageContract.setReceiverType(ReceiverType.User);
         manualMessageContract.setMessageTemplateId(nudgeMessageTemplateId);
-        manualMessageContract.setParameters(new String[]{nudgeUserRequestDTO.getUserId(),
+        manualMessageContract.setParameters(new String[]{
                 nudgeUserRequestDTO.getUserName(), nudgeUserRequestDTO.getSinceDateTimeString()}); //TODO set valid params required as per template
         manualMessageContract.setScheduledDateTime(new DateTime()); //set current date time
         return manualMessageContract;
