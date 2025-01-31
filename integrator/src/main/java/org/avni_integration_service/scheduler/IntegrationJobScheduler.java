@@ -57,9 +57,6 @@ public class IntegrationJobScheduler {
     private String amritCronError;
     @Value("${rwb.app.cron.main}")
     private String rwbCron;
-    // TODO: 24/12/24 support rwbCronError
-//    @Value("${rwb.app.cron.full.error}")
-//    private String rwbCronError;
 
     @Autowired
     public IntegrationJobScheduler(AvniGoonjMainJob avniGoonjMainJob, AvniGoonjFullErrorJob avniGoonjFullErrorJob,
