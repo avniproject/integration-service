@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.joda.JodaModule;
+import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 import org.apache.log4j.Logger;
 
 import java.io.File;
@@ -20,6 +21,7 @@ public class ObjectJsonMapper {
     private static final Logger logger = Logger.getLogger(ObjectJsonMapper.class);
     public static final ObjectMapper objectMapper = new ObjectMapper()
             .registerModule(new JodaModule())
+            .registerModule(new ParameterNamesModule())
             .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
             .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
             .configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
