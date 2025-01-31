@@ -34,7 +34,7 @@ public class AvniRwbUserNudgeRepository {
         manualMessageContract.setReceiverType(ReceiverType.User);
         manualMessageContract.setMessageTemplateId(nudgeMessageTemplateId);
         manualMessageContract.setParameters(new String[]{
-                nudgeUserRequestDTO.getUserName(), nudgeUserRequestDTO.getSinceDateTimeString()}); //TODO set valid params required as per template
+                nudgeUserRequestDTO.getUserName(), nudgeUserRequestDTO.getSinceNoOfDays(), nudgeUserRequestDTO.getWithinNoOfDays()});
         manualMessageContract.setScheduledDateTime(new DateTime()); //set current date time
         return manualMessageContract;
     }

@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class RwbUserNudgeErrorService {
     private static final Logger logger = Logger.getLogger(RwbUserNudgeErrorService.class);
+    private static final String EMPTY_STRING = "";
 
     private final ErrorRecordRepository errorRecordRepository;
     private final IntegrationSystemRepository integrationSystemRepository;
@@ -40,8 +41,10 @@ public class RwbUserNudgeErrorService {
 
     public void saveUserNudgeStatus(String userId, SendMessageResponse sendMessageResponse) {
         ErrorRecord errorRecord = getErrorRecord(userId);
-        ErrorType errorType = getErrorType(RwbSendMsgErrorType.getErrorType(sendMessageResponse.getMessageDeliveryStatus()));
-        String errorMsg = sendMessageResponse.getErrorMessage();
+        RwbSendMsgErrorType rwbSendMsgErrorType = RwbSendMsgErrorType.getErrorType(sendMessageResponse.getMessageDeliveryStatus());
+        ErrorType errorType = getErrorType(rwbSendMsgErrorType);
+        String errorMsg = rwbSendMsgErrorType.equals(RwbSendMsgErrorType.Success) ? EMPTY_STRING
+                : sendMessageResponse.getErrorMessage();
         saveUserNudgeError(userId, errorRecord, errorType, errorMsg);
     }
 

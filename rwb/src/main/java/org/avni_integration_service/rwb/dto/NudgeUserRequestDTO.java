@@ -4,35 +4,29 @@ public class NudgeUserRequestDTO {
 
     String userId;
     String userName;
-    String sinceDateTimeString;
+    String sinceNoOfDays;
+    String withinNoOfDays;
 
-    public NudgeUserRequestDTO(String userId, String userName, String sinceDateTimeString) {
+    public NudgeUserRequestDTO(String userId, String userName, String sinceNoOfDays, String withinNoOfDays) {
         this.userId = userId;
         this.userName = userName;
-        this.sinceDateTimeString = sinceDateTimeString;
+        this.sinceNoOfDays = sinceNoOfDays;
+        this.withinNoOfDays = withinNoOfDays;
     }
 
     public String getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
     public String getUserName() {
         return userName;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public String getSinceNoOfDays() {
+        return sinceNoOfDays;
     }
 
-    public String getSinceDateTimeString() {
-        return sinceDateTimeString;
-    }
-
-    public void setSinceDateTimeString(String sinceDateTimeString) {
-        this.sinceDateTimeString = sinceDateTimeString;
+    public String getWithinNoOfDays() {
+        return withinNoOfDays;
     }
 }

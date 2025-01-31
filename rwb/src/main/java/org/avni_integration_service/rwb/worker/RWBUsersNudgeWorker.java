@@ -35,7 +35,7 @@ public class RWBUsersNudgeWorker {
             ErrorRecord errorRecord = rwbUserNudgeErrorService.getErrorRecord(nudgeUserRequestDTO.getUserId());
             if(errorRecord != null && errorRecord.getLastErrorRecordLog().getErrorType().getName().equals(RwbSendMsgErrorType.Success.name()) &&
                     DateTimeUtil.differenceWithNowLessThanInterval(errorRecord.getLastErrorRecordLog().getLoggedAt(), 7, Calendar.DAY_OF_MONTH)) {
-                logger.info(String.format("User has already been nudged successfully in the last 1 week %s", nudgeUserRequestDTO.getUserId()));
+                logger.debug(String.format("User has already been nudged successfully in the last 1 week %s", nudgeUserRequestDTO.getUserId()));
                 return;
             }
             SendMessageResponse sendMessageResponse = rwbUserNudgeService.nudgeUser(nudgeUserRequestDTO);

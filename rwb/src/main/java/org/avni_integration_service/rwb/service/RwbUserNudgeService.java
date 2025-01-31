@@ -19,26 +19,29 @@ import java.util.stream.Collectors;
 @Service
 public class RwbUserNudgeService {
 
-    private final IntegratingEntityStatusRepository integratingEntityStatusRepository;
     private final AvniRwbUserNudgeRepository avniRwbUserNudgeRepository;
     private CustomQueryRequest customQueryRequest;
-    private int numberOfDays;
+    private int sinceNoOfDays;
+    private int withinNoOfDays;
 
     private static final Logger logger = Logger.getLogger(RwbUserNudgeService.class);
 
     @Autowired
-    public RwbUserNudgeService(IntegratingEntityStatusRepository integratingEntityStatusRepository, AvniRwbUserNudgeRepository avniRwbUserNudgeRepository,
-                               @Value("${rwb.avni.nudge.custom.query.name}") String customQueryName, @Value("${rwb.avni.nudge.no.of.days}") int numberOfDays) {
-        this.integratingEntityStatusRepository = integratingEntityStatusRepository;
+    public RwbUserNudgeService(AvniRwbUserNudgeRepository avniRwbUserNudgeRepository,
+                               @Value("${rwb.avni.nudge.custom.query.name}") String customQueryName,
+                               @Value("${rwb.avni.nudge.since.no.of.days}") int sinceNoOfDays,
+                               @Value("${rwb.avni.nudge.within.no.of.days}") int withinNoOfDays) {
         this.avniRwbUserNudgeRepository = avniRwbUserNudgeRepository;
-        this.customQueryRequest = new CustomQueryRequest(customQueryName, numberOfDays);
-        this.numberOfDays = numberOfDays;
+        this.customQueryRequest = new CustomQueryRequest(customQueryName, sinceNoOfDays);
+        this.sinceNoOfDays = sinceNoOfDays;
+        this.withinNoOfDays = withinNoOfDays;
     }
 
     public List<NudgeUserRequestDTO> getUsersThatHaveToReceiveNudge() {
         CustomQueryResponse customQueryResponse = avniRwbUserNudgeRepository.executeCustomQuery(customQueryRequest);
+        logger.info(String.format("Custom Query returned %d number of users to nudge", customQueryResponse.getTotal()));
         return customQueryResponse.getData().stream().map(row -> new NudgeUserRequestDTO(row.get(0).toString(), row.get(1).toString(),
-                FormatAndParseUtil.toHumanReadableFormat(DateTime.now().minusDays(numberOfDays).toDate()))).collect(Collectors.toList());
+                String.valueOf(sinceNoOfDays), String.valueOf(withinNoOfDays))).collect(Collectors.toList());
     }
     
     public SendMessageResponse nudgeUser(NudgeUserRequestDTO nudgeUserRequestDTO) {
