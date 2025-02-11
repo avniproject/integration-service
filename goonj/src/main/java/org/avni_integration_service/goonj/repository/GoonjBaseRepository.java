@@ -46,6 +46,7 @@ public abstract class GoonjBaseRepository {
     protected <T> T getResponseEntity(String resource, HashMap<String, String> queryParams, Class<T> returnType) {
         ResponseEntity<T> responseEntity = avniHttpClient.get(resource, queryParams, returnType);
         if(responseEntity.getStatusCode().is2xxSuccessful()) {
+            logger.debug(String.format("Successfully fetched resource %s, response status code is %s", resource, responseEntity.getStatusCode()));
             return responseEntity.getBody();
         }
         logger.error(String.format("Failed to fetch resource %s, response status code is %s", resource, responseEntity.getStatusCode()));
@@ -58,6 +59,7 @@ public abstract class GoonjBaseRepository {
                 filters));
         ResponseEntity<T> responseEntity = goonjRestTemplate.exchange(uri, HttpMethod.GET, null, returnType);
         if(responseEntity.getStatusCode().is2xxSuccessful()) {
+            logger.debug(String.format("Successfully fetched resource %s, response status code is %s", resource, responseEntity.getStatusCode()));
             return responseEntity.getBody();
         }
         logger.error(String.format("Failed to fetch data for resource %s, response status code is %s", resource, responseEntity.getStatusCode()));
@@ -106,6 +108,7 @@ public abstract class GoonjBaseRepository {
         URI uri = URI.create(String.format("%s/%s?%s=%s", goonjContextProvider.get().getAppUrl(), resource, filter, uuid));
         ResponseEntity<T> responseEntity = goonjRestTemplate.exchange(uri, HttpMethod.GET, null, returnType);
         if (responseEntity.getStatusCode().is2xxSuccessful()) {
+            logger.debug(String.format("Successfully fetched data for resource %s, response status code is %s", resource, responseEntity.getStatusCode()));
             return responseEntity.getBody();
         }
         logger.error(String.format("Failed to fetch data for resource %s, response status code is %s", resource, responseEntity.getStatusCode()));
@@ -120,6 +123,7 @@ public abstract class GoonjBaseRepository {
         try {
             ResponseEntity<HashMap<String, Object>[]> responseEntity = goonjRestTemplate.exchange(uri, HttpMethod.POST, requestEntity, responseType);
             if (responseEntity.getStatusCode().is2xxSuccessful()) {
+                logger.debug(String.format("Successfully created resource %s,  response status code is %s", resource, responseEntity.getStatusCode()));
                 return responseEntity.getBody();
             }
             logger.error(String.format("Failed to create resource %s,  response status code is %s", resource, responseEntity.getStatusCode()));
@@ -141,6 +145,7 @@ public abstract class GoonjBaseRepository {
         try {
             ResponseEntity<Object> responseEntity = goonjRestTemplate.exchange(uri, HttpMethod.POST, requestEntity, responseType);
             if (responseEntity.getStatusCode().is2xxSuccessful()) {
+                logger.debug(String.format("Successfully deleted resource %s, response status code is %s", resource, responseEntity.getStatusCode()));
                 return responseEntity.getBody();
             }
             logger.error(String.format("Failed to delete resource %s, response error message is %s", resource, responseEntity.getBody()));
