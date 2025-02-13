@@ -4,13 +4,11 @@ import org.apache.log4j.Logger;
 import org.avni_integration_service.avni.domain.CustomQueryRequest;
 import org.avni_integration_service.avni.domain.CustomQueryResponse;
 import org.avni_integration_service.avni.domain.SendMessageResponse;
-import org.avni_integration_service.integration_data.repository.IntegratingEntityStatusRepository;
+import org.avni_integration_service.rwb.config.RwbConfig;
+import org.avni_integration_service.rwb.config.RwbContextProvider;
 import org.avni_integration_service.rwb.dto.NudgeUserRequestDTO;
 import org.avni_integration_service.rwb.repository.AvniRwbUserNudgeRepository;
-import org.avni_integration_service.util.FormatAndParseUtil;
-import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,29 +17,28 @@ import java.util.stream.Collectors;
 @Service
 public class RwbUserNudgeService {
 
-    private final AvniRwbUserNudgeRepository avniRwbUserNudgeRepository;
-    private CustomQueryRequest customQueryRequest;
-    private int sinceNoOfDays;
-    private int withinNoOfDays;
-
     private static final Logger logger = Logger.getLogger(RwbUserNudgeService.class);
+    private static final int USER_ID_RESULT_COL_INDEX = 0;
+    private static final int USER_NAME_RESULT_COL_INDEX = 1;
+
+    private final AvniRwbUserNudgeRepository avniRwbUserNudgeRepository;
+    private final RwbContextProvider rwbContextProvider;
 
     @Autowired
     public RwbUserNudgeService(AvniRwbUserNudgeRepository avniRwbUserNudgeRepository,
-                               @Value("${rwb.avni.nudge.custom.query.name}") String customQueryName,
-                               @Value("${rwb.avni.nudge.since.no.of.days}") int sinceNoOfDays,
-                               @Value("${rwb.avni.nudge.within.no.of.days}") int withinNoOfDays) {
+                               RwbContextProvider rwbContextProvider) {
         this.avniRwbUserNudgeRepository = avniRwbUserNudgeRepository;
-        this.customQueryRequest = new CustomQueryRequest(customQueryName, sinceNoOfDays);
-        this.sinceNoOfDays = sinceNoOfDays;
-        this.withinNoOfDays = withinNoOfDays;
+        this.rwbContextProvider = rwbContextProvider;
     }
 
     public List<NudgeUserRequestDTO> getUsersThatHaveToReceiveNudge() {
+        RwbConfig rwbConfig = rwbContextProvider.get();
+        CustomQueryRequest customQueryRequest = new CustomQueryRequest(rwbConfig.getCustomQueryName(), Integer.parseInt(rwbConfig.getSinceNoOfDays()));
         CustomQueryResponse customQueryResponse = avniRwbUserNudgeRepository.executeCustomQuery(customQueryRequest);
         logger.info(String.format("Custom Query returned %d number of users to nudge", customQueryResponse.getTotal()));
-        return customQueryResponse.getData().stream().map(row -> new NudgeUserRequestDTO(row.get(0).toString(), row.get(1).toString(),
-                String.valueOf(sinceNoOfDays), String.valueOf(withinNoOfDays))).collect(Collectors.toList());
+        return customQueryResponse.getData().stream().map(row ->
+                new NudgeUserRequestDTO(row.get(USER_ID_RESULT_COL_INDEX).toString(), row.get(USER_NAME_RESULT_COL_INDEX).toString(),
+                rwbConfig.getSinceNoOfDays(), rwbConfig.getWithinNoOfDays())).collect(Collectors.toList());
     }
     
     public SendMessageResponse nudgeUser(NudgeUserRequestDTO nudgeUserRequestDTO) {

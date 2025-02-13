@@ -7,6 +7,7 @@ import org.avni_integration_service.integration_data.domain.error.ErrorType;
 import org.avni_integration_service.integration_data.repository.ErrorRecordRepository;
 import org.avni_integration_service.integration_data.repository.ErrorTypeRepository;
 import org.avni_integration_service.integration_data.repository.IntegrationSystemRepository;
+import org.avni_integration_service.rwb.config.RwbContextProvider;
 import org.avni_integration_service.rwb.config.RwbEntityType;
 import org.avni_integration_service.rwb.config.RwbSendMsgErrorType;
 import org.springframework.stereotype.Service;
@@ -17,13 +18,15 @@ public class RwbUserNudgeErrorService {
     private static final String EMPTY_STRING = "";
 
     private final ErrorRecordRepository errorRecordRepository;
-    private final IntegrationSystemRepository integrationSystemRepository;
     private final ErrorTypeRepository errorTypeRepository;
+    private final IntegrationSystemRepository integrationSystemRepository;
+    private final RwbContextProvider rwbContextProvider;
 
-    public RwbUserNudgeErrorService(ErrorRecordRepository errorRecordRepository, IntegrationSystemRepository integrationSystemRepository, ErrorTypeRepository errorTypeRepository) {
+    public RwbUserNudgeErrorService(ErrorRecordRepository errorRecordRepository, ErrorTypeRepository errorTypeRepository, IntegrationSystemRepository integrationSystemRepository, RwbContextProvider rwbContextProvider) {
         this.errorRecordRepository = errorRecordRepository;
-        this.integrationSystemRepository = integrationSystemRepository;
         this.errorTypeRepository = errorTypeRepository;
+        this.integrationSystemRepository = integrationSystemRepository;
+        this.rwbContextProvider = rwbContextProvider;
     }
 
     public void saveUserNudgeSuccess(String userId) {
@@ -59,7 +62,7 @@ public class RwbUserNudgeErrorService {
             }
         } else {
             errorRecord = new ErrorRecord();
-            errorRecord.setIntegrationSystem(integrationSystemRepository.find());
+            errorRecord.setIntegrationSystem(integrationSystemRepository.findEntity(rwbContextProvider.get().getIntegrationSystem().getId()));
             errorRecord.setEntityId(userId);
             errorRecord.setIntegratingEntityType(rwbEntityType);
             errorRecord.addErrorLog(errorType, errorMsg);
@@ -74,7 +77,7 @@ public class RwbUserNudgeErrorService {
 
     private ErrorType getErrorType(RwbSendMsgErrorType rwbSendMsgErrorType) {
         String name = rwbSendMsgErrorType.name();
-        return errorTypeRepository.findByNameAndIntegrationSystem(name, integrationSystemRepository.find());
+        return errorTypeRepository.findByNameAndIntegrationSystemId(name, rwbContextProvider.get().getIntegrationSystem().getId());
     }
 }
 

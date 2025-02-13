@@ -1,24 +1,19 @@
 package org.avni_integration_service.rwb.config;
 
 import org.avni_integration_service.avni.client.AvniSession;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
 public class RwbAvniSessionFactory {
-    @Value("${rwb.avni.api.url}")
-    private String apiUrl;
 
-    @Value("${rwb.avni.impl.username}")
-    private String implUser;
+    private final RwbContextProvider rwbContextProvider;
 
-    @Value("${rwb.avni.impl.password}")
-    private String implPassword;
-
-    @Value("${rwb.avni.authentication.enabled}")
-    private boolean authEnabled;
+    public RwbAvniSessionFactory(RwbContextProvider rwbContextProvider) {
+        this.rwbContextProvider = rwbContextProvider;
+    }
 
     public AvniSession createSession() {
-        return new AvniSession(apiUrl, implUser, implPassword, authEnabled);
+        RwbConfig rwbConfig = rwbContextProvider.get();
+        return new AvniSession(rwbConfig.getApiUrl(), rwbConfig.getAvniImplUser(), rwbConfig.getImplPassword(), rwbConfig.getAuthEnabled());
     }
 }

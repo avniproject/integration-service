@@ -13,6 +13,7 @@ import org.avni_integration_service.job.AvniPowerFullErrorJob;
 import org.avni_integration_service.job.AvniPowerMainJob;
 import org.avni_integration_service.lahi.job.AvniLahiFullErrorJob;
 import org.avni_integration_service.lahi.job.AvniLahiMainJob;
+import org.avni_integration_service.rwb.config.RwbConfig;
 import org.avni_integration_service.rwb.job.AvniRwbMainJob;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -55,16 +56,14 @@ public class IntegrationJobScheduler {
     private String amritCron;
     @Value("${amrit.app.cron.full.error}")
     private String amritCronError;
-    @Value("${rwb.app.cron.main}")
-    private String rwbCron;
 
     @Autowired
     public IntegrationJobScheduler(AvniGoonjMainJob avniGoonjMainJob, AvniGoonjFullErrorJob avniGoonjFullErrorJob,
                                    AvniPowerMainJob avniPowerMainJob, AvniPowerFullErrorJob avniPowerFullErrorJob,
                                    AvniLahiMainJob avniLahiMainJob, AvniLahiFullErrorJob avniLahiFullErrorJob,
                                    AvniAmritMainJob avniAmritMainJob, AvniAmritFullErrorJob avniAmritFullErrorJob,
-                                   AvniRwbMainJob avniRwbMainJob,
-                                   TaskScheduler taskScheduler, IntegrationSystemConfigRepository integrationSystemConfigRepository, IntegrationSystemRepository integrationSystemRepository) {
+                                   AvniRwbMainJob avniRwbMainJob, TaskScheduler taskScheduler,
+                                   IntegrationSystemConfigRepository integrationSystemConfigRepository, IntegrationSystemRepository integrationSystemRepository) {
         this.avniGoonjMainJob = avniGoonjMainJob;
         this.avniGoonjFullErrorJob = avniGoonjFullErrorJob;
         this.avniPowerMainJob = avniPowerMainJob;
@@ -121,7 +120,15 @@ public class IntegrationJobScheduler {
 
 
     private void scheduleRwb() {
-        if (CronExpression.isValidExpression(rwbCron)) taskScheduler.schedule(avniRwbMainJob::execute, new CronTrigger(rwbCron));
-        // TODO: 24/12/24 rwbCronError 
+        List<IntegrationSystem> rwbSystems = integrationSystemRepository.findAllBySystemType(IntegrationSystem.IntegrationSystemType.rwb);
+        rwbSystems.forEach(rwbSystem -> {
+            IntegrationSystemConfigCollection integrationSystemConfigs = integrationSystemConfigRepository.getInstanceConfiguration(rwbSystem);
+            RwbConfig rwbConfig = new RwbConfig(integrationSystemConfigs, rwbSystem);
+            String rwbCron = integrationSystemConfigs.getMainScheduledJobCron();
+
+            if (CronExpression.isValidExpression(rwbCron)) {
+                taskScheduler.schedule(() -> avniRwbMainJob.execute(rwbConfig), new CronTrigger(rwbCron));
+            }
+        });
     }
 }

@@ -1,10 +1,7 @@
 package org.avni_integration_service.goonj.config;
 
 import org.avni_integration_service.goonj.service.TokenService;
-import org.avni_integration_service.integration_data.domain.IntegrationSystem;
-import org.avni_integration_service.integration_data.repository.IntegrationSystemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpHeaders;
@@ -12,7 +9,6 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Arrays;
 import java.util.Collections;
 
 @Component
