@@ -14,11 +14,27 @@ For users thus identified, we are supposed to Nudge them on their Registered Mob
 
 RWB integration service is built to service multiple Production organisations using a single integration instance. To do this, we make use of RWBContextProvider, a ThreadLocal store, which stores the IntegrationSystemInstance information corresponding to each Production Organisation.
 
-## How to setup a new IntegrationSystemInstance for a new RWB organisation
+## How to set up a new IntegrationSystemInstance for a new RWB organisation
 
 Integration service provides the ability to download implementation-specific configuration files from one environment/system and upload it to another environment.
 “Avni integration” Postman collection for Integration service Bundle export-import is available [here](https://drive.google.com/drive/folders/1XjWYQsLUCJuPxwDbtHvTreHrsF3VQJId). 
 Download the postman collection and using Postman App / Webapp, import the postman collection and create required RWB-Prod and RWB-Staging Postman Environments.
+
+### Create an API user on target Organisation
+
+Create a new "Organisation Administrator" User that will be used to invoke the APIs as well as act as sender of Glific messages for the organisation.
+
+Refer to [Avni Readme](https://avni.readme.io/docs) for more help regarding this.
+Ensure that the OrgAdmin user's password is not a temporary one, login into Avni webapp and confirm once.
+
+### Create a new working Integration System, corresponding to target organisation, if not already existing
+
+Make use of the Organisation "dbuser" name as "Instance name" and create a new working_integration_system in the target Avni-Integration environment. Ensure that you set the "System type" to "rwb". Connect to "avni_int" DB on the target env DB and invoke below command.
+
+```sql
+INSERT INTO public.integration_system (id, name, system_type, uuid, is_voided)
+VALUES (DEFAULT, '<org_dbuser>'::varchar(250), 'rwb'::varchar(255), uuid_generate_v4(), false::boolean);
+```
 
 ### How to Configure the Admin users to use specific working_integration_system
 **Please ensure that you edit the admin user to point to the right working_integration_system. This can be done by updating through SQL command, or easier still by logging into the Integration-Admin-app and editing user to set it to required working_integration_system.**
