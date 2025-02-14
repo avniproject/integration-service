@@ -44,10 +44,10 @@ public class AvniRwbMainJob {
             rwbContextProvider.set(rwbConfig);
             avniHttpClient.setAvniSession(rwbAvniSessionFactory.createSession());
             rwbUsersNudgeWorker.processUsers();
-            healthCheckService.success(rwbIntegrationSystemName.toLowerCase());
+            healthCheckService.success(rwbConfig.getIntegrationSystem().getSystemType().name().toLowerCase());
             logger.info(format("Rwb Main Job Ended: %s", rwbIntegrationSystemName));
         } catch (Exception e) {
-            healthCheckService.failure(rwbIntegrationSystemName.toLowerCase());
+            healthCheckService.failure(rwbConfig.getIntegrationSystem().getSystemType().name().toLowerCase());
             logger.error(format("Rwb Main Job Errored: %s", rwbIntegrationSystemName), e);
             bugsnag.notify(e);
         }
