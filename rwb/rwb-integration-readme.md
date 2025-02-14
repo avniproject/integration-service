@@ -88,7 +88,7 @@ UPDATE public.integration_system_config SET value = '<password>'::varchar(10000)
 
 ### Restart the RWB Target env Integration service, using shell commands
 
-Where Integration bundle upload and secret updates were done, invoke below shell command:
+**Only when a new working_integration_system is added**, we would also need to restart the integration-service, by invoking below shell command:
 ```
 #> sudo systemctl restart avni-int-service_appserver.service
 ```
