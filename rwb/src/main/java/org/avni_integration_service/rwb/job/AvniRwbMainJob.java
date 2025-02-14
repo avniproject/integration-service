@@ -14,7 +14,7 @@ import static java.lang.String.format;
 
 @Component
 public class AvniRwbMainJob {
-
+    private static final String HEALTHCHECK_SLUG = "rwb";
     private static final String EMPTY_STRING = "";
     private static final Logger logger = Logger.getLogger(AvniRwbMainJob.class);
 
@@ -44,10 +44,10 @@ public class AvniRwbMainJob {
             rwbContextProvider.set(rwbConfig);
             avniHttpClient.setAvniSession(rwbAvniSessionFactory.createSession());
             rwbUsersNudgeWorker.processUsers();
-            healthCheckService.success(rwbConfig.getIntegrationSystem().getSystemType().name().toLowerCase());
+            healthCheckService.success(HEALTHCHECK_SLUG);
             logger.info(format("Rwb Main Job Ended: %s", rwbIntegrationSystemName));
         } catch (Exception e) {
-            healthCheckService.failure(rwbConfig.getIntegrationSystem().getSystemType().name().toLowerCase());
+            healthCheckService.failure(HEALTHCHECK_SLUG);
             logger.error(format("Rwb Main Job Errored: %s", rwbIntegrationSystemName), e);
             bugsnag.notify(e);
         }
