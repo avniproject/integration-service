@@ -20,10 +20,10 @@ WITH primary_users as (
                             from work_orders wo
                                      join encounter e on wo.wo_id = e.individual_id
                             where e.encounter_type_id =
-                                  (select id
-                                   from encounter_type
-                                   where name = 'Work order endline'
-                                     and organisation_id = (select id from organisation where db_user = :org_db_user)
+                                                                   (select id
+                                                                    from encounter_type
+                                                                    where name = 'Work order endline'
+                                                                      and organisation_id = (select id from organisation where db_user = :org_db_user)
                                      and not encounter_type.is_voided)
                               and (e.is_voided is null or e.is_voided = false)
                               and wo.organisation_id = :org_id
@@ -34,11 +34,11 @@ WITH primary_users as (
          from catchment c
                   join virtual_catchment_address_mapping_table cam on cam.catchment_id = c.id
                   left join work_orders wo on wo.address_id = cam.addresslevel_id
-                  left join closed_work_orders cwo on cwo.address_id = cam.addresslevel_id
+                  left join closed_work_orders cwo on cwo.wo_id = wo.wo_id
          where c.is_voided = false
          group by 1
          having count(wo.wo_id) = null
-             OR count(wo.wo_id) > count(cwo.wo_id)
+             OR count( wo.wo_id) > count( cwo.wo_id)
      ),
      active_user_ids as (select (case
                                      when ind.created_date_time > TO_TIMESTAMP(:cutOffDate, 'YYYY-MM-DDTHH24:MI:ss.MS')
