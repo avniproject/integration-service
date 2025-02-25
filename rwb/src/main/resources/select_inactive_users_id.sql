@@ -26,7 +26,7 @@ WITH primary_users as (
                                                                       and organisation_id = (select id from organisation where db_user = :org_db_user)
                                      and not encounter_type.is_voided)
                               and (e.is_voided is null or e.is_voided = false)
-                              and wo.organisation_id = :org_id
+                              and wo.organisation_id = (select id from organisation where db_user = :org_db_user)
                             group by 1, 2
                             having count(e.id) = 1),
      catchments_without_work_orders_or_atleast_one_open_work_order as (
