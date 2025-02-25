@@ -63,7 +63,7 @@ Integration service provides the ability to download implementation-specific con
 Download the postman collection and using Postman App / Webapp, import the postman collection and create required RWB-Prod and RWB-Staging Postman Environments.
 
 ####  Download the integration bundle from UAT org / Staging env org
-- Log in to [RWB Staging integration](https://etl-staging.rwb.avniproject.org](https://etl-staging.rwb.avniproject.org/avni-int-admin-app/index.html#/login) using the rwb-int-staging admin user with the “int login” API request
+- Log in to [RWB Staging integration](https://etl-staging.rwb.avniproject.org/avni-int-admin-app/index.html#/login) using the rwb-int-staging admin user with the “int login” API request
 - Invoke the "int current user" API request and confirm that the working_integration_system is as desired
 - Invoke “int Bundle export” API request, to download the bundle
 - Logout using the “int logout” API request
