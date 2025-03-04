@@ -156,6 +156,16 @@ public class ActivityRepository extends GoonjBaseRepository implements ActivityC
             activityDTO.setNoofparticipantsNJPCOther((Integer) subject.getObservation(NUMBER_OF_PARTICIPANTS_OTHER));
             /* Photograph fields */
             activityDTO.setNjpcPhotograph(getPhotographStrings(PHOTOGRAPH, subject));
+            /*Education fields*/
+            if(subject.getObservation(EDUCATION_AND_HEALTH).equals(YES)){
+                activityDTO.setEducationAndHealth(true);
+                activityDTO.setMaleStudent((int)subject.getObservation(MALE_STUDENT));
+                activityDTO.setFemaleStudent((int)subject.getObservation(FEMALE_STUDENT));
+                activityDTO.setSchoolAanganwadiLearningCenterName((String)subject.getObservation(SCHOOL_AANGANWADI_LEARNINGCENTER_NAME));
+            }
+            else{
+                activityDTO.setEducationAndHealth(false);
+            }
         }
         activityDTO.setWasUndertakingFormFilled((String) subject.getObservation(WAS_DISCLAIMER_FORM_FILLED));
         activityDTO.setRemarks((String) subject.getObservation(REMARKS));
