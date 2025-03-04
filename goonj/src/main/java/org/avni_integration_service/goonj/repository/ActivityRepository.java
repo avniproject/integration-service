@@ -157,7 +157,8 @@ public class ActivityRepository extends GoonjBaseRepository implements ActivityC
             /* Photograph fields */
             activityDTO.setNjpcPhotograph(getPhotographStrings(PHOTOGRAPH, subject));
             /*Education fields*/
-            if(subject.getObservation(EDUCATION_AND_HEALTH).equals(YES)){
+            String educationAndHealth = (String) subject.getObservation(EDUCATION_AND_HEALTH);
+            if(educationAndHealth!=null && educationAndHealth.equals(YES)){
                 activityDTO.setEducationAndHealth(true);
                 activityDTO.setMaleStudent((int)subject.getObservation(MALE_STUDENT));
                 activityDTO.setFemaleStudent((int)subject.getObservation(FEMALE_STUDENT));
