@@ -44,4 +44,8 @@ public interface ActivityConstants {
     String FORM_CROSS_CHECKED ="Form Cross Checked?";
     String REMARKS ="Remarks";
     String OTHER_ACTIVITY = "Specify other activity";
+    String EDUCATION_AND_HEALTH = "Education And Health";
+    String MALE_STUDENT = "Number of students (Male)";
+    String FEMALE_STUDENT = "Number of students (Female)";
+    String YES = "Yes";
 }

@@ -162,7 +162,12 @@ public class DistributionRepository extends GoonjBaseRepository implements Distr
             distributionDTO.setNoOfFamiliesReached((Integer) subject.getObservation(NUMBER_OF_FAMILIES_REACHED));
             distributionDTO.setNoOfIndividualReached((Integer) subject.getObservation(NUMBER_OF_INDIVIDUALS_REACHED));
 
-        } else {
+        } else if(subject.getObservation(TYPE_OF_INITIATIVE).equals(EDUCTION_AND_HEALTH)){
+            distributionDTO.setTypeOfInitiative((String) subject.getObservation(TYPE_OF_INITIATIVE));
+            distributionDTO.setSchoolAanganwadiLearningCenterName((String) subject.getObservation(SCHOOL_ANGANWADI_NAME));
+            distributionDTO.setTypeOfSchool((String) subject.getObservation(TYPE_OF_SCHOOL));
+        }
+        else {
             distributionDTO.setTypeOfInitiative((String) subject.getObservation(TYPE_OF_INITIATIVE));
         }
         distributionDTO.setReportsCrosschecked((String) subject.getObservation(REPORTS_CROSS_CHECKED));

@@ -152,6 +152,12 @@ public class ActivityDTO {
     private String remarks;
     @JsonProperty("OtherDetails")
     private String otherDetails;
+    @JsonProperty("EducationandHealth")
+    private boolean isEducationAndHealth;
+    @JsonProperty("NumberOfStudentsMale")
+    private int maleStudent;
+    @JsonProperty("NumberOfStudentsFemale")
+    private int femaleStudent;
     /**
      * No args constructor for use in serialization
      */
@@ -171,6 +177,9 @@ public class ActivityDTO {
      * @param noofparticipantsS2S
      * @param nos
      * @param typeofInitiative
+     * @param isEducationAndHealth
+     * @param maleStudent
+     * @param femaleStudent
      * @param diameter
      * @param activityEndDate
      * @param measurementType
@@ -217,7 +226,7 @@ public class ActivityDTO {
                        int noofparticipantsMaleCFW, int noofparticipantsMaleNJPC, int noofparticipantsNJPCOther,
                        int noofparticipantsCFWOther, Long noofparticipantsS2S,
                        Long noofWorkingDays, Integer nos, String objectiveofCFWwork, String schoolAanganwadiLearningCenterName,
-                       String state, String typeofInitiative, String otherObjective, String otherSubType,
+                       String state, String typeofInitiative, boolean isEducationAndHealth,int maleStudent,int femaleStudent, String otherObjective, String otherSubType,
                        String createdBy, String modifiedBy, String beforeImplementationPhotograph, String duringImplementationPhotograph,
                        String afterImplementationPhotograph, String wasUndertakingFormFilled, String formCrossChecked, String remarks,
                        String otherDetails) {
@@ -261,6 +270,9 @@ public class ActivityDTO {
         this.schoolAanganwadiLearningCenterName = schoolAanganwadiLearningCenterName;
         this.state = state;
         this.typeofInitiative = typeofInitiative;
+        this.isEducationAndHealth = isEducationAndHealth;
+        this.maleStudent = maleStudent;
+        this.femaleStudent = femaleStudent;
         this.createdBy = createdBy;
         this.modifiedBy = modifiedBy;
         this.beforeImplementationPhotograph = beforeImplementationPhotograph;
@@ -741,5 +753,35 @@ public class ActivityDTO {
     @JsonProperty("OtherDetails")
     public void setOtherDetails(String otherDetails) {
         this.otherDetails = otherDetails;
+    }
+
+    @JsonProperty("EducationandHealth")
+    public boolean isEducationAndHealth() {
+        return isEducationAndHealth;
+    }
+
+    @JsonProperty("EducationandHealth")
+    public void setEducationAndHealth(boolean educationAndHealth) {
+        isEducationAndHealth = educationAndHealth;
+    }
+
+    @JsonProperty("NumberOfStudentsMale")
+    public int getMaleStudent() {
+        return maleStudent;
+    }
+
+    @JsonProperty("NumberOfStudentsMale")
+    public void setMaleStudent(int maleStudent) {
+        this.maleStudent = maleStudent;
+    }
+
+    @JsonProperty("NumberOfStudentsFemale")
+    public int getFemaleStudent() {
+        return femaleStudent;
+    }
+
+    @JsonProperty("NumberOfStudentsFemale")
+    public void setFemaleStudent(int femaleStudent) {
+        this.femaleStudent = femaleStudent;
     }
 }
