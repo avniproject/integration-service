@@ -151,9 +151,6 @@ public class ActivityRepository extends GoonjBaseRepository implements ActivityC
         if (subject.getObservation(TYPE_OF_INITIATIVE).equals("NJPC")) {
             /* Participation fields */
             activityDTO.setNoofdaysofParticipationNJPC((subject.getObservation(NUMBER_OF_DAYS_OF_PARTICIPATION) == null) ? 0L : (Integer) subject.getObservation(NUMBER_OF_DAYS_OF_PARTICIPATION));
-            activityDTO.setNoofparticipantsMaleNJPC((Integer) subject.getObservation(NUMBER_OF_PARTICIPANTS_MALE));
-            activityDTO.setNoofparticipantsFemaleNJPC((Integer) subject.getObservation(NUMBER_OF_PARTICIPANTS_FEMALE));
-            activityDTO.setNoofparticipantsNJPCOther((Integer) subject.getObservation(NUMBER_OF_PARTICIPANTS_OTHER));
             /* Photograph fields */
             activityDTO.setNjpcPhotograph(getPhotographStrings(PHOTOGRAPH, subject));
             /*Education fields*/
@@ -166,6 +163,9 @@ public class ActivityRepository extends GoonjBaseRepository implements ActivityC
             }
             else{
                 activityDTO.setEducationAndHealth(false);
+                activityDTO.setNoofparticipantsMaleNJPC((Integer) subject.getObservation(NUMBER_OF_PARTICIPANTS_MALE));
+                activityDTO.setNoofparticipantsFemaleNJPC((Integer) subject.getObservation(NUMBER_OF_PARTICIPANTS_FEMALE));
+                activityDTO.setNoofparticipantsNJPCOther((Integer) subject.getObservation(NUMBER_OF_PARTICIPANTS_OTHER));
             }
         }
         activityDTO.setWasUndertakingFormFilled((String) subject.getObservation(WAS_DISCLAIMER_FORM_FILLED));
