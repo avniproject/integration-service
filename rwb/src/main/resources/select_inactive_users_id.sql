@@ -59,8 +59,8 @@ WITH primary_users as (
 select distinct user_id, first_name
 from primary_users pu
          join catchments_without_work_orders_or_atleast_one_open_work_order cat on pu.catchment_id = cat.id
-where user_id in (select cuid
-                  from active_user_ids
-                  union
-                  select muid
-                  from active_user_ids);
+where user_id not in (select cuid
+                      from active_user_ids where cuid is not null
+                      union
+                      select muid
+                      from active_user_ids where muid is not null);
