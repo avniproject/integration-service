@@ -81,3 +81,7 @@ The query involves several steps to filter users who meet certain criteria relat
 
 This query identifies primary users in catchments without work order or atleast one open wor-order, who have not been recently active in the system. It ensures that these users meet all the specified criteria related to their group membership, catchment areas, and recent activity.
 
+## IMPORTANT Additional Details
+
+- The CutOffDate for determining in-activity is 3 Days from current date.
+- Also, if the user has been nudged in the last 3 days, we do not nudge him again.
