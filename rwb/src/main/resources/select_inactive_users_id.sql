@@ -1,6 +1,6 @@
 WITH primary_users as (
     select distinct u.id user_id, u.name first_name, catchment_id
-    from users u
+    from public.users u
              join user_group ug on u.id = ug.user_id and ug.is_voided = false
              join groups g on g.id = ug.group_id and g.is_voided = false
     where g.name = 'Primary Users'

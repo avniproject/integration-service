@@ -2,7 +2,7 @@ INSERT INTO public.custom_query (id, uuid, name, query, organisation_id, is_void
                                  last_modified_by_id, created_date_time, last_modified_date_time)
 VALUES (DEFAULT, '69f9f68d-7870-4ea4-b69f-49f68da0c17a', 'Inactive users', 'WITH primary_users as (
     select distinct u.id user_id, u.name first_name, catchment_id
-    from users u
+    from public.users u
              join user_group ug on u.id = ug.user_id and ug.is_voided = false
              join groups g on g.id = ug.group_id and g.is_voided = false
     where g.name = ''Primary Users''
