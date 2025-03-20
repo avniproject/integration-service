@@ -42,6 +42,6 @@ public class RwbUserNudgeService {
     }
     
     public SendMessageResponse nudgeUser(NudgeUserRequestDTO nudgeUserRequestDTO) {
-        return avniRwbUserNudgeRepository.sendMessage(nudgeUserRequestDTO);
+        return avniRwbUserNudgeRepository.startFlowForContact(nudgeUserRequestDTO);
     }
 }
