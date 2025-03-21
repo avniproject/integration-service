@@ -30,7 +30,7 @@ public class AvniRwbUserNudgeRepository {
         StartFlowForContactRequest startFlowForContactRequest = new StartFlowForContactRequest();
         startFlowForContactRequest.setReceiverId(nudgeUserRequestDTO.getUserId());
         startFlowForContactRequest.setReceiverType(ReceiverType.User);
-        startFlowForContactRequest.setFlowId(rwbContextProvider.get().getMsgTemplateId());
+        startFlowForContactRequest.setFlowId(rwbContextProvider.get().getFlowId());
         startFlowForContactRequest.setParameters(new String[]{
                 nudgeUserRequestDTO.getUserName(), nudgeUserRequestDTO.getSinceNoOfDays(), nudgeUserRequestDTO.getWithinNoOfDays()});
         return startFlowForContactRequest;
