@@ -23,7 +23,7 @@ RWB integration service is built to service multiple Production organisations us
 Create a new "Organisation Administrator" User that will be used to invoke the APIs as well as act as sender of Glific messages for the organisation.
 
 Refer to [Avni Readme](https://avni.readme.io/docs) for more help regarding this.
-Ensure that the OrgAdmin user's password is not a temporary one, login into Avni webapp and confirm once.
+**Ensure that the OrgAdmin user's password is not a temporary one, login into Avni webapp and confirm once.**
 
 #### Setup Glific to work with the org
 
