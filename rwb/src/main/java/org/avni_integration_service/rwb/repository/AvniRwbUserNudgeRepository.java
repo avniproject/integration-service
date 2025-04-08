@@ -6,6 +6,7 @@ import org.avni_integration_service.avni.repository.AvniMessageRepository;
 import org.avni_integration_service.avni.repository.AvniQueryRepository;
 import org.avni_integration_service.rwb.config.RwbContextProvider;
 import org.avni_integration_service.rwb.dto.NudgeUserRequestDTO;
+import org.joda.time.DateTime;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -22,18 +23,19 @@ public class AvniRwbUserNudgeRepository {
         this.rwbContextProvider = rwbContextProvider;
     }
 
-    public SendMessageResponse startFlowForContact(NudgeUserRequestDTO nudgeUserRequestDTO) {
-        return avniMessageRepository.startFlowForContact(createMessageRequestToNudgeUser(nudgeUserRequestDTO));
+    public SendMessageResponse sendMessage(NudgeUserRequestDTO nudgeUserRequestDTO) {
+        return avniMessageRepository.sendMessage(createMessageRequestToNudgeUser(nudgeUserRequestDTO));
     }
 
-    private StartFlowForContactRequest createMessageRequestToNudgeUser(NudgeUserRequestDTO nudgeUserRequestDTO) {
-        StartFlowForContactRequest startFlowForContactRequest = new StartFlowForContactRequest();
-        startFlowForContactRequest.setReceiverId(nudgeUserRequestDTO.getUserId());
-        startFlowForContactRequest.setReceiverType(ReceiverType.User);
-        startFlowForContactRequest.setFlowId(rwbContextProvider.get().getMsgTemplateId());
-        startFlowForContactRequest.setParameters(new String[]{
+    private ManualMessageContract createMessageRequestToNudgeUser(NudgeUserRequestDTO nudgeUserRequestDTO) {
+        ManualMessageContract manualMessageContract = new ManualMessageContract();
+        manualMessageContract.setReceiverId(nudgeUserRequestDTO.getUserId());
+        manualMessageContract.setReceiverType(ReceiverType.User);
+        manualMessageContract.setMessageTemplateId(rwbContextProvider.get().getMsgTemplateId());
+        manualMessageContract.setParameters(new String[]{
                 nudgeUserRequestDTO.getUserName(), nudgeUserRequestDTO.getSinceNoOfDays(), nudgeUserRequestDTO.getWithinNoOfDays()});
-        return startFlowForContactRequest;
+        manualMessageContract.setScheduledDateTime(new DateTime()); //set current date time
+        return manualMessageContract;
     }
 
     public CustomQueryResponse executeCustomQuery(CustomQueryRequest customQueryRequest) {
