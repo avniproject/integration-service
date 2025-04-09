@@ -47,7 +47,7 @@ public class RwbConfig {
         return getStringConfigValue("within_no_of_days", "03");
     }
 
-    public String getFlowId() {
+    public String getMsgTemplateId() {
         return getStringConfigValue("mgs_template_id", "542201");
     }
 
