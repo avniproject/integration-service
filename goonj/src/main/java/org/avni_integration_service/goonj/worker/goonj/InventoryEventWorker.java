@@ -56,6 +56,13 @@ public class InventoryEventWorker extends GoonjEventWorker implements ErrorRecor
         Inventory inventoryItems = Inventory.from(inventoryResponse);
         Subject subject = inventoryItems.subjectWithoutObservations();
         inventoryService.populateObservations(subject, inventoryItems);
+        if (subject.getVoided() == Boolean.FALSE){
+            Object currentQuantity = subject.getObservation("Current Quantity");
+            if (currentQuantity != null && (Double) currentQuantity == 0d){
+                subject.setVoided(Boolean.TRUE);
+                logger.info(String.format("0 currentQuantity, Voiding implementation inventory: name %s || uuid %s", inventoryResponse.get("ImplementationInventoryName"), inventoryResponse.get("ImplementationInventoryId")));
+            }
+        }
         avniSubjectRepository.create(subject);
     }
 

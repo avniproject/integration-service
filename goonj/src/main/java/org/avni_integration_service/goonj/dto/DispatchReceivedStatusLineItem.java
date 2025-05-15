@@ -30,9 +30,9 @@ public class DispatchReceivedStatusLineItem {
     @JsonProperty("ReceivingStatus")
     private String receivingStatus;
     @JsonProperty("DispatchedQuantity")
-    private int dispatchedQuantity;
+    private double dispatchedQuantity;
     @JsonProperty("ReceivedQuantity")
-    private int receivedQuantity;
+    private double receivedQuantity;
 
     /**
      * No args constructor for use in serialization
@@ -51,7 +51,7 @@ public class DispatchReceivedStatusLineItem {
      * @param dispatchedQuantity
      * @param receivedQuantity
      */
-    public DispatchReceivedStatusLineItem(String sourceId, String typeOfMaterial, String itemName, String dispatchStatusLineItem, String unit, String receivingStatus, int dispatchedQuantity, int receivedQuantity) {
+    public DispatchReceivedStatusLineItem(String sourceId, String typeOfMaterial, String itemName, String dispatchStatusLineItem, String unit, String receivingStatus, double dispatchedQuantity, double receivedQuantity) {
         super();
         this.sourceId = sourceId;
         this.typeOfMaterial = typeOfMaterial;
@@ -124,7 +124,7 @@ public class DispatchReceivedStatusLineItem {
     }
 
     @JsonProperty("DispatchedQuantity")
-    public int getDispatchedQuantity() {
+    public double getDispatchedQuantity() {
         return dispatchedQuantity;
     }
 
@@ -134,7 +134,7 @@ public class DispatchReceivedStatusLineItem {
     }
 
     @JsonProperty("ReceivedQuantity")
-    public int getReceivedQuantity() {
+    public double getReceivedQuantity() {
         return receivedQuantity;
     }
 
