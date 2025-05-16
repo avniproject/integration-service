@@ -129,7 +129,7 @@ public class DispatchReceivedStatusLineItem {
     }
 
     @JsonProperty("DispatchedQuantity")
-    public void setDispatchedQuantity(int dispatchedQuantity) {
+    public void setDispatchedQuantity(double dispatchedQuantity) {
         this.dispatchedQuantity = dispatchedQuantity;
     }
 
@@ -139,7 +139,7 @@ public class DispatchReceivedStatusLineItem {
     }
 
     @JsonProperty("ReceivedQuantity")
-    public void setReceivedQuantity(int receivedQuantity) {
+    public void setReceivedQuantity(double receivedQuantity) {
         this.receivedQuantity = receivedQuantity;
     }
 
