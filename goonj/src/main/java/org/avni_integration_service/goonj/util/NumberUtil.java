@@ -7,4 +7,11 @@ public class NumberUtil {
         }
         return Double.valueOf(value.toString()).intValue();
     }
+
+    public static Double getDouble(Object value) {
+        if (value == null) {
+            return null;
+        }
+        return Double.valueOf(value.toString());
+    }
 }

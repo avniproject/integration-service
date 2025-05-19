@@ -22,6 +22,8 @@ import org.springframework.web.client.HttpClientErrorException;
 import java.util.HashMap;
 import java.util.Map;
 
+import static org.avni_integration_service.goonj.util.NumberUtil.getDouble;
+
 @Component
 public class InventoryEventWorker extends GoonjEventWorker implements ErrorRecordWorker {
     private static final Logger logger = Logger.getLogger(InventoryEventWorker.class);
@@ -57,8 +59,8 @@ public class InventoryEventWorker extends GoonjEventWorker implements ErrorRecor
         Subject subject = inventoryItems.subjectWithoutObservations();
         inventoryService.populateObservations(subject, inventoryItems);
         if (subject.getVoided() == Boolean.FALSE){
-            Object currentQuantity = subject.getObservation("Current Quantity");
-            if (currentQuantity != null && (Double) currentQuantity == 0d){
+            Double currentQuantity = getDouble(subject.getObservation("Current Quantity"));
+            if (currentQuantity != null && currentQuantity == 0d){
                 subject.setVoided(Boolean.TRUE);
                 logger.info(String.format("0 currentQuantity, Voiding implementation inventory: name %s || uuid %s", inventoryResponse.get("ImplementationInventoryName"), inventoryResponse.get("ImplementationInventoryId")));
             }

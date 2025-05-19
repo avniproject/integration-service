@@ -29,6 +29,7 @@ import java.util.stream.Collectors;
 
 import static org.avni_integration_service.goonj.config.GoonjMappingDbConstants.MappingGroup_DispatchReceipt;
 import static org.avni_integration_service.goonj.config.GoonjMappingDbConstants.MappingType_Obs;
+import static org.avni_integration_service.goonj.util.NumberUtil.getDouble;
 
 @Component("DispatchReceiptRepository")
 public class DispatchReceiptRepository extends GoonjBaseRepository
@@ -109,13 +110,14 @@ public class DispatchReceiptRepository extends GoonjBaseRepository
         String itemName = typeOfMaterial.equals(CONTRIBUTED_ITEM) ?
                 (String) entry.get(CONTRIBUTED_ITEM_NAME) :
                 (typeOfMaterial.equals(KIT) ? (String) entry.get(KIT_NAME) : (String) entry.get(MATERIAL_NAME));
-        double dispatchedQuantity = entry.get(QUANTITY_DISPATCHED) != null ?
-                (double) entry.get(QUANTITY_DISPATCHED) : 0d;
+        double dispatchedQuantity = getDouble(entry.get(QUANTITY_DISPATCHED)) != null ?
+                getDouble(entry.get(QUANTITY_DISPATCHED)) : 0d;
         boolean quantityMatching = entry.get(QUANTITY_MATCHING).equals("Yes");
         if (quantityMatching) {
             receivedQuantity = dispatchedQuantity;
         } else {
-            receivedQuantity = entry.get(QUANTITY) != null ? (double) entry.get(QUANTITY) : 0d;
+            receivedQuantity = getDouble(entry.get(QUANTITY)) != null ?
+                    getDouble(entry.get(QUANTITY)) : 0d;
         }
         return new DispatchReceivedStatusLineItem(dispatchStatusLineItemId, mapTypeOfMaterial(entry), itemName,
                 dispatchStatusLineItemId, EMPTY_STRING, EMPTY_STRING, dispatchedQuantity, receivedQuantity);
