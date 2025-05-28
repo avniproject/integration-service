@@ -58,7 +58,7 @@ public class AvniGoonjErrorRecordsWorker {
 
     private static final Logger logger = Logger.getLogger(AvniGoonjErrorRecordsWorker.class);
 
-    private static final int pageSize = 20;
+    private static final int pageSize = 1000;
 
     public void process(SyncDirection syncDirection, boolean allErrors) throws Exception {
         Page<ErrorRecord> errorRecordPage;
@@ -74,8 +74,7 @@ public class AvniGoonjErrorRecordsWorker {
                 errorRecordPage = errorRecordRepository.findAllByIntegratingEntityTypeNotNullAndProcessingDisabledFalseAndErrorRecordLogsErrorTypeNotInAndIntegrationSystemIdOrderById(
                         avniGoonjErrorService.getUnprocessableErrorTypes(), integrationSystemId, pageRequest);
             else if (syncDirection.equals(SyncDirection.GoonjToAvni) && allErrors)
-                errorRecordPage = errorRecordRepository.findAllByIntegratingEntityTypeNotNullAndErrorRecordLogsErrorTypeNotInAndIntegrationSystemIdOrderById(
-                        avniGoonjErrorService.getUnprocessableErrorTypes(), integrationSystemId, pageRequest);
+                errorRecordPage = errorRecordRepository.findAllByIntegratingEntityTypeNotNullAndIntegrationSystemIdOrderById(integrationSystemId, pageRequest);
             else {
                 throw new RuntimeException("Invalid arguments");
             }

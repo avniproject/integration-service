@@ -49,7 +49,7 @@ public class AvniGoonjFullErrorJob {
             bugsnag.notify(e);
         } finally {
             try {
-                errorRecordsWorker.evaluateNewErrors();
+                errorRecordsWorker.evaluateNewErrors(); //ignoring response on purpose
             } catch (Exception e) {
                 logger.error("Failed to evaluate new errors", e);
                 bugsnag.notify(e);
