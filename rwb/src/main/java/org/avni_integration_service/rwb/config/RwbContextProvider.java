@@ -16,4 +16,8 @@ public class RwbContextProvider {
             throw new IllegalStateException("No Rwb config available. Have you called package org.avni_integration_service.rwb.config.RwbContextProvider.set.");
         return rwbConfig;
     }
+
+    public static void clear() {
+        rwbConfigs.remove();
+    }
 }

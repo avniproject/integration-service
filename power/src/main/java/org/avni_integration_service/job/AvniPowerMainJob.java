@@ -41,6 +41,8 @@ public class AvniPowerMainJob {
             healthCheckService.failure(HEALTHCHECK_SLUG);
             logger.error("Failed", e);
             bugsnag.notify(e);
+        } finally {
+            AvniHttpClient.removeAvniSession();
         }
     }
 }

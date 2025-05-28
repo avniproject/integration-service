@@ -50,6 +50,9 @@ public class AvniRwbMainJob {
             healthCheckService.failure(HEALTHCHECK_SLUG);
             logger.error(format("Rwb Main Job Errored: %s", rwbIntegrationSystemName), e);
             bugsnag.notify(e);
+        } finally {
+            AvniHttpClient.removeAvniSession();
+            RwbContextProvider.clear();
         }
     }
 }

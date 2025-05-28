@@ -40,7 +40,7 @@ public class RwbUserNudgeService {
                 new NudgeUserRequestDTO(row.get(USER_ID_RESULT_COL_INDEX).toString(), row.get(USER_NAME_RESULT_COL_INDEX).toString(),
                 rwbConfig.getSinceNoOfDays(), rwbConfig.getWithinNoOfDays())).collect(Collectors.toList());
     }
-    
+
     public SendMessageResponse nudgeUser(NudgeUserRequestDTO nudgeUserRequestDTO) {
         return avniRwbUserNudgeRepository.sendMessage(nudgeUserRequestDTO);
     }

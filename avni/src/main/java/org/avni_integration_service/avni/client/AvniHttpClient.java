@@ -33,6 +33,10 @@ public class AvniHttpClient {
         avniSessions.set(avniSession);
     }
 
+    public static void removeAvniSession() {
+        avniSessions.remove();
+    }
+
     AvniSession getAvniSession() {
         AvniSession avniSession = avniSessions.get();
         if (avniSession == null)

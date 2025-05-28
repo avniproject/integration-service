@@ -18,7 +18,7 @@ import java.util.List;
 public class AvniAmritMainJob {
 
     private static final Logger logger = Logger.getLogger(AvniAmritMainJob.class);
-    
+
     private static final String HEALTHCHECK_SLUG = "amrit";
 
     @Autowired
@@ -66,6 +66,8 @@ public class AvniAmritMainJob {
             healthCheckService.failure(HEALTHCHECK_SLUG);
             logger.error("Failed AvniAmritMainJob", e);
             bugsnag.notify(e);
+        } finally {
+            AvniHttpClient.removeAvniSession();
         }
     }
 

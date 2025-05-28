@@ -11,8 +11,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class AvniRwbUserNudgeRepository {
-
-    private static final Logger logger = Logger.getLogger(AvniMessageRepository.class);
     private final AvniMessageRepository avniMessageRepository;
     private final AvniQueryRepository avniQueryRepository;
     private final RwbContextProvider rwbContextProvider;

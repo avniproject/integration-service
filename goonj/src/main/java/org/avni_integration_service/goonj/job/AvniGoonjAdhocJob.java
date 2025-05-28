@@ -74,6 +74,8 @@ public class AvniGoonjAdhocJob {
             logger.error("Failed AvniGoonjAdhocJob", e);
             bugsnag.notify(e);
         } finally {
+            AvniHttpClient.removeAvniSession();
+            GoonjContextProvider.clear();
         }
     }
 

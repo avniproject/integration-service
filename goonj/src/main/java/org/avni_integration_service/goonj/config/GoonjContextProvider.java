@@ -11,6 +11,10 @@ public class GoonjContextProvider {
         goonjConfigs.set(goonjConfig);
     }
 
+    public static void clear() {
+        goonjConfigs.remove();
+    }
+
     public GoonjConfig get() {
         GoonjConfig goonjConfig = goonjConfigs.get();
         if (goonjConfig == null)

@@ -7,6 +7,10 @@ public class IntegrationContext {
         integrationContext.set(contextIntegrationSystem);
     }
 
+    public static void removeContext() {
+        integrationContext.remove();
+    }
+
     public static ContextIntegrationSystem get() {
         ContextIntegrationSystem integrationSystem = integrationContext.get();
         if (integrationSystem == null)

@@ -26,7 +26,7 @@ public class AvniBahmniMainJob {
     private static final Logger logger = Logger.getLogger(AvniBahmniMainJob.class);
 
     private static final String HEALTHCHECK_SLUG = "bahmni";
-    
+
     @Autowired
     private PatientWorker patientWorker;
     @Autowired
@@ -133,6 +133,8 @@ public class AvniBahmniMainJob {
             healthCheckService.failure(HEALTHCHECK_SLUG);
             logger.error("Failed", e);
             bugsnag.notify(e);
+        } finally {
+            AvniHttpClient.removeAvniSession();
         }
     }
 

@@ -82,7 +82,11 @@ public class AvniGoonjMainJob {
             bugsnag.notify(e);
             healthCheckService.failure(goonjConfig.getIntegrationSystem().getName().toLowerCase());
         } finally {
-            performAdditionalHealthChecks();
+            try {
+                performAdditionalHealthChecks();
+            } catch (Exception ignore) {}
+            AvniHttpClient.removeAvniSession();
+            GoonjContextProvider.clear();
         }
     }
 

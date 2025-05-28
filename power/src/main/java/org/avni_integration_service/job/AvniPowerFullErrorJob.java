@@ -32,6 +32,8 @@ public class AvniPowerFullErrorJob {
         } catch (Exception e) {
             logger.error("Failed", e);
             bugsnag.notify(e);
+        } finally {
+            AvniHttpClient.removeAvniSession();
         }
     }
 

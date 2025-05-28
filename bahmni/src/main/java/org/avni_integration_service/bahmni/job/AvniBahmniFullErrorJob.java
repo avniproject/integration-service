@@ -39,6 +39,8 @@ public class AvniBahmniFullErrorJob {
         } catch (Exception e) {
             logger.error("Failed", e);
             bugsnag.notify(e);
+        } finally {
+            AvniHttpClient.removeAvniSession();
         }
     }
 }

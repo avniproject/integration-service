@@ -33,6 +33,8 @@ public class AvniAmritFullErrorJob {
         } catch (Exception e) {
             logger.error("Failed AvniToAmritFullErrorJob", e);
             bugsnag.notify(e);
+        } finally {
+            AvniHttpClient.removeAvniSession();
         }
     }
 

@@ -37,6 +37,9 @@ public class AvniLahiFullErrorJob {
             logger.info("Lahi Error Job Ended");
         } catch (Exception e) {
             logger.error("Failed", e);
+        } finally {
+            AvniHttpClient.removeAvniSession();
+            IntegrationContext.removeContext();
         }
     }
 }

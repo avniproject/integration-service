@@ -48,7 +48,14 @@ public class AvniGoonjFullErrorJob {
             logger.error("Failed AvniGoonjFullErrorJob", e);
             bugsnag.notify(e);
         } finally {
-            errorRecordsWorker.evaluateNewErrors();
+            try {
+                errorRecordsWorker.evaluateNewErrors();
+            } catch (Exception e) {
+                logger.error("Failed to evaluate new errors", e);
+                bugsnag.notify(e);
+            }
+            AvniHttpClient.removeAvniSession();
+            GoonjContextProvider.clear();
         }
     }
 }
