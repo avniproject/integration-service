@@ -160,8 +160,9 @@ public class ActivityRepository extends GoonjBaseRepository implements ActivityC
             String educationAndHealth = (String) subject.getObservation(EDUCATION_AND_HEALTH);
             if(educationAndHealth!=null && educationAndHealth.equals(YES)){
                 activityDTO.setEducationAndHealth(true);
-                activityDTO.setMaleStudent((int)subject.getObservation(MALE_STUDENT));
-                activityDTO.setFemaleStudent((int)subject.getObservation(FEMALE_STUDENT));
+                activityDTO.setMaleStudent((subject.getObservation(MALE_STUDENT) == null) ? 0 : (int)subject.getObservation(MALE_STUDENT));
+                activityDTO.setFemaleStudent((subject.getObservation(FEMALE_STUDENT) == null) ? 0 : (int)subject.getObservation(FEMALE_STUDENT));
+                activityDTO.setNoofparticipantsS2S((subject.getObservation(NUMBER_OF_PARTICIPANTS) == null) ? 0L : (Integer) subject.getObservation(NUMBER_OF_PARTICIPANTS));
                 activityDTO.setSchoolAanganwadiLearningCenterName((String)subject.getObservation(SCHOOL_AANGANWADI_LEARNINGCENTER_NAME));
             }
             else{
