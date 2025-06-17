@@ -164,7 +164,7 @@ public class ActivityRepository extends GoonjBaseRepository implements ActivityC
                 activityDTO.setFemaleStudent((subject.getObservation(FEMALE_STUDENT) == null) ? 0 : (int)subject.getObservation(FEMALE_STUDENT));
                 int male = (subject.getObservation(MALE_STUDENT)==null) ? 0 : (int)subject.getObservation(MALE_STUDENT);
                 int female = (subject.getObservation(FEMALE_STUDENT)==null) ? 0 : (int)subject.getObservation(FEMALE_STUDENT);
-                activityDTO.setNoofparticipantsS2S(Long.valueOf((subject.getObservation(NUMBER_OF_PARTICIPANTS) == null) ? (male+female) : (Integer) subject.getObservation(NUMBER_OF_PARTICIPANTS)));
+                activityDTO.setNoofparticipantsNJPC(Long.valueOf((subject.getObservation(NUMBER_OF_PARTICIPANTS) == null) ? (male+female) : (Integer) subject.getObservation(NUMBER_OF_PARTICIPANTS)));
                 activityDTO.setSchoolAanganwadiLearningCenterName((String)subject.getObservation(SCHOOL_AANGANWADI_LEARNINGCENTER_NAME));
             }
             else{
