@@ -45,6 +45,7 @@ public class AvniGoonjErrorService {
             logger.info(String.format("Same error as the last processing for entity uuid %s, and type %s", uuid, avniEntityType));
             if (!errorRecord.isProcessingDisabled()) {
                 errorRecord.setProcessingDisabled(true);
+                errorRecord.updateLoggedAtForLastErrorRecordLog(errorBody);
                 errorRecordRepository.save(errorRecord);
             }
         } else if (errorRecord != null && !errorRecord.hasThisAsLastErrorTypeAndErrorMessage(errorType, errorMsg)) {
