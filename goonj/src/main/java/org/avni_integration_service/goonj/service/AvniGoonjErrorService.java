@@ -43,11 +43,8 @@ public class AvniGoonjErrorService {
         ErrorRecord errorRecord = errorRecordRepository.findByAvniEntityTypeAndEntityId(avniEntityType, uuid);
         if (errorRecord != null && errorRecord.hasThisAsLastErrorTypeAndErrorMessage(errorType, errorMsg)) {
             logger.info(String.format("Same error as the last processing for entity uuid %s, and type %s", uuid, avniEntityType));
-            if (!errorRecord.isProcessingDisabled()) {
-                errorRecord.setProcessingDisabled(true);
-                errorRecord.updateLoggedAtForLastErrorRecordLog(errorBody);
-                errorRecordRepository.save(errorRecord);
-            }
+            errorRecord.updateLoggedAtForLastErrorRecordLog(errorBody);
+            errorRecordRepository.save(errorRecord);
         } else if (errorRecord != null && !errorRecord.hasThisAsLastErrorTypeAndErrorMessage(errorType, errorMsg)) {
             errorRecord.addErrorLog(errorType, errorMsg,errorBody);
             errorRecordRepository.save(errorRecord);
