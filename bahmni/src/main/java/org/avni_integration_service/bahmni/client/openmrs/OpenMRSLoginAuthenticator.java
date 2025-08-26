@@ -23,6 +23,8 @@ import org.avni_integration_service.bahmni.client.WebClientsException;
 
 import java.io.InputStream;
 import java.net.URI;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class OpenMRSLoginAuthenticator implements Authenticator {
     private static final Logger logger = Logger.getLogger(OpenMRSLoginAuthenticator.class);
@@ -76,7 +78,7 @@ public class OpenMRSLoginAuthenticator implements Authenticator {
             confirmAuthenticated(openMRSResponse);
 
             ClientCookies clientCookies = new ClientCookies();
-            clientCookies.put(SESSION_ID_KEY, openMRSResponse.getSessionId());
+            clientCookies.put(SESSION_ID_KEY, ExtractStringUsingRegex(response.getHeaders("Set-Cookie")[0].getValue()));
 
             previousSuccessfulRequest = new HttpRequestDetails(uri, clientCookies, new HttpHeaders());
             return previousSuccessfulRequest;
@@ -86,6 +88,14 @@ public class OpenMRSLoginAuthenticator implements Authenticator {
         } finally {
             httpClient.getConnectionManager().shutdown();
         }
+    }
+
+    private String ExtractStringUsingRegex(String Cookie){
+        if (Cookie == null) return null;
+        Pattern pattern = Pattern.compile("\\bJSESSIONID=([A-Z0-9]{32})");
+        Matcher matcher = pattern.matcher(Cookie);
+        if (matcher.find()) return matcher.group(1);
+        throw new WebClientsException("No Matching SessionID in the Response Cookie");
     }
 
     protected void setCredentials(HttpGet httpGet) throws AuthenticationException {
