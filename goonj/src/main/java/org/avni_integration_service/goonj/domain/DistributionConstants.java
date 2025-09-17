@@ -73,4 +73,5 @@ public interface DistributionConstants {
     String TYPE_OF_COMMUNITY = "Type Of Community";
     String ANY_OTHER_MATERIAL_GIVEN = "Details for Any other (SI)";
     String EDUCTION_AND_HEALTH = "Education and Health";
+    String MATERIAL_PROVIDED_AS_PART_OF_RAHAT = "The material provided as part of Rahat?";
 }

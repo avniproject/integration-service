@@ -14,7 +14,8 @@ import java.util.List;
         "pocContactNo", "reachedTo", "totalNumberOfReceivers", "groupName", "anyOtherDocumentSubmitted", "reportsCrosschecked",
         "name", "gender", "age", "fatherMotherName", "phoneNumber", "presentOccupation", "monthlyIncome", "noOfFamilyMember",
         "centreName", "shareABriefProvidedMaterial", "howtheMaterialMakesaDifference", "materialGivenFor", "noOfIndividualReached",
-        "remarks", "TypeOfSchool", "SchoolAanganwadiLearningCenterName","UndertakingFormPhotographs","ReceiverListPhotographs","OtherDetails"})
+        "remarks", "TypeOfSchool", "SchoolAanganwadiLearningCenterName","UndertakingFormPhotographs","ReceiverListPhotographs",
+        "OtherDetails","materialProvidedAsPartOfRahat"})
 public class DistributionDTO {
 
     @JsonProperty("sourceId")
@@ -117,6 +118,8 @@ public class DistributionDTO {
     private String receiverListPhotographs;
     @JsonProperty("OtherDetails")
     private String otherDetails;
+    @JsonProperty("materialProvidedAsPartOfRahat")
+    private String materialProvidedAsPartOfRahat;
     /**
      * No args constructor for use in serialization
      */
@@ -737,5 +740,15 @@ public class DistributionDTO {
     @JsonProperty("OtherDetails")
     public void setOtherDetails(String otherDetails) {
         this.otherDetails = otherDetails;
+    }
+
+    @JsonProperty("materialProvidedAsPartOfRahat")
+    public String getMaterialProvidedAsPartOfRahat() {
+        return materialProvidedAsPartOfRahat;
+    }
+
+    @JsonProperty("materialProvidedAsPartOfRahat")
+    public void setMaterialProvidedAsPartOfRahat(String materialProvidedAsPartOfRahat) {
+        this.materialProvidedAsPartOfRahat = materialProvidedAsPartOfRahat;
     }
 }
