@@ -141,7 +141,7 @@ public class ActivityRepository extends GoonjBaseRepository implements ActivityC
         if (subject.getObservation(TYPE_OF_INITIATIVE).equals("S2S")) {
             /* Participation fields */
             activityDTO.setNoOfPlantationS2S((subject.getObservation(NO_OF_PLANTATION) == null) ? 0 : (Integer) subject.getObservation(NO_OF_PLANTATION));
-            activityDTO.setNoOfSeedBallsS2S((subject.getObservation(NO_OF_PLANTATION) == null) ? 0 : (Integer) subject.getObservation(NO_OF_PLANTATION));
+            activityDTO.setNoOfSeedBallsS2S((subject.getObservation(NO_OF_SEED_BALLS) == null) ? 0 : (Integer) subject.getObservation(NO_OF_SEED_BALLS));
             activityDTO.setNoofparticipantsS2S((subject.getObservation(NUMBER_OF_PARTICIPANTS) == null) ? 0L : (Integer) subject.getObservation(NUMBER_OF_PARTICIPANTS));
             activityDTO.setNoofdaysofParticipationS2S((subject.getObservation(NUMBER_OF_DAYS_OF_PARTICIPATION) == null) ? 0L : (Integer) subject.getObservation(NUMBER_OF_DAYS_OF_PARTICIPATION));
             activityDTO.setSchoolAanganwadiLearningCenterName((String) subject.getObservation(SCHOOL_AANGANWADI_LEARNINGCENTER_NAME));
