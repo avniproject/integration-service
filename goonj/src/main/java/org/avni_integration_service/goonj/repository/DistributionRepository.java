@@ -157,7 +157,11 @@ public class DistributionRepository extends GoonjBaseRepository implements Distr
         } else if (subject.getObservation(TYPE_OF_INITIATIVE).equals(SPECIFIC_INITIATIVE)) {
             distributionDTO.setTypeOfInitiative((String) subject.getObservation(TYPE_OF_INITIATIVE));
             distributionDTO.setCentreName((String) subject.getObservation(CENTERS_NAME));
-            distributionDTO.setIsCenteraSchoolAnganwadiLearning((String) subject.getObservation(IS_CENTER_A_SCHOOL_ANGANWADI_LEARNING_CENTRE));
+            String isCenteraSchoolAnganwadiLearning = (String) subject.getObservation(IS_CENTER_A_SCHOOL_ANGANWADI_LEARNING_CENTRE);
+            if (isCenteraSchoolAnganwadiLearning != null && isCenteraSchoolAnganwadiLearning.equals(YES))
+                distributionDTO.setIsCenteraSchoolAnganwadiLearning(true);
+            else
+                distributionDTO.setIsCenteraSchoolAnganwadiLearning(false);
             distributionDTO.setShareABriefProvidedMaterial((String) subject.getObservation(PROVIDED_MATERIAL));
             distributionDTO.setHowtheMaterialMakesaDifference((String) subject.getObservation(MATERIAL_MAKES_DIFFERENCE));
             distributionDTO.setMaterialGivenFor((String) subject.getObservation(MATERIAL_GIVEN_FOR));

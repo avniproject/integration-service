@@ -97,7 +97,7 @@ public class DistributionDTO {
     @JsonProperty("centreName")
     private String centreName;
     @JsonProperty("IsCenteraSchoolAnganwadiLearning")
-    private String IsCenteraSchoolAnganwadiLearning;
+    private boolean IsCenteraSchoolAnganwadiLearning;
     @JsonProperty("shareABriefProvidedMaterial")
     private String shareABriefProvidedMaterial;
     @JsonProperty("howtheMaterialMakesaDifference")
@@ -639,12 +639,12 @@ public class DistributionDTO {
     }
 
     @JsonProperty("IsCenteraSchoolAnganwadiLearning")
-    public String getIsCenteraSchoolAnganwadiLearning() {
+    public boolean getIsCenteraSchoolAnganwadiLearning() {
         return IsCenteraSchoolAnganwadiLearning;
     }
 
     @JsonProperty("IsCenteraSchoolAnganwadiLearning")
-    public void setIsCenteraSchoolAnganwadiLearning(String isCenteraSchoolAnganwadiLearning) {
+    public void setIsCenteraSchoolAnganwadiLearning(boolean isCenteraSchoolAnganwadiLearning) {
         IsCenteraSchoolAnganwadiLearning = isCenteraSchoolAnganwadiLearning;
     }
 
