@@ -48,4 +48,6 @@ public interface ActivityConstants {
     String MALE_STUDENT = "Number of students (Male)";
     String FEMALE_STUDENT = "Number of students (Female)";
     String YES = "Yes";
+    String NO_OF_PLANTATION = "Number of Plantation - S2S";
+    String NO_OF_SEED_BALLS = "Number of Seed Balls - S2S";
 }

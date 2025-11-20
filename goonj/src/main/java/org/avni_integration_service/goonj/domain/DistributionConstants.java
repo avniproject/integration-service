@@ -45,6 +45,7 @@ public interface DistributionConstants {
     String NUMBER_OF_RECEIVERS = "Total Number of Receivers";
     String ANY_OTHER_DOCUMENT_SUBMITTED = "Any Other Document Submitted";
     String CENTERS_NAME = "Centre’s Name";
+    String IS_CENTER_A_SCHOOL_ANGANWADI_LEARNING_CENTRE = "Is Centre a School/Anganwadi/Learning Centre?";
     String PROVIDED_MATERIAL = "Share a Brief Provided Material";
     String MATERIAL_MAKES_DIFFERENCE = "How the Material Makes a Difference";
     String MATERIAL_GIVEN_FOR = "Material Given for";

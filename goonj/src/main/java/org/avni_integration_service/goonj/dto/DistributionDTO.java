@@ -13,7 +13,7 @@ import java.util.List;
         "activities", "surveyedBy", "monitoredByOrDistributor", "approvedOrVerifiedBy", "teamOrExternal", "nameOfPOC",
         "pocContactNo", "reachedTo", "totalNumberOfReceivers", "groupName", "anyOtherDocumentSubmitted", "reportsCrosschecked",
         "name", "gender", "age", "fatherMotherName", "phoneNumber", "presentOccupation", "monthlyIncome", "noOfFamilyMember",
-        "centreName", "shareABriefProvidedMaterial", "howtheMaterialMakesaDifference", "materialGivenFor", "noOfIndividualReached",
+        "centreName", "IsCenteraSchoolAnganwadiLearning", "shareABriefProvidedMaterial", "howtheMaterialMakesaDifference", "materialGivenFor", "noOfIndividualReached",
         "remarks", "TypeOfSchool", "SchoolAanganwadiLearningCenterName","UndertakingFormPhotographs","ReceiverListPhotographs",
         "OtherDetails","materialProvidedAsPartOfRahat"})
 public class DistributionDTO {
@@ -96,6 +96,8 @@ public class DistributionDTO {
     private Integer noOfFamilyMember;
     @JsonProperty("centreName")
     private String centreName;
+    @JsonProperty("IsCenteraSchoolAnganwadiLearning")
+    private String IsCenteraSchoolAnganwadiLearning;
     @JsonProperty("shareABriefProvidedMaterial")
     private String shareABriefProvidedMaterial;
     @JsonProperty("howtheMaterialMakesaDifference")
@@ -634,6 +636,16 @@ public class DistributionDTO {
     @JsonProperty("centreName")
     public void setCentreName(String centreName) {
         this.centreName = centreName;
+    }
+
+    @JsonProperty("IsCenteraSchoolAnganwadiLearning")
+    public String getIsCenteraSchoolAnganwadiLearning() {
+        return IsCenteraSchoolAnganwadiLearning;
+    }
+
+    @JsonProperty("IsCenteraSchoolAnganwadiLearning")
+    public void setIsCenteraSchoolAnganwadiLearning(String isCenteraSchoolAnganwadiLearning) {
+        IsCenteraSchoolAnganwadiLearning = isCenteraSchoolAnganwadiLearning;
     }
 
     @JsonProperty("shareABriefProvidedMaterial")

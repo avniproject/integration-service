@@ -103,6 +103,8 @@ public class ActivityRepository extends GoonjBaseRepository implements ActivityC
         if (studentActivities != null) {
             activityDTO.setActivityConductedWithStudents(String.join(";", studentActivities));
         }
+        activityDTO.setNoOfPlantationS2S((Integer) subject.getObservation(NO_OF_PLANTATION));
+        activityDTO.setNoOfSeedBallsS2S((Integer) subject.getObservation(NO_OF_SEED_BALLS));
         activityDTO.setOtherDetails((String) subject.getObservation(OTHER_ACTIVITY));
         activityDTO.setSchoolAanganwadiLearningCenterName((String) subject.getObservation(SCHOOL_AANGANWADI_LEARNINGCENTER_NAME));
 

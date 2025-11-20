@@ -36,6 +36,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "NoofdaysofParticipationS2S",
         "NoofdaysofParticipationNJPC",
         "ActivityConductedWithStudents",
+        "NumberofPlantationS2S",
+        "NumberofSeedBallsS2S",
         "TypeOfSchool",
         "S2SPhotograph",
         "NJPCPhotograph",
@@ -161,6 +163,11 @@ public class ActivityDTO {
     private int maleStudent;
     @JsonProperty("NumberOfStudentsFemale")
     private int femaleStudent;
+    @JsonProperty("NumberofPlantationS2S")
+    private int noOfPlantationS2S;
+    @JsonProperty("NumberofSeedBallsS2S")
+    private int noOfSeedBallsS2S;
+
     /**
      * No args constructor for use in serialization
      */
@@ -798,5 +805,25 @@ public class ActivityDTO {
     @JsonProperty("NumberOfStudentsFemale")
     public void setFemaleStudent(int femaleStudent) {
         this.femaleStudent = femaleStudent;
+    }
+
+    @JsonProperty("NumberofPlantationS2S")
+    public int getNoOfPlantationS2S() {
+        return noOfPlantationS2S;
+    }
+
+    @JsonProperty("NumberofPlantationS2S")
+    public void setNoOfPlantationS2S(int noOfPlantationS2S) {
+        this.noOfPlantationS2S = noOfPlantationS2S;
+    }
+
+    @JsonProperty("NumberofSeedBallsS2S")
+    public int getNoOfSeedBallsS2S() {
+        return noOfSeedBallsS2S;
+    }
+
+    @JsonProperty("NumberofSeedBallsS2S")
+    public void setNoOfSeedBallsS2S(int noOfSeedBallsS2S) {
+        this.noOfSeedBallsS2S = noOfSeedBallsS2S;
     }
 }
