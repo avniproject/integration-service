@@ -337,27 +337,6 @@ This document outlines the integration between **Avni** (field-based community h
 | Data Correction Endpoints | Idempotent endpoints for data fixes | Nupoor | Not Started |
 | Postman Collection | API requests with documentation | Himesh | Not Started |
 
-### Phase 2 (P2): Bahmni Cloud Migration
-
-**Objective:** Migrate Bahmni to cloud for security, safety, and version upgrades
-
-| Deliverable | Description | Owner | Status |
-|-------------|-------------|-------|--------|
-| Cloud Infrastructure Setup | AWS infrastructure for production Bahmni | TBD | Not Started |
-| Bahmni Version Upgrade | Upgrade to latest Bahmni with Odoo updates | TBD | Not Started |
-| Data Migration | Migrate production data to cloud | TBD | Not Started |
-| Security Hardening | Network security, backups, monitoring | TBD | Not Started |
-
-### Phase 3 (P3): Data Warehouse Integration
-
-**Objective:** Integrate Avni and Bahmni data into unified data warehouse for research
-
-| Deliverable | Description | Owner | Status |
-|-------------|-------------|-------|--------|
-| Data Warehouse Design | Schema design for clinical + community data | TBD | Not Started |
-| ETL Pipelines | Data extraction and transformation | TBD | Not Started |
-| Research Dashboards | Analytics and reporting | TBD | Not Started |
-
 ### Documentation & Training (Across Phases)
 
 | Deliverable | Description | Owner | Status |
@@ -904,19 +883,6 @@ curl -X POST http://localhost:6013/int/bahmni/trigger-sync \
 - [ ] Community data sync to Bahmni verified
 - [ ] Internal review completed
 - [ ] External review with JSS stakeholders completed
-
-### P2 Deliverables
-
-- [ ] Cloud infrastructure provisioned
-- [ ] Bahmni upgraded to latest version
-- [ ] Production data migrated
-- [ ] Security and backup configured
-
-### P3 Deliverables
-
-- [ ] Data warehouse schema designed
-- [ ] ETL pipelines operational
-- [ ] Research dashboards available
 
 ---
 
