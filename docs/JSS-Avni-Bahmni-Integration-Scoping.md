@@ -390,78 +390,92 @@ export BAHMNI_SCHEDULE_CRON_FULL_ERROR=-
 
 ---
 
-## 6. AWS RDS Setup
+## 6. AWS Infrastructure Setup
 
-### Create RDS Instance for OpenMRS MySQL
+### Prerelease Environment (Actual)
+
+| Resource | Value |
+|----------|-------|
+| **VPC** | vpc-0132b5c63278b2c52 (prerelease VPC) |
+| **VPC CIDR** | 172.1.0.0/16 |
+| **Subnet A** | subnet-016c5045517fb38f9 (ap-south-1a) |
+| **Subnet B** | subnet-094989bce9a2c6955 (ap-south-1b) |
+| **Subnet C** | subnet-0b4d26175373ac1f8 (ap-south-1c) |
+| **MySQL Security Group** | sg-06fe53dc3c585722b (jss-avni-bahmni-prerelease-mysql-sg) |
+| **Bahmni Security Group** | sg-0fe474a48f8d01921 (jss-avni-bahmni-prerelease-bahmni-sg) |
+| **DB Subnet Group** | jss-avni-bahmni-prerelease-db-subnet-group |
+
+### RDS Instance (Prerelease)
+
+| Resource | Value |
+|----------|-------|
+| **Instance ID** | jss-prerelease-mysql |
+| **Instance Class** | db.t3.small |
+| **Storage** | 40GB gp3 |
+| **MySQL Version** | 5.7.44 |
+| **Endpoint** | jss-prerelease-mysql.cnwnxgm8rsnb.ap-south-1.rds.amazonaws.com |
+| **DNS** | jss-db-prerelease.avniproject.org |
+| **Username** | openmrs_admin |
+| **Database** | openmrs |
+
+### EC2 Instance (Prerelease - Bahmni Docker)
+
+| Resource | Value |
+|----------|-------|
+| **Instance ID** | i-0489ada1d5197a6f9 |
+| **Instance Type** | t4g.small (ARM64/Graviton) |
+| **Volume** | 30GB gp3 |
+| **OS** | Ubuntu 22.04 LTS |
+| **Public IP** | 13.127.31.160 |
+| **DNS** | jss-bahmni-prerelease.avniproject.org |
+| **Pre-installed** | Docker, Docker Compose, MySQL client |
+
+### Infrastructure Scripts
+
+Scripts are available at `scripts/aws/`:
 
 ```bash
-# Variables
-AWS_REGION="ap-south-1"
-DB_INSTANCE_ID="jss-bahmni-openmrs-dev"
-DB_NAME="openmrs"
-DB_USERNAME="openmrs_admin"
-DB_PASSWORD="<secure_password>"  # Replace with secure password
-DB_INSTANCE_CLASS="db.t3.medium"
-ALLOCATED_STORAGE=50
-VPC_SECURITY_GROUP="<your-security-group-id>"
-DB_SUBNET_GROUP="<your-db-subnet-group>"
+# Full environment setup
+./jss-infra-setup.sh setup-prerelease "YourPassword"
+./jss-infra-setup.sh wait-rds jss-prerelease-mysql
+./jss-infra-setup.sh dns-rds-prerelease
 
-# Create RDS MySQL 5.6 compatible instance (MySQL 5.7 is closest available)
-aws rds create-db-instance \
-    --db-instance-identifier $DB_INSTANCE_ID \
-    --db-instance-class $DB_INSTANCE_CLASS \
-    --engine mysql \
-    --engine-version "5.7.44" \
-    --master-username $DB_USERNAME \
-    --master-user-password $DB_PASSWORD \
-    --allocated-storage $ALLOCATED_STORAGE \
-    --storage-type gp3 \
-    --vpc-security-group-ids $VPC_SECURITY_GROUP \
-    --db-subnet-group-name $DB_SUBNET_GROUP \
-    --backup-retention-period 7 \
-    --no-multi-az \
-    --publicly-accessible \
-    --region $AWS_REGION \
-    --tags Key=Project,Value=JSS-Bahmni Key=Environment,Value=Development
+# Check status
+./jss-infra-setup.sh status
 
-# Wait for instance to be available
-aws rds wait db-instance-available \
-    --db-instance-identifier $DB_INSTANCE_ID \
-    --region $AWS_REGION
-
-# Get endpoint
-aws rds describe-db-instances \
-    --db-instance-identifier $DB_INSTANCE_ID \
-    --query 'DBInstances[0].Endpoint.Address' \
-    --output text \
-    --region $AWS_REGION
+# Using Makefile
+make help                # Show all commands
+make status              # Show infrastructure status
+make ssh-prerelease      # SSH to EC2
+make copy-backup         # Copy backup to EC2
+make restore-backup      # Restore to RDS
+make create-snapshot     # Create RDS snapshot
 ```
 
 ### Restore from Backup
 
 ```bash
-# Assuming you have the backup SQL file
-RDS_ENDPOINT="<rds-endpoint-from-above>"
+# From local machine using Makefile
+cd scripts/aws
+make copy-backup         # Copy backup file to EC2 via scp
+make restore-backup      # Restore to RDS from EC2
+make verify-restore      # Verify tables were restored
 
-# Restore backup to RDS
-mysql -h $RDS_ENDPOINT -u $DB_USERNAME -p$DB_PASSWORD < /path/to/jss_openmrs_backup.sql
+# Or manually from EC2
+ssh -i ~/.ssh/openchs-infra.pem ubuntu@jss-bahmni-prerelease.avniproject.org
+gunzip -c /home/ubuntu/backups/openmrsdb_backup.sql.gz | mysql -h jss-db-prerelease.avniproject.org -u openmrs_admin -p openmrs
 ```
 
 ### Create RDS Snapshot (for respawn)
 
 ```bash
-# Create snapshot
-aws rds create-db-snapshot \
-    --db-instance-identifier $DB_INSTANCE_ID \
-    --db-snapshot-identifier "jss-bahmni-baseline-$(date +%Y%m%d)" \
-    --region $AWS_REGION
+make create-snapshot
 
-# List snapshots
-aws rds describe-db-snapshots \
-    --db-instance-identifier $DB_INSTANCE_ID \
-    --region $AWS_REGION \
-    --query 'DBSnapshots[*].[DBSnapshotIdentifier,Status,SnapshotCreateTime]' \
-    --output table
+# Or manually
+aws rds create-db-snapshot \
+    --db-instance-identifier jss-prerelease-mysql \
+    --db-snapshot-identifier "jss-prerelease-mysql-baseline-$(date +%Y%m%d)" \
+    --region ap-south-1
 ```
 
 ---
