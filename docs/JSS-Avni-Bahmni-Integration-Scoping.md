@@ -59,11 +59,11 @@ This document outlines the integration between **Avni** (field-based community h
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│                              CLOUD (Samanvay)                                │
+│                              CLOUD (Samanvay)                               │
 │  ┌─────────────────┐    ┌─────────────────────┐    ┌─────────────────────┐  │
-│  │                 │    │                     │    │                     │  │
+│  │                 │Sync│                     │Sync│                     │  │
 │  │  Avni Server    │◄──►│  Integration        │◄──►│  Bahmni (Docker)    │  │
-│  │  (prerelease)   │    │  Service            │    │  + MySQL RDS        │  │
+│  │  (Production)   │    │  Service            │    │  + MySQL RDS        │  │
 │  │                 │    │                     │    │                     │  │
 │  └─────────────────┘    └─────────────────────┘    └─────────────────────┘  │
 │         ▲                                                    ▲              │
@@ -903,7 +903,7 @@ curl -X POST http://localhost:6013/int/bahmni/trigger-sync \
 | Role | Contact |
 |------|---------|
 | Avni Support | support@avniproject.org |
-| JSS IT Admin | Gajanan (TBD) |
+| JSS IT Admin | Ram Narayan |
 
 ---
 
