@@ -202,6 +202,23 @@ jobs:
           path: util/build/reports/tests/test
           destination: testReports/util
 
+  PRERELEASE_deploy:
+    docker:
+      - image: cimg/deploy:2024.11
+        environment:
+          ANSIBLE_HOST_KEY_CHECKING: no
+    working_directory: ~/
+    steps:
+      - aws-cli/setup:
+          role_arn: "arn:aws:iam::118388513628:role/avni_circleci_instance_connect"
+          region: "ap-south-1"
+      - setup_server_access:
+          instance-id: "i-0a357dbb9e5a91ca2"
+          availability-zone: "ap-south-1b"
+      - deploy:
+          hostname: "int-prerelease.avniproject.org"
+          env: "prerelease"
+
   STAGING_deploy:
     docker:
       - image: cimg/deploy:2024.11
@@ -270,6 +287,14 @@ workflows:
   build_and_deploy:
     jobs:
       - build
+      - PRERELEASE_approve:
+          type: approval
+          requires:
+            - build
+      - PRERELEASE_deploy:
+          context: non-prod-deploy
+          requires:
+            - PRERELEASE_approve
       - STAGING_approve:
           type: approval
           requires:
