@@ -12,11 +12,16 @@ services:
       # Disable Hibernate Search indexing to prevent deadlocks
       OPENMRS_SKIP_SEARCH_INDEX: "true"
       OPENMRS_SKIP_LUCENE_INDEX: "true"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
     
   # Configure local MySQL container with proper timezone
   openmrsdb:
-    image: mysql:8.0
-    platform: linux/arm64
+    image: mysql:5.7
+    platform: linux/amd64
     environment:
       MYSQL_ROOT_PASSWORD: OpenMRS_JSS2024
       MYSQL_DATABASE: openmrs
@@ -32,6 +37,11 @@ services:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-pOpenMRS_JSS2024"]
       timeout: 20s
       retries: 10
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
 
 volumes:
   openmrs_db_data:

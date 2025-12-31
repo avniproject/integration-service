@@ -20,8 +20,8 @@ PRERELEASE_SUBNET_B="subnet-094989bce9a2c6955"
 PRERELEASE_SUBNET_C="subnet-0b4d26175373ac1f8"
 PRERELEASE_SG="sg-022fe3f581de4d6f4"  # prerelease-sg (SSH, HTTP, HTTPS)
 
-# AMI for Ubuntu 22.04 ARM64 (Graviton)
-UBUNTU_ARM64_AMI="ami-00c6cc6ebf54a632b"  # ubuntu-jammy-22.04-arm64
+# AMI for Ubuntu 22.04 x86_64
+UBUNTU_X86_64_AMI="ami-0ff91eb5c6fe7cc86"  # ubuntu-jammy-22.04-amd64-server (ap-south-1)
 
 # Colors for output
 RED='\033[0;31m'
@@ -209,7 +209,7 @@ create_ec2_instance() {
     local INSTANCE_NAME=$2
     local SUBNET_ID=$3
     local SECURITY_GROUP_IDS=$4  # Comma-separated
-    local INSTANCE_TYPE=${5:-t4g.small}
+    local INSTANCE_TYPE=${5:-t3.medium}
     local VOLUME_SIZE=${6:-30}
     
     log_info "Creating EC2 instance ${INSTANCE_NAME}..."
@@ -223,13 +223,13 @@ apt-get update
 apt-get upgrade -y
 apt-get install -y apt-transport-https ca-certificates curl software-properties-common
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-echo "deb [arch=arm64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu jammy stable" | tee /etc/apt/sources.list.d/docker.list
+echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu jammy stable" | tee /etc/apt/sources.list.d/docker.list
 apt-get update
 apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
 usermod -aG docker ubuntu
 systemctl enable docker
 systemctl start docker
-curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-Linux-aarch64" -o /usr/local/bin/docker-compose
+curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-Linux-x86_64" -o /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
 apt-get install -y git htop vim mysql-client jq unzip
 mkdir -p /home/ubuntu/bahmni-docker
@@ -238,7 +238,7 @@ echo "Setup complete" > /home/ubuntu/setup-complete.txt
 USERDATA
     
     INSTANCE_ID=$(aws ec2 run-instances \
-        --image-id $UBUNTU_ARM64_AMI \
+        --image-id $UBUNTU_X86_64_AMI \
         --instance-type $INSTANCE_TYPE \
         --key-name $KEY_PAIR_NAME \
         --subnet-id $SUBNET_ID \
@@ -351,6 +351,7 @@ EOF
         --change-batch "$CHANGE_BATCH" 2>/dev/null || log_warn "DNS record not found or already deleted"
 }
 
+
 # ============================================================================
 # FULL ENVIRONMENT SETUP (Using existing prerelease VPC)
 # ============================================================================
@@ -423,7 +424,7 @@ setup_jss_prerelease() {
     
     if [ "$EXISTING_EC2" == "None" ] || [ -z "$EXISTING_EC2" ]; then
         # Use both prerelease-sg and bahmni-sg
-        EC2_RESULT=$(create_ec2_instance "prerelease" $EC2_NAME $PRERELEASE_SUBNET_B "${PRERELEASE_SG},${BAHMNI_SG}" "t4g.medium" 30)
+        EC2_RESULT=$(create_ec2_instance "prerelease" $EC2_NAME $PRERELEASE_SUBNET_B "${PRERELEASE_SG},${BAHMNI_SG}" "t3.medium" 30)
         EC2_ID=$(echo $EC2_RESULT | awk '{print $1}')
         PUBLIC_IP=$(echo $EC2_RESULT | awk '{print $2}')
         
