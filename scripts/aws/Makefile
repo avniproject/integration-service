@@ -38,10 +38,14 @@ help:
 	@echo "  make full-restore          - Copy backup + restore + create snapshot"
 	@echo ""
 	@echo "=== Bahmni Docker Setup ==="
-	@echo "  make setup-bahmni          - Clone and setup Bahmni Docker on EC2"
-	@echo "  make start-bahmni          - Start Bahmni Docker containers"
-	@echo "  make stop-bahmni           - Stop Bahmni Docker containers"
-	@echo "  make bahmni-logs           - View Bahmni Docker logs"
+	@echo "  make bahmni-full-setup     - Full Bahmni setup using repo scripts"
+	@echo "  make setup-bahmni          - Clone Bahmni Docker repo on EC2"
+	@echo "  make bahmni-up             - Start Bahmni Docker containers"
+	@echo "  make bahmni-down           - Stop Bahmni Docker containers"
+	@echo "  make bahmni-restart        - Restart Bahmni containers"
+	@echo "  make bahmni-status         - Show Bahmni container status"
+	@echo "  make bahmni-logs           - View all Bahmni logs"
+	@echo "  make bahmni-logs-openmrs   - View OpenMRS logs only"
 
 # ============================================================================
 # Infrastructure Commands
@@ -133,7 +137,40 @@ stop-bahmni:
 bahmni-logs:
 	@ssh -i $(SSH_KEY) $(SSH_USER)@$(PRERELEASE_HOST) '\
 		cd /home/ubuntu/bahmni-docker && \
-		docker-compose logs -f --tail=100'
+		docker compose logs -f --tail=100'
+
+bahmni-logs-openmrs:
+	@ssh -i $(SSH_KEY) $(SSH_USER)@$(PRERELEASE_HOST) '\
+		docker logs -f --tail=200 bahmni-docker-openmrs-1'
+
+bahmni-status:
+	@ssh -i $(SSH_KEY) $(SSH_USER)@$(PRERELEASE_HOST) '\
+		cd /home/ubuntu/bahmni-docker && \
+		docker compose ps'
+
+bahmni-restart:
+	@ssh -i $(SSH_KEY) $(SSH_USER)@$(PRERELEASE_HOST) '\
+		cd /home/ubuntu/bahmni-docker && \
+		docker compose --profile emr restart'
+
+bahmni-down:
+	@ssh -i $(SSH_KEY) $(SSH_USER)@$(PRERELEASE_HOST) '\
+		cd /home/ubuntu/bahmni-docker && \
+		docker compose --profile emr down'
+
+bahmni-up:
+	@ssh -i $(SSH_KEY) $(SSH_USER)@$(PRERELEASE_HOST) '\
+		cd /home/ubuntu/bahmni-docker && \
+		docker compose --profile emr up -d'
+
+# Full Bahmni setup using scripts from this repo
+bahmni-full-setup:
+	@echo "Copying Bahmni setup files to EC2..."
+	@scp -i $(SSH_KEY) -r bahmni/ $(SSH_USER)@$(PRERELEASE_HOST):/home/ubuntu/bahmni-setup/
+	@echo "Running Bahmni setup script..."
+	@ssh -i $(SSH_KEY) $(SSH_USER)@$(PRERELEASE_HOST) '\
+		chmod +x /home/ubuntu/bahmni-setup/setup-bahmni.sh && \
+		/home/ubuntu/bahmni-setup/setup-bahmni.sh prerelease'
 
 # ============================================================================
 # Utility Commands

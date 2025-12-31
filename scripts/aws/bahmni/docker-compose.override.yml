@@ -1,0 +1,37 @@
+# Docker Compose Override for Local MySQL with Restored Database
+# This file configures the local MySQL container with timezone settings
+# and disables Hibernate Search indexing to avoid deadlocks
+# Use with: docker compose -f docker-compose.yml -f docker-compose.override.yml up -d
+
+services:
+  # Configure OpenMRS with local MySQL and disable search indexing
+  openmrs:
+    depends_on:
+      - openmrsdb
+    environment:
+      # Disable Hibernate Search indexing to prevent deadlocks
+      OPENMRS_SKIP_SEARCH_INDEX: "true"
+      OPENMRS_SKIP_LUCENE_INDEX: "true"
+    
+  # Configure local MySQL container with proper timezone
+  openmrsdb:
+    image: mysql:8.0
+    platform: linux/arm64
+    environment:
+      MYSQL_ROOT_PASSWORD: OpenMRS_JSS2024
+      MYSQL_DATABASE: openmrs
+      MYSQL_USER: openmrs_admin
+      MYSQL_PASSWORD: OpenMRS_JSS2024
+      TZ: "Asia/Calcutta"
+    command: --default-time-zone='+05:30' --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --skip-log-bin
+    ports:
+      - "3306:3306"
+    volumes:
+      - openmrs_db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-pOpenMRS_JSS2024"]
+      timeout: 20s
+      retries: 10
+
+volumes:
+  openmrs_db_data:

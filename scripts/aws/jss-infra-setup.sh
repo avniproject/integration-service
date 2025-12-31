@@ -423,7 +423,7 @@ setup_jss_prerelease() {
     
     if [ "$EXISTING_EC2" == "None" ] || [ -z "$EXISTING_EC2" ]; then
         # Use both prerelease-sg and bahmni-sg
-        EC2_RESULT=$(create_ec2_instance "prerelease" $EC2_NAME $PRERELEASE_SUBNET_B "${PRERELEASE_SG},${BAHMNI_SG}" "t4g.small" 30)
+        EC2_RESULT=$(create_ec2_instance "prerelease" $EC2_NAME $PRERELEASE_SUBNET_B "${PRERELEASE_SG},${BAHMNI_SG}" "t4g.medium" 30)
         EC2_ID=$(echo $EC2_RESULT | awk '{print $1}')
         PUBLIC_IP=$(echo $EC2_RESULT | awk '{print $2}')
         
