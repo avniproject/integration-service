@@ -351,6 +351,94 @@ EOF
         --change-batch "$CHANGE_BATCH" 2>/dev/null || log_warn "DNS record not found or already deleted"
 }
 
+# ============================================================================
+# EC2 SNAPSHOT FUNCTIONS
+# ============================================================================
+create_ec2_snapshot() {
+    local INSTANCE_ID=$1
+    local DESCRIPTION=${2:-"JSS Bahmni snapshot"}
+    
+    if [ -z "$INSTANCE_ID" ]; then
+        log_error "Instance ID is required"
+        return 1
+    fi
+    
+    log_info "Creating snapshot for instance: $INSTANCE_ID"
+    
+    # Get the root volume ID
+    VOLUME_ID=$(aws ec2 describe-instances \
+        --instance-ids $INSTANCE_ID \
+        --query 'Reservations[0].Instances[0].BlockDeviceMappings[0].Ebs.VolumeId' \
+        --output text \
+        --region $AWS_REGION)
+    
+    if [ -z "$VOLUME_ID" ] || [ "$VOLUME_ID" == "None" ]; then
+        log_error "Could not find volume for instance $INSTANCE_ID"
+        return 1
+    fi
+    
+    log_info "Found volume: $VOLUME_ID"
+    
+    # Create snapshot
+    SNAPSHOT_ID=$(aws ec2 create-snapshot \
+        --volume-id $VOLUME_ID \
+        --description "$DESCRIPTION" \
+        --tag-specifications "ResourceType=snapshot,Tags=[{Key=Name,Value=${PROJECT}-snapshot-$(date +%Y%m%d-%H%M%S)},{Key=Project,Value=${PROJECT}},{Key=InstanceId,Value=${INSTANCE_ID}}]" \
+        --region $AWS_REGION \
+        --query 'SnapshotId' \
+        --output text)
+    
+    log_info "Snapshot creation initiated: $SNAPSHOT_ID"
+    log_info "Use 'aws ec2 describe-snapshots --snapshot-ids $SNAPSHOT_ID' to check status"
+    
+    echo $SNAPSHOT_ID
+}
+
+wait_for_snapshot() {
+    local SNAPSHOT_ID=$1
+    
+    log_info "Waiting for snapshot $SNAPSHOT_ID to complete..."
+    aws ec2 wait snapshot-completed --snapshot-ids $SNAPSHOT_ID --region $AWS_REGION
+    log_info "Snapshot $SNAPSHOT_ID completed"
+}
+
+create_ami_from_instance() {
+    local INSTANCE_ID=$1
+    local AMI_NAME=${2:-"${PROJECT}-ami-$(date +%Y%m%d-%H%M%S)"}
+    local DESCRIPTION=${3:-"JSS Bahmni AMI with restored database"}
+    
+    if [ -z "$INSTANCE_ID" ]; then
+        log_error "Instance ID is required"
+        return 1
+    fi
+    
+    log_info "Creating AMI from instance: $INSTANCE_ID"
+    log_info "AMI Name: $AMI_NAME"
+    
+    AMI_ID=$(aws ec2 create-image \
+        --instance-id $INSTANCE_ID \
+        --name "$AMI_NAME" \
+        --description "$DESCRIPTION" \
+        --no-reboot \
+        --tag-specifications "ResourceType=image,Tags=[{Key=Name,Value=${AMI_NAME}},{Key=Project,Value=${PROJECT}},{Key=SourceInstance,Value=${INSTANCE_ID}}]" \
+        --region $AWS_REGION \
+        --query 'ImageId' \
+        --output text)
+    
+    log_info "AMI creation initiated: $AMI_ID"
+    log_info "Use 'aws ec2 describe-images --image-ids $AMI_ID' to check status"
+    
+    echo $AMI_ID
+}
+
+list_snapshots() {
+    log_info "Listing JSS snapshots..."
+    aws ec2 describe-snapshots \
+        --filters "Name=tag:Project,Values=${PROJECT}" \
+        --query 'Snapshots[*].[SnapshotId,VolumeId,StartTime,State,Description]' \
+        --output table \
+        --region $AWS_REGION
+}
 
 # ============================================================================
 # FULL ENVIRONMENT SETUP (Using existing prerelease VPC)
@@ -566,6 +654,32 @@ main() {
             create_dns_record "jss-db-prerelease.avniproject.org" "$RDS_ENDPOINT" "CNAME" 300
             ;;
         
+        # ============ SNAPSHOT COMMANDS ============
+        "snapshot")
+            if [ -z "$2" ]; then
+                log_error "Usage: $0 snapshot <instance-id> [description]"
+                exit 1
+            fi
+            create_ec2_snapshot "$2" "${3:-JSS Bahmni snapshot $(date +%Y-%m-%d)}"
+            ;;
+        "snapshot-wait")
+            if [ -z "$2" ]; then
+                log_error "Usage: $0 snapshot-wait <snapshot-id>"
+                exit 1
+            fi
+            wait_for_snapshot "$2"
+            ;;
+        "create-ami")
+            if [ -z "$2" ]; then
+                log_error "Usage: $0 create-ami <instance-id> [ami-name] [description]"
+                exit 1
+            fi
+            create_ami_from_instance "$2" "${3:-}" "${4:-}"
+            ;;
+        "list-snapshots")
+            list_snapshots
+            ;;
+        
         # ============ UTILITY COMMANDS ============
         "wait-rds")
             if [ -z "$2" ]; then
@@ -654,16 +768,23 @@ main() {
             echo "  dns <name> <value> [type]    Create/update DNS record"
             echo "  dns-rds-prerelease           Create DNS CNAME for prerelease RDS"
             echo ""
+            echo "=== Snapshot Commands ==="
+            echo "  snapshot <instance-id>       Create EBS snapshot of instance"
+            echo "  snapshot-wait <snapshot-id>  Wait for snapshot to complete"
+            echo "  create-ami <instance-id>     Create AMI from instance (no reboot)"
+            echo "  list-snapshots               List all JSS snapshots"
+            echo ""
             echo "=== Utility Commands ==="
             echo "  wait-rds <instance-id>       Wait for RDS to be available"
             echo "  status                       Show all JSS infrastructure"
             echo "  cleanup-prerelease           Delete prerelease infrastructure"
             echo ""
-            echo "=== Example: Full Prerelease Setup ==="
+            echo "=== Example: Full Prerelease Setup (Local MySQL) ==="
             echo "  $0 setup-prerelease 'YourSecurePassword123'"
-            echo "  $0 wait-rds jss-prerelease-mysql"
-            echo "  $0 dns-rds-prerelease"
-            echo "  ./jss-restore-backup.sh restore <rds-endpoint> openmrs_admin 'YourPassword'"
+            echo "  # SSH to instance and run setup-bahmni.sh"
+            echo "  # Restore database backup"
+            echo "  # Create snapshot after successful setup:"
+            echo "  $0 snapshot <instance-id> 'Bahmni with restored DB'"
             ;;
     esac
 }

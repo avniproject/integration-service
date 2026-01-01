@@ -1,13 +1,14 @@
 #!/bin/bash
 # JSS Bahmni Docker Setup Script
-# This script sets up Bahmni Docker on an EC2 instance with external RDS
-# Usage: ./setup-bahmni.sh [prerelease|prod]
+# This script sets up Bahmni Docker on an EC2 instance with LOCAL MySQL container
+# Usage: ./setup-bahmni.sh [prerelease|prod] [--restore-db <backup-file>]
 
 set -e
 
 ENVIRONMENT=${1:-prerelease}
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 BAHMNI_DIR="/home/ubuntu/bahmni-docker"
+BACKUP_DIR="/home/ubuntu/backups"
 
 # Color output
 RED='\033[0;31m'
@@ -19,18 +20,10 @@ log_info() { echo -e "${GREEN}[INFO]${NC} $1"; }
 log_warn() { echo -e "${YELLOW}[WARN]${NC} $1"; }
 log_error() { echo -e "${RED}[ERROR]${NC} $1"; }
 
-# Install Loki Docker plugin for centralized logging
-install_loki_plugin() {
-    log_info "Installing Loki Docker logging plugin..."
-    if docker plugin ls | grep -q loki; then
-        log_info "Loki plugin already installed"
-    else
-        docker plugin install grafana/loki-docker-driver:latest --alias loki --grant-all-permissions || {
-            log_warn "Failed to install Loki plugin. Using default logging."
-            return 1
-        }
-        log_info "Loki plugin installed successfully"
-    fi
+# Skip Loki plugin - we use json-file logging via docker-compose.override.yml
+skip_loki_plugin() {
+    log_info "Skipping Loki plugin installation (using json-file logging instead)..."
+    log_info "All services will use json-file logging driver via docker-compose.override.yml"
 }
 
 # Clone Bahmni Docker repository
@@ -97,19 +90,10 @@ setup_environment() {
     fi
 }
 
-# Fix docker-compose.yml for default logging (if Loki not available)
+# Logging is handled by docker-compose.override.yml - no need to modify main file
 fix_logging_config() {
-    log_info "Configuring logging..."
-    cd "$BAHMNI_DIR"
-    
-    # Check if Loki plugin is installed
-    if docker plugin ls 2>/dev/null | grep -q loki; then
-        log_info "Loki plugin available, using Loki logging"
-    else
-        log_warn "Loki plugin not available, switching to default logging"
-        # Change loki logging to default
-        sed -i 's/<<: \*loki/<<: *default/g' docker-compose.yml
-    fi
+    log_info "Logging configuration handled by docker-compose.override.yml"
+    log_info "All services will use json-file logging driver (no loki plugin required)"
 }
 
 # Pull Docker images
@@ -123,11 +107,60 @@ pull_images() {
 start_bahmni() {
     log_info "Starting Bahmni containers..."
     cd "$BAHMNI_DIR"
-    docker compose --profile emr up -d
+    
+    # Use override file to bypass loki logging requirement
+    docker compose -f docker-compose.yml -f docker-compose.override.yml --profile emr up -d
     
     log_info "Waiting for containers to start..."
     sleep 10
-    docker compose ps
+    docker compose -f docker-compose.yml -f docker-compose.override.yml ps
+}
+
+# Restore database from backup file
+restore_database() {
+    local BACKUP_FILE=$1
+    
+    if [ -z "$BACKUP_FILE" ]; then
+        log_error "No backup file specified"
+        return 1
+    fi
+    
+    if [ ! -f "$BACKUP_FILE" ]; then
+        log_error "Backup file not found: $BACKUP_FILE"
+        return 1
+    fi
+    
+    log_info "Restoring database from: $BACKUP_FILE"
+    cd "$BAHMNI_DIR"
+    
+    # Wait for MySQL to be ready
+    log_info "Waiting for MySQL container to be ready..."
+    for i in {1..30}; do
+        if docker compose -f docker-compose.yml -f docker-compose.override.yml exec -T openmrsdb mysqladmin ping -h localhost -u root -p${MYSQL_ROOT_PASSWORD:-OpenMRS_JSS2024} 2>/dev/null; then
+            log_info "MySQL is ready!"
+            break
+        fi
+        log_info "Waiting... ($i/30)"
+        sleep 2
+    done
+    
+    # Get container ID
+    CONTAINER_ID=$(docker compose -f docker-compose.yml -f docker-compose.override.yml ps -q openmrsdb)
+    
+    # Copy backup into container
+    log_info "Copying backup file into container..."
+    docker cp "$BACKUP_FILE" $CONTAINER_ID:/tmp/backup.sql.gz
+    
+    # Restore database
+    log_info "Restoring database (this may take a while for large backups)..."
+    docker exec $CONTAINER_ID bash -c "zcat /tmp/backup.sql.gz | mysql -u root -p${MYSQL_ROOT_PASSWORD:-OpenMRS_JSS2024} openmrs"
+    
+    # Verify restoration
+    TABLE_COUNT=$(docker exec $CONTAINER_ID mysql -u root -p${MYSQL_ROOT_PASSWORD:-OpenMRS_JSS2024} openmrs -e "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema='openmrs';" 2>/dev/null | tail -1)
+    log_info "Database restored. Table count: $TABLE_COUNT"
+    
+    # Cleanup
+    docker exec $CONTAINER_ID rm -f /tmp/backup.sql.gz
 }
 
 # Health check
@@ -156,8 +189,8 @@ main() {
     log_info "  JSS Bahmni Docker Setup - ${ENVIRONMENT}"
     log_info "=========================================="
     
-    # Install Loki plugin (optional, continue if fails)
-    install_loki_plugin || true
+    # Skip Loki plugin - we use json-file logging
+    skip_loki_plugin
     
     # Clone repositories
     clone_bahmni_docker
@@ -182,7 +215,8 @@ main() {
     log_info "  Setup Complete!"
     log_info "=========================================="
     log_info ""
-    log_info "Bahmni is starting up. First startup with restored DB may take 5-10 minutes"
+    log_info "Bahmni is starting up with LOCAL MySQL container."
+    log_info "First startup with restored DB may take 5-10 minutes"
     log_info "due to Liquibase migrations checking the database schema."
     log_info ""
     log_info "Access URLs:"
@@ -191,9 +225,13 @@ main() {
     log_info ""
     log_info "Commands:"
     log_info "  - View logs:    docker logs -f bahmni-docker-openmrs-1"
-    log_info "  - Check status: docker compose ps"
-    log_info "  - Stop:         docker compose --profile emr down"
-    log_info "  - Restart:      docker compose --profile emr restart"
+    log_info "  - Check status: docker compose -f docker-compose.yml -f docker-compose.override.yml ps"
+    log_info "  - Stop:         docker compose -f docker-compose.yml -f docker-compose.override.yml --profile emr down"
+    log_info "  - Restart:      docker compose -f docker-compose.yml -f docker-compose.override.yml --profile emr restart"
+    log_info ""
+    log_info "Database Commands:"
+    log_info "  - Restore DB:   ./setup-bahmni.sh restore-db /path/to/backup.sql.gz"
+    log_info "  - Check tables: docker exec openmrsdb mysql -u root -pOpenMRS_JSS2024 openmrs -e 'SELECT COUNT(*) FROM information_schema.tables WHERE table_schema=\"openmrs\";'"
     log_info ""
     
     # Optional health check
@@ -202,5 +240,17 @@ main() {
     fi
 }
 
-# Run main function
-main "$@"
+# Handle command line arguments
+case "${1:-}" in
+    "restore-db")
+        if [ -z "$2" ]; then
+            log_error "Usage: $0 restore-db <backup-file.sql.gz>"
+            exit 1
+        fi
+        restore_database "$2"
+        ;;
+    *)
+        # Run main function for setup
+        main "$@"
+        ;;
+esac
