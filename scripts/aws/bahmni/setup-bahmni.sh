@@ -51,10 +51,10 @@ clone_jss_config() {
     fi
 }
 
-# Generate self-signed SSL certificates
+# Generate self-signed SSL certificates (fallback if certbot fails)
 generate_ssl_certs() {
     local CERT_DIR="$BAHMNI_DIR/certs"
-    log_info "Generating SSL certificates..."
+    log_info "Generating self-signed SSL certificates..."
     mkdir -p "$CERT_DIR"
     
     if [ -f "$CERT_DIR/cert.pem" ] && [ -f "$CERT_DIR/key.pem" ]; then
@@ -67,7 +67,118 @@ generate_ssl_certs() {
         -out "$CERT_DIR/cert.pem" \
         -subj "/C=IN/ST=Chhattisgarh/L=Bilaspur/O=JSS/CN=jss-bahmni-${ENVIRONMENT}.avniproject.org"
     
-    log_info "SSL certificates generated"
+    chmod 644 "$CERT_DIR"/*.pem
+    log_info "Self-signed SSL certificates generated"
+}
+
+# Setup Let's Encrypt SSL certificate using certbot
+setup_letsencrypt_ssl() {
+    local DOMAIN=${1:-"jss-bahmni-${ENVIRONMENT}.avniproject.org"}
+    local EMAIL=${2:-"admin@avniproject.org"}
+    local CERT_DIR="$BAHMNI_DIR/certs"
+    
+    log_info "Setting up Let's Encrypt SSL certificate for $DOMAIN..."
+    
+    # Install certbot if not present
+    if ! command -v certbot &> /dev/null; then
+        log_info "Installing certbot..."
+        sudo apt-get update
+        sudo apt-get install -y certbot
+    fi
+    
+    # Stop proxy to free port 80/443 for certbot
+    log_info "Stopping proxy container for certificate generation..."
+    cd "$BAHMNI_DIR"
+    docker compose -f docker-compose.yml -f docker-compose.override.yml stop proxy 2>/dev/null || true
+    
+    # Get certificate using standalone mode
+    log_info "Requesting certificate from Let's Encrypt..."
+    sudo certbot certonly --standalone \
+        -d "$DOMAIN" \
+        --non-interactive \
+        --agree-tos \
+        --email "$EMAIL" \
+        --keep-until-expiring
+    
+    if [ $? -eq 0 ]; then
+        # Copy certificates to Bahmni certs directory
+        log_info "Copying certificates to Bahmni..."
+        mkdir -p "$CERT_DIR"
+        sudo cp "/etc/letsencrypt/live/$DOMAIN/fullchain.pem" "$CERT_DIR/cert.pem"
+        sudo cp "/etc/letsencrypt/live/$DOMAIN/privkey.pem" "$CERT_DIR/key.pem"
+        sudo chmod 644 "$CERT_DIR"/*.pem
+        
+        # Setup auto-renewal hook
+        setup_certbot_renewal_hook "$DOMAIN"
+        
+        log_info "Let's Encrypt SSL certificate installed successfully!"
+    else
+        log_warn "Failed to get Let's Encrypt certificate. Using self-signed certificate as fallback."
+        generate_ssl_certs
+    fi
+    
+    # Restart proxy
+    log_info "Starting proxy container..."
+    docker compose -f docker-compose.yml -f docker-compose.override.yml start proxy
+}
+
+# Setup certbot renewal hook to copy certs after renewal
+setup_certbot_renewal_hook() {
+    local DOMAIN=$1
+    local HOOK_DIR="/etc/letsencrypt/renewal-hooks/deploy"
+    local HOOK_FILE="$HOOK_DIR/bahmni-cert-copy.sh"
+    
+    log_info "Setting up certbot renewal hook..."
+    
+    sudo mkdir -p "$HOOK_DIR"
+    sudo tee "$HOOK_FILE" > /dev/null << EOF
+#!/bin/bash
+# Certbot renewal hook for Bahmni
+# This script copies renewed certificates to Bahmni and restarts the proxy
+
+DOMAIN="$DOMAIN"
+BAHMNI_CERT_DIR="$BAHMNI_DIR/certs"
+
+if [ "\$RENEWED_LINEAGE" = "/etc/letsencrypt/live/\$DOMAIN" ]; then
+    cp "/etc/letsencrypt/live/\$DOMAIN/fullchain.pem" "\$BAHMNI_CERT_DIR/cert.pem"
+    cp "/etc/letsencrypt/live/\$DOMAIN/privkey.pem" "\$BAHMNI_CERT_DIR/key.pem"
+    chmod 644 "\$BAHMNI_CERT_DIR"/*.pem
+    
+    # Restart proxy to pick up new certificates
+    cd "$BAHMNI_DIR"
+    docker compose -f docker-compose.yml -f docker-compose.override.yml restart proxy
+    
+    echo "[\$(date)] Bahmni SSL certificates renewed and proxy restarted"
+fi
+EOF
+    
+    sudo chmod +x "$HOOK_FILE"
+    log_info "Certbot renewal hook installed at $HOOK_FILE"
+}
+
+# Renew SSL certificate manually
+renew_ssl_cert() {
+    local DOMAIN=${1:-"jss-bahmni-${ENVIRONMENT}.avniproject.org"}
+    
+    log_info "Renewing SSL certificate for $DOMAIN..."
+    
+    # Stop proxy
+    cd "$BAHMNI_DIR"
+    docker compose -f docker-compose.yml -f docker-compose.override.yml stop proxy
+    
+    # Renew certificate
+    sudo certbot renew --cert-name "$DOMAIN" --force-renewal
+    
+    # Copy new certificates
+    local CERT_DIR="$BAHMNI_DIR/certs"
+    sudo cp "/etc/letsencrypt/live/$DOMAIN/fullchain.pem" "$CERT_DIR/cert.pem"
+    sudo cp "/etc/letsencrypt/live/$DOMAIN/privkey.pem" "$CERT_DIR/key.pem"
+    sudo chmod 644 "$CERT_DIR"/*.pem
+    
+    # Restart proxy
+    docker compose -f docker-compose.yml -f docker-compose.override.yml start proxy
+    
+    log_info "SSL certificate renewed successfully!"
 }
 
 # Copy environment configuration
@@ -116,7 +227,116 @@ start_bahmni() {
     docker compose -f docker-compose.yml -f docker-compose.override.yml ps
 }
 
-# Restore database from backup file
+# Create external named volume for MySQL data
+create_db_volume() {
+    local VOLUME_NAME=${1:-openmrs_db_data}
+    
+    log_info "Creating external named volume: $VOLUME_NAME"
+    
+    if docker volume inspect $VOLUME_NAME >/dev/null 2>&1; then
+        log_warn "Volume $VOLUME_NAME already exists"
+        return 0
+    fi
+    
+    docker volume create $VOLUME_NAME
+    log_info "Volume $VOLUME_NAME created successfully"
+}
+
+# Full database restore with MySQL 5.6 (handles JSS historical dates correctly)
+# IMPORTANT: MySQL 5.6 is required because JSS data contains dates from 1942-1945 (India DST period)
+# MySQL JDBC 8.x with MySQL 5.7+ causes HOUR_OF_DAY errors on these historical dates
+restore_database_fresh() {
+    local BACKUP_FILE=$1
+    local VOLUME_NAME=${2:-openmrs_db_data}
+    
+    if [ -z "$BACKUP_FILE" ]; then
+        log_error "Usage: $0 restore-db-fresh <backup-file.sql.gz> [volume-name]"
+        return 1
+    fi
+    
+    if [ ! -f "$BACKUP_FILE" ]; then
+        log_error "Backup file not found: $BACKUP_FILE"
+        return 1
+    fi
+    
+    log_info "=========================================="
+    log_info "  Fresh Database Restore with MySQL 5.6"
+    log_info "=========================================="
+    log_info "Backup file: $BACKUP_FILE"
+    log_info "Volume name: $VOLUME_NAME"
+    
+    cd "$BAHMNI_DIR"
+    
+    # Step 1: Stop all containers
+    log_info "Step 1: Stopping all containers..."
+    docker compose -f docker-compose.yml -f docker-compose.override.yml --profile emr down 2>/dev/null || true
+    
+    # Step 2: Remove old volume if exists and create fresh one
+    log_info "Step 2: Creating fresh named volume..."
+    docker volume rm $VOLUME_NAME 2>/dev/null || true
+    docker volume create $VOLUME_NAME
+    
+    # Step 3: Start only MySQL 5.6 container
+    log_info "Step 3: Starting MySQL 5.6 container..."
+    docker compose -f docker-compose.yml -f docker-compose.override.yml up -d openmrsdb
+    
+    # Step 4: Wait for MySQL to be ready
+    log_info "Step 4: Waiting for MySQL to be ready..."
+    for i in {1..60}; do
+        if docker compose -f docker-compose.yml -f docker-compose.override.yml exec -T openmrsdb mysqladmin ping -h localhost -u root -p${MYSQL_ROOT_PASSWORD:-OpenMRS_JSS2024} 2>/dev/null; then
+            log_info "MySQL is ready!"
+            break
+        fi
+        log_info "Waiting... ($i/60)"
+        sleep 5
+    done
+    
+    # Step 5: Create openmrs_admin user (required by OpenMRS)
+    log_info "Step 5: Creating openmrs_admin user..."
+    docker compose -f docker-compose.yml -f docker-compose.override.yml exec -T openmrsdb mysql -u root -p${MYSQL_ROOT_PASSWORD:-OpenMRS_JSS2024} -e "
+        CREATE USER IF NOT EXISTS 'openmrs_admin'@'%' IDENTIFIED BY '${OPENMRS_DB_PASSWORD:-OpenMRS_JSS2024}';
+        GRANT ALL PRIVILEGES ON openmrs.* TO 'openmrs_admin'@'%';
+        FLUSH PRIVILEGES;
+    " 2>/dev/null || log_warn "User may already exist"
+    
+    # Step 6: Restore database
+    log_info "Step 6: Restoring database (this may take 30-60 minutes for large backups)..."
+    CONTAINER_ID=$(docker compose -f docker-compose.yml -f docker-compose.override.yml ps -q openmrsdb)
+    
+    # Copy backup into container
+    docker cp "$BACKUP_FILE" $CONTAINER_ID:/tmp/backup.sql.gz
+    
+    # Restore with progress indicator
+    docker exec $CONTAINER_ID bash -c "zcat /tmp/backup.sql.gz | mysql -u root -p${MYSQL_ROOT_PASSWORD:-OpenMRS_JSS2024} openmrs"
+    
+    # Cleanup
+    docker exec $CONTAINER_ID rm -f /tmp/backup.sql.gz
+    
+    # Step 7: Verify restoration
+    log_info "Step 7: Verifying restoration..."
+    TABLE_COUNT=$(docker exec $CONTAINER_ID mysql -u root -p${MYSQL_ROOT_PASSWORD:-OpenMRS_JSS2024} openmrs -e "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema='openmrs';" 2>/dev/null | tail -1)
+    log_info "Database restored. Table count: $TABLE_COUNT"
+    
+    if [ "$TABLE_COUNT" -lt 200 ]; then
+        log_error "Table count seems too low. Expected ~246 tables. Please verify the backup."
+        return 1
+    fi
+    
+    log_info "=========================================="
+    log_info "  Database Restore Complete!"
+    log_info "=========================================="
+    log_info ""
+    log_info "Next steps:"
+    log_info "  1. Start all Bahmni services:"
+    log_info "     docker compose -f docker-compose.yml -f docker-compose.override.yml --profile emr up -d"
+    log_info "  2. Setup SSL certificate:"
+    log_info "     ./setup-bahmni.sh setup-ssl"
+    log_info "  3. Wait 5-10 minutes for OpenMRS to start (Liquibase migrations)"
+    log_info "  4. Access Bahmni at: https://jss-bahmni-${ENVIRONMENT}.avniproject.org/bahmni/home"
+    log_info ""
+}
+
+# Restore database from backup file (into existing container)
 restore_database() {
     local BACKUP_FILE=$1
     
@@ -248,6 +468,59 @@ case "${1:-}" in
             exit 1
         fi
         restore_database "$2"
+        ;;
+    "restore-db-fresh")
+        # Fresh restore with MySQL 5.6 - handles JSS historical dates correctly
+        if [ -z "$2" ]; then
+            log_error "Usage: $0 restore-db-fresh <backup-file.sql.gz> [volume-name]"
+            exit 1
+        fi
+        restore_database_fresh "$2" "${3:-openmrs_db_data}"
+        ;;
+    "create-volume")
+        # Create external named volume for MySQL data
+        create_db_volume "${2:-openmrs_db_data}"
+        ;;
+    "setup-ssl")
+        # Setup Let's Encrypt SSL certificate
+        setup_letsencrypt_ssl "${2:-}" "${3:-}"
+        ;;
+    "renew-ssl")
+        # Renew SSL certificate
+        renew_ssl_cert "${2:-}"
+        ;;
+    "self-signed-ssl")
+        # Generate self-signed SSL certificate
+        generate_ssl_certs
+        ;;
+    "help"|"-h"|"--help")
+        echo "JSS Bahmni Docker Setup Script"
+        echo ""
+        echo "Usage: $0 <command> [options]"
+        echo ""
+        echo "Setup Commands:"
+        echo "  prerelease|prod           Full setup for specified environment"
+        echo ""
+        echo "Database Commands:"
+        echo "  restore-db-fresh <file>   Fresh restore with MySQL 5.6 (RECOMMENDED)"
+        echo "                            Creates named volume, starts MySQL 5.6, restores backup"
+        echo "  restore-db <file>         Restore database into existing container"
+        echo "  create-volume [name]      Create external named volume (default: openmrs_db_data)"
+        echo ""
+        echo "SSL Commands:"
+        echo "  setup-ssl [domain] [email]  Setup Let's Encrypt SSL certificate"
+        echo "  renew-ssl [domain]          Renew SSL certificate"
+        echo "  self-signed-ssl             Generate self-signed SSL certificate"
+        echo ""
+        echo "Other:"
+        echo "  help                      Show this help message"
+        echo ""
+        echo "Examples:"
+        echo "  $0 restore-db-fresh /home/ubuntu/backups/openmrsdb_backup.sql.gz"
+        echo "  $0 setup-ssl jss-bahmni-prerelease.avniproject.org admin@avniproject.org"
+        echo ""
+        echo "IMPORTANT: Use MySQL 5.6 for JSS data (contains 1942-1945 dates that cause"
+        echo "           HOUR_OF_DAY errors with MySQL 5.7+ due to India DST period)"
         ;;
     *)
         # Run main function for setup

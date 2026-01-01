@@ -1,10 +1,15 @@
 # Docker Compose Override for JSS Bahmni with Local MySQL
 # This file:
-#   1. Configures local MySQL 5.7 container (x86_64/amd64) with restored database
+#   1. Configures local MySQL 5.6 container (x86_64/amd64) - MUST use 5.6 to avoid DST date issues
 #   2. Overrides ALL services to use json-file logging (bypasses loki plugin requirement)
-#   3. Disables Hibernate Search indexing to avoid deadlocks
+#   3. Uses external named volume 'openmrs_db_data' for database persistence
 #
-# Usage: docker compose -f docker-compose.yml -f docker-compose.override.yml up -d
+# IMPORTANT NOTES:
+#   - MySQL 5.6 is required because JSS data contains dates from 1942-1945 (India DST period)
+#   - MySQL JDBC 8.x with MySQL 5.7+ causes HOUR_OF_DAY errors on these historical dates
+#   - The external volume must be created before starting: docker volume create openmrs_db_data
+#
+# Usage: docker compose -f docker-compose.yml -f docker-compose.override.yml --profile emr up -d
 
 # Default logging configuration for all services (overrides loki)
 x-default-logging: &default-logging
@@ -25,13 +30,14 @@ services:
       OPENMRS_DB_HOST: openmrsdb
       OPENMRS_SKIP_SEARCH_INDEX: "true"
       OPENMRS_SKIP_LUCENE_INDEX: "true"
+      OMRS_DB_EXTRA_ARGS: "&zeroDateTimeBehavior=convertToNull&serverTimezone=Asia/Calcutta"
     logging: *default-logging
 
   # ============================================================================
-  # MySQL 5.7 - Local database container (x86_64/amd64)
+  # MySQL 5.6 - Local database container (x86_64/amd64) - matches JSS prod
   # ============================================================================
   openmrsdb:
-    image: mysql:5.7
+    image: mysql:5.6
     platform: linux/amd64
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-OpenMRS_JSS2024}
@@ -123,3 +129,4 @@ services:
 
 volumes:
   openmrs_db_data:
+    external: true

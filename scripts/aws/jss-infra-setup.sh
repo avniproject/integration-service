@@ -440,6 +440,112 @@ list_snapshots() {
         --region $AWS_REGION
 }
 
+# Launch EC2 instance from AMI (safest restoration method)
+launch_from_ami() {
+    local AMI_ID=$1
+    local ENV_NAME=${2:-prerelease}
+    local INSTANCE_TYPE=${3:-t3.medium}
+    local VOLUME_SIZE=${4:-100}
+    
+    if [ -z "$AMI_ID" ]; then
+        log_error "Usage: $0 launch-from-ami <ami-id> [env-name] [instance-type] [volume-size]"
+        exit 1
+    fi
+    
+    # Verify AMI exists and is available
+    log_info "Verifying AMI: $AMI_ID"
+    AMI_STATE=$(aws ec2 describe-images --image-ids $AMI_ID \
+        --query 'Images[0].State' --output text --region $AWS_REGION 2>/dev/null)
+    
+    if [ "$AMI_STATE" != "available" ]; then
+        log_error "AMI $AMI_ID is not available (state: $AMI_STATE)"
+        log_info "Check AMI status: aws ec2 describe-images --image-ids $AMI_ID --region $AWS_REGION"
+        exit 1
+    fi
+    
+    log_info "AMI is available. Launching instance..."
+    
+    # Determine subnet and security groups based on environment
+    local SUBNET_ID=$PRERELEASE_SUBNET_B
+    local SECURITY_GROUPS="${PRERELEASE_SG}"
+    
+    # Check if bahmni-specific security group exists
+    BAHMNI_SG=$(aws ec2 describe-security-groups \
+        --filters "Name=group-name,Values=${PROJECT}-${ENV_NAME}-bahmni-sg" \
+        --query 'SecurityGroups[0].GroupId' --output text --region $AWS_REGION 2>/dev/null)
+    
+    if [ "$BAHMNI_SG" != "None" ] && [ -n "$BAHMNI_SG" ]; then
+        SECURITY_GROUPS="${PRERELEASE_SG},${BAHMNI_SG}"
+    fi
+    
+    local INSTANCE_NAME="${PROJECT}-${ENV_NAME}-bahmni-restored"
+    
+    log_info "Configuration:"
+    log_info "  AMI:             $AMI_ID"
+    log_info "  Instance Type:   $INSTANCE_TYPE"
+    log_info "  Subnet:          $SUBNET_ID"
+    log_info "  Security Groups: $SECURITY_GROUPS"
+    log_info "  Volume Size:     ${VOLUME_SIZE}GB"
+    log_info "  Instance Name:   $INSTANCE_NAME"
+    
+    # Launch instance
+    INSTANCE_ID=$(aws ec2 run-instances \
+        --image-id $AMI_ID \
+        --instance-type $INSTANCE_TYPE \
+        --key-name $KEY_PAIR_NAME \
+        --subnet-id $SUBNET_ID \
+        --security-group-ids $(echo $SECURITY_GROUPS | tr ',' ' ') \
+        --block-device-mappings "[{\"DeviceName\":\"/dev/sda1\",\"Ebs\":{\"VolumeSize\":${VOLUME_SIZE},\"VolumeType\":\"gp3\",\"DeleteOnTermination\":true}}]" \
+        --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=${INSTANCE_NAME}},{Key=Project,Value=${PROJECT}},{Key=Environment,Value=${ENV_NAME}},{Key=RestoredFrom,Value=${AMI_ID}}]" \
+        --region $AWS_REGION \
+        --query 'Instances[0].InstanceId' \
+        --output text)
+    
+    if [ -z "$INSTANCE_ID" ]; then
+        log_error "Failed to launch instance"
+        exit 1
+    fi
+    
+    log_info "Instance launched: $INSTANCE_ID"
+    log_info "Waiting for instance to be running..."
+    
+    aws ec2 wait instance-running --instance-ids $INSTANCE_ID --region $AWS_REGION
+    
+    # Get IPs
+    INSTANCE_INFO=$(aws ec2 describe-instances \
+        --instance-ids $INSTANCE_ID \
+        --query 'Reservations[0].Instances[0].[PublicIpAddress,PrivateIpAddress]' \
+        --output text \
+        --region $AWS_REGION)
+    
+    PUBLIC_IP=$(echo $INSTANCE_INFO | awk '{print $1}')
+    PRIVATE_IP=$(echo $INSTANCE_INFO | awk '{print $2}')
+    
+    log_info "Instance is running!"
+    log_info "  Instance ID:  $INSTANCE_ID"
+    log_info "  Public IP:    $PUBLIC_IP"
+    log_info "  Private IP:   $PRIVATE_IP"
+    
+    echo ""
+    echo "=========================================="
+    echo "  Instance Launched Successfully"
+    echo "=========================================="
+    echo "Instance ID:  $INSTANCE_ID"
+    echo "Public IP:    $PUBLIC_IP"
+    echo "Private IP:   $PRIVATE_IP"
+    echo ""
+    echo "Next steps:"
+    echo "  1. Wait ~1 min for SSH to be ready"
+    echo "  2. SSH: ssh -i ~/.ssh/${KEY_PAIR_NAME}.pem ubuntu@$PUBLIC_IP"
+    echo "  3. Verify data: docker start openmrsdb && docker exec openmrsdb mysql -u root -pOpenMRS_JSS2024 openmrs -e 'SELECT COUNT(*) FROM information_schema.tables WHERE table_schema=\"openmrs\";'"
+    echo "  4. Start Bahmni: cd /home/ubuntu/bahmni-docker && docker compose -f docker-compose.yml -f docker-compose.override.yml --profile emr up -d"
+    echo "  5. Update DNS: $0 dns jss-bahmni-${ENV_NAME}.avniproject.org $PUBLIC_IP"
+    echo "  6. After verification, terminate old instance if needed"
+    echo "=========================================="
+    
+    echo "$INSTANCE_ID $PUBLIC_IP $PRIVATE_IP"
+}
+
 # ============================================================================
 # FULL ENVIRONMENT SETUP (Using existing prerelease VPC)
 # ============================================================================
@@ -679,6 +785,9 @@ main() {
         "list-snapshots")
             list_snapshots
             ;;
+        "launch-from-ami")
+            launch_from_ami "$2" "${3:-prerelease}" "${4:-t3.medium}" "${5:-100}"
+            ;;
         
         # ============ UTILITY COMMANDS ============
         "wait-rds")
@@ -768,11 +877,12 @@ main() {
             echo "  dns <name> <value> [type]    Create/update DNS record"
             echo "  dns-rds-prerelease           Create DNS CNAME for prerelease RDS"
             echo ""
-            echo "=== Snapshot Commands ==="
+            echo "=== Snapshot & AMI Commands ==="
             echo "  snapshot <instance-id>       Create EBS snapshot of instance"
             echo "  snapshot-wait <snapshot-id>  Wait for snapshot to complete"
             echo "  create-ami <instance-id>     Create AMI from instance (no reboot)"
             echo "  list-snapshots               List all JSS snapshots"
+            echo "  launch-from-ami <ami-id>     Launch new instance from AMI (safest restore)"
             echo ""
             echo "=== Utility Commands ==="
             echo "  wait-rds <instance-id>       Wait for RDS to be available"
