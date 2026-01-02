@@ -1,15 +1,26 @@
-# Docker Compose Override for JSS Bahmni with Local MySQL
-# This file:
-#   1. Configures local MySQL 5.6 container (x86_64/amd64) - MUST use 5.6 to avoid DST date issues
-#   2. Overrides ALL services to use json-file logging (bypasses loki plugin requirement)
-#   3. Uses external named volume 'openmrs_db_data' for database persistence
+# Docker Compose Override for JSS Bahmni with Local MySQL 5.6
+# 
+# This file configures Bahmni to use a LOCAL MySQL 5.6 container instead of external RDS.
 #
-# IMPORTANT NOTES:
-#   - MySQL 5.6 is required because JSS data contains dates from 1942-1945 (India DST period)
-#   - MySQL JDBC 8.x with MySQL 5.7+ causes HOUR_OF_DAY errors on these historical dates
-#   - The external volume must be created before starting: docker volume create openmrs_db_data
+# Key Configuration:
+#   1. MySQL 5.6 container (x86_64/amd64 platform) - required for 1942-1945 historical dates
+#   2. JSON-file logging for all services (no Loki plugin required)
+#   3. External named volume 'openmrs_db_data' for database persistence
+#   4. Health checks to ensure MySQL is ready before OpenMRS starts
 #
-# Usage: docker compose -f docker-compose.yml -f docker-compose.override.yml --profile emr up -d
+# IMPORTANT - HOUR_OF_DAY Errors:
+#   - OpenMRS logs will show HOUR_OF_DAY errors during Hibernate Search indexing
+#   - These are NON-FATAL background indexing errors (production has them too)
+#   - OpenMRS becomes fully functional after search index update (~5-10 minutes)
+#   - DO NOT try to fix by changing timezone, JDBC version, or disabling search
+#   - This is expected behavior - wait for startup to complete
+#
+# Setup:
+#   1. Create external volume: docker volume create openmrs_db_data
+#   2. Restore database: gunzip -c backup.sql.gz | docker exec -i openmrsdb mysql -u root -pOpenMRS_JSS2024 openmrs
+#   3. Start services: docker compose -f docker-compose.yml -f docker-compose.override.yml --profile emr up -d
+#   4. Wait for OpenMRS: docker logs openmrs-1 | grep "Server startup"
+#   5. Verify: curl -u admin:test http://localhost:8080/openmrs/ws/rest/v1/session
 
 # Default logging configuration for all services (overrides loki)
 x-default-logging: &default-logging
@@ -28,9 +39,7 @@ services:
         condition: service_healthy
     environment:
       OPENMRS_DB_HOST: openmrsdb
-      OPENMRS_SKIP_SEARCH_INDEX: "true"
-      OPENMRS_SKIP_LUCENE_INDEX: "true"
-      OMRS_DB_EXTRA_ARGS: "&zeroDateTimeBehavior=convertToNull&serverTimezone=Asia/Calcutta"
+      OMRS_DB_EXTRA_ARGS: "&zeroDateTimeBehavior=convertToNull"
     logging: *default-logging
 
   # ============================================================================

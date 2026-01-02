@@ -1,239 +1,278 @@
-# JSS Avni-Bahmni Integration - AWS Infrastructure Scripts
+# JSS Avni-Bahmni Integration - AWS Infrastructure & Bahmni Setup
 
-## Overview
+## Current Working Setup
 
-These scripts automate the complete setup of AWS infrastructure for the JSS Avni-Bahmni integration project, including:
-- Security Groups (MySQL RDS, Bahmni EC2)
-- DB Subnet Groups
-- RDS MySQL instances
-- EC2 instances with Docker pre-installed
-- Route53 DNS records
+| Component | Value |
+|-----------|-------|
+| URL | https://jss-bahmni-prerelease.avniproject.org/bahmni/home/index.html#/dashboard |
+| Instance | i-0e128ab9da4c8d30f (t3.large, 7.6 GiB RAM + 8 GiB swap) |
+| MySQL | 5.6 (local Docker container) |
+| OpenMRS | 1.0.0-644 |
+| SSL | Let's Encrypt HTTPS |
+| Config | jss-config from GitHub |
 
 ## Prerequisites
 
-1. **AWS CLI** configured with appropriate credentials
-   ```bash
-aws configure
-# Enter Access Key ID, Secret Access Key, Region (ap-south-1), Output format (json)
-```
+1. **AWS CLI** configured: `aws configure`
+2. **SSH Key**: `~/.ssh/openchs-infra.pem`
+3. **Make**: For running Makefile commands
 
-2. **MySQL Client** for database operations
-   ```bash
-brew install mysql-client
-# Add to PATH: export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
-```
-
-3. **SSH Key** - `openchs-infra` key pair must exist in AWS
-   ```bash
-# Verify key exists
-aws ec2 describe-key-pairs --key-names openchs-infra --region ap-south-1
-```
-
-4. **Required IAM Permissions**
-   - EC2: RunInstances, DescribeInstances, CreateSecurityGroup, AuthorizeSecurityGroupIngress
-   - RDS: CreateDBInstance, CreateDBSubnetGroup, DescribeDBInstances
-   - Route53: ChangeResourceRecordSets, ListResourceRecordSets
-
-## Scripts
-
-### 1. jss-infra-setup.sh
-
-Complete infrastructure setup script with multiple commands.
-
-#### Quick Start - Full Environment Setup
+## Quick Start - Using Makefile
 
 ```bash
-# Setup complete prerelease environment (security groups, RDS, EC2, DNS)
-./jss-infra-setup.sh setup-prerelease "YourSecurePassword123"
+# View all available commands
+make help
 
-# Wait for RDS to be available (~5-10 minutes)
-./jss-infra-setup.sh wait-rds jss-prerelease-mysql
+# SSH to prerelease instance
+make ssh-prerelease
 
-# Create DNS record for RDS
-./jss-infra-setup.sh dns-rds-prerelease
+# Check Bahmni container status
+make bahmni-status
 
-# Check status of all JSS infrastructure
-./jss-infra-setup.sh status
+# View OpenMRS logs
+make bahmni-logs-openmrs
+
+# Start/Stop Bahmni
+make bahmni-up
+make bahmni-down
 ```
 
-#### Individual Component Commands
+## Full Setup Workflow
 
+### Step 1: Create EC2 Instance
 ```bash
-# Security Groups
-./jss-infra-setup.sh sg-mysql <env-name> <vpc-id> [vpc-cidr]
-./jss-infra-setup.sh sg-bahmni <env-name> <vpc-id>
-
-# DB Subnet Group
-./jss-infra-setup.sh db-subnet-group <env-name> "<subnet-ids>"
-
-# RDS Instance
-./jss-infra-setup.sh rds <env-name> <password> <rds-sg-id> <db-subnet-group> [instance-class]
-
-# EC2 Instance (with Docker pre-installed)
-./jss-infra-setup.sh ec2 <env-name> <subnet-id> <security-group-ids> [instance-type] [volume-size]
-
-# DNS Records
-./jss-infra-setup.sh dns <record-name> <record-value> [record-type] [ttl]
-./jss-infra-setup.sh dns-rds-prerelease
+./jss-infra-setup.sh ec2 jss-avni-bahmni-prerelease subnet-xxx sg-xxx t3.large 30
 ```
 
-#### Utility Commands
-
+### Step 2: SSH and Configure Instance
 ```bash
-# Check all JSS infrastructure status
-./jss-infra-setup.sh status
+make ssh-prerelease
 
-# Wait for RDS to be available
-./jss-infra-setup.sh wait-rds <db-instance-id>
-
-# Cleanup prerelease environment
-./jss-infra-setup.sh cleanup-prerelease
+# On EC2: Configure swap (required for t3.large)
+sudo fallocate -l 8G /swapfile && sudo chmod 600 /swapfile
+sudo mkswap /swapfile && sudo swapon /swapfile
 ```
 
-### 2. jss-restore-backup.sh
+### Step 3: Setup Bahmni Docker
+```bash
+# Clone repos
+cd /home/ubuntu
+git clone https://github.com/JanSwasthyaSahyog/bahmni-docker.git
+git clone https://github.com/JanSwasthyaSahyog/jss-config.git
+cd bahmni-docker
 
-Restores OpenMRS database backup to RDS.
+# Copy config files from this repo
+scp -i ~/.ssh/openchs-infra.pem scripts/aws/bahmni/.env.prerelease ubuntu@<ip>:/home/ubuntu/bahmni-docker/.env
+scp -i ~/.ssh/openchs-infra.pem scripts/aws/bahmni/docker-compose.override.yml ubuntu@<ip>:/home/ubuntu/bahmni-docker/
+```
+
+### Step 4: Create Volume and Restore Database
+```bash
+# Create external volume
+docker volume create openmrs_db_data
+
+# Start MySQL
+docker compose -f docker-compose.yml -f docker-compose.override.yml up -d openmrsdb
+sleep 30
+
+# Restore backup
+gunzip -c /path/to/backup.sql.gz | docker exec -i bahmni-docker-openmrsdb-1 mysql -u root -pOpenMRS_JSS2024 openmrs
+```
+
+### Step 5: Start All Services
+```bash
+docker compose -f docker-compose.yml -f docker-compose.override.yml --profile emr up -d
+```
+
+### Step 6: Wait for OpenMRS (10-15 minutes)
+```bash
+# Monitor startup
+docker logs bahmni-docker-openmrs-1 -f | grep -E "Server startup"
+
+# Or use wait loop
+while ! curl -s http://localhost:8080/openmrs/ws/rest/v1/session -u admin:test > /dev/null; do
+  echo "Waiting..."; sleep 30
+done
+echo "OpenMRS ready!"
+```
+
+### Step 7: Create AMI Snapshot
+```bash
+aws ec2 create-image --instance-id i-0e128ab9da4c8d30f \
+  --name "bahmni-prerelease-$(date +%Y%m%d-%H%M%S)" \
+  --description "Bahmni prerelease with restored database" --no-reboot
+```
+
+## Configuration Files
+
+### .env.prerelease
+
+Key settings:
+- `OPENMRS_IMAGE_TAG=1.0.0-644` - OpenMRS image version
+- `OPENMRS_DB_IMAGE_NAME=mysql:5.6` - MySQL 5.6 (required for historical dates)
+- `OMRS_DB_EXTRA_ARGS=&zeroDateTimeBehavior=convertToNull` - Handle zero dates
+- `CONFIG_VOLUME=/home/ubuntu/bahmni-docker/jss-config` - Path to jss-config
+
+### docker-compose.override.yml
+
+- MySQL 5.6 container (x86_64/amd64 platform)
+- External volume `openmrs_db_data` for database persistence
+- JSON-file logging (no Loki plugin required)
+- Health checks for MySQL readiness
+
+## SSL Certificate Setup
 
 ```bash
-# Verify RDS connection
-./jss-restore-backup.sh verify <rds-endpoint> openmrs_admin "YourPassword"
+# Install certbot
+sudo apt update && sudo apt install -y certbot
 
-# Restore backup (from default location)
-./jss-restore-backup.sh restore <rds-endpoint> openmrs_admin "YourPassword" openmrs
+# Generate certificate
+sudo certbot certonly --standalone -d jss-bahmni-prerelease.avniproject.org
 
-# Restore from custom backup file
-BACKUP_FILE=/path/to/backup.sql.gz ./jss-restore-backup.sh restore <rds-endpoint> openmrs_admin "YourPassword"
+# Copy certs to Bahmni location
+sudo mkdir -p /bahmni/certs
+sudo cp /etc/letsencrypt/live/jss-bahmni-prerelease.avniproject.org/fullchain.pem /bahmni/certs/cert.pem
+sudo cp /etc/letsencrypt/live/jss-bahmni-prerelease.avniproject.org/privkey.pem /bahmni/certs/key.pem
 
-# Create baseline snapshot after restore
-./jss-restore-backup.sh snapshot jss-prerelease-mysql
+# Restart proxy to load certs
+docker compose restart proxy
+```
+
+## AMI Snapshot Creation
+
+```bash
+# Create snapshot before major changes
+aws ec2 create-image --instance-id i-0e128ab9da4c8d30f \
+  --name "bahmni-prerelease-$(date +%Y%m%d-%H%M%S)" \
+  --description "Bahmni prerelease snapshot" --no-reboot
+
+# List existing snapshots
+aws ec2 describe-images --owners self --query 'Images[?starts_with(Name, `bahmni-prerelease`)].[ImageId,Name,CreationDate]' --output table
+```
+
+## Database Restore
+
+```bash
+# From EC2 instance
+cd /home/ubuntu/bahmni-docker
+
+# Option 1: Restore from local backup file
+docker compose -f docker-compose.yml -f docker-compose.override.yml up -d openmrsdb
+sleep 30  # Wait for MySQL to be ready
+docker exec bahmni-docker-openmrsdb-1 mysql -u root -pOpenMRS_JSS2024 openmrs < /path/to/backup.sql
+
+# Option 2: Restore from gzip compressed backup
+gunzip -c /path/to/backup.sql.gz | docker exec -i bahmni-docker-openmrsdb-1 mysql -u root -pOpenMRS_JSS2024 openmrs
+
+# Verify restore
+docker exec bahmni-docker-openmrsdb-1 mysql -u root -pOpenMRS_JSS2024 openmrs -e "SELECT COUNT(*) as tables FROM information_schema.tables WHERE table_schema='openmrs';"
 ```
 
 ## Infrastructure Details
 
-### Prerelease Environment (Uses existing prerelease VPC)
+### Current Prerelease Environment
 
 | Resource | Value |
 |----------|-------|
-| VPC | vpc-0132b5c63278b2c52 (prerelease VPC) |
-| VPC CIDR | 172.1.0.0/16 |
-| Subnet A | subnet-016c5045517fb38f9 (ap-south-1a) |
-| Subnet B | subnet-094989bce9a2c6955 (ap-south-1b) |
-| Subnet C | subnet-0b4d26175373ac1f8 (ap-south-1c) |
-| EC2 Instance Type | t4g.small (ARM64/Graviton) |
-| EC2 Volume | 30GB gp3 |
-| RDS Instance Type | db.t3.small (MySQL 5.7 requires x86) |
-| RDS Storage | 40GB gp3 |
-| MySQL Version | 5.7.44 |
+| Instance ID | i-0e128ab9da4c8d30f |
+| Instance Type | t3.large (7.6 GiB RAM) |
+| OS | Ubuntu 22.04 LTS (x86_64) |
+| Volume | 100GB gp3 |
+| Swap | 8GB (configured) |
+| MySQL | 5.6 (Docker container) |
+| OpenMRS | 1.0.0-644 |
+| Bahmni Web | 1.1.0-696 |
+| DNS | jss-bahmni-prerelease.avniproject.org |
+| SSL | Let's Encrypt HTTPS |
 
-### DNS Records (avniproject.org)
+### Important Notes
 
-| Record | Type | Value |
-|--------|------|-------|
-| jss-bahmni-prerelease.avniproject.org | A | EC2 Public IP |
-| jss-db-prerelease.avniproject.org | CNAME | RDS Endpoint |
+**HOUR_OF_DAY Errors:**
+- OpenMRS logs show HOUR_OF_DAY errors during Hibernate Search indexing
+- These are **non-fatal** background indexing errors (production has them too)
+- OpenMRS becomes fully functional after search index update completes
+- Do NOT try to fix by changing timezone or JDBC connector version
+- Do NOT disable search indexing in production
 
-## Complete Setup Workflow
+**Memory Requirements:**
+- Minimum: 8 GiB RAM + 8 GiB swap
+- Recommended: 16 GiB RAM
+- t3.large (7.6 GiB) works but startup takes 10-15 minutes
+- t3.xlarge (16 GiB) recommended for faster startup
 
-```bash
-# 1. Setup complete prerelease environment
-./jss-infra-setup.sh setup-prerelease "OpenMRS_JSS2024"
+**Startup Timeline:**
+- MySQL ready: ~30 seconds
+- OpenMRS Tomcat startup: ~2-3 minutes
+- OpenMRS database initialization: ~2-5 minutes
+- Hibernate Search indexing: ~5-10 minutes
+- Total: 10-15 minutes (depends on RAM/swap)
 
-# 2. Wait for RDS to be available (~5-10 minutes)
-./jss-infra-setup.sh wait-rds jss-prerelease-mysql
-
-# 3. Create DNS CNAME for RDS
-./jss-infra-setup.sh dns-rds-prerelease
-
-# 4. Restore OpenMRS backup
-./jss-restore-backup.sh restore jss-db-prerelease.avniproject.org openmrs_admin "OpenMRS_JSS2024" openmrs
-
-# 5. Create baseline snapshot
-./jss-restore-backup.sh snapshot jss-prerelease-mysql
-
-# 6. SSH to EC2 and setup Bahmni Docker
-ssh -i ~/.ssh/openchs-infra.pem ubuntu@jss-bahmni-prerelease.avniproject.org
-
-# On EC2: Clone Bahmni Docker repo and configure
-git clone https://github.com/JanSwasthyaSahyog/bahmni-docker.git
-cd bahmni-docker
-# Edit .env to point to RDS endpoint
-docker-compose up -d
-```
-
-## EC2 Instance Details
-
-The EC2 instance is created with:
-- **OS**: Ubuntu 22.04 LTS (ARM64)
-- **Pre-installed**: Docker, Docker Compose, MySQL client, git, htop, vim, jq
-- **Docker user**: ubuntu (added to docker group)
-- **Bahmni directory**: /home/ubuntu/bahmni-docker
-
-## Cleanup
+## Waiting for Services to Come Up
 
 ```bash
-# Delete prerelease infrastructure (EC2, RDS, DNS records)
-./jss-infra-setup.sh cleanup-prerelease
+# Monitor OpenMRS startup
+docker logs bahmni-docker-openmrs-1 -f | grep -E "Server startup|search index|HOUR_OF_DAY"
 
-# Security groups and DB subnet groups are preserved for reuse
+# Check when OpenMRS is responsive
+while ! curl -s http://localhost:8080/openmrs/ws/rest/v1/session -u admin:test > /dev/null; do
+  echo "Waiting for OpenMRS..."
+  sleep 10
+done
+echo "OpenMRS is ready!"
+
+# Check all services are running
+docker ps --filter "status=running" --format "table {{.Names}}\t{{.Status}}"
 ```
 
 ## Troubleshooting
 
-### Cannot connect to RDS
-1. Check security group allows inbound MySQL (3306) from VPC CIDR
-2. RDS is not publicly accessible - connect from within VPC (EC2)
-3. Verify RDS status is "available"
+### OpenMRS not starting
+1. Check logs: `docker logs bahmni-docker-openmrs-1 | tail -100`
+2. Verify MySQL is healthy: `docker exec bahmni-docker-openmrsdb-1 mysql -u root -pOpenMRS_JSS2024 -e "SELECT 1;"`
+3. Check memory: `free -h` (should have at least 2 GiB free)
+4. Wait longer - search indexing can take 10-15 minutes
 
-### RDS creation fails
-1. MySQL 5.7 requires t3 instance class (not t4g/Graviton)
-2. Ensure DB subnet group has subnets in at least 2 AZs
-3. Check security group is in the same VPC as DB subnet group
+### Bahmni UI shows 404 errors
+1. Verify jss-config is mounted: `docker exec bahmni-docker-bahmni-web-1 ls /usr/local/apache2/htdocs/bahmni_config/openmrs/apps/home/`
+2. Check CONFIG_VOLUME in .env: `grep CONFIG_VOLUME .env`
+3. Restart bahmni-web: `docker compose restart bahmni-web`
 
-### EC2 creation fails
-1. Verify key pair exists: `aws ec2 describe-key-pairs --key-names openchs-infra`
-2. Check subnet has available IP addresses
-3. Verify AMI ID is valid for the region
+### Cannot access HTTPS
+1. Check proxy is running: `docker ps | grep proxy`
+2. Verify SSL certificates: `ls -la /bahmni/certs/`
+3. Check DNS resolution: `nslookup jss-bahmni-prerelease.avniproject.org`
 
-### Backup restore fails
-1. Ensure MySQL client is installed: `brew install mysql-client`
-2. Connect from EC2 (RDS is not publicly accessible)
-3. Check backup file exists and is readable
+### Database restore fails
+1. Ensure MySQL is running: `docker ps | grep openmrsdb`
+2. Check backup file: `ls -lh /path/to/backup.sql.gz`
+3. Verify credentials in .env match restore command
+4. Check available disk space: `df -h`
 
-### DNS not resolving
-1. Wait a few minutes for DNS propagation
-2. Verify hosted zone ID is correct
-3. Check record was created: `./jss-infra-setup.sh status`
+### High memory usage
+1. Increase swap: `sudo fallocate -l 8G /swapfile && sudo mkswap /swapfile && sudo swapon /swapfile`
+2. Upgrade instance type: `aws ec2 modify-instance-attribute --instance-id i-xxx --instance-type t3.xlarge`
+3. Disable unnecessary services: Remove profiles from docker-compose command
 
 ## Makefile Commands
 
-A Makefile is provided for common operations:
-
 ```bash
-# Show all available commands
-make help
-
-# Infrastructure
-make status              # Show all JSS infrastructure
-make setup-prerelease    # Full prerelease setup
-make cleanup-prerelease  # Delete prerelease resources
+make help                # Show all available commands
 
 # SSH Access
 make ssh-prerelease      # SSH to prerelease EC2
 
-# Database Operations
-make copy-backup         # Copy backup file to EC2 via scp
-make restore-backup      # Restore backup to RDS
-make create-snapshot     # Create RDS snapshot
-make full-restore        # Copy + restore + snapshot (all-in-one)
+# Bahmni Operations
+make bahmni-status       # Show container status
+make bahmni-up           # Start all Bahmni services
+make bahmni-down         # Stop all Bahmni services
+make bahmni-restart      # Restart all services
+make bahmni-logs         # View all logs
+make bahmni-logs-openmrs # View OpenMRS logs only
 
-# Verification
+# Infrastructure
+make status              # Show AWS infrastructure status
 make check-ec2-setup     # Check Docker/MySQL on EC2
-make test-db-connection  # Test RDS connectivity
-make verify-restore      # Verify database tables after restore
 
-# Bahmni Docker
-make setup-bahmni        # Clone Bahmni Docker repo
-make start-bahmni        # Start Bahmni containers
-make stop-bahmni         # Stop Bahmni containers
-make bahmni-logs         # View Bahmni logs
+# Snapshots
+make create-ami          # Create AMI snapshot of instance
 ```
