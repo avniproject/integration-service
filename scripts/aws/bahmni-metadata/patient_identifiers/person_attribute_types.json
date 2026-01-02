@@ -1,0 +1,317 @@
+[
+  {
+    "person_attribute_type_id": 8,
+    "name": "caste",
+    "uuid": "b4473e3e-c79a-11e2-b284-107d46e7b2c5",
+    "description": "Caste",
+    "format": "java.lang.String",
+    "searchable": 1,
+    "sort_weight": 2
+  },
+  {
+    "person_attribute_type_id": 9,
+    "name": "education",
+    "uuid": "b44ecfb4-c79a-11e2-b284-107d46e7b2c5",
+    "description": "Education Details",
+    "format": "org.openmrs.Concept",
+    "searchable": 1,
+    "sort_weight": 4
+  },
+  {
+    "person_attribute_type_id": 10,
+    "name": "occupation",
+    "uuid": "b458fade-c79a-11e2-b284-107d46e7b2c5",
+    "description": "Occupation",
+    "format": "org.openmrs.Concept",
+    "searchable": 1,
+    "sort_weight": 5
+  },
+  {
+    "person_attribute_type_id": 11,
+    "name": "primaryContact",
+    "uuid": "b45bb468-c79a-11e2-b284-107d46e7b2c5",
+    "description": "Primary Contact",
+    "format": "java.lang.String",
+    "searchable": 1,
+    "sort_weight": 6
+  },
+  {
+    "person_attribute_type_id": 12,
+    "name": "secondaryContact",
+    "uuid": "b45cf8b4-c79a-11e2-b284-107d46e7b2c5",
+    "description": "Secondary Contact",
+    "format": "java.lang.String",
+    "searchable": 1,
+    "sort_weight": 7
+  },
+  {
+    "person_attribute_type_id": 14,
+    "name": "primaryRelative",
+    "uuid": "b465b76a-c79a-11e2-b284-107d46e7b2c5",
+    "description": "Father's/Husband's Name",
+    "format": "java.lang.String",
+    "searchable": 1,
+    "sort_weight": 8
+  },
+  {
+    "person_attribute_type_id": 15,
+    "name": "class",
+    "uuid": "b4dc95e2-c79a-11e2-b284-107d46e7b2c5",
+    "description": "Class",
+    "format": "org.openmrs.Concept",
+    "searchable": 1,
+    "sort_weight": 3
+  },
+  {
+    "person_attribute_type_id": 16,
+    "name": "givenNameLocal",
+    "uuid": "b4f20a4e-c79a-11e2-b284-107d46e7b2c5",
+    "description": "????? ?? ???",
+    "format": "java.lang.String",
+    "searchable": 0,
+    "sort_weight": 1.3
+  },
+  {
+    "person_attribute_type_id": 17,
+    "name": "familyNameLocal",
+    "uuid": "b4f44ade-c79a-11e2-b284-107d46e7b2c5",
+    "description": "????? ?? ?????",
+    "format": "java.lang.String",
+    "searchable": 0,
+    "sort_weight": 1.2
+  },
+  {
+    "person_attribute_type_id": 18,
+    "name": "secondaryIdentifier",
+    "uuid": "daee7a96-0a6a-11e3-939c-8c50edb4be99",
+    "description": "Secondary Identifier",
+    "format": "java.lang.String",
+    "searchable": 1,
+    "sort_weight": 9
+  },
+  {
+    "person_attribute_type_id": 19,
+    "name": "middleNameLocal",
+    "uuid": "e5827f60-e349-11e3-983a-91270dcbd3bf",
+    "description": "middleNameLocal",
+    "format": "java.lang.String",
+    "searchable": 0,
+    "sort_weight": 3
+  },
+  {
+    "person_attribute_type_id": 20,
+    "name": "smoking",
+    "uuid": "6fe1a5b9-3b9f-4776-bb02-1dfbf8e3097f",
+    "description": "Smoking",
+    "format": "org.openmrs.Concept",
+    "searchable": 0,
+    "sort_weight": 10
+  },
+  {
+    "person_attribute_type_id": 21,
+    "name": "alcohol",
+    "uuid": "c7df4efe-2515-49e9-960c-5e291d22276d",
+    "description": "Alcohol",
+    "format": "org.openmrs.Concept",
+    "searchable": 0,
+    "sort_weight": 11
+  },
+  {
+    "person_attribute_type_id": 22,
+    "name": "tbTreatmentLocation",
+    "uuid": "06ac1f78-5cf4-4810-ba17-0d04f6d13e60",
+    "description": "Location of treatment",
+    "format": "org.openmrs.Concept",
+    "searchable": 0,
+    "sort_weight": 12
+  },
+  {
+    "person_attribute_type_id": 23,
+    "name": "foodSecurity",
+    "uuid": "e8f54272-8e90-494e-82c9-6f80ebab1c1f",
+    "description": "Food Security",
+    "format": "org.openmrs.Concept",
+    "searchable": 0,
+    "sort_weight": 14
+  },
+  {
+    "person_attribute_type_id": 24,
+    "name": "debtReason",
+    "uuid": "2dd323b8-8c29-4703-82ec-da916f1edf4b",
+    "description": "Reason for Debt",
+    "format": "java.lang.String",
+    "searchable": 0,
+    "sort_weight": 20
+  },
+  {
+    "person_attribute_type_id": 25,
+    "name": "familySupport",
+    "uuid": "7d149e82-ecf5-4a87-917b-d8610deade7d",
+    "description": "Family Support",
+    "format": "org.openmrs.Concept",
+    "searchable": 0,
+    "sort_weight": 16
+  },
+  {
+    "person_attribute_type_id": 26,
+    "name": "earningMembers",
+    "uuid": "8abf4078-50b2-4d0c-9aa3-d62f78a4f5ab",
+    "description": "Number of earning members",
+    "format": "java.lang.Integer",
+    "searchable": 0,
+    "sort_weight": 18
+  },
+  {
+    "person_attribute_type_id": 27,
+    "name": "migrationHistory",
+    "uuid": "eb9ad834-434b-44b6-8484-33f7febcfad0",
+    "description": "Migration History",
+    "format": "org.openmrs.Concept",
+    "searchable": 0,
+    "sort_weight": 21
+  },
+  {
+    "person_attribute_type_id": 28,
+    "name": "migrationHistoryDetails",
+    "uuid": "9367ac0e-91a8-4494-acf1-435bef4000fc",
+    "description": "Migration History Details",
+    "format": "java.lang.String",
+    "searchable": 0,
+    "sort_weight": 22
+  },
+  {
+    "person_attribute_type_id": 29,
+    "name": "landHolding",
+    "uuid": "62c303da-b6e4-4141-8a7e-f497a2d2ae90",
+    "description": "Land Holding (in Acres)",
+    "format": "java.lang.Integer",
+    "searchable": 0,
+    "sort_weight": 13
+  },
+  {
+    "person_attribute_type_id": 30,
+    "name": "debt",
+    "uuid": "a4b9db44-c7b8-4936-a517-2dc50ff427c0",
+    "description": "Debt (in Rs)",
+    "format": "java.lang.Integer",
+    "searchable": 0,
+    "sort_weight": 19
+  },
+  {
+    "person_attribute_type_id": 31,
+    "name": "distanceFromCenter",
+    "uuid": "abb0e11b-b392-411c-a003-a1249029f01c",
+    "description": "Distance from Center (in km)",
+    "format": "java.lang.Integer",
+    "searchable": 0,
+    "sort_weight": 23
+  },
+  {
+    "person_attribute_type_id": 32,
+    "name": "rationCard",
+    "uuid": "8c795f61-c9e8-4539-900f-e30826a2e44a",
+    "description": "Ration Card",
+    "format": "org.openmrs.Concept",
+    "searchable": 0,
+    "sort_weight": 15
+  },
+  {
+    "person_attribute_type_id": 33,
+    "name": "familyIncome",
+    "uuid": "606f9d82-f64c-47c0-a3fb-5cff6aa54e1c",
+    "description": "Family Income (per month in Rs)",
+    "format": "org.openmrs.Concept",
+    "searchable": 0,
+    "sort_weight": 17
+  },
+  {
+    "person_attribute_type_id": 34,
+    "name": "Telephone Number",
+    "uuid": "69a37528-4503-11e5-a7f8-bda8146ce126",
+    "description": "Telephone Number",
+    "format": "java.lang.String",
+    "searchable": 0,
+    "sort_weight": 3
+  },
+  {
+    "person_attribute_type_id": 35,
+    "name": "Unknown patient",
+    "uuid": "69dd22ef-4503-11e5-a7f8-bda8146ce126",
+    "description": "Unknown Patient",
+    "format": "java.lang.String",
+    "searchable": 0,
+    "sort_weight": 3
+  },
+  {
+    "person_attribute_type_id": 36,
+    "name": "bloodGroup",
+    "uuid": "a9807c0c-6219-11e5-a7f8-bda8146ce126",
+    "description": "Blood Group",
+    "format": "org.openmrs.Concept",
+    "searchable": 1,
+    "sort_weight": 3
+  },
+  {
+    "person_attribute_type_id": 37,
+    "name": "Smart card holder",
+    "uuid": "9838d7d3-e477-4bef-add4-5921139bd12e",
+    "description": "Smart card holder",
+    "format": "org.openmrs.Concept",
+    "searchable": 0,
+    "sort_weight": 24
+  },
+  {
+    "person_attribute_type_id": 39,
+    "name": "ayushmanId",
+    "uuid": "44949046-c023-4799-85c1-628b6deaa991",
+    "description": "Ayushman Id",
+    "format": "java.lang.String",
+    "searchable": 1,
+    "sort_weight": 26
+  },
+  {
+    "person_attribute_type_id": 40,
+    "name": "aadharCard",
+    "uuid": "76ea7c53-141f-45b4-8b20-60fe88d7ce8e",
+    "description": "Aadhar Card Number",
+    "format": "java.lang.String",
+    "searchable": 1,
+    "sort_weight": 27
+  },
+  {
+    "person_attribute_type_id": 41,
+    "name": "nikshayId",
+    "uuid": "7e352150-d542-4d57-a1be-dad8673fdd92",
+    "description": "Nikshay ID For TB",
+    "format": "java.lang.String",
+    "searchable": 1,
+    "sort_weight": 28
+  },
+  {
+    "person_attribute_type_id": 42,
+    "name": "bankaccount",
+    "uuid": "66bab34b-51de-464c-89e5-7650e392f585",
+    "description": "Bank Account Number",
+    "format": "java.lang.String",
+    "searchable": 1,
+    "sort_weight": 29
+  },
+  {
+    "person_attribute_type_id": 43,
+    "name": "bankifsc",
+    "uuid": "09e78d96-951e-49eb-ab18-e78af70ce3d7",
+    "description": "Bank IFSC Code",
+    "format": "java.lang.String",
+    "searchable": 1,
+    "sort_weight": 30
+  },
+  {
+    "person_attribute_type_id": 44,
+    "name": "email",
+    "uuid": "2ff2c64a-b715-11ee-8631-0242ac130002",
+    "description": "Email Address",
+    "format": "java.lang.String",
+    "searchable": 1,
+    "sort_weight": null
+  }
+]

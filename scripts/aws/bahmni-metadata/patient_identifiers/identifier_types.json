@@ -1,0 +1,57 @@
+[
+  {
+    "patient_identifier_type_id": 1,
+    "name": "OpenMRS Identification Number",
+    "uuid": "8d793bee-c2cc-11de-8d13-0010c6dffd0f",
+    "description": "Unique number used in OpenMRS",
+    "format": null,
+    "format_description": null,
+    "required": 0,
+    "check_digit": 1,
+    "validator": "org.openmrs.patient.impl.LuhnIdentifierValidator"
+  },
+  {
+    "patient_identifier_type_id": 2,
+    "name": "Old Identification Number",
+    "uuid": "8d79403a-c2cc-11de-8d13-0010c6dffd0f",
+    "description": "Number given out prior to the OpenMRS system (No check digit)",
+    "format": null,
+    "format_description": null,
+    "required": 0,
+    "check_digit": 0,
+    "validator": null
+  },
+  {
+    "patient_identifier_type_id": 3,
+    "name": "Patient Identifier",
+    "uuid": "b46af68a-c79a-11e2-b284-107d46e7b2c5",
+    "description": "New patient identifier type created for use by the Bahmni Registration System",
+    "format": null,
+    "format_description": null,
+    "required": 1,
+    "check_digit": 0,
+    "validator": null
+  },
+  {
+    "patient_identifier_type_id": 4,
+    "name": "ABHA Number",
+    "uuid": "2e26304d-b715-11ee-8631-0242ac130002",
+    "description": "Health Id identifier type",
+    "format": null,
+    "format_description": null,
+    "required": 0,
+    "check_digit": 0,
+    "validator": null
+  },
+  {
+    "patient_identifier_type_id": 5,
+    "name": "ABHA Address",
+    "uuid": "2e29440d-b715-11ee-8631-0242ac130002",
+    "description": "PHR Address identifier type",
+    "format": null,
+    "format_description": null,
+    "required": 0,
+    "check_digit": 0,
+    "validator": null
+  }
+]

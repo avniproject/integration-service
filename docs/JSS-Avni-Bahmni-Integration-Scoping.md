@@ -1,5 +1,7 @@
 # JSS Avni-Bahmni Integration - Scoping Document
 
+⚠️ **SECURITY NOTICE:** All credentials, passwords, and API keys have been moved to a separate secure file: `docs/CREDENTIALS_REFERENCE.md`. This file should be stored in a secure vault (password manager, encrypted storage, etc.) and **NEVER committed to the repository**. See `.gitignore` for protection rules.
+
 ## Executive Summary
 
 This document outlines the integration between **Avni** (field-based community health platform) and **Bahmni** (hospital EMR) for **Jan Swasthya Sahyog (JSS)**, a healthcare organization serving tribal and rural communities in Chhattisgarh, India.
@@ -80,22 +82,41 @@ This document outlines the integration between **Avni** (field-based community h
 
 ### Technology Stack
 
-| Component | Technology | Version |
-|-----------|------------|---------|
-| **Bahmni** | Docker Compose | See JSS bahmni-docker repo |
-| **OpenMRS** | Core EMR | 1.0.0-644 |
-| **MySQL** | OpenMRS DB | 5.6 |
-| **Integration Service** | Spring Boot (Java) | jss_ganiyari branch |
-| **Integration DB** | PostgreSQL | 15.x |
-| **Avni** | Cloud hosted | prerelease.avniproject.org |
+| Component | Technology | Version | Notes |
+|-----------|------------|---------|-------|
+| **EC2 Instance** | AWS t3.large | 7.6 GiB RAM + 8 GiB swap | 100GB gp3 volume |
+| **OS** | Ubuntu 22.04 LTS | x86_64 | Docker pre-installed |
+| **Docker Compose** | Docker Compose | Latest | Local MySQL setup (not RDS) |
+| **OpenMRS** | Core EMR | 1.0.0-644 | Bahmni OpenMRS image |
+| **MySQL** | OpenMRS DB | 5.6 | Local Docker container |
+| **Bahmni Web** | UI Frontend | 1.1.0-696 | Apache HTTPD proxy |
+| **SSL/HTTPS** | Let's Encrypt | Current | Certbot auto-renewal |
+| **Integration Service** | Spring Boot (Java) | jss_ganiyari branch | To be deployed on EC2 |
+| **Integration DB** | PostgreSQL | 15.x | To be configured |
+| **Avni** | Cloud hosted | prerelease.avniproject.org | Bi-directional sync |
+
+**Key Change:** Using **local MySQL 5.6 Docker container** instead of external RDS for better performance and simplicity.
 
 ### Key Repositories
 
-| Repository | Purpose |
-|------------|---------|
-| [avniproject/integration-service](https://github.com/avniproject/integration-service/tree/jss_ganiyari) | Integration service code (jss_ganiyari branch) |
-| [JanSwasthyaSahyog/bahmni-docker](https://github.com/JanSwasthyaSahyog/bahmni-docker) | JSS Bahmni Docker setup |
-| [JanSwasthyaSahyog/jss-config](https://github.com/JanSwasthyaSahyog/jss-config) | JSS Bahmni configuration |
+| Repository | Purpose | Branch/Tag |
+|------------|---------|------------|
+| [avniproject/integration-service](https://github.com/avniproject/integration-service/tree/jss_ganiyari) | Integration service code | jss_ganiyari |
+| [JanSwasthyaSahyog/bahmni-docker](https://github.com/JanSwasthyaSahyog/bahmni-docker) | JSS Bahmni Docker setup | master |
+| [JanSwasthyaSahyog/jss-config](https://github.com/JanSwasthyaSahyog/jss-config) | JSS Bahmni configuration (UI, forms, concepts) | master |
+| [avniproject/integration-service (scripts/aws)](https://github.com/avniproject/integration-service/tree/master/scripts/aws) | AWS infrastructure automation | master |
+
+### Current Prerelease Server Details
+
+| Item | Value |
+|------|-------|
+| **Instance ID** | i-0e128ab9da4c8d30f |
+| **Instance Type** | t3.large (7.6 GiB RAM) |
+| **Public IP** | 3.110.219.176 |
+| **DNS** | jss-bahmni-prerelease.avniproject.org |
+| **URL** | https://jss-bahmni-prerelease.avniproject.org/bahmni/home/index.html#/dashboard |
+| **Database** | 246 tables (restored from production backup) |
+| **Status** | ✓ Fully Operational |
 
 ---
 
@@ -116,78 +137,161 @@ This document outlines the integration between **Avni** (field-based community h
 - Visits list → Avni encounters
 - Discharge summaries → Avni encounters (for followup)
 
-### 3.1 Bahmni Forms Analysis (TODO)
+### 3.1 Bahmni Forms Analysis
 
 **Objective:** Identify clinical data in Bahmni that should sync to Avni for field service.
 
-#### Analysis Steps
+#### Analysis Methodology
 
 1. **Access Bahmni Forms Configuration**
    ```bash
-   # Location in jss-config repo
+   # Clone JSS config repository
    git clone https://github.com/JanSwasthyaSahyog/jss-config.git
+   cd jss-config
    
-   # Key directories to examine:
-   # - openmrs/apps/clinical/formConditions.js
-   # - openmrs/apps/clinical/app.json
-   # - openmrs/apps/registration/
-   # - bahmni_config/openmrs/apps/
+   # Key configuration files to examine:
+   # - openmrs/apps/clinical/app.json (clinical app settings)
+   # - openmrs/apps/clinical/formConditions.js (form visibility rules)
+   # - openmrs/apps/clinical/formDetails.json (form definitions)
+   # - openmrs/apps/registration/app.json (patient registration)
+   # - bahmni_config/openmrs/apps/ (all app configurations)
+   # - bahmni_config/openmrs/concepts/ (concept definitions)
    ```
 
 2. **Query OpenMRS Database for Forms/Concepts**
+   
+   **Access prerelease database:**
+   ```bash
+   ssh -i ~/.ssh/openchs-infra.pem ubuntu@jss-bahmni-prerelease.avniproject.org
+   docker exec bahmni-docker-openmrsdb-1 mysql -u openmrs_admin -pOpenMRS_JSS2024 openmrs
+   ```
+
+   **List all active encounter types:**
    ```sql
-   -- List all encounter types
-   SELECT encounter_type_id, name, uuid FROM encounter_type WHERE retired = 0;
-   
-   -- List all forms
-   SELECT form_id, name, uuid, encounter_type FROM form WHERE retired = 0;
-   
-   -- List concept sets (form structure)
-   SELECT cs.concept_set, c.name as set_name, cm.name as member_name
-   FROM concept_set cs
-   JOIN concept_name c ON cs.concept_set = c.concept_id
-   JOIN concept_name cm ON cs.concept_id = cm.concept_id
-   WHERE c.locale = 'en' AND cm.locale = 'en';
-   
-   -- List lab test concepts
-   SELECT c.concept_id, cn.name, c.uuid 
+   SELECT encounter_type_id, name, uuid FROM encounter_type WHERE retired = 0 ORDER BY name;
+   ```
+
+   **List all active forms:**
+   ```sql
+   SELECT form_id, name, uuid, version FROM form WHERE retired = 0 ORDER BY name;
+   ```
+
+   **Map forms to encounter types:**
+   ```sql
+   SELECT f.form_id, f.name as form_name, et.name as encounter_type, f.uuid
+   FROM form f
+   LEFT JOIN encounter_type et ON f.encounter_type = et.encounter_type_id
+   WHERE f.retired = 0
+   ORDER BY et.name, f.name;
+   ```
+
+   **List concept sets (form structure):**
+   ```sql
+   SELECT DISTINCT c.concept_id, cn.name as concept_name, c.uuid
    FROM concept c
    JOIN concept_name cn ON c.concept_id = cn.concept_id
    JOIN concept_class cc ON c.class_id = cc.concept_class_id
-   WHERE cc.name IN ('Test', 'LabSet', 'Finding')
-   AND cn.locale = 'en' AND cn.concept_name_type = 'FULLY_SPECIFIED';
+   WHERE cc.name = 'ConvSet' AND cn.locale = 'en' AND cn.concept_name_type = 'FULLY_SPECIFIED'
+   ORDER BY cn.name;
+   ```
+
+   **List lab test concepts:**
+   ```sql
+   SELECT c.concept_id, cn.name, c.uuid, cc.name as class_name
+   FROM concept c
+   JOIN concept_name cn ON c.concept_id = cn.concept_id
+   JOIN concept_class cc ON c.class_id = cc.concept_class_id
+   WHERE cc.name IN ('Test', 'LabSet', 'Finding', 'Procedure')
+   AND cn.locale = 'en' AND cn.concept_name_type = 'FULLY_SPECIFIED'
+   ORDER BY cc.name, cn.name;
+   ```
+
+   **List radiology/imaging concepts:**
+   ```sql
+   SELECT c.concept_id, cn.name, c.uuid
+   FROM concept c
+   JOIN concept_name cn ON c.concept_id = cn.concept_id
+   WHERE cn.name LIKE '%X-Ray%' OR cn.name LIKE '%Radiology%' OR cn.name LIKE '%USG%' OR cn.name LIKE '%Imaging%'
+   AND cn.locale = 'en'
+   ORDER BY cn.name;
+   ```
+
+   **List drug orders (prescriptions):**
+   ```sql
+   SELECT DISTINCT c.concept_id, cn.name, c.uuid
+   FROM concept c
+   JOIN concept_name cn ON c.concept_id = cn.concept_id
+   WHERE c.concept_id IN (SELECT drug_id FROM drug WHERE retired = 0)
+   AND cn.locale = 'en'
+   ORDER BY cn.name
+   LIMIT 50;
    ```
 
 3. **Review Bahmni Clinical App Configuration**
-   - Check `app.json` for enabled features
-   - Review observation templates
-   - Identify discharge summary templates
-   - List radiology order types
+   
+   **Check clinical app features:**
+   ```bash
+   cat jss-config/openmrs/apps/clinical/app.json | jq '.sections'
+   ```
+   
+   **Key sections to identify:**
+   - Lab Results section
+   - Radiology/Imaging section
+   - Discharge Summary section
+   - Prescriptions section
+   - Diagnoses section
+   - Vitals section
+   - Observations section
 
-4. **Document Findings**
+4. **Document Findings in Tables Below**
 
-#### Bahmni Clinical Data for Avni (To Be Populated)
+#### Bahmni Clinical Data for Avni (Field Service Sync)
 
-| Data Type | Bahmni Source | Avni Target | Priority | Notes |
-|-----------|---------------|-------------|----------|-------|
-| Lab Results | OpenELIS / Lab Module | Lab Results Encounter | High | TBD after analysis |
-| X-Ray Reports | PACS / Radiology | Radiology Encounter | High | TBD after analysis |
-| Visit Summary | Visit Notes | Visit Summary Encounter | Medium | TBD after analysis |
-| Discharge Summary | Discharge Template | Discharge Encounter | High | TBD after analysis |
-| Prescriptions | Drug Orders | Prescription Encounter | Medium | TBD after analysis |
-| Diagnoses | Diagnosis Module | Diagnosis Encounter | Medium | TBD after analysis |
+| Data Type | Bahmni Source | Avni Target Encounter | Priority | Sync Direction | Notes |
+|-----------|---------------|----------------------|----------|-----------------|-------|
+| Lab Results | OpenELIS / Lab Module | Lab Results | High | Bahmni → Avni | For field followup |
+| X-Ray/Imaging Reports | PACS / Radiology Module | Radiology Report | High | Bahmni → Avni | For field followup |
+| Discharge Summary | Discharge Template / Visit Notes | Discharge Summary | High | Bahmni → Avni | For followup care |
+| Prescriptions | Drug Orders | Prescription | Medium | Bahmni → Avni | Current medications |
+| Diagnoses | Diagnosis Module | Diagnosis | Medium | Bahmni → Avni | Clinical diagnoses |
+| Visit Summary | Visit Notes / Consultation | Visit Summary | Medium | Bahmni → Avni | Clinical summary |
+| Vital Signs | Vitals Observation | Vitals | Low | Bahmni → Avni | Reference data |
 
 #### Bahmni Encounter Types (To Be Populated After Analysis)
 
-| Encounter Type | UUID | Sync to Avni | Notes |
-|----------------|------|--------------|-------|
-| *To be populated after Bahmni DB analysis* | | | |
+| Encounter Type | UUID | Form Name | Sync to Avni | Field Service Use | Notes |
+|----------------|------|-----------|--------------|-------------------|-------|
+| *To be populated after DB analysis* | | | | | |
+
+**Instructions for population:**
+- Run the "Map forms to encounter types" query above
+- For each encounter type, determine if it contains field-service-relevant data
+- Mark "Sync to Avni" as Yes/No based on clinical relevance
+- Document the field service use case
 
 #### Bahmni Concept Mapping (To Be Populated After Analysis)
 
-| Bahmni Concept | UUID | Avni Concept | Notes |
-|----------------|------|--------------|-------|
-| *To be populated after Bahmni DB analysis* | | | |
+| Bahmni Concept | Bahmni UUID | Concept Class | Avni Concept | Avni UUID | Notes |
+|----------------|-------------|---------------|--------------|-----------|-------|
+| *To be populated after DB analysis* | | | | | |
+
+**Instructions for population:**
+- Run concept queries above to identify key clinical concepts
+- Map to corresponding Avni concepts
+- Prioritize lab tests, diagnoses, and vital signs
+- Document any concept name mismatches
+
+#### Bahmni Observation Templates (To Be Populated)
+
+| Template Name | Observations | Sync to Avni | Notes |
+|---------------|--------------|--------------|-------|
+| *To be populated after app.json review* | | | |
+
+**Key templates to identify:**
+- Lab Results Template
+- Discharge Summary Template
+- Vitals Template
+- Radiology Report Template
 
 ### Patient Matching Strategy
 
@@ -321,8 +425,8 @@ This document outlines the integration between **Avni** (field-based community h
 
 | Deliverable | Description | Owner | Status |
 |-------------|-------------|-------|--------|
-| Bahmni System Assessment | Understand JSS Bahmni - network topology, server setup, versions | Himesh | Started |
-| Setup Bahmni on Samanvay | EC2 instance with Bahmni Docker + RDS | Himesh | Started |
+| Bahmni System Assessment | Understand JSS Bahmni - network topology, server setup, versions | Himesh | ✓ Completed |
+| Setup Bahmni on Samanvay | EC2 instance with Bahmni Docker + local MySQL 5.6 | Himesh | ✓ Completed |
 | Integration Service Deployment | Linux service setup with DB configuration | Himesh | Not Started |
 | Integration Service Learning | Understand codebase, Avni-Bahmni integration patterns | Himesh/Nupoor | Started |
 | Integration Service Module | Merged codebase with fixed unit tests, CI running | Himesh | Not Started |
@@ -344,13 +448,13 @@ This document outlines the integration between **Avni** (field-based community h
 | Comprehensive Integration Document | Architecture, setup, troubleshooting | Nupoor | Not Started |
 | Maintenance Commands Handbook | Quick reference for operations | Nupoor | Not Started |
 | Learning & Maintenance Videos | YouTube training for IT admin | Nupoor | Not Started |
-| IT Admin Training | Train Gajanan on operations | Nupoor | Not Started |
+| IT Admin Training | Train Ramnarayan on operations | Nupoor | Not Started |
 | End User Training | Train-the-trainer for field workers | Nupoor | Not Started |
 
 ### Review Process
 
 1. **Internal Review:** Scoping document review within team
-2. **External Review:** Share with JSS stakeholders (Gaja, Ravi, Ramna, Subhangee)
+2. **External Review:** Share with JSS stakeholders (Gajanan, Ravindra, Ramnarayan, Subhangi)
 
 ---
 
@@ -366,175 +470,240 @@ This document outlines the integration between **Avni** (field-based community h
 
 ### Environment Variables Reference
 
+⚠️ **CREDENTIALS NOTICE:** All credentials and passwords have been moved to `docs/credential_jss_bahmni_prerelease_integration.md` (secure file, not in repository).
+
 ```bash
 # Integration Service
 export AVNI_INT_DATABASE=bahmni_avni
 export AVNI_INT_DB_USER=bahmni_avni_admin
-export AVNI_INT_DB_PASSWORD=<secure_password>
+export AVNI_INT_DB_PASSWORD=[FROM_SECURE_STORE]
 
 # Avni Connection
 export BAHMNI_AVNI_API_URL=https://prerelease.avniproject.org
-export BAHMNI_AVNI_API_USER=<avni_integration_user>
-export BAHMNI_AVNI_API_PASSWORD=<avni_password>
+export BAHMNI_AVNI_API_USER=[FROM_SECURE_STORE]
+export BAHMNI_AVNI_API_PASSWORD=[FROM_SECURE_STORE]
 export BAHMNI_AVNI_IDP_TYPE=Cognito
 
 # OpenMRS/Bahmni Connection
 export OPENMRS_BASE_URL=http://localhost:8080
-export OPENMRS_USER=superman
-export OPENMRS_PASSWORD=Admin123
+export OPENMRS_USER=[FROM_SECURE_STORE]
+export OPENMRS_PASSWORD=[FROM_SECURE_STORE]
 
 # Scheduling (disabled for dev)
 export BAHMNI_SCHEDULE_CRON=-
 export BAHMNI_SCHEDULE_CRON_FULL_ERROR=-
 ```
 
+**See `docs/credential_jss_bahmni_prerelease_integration.md` for actual credential values.**
+
 ---
 
-## 6. AWS Infrastructure Setup
+## 6. AWS EC2 Instance Setup
 
-### Prerelease Environment (Actual)
+### Current Instance Configuration
 
-| Resource | Value |
-|----------|-------|
-| **VPC** | vpc-0132b5c63278b2c52 (prerelease VPC) |
-| **VPC CIDR** | 172.1.0.0/16 |
-| **Subnet A** | subnet-016c5045517fb38f9 (ap-south-1a) |
-| **Subnet B** | subnet-094989bce9a2c6955 (ap-south-1b) |
-| **Subnet C** | subnet-0b4d26175373ac1f8 (ap-south-1c) |
-| **MySQL Security Group** | sg-06fe53dc3c585722b (jss-avni-bahmni-prerelease-mysql-sg) |
-| **Bahmni Security Group** | sg-0fe474a48f8d01921 (jss-avni-bahmni-prerelease-bahmni-sg) |
-| **DB Subnet Group** | jss-avni-bahmni-prerelease-db-subnet-group |
+**Status:** ✓ Fully Operational
 
-### RDS Instance (Prerelease)
+```
+Instance ID: i-0e128ab9da4c8d30f
+Instance Type: t3.large (7.6 GiB RAM)
+OS: Ubuntu 22.04 LTS (x86_64)
+Volume: 100GB gp3
+Swap: 8GB (configured)
+Public IP: 3.110.219.176
+DNS: jss-bahmni-prerelease.avniproject.org
+VPC: vpc-0132b5c63278b2c52 (prerelease VPC)
+Subnet: ap-south-1a
+Security Group: Allows HTTP/HTTPS/SSH
+```
 
-| Resource | Value |
-|----------|-------|
-| **Instance ID** | jss-prerelease-mysql |
-| **Instance Class** | db.t3.small |
-| **Storage** | 40GB gp3 |
-| **MySQL Version** | 5.7.44 |
-| **Endpoint** | jss-prerelease-mysql.cnwnxgm8rsnb.ap-south-1.rds.amazonaws.com |
-| **DNS** | jss-db-prerelease.avniproject.org |
-| **Username** | openmrs_admin |
+### Instance Setup Commands
+
+```bash
+# Create EC2 instance (t3.large recommended)
+./jss-infra-setup.sh ec2 jss-avni-bahmni-prerelease subnet-xxx sg-xxx t3.large 100
+
+# SSH to instance
+make ssh-prerelease
+
+# Configure swap (8GB recommended for t3.large)
+sudo fallocate -l 8G /swapfile && sudo chmod 600 /swapfile
+sudo mkswap /swapfile && sudo swapon /swapfile
+
+# Verify swap
+free -h
+```
+
+### Database Configuration (Local MySQL)
+
+**Key Change:** Using **local MySQL 5.6 Docker container** instead of external RDS
+
+```bash
+# Create external volume for database persistence
+docker volume create openmrs_db_data
+
+# Start MySQL container
+docker compose -f docker-compose.yml -f docker-compose.override.yml up -d openmrsdb
+sleep 30
+
+# Restore database backup
+gunzip -c /path/to/backup.sql.gz | docker exec -i bahmni-docker-openmrsdb-1 mysql -u root -pOpenMRS_JSS2024 openmrs
+
+# Verify restore
+docker exec bahmni-docker-openmrsdb-1 mysql -u root -pOpenMRS_JSS2024 openmrs -e "SELECT COUNT(*) as tables FROM information_schema.tables WHERE table_schema='openmrs';"
+```
+
+### Database Credentials
+
+| Item | Value |
+|------|-------|
+| **Host** | openmrsdb (Docker container) |
+| **Port** | 3306 |
 | **Database** | openmrs |
-
-### EC2 Instance (Prerelease - Bahmni Docker)
-
-| Resource | Value |
-|----------|-------|
-| **Instance ID** | i-0489ada1d5197a6f9 |
-| **Instance Type** | t4g.small (ARM64/Graviton) |
-| **Volume** | 30GB gp3 |
-| **OS** | Ubuntu 22.04 LTS |
-| **Public IP** | 13.127.31.160 |
-| **DNS** | jss-bahmni-prerelease.avniproject.org |
-| **Pre-installed** | Docker, Docker Compose, MySQL client |
-
-### Infrastructure Scripts
-
-Scripts are available at `scripts/aws/`:
-
-```bash
-# Full environment setup
-./jss-infra-setup.sh setup-prerelease "YourPassword"
-./jss-infra-setup.sh wait-rds jss-prerelease-mysql
-./jss-infra-setup.sh dns-rds-prerelease
-
-# Check status
-./jss-infra-setup.sh status
-
-# Using Makefile
-make help                # Show all commands
-make status              # Show infrastructure status
-make ssh-prerelease      # SSH to EC2
-make copy-backup         # Copy backup to EC2
-make restore-backup      # Restore to RDS
-make create-snapshot     # Create RDS snapshot
-```
-
-### Restore from Backup
-
-```bash
-# From local machine using Makefile
-cd scripts/aws
-make copy-backup         # Copy backup file to EC2 via scp
-make restore-backup      # Restore to RDS from EC2
-make verify-restore      # Verify tables were restored
-
-# Or manually from EC2
-ssh -i ~/.ssh/openchs-infra.pem ubuntu@jss-bahmni-prerelease.avniproject.org
-gunzip -c /home/ubuntu/backups/openmrsdb_backup.sql.gz | mysql -h jss-db-prerelease.avniproject.org -u openmrs_admin -p openmrs
-```
-
-### Create RDS Snapshot (for respawn)
-
-```bash
-make create-snapshot
-
-# Or manually
-aws rds create-db-snapshot \
-    --db-instance-identifier jss-prerelease-mysql \
-    --db-snapshot-identifier "jss-prerelease-mysql-baseline-$(date +%Y%m%d)" \
-    --region ap-south-1
-```
+| **Tables** | 246 (from production backup) |
 
 ---
 
 ## 7. Bahmni Docker Setup
 
-### Clone and Configure
+### Current Deployment Status
+
+**✓ FULLY OPERATIONAL**
+
+```
+URL: https://jss-bahmni-prerelease.avniproject.org/bahmni/home/index.html#/dashboard
+Login: admin / test
+OpenMRS: 1.0.0-644 (running)
+MySQL: 5.6 (local Docker container)
+Bahmni Web: 1.1.0-696
+Configuration: jss-config from GitHub
+SSL: Let's Encrypt HTTPS
+```
+
+### Docker Compose Configuration
+
+**Location:** `/home/ubuntu/bahmni-docker/`
+
+**Key Files:**
+- `.env.prerelease` - Environment variables (copy from scripts/aws/bahmni/)
+- `docker-compose.override.yml` - Local MySQL 5.6 configuration (copy from scripts/aws/bahmni/)
+- `docker-compose.yml` - Main Bahmni services (from bahmni-docker repo)
+
+### Configuration Details
 
 ```bash
-# Clone JSS Bahmni Docker repo
+# .env.prerelease - Key Settings
+COMPOSE_PROFILES=emr
+OPENMRS_IMAGE_TAG=1.0.0-644
+OPENMRS_DB_IMAGE_NAME=mysql:5.6  # Local container (not RDS)
+BAHMNI_WEB_IMAGE_TAG=1.1.0-696
+CONFIG_VOLUME=/home/ubuntu/bahmni-docker/jss-config
+OPENMRS_DB_HOST=openmrsdb
+OPENMRS_DB_USERNAME=openmrs_admin
+OPENMRS_DB_PASSWORD=[FROM_SECURE_STORE]
+MYSQL_ROOT_PASSWORD=[FROM_SECURE_STORE]
+OMRS_DB_EXTRA_ARGS=&zeroDateTimeBehavior=convertToNull
+```
+
+**See `docs/credential_jss_bahmni_prerelease_integration.md` for actual credential values.**
+
+### Startup Procedure
+
+```bash
+# Step 1: SSH to instance
+make ssh-prerelease
+
+# Step 2: Clone repositories (on EC2)
+cd /home/ubuntu
 git clone https://github.com/JanSwasthyaSahyog/bahmni-docker.git
+git clone https://github.com/JanSwasthyaSahyog/jss-config.git
 cd bahmni-docker
 
-# Clone JSS config
-git clone https://github.com/JanSwasthyaSahyog/jss-config.git
+# Step 3: Copy config files from this repo
+scp -i ~/.ssh/openchs-infra.pem scripts/aws/bahmni/.env.prerelease ubuntu@jss-bahmni-prerelease.avniproject.org:/home/ubuntu/bahmni-docker/.env
+scp -i ~/.ssh/openchs-infra.pem scripts/aws/bahmni/docker-compose.override.yml ubuntu@jss-bahmni-prerelease.avniproject.org:/home/ubuntu/bahmni-docker/
+
+# Step 4: Configure swap (8GB recommended)
+sudo fallocate -l 8G /swapfile && sudo chmod 600 /swapfile
+sudo mkswap /swapfile && sudo swapon /swapfile
+
+# Step 5: Create volume and restore database
+docker volume create openmrs_db_data
+docker compose -f docker-compose.yml -f docker-compose.override.yml up -d openmrsdb
+sleep 30
+gunzip -c /path/to/backup.sql.gz | docker exec -i bahmni-docker-openmrsdb-1 mysql -u root -p[PASSWORD] openmrs
+
+# Step 6: Start all services
+docker compose -f docker-compose.yml -f docker-compose.override.yml --profile emr up -d
+
+# Step 7: Wait for OpenMRS (10-15 minutes)
+make bahmni-wait
+# Or manually: docker logs bahmni-docker-openmrs-1 -f | grep "Server startup"
+
+# Step 8: Create AMI snapshot
+make create-ami
 ```
 
-### Modify .env for Cloud Setup
+**Note:** Use credentials from `docs/credential_jss_bahmni_prerelease_integration.md` for actual passwords.
 
-Key modifications needed in `.env`:
+### Important Notes
+
+**HOUR_OF_DAY Errors (Non-Fatal):**
+- OpenMRS logs show HOUR_OF_DAY errors during Hibernate Search indexing
+- These are **background indexing errors** (production has them too)
+- OpenMRS becomes fully functional after search index update (~5-10 minutes)
+- **Do NOT disable search indexing** - it's required in production
+- **Do NOT change timezone or JDBC settings** - they're correct as-is
+
+**Memory Requirements:**
+- Minimum: 8 GiB RAM + 8 GiB swap
+- Recommended: 16 GiB RAM
+- t3.large (7.6 GiB) works but startup takes 10-15 minutes
+- t3.xlarge (16 GiB) recommended for faster startup
+
+**Startup Timeline:**
+- MySQL ready: ~30 seconds
+- OpenMRS Tomcat startup: ~2-3 minutes
+- Database initialization: ~2-5 minutes
+- Hibernate Search indexing: ~5-10 minutes
+- **Total: 10-15 minutes**
+
+### Verification Commands
 
 ```bash
-# Point to RDS instead of local MySQL
-OPENMRS_DB_HOST=<rds-endpoint>
-OPENMRS_DB_USERNAME=openmrs_admin
-OPENMRS_DB_PASSWORD=<rds-password>
+# Check container status
+make bahmni-status
 
-# Disable local MySQL container (modify docker-compose.yml)
-# Comment out openmrsdb service
+# View OpenMRS logs
+make bahmni-logs-openmrs
 
-# Adjust memory settings for EC2
-OMRS_JAVA_SERVER_OPTS='-Dfile.encoding=UTF-8 -server -Xms512m -Xmx2048m ...'
+# Test OpenMRS API
+curl -u admin:test http://localhost:8080/openmrs/ws/rest/v1/session
+
+# Verify database
+docker exec bahmni-docker-openmrsdb-1 mysql -u root -pOpenMRS_JSS2024 openmrs -e "SELECT COUNT(*) as tables FROM information_schema.tables WHERE table_schema='openmrs';"
+
+# Access Bahmni UI
+https://jss-bahmni-prerelease.avniproject.org/bahmni/home/index.html#/dashboard
+Login: admin / test
 ```
 
-### Docker Compose Profiles
+### SSL Certificate Setup
 
 ```bash
-# Start with EMR profile only (minimal for integration testing)
-docker-compose --profile emr up -d
+# Install certbot
+sudo apt update && sudo apt install -y certbot
 
-# Start with reports
-docker-compose --profile emr --profile reports up -d
+# Generate certificate
+sudo certbot certonly --standalone -d jss-bahmni-prerelease.avniproject.org
 
-# Full stack
-docker-compose --profile emr --profile reports --profile openelis --profile pacs up -d
-```
+# Copy certs to Bahmni location
+sudo mkdir -p /bahmni/certs
+sudo cp /etc/letsencrypt/live/jss-bahmni-prerelease.avniproject.org/fullchain.pem /bahmni/certs/cert.pem
+sudo cp /etc/letsencrypt/live/jss-bahmni-prerelease.avniproject.org/privkey.pem /bahmni/certs/key.pem
 
-### Verify Bahmni is Running
-
-```bash
-# Check containers
-docker-compose ps
-
-# Check OpenMRS logs
-docker-compose logs -f openmrs
-
-# Access Bahmni
-# URL: http://<ec2-public-ip>/bahmni/home
-# Credentials: superman / Admin123
+# Restart proxy to load certs
+docker compose restart proxy
 ```
 
 ---

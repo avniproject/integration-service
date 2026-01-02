@@ -1,0 +1,87 @@
+{
+    "id": "bahmni.adt.admission",
+    "extensionPoints": [
+        {
+            "id": "org.bahmni.adt.admit.action",
+            "description": "Bahmni Patient Admission Action"
+        },
+        {
+            "id": "org.bahmni.adt.transfer.action",
+            "description": "Bahmni Patient Transfer Action"
+        },
+        {
+            "id": "org.bahmni.adt.discharge.action",
+            "description": "Bahmni Patient Discharge Action"
+        },
+        {
+            "id": "org.bahmni.patient.search",
+            "description": "Bahmni patient search, lookup Page"
+        }
+    ],
+    "contextModel": [
+        "patientUuid",
+        "encounterUuid",
+        "visitUuid"
+    ],
+    "config": {
+        "onAdmissionForwardTo": "#/patient/{{patientUuid}}/visit/{{visitUuid}}/encounter/{{encounterUuid}}/bed",
+        "onTransferForwardTo": "#/patient/{{patientUuid}}/visit/{{visitUuid}}/encounter/{{encounterUuid}}/bed",
+        "onDischargeForwardTo": "../clinical/#/patient/{{patientUuid}}/dashboard/visit/{{visitUuid}}/Discharge Summary",
+        "defaultVisitType": "IPD",
+        "dashboard": {
+            "dashboardName": "General",
+            "conceptName": "Adt Notes",
+            "sections": {
+                "vitals": {
+                    "title": "Vitals",
+                    "type": "vitals",
+                    "isObservation": true,
+                    "dashboardConfig": {
+                        "conceptNames": [
+                            "Vitals"
+                        ],
+                        "numberOfVisits": 1
+                    },
+                    "expandedViewConfig": {
+                        "conceptNames": [
+                            "Vitals"
+                        ],
+                        "numberOfVisits": 1,
+                        "showDetailsButton": true
+                    },
+                    "displayOrder": 0
+                },
+                "disposition": {
+                    "title": "Disposition",
+                    "type": "disposition",
+                    "numberOfVisits": 1,
+                    "displayOrder": 1
+                },
+                "admissionDetails": {
+                    "title": "Admission Details",
+                    "type": "admissionDetails",
+                    "numberOfVisits": 1,
+                    "showDetailsButton": true,
+                    "displayOrder": 2
+                },
+                "patientInformation": {
+                    "title": "Patient Information",
+                    "type": "patientInformation",
+                    "patientAttributes": [
+                        "caste",
+                        "class",
+                        "education",
+                        "occupation"
+                    ],
+                    "addressFields": [
+                        "address1",
+                        "address2",
+                        "cityVillage",
+                        "countryDistrict"
+                    ],
+                    "displayOrder": 3
+                }
+            }
+        }
+    }
+}

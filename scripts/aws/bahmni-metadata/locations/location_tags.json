@@ -1,0 +1,38 @@
+[
+  {
+    "location_tag_id": 1,
+    "name": "Login Location",
+    "uuid": "b8bbf83e-645f-451f-8efe-a0db56f09676",
+    "description": "When a user logs in and chooses a session location, they may only choose one with this tag"
+  },
+  {
+    "location_tag_id": 2,
+    "name": "Admission Location",
+    "uuid": "a32b3561-e374-11e4-ac28-ef489a2b0ab1",
+    "description": "General Ward Patients"
+  },
+  {
+    "location_tag_id": 3,
+    "name": "Visit Location",
+    "uuid": "ba60b02c-84c5-11e6-82a6-b8ca3a736bd4",
+    "description": "Visit Location"
+  },
+  {
+    "location_tag_id": 4,
+    "name": "Appointment Location",
+    "uuid": "67a35fe0-fbbb-11e7-a554-b8ca3a736bd4",
+    "description": "When a user user creates a appointment service and chooses a location, they may only choose one with this tag"
+  },
+  {
+    "location_tag_id": 5,
+    "name": "Operation Theater",
+    "uuid": "b52b05fe-2c81-11e9-9313-1866da04f1d2",
+    "description": "Operation Theater"
+  },
+  {
+    "location_tag_id": 6,
+    "name": "Organization",
+    "uuid": "86810af4-df57-4d69-932e-d81ad4114477",
+    "description": "Tag for indicating a location as Organization"
+  }
+]

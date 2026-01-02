@@ -1,0 +1,773 @@
+{
+    "dashboard": {
+        "dashboardName": "Dashboard",
+        "displayByDefault": true,
+        "maxRecentlyViewedPatients": 10,
+        "sections": {
+            "patientInformation": {
+                "title": "Patient Information",
+                "type": "patientInformation",
+                "ageLimit": 5,
+                "patientAttributes": [
+                    "smoking",
+                    "alcohol",
+                    "landHolding",
+                    "rationCard",
+                    "familyIncome",
+                    "foodSecurity",
+                    "debt",
+                    "distanceFromCenter",
+                    "Smart card holder",
+                    "ayushmanId"
+                ],
+                "additionalPatientIdentifiers": [
+                    "ABHA Address", "ABHA Number"
+                ],
+                "showDOB" : false,
+                "addressFields": [],
+                "displayOrder": 0
+            },
+            "forms-2.0": {
+                "type": "formsV2",
+                "displayOrder": 27,
+                "dashboardConfig": {
+                    "title": null,
+                    "maximumNoOfVisits": 10
+                },
+                "formGroup": [ "Immunization Incident Record", "Prescription Upload" ],
+                "translationKey": "DASHBOARD_TITLE_FORMS_2_DISPLAY_CONTROL_KEY"
+            },
+            "nutritionalValue": {
+                "title": "Nutritional Values",
+                "type": "vitals",
+                "isObservation": true,
+                "dashboardConfig": {
+                    "conceptNames": [
+                        "Height",
+                        "Weight",
+                        "BMI Data",
+                        "BMI Status Data"
+                    ],
+                    "scope": "latest"
+                },
+                "displayOrder": 1
+            },
+            "diagnosis": {
+                "title": "Diagnosis",
+                "type": "diagnosis",
+                "showDetailsButton": false,
+                "showCertainty": true,
+                "showOrder": true,
+                "displayOrder": 4
+    	   },
+           "conditions": {
+                "title":"Conditions",
+                "type": "conditionsList",
+                "displayOrder": 15
+            },
+    "Bacteriology Resultseriology Concept Set": {
+    "translationKey": "Bacteriology",
+    "type": "obsToObsFlowSheet",
+    "displayOrder" : 28,
+    "rotateInPrint" : false,
+    "headingConceptSource" : "Abbreviation",
+    "dataConceptSource" : "Abbreviation",
+    "dashboardConfig": {
+        "numberOfVisits": 2,
+        "initialCount": 2,
+        "latestCount": 2,
+        "pivotOn": "row",
+        "templateName": "BACTERIOLOGY CONCEPT SET",
+        "groupByConcept": "Specimen Collection Date",
+        "type": "DstExtension",
+        "conceptNames": [
+            "Specimen Id",
+            "Specimen Sample Source",
+            "Bacteriology Site Collection",
+            "Bacteriology Result",
+            "Bacteriology Organisms",
+            "Colony Count",
+            "Control (ATCC)",
+            "DST Results"
+        ],
+        "isEditable": true,
+        "obsDelimiter": "\n"
+    },
+    "expandedViewConfig": {
+        "templateName": "BACTERIOLOGY CONCEPT SET",
+        "groupByConcept": "Specimen Collection Date"
+    }
+},
+            "vitals": {
+                "title": "Vitals",
+                "type": "vitals",
+                "isObservation": true,
+                "dashboardConfig": {
+                    "conceptNames": [
+                        "Vitals",
+                        "Second Vitals"
+                    ],
+                    "scope": "latest"
+                },
+                "expandedViewConfig": {
+                    "conceptNames": [
+                        "Vitals",
+                        "Second Vitals"
+                    ],
+                    "numberOfVisits": 2,
+                    "pivotTable": {
+                        "numberOfVisits": "10",
+                        "groupBy": "encounters",
+                        "obsConcepts": [
+                            "Weight",
+                            "Vitals"
+                        ],
+                        "drugConcepts": [],
+                        "labConcepts": []
+                    }
+                },
+                "displayOrder": 3
+            },
+            "labResults": {
+                "title": "Lab Results",
+                "type": "labOrders",
+                "dashboardConfig": {
+                    "title": null,
+                    "numberOfVisits": 2,
+                    "showChart": false,
+                    "showTable": true,
+                    "showDetailsButton": false,
+                    "initialAccessionCount": 3,
+                    "latestAccessionCount": 3
+                },
+                "expandedViewConfig": {
+                    "numberOfVisits": 10
+                },
+                "displayOrder": 6
+            },
+            "treatments": {
+                "title": "Treatments",
+                "type": "treatment",
+                "dashboardConfig": {
+                    "showFlowSheet": false,
+                    "showListView": true,
+                    "showRoute": false,
+                    "showDrugForm": false,
+                    "numberOfVisits": 1,
+                    "showOtherActive": true,
+                    "showDetailsButton": false
+                },
+                "expandedViewConfig": {
+                    "title": "Treatments",
+                    "showFlowSheet": false,
+                    "showListView": true,
+                    "showRoute": true,
+                    "showDrugForm": true,
+                    "numberOfVisits": 10,
+                    "showOtherActive": true,
+                    "showDetailsButton": false
+                },
+                "displayOrder": 5
+            },
+            "radiology": {
+                "title": "Radiology",
+                "type": "radiology",
+                "displayOrder": 8
+            },
+            "allPACSOrders":{
+                "orderType": "Radiology Order",
+                "type": "pacsOrders",
+                "title": "Digital Radiology",
+                "dashboardConfig":{
+                    "pacsImageUrl":"/oviyam2/viewer.html?patientID={{patientID}}&studyUID=1.2.826.0.1.3680043.9.6039.{{orderNumber}}.1",
+                    "numberOfVisits":20
+                },
+                "displayOrder": 10
+            },
+            "visits": {
+                "title": "Visits",
+                "type": "visits",
+                "dashboardConfig": {
+                    "title": null,
+                    "maximumNoOfVisits": 10,
+                    "groupByVisits": true
+                },
+                "displayOrder": 7
+            },
+            "admissionDetails": {
+                "title": "Admission Details",
+                "type": "admissionDetails",
+                "displayOrder": 9
+            },
+            "generalFindings": {
+                "title": "General Findings",
+                "templateName": "General Patient Template",
+                "type": "diseaseTemplate",
+                "dashboardConfig": {
+                    "showOnly": []
+                },
+                "expandedViewConfig": {
+                    "showDetailsButton": true,
+                    "pivotTable": {
+                        "numberOfVisits": "15",
+                        "groupBy": "visits",
+                        "obsConcepts": [],
+                        "drugConcepts": [],
+                        "labConcepts": []
+                    }
+                },
+                "displayOrder": 18
+            },
+            "obsGynaeFindings": {
+                "title": "Obs/Gynae Findings",
+                "templateName": "Obstetrics and Gynaecology Templates",
+                "type": "diseaseTemplate",
+                "dashboardConfig": {
+                    "showOnly": []
+                },
+                "expandedViewConfig": {
+                    "showDetailsButton": true,
+                    "pivotTable": {
+                        "numberOfVisits": "15",
+                        "groupBy": "visits",
+                        "obsConcepts": [],
+                        "drugConcepts": [],
+                        "labConcepts": []
+                    }
+                },
+                "displayOrder": 11
+            },
+            "surgeriesProcedures": {
+                "title": "Surgeries/Procedures",
+                "templateName": "Surgeries and Procedures",
+                "type": "diseaseTemplate",
+                "dashboardConfig": {
+                    "showOnly": []
+                },
+                "expandedViewConfig": {
+                    "showDetailsButton": true,
+                    "pivotTable": {
+                        "numberOfVisits": "15",
+                        "groupBy": "visits",
+                        "obsConcepts": [],
+                        "drugConcepts": [],
+                        "labConcepts": []
+                    }
+                },
+                "displayOrder": 14
+            },
+            "breastCancer": {
+                "title": "Breast Cancer",
+                "templateName": "Breast Cancer Templates",
+                "type": "diseaseTemplate",
+                "showOnly": [
+                    "Breast Cancer, Confirmed Disease Stage",
+                    "Breast Cancer, Treatment Plan"
+                ],
+                "dashboardConfig": {},
+                "expandedViewConfig": {
+                    "showDetailsButton": true,
+                    "pivotTable": {
+                        "numberOfVisits": "15",
+                        "groupBy": "visits",
+                        "obsConcepts": [],
+                        "drugConcepts": [],
+                        "labConcepts": []
+                    }
+                },
+                "displayOrder": 13
+            },
+            "diabetes": {
+                "title": "Diabetes",
+                "templateName": "Diabetes Templates",
+                "type": "diseaseTemplate",
+                "dashboardConfig": {
+                    "showOnly": []
+                },
+                "expandedViewConfig": {
+                    "showDetailsButton": true,
+                    "pivotTable": {
+                        "numberOfVisits": "15",
+                        "groupBy": "visits",
+                        "obsConcepts": [
+                            "Weight",
+                            "Height",
+                            "Systolic",
+                            "Diastolic",
+                            "Diabetes, Foot Exam",
+                            "Diabetes, Eye Exam"
+                        ],
+                        "drugConcepts": [
+                            "Plain Insulin",
+                            "Lente Insulin",
+                            "Pioglitazone",
+                            "Glipizide",
+                            "Metformin"
+                        ],
+                        "labConcepts": [
+                            "RBS",
+                            "FBS",
+                            "PP2BS",
+                            "Hb1AC",
+                            "Creatinine",
+                            "Albumin (Routine Urine)",
+                            "Urine Protein Creatinine Ratio",
+                            "Cholesterol"
+                        ]
+                    },
+                    "observationGraph": {
+                        "type": "observationGraph",
+                        "title": "RBS/FBS/PP2BS",
+                        "config": {
+                            "yAxisConcepts": [
+                                "RBS",
+                                "FBS",
+                                "PP2BS"
+                            ],
+                            "xAxisConcept": "observationDateTime",
+                            "numberOfVisits": 15
+                        }
+                    }
+                },
+                "displayOrder": 16
+            },
+            "tuberculosis": {
+                "title": "Tuberculosis",
+                "templateName": "Tuberculosis Templates",
+                "type": "diseaseTemplate",
+                "showOnly": [
+                    "Tuberculosis, Type",
+                    "Tuberculosis, Patient Category",
+                    "Tuberculosis, Basis of Diagnosis",
+                    "Tuberculosis, Comorbidity",
+                    "Tuberculosis, Treatment Plan",
+                    "Tuberculosis, Followup Visit",
+                    "Tuberculosis, Adverse Effects",
+                    "Tuberculosis, Visit Impression",
+                    "Tuberculosis, Next Followup Visit",
+                    "Tuberculosis Lab Template",
+		    "Tuberculosis, Number of Adult Family Members with Symptoms",
+	            "Tuberculosis, Number of Under 5 Years Children in the Family",
+		    "Tuberculosis, Family Member Name",
+		    "Tuberculosis, Family Member Treatment Plan",
+		    "Tuberculosis, Under 5 Year Name",
+		    "Tuberculosis, Family Member Treatment Plan"
+                ],
+                "dashboardConfig": {},
+                "expandedViewConfig": {
+                    "showDetailsButton": true,
+                    "pivotTable": {
+                        "numberOfVisits": "15",
+                        "groupBy": "visits",
+                        "obsConcepts": [
+                            "Weight",
+                            "Tuberculosis, Symptoms Relief",
+                            "Tuberculosis, Treatment Compliance",
+                            "Tuberculosis, Adverse Effects",
+                            "Tuberculosis, Visit Impression",
+                            "Tuberculosis, Next Followup Visit",
+                            "Tuberculosis, Sputum AFB",
+                            "Tuberculosis, Testing Centre",
+                            "Tuberculosis, Test Type",
+                            "Tuberculosis, Sputum Culture",
+                            "Tuberculosis,CBNAAT Test Result",
+                            "Tuberculosis, Rifampicin",
+                            "Tuberculosis, Isoniazid",
+                            "Tuberculosis, Ethambutol",
+                            "Tuberculosis, Streptomycin"
+                        ],
+                        "drugConcepts": [
+                            "Pyrazinamide",
+                            "Isoniazid",
+                            "Rifampicin",
+                            "Ethambutol"
+                        ],
+                        "labConcepts": [
+                            "S. ALT",
+                            "GGT",
+                            "Creatinine",
+                            "S. Albumin",
+                            "Haemoglobin",
+                            "HIV ELISA (Blood)"
+                        ]
+                    }
+                },
+                "displayOrder": 25
+            },
+            "psychiatry": {
+                "title": "Psychiatry",
+                "templateName": "Psychiatry Templates",
+                "type": "diseaseTemplate",
+                "showOnly": [
+                    "Psychiatry, Patient Notes"
+                ],
+                "dashboardConfig": {},
+                "expandedViewConfig": {
+                    "showDetailsButton": true,
+                    "pivotTable": {
+                        "numberOfVisits": "15",
+                        "groupBy": "visits",
+                        "obsConcepts": [],
+                        "drugConcepts": [],
+                        "labConcepts": []
+                    }
+                },
+                "displayOrder": 12
+            },
+            "cervicalCancer": {
+                "title": "Cervical Cancer",
+                "templateName": "Cervical Cancer",
+                "type": "diseaseTemplate",
+                "dashboardConfig": {
+                    "showOnly": []
+                },
+                "expandedViewConfig": {
+                    "showDetailsButton": true,
+                    "pivotTable": {
+                        "numberOfVisits": "15",
+                        "groupBy": "visits",
+                        "obsConcepts": [],
+                        "drugConcepts": [],
+                        "labConcepts": []
+                    }
+                },
+                "displayOrder": 17
+            },
+            "gastricCancer": {
+                "title": "Gastric Cancer",
+                "templateName": "Gastric Cancer",
+                "type": "diseaseTemplate",
+                "dashboardConfig": {
+                    "showOnly": []
+                },
+                "expandedViewConfig": {
+                    "showDetailsButton": true,
+                    "pivotTable": {
+                        "numberOfVisits": "15",
+                        "groupBy": "visits",
+                        "obsConcepts": [],
+                        "drugConcepts": [],
+                        "labConcepts": []
+                    }
+                },
+                "displayOrder": 20
+            },
+            "colonCancer": {
+                "title": "Colon Cancer",
+                "templateName": "Colon Cancer",
+                "type": "diseaseTemplate",
+                "dashboardConfig": {
+                    "showOnly": []
+                },
+                "expandedViewConfig": {
+                    "showDetailsButton": true,
+                    "pivotTable": {
+                        "numberOfVisits": "15",
+                        "groupBy": "visits",
+                        "obsConcepts": [],
+                        "drugConcepts": [],
+                        "labConcepts": []
+                    }
+                },
+                "displayOrder": 19
+            },
+            "oralCancer": {
+                "title": "Oral Cancer",
+                "templateName": "Oral Cancer",
+                "type": "diseaseTemplate",
+                "dashboardConfig": {
+                    "showOnly": []
+                },
+                "expandedViewConfig": {
+                    "showDetailsButton": true,
+                    "pivotTable": {
+                        "numberOfVisits": "15",
+                        "groupBy": "visits",
+                        "obsConcepts": [],
+                        "drugConcepts": [],
+                        "labConcepts": []
+                    }
+                },
+                "displayOrder": 22
+            },
+            "programs": {
+                "title": "Programs",
+                "type": "programs",
+                "displayOrder": 21
+             },
+            "smartCard": {
+                "title": "Smart Card",
+                "templateName": "Smart Card Templates",
+                "type": "diseaseTemplate",
+                "showOnly": [],
+                "dashboardConfig": {},
+                "expandedViewConfig": {
+                    "showDetailsButton": true,
+                    "pivotTable": {
+                        "numberOfVisits": "15",
+                        "groupBy": "visits",
+                        "obsConcepts": [],
+                        "drugConcepts": [],
+                        "labConcepts": []
+                    }
+                },
+                "displayOrder": 24
+            },
+            "Cardiology": {
+                "title": "Cardiology",
+                "templateName": "Cardiology templates",
+                "type": "diseaseTemplate",
+                "showOnly": [],
+                "dashboardConfig": {},
+                "expandedViewConfig": {
+                    "showDetailsButton": true,
+                    "pivotTable": {
+                        "numberOfVisits": "15",
+                        "groupBy": "visits",
+                        "obsConcepts": [],
+                        "drugConcepts": [],
+                        "labConcepts": []
+                    }
+                },
+                "displayOrder": 27
+            },
+            "nutritionalsupplement": {
+                "title": "Nutritional Supplement",
+                "templateName": "Nutritional Supplement Template",
+                "type": "diseaseTemplate",
+                "showOnly": [],
+                "dashboardConfig": {},
+                "expandedViewConfig": {
+                    "showDetailsButton": true,
+                    "pivotTable": {
+                        "numberOfVisits": "15",
+                        "groupBy": "visits",
+                        "obsConcepts": [],
+                        "drugConcepts": [],
+                        "labConcepts": []
+                    }
+                }, 
+                "displayOrder": 23
+            },
+            "formDisplaySummary":{
+                "title": "Templates Filled",
+                "type": "forms",
+                "dashboardConfig": {
+                    "title": null,
+                    "maximumNoOfVisits": 10
+                },
+                "formGroup":["Obsetrics","Gynaecology","HER2 NEU Gastric Cancer","Surgical Site Infection Template","Discharge Summary","Diabetes Intake Template","Diabetes Followup Template","Diabetes Counselling Template","Operation Notes Template","Blood Transfusion Template","Tuberculosis Intake Template","Tuberculosis Followup Template","Tuberculosis Lab Template","Tuberculosis Village Program Followup Template","Tuberculosis Family Member Screening Template","Breast Cancer Intake Template","Breast Cancer Followup Template","Cervical Cancer Template","Gastric Cancer Template","Colon Cancer Template","Oral Cancer Template","Psychiatry Intake Template","Psychiatry Followup Template","Hypertension Intake Template","Smart card Template","Echo Template","ANC Template","Cardiology template","RMRCT Form","RNTCP Form","Referral Form","Sickle Cell Disease Intake Template","Sickle Cell Disease Followup Template","CBNAAT Prospective Study – Q1 Template","CBNAAT Prospective Study – Q2 Template","Diabetic Foot Study Template","OB USG Template","ECG Template","RSBY Template","Birth Template","Pain Study Template","PROFORMA FOR EVALUATION OF LOW BACK ACHE","Medical Complicated Pregnancy Intake Template","Medical Complicated Pregnancy Followup Template","Proforma for Descriptive Study On Empyema","Epilepsy Intake Template","Seizure Intake Template","Extrapulmonary Tuberculosis Template","Epilepsy Follow up Template","Dental Template"],
+                "displayOrder": 26
+            },
+            "navigationLinksControl": {
+                "title":"Navigation Links Control",
+                "translationKey": "DASHBOARD_TITLE_NAVIGATION_LINKS_CONTROL_KEY",
+                "type": "navigationLinksControl",
+                "displayOrder": 2,
+                "showLinks" : ["home","registration"],
+                "customLinks": [
+                    {
+                        "translationKey": "Print latest prescription",
+                        "url": "../clinical/#/default/patient/{{patientUuid}}/latest-prescription-print"
+                    }
+                ]
+            }
+        }
+    },
+    "trends": {
+        "dashboardName": "Trends",
+        "maxRecentlyViewedPatients": 10,
+        "sections": {
+            "patientInformation": {
+                "title": "Patient Information",
+                "type": "patientInformation",
+                "patientAttributes": [],
+                "addressFields": [],
+                "displayOrder": 0
+            },
+            "bp": {
+                "type": "observationGraph",
+                "title": "BP",
+                "config": {
+                    "yAxisConcepts": [
+                        "Systolic Data",
+                        "Diastolic Data"
+                    ],
+                    "xAxisConcept": "observationDateTime",
+                    "numberOfVisits": 10
+                },
+                "displayOrder": 1
+            },
+            "weight/Bmi": {
+                "type": "observationGraph",
+                "title": "Weight/BMI",
+                "config": {
+                    "yAxisConcepts": [
+                        "Weight",
+                        "BMI"
+                    ],
+                    "xAxisConcept": "observationDateTime",
+                    "numberOfVisits": 10
+                },
+                "displayOrder": 2
+            },
+            "pulse": {
+                "type": "observationGraph",
+                "title": "Pulse",
+                "config": {
+                    "yAxisConcepts": [
+                        "Pulse Data"
+                    ],
+                    "xAxisConcept": "observationDateTime",
+                    "numberOfVisits": 10
+                },
+                "displayOrder": 3
+            },
+	    "urineoutput": {
+                "type": "observationGraph",
+                "title": "Urine Output Data",
+                "config": {
+                    "yAxisConcepts": [
+                        "Urine Output"
+                    ],
+                    "xAxisConcept": "observationDateTime",
+                    "numberOfVisits": 10
+                },
+                "displayOrder": 5
+            },
+            "growthChart": {
+                "type": "observationGraph",
+                "title": "Growth Chart",
+                "config": {
+                    "yAxisConcepts": [
+                        "Weight"
+                    ],
+                    "referenceData": "growthChartReference.csv",
+                    "numberOfVisits": 20
+                },
+                "displayOrder": 4
+            }
+        }
+    },
+    "Smart Card": {
+        "dashboardName": "Smart Card",
+        "displayByDefault": false,
+        "maxRecentlyViewedPatients": 10,
+        "sections": {
+            "patientInformation": {
+                "title": "Patient Information",
+                "type": "patientInformation",
+                "patientAttributes": [
+                    "Smart card holder",
+                    "Smart card brought"
+                ],
+                "addressFields": [],
+                "displayOrder": 0
+            },
+            "programs": {
+                "title": "Programs",
+                "type": "programs",
+                "displayOrder": 20
+             },
+            "smartCard": {
+                "title": "Smart Card",
+                "templateName": "Smart Card Templates",
+                "type": "diseaseTemplate",
+                "showOnly": [],
+                "dashboardConfig": {},
+                "expandedViewConfig": {
+                    "showDetailsButton": true,
+                    "pivotTable": {
+                        "numberOfVisits": "15",
+                        "groupBy": "visits",
+                        "obsConcepts": [],
+                        "drugConcepts": [],
+                        "labConcepts": []
+                    }
+                }
+            }
+        }
+    },
+    "referralform": {
+        "translationKey": "Referral Form",
+        "displayType": "Full-Page",
+        "printing": {
+            "title": "",
+            "header": "",
+            "logo": ""
+        },
+        "sections": {
+            "Referral Form": {
+                "type": "custom",
+                "displayType": "Full-Page",
+                "displayOrder": 1,
+                "config": {
+                    "title": "Referral form doctor",
+                    "template": "<referralfm-doctor></referralfm-doctor>"
+                }
+            },
+            "diagnosis": {
+                "title": "Diagnosis",
+                "displayType": "Full-Page",
+                "displayOrder": 2,
+                "showRuledOutDiagnoses": false,
+                "type": "diagnosis",
+                "showCertainty": false,
+                "showOrder": true,
+                "showDetailsButton": true,
+                "numberOfVisits": 4
+            },
+            "labResults": {
+                     "title": "Lab Results",
+                     "displayType": "Full-Page",
+                     "type": "labOrders",
+                     "displayOrder": 3,
+                     "dashboardConfig": {
+                    "title": "Lab Investigations",
+                    "showChart": true,
+                    "showTable": false,
+                    "showNormalLabResults": true,
+                    "showCommentsExpanded": true,
+                    "showAccessionNotes": true,
+                    "numberOfVisits": 6,
+                    "showDetailsButton": false
+                }
+            },
+            "treatment": {
+                    "title": "Treatments",
+                    "displayType": "Full-Page",
+                    "type": "treatment",
+                    "displayOrder": 4,
+                    "dashboardParams": {
+                    "showFlowSheet": false,
+                    "showListView": true,
+                    "showRoute": false,
+                    "showDrugForm": false,
+                    "numberOfVisits": 4,
+                    "showOtherActive": true,
+                    "showDetailsButton": false
+                },
+                "allTreatmentDetails": {
+                    "title": "Treatments",
+                    "showFlowSheet": false,
+                    "showListView": true,
+                    "showRoute": true,
+                    "showDrugForm": true,
+                    "numberOfVisits": 4,
+                    "showOtherActive": true,
+                    "showDetailsButton": true
+                }
+            },
+            "referralSummary": {
+                "type": "custom",
+                "displayType": "Full-Page",
+                "displayOrder": 5,
+                "config": {
+                    "title": "",
+                    "template": "<referral-summary></referral-summary>"
+                }
+            }
+
+        }
+    }
+}
