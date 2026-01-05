@@ -1,0 +1,18 @@
+{
+  "name" : "Village Round Encounter Cancellation",
+  "uuid" : "6d2211be-fbc7-4e03-a8ee-04092f6d0e18",
+  "formType" : "IndividualEncounterCancellation",
+  "formElementGroups" : [ {
+    "uuid" : "b2a15386-2f48-40e6-9f8e-2867081c8fe4",
+    "name" : "Cancel Encounter",
+    "displayOrder" : 1.0,
+    "formElements" : [ ],
+    "display" : "Cancel Encounter",
+    "timed" : false
+  } ],
+  "decisionRule" : "",
+  "visitScheduleRule" : "\"use strict\";\n({ params, imports }) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({encounter});\n  \n  /*if(encounter. cancelDateTime === null){*/\n  \n    const earliestDate = moment(encounter.earliestVisitDateTime || encounter.encounterDateTime).add(1, 'month').startOf('month').toDate();\n  \n    const firstDay = moment(earliestDate).startOf('month').toDate();\n    const lastDay = moment(earliestDate).endOf('month').toDate();\n  \n    const earliestDate = moment(firstDay).add(0, 'days').toDate();\n    const maxDate = moment(lastDay).add(0, 'days').toDate();\n    scheduleBuilder.add({name: \"Village Round\", encounterType: \"Village Round\", earliestDate, maxDate});  \n  /*}*/\n  \n  \n  return scheduleBuilder.getAll();\n};",
+  "validationRule" : "",
+  "checklistsRule" : "",
+  "decisionConcepts" : [ ]
+}

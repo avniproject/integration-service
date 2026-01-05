@@ -1,0 +1,8 @@
+{
+  "name" : "Baseline History TB Study Encounter (voided~10653)",
+  "uuid" : "2c6e73d2-2ae3-40ac-86f6-260d775fd5e9",
+  "formType" : "ProgramEncounter",
+  "formElementGroups" : [ ],
+  "decisionConcepts" : [ ],
+  "voided" : true
+}

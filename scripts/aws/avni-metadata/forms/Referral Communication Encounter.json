@@ -1,0 +1,311 @@
+{
+  "name" : "Referral Communication Encounter",
+  "uuid" : "fe8889c1-68d0-4c49-a4a5-84e55eb15ddb",
+  "formType" : "Encounter",
+  "formElementGroups" : [ {
+    "uuid" : "a385e3f1-5c75-4d54-8b58-6072bb187a1b",
+    "name" : "Referral",
+    "displayOrder" : 1.0,
+    "formElements" : [ {
+      "name" : "Place of referral",
+      "uuid" : "8748be4c-bec3-43cb-aba8-5a5e3fca9958",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Place of Referral",
+        "uuid" : "c7b12d50-0a60-444a-a3cc-3dc13a2fb04e",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "MCHW",
+          "uuid" : "c1b3ea40-291f-49e7-893f-43565a477386",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 6.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Subcenter (SHW OPD)",
+          "uuid" : "64c1b238-e800-4581-8785-2d1897d0dd2e",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/64c1b238-e800-4581-8785-2d1897d0dd2e.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "Subcenter (Mobile Clinic)",
+          "uuid" : "22164309-c2d2-4a2b-9dee-5d9b5a205830",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/22164309-c2d2-4a2b-9dee-5d9b5a205830.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "MCHW (Home visit)",
+          "uuid" : "08e9df58-f7e5-4239-8970-5ff18200007f",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 8.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Ganiyari Hospital",
+          "uuid" : "e9a08867-baca-43ea-85ac-34c06811190b",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/e9a08867-baca-43ea-85ac-34c06811190b.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "Cluster Coordinator",
+          "uuid" : "c21d00ba-91cd-404e-973d-f25246b15673",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 12.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "SHW",
+          "uuid" : "7ac0d9a2-ff82-41e6-9f38-134904d476f9",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "VHW",
+          "uuid" : "355143bf-b812-4ec8-93e6-6795fe4f7dc9",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 7.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/355143bf-b812-4ec8-93e6-6795fe4f7dc9.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "Doctor (Home visit)",
+          "uuid" : "472c2a76-d982-4f9e-8e93-f9aea9deb8fc",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 9.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Doctor",
+          "uuid" : "d7265308-9843-4d5f-859f-1585c119c8cb",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 10.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/d7265308-9843-4d5f-859f-1585c119c8cb.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "Phulwari Supervisor",
+          "uuid" : "a8dffa97-0020-42af-9dc7-4bdbde5520ae",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 13.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/a8dffa97-0020-42af-9dc7-4bdbde5520ae.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "Cluster Coordinator (Home visit)",
+          "uuid" : "1dec2135-0ccb-4dc6-9f5f-3f86d8ea2f45",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 11.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "SHW (Home visit)",
+          "uuid" : "185e2243-2b9d-4c67-8ff1-eb1f00136800",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ {
+          "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/c7b12d50-0a60-444a-a3cc-3dc13a2fb04e.jpg",
+          "type" : "Image"
+        } ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Reason for referral",
+      "uuid" : "c9349272-7e82-4662-9b6c-57a8c78c9b45",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Reason for Referral",
+        "uuid" : "3f59afbe-afee-403c-9e5e-363ff1d14a39",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Other",
+          "uuid" : "798b7942-cf58-4d4e-a529-5972942e0a7e",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Treatment at a higher centre or at VHW",
+          "uuid" : "3d9b807d-b7cf-4a92-9d70-92f44c028814",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Screening of chronic disease",
+          "uuid" : "e15edf05-5a1c-46bc-86cb-a71c9a1da034",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Counselling",
+          "uuid" : "0ac30adc-5107-4e30-9b8a-c3ef65904cf5",
+          "dataType" : "Coded",
+          "answers" : [ {
+            "name" : "No",
+            "uuid" : "f88da2e8-6ab4-44b5-b762-233485cd25f9",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 2.0,
+            "active" : true,
+            "media" : [ ]
+          }, {
+            "name" : "Yes",
+            "uuid" : "57e20de7-10de-4391-b7ce-87b2f40d19a2",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 1.0,
+            "active" : true,
+            "media" : [ ]
+          } ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/0ac30adc-5107-4e30-9b8a-c3ef65904cf5.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "Treatment at a higher center",
+          "uuid" : "0e9bc364-6f26-451f-9933-c926b11ce27e",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Other reason for referral, please specify",
+      "uuid" : "45d61799-8d5b-4a66-ba44-5820c5dc5693",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Other reason for referral, please specify",
+        "uuid" : "5a1d670c-9285-4543-9616-335b7997aa33",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({encounter, formElement}).when.valueInEncounter(\"3f59afbe-afee-403c-9e5e-363ff1d14a39\").containsAnswerConceptName(\"798b7942-cf58-4d4e-a529-5972942e0a7e\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Reason for Referral",
+                "conceptUuid" : "3f59afbe-afee-403c-9e5e-363ff1d14a39",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Other" ],
+                "answerConceptUuids" : [ "798b7942-cf58-4d4e-a529-5972942e0a7e" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ]
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    }, {
+      "name" : "Give more details - what should be done",
+      "uuid" : "280fdc43-5a35-4f01-a0c6-6410d07a0614",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Give more details - what should be done",
+        "uuid" : "ca20965a-9c5d-475d-b4fe-44af22a90ac1",
+        "dataType" : "Audio",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Give more details - what should be done",
+      "uuid" : "6066cd68-bff0-405b-af4a-1ee738a6c593",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Give more details - What should be done",
+        "uuid" : "13af10e4-dd09-4dc1-8e93-aa99bd875d76",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 5.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    } ],
+    "display" : "Referral",
+    "timed" : false
+  } ],
+  "decisionRule" : "\"use strict\";\n({params, imports}) => {\n    const encounter = params.entity;\n    const moment = imports.moment;\n    const decisions = params.decisions;\n    const enrolmentDecisions = [];\n    const encounterDecisions = [];\n    const registrationDecisions = [];\n\n    const userGroupUUID = encounter.getObservationValue('User Group UUID');\n    \n    if(!userGroupUUID){\n      const myUserGroupList = params.myUserGroups.filter(grp => grp.groupName != 'Everyone').map(grp => grp. groupUuid);\n      if(myUserGroupList.length > 0){\n        encounterDecisions.push({name: \"User Group UUID\", value: myUserGroupList.join(', ')}); \n      }\n    }\n  \n    decisions.enrolmentDecisions.push(...enrolmentDecisions);\n    decisions.encounterDecisions.push(...encounterDecisions);\n    decisions.registrationDecisions.push(...registrationDecisions);\n    return decisions;\n};",
+  "editFormRule" : "// SAMPLE EDIT FORM RULE\n\"use strict\";\n({params, imports}) => {\n    const {entity, form, services, entityContext, myUserGroups, userInfo} = params;\n\n    const userGroupUUID = entity.getObservationValue('User Group UUID');\n\n    let isEditable = true;\n\n    if (!userGroupUUID) {\n        isEditable = true;\n    } else {\n        const userGroupUUIDArray = userGroupUUID.split(',').map(s => s.trim());\n        const myUserGroupList = myUserGroups\n            .filter(grp => grp.groupName != 'Everyone')\n            .map(grp => grp.groupUuid);\n        const isGroupMatched = myUserGroupList.some(uuid => userGroupUUIDArray.includes(uuid));\n        isEditable = isGroupMatched;\n    }\n\n    const output = {\n        editable: {\n            value: isEditable,\n            messageKey: 'Editing is restricted. This form was submitted by another user group!'\n        }\n    };\n    return output;\n};",
+  "visitScheduleRule" : "\"use strict\";\n({ params, imports }) => {\n    const encounter = params.entity;\n    const moment = imports.moment;\n    const earliestDate = moment(encounter.encounterDateTime).toDate();\n    const maxDate = moment(encounter.encounterDateTime).add(15, 'days').endOf('day').toDate();\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({encounter});\n\n    function isAlreadyScheduled(encounterType, earliestDate) {\n        const earliestDateTime = moment(earliestDate);\n        const isAlreadyPresent = encounter.individual.getEncounters(true)\n            .some((enc) => \n                enc &&\n                enc.encounterType.name == encounterType &&\n                enc.voided == false &&\n                moment(enc.earliestVisitDateTime).isSame(earliestDateTime, 'day')\n            );\n    \n        return isAlreadyPresent;\n    }\n\n    function scheduleVisit(encounterName, encounterType, earliestDate, maxDate) {\n        if(!isAlreadyScheduled(encounterType, earliestDate)) {\n            scheduleBuilder.add({\n                name: encounterName, \n                encounterType: encounterType, \n                earliestDate, \n                maxDate\n            });\n        }\n    }\n\n    const referralMap = {\n        'Subcenter Followup': ['22164309-c2d2-4a2b-9dee-5d9b5a205830', '64c1b238-e800-4581-8785-2d1897d0dd2e'],\n        'VHW Followup': ['355143bf-b812-4ec8-93e6-6795fe4f7dc9'],\n        'MCH Worker Followup': ['c1b3ea40-291f-49e7-893f-43565a477386'],\n        'Cluster Coordinator Followup': [\n            'e9a08867-baca-43ea-85ac-34c06811190b',\n            'c21d00ba-91cd-404e-973d-f25246b15673'\n        ]\n    };\n\n    const placeOfReferral = encounter.getObservationValue('c7b12d50-0a60-444a-a3cc-3dc13a2fb04e');\n    if(placeOfReferral) {\n        for (const [encounterName, uuids] of Object.entries(referralMap)) {\n            if (uuids.includes(placeOfReferral)) {\n                scheduleVisit(encounterName, encounterName, earliestDate, maxDate);\n                break;\n            }\n        }\n    }\n    \n    return scheduleBuilder.getAll();\n};",
+  "validationRule" : "'use strict';\n({params, imports}) => {\n  const individual = params.entity;\n  const moment = imports.moment;\n  const validationResults = [];\n  \n  const audioDescription = individual.getObservationValue(\"ca20965a-9c5d-475d-b4fe-44af22a90ac1\")\n  const textDescription = individual.getObservationValue(\"13af10e4-dd09-4dc1-8e93-aa99bd875d76\")\n\n   if((audioDescription === null || audioDescription === undefined) && (textDescription === null || textDescription === undefined)){\n        let validationError = imports.common.createValidationError('Please answer in either audio or text to move forward');\n        validationResults.push(validationError);\n    }\n  \n  return validationResults;\n};",
+  "checklistsRule" : "",
+  "decisionConcepts" : [ {
+    "name" : "User Group UUID",
+    "uuid" : "7bb03fc4-df1c-4291-b63c-149dad55efab",
+    "dataType" : "Text",
+    "answers" : [ ],
+    "active" : true,
+    "keyValues" : [ ],
+    "media" : [ ]
+  } ]
+}

@@ -1,0 +1,1458 @@
+{
+  "name" : "Women's Health Camp Encounter",
+  "uuid" : "844400c4-d3a6-4d5a-9070-7a07d17eff7f",
+  "formType" : "ProgramEncounter",
+  "formElementGroups" : [ {
+    "uuid" : "f29ed87f-4d53-4165-bac6-233ef29d63a2",
+    "name" : "Date Details",
+    "displayOrder" : 1.0,
+    "formElements" : [ {
+      "name" : "Date of screening",
+      "uuid" : "8699b10a-0f5a-4d31-9776-34b433873da1",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Date of screening",
+        "uuid" : "0224fb00-bad0-47e2-9521-e9ac6907936b",
+        "dataType" : "Date",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    } ],
+    "display" : "Date Details",
+    "timed" : false
+  }, {
+    "uuid" : "0bf5a245-94cd-40ee-8f53-b3906e55502c",
+    "name" : "Anthropometry Details",
+    "displayOrder" : 2.0,
+    "formElements" : [ {
+      "name" : "Height (cm) at the time of admission",
+      "uuid" : "3fefae39-7348-4bcc-9ddb-aba66162ea3a",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Height",
+        "uuid" : "23bcad9f-ec16-46ec-92f5-e144411e5dec",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "lowAbsolute" : 21.0,
+        "highAbsolute" : 300.0,
+        "lowNormal" : 30.0,
+        "highNormal" : 200.0,
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Weight (Kg) at the time of admission",
+      "uuid" : "66df7bf9-4975-4a70-91b0-ed8236ae4442",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Weight",
+        "uuid" : "8d947379-7a1d-48b2-8760-88fff6add987",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "lowAbsolute" : 0.0,
+        "highAbsolute" : 300.0,
+        "lowNormal" : 1.0,
+        "highNormal" : 100.0,
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Weight (Kg) at the time of admission",
+      "uuid" : "2a0ed9d8-bd97-4266-ad33-e67d8b790284",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Weight (kg)",
+        "uuid" : "c2606818-a690-402c-98d6-6f0e942d6181",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "voided" : true,
+      "mandatory" : true
+    }, {
+      "name" : "BMI",
+      "uuid" : "477d8b9e-4d03-4a66-8c17-ca4f56e17615",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "BMI",
+        "uuid" : "a205563d-0ac2-4955-93ac-e2e7adebb56e",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "lowNormal" : 18.5,
+        "highNormal" : 24.9,
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "rule" : "\"use strict\";\n({params, imports}) => {\n    const programEncounter = params.entity;\n    const formElement = params.formElement;\n    const _ = imports.lodash;\n    \nlet height = programEncounter.findLatestObservationInEntireEnrolment(\"Height\", programEncounter);\nlet weight = programEncounter.findObservation(\"Weight\");\n        height = height && height.getValue();\n        weight = weight && weight.getValue();\n        console.log('height',height);\n        console.log('weight',weight);\n        let value = '';\n        if (_.isFinite(weight) && _.isFinite(height)) {\n         value = imports.common.calculateBMI(weight, height);\n       }\n       \n        //console.log('value',value);\n        \n    return new imports.rulesConfig.FormElementStatus(formElement.uuid, true, value);\n  };",
+      "mandatory" : true
+    } ],
+    "display" : "Anthropometry Details",
+    "timed" : false
+  }, {
+    "uuid" : "bc4045b4-ccea-4fa5-b7a6-e9f248cbe23c",
+    "name" : "Vitals",
+    "displayOrder" : 3.0,
+    "formElements" : [ {
+      "name" : "Blood Pressure (systolic)",
+      "uuid" : "85981bb1-baed-42f8-a25b-78e80ae1b512",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Blood Pressure (systolic)",
+        "uuid" : "6874d48e-8c2f-4009-992c-1d3ca1678cc6",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "lowAbsolute" : 20.0,
+        "highAbsolute" : 190.0,
+        "lowNormal" : 90.0,
+        "highNormal" : 140.0,
+        "active" : true,
+        "keyValues" : [ ],
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Blood Pressure - (Diastolic)",
+      "uuid" : "cde95049-5f9b-473d-bc1e-48d2c5028810",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Blood Pressure (Diastolic)",
+        "uuid" : "da871f6c-cef0-4191-b307-6751b31ac9ec",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "lowAbsolute" : 10.0,
+        "highAbsolute" : 120.0,
+        "lowNormal" : 50.0,
+        "highNormal" : 90.0,
+        "active" : true,
+        "keyValues" : [ ],
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    } ],
+    "display" : "Vitals",
+    "timed" : false
+  }, {
+    "uuid" : "edebc990-0df6-4af8-9c3b-060bd503e21d",
+    "name" : "Labs",
+    "displayOrder" : 4.0,
+    "formElements" : [ {
+      "name" : "Hemoglobin (mg/dl)",
+      "uuid" : "3a238f6f-460d-4577-b559-bb32ccf4f9f6",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Hemoglobin (mg/dl)",
+        "uuid" : "ec4e04f9-e257-4974-9234-f6f84ab19fe8",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "RBS",
+      "uuid" : "dd793432-9c92-4f96-a5d1-58f6566036f2",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "RBS",
+        "uuid" : "6926107f-5793-4ef8-98e1-4a3cc1e2725f",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "lowNormal" : 60.0,
+        "highNormal" : 160.0,
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    } ],
+    "display" : "Labs",
+    "timed" : false
+  }, {
+    "uuid" : "024e396b-d05c-4d2b-8e91-bff1d2202b36",
+    "name" : "Breast Examination",
+    "displayOrder" : 5.0,
+    "formElements" : [ {
+      "name" : "Do you have any complaint currently?",
+      "uuid" : "95233f29-de25-47f4-88cf-9cf0537b53b2",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Do you have any complaint currently?",
+        "uuid" : "06d9b1b0-84dd-44e3-aee4-25c345b9dda5",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "No complaints",
+          "uuid" : "4451ddad-468c-4e27-a637-0baed318a085",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Other complaints",
+          "uuid" : "3b65a464-9575-433a-8a95-af0279841c87",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 7.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Swelling/nodule in breast",
+          "uuid" : "9cc45e5d-441d-4ebe-b328-e2612498d41f",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Ulcer in breast/retraction in breast",
+          "uuid" : "27e9a338-470d-4703-9661-59ad13a523c5",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 6.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Pus in breast",
+          "uuid" : "ad99201a-6db6-4554-860e-bb83f7699ba8",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Lymphnodes in axila",
+          "uuid" : "484e182c-12f7-47a4-955d-277018b00901",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Discharge (blood/pus) from nipple",
+          "uuid" : "6cf10d31-7d26-41a6-a373-a1467ecd197f",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "voided" : true,
+      "mandatory" : true
+    }, {
+      "name" : "Do you have any complaint currently?",
+      "uuid" : "9531d1c2-8844-401a-9e1e-db1824df2fb3",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Do you have any complaint currently?",
+        "uuid" : "06d9b1b0-84dd-44e3-aee4-25c345b9dda5",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "No complaints",
+          "uuid" : "4451ddad-468c-4e27-a637-0baed318a085",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Other complaints",
+          "uuid" : "3b65a464-9575-433a-8a95-af0279841c87",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 7.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Swelling/nodule in breast",
+          "uuid" : "9cc45e5d-441d-4ebe-b328-e2612498d41f",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Ulcer in breast/retraction in breast",
+          "uuid" : "27e9a338-470d-4703-9661-59ad13a523c5",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 6.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Pus in breast",
+          "uuid" : "ad99201a-6db6-4554-860e-bb83f7699ba8",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Lymphnodes in axila",
+          "uuid" : "484e182c-12f7-47a4-955d-277018b00901",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Discharge (blood/pus) from nipple",
+          "uuid" : "6cf10d31-7d26-41a6-a373-a1467ecd197f",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "MultiSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Size of swelling / nodule",
+      "uuid" : "82e3d23c-c57b-4b57-b7c5-42cf96ac29f7",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Size of swelling / nodule",
+        "uuid" : "172f2c6f-eff3-4eed-90ff-c982f38d2789",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"06d9b1b0-84dd-44e3-aee4-25c345b9dda5\").containsAnswerConceptName(\"9cc45e5d-441d-4ebe-b328-e2612498d41f\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Do you have any complaint currently?",
+                "conceptUuid" : "06d9b1b0-84dd-44e3-aee4-25c345b9dda5",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Swelling/nodule in breast" ],
+                "answerConceptUuids" : [ "9cc45e5d-441d-4ebe-b328-e2612498d41f" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    }, {
+      "name" : "Other complaints",
+      "uuid" : "16b7370c-3df7-4f24-a3ff-76436d7a8fd6",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Breast examination Other complaints",
+        "uuid" : "0b7798f8-b15b-42b1-b859-ef5a4dc38513",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"06d9b1b0-84dd-44e3-aee4-25c345b9dda5\").containsAnswerConceptName(\"3b65a464-9575-433a-8a95-af0279841c87\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Do you have any complaint currently?",
+                "conceptUuid" : "06d9b1b0-84dd-44e3-aee4-25c345b9dda5",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Other complaints" ],
+                "answerConceptUuids" : [ "3b65a464-9575-433a-8a95-af0279841c87" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    }, {
+      "name" : "Place of swelling/nodule",
+      "uuid" : "23f937a8-8695-46b2-8172-bb9f153ccaa5",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Place of swelling/nodule",
+        "uuid" : "af4e3855-e751-4c19-b07a-f379b291f7d6",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "RLO",
+          "uuid" : "a3491164-6a02-4651-909e-48ab194ae6b0",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "RUI",
+          "uuid" : "e8483e83-2735-445f-8cc6-95be3a0b3192",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "RLI",
+          "uuid" : "b570fe37-a6a8-4813-8638-552231588822",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "LUI",
+          "uuid" : "77a97ef1-4a93-47d9-8a7a-111904d88f2c",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "LLI",
+          "uuid" : "fd14d068-e9e3-4057-8af0-f7541e9c8511",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 7.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "LLO",
+          "uuid" : "bb376d88-fff4-4091-b638-ef4051424068",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 6.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "LUO",
+          "uuid" : "a0570408-3935-48f3-a7fd-eef6fc1e7cae",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "RUO",
+          "uuid" : "d9a0ba01-7b28-46ba-940e-75ca251acc73",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 5.0,
+      "type" : "MultiSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"06d9b1b0-84dd-44e3-aee4-25c345b9dda5\").containsAnswerConceptName(\"9cc45e5d-441d-4ebe-b328-e2612498d41f\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Do you have any complaint currently?",
+                "conceptUuid" : "06d9b1b0-84dd-44e3-aee4-25c345b9dda5",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Swelling/nodule in breast" ],
+                "answerConceptUuids" : [ "9cc45e5d-441d-4ebe-b328-e2612498d41f" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : false
+    } ],
+    "display" : "Breast Examination",
+    "timed" : false
+  }, {
+    "uuid" : "0f1d3424-541b-4dec-94db-4868d8b93398",
+    "name" : "Cervix examination",
+    "displayOrder" : 6.0,
+    "formElements" : [ {
+      "name" : "Do you have any complaint currently?",
+      "uuid" : "0bcd7caf-0c68-4b50-9144-562a4bf8f657",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Cervix - Do you have any complaint currently?",
+        "uuid" : "ad3a74ad-6275-45d1-bd4a-f8e393905d2c",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Others",
+          "uuid" : "f3ef9337-b2d9-4e33-9a69-e7692b66f045",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "White discharge",
+          "uuid" : "b4f6f848-4e61-46ef-87c9-9571e7e34a9c",
+          "dataType" : "Numeric",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/b4f6f848-4e61-46ef-87c9-9571e7e34a9c.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "Pain in lower back/abdomen",
+          "uuid" : "33fcff61-049e-4d29-8405-afeadec9f14a",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Complaints in menstruation",
+          "uuid" : "e06f1759-e958-4d86-bdd3-57943d61ba8f",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "No complaints",
+          "uuid" : "4451ddad-468c-4e27-a637-0baed318a085",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "voided" : true,
+      "mandatory" : false
+    }, {
+      "name" : "Do you have any complaint currently?",
+      "uuid" : "681b2a03-b2e2-4656-810e-9b7851bc05bf",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Cervix - Do you have any complaint currently?",
+        "uuid" : "ad3a74ad-6275-45d1-bd4a-f8e393905d2c",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Others",
+          "uuid" : "f3ef9337-b2d9-4e33-9a69-e7692b66f045",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "White discharge",
+          "uuid" : "b4f6f848-4e61-46ef-87c9-9571e7e34a9c",
+          "dataType" : "Numeric",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/b4f6f848-4e61-46ef-87c9-9571e7e34a9c.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "Pain in lower back/abdomen",
+          "uuid" : "33fcff61-049e-4d29-8405-afeadec9f14a",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Complaints in menstruation",
+          "uuid" : "e06f1759-e958-4d86-bdd3-57943d61ba8f",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "No complaints",
+          "uuid" : "4451ddad-468c-4e27-a637-0baed318a085",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "MultiSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Other",
+      "uuid" : "7fff82f3-3454-46d2-9c85-50247ae2fa13",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Other (Specify)",
+        "uuid" : "1ce0fa4e-5cca-4482-a46f-c4813cbb0345",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"ad3a74ad-6275-45d1-bd4a-f8e393905d2c\").containsAnswerConceptName(\"f3ef9337-b2d9-4e33-9a69-e7692b66f045\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Cervix - Do you have any complaint currently?",
+                "conceptUuid" : "ad3a74ad-6275-45d1-bd4a-f8e393905d2c",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Others" ],
+                "answerConceptUuids" : [ "f3ef9337-b2d9-4e33-9a69-e7692b66f045" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    } ],
+    "display" : "Cervix examination",
+    "timed" : false
+  }, {
+    "uuid" : "201816e8-0680-4b40-a10c-b2dfc8980fbd",
+    "name" : "Per speculum",
+    "displayOrder" : 7.0,
+    "formElements" : [ {
+      "name" : "Per speculum examination",
+      "uuid" : "72f03d00-0bf6-4486-86dd-504b3f5dd32e",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Per speculum examination",
+        "uuid" : "7c0b496e-f42e-4c22-99bf-545ef559b2e4",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Normal cervix",
+          "uuid" : "0c45b3c2-0d97-4f02-9419-af311086034a",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "unique" : true,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Others",
+          "uuid" : "f3ef9337-b2d9-4e33-9a69-e7692b66f045",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Abnormal growth",
+          "uuid" : "583779cf-914d-4916-81cc-726a539db6e0",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Erosion",
+          "uuid" : "cb88db2f-5d15-4f64-bfd0-35f693abb26a",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Bleeding",
+          "uuid" : "0aeb893c-34ba-49f0-bd6f-0696fce74458",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "voided" : true,
+      "mandatory" : false
+    }, {
+      "name" : "Per speculum examination",
+      "uuid" : "d15ab677-a606-4d38-8250-29942c6ade68",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Per speculum examination",
+        "uuid" : "7c0b496e-f42e-4c22-99bf-545ef559b2e4",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Normal cervix",
+          "uuid" : "0c45b3c2-0d97-4f02-9419-af311086034a",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "unique" : true,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Others",
+          "uuid" : "f3ef9337-b2d9-4e33-9a69-e7692b66f045",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Abnormal growth",
+          "uuid" : "583779cf-914d-4916-81cc-726a539db6e0",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Erosion",
+          "uuid" : "cb88db2f-5d15-4f64-bfd0-35f693abb26a",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Bleeding",
+          "uuid" : "0aeb893c-34ba-49f0-bd6f-0696fce74458",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "MultiSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Other",
+      "uuid" : "16e60b87-792a-43a6-b20c-3d8c1a4edfa5",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Normal uterus Other",
+        "uuid" : "8027a6ea-b0c2-438d-8652-c673429e8ff6",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"7c0b496e-f42e-4c22-99bf-545ef559b2e4\").containsAnswerConceptName(\"f3ef9337-b2d9-4e33-9a69-e7692b66f045\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Per speculum examination",
+                "conceptUuid" : "7c0b496e-f42e-4c22-99bf-545ef559b2e4",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Others" ],
+                "answerConceptUuids" : [ "f3ef9337-b2d9-4e33-9a69-e7692b66f045" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    } ],
+    "display" : "Per speculum",
+    "timed" : false
+  }, {
+    "uuid" : "9755d8c6-837b-441c-b6ad-b5c9b75ba848",
+    "name" : "Per vaginal examination",
+    "displayOrder" : 8.0,
+    "formElements" : [ {
+      "name" : "Per vaginal examination",
+      "uuid" : "546d3833-8461-4d98-be1d-8ec2d03f4bd4",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Per vaginal examination Normal uterus",
+        "uuid" : "688f47c1-e7dd-49e0-ae3e-bae5f4b1b592",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Hard uterus",
+          "uuid" : "55b7bf81-3548-484e-be1b-83807737d065",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Uterus prolapse",
+          "uuid" : "cea156f5-1a93-46e9-a022-5070c91a1823",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Others",
+          "uuid" : "f3ef9337-b2d9-4e33-9a69-e7692b66f045",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 6.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Normal cervix",
+          "uuid" : "0c45b3c2-0d97-4f02-9419-af311086034a",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "unique" : true,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Bulky uterus",
+          "uuid" : "cc3b8a9c-ac9a-4fc7-b491-d85929c4509e",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Bleeding",
+          "uuid" : "0aeb893c-34ba-49f0-bd6f-0696fce74458",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "voided" : true,
+      "mandatory" : false
+    }, {
+      "name" : "Per vaginal examination",
+      "uuid" : "9a02c0c8-68ad-416c-bccd-604d4088a1b4",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Per vaginal examination Normal uterus",
+        "uuid" : "688f47c1-e7dd-49e0-ae3e-bae5f4b1b592",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Hard uterus",
+          "uuid" : "55b7bf81-3548-484e-be1b-83807737d065",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Uterus prolapse",
+          "uuid" : "cea156f5-1a93-46e9-a022-5070c91a1823",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Others",
+          "uuid" : "f3ef9337-b2d9-4e33-9a69-e7692b66f045",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 6.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Normal cervix",
+          "uuid" : "0c45b3c2-0d97-4f02-9419-af311086034a",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "unique" : true,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Bulky uterus",
+          "uuid" : "cc3b8a9c-ac9a-4fc7-b491-d85929c4509e",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Bleeding",
+          "uuid" : "0aeb893c-34ba-49f0-bd6f-0696fce74458",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "MultiSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Other",
+      "uuid" : "f48eadf1-636a-4460-b221-fe936b7ba424",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Per vaginal examination Other",
+        "uuid" : "6eadc8e8-a7e8-4215-b3a4-085d95e45d56",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"688f47c1-e7dd-49e0-ae3e-bae5f4b1b592\").containsAnswerConceptName(\"f3ef9337-b2d9-4e33-9a69-e7692b66f045\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Per vaginal examination Normal uterus",
+                "conceptUuid" : "688f47c1-e7dd-49e0-ae3e-bae5f4b1b592",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Others" ],
+                "answerConceptUuids" : [ "f3ef9337-b2d9-4e33-9a69-e7692b66f045" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    } ],
+    "display" : "Per vaginal examination",
+    "timed" : false
+  }, {
+    "uuid" : "c09864cc-2580-4f20-ae85-2966d9174c59",
+    "name" : "VIA",
+    "displayOrder" : 9.0,
+    "formElements" : [ {
+      "name" : "VIA results",
+      "uuid" : "baaf1527-4bf4-48fd-bf48-cf58094b2805",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "VIA results",
+        "uuid" : "51e79ab8-7e9f-49f7-8383-7d939549df46",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Positive",
+          "uuid" : "6f6458f7-ce0b-46c2-bd03-0fa30943d75d",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Not done",
+          "uuid" : "5826df5f-d771-4559-b2be-2f1391805076",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        }, {
+          "name" : "Negative",
+          "uuid" : "0fe2ae63-332a-40bf-82c7-371ef7b66494",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Biopsy taken",
+      "uuid" : "8a9e2ec9-d29a-47d0-8072-0226ad12aa88",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Biopsy taken",
+        "uuid" : "4dbe1ba4-508c-4a5d-8fbf-8a82c50f6708",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "No",
+          "uuid" : "f88da2e8-6ab4-44b5-b762-233485cd25f9",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Yes",
+          "uuid" : "57e20de7-10de-4391-b7ce-87b2f40d19a2",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"51e79ab8-7e9f-49f7-8383-7d939549df46\").containsAnswerConceptName(\"6f6458f7-ce0b-46c2-bd03-0fa30943d75d\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "VIA done",
+                "conceptUuid" : "51e79ab8-7e9f-49f7-8383-7d939549df46",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Positive" ],
+                "answerConceptUuids" : [ "6f6458f7-ce0b-46c2-bd03-0fa30943d75d" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : false
+    } ],
+    "display" : "VIA",
+    "timed" : false
+  }, {
+    "uuid" : "75f454ee-8628-4771-a942-1115b19079a2",
+    "name" : "Oral examination",
+    "displayOrder" : 10.0,
+    "formElements" : [ {
+      "name" : "Oral mucosal lesion examination",
+      "uuid" : "b1bba89b-0548-4b5c-908b-6fe9c0b4f5ec",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Oral mucosal lesion examination",
+        "uuid" : "71ac6f6f-1f98-496b-a0f9-0622f255ab19",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Tooth caries/problem related to tooth/teeth",
+          "uuid" : "43a2d0eb-1afd-4596-af63-1d1e4857938c",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Gingivitis",
+          "uuid" : "ca1c785a-f5bd-449b-addc-4e1d2a544106",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "White oral mucosal lesion",
+          "uuid" : "25895d7b-0dce-4b97-85bc-d8d58322f5a1",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Red oral musocal lesion",
+          "uuid" : "5b3774a1-6b89-4ad3-bfc3-8e4b152f1ec2",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Mixed (White and Red) mucosal leasion",
+          "uuid" : "fcc5c975-3659-41f7-80a2-e56085ebbb8d",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "No oral mucosal lesion",
+          "uuid" : "0e5d4720-400e-4e3c-82f3-4896570a5e02",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "voided" : true,
+      "mandatory" : false
+    }, {
+      "name" : "Oral mucosal lesion examination",
+      "uuid" : "169a8b46-0bfc-491c-a805-4d57563e34d2",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Oral mucosal lesion examination",
+        "uuid" : "71ac6f6f-1f98-496b-a0f9-0622f255ab19",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Tooth caries/problem related to tooth/teeth",
+          "uuid" : "43a2d0eb-1afd-4596-af63-1d1e4857938c",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Gingivitis",
+          "uuid" : "ca1c785a-f5bd-449b-addc-4e1d2a544106",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "White oral mucosal lesion",
+          "uuid" : "25895d7b-0dce-4b97-85bc-d8d58322f5a1",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Red oral musocal lesion",
+          "uuid" : "5b3774a1-6b89-4ad3-bfc3-8e4b152f1ec2",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Mixed (White and Red) mucosal leasion",
+          "uuid" : "fcc5c975-3659-41f7-80a2-e56085ebbb8d",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "No oral mucosal lesion",
+          "uuid" : "0e5d4720-400e-4e3c-82f3-4896570a5e02",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "MultiSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Interpretation of lesion",
+      "uuid" : "e12a2c95-c87b-4085-99e1-6c860177acd6",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Interpretation of lesion",
+        "uuid" : "52731bfb-ef1e-4aa2-969e-277a264539c0",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Probably non- malignant",
+          "uuid" : "2f680fc8-2873-49c9-b8d0-9be02651c139",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Probably malignant",
+          "uuid" : "b1925cee-1ea1-442d-b9ba-a2dacff6d399",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Normal",
+          "uuid" : "ec89cb1f-491b-46de-95c1-3009effa9041",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"71ac6f6f-1f98-496b-a0f9-0622f255ab19\").containsAnswerConceptName(\"25895d7b-0dce-4b97-85bc-d8d58322f5a1\").or.when.valueInEncounter(\"71ac6f6f-1f98-496b-a0f9-0622f255ab19\").containsAnswerConceptName(\"5b3774a1-6b89-4ad3-bfc3-8e4b152f1ec2\").or.when.valueInEncounter(\"71ac6f6f-1f98-496b-a0f9-0622f255ab19\").containsAnswerConceptName(\"fcc5c975-3659-41f7-80a2-e56085ebbb8d\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Oral mucosal lesion examination",
+                "conceptUuid" : "71ac6f6f-1f98-496b-a0f9-0622f255ab19",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "White oral mucosal lesion" ],
+                "answerConceptUuids" : [ "25895d7b-0dce-4b97-85bc-d8d58322f5a1" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            }, {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Oral mucosal lesion examination",
+                "conceptUuid" : "71ac6f6f-1f98-496b-a0f9-0622f255ab19",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Red oral musocal lesion" ],
+                "answerConceptUuids" : [ "5b3774a1-6b89-4ad3-bfc3-8e4b152f1ec2" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            }, {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Oral mucosal lesion examination",
+                "conceptUuid" : "71ac6f6f-1f98-496b-a0f9-0622f255ab19",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Mixed (White and Red) mucosal leasion" ],
+                "answerConceptUuids" : [ "fcc5c975-3659-41f7-80a2-e56085ebbb8d" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "or"
+          }
+        } ]
+      } ],
+      "mandatory" : false
+    }, {
+      "name" : "Biopsy required",
+      "uuid" : "6ebfdf73-ab4c-4a44-b07c-f5ae901ca3ab",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Biopsy required",
+        "uuid" : "c132ce4a-1660-44b3-a12b-7fef0c9ef61f",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "No",
+          "uuid" : "f88da2e8-6ab4-44b5-b762-233485cd25f9",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Yes",
+          "uuid" : "57e20de7-10de-4391-b7ce-87b2f40d19a2",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"71ac6f6f-1f98-496b-a0f9-0622f255ab19\").containsAnswerConceptName(\"25895d7b-0dce-4b97-85bc-d8d58322f5a1\").or.when.valueInEncounter(\"71ac6f6f-1f98-496b-a0f9-0622f255ab19\").containsAnswerConceptName(\"5b3774a1-6b89-4ad3-bfc3-8e4b152f1ec2\").or.when.valueInEncounter(\"71ac6f6f-1f98-496b-a0f9-0622f255ab19\").containsAnswerConceptName(\"fcc5c975-3659-41f7-80a2-e56085ebbb8d\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Oral mucosal lesion examination",
+                "conceptUuid" : "71ac6f6f-1f98-496b-a0f9-0622f255ab19",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "White oral mucosal lesion" ],
+                "answerConceptUuids" : [ "25895d7b-0dce-4b97-85bc-d8d58322f5a1" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            }, {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Oral mucosal lesion examination",
+                "conceptUuid" : "71ac6f6f-1f98-496b-a0f9-0622f255ab19",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Red oral musocal lesion" ],
+                "answerConceptUuids" : [ "5b3774a1-6b89-4ad3-bfc3-8e4b152f1ec2" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            }, {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Oral mucosal lesion examination",
+                "conceptUuid" : "71ac6f6f-1f98-496b-a0f9-0622f255ab19",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Mixed (White and Red) mucosal leasion" ],
+                "answerConceptUuids" : [ "fcc5c975-3659-41f7-80a2-e56085ebbb8d" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "or"
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    } ],
+    "display" : "Oral examination",
+    "timed" : false
+  } ],
+  "decisionRule" : "",
+  "visitScheduleRule" : "",
+  "validationRule" : "",
+  "checklistsRule" : "",
+  "decisionConcepts" : [ ]
+}

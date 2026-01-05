@@ -1,0 +1,2863 @@
+{
+  "name" : "Eye screening form Encounter",
+  "uuid" : "b965e01f-b655-4685-bf3a-9794fdaf267f",
+  "formType" : "Encounter",
+  "formElementGroups" : [ {
+    "uuid" : "a9a3ff50-b4ff-4964-a8ab-e92b52b7fdcd",
+    "name" : "Eye screening Details",
+    "displayOrder" : 1.0,
+    "formElements" : [ {
+      "name" : "Any complaint for either eye?",
+      "uuid" : "dfcb2350-38f5-4bc3-b285-22de8f133f04",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Any complaint for either eye? (voided~335119)",
+        "uuid" : "708c6028-11f8-426f-94e4-44539af6b18a",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ],
+        "voided" : true
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "voided" : true,
+      "mandatory" : false
+    } ],
+    "display" : "Eye screening Details",
+    "voided" : true,
+    "timed" : false
+  }, {
+    "uuid" : "9c5169d8-1645-4561-b4f1-5c6fc5aef15d",
+    "name" : "History",
+    "displayOrder" : 2.0,
+    "formElements" : [ {
+      "name" : "Have the eyes been examined before?",
+      "uuid" : "7a404d8b-1033-4ecf-901c-268a500a149b",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Have the eyes been examined before?",
+        "uuid" : "c4b58af9-9bfa-412b-890d-f7b8d986ff89",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Yes",
+          "uuid" : "57e20de7-10de-4391-b7ce-87b2f40d19a2",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "NO",
+          "uuid" : "94022537-e646-4ced-af5f-f41452b4c923",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Has any eye surgery done before?",
+      "uuid" : "ea7398df-681e-48be-99de-88c72adaf89d",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Has any eye surgery done before?",
+        "uuid" : "c4abb919-907b-4918-b744-00eb4d6c8f76",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "NO",
+          "uuid" : "94022537-e646-4ced-af5f-f41452b4c923",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Yes",
+          "uuid" : "57e20de7-10de-4391-b7ce-87b2f40d19a2",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "If yes, which?",
+      "uuid" : "aeaac45b-42a4-49b0-9073-5cf605b3c9c3",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "If yes, which?",
+        "uuid" : "b5848db2-0ae7-40ee-913f-427a187c45e7",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Cataract of both eyes",
+          "uuid" : "15b4c0b5-977d-4ee4-af45-2a4b885ea649",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Left Cataract",
+          "uuid" : "1576faac-266f-481c-85e9-eb0b94de2d8d",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Right Cataract",
+          "uuid" : "b4ab0d15-772b-4e6f-8e2e-17e218055df7",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Other",
+          "uuid" : "798b7942-cf58-4d4e-a529-5972942e0a7e",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 3.0,
+      "type" : "MultiSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({encounter, formElement}).when.valueInEncounter(\"c4abb919-907b-4918-b744-00eb4d6c8f76\").containsAnswerConceptName(\"57e20de7-10de-4391-b7ce-87b2f40d19a2\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Has any eye surgery done before?",
+                "conceptUuid" : "c4abb919-907b-4918-b744-00eb4d6c8f76",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Yes" ],
+                "answerConceptUuids" : [ "57e20de7-10de-4391-b7ce-87b2f40d19a2" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    }, {
+      "name" : "Specify other",
+      "uuid" : "82b22fc8-0959-4b63-9625-861e5fd951e9",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Specify other",
+        "uuid" : "bc5f8e5b-03aa-4c9f-b2f9-9787eec094a6",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({encounter, formElement}).when.valueInEncounter(\"b5848db2-0ae7-40ee-913f-427a187c45e7\").containsAnswerConceptName(\"798b7942-cf58-4d4e-a529-5972942e0a7e\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "If yes, which?",
+                "conceptUuid" : "b5848db2-0ae7-40ee-913f-427a187c45e7",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Other" ],
+                "answerConceptUuids" : [ "798b7942-cf58-4d4e-a529-5972942e0a7e" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : false
+    }, {
+      "name" : "Do you use any spectacles?",
+      "uuid" : "2fcd192c-ffc8-403f-8bd4-91f4ffa0c697",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Do you use any spectacles?",
+        "uuid" : "e0ad0665-7f85-4e9e-86d9-b06d7d19daf5",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "NO",
+          "uuid" : "94022537-e646-4ced-af5f-f41452b4c923",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Yes",
+          "uuid" : "57e20de7-10de-4391-b7ce-87b2f40d19a2",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 5.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    } ],
+    "display" : "History",
+    "timed" : false
+  }, {
+    "uuid" : "3017d2a4-8b5e-4941-bce7-51a821b465bf",
+    "name" : "Eye symptoms/signs",
+    "displayOrder" : 3.0,
+    "formElements" : [ {
+      "name" : "Any complaint for either eye",
+      "uuid" : "51176adf-59e9-4ce9-b8ec-af8e29e090c8",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Any complaint for either eye",
+        "uuid" : "544bfd63-a844-4328-81d4-d4fedb0555b8",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "No complaints",
+          "uuid" : "4451ddad-468c-4e27-a637-0baed318a085",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Right eye",
+          "uuid" : "fdbf7fc4-dd07-4116-83a6-4ab0e53a3b0c",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Both Eyes",
+          "uuid" : "42706441-96ca-41a0-97ed-20d03e6c1ffc",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Left eye",
+          "uuid" : "61c424db-c3e0-4f96-9609-bbec3cd769c1",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "IF yes, write complaint for Right eye",
+      "uuid" : "ae09b8f1-1331-40e0-aabf-9180812bc6d6",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "IF yes, write complaint for Right eye",
+        "uuid" : "cdf04c40-4d1f-4524-b185-e929cce4f082",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({encounter, formElement}).when.valueInEncounter(\"544bfd63-a844-4328-81d4-d4fedb0555b8\").containsAnswerConceptName(\"fdbf7fc4-dd07-4116-83a6-4ab0e53a3b0c\").or.when.valueInEncounter(\"544bfd63-a844-4328-81d4-d4fedb0555b8\").containsAnswerConceptName(\"42706441-96ca-41a0-97ed-20d03e6c1ffc\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Any complaint for either eye",
+                "conceptUuid" : "544bfd63-a844-4328-81d4-d4fedb0555b8",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Right eye" ],
+                "answerConceptUuids" : [ "fdbf7fc4-dd07-4116-83a6-4ab0e53a3b0c" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            }, {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Any complaint for either eye",
+                "conceptUuid" : "544bfd63-a844-4328-81d4-d4fedb0555b8",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Both Eyes" ],
+                "answerConceptUuids" : [ "42706441-96ca-41a0-97ed-20d03e6c1ffc" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "or"
+          }
+        } ]
+      } ],
+      "mandatory" : false
+    }, {
+      "name" : "IF yes, write complaint for Left eye",
+      "uuid" : "534dd95f-2953-425b-92d6-a299c03871b7",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "IF yes, write complaint for Left eye",
+        "uuid" : "f950d249-1404-4d0c-a201-69655edcf4f4",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({encounter, formElement}).when.valueInEncounter(\"544bfd63-a844-4328-81d4-d4fedb0555b8\").containsAnswerConceptName(\"61c424db-c3e0-4f96-9609-bbec3cd769c1\").or.when.valueInEncounter(\"544bfd63-a844-4328-81d4-d4fedb0555b8\").containsAnswerConceptName(\"42706441-96ca-41a0-97ed-20d03e6c1ffc\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Any complaint for either eye",
+                "conceptUuid" : "544bfd63-a844-4328-81d4-d4fedb0555b8",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Left eye" ],
+                "answerConceptUuids" : [ "61c424db-c3e0-4f96-9609-bbec3cd769c1" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            }, {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Any complaint for either eye",
+                "conceptUuid" : "544bfd63-a844-4328-81d4-d4fedb0555b8",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Both Eyes" ],
+                "answerConceptUuids" : [ "42706441-96ca-41a0-97ed-20d03e6c1ffc" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "or"
+          }
+        } ]
+      } ],
+      "mandatory" : false
+    } ],
+    "display" : "Eye symptoms/signs",
+    "timed" : false
+  }, {
+    "uuid" : "005c7bc8-85aa-4e5a-97f9-544485e0f84f",
+    "name" : "Vision test",
+    "displayOrder" : 4.0,
+    "formElements" : [ {
+      "name" : "Distance vision (Right Eye)",
+      "uuid" : "49bcef6d-f7ae-40e2-9622-9da713fc3a16",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Distance vision (Right Eye)",
+        "uuid" : "7404dc0f-0686-4d3c-a5ca-8e32ed56d10f",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "voided" : true,
+      "mandatory" : true
+    }, {
+      "name" : "Distance Vision (Right Eye)",
+      "uuid" : "69fb3be2-63bc-44de-9668-b51b9c1cecab",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Distance Vision (Right Eye)",
+        "uuid" : "c01fac28-bc63-48d7-94f9-76cd5047b5eb",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Distance vision (Left Eye)",
+      "uuid" : "465d63c0-4341-43ab-a654-92c2fce25ac6",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Distance vision (Left Eye)",
+        "uuid" : "673f4f81-7e43-40b0-86f4-5e9cba27c46d",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "voided" : true,
+      "mandatory" : true
+    }, {
+      "name" : "Distance Vision (Left Eye)",
+      "uuid" : "82fa2924-7035-466d-9aef-d8afb05c7cd9",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Distance Vision (Left Eye)",
+        "uuid" : "413428a8-79a5-435a-8856-69406ccea012",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Vision Power (Near)",
+      "uuid" : "3a882c67-6477-4d92-8205-a81c1b06cfd3",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Vision Power (Near)",
+        "uuid" : "68a64944-a102-45d6-89e2-53b4a1162399",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 5.0,
+      "type" : "SingleSelect",
+      "voided" : true,
+      "mandatory" : true
+    }, {
+      "name" : "Vision Power (near)",
+      "uuid" : "ff505cb9-bc72-40dd-a814-25a9e88117b1",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Vision Power (near)",
+        "uuid" : "0e55ba62-ae73-4835-997f-d91f0f30a1b2",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 6.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    } ],
+    "display" : "Vision test",
+    "timed" : false
+  }, {
+    "uuid" : "d4d1c4ce-2878-4d40-8dad-79be0a1d492f",
+    "name" : "Visual acuity screening",
+    "displayOrder" : 5.0,
+    "formElements" : [ {
+      "name" : "Visual acuity condition",
+      "uuid" : "c4df6c01-787c-4ba0-8400-cbc682a55350",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Visual acuity condition",
+        "uuid" : "88fe4041-9440-4189-83ac-1e9bcac14005",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Presbyopia",
+          "uuid" : "3a208e47-7105-4a6d-ae04-56801161f45e",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 8.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Hypermetropia",
+          "uuid" : "0b755704-a01c-41e2-9a56-8bb7edbaac9c",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "None for both eyes",
+          "uuid" : "1c47bcbd-515e-44d7-870b-e4deb18b5ca8",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "unique" : true,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Myopia in both eyes",
+          "uuid" : "fd08108e-fd32-45c7-a3ca-a192a9f8cda5",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "unique" : true,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Right Hypermetropia",
+          "uuid" : "08aed0c7-748a-4a2b-bf0a-0761991097b0",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Right Myopia",
+          "uuid" : "373e4996-d735-4b17-8fda-a52d62e9e009",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Left Hypermetropia",
+          "uuid" : "4bf9c54b-146c-4e41-92dc-7fc4a86e2449",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 6.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Right Presbyopia",
+          "uuid" : "de88f91e-76a3-40b6-8425-c74e73778687",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 8.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Left Presbyopia",
+          "uuid" : "b204ef04-ec60-42ac-acbf-7c28c8a09b6e",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 9.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "None",
+          "uuid" : "8b77f487-c885-4b54-8925-153733913b10",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Left Myopia",
+          "uuid" : "04c6f607-58eb-4c11-a211-f14e9b7d4736",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Hypermetropia in both eyes",
+          "uuid" : "5d3099db-1a7e-477f-b13b-4d82cac8ed11",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 7.0,
+          "unique" : true,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "MultiSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Eye lid problem",
+      "uuid" : "113d09e8-8387-4abc-9bbf-3c829e30535b",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Eye lid problem",
+        "uuid" : "8d84169c-ab87-4ba1-b05b-c85957658c37",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Ptosis",
+          "uuid" : "edebe331-b0d8-4481-816f-70944dae7a11",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "None for both eyes",
+          "uuid" : "1c47bcbd-515e-44d7-870b-e4deb18b5ca8",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "unique" : true,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Right Ectropion",
+          "uuid" : "9a1718e7-de5a-4096-b8c8-dc32574c122e",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Right Ptosis",
+          "uuid" : "3aec1a53-853f-46f4-a1a4-c455a3d2a339",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 8.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Ectropion in both eyes",
+          "uuid" : "9ddf8d4e-2819-4f29-ac4d-b1d7555109ec",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "unique" : true,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Right Chalazion",
+          "uuid" : "9f3379d3-6399-48be-9e4e-5d769961d276",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 11.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Left Chalazion",
+          "uuid" : "92ffa984-52a6-4f36-8654-602bd8c770e3",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 12.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "None",
+          "uuid" : "8b77f487-c885-4b54-8925-153733913b10",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Chalazion",
+          "uuid" : "4530ca9f-4f32-4fb2-a846-da4091b31a65",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Ectropion",
+          "uuid" : "baba95f4-7018-493d-928e-783fb7b1ae31",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Ptosis in both eyes,",
+          "uuid" : "3168cdd2-51f0-44d1-89c7-0d34d595bdc9",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 10.0,
+          "unique" : true,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Left Ptosis",
+          "uuid" : "56855d7a-b9d3-4c50-b14a-5ece4345f289",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 9.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Left Entropion",
+          "uuid" : "7ba993b3-41cc-4817-a2fc-d3268e2b4d40",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 6.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Left Ectropion",
+          "uuid" : "f14949f3-e2b7-444a-8259-b850151dcadd",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Entropion in both eyes",
+          "uuid" : "e07fb462-3009-4d19-980c-c94f1eaaeebc",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 7.0,
+          "unique" : true,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Right Entropion",
+          "uuid" : "e821808c-c8c1-4ac2-b344-681af2b4ac80",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Chalazion in both eyes",
+          "uuid" : "44621870-e60e-4c91-a888-5c510aaf307e",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 13.0,
+          "unique" : true,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "MultiSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Eye ball/Conjunctiva related problems",
+      "uuid" : "145c3393-a2f8-46f5-a66a-294e48c785d7",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Eye ball/Conjunctiva related problems",
+        "uuid" : "9650fc20-d041-486e-a597-f559b65696aa",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Conjunctivatis in both eyes",
+          "uuid" : "1462cb34-93b5-4a35-87d1-a681c4ba87ac",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 7.0,
+          "unique" : true,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Conjuctivatis",
+          "uuid" : "33b093ae-5034-4b4d-8116-d2a167391a1d",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Left Conjuctivatis",
+          "uuid" : "e097e2ca-f3e9-4594-bc94-4250bc59204c",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 6.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Pterygium",
+          "uuid" : "b7ab6f21-4f8d-44da-817b-2a25cd991268",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Cancer like symptoms in either eye",
+          "uuid" : "1e058ba4-25aa-4646-8e32-3783c5781839",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 11.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Left Eye cancer",
+          "uuid" : "af9607cb-e22c-4dd7-be15-add519b33ee4",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 8.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Hemorrhage in both eyes",
+          "uuid" : "f03f8a4d-2214-47ae-ada6-b88bc723c017",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 10.0,
+          "unique" : true,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Pterygium in both eyes",
+          "uuid" : "55ee7b98-2b4b-4cb6-9deb-e60d1e43320d",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "unique" : true,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Right Pterygium",
+          "uuid" : "3acff3f0-142c-47d0-8409-5117a347964b",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "None for both eyes",
+          "uuid" : "1c47bcbd-515e-44d7-870b-e4deb18b5ca8",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "unique" : true,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Right Conjuctivatis",
+          "uuid" : "e31c124f-9406-41ed-be42-2469b303535a",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Hemorrhage",
+          "uuid" : "246885e1-7229-44c6-96c1-6e6ab6106c36",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Right Hemorrhage",
+          "uuid" : "a85afa84-5eb6-4a8c-ad1c-6ab31d51d901",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 8.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Left Hemorrhage",
+          "uuid" : "4318bb1f-92d4-4792-95ce-7634948e4e53",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 9.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Eye cancer",
+          "uuid" : "cedcbfc9-4782-49bb-8a67-4d1ba196447a",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Right Eye cancer",
+          "uuid" : "ea265074-3f99-4191-9d9d-9c7c01979d4f",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 7.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Left Pterygium",
+          "uuid" : "19726b8b-28e6-4d09-9a8e-611427be2628",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 3.0,
+      "type" : "MultiSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Lense",
+      "uuid" : "712f8926-701a-48dc-a023-3a235eeae1df",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Lense",
+        "uuid" : "d5bce354-edc7-4ab2-842d-d998df2fad1e",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Left Cataract",
+          "uuid" : "1576faac-266f-481c-85e9-eb0b94de2d8d",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "None for both eyes",
+          "uuid" : "1c47bcbd-515e-44d7-870b-e4deb18b5ca8",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "unique" : true,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Cataract in both eyes",
+          "uuid" : "20fdc5d0-4715-45c9-86cc-c76db57fb74f",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "unique" : true,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Right Cataract",
+          "uuid" : "b4ab0d15-772b-4e6f-8e2e-17e218055df7",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Other eye problem",
+      "uuid" : "dafc63f6-648c-40cc-a745-150819493328",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Other eye problem",
+        "uuid" : "27da719c-7020-43bf-b26f-4455b9db7e2f",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 5.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Does patient require spectacle?",
+      "uuid" : "f5b71214-b899-4105-9f30-0e2e64fac767",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Does patient require spectacle?",
+        "uuid" : "a539c3ab-5058-4bb5-8a34-482cd55c119e",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "NO",
+          "uuid" : "94022537-e646-4ced-af5f-f41452b4c923",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Yes",
+          "uuid" : "57e20de7-10de-4391-b7ce-87b2f40d19a2",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 6.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "If yes, which?",
+      "uuid" : "28389c7b-05d8-42ac-a50d-26331c934e83",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "spectacle If yes, which?",
+        "uuid" : "8e7c5751-257c-48b1-a161-fbe3181ea2a8",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Prescribed spectacle",
+          "uuid" : "29de20f9-1880-4d64-85e4-b726bfea54ff",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Numbered spectacle",
+          "uuid" : "4b96ebce-eada-4330-a8e2-47c61ef2c7bf",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 7.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({encounter, formElement}).when.valueInEncounter(\"a539c3ab-5058-4bb5-8a34-482cd55c119e\").containsAnswerConceptName(\"57e20de7-10de-4391-b7ce-87b2f40d19a2\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Does patient require spectacle?",
+                "conceptUuid" : "a539c3ab-5058-4bb5-8a34-482cd55c119e",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Yes" ],
+                "answerConceptUuids" : [ "57e20de7-10de-4391-b7ce-87b2f40d19a2" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : false
+    }, {
+      "name" : "Refer the patient to Ophthalmologist at Ganiyari",
+      "uuid" : "bd3cd4fa-23e1-4f83-878b-7ab49469079e",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Refer the patient to Ophthalmologist at Ganiyari",
+        "uuid" : "4dc34fa3-7126-417b-ba47-95c058a6865e",
+        "dataType" : "Coded",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 8.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({encounter, formElement}).when.valueInEncounter(\"8e7c5751-257c-48b1-a161-fbe3181ea2a8\").containsAnswerConceptName(\"29de20f9-1880-4d64-85e4-b726bfea54ff\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "spectacle If yes, which?",
+                "conceptUuid" : "8e7c5751-257c-48b1-a161-fbe3181ea2a8",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Prescribed spectacle" ],
+                "answerConceptUuids" : [ "29de20f9-1880-4d64-85e4-b726bfea54ff" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : false
+    }, {
+      "name" : "If Numbered spectacle, which power given to Right eye",
+      "uuid" : "651409d3-97ef-4bf1-9dc0-6b7881d083cd",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "If Numbered spectacle, which power given to Right eye",
+        "uuid" : "98db99d9-a162-4655-8226-48532f2156c6",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "4",
+          "uuid" : "7aaf3d11-fa64-403e-b7be-ba8f106f0414",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 16.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        }, {
+          "name" : "1.5",
+          "uuid" : "f4c5cdb7-8c76-410f-837e-52a0e7bcf198",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 6.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        }, {
+          "name" : "0.75",
+          "uuid" : "672094e2-6d62-40cf-9ee5-a871a49d383c",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "2.25",
+          "uuid" : "782d9025-e035-4e87-9000-947b7832a2c2",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 9.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "1",
+          "uuid" : "89c74357-1f8f-40bf-b090-e34a991cf49a",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        }, {
+          "name" : "1.75",
+          "uuid" : "073e3626-d2bd-4465-8051-6b84a42aed95",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 7.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "1.25",
+          "uuid" : "18dcedcb-2585-499f-a6ab-92cd54535e8d",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "3.25",
+          "uuid" : "c4a5cc40-4500-4948-b667-9666ca13f2eb",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 13.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "2",
+          "uuid" : "d35bbce2-8ed3-4512-a9e7-74a8e878b87a",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 8.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        }, {
+          "name" : "3.75",
+          "uuid" : "fa20a1d0-36ff-4d1f-86e9-a23f8a8173a2",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 15.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "0.25",
+          "uuid" : "e98d30bf-40a7-4dac-a1f4-777f3237d45f",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "3",
+          "uuid" : "1985c593-f9b7-4367-b4d9-77cb65b2ae13",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 12.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        }, {
+          "name" : "2.75",
+          "uuid" : "35a8a786-b134-41dd-9c24-6bd8af660820",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 11.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "0.50",
+          "uuid" : "9e318870-bc71-4fc2-8bba-13f4c1caaf24",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "3.5",
+          "uuid" : "a26913a4-ab6d-409f-9b6b-231de4ca173d",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 14.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "2.50",
+          "uuid" : "228dca4e-7733-444d-ab71-1c7afc9541fe",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 10.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 9.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({encounter, formElement}).when.valueInEncounter(\"8e7c5751-257c-48b1-a161-fbe3181ea2a8\").containsAnswerConceptName(\"4b96ebce-eada-4330-a8e2-47c61ef2c7bf\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "spectacle If yes, which?",
+                "conceptUuid" : "8e7c5751-257c-48b1-a161-fbe3181ea2a8",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Numbered spectacle" ],
+                "answerConceptUuids" : [ "4b96ebce-eada-4330-a8e2-47c61ef2c7bf" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : false
+    }, {
+      "name" : "If Numbered spectacle, which power given to Left eye",
+      "uuid" : "4b91b7c7-eac2-4c34-bcf2-0b8e8335085e",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "If Numbered spectacle, which power given to Left eye",
+        "uuid" : "cfa463d1-cae1-4459-82a0-c087022f613d",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "4",
+          "uuid" : "7aaf3d11-fa64-403e-b7be-ba8f106f0414",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 14.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        }, {
+          "name" : "3",
+          "uuid" : "1985c593-f9b7-4367-b4d9-77cb65b2ae13",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 11.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        }, {
+          "name" : "0.75",
+          "uuid" : "672094e2-6d62-40cf-9ee5-a871a49d383c",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "1.5",
+          "uuid" : "f4c5cdb7-8c76-410f-837e-52a0e7bcf198",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        }, {
+          "name" : "1.25",
+          "uuid" : "18dcedcb-2585-499f-a6ab-92cd54535e8d",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "1.75",
+          "uuid" : "073e3626-d2bd-4465-8051-6b84a42aed95",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 6.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "2",
+          "uuid" : "d35bbce2-8ed3-4512-a9e7-74a8e878b87a",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 7.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        }, {
+          "name" : "1",
+          "uuid" : "89c74357-1f8f-40bf-b090-e34a991cf49a",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        }, {
+          "name" : "0.25",
+          "uuid" : "e98d30bf-40a7-4dac-a1f4-777f3237d45f",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "2.75",
+          "uuid" : "35a8a786-b134-41dd-9c24-6bd8af660820",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 10.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "2.25",
+          "uuid" : "782d9025-e035-4e87-9000-947b7832a2c2",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 8.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "3.5",
+          "uuid" : "a26913a4-ab6d-409f-9b6b-231de4ca173d",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 12.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "3.75",
+          "uuid" : "fa20a1d0-36ff-4d1f-86e9-a23f8a8173a2",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 13.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "0.50",
+          "uuid" : "9e318870-bc71-4fc2-8bba-13f4c1caaf24",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "2.50",
+          "uuid" : "228dca4e-7733-444d-ab71-1c7afc9541fe",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 9.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 10.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({encounter, formElement}).when.valueInEncounter(\"8e7c5751-257c-48b1-a161-fbe3181ea2a8\").containsAnswerConceptName(\"4b96ebce-eada-4330-a8e2-47c61ef2c7bf\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "spectacle If yes, which?",
+                "conceptUuid" : "8e7c5751-257c-48b1-a161-fbe3181ea2a8",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Numbered spectacle" ],
+                "answerConceptUuids" : [ "4b96ebce-eada-4330-a8e2-47c61ef2c7bf" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : false
+    }, {
+      "name" : "Does person comes under any programme?",
+      "uuid" : "cb5660aa-b8a2-451a-8993-f1bbd640717c",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Does person comes under any programme?",
+        "uuid" : "363b2880-626d-482c-8c1e-329e94701cee",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "JSS staff",
+          "uuid" : "4ee1e87a-28a0-4bf0-b077-b95a4b375fe0",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Phulwari",
+          "uuid" : "178acfbe-b7e1-4ef5-a48a-0f4b1beabb80",
+          "dataType" : "Coded",
+          "answers" : [ {
+            "name" : "Savita, Kamla",
+            "uuid" : "c6a79d42-9ba0-47c8-86a4-842085fd4549",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 62.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Davanpur"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Birashbai",
+            "uuid" : "a137fee5-10bd-4e87-a473-f9e56c7892fe",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 19.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Dangniya"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Santoshi bai",
+            "uuid" : "7e7a4dd8-372c-4bd5-9f67-c7e3603917e1",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 53.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Sarasdol"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Bindu Rashmi",
+            "uuid" : "99346379-c5d5-46ff-bab0-bab9878ebe8b",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 37.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Kholipara"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Kunti bai",
+            "uuid" : "520ded7f-e0ad-488e-8720-75e3e0c5b853",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 22.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Atariya"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Ganeshiya bai",
+            "uuid" : "0a7c0ac8-8d4d-4f4d-abbc-3fa7e93eee35",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 7.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Koripara"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Phulto/Sukriya",
+            "uuid" : "4626f142-d484-48f2-96c3-c0e3718fdc3d",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 32.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Mahuamacha"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Sunita Bhanu",
+            "uuid" : "648118af-a9de-4719-a9d6-a43bad987a61",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 97.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Jhingatpur"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Panika",
+            "uuid" : "5718df2e-2311-42ad-88b6-c2d7be74df22",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 102.0,
+            "active" : true,
+            "media" : [ ]
+          }, {
+            "name" : "Nayak",
+            "uuid" : "a27ce1dc-59de-4b83-a25c-4672013530f5",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 101.0,
+            "active" : true,
+            "media" : [ ]
+          }, {
+            "name" : "Syamkali/Sukhiya",
+            "uuid" : "758c37e9-ce02-487c-8019-1bec26634123",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 31.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Bijarakachar"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Ramshila, Tiharin",
+            "uuid" : "c5f6e909-7d06-48e3-b938-bf3f90e42d26",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 73.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Katami"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "jaya bai, Manmati",
+            "uuid" : "9f7989dd-cbb7-46bd-b301-cca546ad74b6",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 30.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Bisauni"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Andiyaro bai",
+            "uuid" : "d3be37b3-15fb-409b-842c-88cb92163e6c",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 69.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Dangniya"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Seeta Khusro",
+            "uuid" : "06135e66-7852-4e0f-8141-3f19cb645d2d",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 4.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Kewarapara"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Kevara bai",
+            "uuid" : "baf0620b-fe8b-43bd-aac3-b3446b3460dd",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 52.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Sarasdol"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Chandrkali /Sumitra",
+            "uuid" : "28f957dd-ad36-40ed-a991-aeecfbd12381",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 33.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Baheramuda"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Purnima yadav",
+            "uuid" : "df2bdfee-90c6-4645-908a-401edc981608",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 39.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Chotebarar"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Kaushilya bai",
+            "uuid" : "ae109ea1-8d59-4bc2-9a0c-0fb60d788972",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 59.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Shivtarai"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Shyamkali",
+            "uuid" : "40a1068e-0197-4463-89e3-a8f20c321f9e",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 81.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Bahaud"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Gayatri, sunita",
+            "uuid" : "52ec95a3-b70d-4717-8a3c-3d57a31f9bbf",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 46.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Baigapara"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Jalabai, Ganeshiya",
+            "uuid" : "82d9224d-f929-4865-8e42-5380244be2ec",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 55.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Nevasa"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Soniya",
+            "uuid" : "0c40b1d7-66fa-4002-a8f8-5c7ccc530557",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 79.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Jamunahi"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Ramjaniya",
+            "uuid" : "a04e34eb-11e4-4393-8cc8-8d3fe44ff96b",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 83.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Mahamai"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Mahetarin, Dropati",
+            "uuid" : "747c4fc5-25fa-4f21-bf26-d465da224b74",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 56.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Nevasa"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Omvati",
+            "uuid" : "3059af64-e884-4c04-bfbe-cc1318bd5ed0",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 54.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Nevasa"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Jagmati",
+            "uuid" : "ee2fe0ea-149f-4f51-bc77-89da1c53abeb",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 65.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Boiraha"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Kumari bai/Arati",
+            "uuid" : "e4ccdd8b-88a8-436b-8179-11a7927da45e",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 5.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Jogipur"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Bachan bai",
+            "uuid" : "758be33b-99a5-434b-97fe-f455ccd1fac4",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 3.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Karaka"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Sonmati",
+            "uuid" : "90585c83-6efb-47d5-8c94-41bf710d19bc",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 64.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Rajak"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Aradhana",
+            "uuid" : "8fc0761c-93b1-4652-b971-367fe8cbef08",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 11.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Manpur"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Hemvati",
+            "uuid" : "5ba90a74-54a1-4eea-8de7-6e859ed208d1",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 78.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Jamunahi"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Sarota bai",
+            "uuid" : "55c25377-5ac5-47be-8fd1-ae248ff39e43",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 47.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Manjipara"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Tijmati, Uma bai",
+            "uuid" : "b476ca47-0da5-4785-90ba-0f4787f38ceb",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 13.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Davanpur"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Sunita",
+            "uuid" : "a4056b7a-058b-432d-97a2-976b9a745525",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 9.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Saraipali"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Seeta bai",
+            "uuid" : "fb95d801-30b7-4444-b212-29065c0dd3cc",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 80.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Jamunahi"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Garbhibai",
+            "uuid" : "e07739fc-610f-4eed-a65f-b79ca7c35dcd",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 17.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Patparaha"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Kunjmati /Krushna bai",
+            "uuid" : "b8cf2d5a-07dd-47f8-9513-74ef4aa9763b",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 36.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Jharana"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Kota bai",
+            "uuid" : "4a4c98a3-3d3e-4259-9e43-c353d43a4d80",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 6.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Nevasa"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Ramila bai",
+            "uuid" : "db5966fd-5a41-4646-b687-64870e64a941",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 60.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Piparkhunti"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Kantibai, Lalita Bai",
+            "uuid" : "9cb30bf3-b56c-4cb7-8a41-3370aad64571",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 10.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Shivtarai"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Manju",
+            "uuid" : "60104238-f0d4-4309-8760-9715f85e6f3f",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 23.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Surahi"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Kumari",
+            "uuid" : "ced291c8-12b9-494f-8f8b-6ff432ac1512",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 84.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Ghameri"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Priti Madhukar",
+            "uuid" : "dcbe9469-a6d9-4647-878a-e6aed2c95306",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 96.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Semaria"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Nan bai",
+            "uuid" : "28396a86-ecfc-474a-b2bc-3136ca17f555",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 35.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Kupabandha"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Kachra bai, prambai",
+            "uuid" : "2b3fd3dc-62e8-4c7f-8a7d-07acd9d78ae7",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 77.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Surahi"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Samari bai",
+            "uuid" : "cb756024-0e55-435d-bdbf-2fba4fecf960",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 15.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Rajak"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Sumitra",
+            "uuid" : "52eb7517-0d23-4ab9-8f52-1fd9d030a620",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 26.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Mahamai"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Duleshari",
+            "uuid" : "59bc995b-0aef-4a0f-a592-8e5adc5d2f74",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 95.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Semaria"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Dulari bai, Shivbati",
+            "uuid" : "491e0f4a-e6dc-4257-ab0a-1ef73667451a",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 21.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Bamhani"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Shanti, Ramshila",
+            "uuid" : "04e5e65a-d914-41b1-8867-68f9477ce22d",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 44.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Semaria"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Lalita, Kaushilya",
+            "uuid" : "4c1f75ea-92ee-49f8-94b6-14494ec8fe2f",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 27.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Ghameri"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Chanmani, Bilasho",
+            "uuid" : "650789b9-85e6-4c0e-b327-9c41fd09fd0c",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 43.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Phulwaripara"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Anitabai, Bisahin",
+            "uuid" : "80c29a78-964b-41bd-b320-5b22e5493b8d",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 14.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Niwaskhar"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Maheshiya bai",
+            "uuid" : "78c29033-49b5-4f53-9b24-47503fddbd39",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 12.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Piparkhunti"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Rajmati",
+            "uuid" : "caf90926-5dc4-4a21-8dfc-23e5b2f3c619",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 68.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Dangniya"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Anusuiya",
+            "uuid" : "b9d682d6-4c2f-403f-8960-b3b77835123b",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 40.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Ratkhandi"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Rampyari Tirki",
+            "uuid" : "5163f094-096a-42eb-9137-3f78dbc95e83",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 88.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Vicharpur"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Phumani, Pyaro bai",
+            "uuid" : "999173b4-388a-4c5d-80ad-ee99c2008526",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 24.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Jamunahi"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Sumitrabai",
+            "uuid" : "a474211f-66c5-47f0-b2d3-19cf4dcdf164",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 0.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Bindaval"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Chamabai",
+            "uuid" : "19ceb7da-6b25-4ae2-b3bd-acd0b62d7570",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 51.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Achanakmar"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Rajkumari",
+            "uuid" : "84ed9c30-5122-4efe-88f3-210fbb2b27fe",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 34.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Sarasdol,Vicharpur,Ratkhandi,Karhikachar"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Deena, Rajeshwari",
+            "uuid" : "3c692bda-73b0-46b3-a7a6-a0e9d3de7948",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 38.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Badebarar"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Budhavarin bai",
+            "uuid" : "56039780-76be-4125-b28b-662324b911d6",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 25.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Bahaud"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Rambai, Ramphul",
+            "uuid" : "7afc5c56-d076-4f10-a366-9fc727a001cf",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 98.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Jhingatpur"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Heera",
+            "uuid" : "16377e15-83dd-4b2d-ae35-1261530b5437",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 94.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Karhikachar"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Sangita bai",
+            "uuid" : "52f27cb0-f3d1-4ea8-bd49-19716556861a",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 85.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Sarsoha"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "kalindribai",
+            "uuid" : "2f5ffd4a-86c8-498e-ae40-a92f327d77dc",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 1.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Achanakmar"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Bhagwantin",
+            "uuid" : "bb20e9e9-090b-4f35-84c5-5d094a5a9275",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 66.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Boiraha"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Birsiya",
+            "uuid" : "42cfd7cd-8ebc-49d5-8c7b-5ed9b1a8397c",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 91.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Ratkhandi"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Duvasiya bai",
+            "uuid" : "53dc59d7-3e29-4d4b-8813-c97d6eb0cb37",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 63.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Niwaskhar"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Kuvariya bai",
+            "uuid" : "6056e180-a08b-41dc-8c89-578b788e82a8",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 72.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Dangniya"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Sunita/Darogin",
+            "uuid" : "cd6c5015-0b1d-4eb5-b167-51600af82134",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 87.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Mahuamacha"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Baisakhiya bai",
+            "uuid" : "ff685bc0-1787-4c4f-b36b-5f193cf5b67a",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 67.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Babutola"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Bajarahin",
+            "uuid" : "8fd6dcbd-9126-491c-ae9b-d2509976dffd",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 16.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Boiraha"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Baiga",
+            "uuid" : "2b90b234-8a63-4d4c-92d0-6389d8b1fb78",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 99.0,
+            "active" : true,
+            "media" : [ ]
+          }, {
+            "name" : "Devbati",
+            "uuid" : "6e9eef35-2959-45ec-be83-f250b73f8e66",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 76.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Surahi"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Parmeswari, Shivkumari",
+            "uuid" : "8d1ee1cb-b4bb-42e1-a659-c3f1a2e246ef",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 92.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Karhikachar"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Mamta Bai",
+            "uuid" : "1581f587-4dbe-4333-b539-f8ed3ba5f20e",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 58.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Shivtarai"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Susma bai",
+            "uuid" : "4501f66f-53a8-4b34-882f-7e9a6bcfe65f",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 82.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Mahamai"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Kumari bai, Budheshwari",
+            "uuid" : "df4ad53b-3adf-4ce4-ba0a-9c248bf7b59e",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 18.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Babutola"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Nagula",
+            "uuid" : "28d996e8-bb62-4eac-9b35-050714da771d",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 104.0,
+            "active" : true,
+            "media" : [ ]
+          }, {
+            "name" : "Panikantola",
+            "uuid" : "ea908311-bcf2-46c2-b651-0a09f70f7173",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 105.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Panikantola"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Manibai",
+            "uuid" : "c29fe880-4541-46a3-9ff9-90bc4e1c6266",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 45.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Jhingatpur"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "sanmat bai",
+            "uuid" : "91ea5c1b-5207-4694-9e1a-5a7d797d883a",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 74.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Atariya"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Pramila",
+            "uuid" : "58fa92f0-8bef-41da-a852-051500bdf692",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 48.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Bindaval"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Rajmati, Purnima",
+            "uuid" : "8f12b4ef-f6f4-45a2-b067-abc9ae6e516b",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 57.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Koripara"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Matibai",
+            "uuid" : "bb02d6a5-4ec9-4bb6-8b29-973a0dd01e72",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 29.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Sarsoha"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Triveni",
+            "uuid" : "20e8073f-bcbc-4580-bf3b-a3d0e2f74afa",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 89.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Chotebarar"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Kiran Netam",
+            "uuid" : "52f3c771-b9b7-4f31-9e57-7c23ff8998a3",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 50.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Achanakmar"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Dukhiya bai",
+            "uuid" : "e0eaf621-a4ff-4c06-b9d2-d2bd5699c46a",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 75.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Surahi"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Ramshibai",
+            "uuid" : "eb63ca84-f339-4bd0-b292-ad2bb6a1bbd9",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 71.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Dangniya"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Manmati",
+            "uuid" : "0faf6e56-d66f-4e7a-998b-198dddbef8ce",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 90.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Ratkhandi"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Bishahin bai",
+            "uuid" : "424f01a2-d6dd-45f3-9e95-ef16c1edc195",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 42.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Majhgoan"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Dharmin bai",
+            "uuid" : "8b79a215-ede8-4785-a6c3-eacea5c99145",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 20.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Katami"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Dhanbai, Pardesh, Narmada",
+            "uuid" : "ccfba728-b3fe-4dec-b56b-5b0a9b774d27",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 8.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Karpiha"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Rajani bai",
+            "uuid" : "7346a530-1dff-407e-9b9f-d80d69ef6a4a",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 49.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Bindaval"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Gond",
+            "uuid" : "7335b4a6-fd22-4061-ba4f-54c5f3d1bfbe",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 100.0,
+            "active" : true,
+            "media" : [ ]
+          }, {
+            "name" : "Rampyari",
+            "uuid" : "f9806718-731b-4058-9692-7c25938a4d66",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 2.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Sarasdol"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Phuleshwari",
+            "uuid" : "47dbffde-2160-46a8-b2da-234077074c10",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 28.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Manjuraha"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Yogeshwari bai",
+            "uuid" : "f60136a9-cea8-43c2-99f3-bc6eef595f71",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 61.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Davanpur"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Anitabai",
+            "uuid" : "a33d9a60-a571-448f-b9c0-6639a7f07e75",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 86.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Sarsoha"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Shanta, Ganeshiya",
+            "uuid" : "9a2b8b97-e8a1-4da3-a6cb-e1b017b4f50f",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 41.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Karhikachar"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Bigari bai",
+            "uuid" : "655c8720-39da-4398-bf77-874600523655",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 70.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Dangniya"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Chandrika",
+            "uuid" : "c35b6fc7-4e27-402c-8e94-b2510c70e591",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 93.0,
+            "active" : true,
+            "keyValues" : [ {
+              "key" : "village",
+              "value" : "Karhikachar"
+            } ],
+            "media" : [ ]
+          }, {
+            "name" : "Yadav",
+            "uuid" : "65b5abfa-9229-48bf-8ed7-40e715840302",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 103.0,
+            "active" : true,
+            "media" : [ ]
+          } ],
+          "order" : 5.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Other",
+          "uuid" : "798b7942-cf58-4d4e-a529-5972942e0a7e",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 6.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Geriatric care",
+          "uuid" : "a21e3662-7099-45af-8c7d-af3dee9ce4db",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "TBAs",
+          "uuid" : "f0545048-c542-4abc-90a6-68dea126f4d0",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "None",
+          "uuid" : "8b77f487-c885-4b54-8925-153733913b10",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "School going children",
+          "uuid" : "02914dc8-9066-43ae-86e7-d2b20c40920f",
+          "dataType" : "Coded",
+          "answers" : [ {
+            "name" : "NA",
+            "uuid" : "7efbfba4-66d1-4510-9024-aaaedf439392",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 2.0,
+            "active" : true,
+            "media" : [ ]
+          }, {
+            "name" : "No",
+            "uuid" : "f88da2e8-6ab4-44b5-b762-233485cd25f9",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 1.0,
+            "active" : true,
+            "media" : [ ]
+          }, {
+            "name" : "Yes",
+            "uuid" : "57e20de7-10de-4391-b7ce-87b2f40d19a2",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 0.0,
+            "active" : true,
+            "media" : [ ]
+          } ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 11.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "If other, specify",
+      "uuid" : "bbffce6b-815b-4090-aa97-9eb34294c240",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "If other, specify",
+        "uuid" : "2a0e4f36-3886-4b08-8328-e015090f1308",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 12.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({encounter, formElement}).when.valueInEncounter(\"363b2880-626d-482c-8c1e-329e94701cee\").containsAnswerConceptName(\"798b7942-cf58-4d4e-a529-5972942e0a7e\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Does person comes under any programme?",
+                "conceptUuid" : "363b2880-626d-482c-8c1e-329e94701cee",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Other" ],
+                "answerConceptUuids" : [ "798b7942-cf58-4d4e-a529-5972942e0a7e" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : false
+    } ],
+    "display" : "Visual acuity screening",
+    "timed" : false
+  } ],
+  "decisionRule" : "",
+  "visitScheduleRule" : "",
+  "validationRule" : "",
+  "checklistsRule" : "",
+  "decisionConcepts" : [ ]
+}

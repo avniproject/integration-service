@@ -1,0 +1,7 @@
+{
+  "name" : "Treatment Form Encounter Cancellation",
+  "uuid" : "68a65706-18f4-45d3-87e8-bc5cd00f27d7",
+  "formType" : "IndividualEncounterCancellation",
+  "formElementGroups" : [ ],
+  "decisionConcepts" : [ ]
+}

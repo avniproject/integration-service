@@ -1,0 +1,7 @@
+{
+  "name" : "Cluster Coordinator Followup Encounter Cancellation",
+  "uuid" : "ab6d615f-8424-41c6-b177-3b5f93c46262",
+  "formType" : "IndividualEncounterCancellation",
+  "formElementGroups" : [ ],
+  "decisionConcepts" : [ ]
+}

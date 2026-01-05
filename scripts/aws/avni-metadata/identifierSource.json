@@ -1,0 +1,40 @@
+[ {
+  "uuid" : "156c75a5-6264-442e-bebe-c35e6741555e",
+  "id" : 8,
+  "batchGenerationSize" : 50,
+  "minimumBalance" : 20,
+  "name" : "ANC Enrolment ID ",
+  "options" : {
+    "prefix" : "ANC"
+  },
+  "type" : "userPoolBasedIdentifierGenerator",
+  "minLength" : 4,
+  "maxLength" : 5,
+  "voided" : false
+}, {
+  "uuid" : "f1bff4c2-415f-4235-bbfd-7de62cbd7108",
+  "id" : 33,
+  "batchGenerationSize" : 100,
+  "minimumBalance" : 10,
+  "name" : "Phulwari enrolment id source",
+  "options" : {
+    "prefix" : "PH"
+  },
+  "type" : "userPoolBasedIdentifierGenerator",
+  "minLength" : 5,
+  "maxLength" : 6,
+  "voided" : false
+}, {
+  "uuid" : "b406f1ce-a20d-4c2e-9947-aee7a1345e3b",
+  "id" : 43,
+  "batchGenerationSize" : 7000,
+  "minimumBalance" : 20,
+  "name" : "Pregnancy ANC Enrolment ID",
+  "options" : {
+    "prefix" : "ANC"
+  },
+  "type" : "userPoolBasedIdentifierGenerator",
+  "minLength" : 1,
+  "maxLength" : 5,
+  "voided" : true
+} ]

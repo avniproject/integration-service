@@ -1,0 +1,115 @@
+{
+  "name" : "Women's Health Camp Exit",
+  "uuid" : "7ee620ab-1bca-4938-96d0-d93d34d69fad",
+  "formType" : "ProgramExit",
+  "formElementGroups" : [ {
+    "uuid" : "ef11d6b4-9bb9-40be-b3ba-86ff616bebc0",
+    "name" : "Exit Details",
+    "displayOrder" : 1.0,
+    "formElements" : [ {
+      "name" : "Reason of Exit",
+      "uuid" : "7706e237-0955-41d1-bb98-2b90f4cdd4dc",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Reason of Exit",
+        "uuid" : "e3403843-36bf-44b8-aaaa-c8f7973b3faf",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Permanent Migration",
+          "uuid" : "63476f27-347e-4918-9046-005373f1ea5b",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Completion of Program",
+          "uuid" : "85fd74a9-d7ad-4a9e-b836-227cff8da07c",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Death",
+          "uuid" : "c125eec0-2bc4-4add-b1d0-7531e5ffa9c8",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Others",
+          "uuid" : "f3ef9337-b2d9-4e33-9a69-e7692b66f045",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Default",
+          "uuid" : "01de3d31-cdc7-48da-8d6d-6409e74a452a",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Specify Other",
+      "uuid" : "9f28b432-79e3-4f4c-a979-6ac796d67403",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Specify Other",
+        "uuid" : "97d5be0d-8aa1-4d9f-9365-36df78c3a179",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEnrolment = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEnrolment, formElement}).when.valueInExit(\"e3403843-36bf-44b8-aaaa-c8f7973b3faf\").containsAnswerConceptName(\"f3ef9337-b2d9-4e33-9a69-e7692b66f045\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "exit",
+                "conceptName" : "Reason of Exit",
+                "conceptUuid" : "e3403843-36bf-44b8-aaaa-c8f7973b3faf",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Others" ],
+                "answerConceptUuids" : [ "f3ef9337-b2d9-4e33-9a69-e7692b66f045" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    } ],
+    "display" : "Exit Details",
+    "timed" : false
+  } ],
+  "decisionRule" : "",
+  "visitScheduleRule" : "",
+  "validationRule" : "",
+  "checklistsRule" : "",
+  "decisionConcepts" : [ ]
+}

@@ -1,0 +1,2241 @@
+{
+  "name" : "TB Study Health Seeking Encounter",
+  "uuid" : "d0fad45c-2b6c-4534-a022-1e83580eee82",
+  "formType" : "ProgramEncounter",
+  "formElementGroups" : [ {
+    "uuid" : "184fb415-fa40-4f62-9d55-786a60a4d56e",
+    "name" : "Study ID",
+    "displayOrder" : 1.0,
+    "formElements" : [ {
+      "name" : "TB Study ID (TBS001 to TBS999)",
+      "uuid" : "4a1f6053-9cce-413f-b504-2dcc457eea4b",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "TB Study ID (TBS001 to TBS999)",
+        "uuid" : "a52a64d8-2f50-433f-853f-2d1299a73a33",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    } ],
+    "display" : "Study ID",
+    "timed" : false
+  }, {
+    "uuid" : "85d7be9a-1277-42b7-af28-842242d9e7ca",
+    "name" : "Health Seeking Behaviour After Symptoms Onset",
+    "displayOrder" : 2.0,
+    "formElements" : [ {
+      "name" : "For how many days after symptom onset patient waited to get normal without any treatment ?",
+      "uuid" : "4738ea28-aa7e-4986-bad6-f43d1f73b983",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "For how many days after symptom onset patient waited to get normal without any treatment ?",
+        "uuid" : "df6bbebd-f2fc-4347-a879-62f3b0bc0e5f",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Types of Treatment Availed after symptom Onset",
+      "uuid" : "6e337b6b-3c25-4abb-b337-503a7250bc5e",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Types of Treatment Availed after symptom Onset",
+        "uuid" : "31266165-4dcd-41fe-ae3f-15d63f50c5af",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Private Doctor",
+          "uuid" : "7122f8c1-59ba-49ba-b2ec-cf2923eaf21a",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Health & Wellness Centre",
+          "uuid" : "6eb722ec-b047-410f-acb6-7bcc55548a3f",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Medical  College",
+          "uuid" : "fd2f5bda-0a77-4433-afb9-6c7ffe6f58b2",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 8.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Direct Medicines from Pharmacy",
+          "uuid" : "9d13f753-eedc-45cb-9d6d-788512d462e1",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Traditional Healer",
+          "uuid" : "2d8fd347-5564-4781-9f02-08030a41997f",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "District Hospital",
+          "uuid" : "602e1362-0c44-49d8-ac94-42a741c6273b",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 7.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Informal Practitioner",
+          "uuid" : "b114e2ad-5ea3-4b1d-a0ce-7bc572605455",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Primary Health Center",
+          "uuid" : "a9b35608-e850-4414-b3e9-c3f9b306c17e",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Community Health Center",
+          "uuid" : "0067bf8d-2e59-4db0-9b24-17bcddf7afa7",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 6.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        }, {
+          "name" : "Other Treatments (Specify)",
+          "uuid" : "33bbc612-4c06-4ea1-b2b8-1f27cf68a867",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 9.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "MultiSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Other Treatments (Specify)",
+      "uuid" : "019a9e47-8173-4387-be3e-c41b59c1e5a4",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Other Treatments (Specify) New",
+        "uuid" : "289cc2c7-c32b-40e1-92ff-9cd96a43db7f",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"31266165-4dcd-41fe-ae3f-15d63f50c5af\").containsAnswerConceptName(\"33bbc612-4c06-4ea1-b2b8-1f27cf68a867\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Types of Treatment Availed after symptom Onset",
+                "conceptUuid" : "31266165-4dcd-41fe-ae3f-15d63f50c5af",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Other Treatments (Specify)" ],
+                "answerConceptUuids" : [ "33bbc612-4c06-4ea1-b2b8-1f27cf68a867" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : false
+    } ],
+    "display" : "Health Seeking Behaviour After Symptoms Onset",
+    "timed" : false
+  }, {
+    "uuid" : "ffc0ceae-e636-478c-86cb-998ff8cb32cf",
+    "name" : "Traditional Healer",
+    "displayOrder" : 3.0,
+    "formElements" : [ {
+      "name" : "Health Seeking Behaviour Rank",
+      "uuid" : "157e7ada-c85b-4d0a-91de-ecaec83f4102",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Health Seeking Behaviour Rank",
+        "uuid" : "8b642906-059a-4814-b820-56f321b34b84",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "1st",
+          "uuid" : "3a454085-8335-41a2-91f9-9e121f2a58ce",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "7th",
+          "uuid" : "e910c083-2a9e-45af-97c3-01dac0611923",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 6.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "2nd",
+          "uuid" : "a39a9a06-0537-425b-aca1-0e44ed39d85c",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "9th",
+          "uuid" : "df6282d1-7751-4f11-80fe-dba4ffef1f62",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 8.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "3rd",
+          "uuid" : "a06ce4db-5e13-45e3-80ac-c10801f25a46",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "5th",
+          "uuid" : "c92d1880-1afa-49d8-98e1-b4de5feed6d8",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "10th",
+          "uuid" : "21e643a8-9a62-4be4-b0e3-d0c7d5fdce50",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 9.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "6th",
+          "uuid" : "47118f1c-b24d-4dc9-81c5-841ba900e0d6",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "8th",
+          "uuid" : "a16c89d5-d4b2-45f1-9097-7f03def53ef4",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 7.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "4th",
+          "uuid" : "3a96d00e-afa2-4664-97b3-3865a850b71d",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"31266165-4dcd-41fe-ae3f-15d63f50c5af\").containsAnswerConceptName(\"2d8fd347-5564-4781-9f02-08030a41997f\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Types of Treatment Availed after symptom Onset",
+                "conceptUuid" : "31266165-4dcd-41fe-ae3f-15d63f50c5af",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Traditional Healer" ],
+                "answerConceptUuids" : [ "2d8fd347-5564-4781-9f02-08030a41997f" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : false
+    }, {
+      "name" : "Number of Visits",
+      "uuid" : "20be4e5b-cbe9-4554-886e-6d9fab2602d4",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Number of Visits",
+        "uuid" : "00aeb4ec-9db8-4d3d-ba55-16b0c3d1e84f",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"31266165-4dcd-41fe-ae3f-15d63f50c5af\").containsAnswerConceptName(\"2d8fd347-5564-4781-9f02-08030a41997f\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Types of Treatment Availed after symptom Onset",
+                "conceptUuid" : "31266165-4dcd-41fe-ae3f-15d63f50c5af",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Traditional Healer" ],
+                "answerConceptUuids" : [ "2d8fd347-5564-4781-9f02-08030a41997f" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : false
+    }, {
+      "name" : "Days spent for treatment (Days)",
+      "uuid" : "b874a383-7f4b-40a2-a9b6-8c2cba0f77be",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Days spent for treatment (Days)",
+        "uuid" : "a4b14d5f-887d-45bc-a9d1-f076758a8edf",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"31266165-4dcd-41fe-ae3f-15d63f50c5af\").containsAnswerConceptName(\"2d8fd347-5564-4781-9f02-08030a41997f\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Types of Treatment Availed after symptom Onset",
+                "conceptUuid" : "31266165-4dcd-41fe-ae3f-15d63f50c5af",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Traditional Healer" ],
+                "answerConceptUuids" : [ "2d8fd347-5564-4781-9f02-08030a41997f" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : false
+    }, {
+      "name" : "Direct Expenses Incurred (Ruppees)",
+      "uuid" : "b0778817-a3bf-4a4f-aab3-c1e111221aeb",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Direct Expenses Incurred (Ruppees)",
+        "uuid" : "41cfccb8-fd4a-4d8c-b5d7-adec1ecb41ca",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"31266165-4dcd-41fe-ae3f-15d63f50c5af\").containsAnswerConceptName(\"2d8fd347-5564-4781-9f02-08030a41997f\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Types of Treatment Availed after symptom Onset",
+                "conceptUuid" : "31266165-4dcd-41fe-ae3f-15d63f50c5af",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Traditional Healer" ],
+                "answerConceptUuids" : [ "2d8fd347-5564-4781-9f02-08030a41997f" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : false
+    }, {
+      "name" : "Indirect Expenses Incurred (Ruppees)",
+      "uuid" : "c1f0fcf2-b509-4713-84bd-4ed44f43ebc2",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Indirect Expenses Incurred (Ruppees)",
+        "uuid" : "ea94c32d-022f-4b29-96dc-2a523448ca95",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 5.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"31266165-4dcd-41fe-ae3f-15d63f50c5af\").containsAnswerConceptName(\"2d8fd347-5564-4781-9f02-08030a41997f\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Types of Treatment Availed after symptom Onset",
+                "conceptUuid" : "31266165-4dcd-41fe-ae3f-15d63f50c5af",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Traditional Healer" ],
+                "answerConceptUuids" : [ "2d8fd347-5564-4781-9f02-08030a41997f" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : false
+    } ],
+    "display" : "Traditional Healer",
+    "timed" : false
+  }, {
+    "uuid" : "81619939-5888-4c67-9d9e-08a5fe5dca03",
+    "name" : "Informal Practitioner(Unqualified)",
+    "displayOrder" : 4.0,
+    "formElements" : [ {
+      "name" : "Health Seeking Behaviour Rank",
+      "uuid" : "481665e7-179f-4c99-9463-45e05a40edb3",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Informal Practitioner Health Seeking Behaviour Rank",
+        "uuid" : "d2dc0293-5a5c-4782-9509-1fb7c86a9eaf",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "10th",
+          "uuid" : "21e643a8-9a62-4be4-b0e3-d0c7d5fdce50",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 9.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "1st",
+          "uuid" : "3a454085-8335-41a2-91f9-9e121f2a58ce",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "3rd",
+          "uuid" : "a06ce4db-5e13-45e3-80ac-c10801f25a46",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "4th",
+          "uuid" : "3a96d00e-afa2-4664-97b3-3865a850b71d",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "7th",
+          "uuid" : "e910c083-2a9e-45af-97c3-01dac0611923",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 6.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "6th",
+          "uuid" : "47118f1c-b24d-4dc9-81c5-841ba900e0d6",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "2nd",
+          "uuid" : "a39a9a06-0537-425b-aca1-0e44ed39d85c",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "5th",
+          "uuid" : "c92d1880-1afa-49d8-98e1-b4de5feed6d8",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "9th",
+          "uuid" : "df6282d1-7751-4f11-80fe-dba4ffef1f62",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 8.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "8th",
+          "uuid" : "a16c89d5-d4b2-45f1-9097-7f03def53ef4",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 7.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Number of Visits",
+      "uuid" : "d5f95fba-7aba-40fc-a908-df7a0426bfdf",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Informal Practitioner Number of Visits",
+        "uuid" : "b3d00388-c8fc-4be7-8bd0-7626705a485a",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Days spent for treatment (Days)",
+      "uuid" : "15d7f1dd-4d93-4e79-8e99-1b2b5ddd5b53",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Informal Practitioner Days spent for treatment (Days)",
+        "uuid" : "57afccc6-008e-46c9-8859-f7341ba1b38c",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Direct Expenses Incurred (Ruppees)",
+      "uuid" : "14183cfb-f211-4fc5-a422-a113316e13b0",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Informal Practitioner Direct Expenses Incurred (Ruppees)",
+        "uuid" : "14b62e09-1f77-4377-98d6-f929ec6bff1a",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Indirect Expenses Incurred (Ruppees)",
+      "uuid" : "8af322c7-eea8-4d80-adb3-938a63b55ec3",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Informal Practitioner Indirect Expenses Incurred (Ruppees)",
+        "uuid" : "8fa85698-010c-491e-8431-51b57248cfb6",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 5.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    } ],
+    "rule" : "'use strict';\n({params, imports}) => {\n    const programEncounter = params.entity;\n    const moment = imports.moment;\n    const formElementGroup = params.formElementGroup;\n    const _ = imports.lodash;\n    let visibility = true;\n    return formElementGroup.formElements.map((formElement) => {\n        \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"31266165-4dcd-41fe-ae3f-15d63f50c5af\").containsAnswerConceptName(\"b114e2ad-5ea3-4b1d-a0ce-7bc572605455\").matches();\n  \n        visibility = condition11 ;\n  \n        return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, null);\n    });\n};",
+    "declarativeRule" : [ {
+      "actions" : [ {
+        "actionType" : "showFormElementGroup"
+      }, { } ],
+      "conditions" : [ {
+        "compoundRule" : {
+          "rules" : [ {
+            "lhs" : {
+              "type" : "concept",
+              "scope" : "encounter",
+              "conceptName" : "Types of Treatment Availed after symptom Onset",
+              "conceptUuid" : "31266165-4dcd-41fe-ae3f-15d63f50c5af",
+              "conceptDataType" : "Coded"
+            },
+            "rhs" : {
+              "type" : "answerConcept",
+              "answerConceptNames" : [ "Informal Practitioner" ],
+              "answerConceptUuids" : [ "b114e2ad-5ea3-4b1d-a0ce-7bc572605455" ]
+            },
+            "operator" : "containsAnswerConceptName"
+          } ],
+          "conjunction" : "and"
+        }
+      } ]
+    } ],
+    "display" : "Informal Practitioner(Unqualified)",
+    "timed" : false
+  }, {
+    "uuid" : "dd1dd24b-743c-4ef8-a6fd-c56f2d42f7dd",
+    "name" : "Direct Medicines from Pharmacy",
+    "displayOrder" : 5.0,
+    "formElements" : [ {
+      "name" : "Health Seeking Behaviour Rank",
+      "uuid" : "961ebf61-9c3e-4724-861f-89fc49f66aa1",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Direct Medicines Health Seeking Behaviour Rank",
+        "uuid" : "d1b99ba5-dabf-4abb-9bf9-88e249246e60",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "8th",
+          "uuid" : "a16c89d5-d4b2-45f1-9097-7f03def53ef4",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 7.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "1st",
+          "uuid" : "3a454085-8335-41a2-91f9-9e121f2a58ce",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "7th",
+          "uuid" : "e910c083-2a9e-45af-97c3-01dac0611923",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 6.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "10th",
+          "uuid" : "21e643a8-9a62-4be4-b0e3-d0c7d5fdce50",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 9.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "6th",
+          "uuid" : "47118f1c-b24d-4dc9-81c5-841ba900e0d6",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "3rd",
+          "uuid" : "a06ce4db-5e13-45e3-80ac-c10801f25a46",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "2nd",
+          "uuid" : "a39a9a06-0537-425b-aca1-0e44ed39d85c",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "9th",
+          "uuid" : "df6282d1-7751-4f11-80fe-dba4ffef1f62",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 8.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "4th",
+          "uuid" : "3a96d00e-afa2-4664-97b3-3865a850b71d",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "5th",
+          "uuid" : "c92d1880-1afa-49d8-98e1-b4de5feed6d8",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Number of Visits",
+      "uuid" : "605e713a-454e-4ff2-8ba7-0ee99eebca91",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Direct Medicines Number of Visits",
+        "uuid" : "b241e3d5-5626-4fa9-a02a-51070fc6c20f",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Days spent for treatment (Days)",
+      "uuid" : "813bab12-da9a-4094-927a-61a979cb4eb5",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Direct Medicines Days spent for treatment (Days)",
+        "uuid" : "780a88a4-7a9d-4b80-9f3b-11cdca86321c",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Direct Expenses Incurred (Ruppees)",
+      "uuid" : "ded061f3-0311-4bbc-8eed-17dd78f19206",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Direct Medicines  Direct Expenses Incurred (Ruppees)",
+        "uuid" : "4bdfa695-9b80-4c6c-8638-dfbd9ded61c9",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Indirect Expenses Incurred (Ruppees)",
+      "uuid" : "24278303-f42e-434f-b895-7a1f438072a1",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Direct Medicines Indirect Expenses Incurred (Ruppees)",
+        "uuid" : "e2e1e503-fd57-43b7-b17e-74a2a9d14466",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 5.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    } ],
+    "rule" : "'use strict';\n({params, imports}) => {\n    const programEncounter = params.entity;\n    const moment = imports.moment;\n    const formElementGroup = params.formElementGroup;\n    const _ = imports.lodash;\n    let visibility = true;\n    return formElementGroup.formElements.map((formElement) => {\n        \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"31266165-4dcd-41fe-ae3f-15d63f50c5af\").containsAnswerConceptName(\"9d13f753-eedc-45cb-9d6d-788512d462e1\").matches();\n  \n        visibility = condition11 ;\n  \n        return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, null);\n    });\n};",
+    "declarativeRule" : [ {
+      "actions" : [ {
+        "actionType" : "showFormElementGroup"
+      }, { } ],
+      "conditions" : [ {
+        "compoundRule" : {
+          "rules" : [ {
+            "lhs" : {
+              "type" : "concept",
+              "scope" : "encounter",
+              "conceptName" : "Types of Treatment Availed after symptom Onset",
+              "conceptUuid" : "31266165-4dcd-41fe-ae3f-15d63f50c5af",
+              "conceptDataType" : "Coded"
+            },
+            "rhs" : {
+              "type" : "answerConcept",
+              "answerConceptNames" : [ "Direct Medicines from Pharmacy" ],
+              "answerConceptUuids" : [ "9d13f753-eedc-45cb-9d6d-788512d462e1" ]
+            },
+            "operator" : "containsAnswerConceptName"
+          } ],
+          "conjunction" : "and"
+        }
+      } ]
+    } ],
+    "display" : "Direct Medicines from Pharmacy",
+    "timed" : false
+  }, {
+    "uuid" : "248f273a-b7a8-4a2c-a4f4-4f1159d6868f",
+    "name" : "Private Doctor",
+    "displayOrder" : 6.0,
+    "formElements" : [ {
+      "name" : "Health Seeking Behaviour Rank",
+      "uuid" : "e30a6051-23cb-4594-a6b7-76137550a969",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Private Doctor Health Seeking Behaviour Rank",
+        "uuid" : "60da558a-c0f2-47ec-8f61-6404554c38c1",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "1st",
+          "uuid" : "3a454085-8335-41a2-91f9-9e121f2a58ce",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "4th",
+          "uuid" : "3a96d00e-afa2-4664-97b3-3865a850b71d",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "2nd",
+          "uuid" : "a39a9a06-0537-425b-aca1-0e44ed39d85c",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "7th",
+          "uuid" : "e910c083-2a9e-45af-97c3-01dac0611923",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 6.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "5th",
+          "uuid" : "c92d1880-1afa-49d8-98e1-b4de5feed6d8",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "8th",
+          "uuid" : "a16c89d5-d4b2-45f1-9097-7f03def53ef4",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 7.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "3rd",
+          "uuid" : "a06ce4db-5e13-45e3-80ac-c10801f25a46",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "6th",
+          "uuid" : "47118f1c-b24d-4dc9-81c5-841ba900e0d6",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "10th",
+          "uuid" : "21e643a8-9a62-4be4-b0e3-d0c7d5fdce50",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 9.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "9th",
+          "uuid" : "df6282d1-7751-4f11-80fe-dba4ffef1f62",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 8.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Number of Visits",
+      "uuid" : "15133dd7-9e09-4b21-8af5-3fba9694ffc9",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Private Doctor Number of Visits",
+        "uuid" : "756ff4bc-d7a5-4697-8065-396ea679b793",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Days spent for treatment (Days)",
+      "uuid" : "f521ff5f-148f-447a-b121-7ccc3c9c2f28",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Private Doctor Days spent for treatment (Days)",
+        "uuid" : "597bdd05-bd52-495e-8d03-c8f7e1781ee4",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Direct Expenses Incurred (Ruppees)",
+      "uuid" : "84d70258-884e-4332-965e-b4de0e84e613",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Private Doctor Direct Expenses Incurred (Ruppees)",
+        "uuid" : "b34c2189-e44b-4332-8f5b-62764fcfe9d8",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Indirect Expenses Incurred (Ruppees)",
+      "uuid" : "dffed4d0-8133-41d0-97d0-5afe59f464f8",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Private Doctor Indirect Expenses Incurred (Ruppees)",
+        "uuid" : "e453b33a-cbd5-4119-b43b-1641c06394d7",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 5.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    } ],
+    "rule" : "'use strict';\n({params, imports}) => {\n    const programEncounter = params.entity;\n    const moment = imports.moment;\n    const formElementGroup = params.formElementGroup;\n    const _ = imports.lodash;\n    let visibility = true;\n    return formElementGroup.formElements.map((formElement) => {\n        \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"31266165-4dcd-41fe-ae3f-15d63f50c5af\").containsAnswerConceptName(\"7122f8c1-59ba-49ba-b2ec-cf2923eaf21a\").matches();\n  \n        visibility = condition11 ;\n  \n        return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, null);\n    });\n};",
+    "declarativeRule" : [ {
+      "actions" : [ {
+        "actionType" : "showFormElementGroup"
+      }, { } ],
+      "conditions" : [ {
+        "compoundRule" : {
+          "rules" : [ {
+            "lhs" : {
+              "type" : "concept",
+              "scope" : "encounter",
+              "conceptName" : "Types of Treatment Availed after symptom Onset",
+              "conceptUuid" : "31266165-4dcd-41fe-ae3f-15d63f50c5af",
+              "conceptDataType" : "Coded"
+            },
+            "rhs" : {
+              "type" : "answerConcept",
+              "answerConceptNames" : [ "Private Doctor" ],
+              "answerConceptUuids" : [ "7122f8c1-59ba-49ba-b2ec-cf2923eaf21a" ]
+            },
+            "operator" : "containsAnswerConceptName"
+          } ],
+          "conjunction" : "and"
+        }
+      } ]
+    } ],
+    "display" : "Private Doctor",
+    "timed" : false
+  }, {
+    "uuid" : "394544bd-9a03-4942-8d62-508aa902065a",
+    "name" : "Health & Wellness Center",
+    "displayOrder" : 7.0,
+    "formElements" : [ {
+      "name" : "Health Seeking Behaviour Rank",
+      "uuid" : "d5fce81a-5f24-4740-9383-1aae9064f519",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Health & Wellness Center Health Seeking Behaviour Rank",
+        "uuid" : "d519c44a-b674-495b-92f6-b0195a5add73",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "5th",
+          "uuid" : "c92d1880-1afa-49d8-98e1-b4de5feed6d8",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "3rd",
+          "uuid" : "a06ce4db-5e13-45e3-80ac-c10801f25a46",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "7th",
+          "uuid" : "e910c083-2a9e-45af-97c3-01dac0611923",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 6.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "6th",
+          "uuid" : "47118f1c-b24d-4dc9-81c5-841ba900e0d6",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "2nd",
+          "uuid" : "a39a9a06-0537-425b-aca1-0e44ed39d85c",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "4th",
+          "uuid" : "3a96d00e-afa2-4664-97b3-3865a850b71d",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "8th",
+          "uuid" : "a16c89d5-d4b2-45f1-9097-7f03def53ef4",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 7.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "1st",
+          "uuid" : "3a454085-8335-41a2-91f9-9e121f2a58ce",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "10th",
+          "uuid" : "21e643a8-9a62-4be4-b0e3-d0c7d5fdce50",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 9.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "9th",
+          "uuid" : "df6282d1-7751-4f11-80fe-dba4ffef1f62",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 8.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Number of Visits",
+      "uuid" : "d4952bdf-8057-4a3d-ac47-1a0c30c4e455",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Health & Wellness Center Number of Visits",
+        "uuid" : "5f92d2c1-82ae-448e-a891-f216e2c9e96d",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Days spent for treatment (Days)",
+      "uuid" : "7f33eb0e-f2ba-46ee-9192-2c3fcbe1f300",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Health & Wellness Center Days spent for treatment (Days)",
+        "uuid" : "59de2a7e-c75d-43d5-a432-ae4742416cbf",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Direct Expenses Incurred (Ruppees)",
+      "uuid" : "ae46bf84-57c1-42dc-8d38-a82f0409b2cf",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Health & Wellness Center Direct Expenses Incurred (Ruppees)",
+        "uuid" : "001d497c-5cf5-4dcf-bd91-6d6ff6209f8b",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Indirect Expenses Incurred (Ruppees)",
+      "uuid" : "044881b9-c23f-4898-a025-1cef54653459",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Health & Wellness Center Indirect Expenses Incurred (Ruppees)",
+        "uuid" : "05187f3d-4263-4258-af39-428d80f0917b",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 5.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    } ],
+    "rule" : "'use strict';\n({params, imports}) => {\n    const programEncounter = params.entity;\n    const moment = imports.moment;\n    const formElementGroup = params.formElementGroup;\n    const _ = imports.lodash;\n    let visibility = true;\n    return formElementGroup.formElements.map((formElement) => {\n        \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"31266165-4dcd-41fe-ae3f-15d63f50c5af\").containsAnswerConceptName(\"6eb722ec-b047-410f-acb6-7bcc55548a3f\").matches();\n  \n        visibility = condition11 ;\n  \n        return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, null);\n    });\n};",
+    "declarativeRule" : [ {
+      "actions" : [ {
+        "actionType" : "showFormElementGroup"
+      }, { } ],
+      "conditions" : [ {
+        "compoundRule" : {
+          "rules" : [ {
+            "lhs" : {
+              "type" : "concept",
+              "scope" : "encounter",
+              "conceptName" : "Types of Treatment Availed after symptom Onset",
+              "conceptUuid" : "31266165-4dcd-41fe-ae3f-15d63f50c5af",
+              "conceptDataType" : "Coded"
+            },
+            "rhs" : {
+              "type" : "answerConcept",
+              "answerConceptNames" : [ "Health & Wellness Centre" ],
+              "answerConceptUuids" : [ "6eb722ec-b047-410f-acb6-7bcc55548a3f" ]
+            },
+            "operator" : "containsAnswerConceptName"
+          } ],
+          "conjunction" : "and"
+        }
+      } ]
+    } ],
+    "display" : "Health & Wellness Center",
+    "timed" : false
+  }, {
+    "uuid" : "17f98b31-7390-47ea-bf7b-147f43ec8ae8",
+    "name" : "Primary Health Center",
+    "displayOrder" : 8.0,
+    "formElements" : [ {
+      "name" : "Health Seeking Behaviour Rank",
+      "uuid" : "9fa604cc-6705-496b-8266-5bf7e67cc9cf",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Primary Health Center Health Seeking Behaviour Rank",
+        "uuid" : "ef59c813-6ea6-4b5c-b074-9b3bf3385dac",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "4th",
+          "uuid" : "3a96d00e-afa2-4664-97b3-3865a850b71d",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "2nd",
+          "uuid" : "a39a9a06-0537-425b-aca1-0e44ed39d85c",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "10th",
+          "uuid" : "21e643a8-9a62-4be4-b0e3-d0c7d5fdce50",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 9.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "3rd",
+          "uuid" : "a06ce4db-5e13-45e3-80ac-c10801f25a46",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "7th",
+          "uuid" : "e910c083-2a9e-45af-97c3-01dac0611923",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 6.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "8th",
+          "uuid" : "a16c89d5-d4b2-45f1-9097-7f03def53ef4",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 7.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "9th",
+          "uuid" : "df6282d1-7751-4f11-80fe-dba4ffef1f62",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 8.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "5th",
+          "uuid" : "c92d1880-1afa-49d8-98e1-b4de5feed6d8",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "6th",
+          "uuid" : "47118f1c-b24d-4dc9-81c5-841ba900e0d6",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "1st",
+          "uuid" : "3a454085-8335-41a2-91f9-9e121f2a58ce",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Number of Visits",
+      "uuid" : "f004ce6b-1c5f-431e-a271-164ea103493c",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Primary Health Center Number of Visits",
+        "uuid" : "54da4cdd-c7a0-42ee-91d9-28fac6a3480c",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Days spent for treatment (Days)",
+      "uuid" : "7ad06fa5-9c67-426d-b88e-4782e242cc97",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Primary Health Center Days spent for treatment (Days)",
+        "uuid" : "519e061e-1c46-4eed-a64d-64ddc3ca9842",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Direct Expenses Incurred (Ruppees)",
+      "uuid" : "76b62e63-756d-498a-945a-eec8d5188f0d",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Primary Health Center Direct Expenses Incurred (Ruppees)",
+        "uuid" : "bfd2a5fc-81a8-4514-ac6d-6b0e69030b65",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Indirect Expenses Incurred (Ruppees)",
+      "uuid" : "6bf7333f-4f87-45e3-9168-f7873c5106af",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Primary Health Center Indirect Expenses Incurred (Ruppees)",
+        "uuid" : "f57194d5-7aa8-4161-96f9-cd2736c2239a",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 5.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    } ],
+    "rule" : "'use strict';\n({params, imports}) => {\n    const programEncounter = params.entity;\n    const moment = imports.moment;\n    const formElementGroup = params.formElementGroup;\n    const _ = imports.lodash;\n    let visibility = true;\n    return formElementGroup.formElements.map((formElement) => {\n        \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"31266165-4dcd-41fe-ae3f-15d63f50c5af\").containsAnswerConceptName(\"a9b35608-e850-4414-b3e9-c3f9b306c17e\").matches();\n  \n        visibility = condition11 ;\n  \n        return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, null);\n    });\n};",
+    "declarativeRule" : [ {
+      "actions" : [ {
+        "actionType" : "showFormElementGroup"
+      }, { } ],
+      "conditions" : [ {
+        "compoundRule" : {
+          "rules" : [ {
+            "lhs" : {
+              "type" : "concept",
+              "scope" : "encounter",
+              "conceptName" : "Types of Treatment Availed after symptom Onset",
+              "conceptUuid" : "31266165-4dcd-41fe-ae3f-15d63f50c5af",
+              "conceptDataType" : "Coded"
+            },
+            "rhs" : {
+              "type" : "answerConcept",
+              "answerConceptNames" : [ "Primary Health Center" ],
+              "answerConceptUuids" : [ "a9b35608-e850-4414-b3e9-c3f9b306c17e" ]
+            },
+            "operator" : "containsAnswerConceptName"
+          } ],
+          "conjunction" : "and"
+        }
+      } ]
+    } ],
+    "display" : "Primary Health Center",
+    "timed" : false
+  }, {
+    "uuid" : "1074f394-ec64-42cb-a7ab-7749a9e94ca6",
+    "name" : "Community Health Center",
+    "displayOrder" : 9.0,
+    "formElements" : [ {
+      "name" : "Health Seeking Behaviour Rank",
+      "uuid" : "c6fc385f-aac3-4fbd-89c5-e40f058cbd7c",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Community Health Center Health Seeking Behaviour Rank",
+        "uuid" : "9cef1b0f-45f3-446b-8c81-f4472b3706ed",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "2nd",
+          "uuid" : "a39a9a06-0537-425b-aca1-0e44ed39d85c",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "5th",
+          "uuid" : "c92d1880-1afa-49d8-98e1-b4de5feed6d8",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "7th",
+          "uuid" : "e910c083-2a9e-45af-97c3-01dac0611923",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 6.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "1st",
+          "uuid" : "3a454085-8335-41a2-91f9-9e121f2a58ce",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "8th",
+          "uuid" : "a16c89d5-d4b2-45f1-9097-7f03def53ef4",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 7.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "3rd",
+          "uuid" : "a06ce4db-5e13-45e3-80ac-c10801f25a46",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "9th",
+          "uuid" : "df6282d1-7751-4f11-80fe-dba4ffef1f62",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 8.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "10th",
+          "uuid" : "21e643a8-9a62-4be4-b0e3-d0c7d5fdce50",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 9.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "6th",
+          "uuid" : "47118f1c-b24d-4dc9-81c5-841ba900e0d6",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "4th",
+          "uuid" : "3a96d00e-afa2-4664-97b3-3865a850b71d",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Number of Visits",
+      "uuid" : "b1d19a56-600c-40ca-b38b-bc38c74c4792",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Community Health Center Number of Visits",
+        "uuid" : "e1733a0f-7159-49d9-89d4-cdd52ed160e4",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Days spent for treatment (Days)",
+      "uuid" : "a95c2d79-370b-4249-bec4-65cf79d5c910",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Community Health Center Days spent for treatment (Days)",
+        "uuid" : "ad867fe7-4b46-4070-ace2-1ecfd50b88c4",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Direct Expenses Incurred (Ruppees)",
+      "uuid" : "e99a47b4-8f07-4428-bbe2-84bdbd9c9771",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Community Health Center Direct Expenses Incurred (Ruppees)",
+        "uuid" : "1e2b1627-6560-4024-982a-1c3ccc9d7a79",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Indirect Expenses Incurred (Ruppees)",
+      "uuid" : "c8e33e60-ac4d-4f78-8208-8300e94349a7",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Community Health Center Indirect Expenses Incurred (Ruppees)",
+        "uuid" : "dbdb98f2-4c00-4909-9fd5-72f8eab27318",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 5.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    } ],
+    "rule" : "'use strict';\n({params, imports}) => {\n    const programEncounter = params.entity;\n    const moment = imports.moment;\n    const formElementGroup = params.formElementGroup;\n    const _ = imports.lodash;\n    let visibility = true;\n    return formElementGroup.formElements.map((formElement) => {\n        \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"31266165-4dcd-41fe-ae3f-15d63f50c5af\").containsAnswerConceptName(\"0067bf8d-2e59-4db0-9b24-17bcddf7afa7\").matches();\n  \n        visibility = condition11 ;\n  \n        return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, null);\n    });\n};",
+    "declarativeRule" : [ {
+      "actions" : [ {
+        "actionType" : "showFormElementGroup"
+      }, { } ],
+      "conditions" : [ {
+        "compoundRule" : {
+          "rules" : [ {
+            "lhs" : {
+              "type" : "concept",
+              "scope" : "encounter",
+              "conceptName" : "Types of Treatment Availed after symptom Onset",
+              "conceptUuid" : "31266165-4dcd-41fe-ae3f-15d63f50c5af",
+              "conceptDataType" : "Coded"
+            },
+            "rhs" : {
+              "type" : "answerConcept",
+              "answerConceptNames" : [ "Community Health Center" ],
+              "answerConceptUuids" : [ "0067bf8d-2e59-4db0-9b24-17bcddf7afa7" ]
+            },
+            "operator" : "containsAnswerConceptName"
+          } ],
+          "conjunction" : "and"
+        }
+      } ]
+    } ],
+    "display" : "Community Health Center",
+    "timed" : false
+  }, {
+    "uuid" : "ce519338-946c-412f-af1e-6c239a60b0c7",
+    "name" : "District Hospital",
+    "displayOrder" : 10.0,
+    "formElements" : [ {
+      "name" : "Health Seeking Behaviour Rank",
+      "uuid" : "6c46d739-08c6-4922-aa0b-445a45a1e795",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "District Hospital Health Seeking Behaviour Rank",
+        "uuid" : "4422004f-8f36-4d24-a39a-8b1fd1785c39",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "4th",
+          "uuid" : "3a96d00e-afa2-4664-97b3-3865a850b71d",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "7th",
+          "uuid" : "e910c083-2a9e-45af-97c3-01dac0611923",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 6.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "3rd",
+          "uuid" : "a06ce4db-5e13-45e3-80ac-c10801f25a46",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "5th",
+          "uuid" : "c92d1880-1afa-49d8-98e1-b4de5feed6d8",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "6th",
+          "uuid" : "47118f1c-b24d-4dc9-81c5-841ba900e0d6",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "8th",
+          "uuid" : "a16c89d5-d4b2-45f1-9097-7f03def53ef4",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 7.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "9th",
+          "uuid" : "df6282d1-7751-4f11-80fe-dba4ffef1f62",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 8.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "1st",
+          "uuid" : "3a454085-8335-41a2-91f9-9e121f2a58ce",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "2nd",
+          "uuid" : "a39a9a06-0537-425b-aca1-0e44ed39d85c",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "10th",
+          "uuid" : "21e643a8-9a62-4be4-b0e3-d0c7d5fdce50",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 9.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Number of Visits",
+      "uuid" : "7f1f1107-5fb9-4ef9-9d76-e71a72febcb2",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "District Hospital Number of Visits",
+        "uuid" : "7fb3e551-8665-4a21-9dab-eec334233a5a",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Days spent for treatment (Days)",
+      "uuid" : "4bd4c92d-0c76-4c3c-b876-c30ed81372ae",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "District Hospital Days spent for treatment (Days)",
+        "uuid" : "3c9af0f0-6816-4e2b-9b3e-631a666dfd69",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Direct Expenses Incurred (Ruppees)",
+      "uuid" : "222c7c4f-c7a5-4082-b606-1b11aa3cddf3",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "District Hospital Direct Expenses Incurred (Ruppees)",
+        "uuid" : "f373037f-6aa2-4b27-9fc8-a92cece6b5af",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Indirect Expenses Incurred (Ruppees)",
+      "uuid" : "4fe2c14d-2a65-4a73-aa1c-d2d5c0e13a8b",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "District Hospital Indirect Expenses Incurred (Ruppees)",
+        "uuid" : "39ba55c8-969a-404d-9b1f-536ae9fd250b",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 5.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    } ],
+    "rule" : "'use strict';\n({params, imports}) => {\n    const programEncounter = params.entity;\n    const moment = imports.moment;\n    const formElementGroup = params.formElementGroup;\n    const _ = imports.lodash;\n    let visibility = true;\n    return formElementGroup.formElements.map((formElement) => {\n        \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"31266165-4dcd-41fe-ae3f-15d63f50c5af\").containsAnswerConceptName(\"602e1362-0c44-49d8-ac94-42a741c6273b\").matches();\n  \n        visibility = condition11 ;\n  \n        return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, null);\n    });\n};",
+    "declarativeRule" : [ {
+      "actions" : [ {
+        "actionType" : "showFormElementGroup"
+      }, { } ],
+      "conditions" : [ {
+        "compoundRule" : {
+          "rules" : [ {
+            "lhs" : {
+              "type" : "concept",
+              "scope" : "encounter",
+              "conceptName" : "Types of Treatment Availed after symptom Onset",
+              "conceptUuid" : "31266165-4dcd-41fe-ae3f-15d63f50c5af",
+              "conceptDataType" : "Coded"
+            },
+            "rhs" : {
+              "type" : "answerConcept",
+              "answerConceptNames" : [ "District Hospital" ],
+              "answerConceptUuids" : [ "602e1362-0c44-49d8-ac94-42a741c6273b" ]
+            },
+            "operator" : "containsAnswerConceptName"
+          } ],
+          "conjunction" : "and"
+        }
+      } ]
+    } ],
+    "display" : "District Hospital",
+    "timed" : false
+  }, {
+    "uuid" : "1877e57f-1198-44c1-a1a8-6d3b13ea81b4",
+    "name" : "Medical College",
+    "displayOrder" : 11.0,
+    "formElements" : [ {
+      "name" : "Health Seeking Behaviour Rank",
+      "uuid" : "beaa1e71-1fbc-4861-8583-0628c5be2cbf",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Medical College Health Seeking Behaviour Rank",
+        "uuid" : "e7b8ef31-d105-4255-ae0b-21d05fc03004",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "6th",
+          "uuid" : "47118f1c-b24d-4dc9-81c5-841ba900e0d6",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "7th",
+          "uuid" : "e910c083-2a9e-45af-97c3-01dac0611923",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 6.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "2nd",
+          "uuid" : "a39a9a06-0537-425b-aca1-0e44ed39d85c",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "5th",
+          "uuid" : "c92d1880-1afa-49d8-98e1-b4de5feed6d8",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "8th",
+          "uuid" : "a16c89d5-d4b2-45f1-9097-7f03def53ef4",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 7.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "10th",
+          "uuid" : "21e643a8-9a62-4be4-b0e3-d0c7d5fdce50",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 9.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "1st",
+          "uuid" : "3a454085-8335-41a2-91f9-9e121f2a58ce",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "3rd",
+          "uuid" : "a06ce4db-5e13-45e3-80ac-c10801f25a46",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "9th",
+          "uuid" : "df6282d1-7751-4f11-80fe-dba4ffef1f62",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 8.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "4th",
+          "uuid" : "3a96d00e-afa2-4664-97b3-3865a850b71d",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Number of Visits",
+      "uuid" : "2c49db31-d419-4dd0-b3d0-84dff3dede1c",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Medical College Number of Visits",
+        "uuid" : "04dd619d-1e34-4957-aff0-ff5d6f62429a",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Days spent for treatment (Days)",
+      "uuid" : "a3ac8dc3-bbfc-4cfe-b09a-2238729f6e2b",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Medical College Days spent for treatment (Days)",
+        "uuid" : "a00ea7f0-b70e-4450-a0a9-fbd76fce1686",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Direct Expenses Incurred (Ruppees)",
+      "uuid" : "c974e097-a30f-4773-a810-7ddd4c777ea6",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Medical College Direct Expenses Incurred (Ruppees)",
+        "uuid" : "74a05d43-c428-436c-a86a-c69a2334dd87",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Indirect Expenses Incurred (Ruppees)",
+      "uuid" : "0359c7fb-c3ff-4306-a0b5-9829da29772a",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Medical College Indirect Expenses Incurred (Ruppees)",
+        "uuid" : "bb43d0e2-8253-469e-93cd-f83192203e3e",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 5.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    } ],
+    "rule" : "'use strict';\n({params, imports}) => {\n    const programEncounter = params.entity;\n    const moment = imports.moment;\n    const formElementGroup = params.formElementGroup;\n    const _ = imports.lodash;\n    let visibility = true;\n    return formElementGroup.formElements.map((formElement) => {\n        \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"31266165-4dcd-41fe-ae3f-15d63f50c5af\").containsAnswerConceptName(\"fd2f5bda-0a77-4433-afb9-6c7ffe6f58b2\").matches();\n  \n        visibility = condition11 ;\n  \n        return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, null);\n    });\n};",
+    "declarativeRule" : [ {
+      "actions" : [ {
+        "actionType" : "showFormElementGroup"
+      }, { } ],
+      "conditions" : [ {
+        "compoundRule" : {
+          "rules" : [ {
+            "lhs" : {
+              "type" : "concept",
+              "scope" : "encounter",
+              "conceptName" : "Types of Treatment Availed after symptom Onset",
+              "conceptUuid" : "31266165-4dcd-41fe-ae3f-15d63f50c5af",
+              "conceptDataType" : "Coded"
+            },
+            "rhs" : {
+              "type" : "answerConcept",
+              "answerConceptNames" : [ "Medical  College" ],
+              "answerConceptUuids" : [ "fd2f5bda-0a77-4433-afb9-6c7ffe6f58b2" ]
+            },
+            "operator" : "containsAnswerConceptName"
+          } ],
+          "conjunction" : "and"
+        }
+      } ]
+    } ],
+    "display" : "Medical College",
+    "timed" : false
+  }, {
+    "uuid" : "6256f4ec-e301-43d7-81d6-05aac29be491",
+    "name" : "Other Treatments (Specify)",
+    "displayOrder" : 12.0,
+    "formElements" : [ {
+      "name" : "Health Seeking Behaviour Rank",
+      "uuid" : "f8e1a374-e7ee-4db3-864e-397ce04dea5d",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Other Treatments (Specify) Health Seeking Behaviour Rank",
+        "uuid" : "ef7a7058-3570-4d7a-aaab-6f4d5733b1ae",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "9th",
+          "uuid" : "df6282d1-7751-4f11-80fe-dba4ffef1f62",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 8.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "4th",
+          "uuid" : "3a96d00e-afa2-4664-97b3-3865a850b71d",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "7th",
+          "uuid" : "e910c083-2a9e-45af-97c3-01dac0611923",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 6.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "1st",
+          "uuid" : "3a454085-8335-41a2-91f9-9e121f2a58ce",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "8th",
+          "uuid" : "a16c89d5-d4b2-45f1-9097-7f03def53ef4",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 7.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "5th",
+          "uuid" : "c92d1880-1afa-49d8-98e1-b4de5feed6d8",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "6th",
+          "uuid" : "47118f1c-b24d-4dc9-81c5-841ba900e0d6",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "10th",
+          "uuid" : "21e643a8-9a62-4be4-b0e3-d0c7d5fdce50",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 9.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "2nd",
+          "uuid" : "a39a9a06-0537-425b-aca1-0e44ed39d85c",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "3rd",
+          "uuid" : "a06ce4db-5e13-45e3-80ac-c10801f25a46",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Number of Visits",
+      "uuid" : "f3d967bb-cbc3-41a7-b965-49e4056b6fc3",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Other Treatments (Specify) Number of Visits",
+        "uuid" : "bf460b48-b61c-44f9-9ac4-c3b605c2ecfd",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Days spent for treatment (Days)",
+      "uuid" : "0793dd75-bf16-43f5-8f87-26718b814efd",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Other Treatments (Specify) Days spent for treatment (Days)",
+        "uuid" : "8219a46c-7ccb-401d-9948-bd2792229368",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Direct Expenses Incurred (Ruppees)",
+      "uuid" : "88b88267-ccb5-40fe-870f-73ddadeaa359",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Other Treatments (Specify) Direct Expenses Incurred (Ruppees)",
+        "uuid" : "96824095-cd3c-40dd-b991-2b9a7bc7659a",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Indirect Expenses Incurred (Ruppees)",
+      "uuid" : "2e177772-7739-4773-9d6e-b36b867515b8",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Other Treatments (Specify) Indirect Expenses Incurred (Ruppees)",
+        "uuid" : "11923b5b-7a59-4efe-87b5-99d97031094b",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 5.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    } ],
+    "rule" : "'use strict';\n({params, imports}) => {\n    const programEncounter = params.entity;\n    const moment = imports.moment;\n    const formElementGroup = params.formElementGroup;\n    const _ = imports.lodash;\n    let visibility = true;\n    return formElementGroup.formElements.map((formElement) => {\n        \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"31266165-4dcd-41fe-ae3f-15d63f50c5af\").containsAnswerConceptName(\"33bbc612-4c06-4ea1-b2b8-1f27cf68a867\").matches();\n  \n        visibility = condition11 ;\n  \n        return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, null);\n    });\n};",
+    "declarativeRule" : [ {
+      "actions" : [ {
+        "actionType" : "showFormElementGroup"
+      }, { } ],
+      "conditions" : [ {
+        "compoundRule" : {
+          "rules" : [ {
+            "lhs" : {
+              "type" : "concept",
+              "scope" : "encounter",
+              "conceptName" : "Types of Treatment Availed after symptom Onset",
+              "conceptUuid" : "31266165-4dcd-41fe-ae3f-15d63f50c5af",
+              "conceptDataType" : "Coded"
+            },
+            "rhs" : {
+              "type" : "answerConcept",
+              "answerConceptNames" : [ "Other Treatments (Specify)" ],
+              "answerConceptUuids" : [ "33bbc612-4c06-4ea1-b2b8-1f27cf68a867" ]
+            },
+            "operator" : "containsAnswerConceptName"
+          } ],
+          "conjunction" : "and"
+        }
+      } ]
+    } ],
+    "display" : "Other Treatments (Specify)",
+    "timed" : false
+  }, {
+    "uuid" : "dd4bfa3a-887e-4197-8155-5152d6299302",
+    "name" : "Form Filled Details",
+    "displayOrder" : 13.0,
+    "formElements" : [ {
+      "name" : "Form Filled by (write initials)",
+      "uuid" : "7e7dd8f9-c509-4943-b794-89a4e5159f5d",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Form Filled by (write initials)",
+        "uuid" : "5bbc3b12-5ccb-4068-b67d-59c172234c9f",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Date of form filling",
+      "uuid" : "7b993f26-7bd4-420d-9c84-08557b2032c3",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Date of form filling",
+        "uuid" : "7aed2be8-f1af-4a4e-af74-a69168807ca5",
+        "dataType" : "Date",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    } ],
+    "display" : "Form Filled Details",
+    "timed" : false
+  } ],
+  "decisionRule" : "",
+  "visitScheduleRule" : "\"use strict\";\n({ params, imports }) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({programEncounter});\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter}).when.valueInEncounter(\"31266165-4dcd-41fe-ae3f-15d63f50c5af\").defined.matches();\n  \n  if(condition11 ){\n    const earliestDate = moment(programEncounter.encounterDateTime).add(0, 'days').toDate();\n    const maxDate = moment(programEncounter.encounterDateTime).add(0, 'days').toDate();\n    scheduleBuilder.add({name: \"TB Study Food Supplement \", encounterType: \"TB Study Food Supplement \", earliestDate, maxDate});  \n}\n  \n  return scheduleBuilder.getAll();\n};",
+  "validationRule" : "",
+  "checklistsRule" : "",
+  "decisionConcepts" : [ ],
+  "visitScheduleDeclarativeRule" : [ {
+    "actions" : [ {
+      "details" : {
+        "dateField" : "encounterDateTime",
+        "daysToOverdue" : "0",
+        "encounterName" : "TB Study Food Supplement ",
+        "encounterType" : "TB Study Food Supplement ",
+        "daysToSchedule" : "0"
+      },
+      "actionType" : "scheduleVisit"
+    }, { } ],
+    "conditions" : [ {
+      "compoundRule" : {
+        "rules" : [ {
+          "lhs" : {
+            "type" : "concept",
+            "scope" : "encounter",
+            "conceptName" : "Types of Treatment Availed after symptom Onset",
+            "conceptUuid" : "31266165-4dcd-41fe-ae3f-15d63f50c5af",
+            "conceptDataType" : "Coded"
+          },
+          "rhs" : { },
+          "operator" : "defined"
+        } ],
+        "conjunction" : "or"
+      }
+    } ]
+  } ]
+}

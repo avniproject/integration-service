@@ -1,0 +1,134 @@
+{
+  "name" : "Leprosy Enrolment",
+  "uuid" : "c956bdc0-72f7-4180-a7b0-e8a6ec44f1ca",
+  "formType" : "ProgramEnrolment",
+  "formElementGroups" : [ {
+    "uuid" : "fe4247a8-a104-46fb-82cc-8edf3028e8f6",
+    "name" : "Diagnosis details",
+    "displayOrder" : 1.0,
+    "formElements" : [ {
+      "name" : "Date of diagnosis",
+      "uuid" : "76911a16-5f58-4a80-b416-b4b29eca5c0b",
+      "keyValues" : [ {
+        "key" : "datePickerMode",
+        "value" : "calendar"
+      } ],
+      "concept" : {
+        "name" : "Date of diagnosis",
+        "uuid" : "cb549d98-5890-4182-a930-70939b0c0e33",
+        "dataType" : "Date",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Treatment Start date",
+      "uuid" : "beb6c715-2d57-480a-ac26-238bfb78586f",
+      "keyValues" : [ {
+        "key" : "datePickerMode",
+        "value" : "calendar"
+      } ],
+      "concept" : {
+        "name" : "Treatment Start date",
+        "uuid" : "1912c932-ce42-4b20-a021-d5588722c82f",
+        "dataType" : "Date",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Expected treatment completion date",
+      "uuid" : "fd52607d-5c14-4db7-926f-0c9312e11d42",
+      "keyValues" : [ {
+        "key" : "datePickerMode",
+        "value" : "calendar"
+      } ],
+      "concept" : {
+        "name" : "Expected treatment completion date",
+        "uuid" : "f1069c69-a2b5-489f-b1e1-dd66a51a18ca",
+        "dataType" : "Date",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    } ],
+    "display" : "Diagnosis details",
+    "timed" : false
+  }, {
+    "uuid" : "b4f1b876-43f7-423a-a6f7-2e7f31ead8ad",
+    "name" : "Anthropometry",
+    "displayOrder" : 2.0,
+    "formElements" : [ {
+      "name" : "Weight",
+      "uuid" : "33a452ca-2f8f-448d-9b7c-e02154efaed8",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Weight",
+        "uuid" : "8d947379-7a1d-48b2-8760-88fff6add987",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "lowAbsolute" : 0.0,
+        "highAbsolute" : 300.0,
+        "lowNormal" : 1.0,
+        "highNormal" : 100.0,
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Height",
+      "uuid" : "897a5e62-3147-44d1-a370-95eb7d053f76",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Height",
+        "uuid" : "23bcad9f-ec16-46ec-92f5-e144411e5dec",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "lowAbsolute" : 21.0,
+        "highAbsolute" : 300.0,
+        "lowNormal" : 30.0,
+        "highNormal" : 200.0,
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "BMI",
+      "uuid" : "e2f481cc-7804-4616-82a6-c12aa415c0c8",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "BMI",
+        "uuid" : "a205563d-0ac2-4955-93ac-e2e7adebb56e",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "lowNormal" : 18.5,
+        "highNormal" : 24.9,
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    } ],
+    "display" : "Anthropometry",
+    "timed" : false
+  } ],
+  "decisionRule" : "",
+  "visitScheduleRule" : "",
+  "validationRule" : "",
+  "checklistsRule" : "",
+  "decisionConcepts" : [ ]
+}

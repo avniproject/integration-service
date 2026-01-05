@@ -1,0 +1,515 @@
+{
+  "name" : "TB Study Registration",
+  "uuid" : "76f376ae-a09f-4ce4-b764-5e61f34286f0",
+  "formType" : "IndividualProfile",
+  "formElementGroups" : [ {
+    "uuid" : "0ae32918-f5aa-497d-8cb1-0c0f80d91135",
+    "name" : "Study Identification",
+    "displayOrder" : 1.0,
+    "formElements" : [ {
+      "name" : "TB study id",
+      "uuid" : "3321a5b3-6b66-45c2-b77b-d314dd91aecc",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "TB Study ID (TBS001 to TBS999)",
+        "uuid" : "a52a64d8-2f50-433f-853f-2d1299a73a33",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    } ],
+    "display" : "Study Identification",
+    "timed" : false
+  }, {
+    "uuid" : "8178efaf-cf1b-4fa0-bf2b-a24350010af3",
+    "name" : "Demographic Information",
+    "displayOrder" : 2.0,
+    "formElements" : [ {
+      "name" : "Full Name",
+      "uuid" : "ad1ee141-c17e-46dd-a858-50aab84e14c8",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Full Name (Name, Middle Name, Surname)",
+        "uuid" : "4dcd8a5b-192a-491c-b19f-0716977c877f",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Registration number",
+      "uuid" : "1ee928c0-c011-4aea-b75e-6c86e771616f",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Reg No.",
+        "uuid" : "d54ddaf1-84e5-4868-8c79-7a35ec1f9663",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Registration code",
+      "uuid" : "b780efd8-fd89-4fab-8efc-be9da9ea9ce0",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Reg Code",
+        "uuid" : "5630a6ab-d02d-4b88-beda-d3b5f2eb269a",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "SIV",
+          "uuid" : "15c4ca83-cd9b-4ef6-9e65-3d4f38b9a78e",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "SEM",
+          "uuid" : "a89f408d-acbc-4538-96da-0c158237966b",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "GAN",
+          "uuid" : "27cfc22a-2c57-4cc9-9a8b-57ef49505a0a",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "BAM",
+          "uuid" : "85d3b0ff-615d-4318-8638-d4e066e8fc7b",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Age",
+      "uuid" : "3e036d38-47f5-44bc-80b2-13305b9a1197",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Age (years)",
+        "uuid" : "ee50a4f3-ee1a-404e-8672-d3e520a21e52",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Gender",
+      "uuid" : "8f686c33-1683-4f7a-bf04-79263b4f6078",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Gender.",
+        "uuid" : "f210f955-4ca1-4772-b045-b1fd9211214e",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Female.",
+          "uuid" : "abd6e43f-8baa-4c92-b79a-bb3e64a43d00",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Male.",
+          "uuid" : "b3b3db9d-aed7-4819-a170-e77b8d094d0a",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Other.",
+          "uuid" : "9b74819e-6f32-494f-8ec8-748c73019b22",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 5.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Caste",
+      "uuid" : "d530707b-f1da-4bb6-b620-1018b4e76772",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Caste (Free Text)",
+        "uuid" : "6fad4749-1b09-44f9-bb90-4a88eeefc873",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 6.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Caste Category",
+      "uuid" : "24333a0a-43d0-4503-9a3f-d9ed4fec3320",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Caste Category New",
+        "uuid" : "fd10fba0-80e0-4417-ab01-ba087ac05465",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "General",
+          "uuid" : "9b3a3dca-b93a-4b67-975f-5f6f1a815cea",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 9.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Other ST",
+          "uuid" : "bf9bae89-e634-4be1-94d1-2eeaa2783e73",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Other",
+          "uuid" : "798b7942-cf58-4d4e-a529-5972942e0a7e",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 11.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "SC",
+          "uuid" : "0b78a94a-c652-4d59-ad16-c9138db05e29",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 6.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "PVTG",
+          "uuid" : "91f51ff2-ef5f-48e1-a6c2-5efe6f10a3b2",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "PVTG. (voided~256419)",
+          "uuid" : "704eac1c-ca8e-427c-8796-49bddf19619e",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ],
+          "voided" : true
+        }, {
+          "name" : "Other.",
+          "uuid" : "9b74819e-6f32-494f-8ec8-748c73019b22",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 10.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "General.",
+          "uuid" : "c594be0f-c63e-4411-83ee-41f6bda446c7",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 8.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "SC. (voided~256418)",
+          "uuid" : "1327f6b9-9db3-46f5-b5fc-ac761627cc74",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ],
+          "voided" : true
+        }, {
+          "name" : "OBC",
+          "uuid" : "8aa7b5ea-5d35-4a08-af33-0345af903e2f",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 7.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "OBC. (voided~256417)",
+          "uuid" : "176b1bfa-07e8-48da-9742-c19c1e39186c",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ ],
+          "voided" : true
+        }, {
+          "name" : "OBC.",
+          "uuid" : "de62e2ee-81cd-466c-9883-df56e9e3ec5d",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 7.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    } ],
+    "display" : "Demographic Information",
+    "timed" : false
+  }, {
+    "uuid" : "2364b1b9-1a9a-42a9-b63d-4d75b82d1b5a",
+    "name" : "Address",
+    "displayOrder" : 3.0,
+    "formElements" : [ {
+      "name" : "District",
+      "uuid" : "63ed963a-6acb-4b1a-9fbb-78cdf00d5427",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "District",
+        "uuid" : "8e6c84cc-7a7e-4b89-8748-1ed44de7a9f7",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Mungeli",
+          "uuid" : "19a5d302-7921-4111-bb29-e443f78eabc4",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Bilaspur",
+          "uuid" : "669536f4-a675-402b-b3e4-eb7b553c90ce",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Block",
+      "uuid" : "64336cc2-6134-41a2-a8aa-ba6b98835f89",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Tehsil",
+        "uuid" : "63ee499f-c3ba-487b-9a47-c2e09aa3b39b",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Kota",
+          "uuid" : "0c8f68ee-adf8-4882-9f89-40ffa48c82d1",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Lormi",
+          "uuid" : "f8ee26ef-f40f-4d26-ae76-ae5d7e0c3f81",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const individual = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({individual, formElement}).when.valueInRegistration(\"8e6c84cc-7a7e-4b89-8748-1ed44de7a9f7\").containsAnswerConceptName(\"669536f4-a675-402b-b3e4-eb7b553c90ce\").matches();\n    \n  const condition12 = new imports.rulesConfig.RuleCondition({individual, formElement}).when.valueInRegistration(\"8e6c84cc-7a7e-4b89-8748-1ed44de7a9f7\").containsAnswerConceptName(\"19a5d302-7921-4111-bb29-e443f78eabc4\").matches();\n  \n  visibility = condition11 ;\n  if(condition11 ){\n    value = \"Kota\";  \n}\n  if(condition11 ) {\n    _.forEach([\"f8ee26ef-f40f-4d26-ae76-ae5d7e0c3f81\"], (answer) => {\n        const answerToSkip = formElement.getAnswerWithConceptUuid(answer);\n        if (answerToSkip) answersToSkip.push(answerToSkip);\n    });\n};\n    if(condition12 ){\n    value = \"Lormi\";  \n}\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, {
+          "details" : {
+            "value" : "Kota"
+          },
+          "actionType" : "value"
+        }, {
+          "details" : {
+            "answersToSkip" : [ "Lormi" ],
+            "answerUuidsToSkip" : [ "f8ee26ef-f40f-4d26-ae76-ae5d7e0c3f81" ]
+          },
+          "actionType" : "skipAnswers"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "registration",
+                "conceptName" : "District",
+                "conceptUuid" : "8e6c84cc-7a7e-4b89-8748-1ed44de7a9f7",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Bilaspur" ],
+                "answerConceptUuids" : [ "669536f4-a675-402b-b3e4-eb7b553c90ce" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      }, {
+        "actions" : [ {
+          "details" : {
+            "value" : "Lormi"
+          },
+          "actionType" : "value"
+        }, {
+          "details" : {
+            "answersToSkip" : [ "Kota" ],
+            "answerUuidsToSkip" : [ "0c8f68ee-adf8-4882-9f89-40ffa48c82d1" ]
+          },
+          "actionType" : "skipAnswers"
+        } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "registration",
+                "conceptName" : "District",
+                "conceptUuid" : "8e6c84cc-7a7e-4b89-8748-1ed44de7a9f7",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Mungeli" ],
+                "answerConceptUuids" : [ "19a5d302-7921-4111-bb29-e443f78eabc4" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : false
+    }, {
+      "name" : "Village",
+      "uuid" : "d4988dd0-9ff0-44c6-843c-d7e50a2a1ea7",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Village",
+        "uuid" : "fa22179f-da8c-4fcf-b24f-045313d9ac90",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    } ],
+    "display" : "Address",
+    "timed" : false
+  }, {
+    "uuid" : "f56ac326-9384-4d03-9648-733d4b8fa490",
+    "name" : "Form filled by",
+    "displayOrder" : 4.0,
+    "formElements" : [ {
+      "name" : "Form filled by",
+      "uuid" : "012f7152-f524-4cee-8095-2b8ddc6de857",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Form Filled by (write initials)",
+        "uuid" : "5bbc3b12-5ccb-4068-b67d-59c172234c9f",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Date of form filling",
+      "uuid" : "84bb776f-8b84-4d8d-9e8e-e0caaf3a60ca",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Date of form filling",
+        "uuid" : "7aed2be8-f1af-4a4e-af74-a69168807ca5",
+        "dataType" : "Date",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    } ],
+    "display" : "Form filled by",
+    "timed" : false
+  } ],
+  "decisionRule" : "",
+  "visitScheduleRule" : "\"use strict\";\n({ params, imports }) => {\n  const individual = params.entity;\n  const moment = imports.moment;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({individual});\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({individual}).when.lowestAddressLevel.defined.matches();\n  \n  if(condition11 ){\n    const earliestDate = moment(individual.registrationDate).add(0, 'days').toDate();\n    const maxDate = moment(individual.registrationDate).add(0, 'days').toDate();\n    scheduleBuilder.add({name: \"TB Study Baseline History \", encounterType: \"TB Study Baseline History \", earliestDate, maxDate});  \n}\n  \n  return scheduleBuilder.getAll();\n};",
+  "validationRule" : "",
+  "checklistsRule" : "",
+  "decisionConcepts" : [ ],
+  "visitScheduleDeclarativeRule" : [ {
+    "actions" : [ {
+      "details" : {
+        "dateField" : "registrationDate",
+        "daysToOverdue" : "0",
+        "encounterName" : "TB Study Baseline History ",
+        "encounterType" : "TB Study Baseline History ",
+        "daysToSchedule" : "0"
+      },
+      "actionType" : "scheduleVisit"
+    }, { } ],
+    "conditions" : [ {
+      "compoundRule" : {
+        "rules" : [ {
+          "lhs" : {
+            "type" : "lowestAddressLevel"
+          },
+          "rhs" : { },
+          "operator" : "defined"
+        } ],
+        "conjunction" : "or"
+      }
+    } ]
+  } ]
+}

@@ -1,0 +1,425 @@
+{
+  "name" : "TB Study Baseline Exam Encounter",
+  "uuid" : "591179da-19f1-4fcc-b8ad-94de1e38b8cb",
+  "formType" : "ProgramEncounter",
+  "formElementGroups" : [ {
+    "uuid" : "c581237f-4f93-47e4-b0bb-78a17540742d",
+    "name" : "Study ID",
+    "displayOrder" : 1.0,
+    "formElements" : [ {
+      "name" : "TB Study ID (TBS001 to TBS999)",
+      "uuid" : "bc9fde4d-c8b6-453b-990b-19bf9d7ab50f",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "TB Study ID (TBS001 to TBS999)",
+        "uuid" : "a52a64d8-2f50-433f-853f-2d1299a73a33",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "voided" : true,
+      "mandatory" : true
+    } ],
+    "display" : "Study ID",
+    "voided" : true,
+    "timed" : false
+  }, {
+    "uuid" : "5b00bd2f-1e98-44f0-bce4-0530392122fc",
+    "name" : "Date Information",
+    "displayOrder" : 2.0,
+    "formElements" : [ {
+      "name" : "Date of filling the form",
+      "uuid" : "cc23a53c-5764-4f85-85e6-f5130d1cedfe",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Date of filling the form",
+        "uuid" : "147fa701-db8f-47c7-b468-6bbfbd9e485b",
+        "dataType" : "Date",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    } ],
+    "display" : "Date Information",
+    "timed" : false
+  }, {
+    "uuid" : "b5805648-a21d-4382-9d9e-55a40d72537d",
+    "name" : "Examination",
+    "displayOrder" : 3.0,
+    "formElements" : [ {
+      "name" : "Height (cms)",
+      "uuid" : "b4dfdd94-491f-4782-bf31-76c5ca9ff5c9",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Height (cms)",
+        "uuid" : "ea51cd0c-d6b2-4097-be01-4c2bdb908d79",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Weight (kg)",
+      "uuid" : "9c9ef140-af04-4a4b-b990-392d5baea0d7",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Weight (kg)",
+        "uuid" : "c2606818-a690-402c-98d6-6f0e942d6181",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "BMI",
+      "uuid" : "5663b3f5-e338-4abc-afed-d45626a83b33",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "BMI",
+        "uuid" : "a205563d-0ac2-4955-93ac-e2e7adebb56e",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "lowNormal" : 18.5,
+        "highNormal" : 24.9,
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "rule" : "//SAMPLE RULE EXAMPLE\n\"use strict\";\n({params, imports}) => {\n    const programEnrolment = params.entity;\n    const formElement = params.formElement;\n    const _ = imports.lodash;\n    \nlet height = programEnrolment.findLatestObservationInEntireEnrolment(\"Height\", programEnrolment);\nlet weight = programEnrolment.findObservation(\"Weight\");\n        height = height && height.getValue();\n        weight = weight && weight.getValue();\n       let value = '';\n        if (_.isFinite(weight) && _.isFinite(height)) {\n         value = imports.common.calculateBMI(weight, height);\n       }\n              \n    return new imports.rulesConfig.FormElementStatus(formElement.uuid, true, value);\n  };",
+      "mandatory" : false
+    }, {
+      "name" : "Mid Upper Arm Circumference (cms)",
+      "uuid" : "40c0941c-fc74-4097-b6b5-23683cd1b03e",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Mid Upper Arm Circumference (cms)",
+        "uuid" : "71ad9dad-5174-4b31-90e7-1fc95d61e901",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Respiratory Rate (Per Minute)",
+      "uuid" : "15410872-f987-4063-aba8-dbd4652d3fed",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Respiratory Rate (Per Minute)",
+        "uuid" : "073bd08a-3a69-487d-b76b-6892a8ab5f38",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 5.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "SPO2 on RA (%)",
+      "uuid" : "47f777d8-2a93-49eb-9329-cbb6d017cf18",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "SPO2 on RA (%)",
+        "uuid" : "f4f03163-ed3f-440a-aa53-918297634c80",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 6.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Systolic BP (mmHg)",
+      "uuid" : "a8cde442-5417-44b4-a64f-eb1fdd278312",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Systolic BP (mmHg)",
+        "uuid" : "6a3337a9-af5a-4085-a4e8-b88ae1f9347e",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 7.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Diastolic BP",
+      "uuid" : "d1c1c074-9306-4b71-aba4-2e33b157d97e",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Diastolic BP",
+        "uuid" : "8c90122d-1702-4530-a987-5d9ddb70ca7d",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 8.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "General Condition",
+      "uuid" : "f5371396-a77d-4f5f-abca-aa8572cfdaee",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "General Condition",
+        "uuid" : "f471124d-b975-47e4-a345-35f4ccabd1c7",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Unstable",
+          "uuid" : "cb9d37bf-1360-4b08-860c-b04f584801bc",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Stable",
+          "uuid" : "32127d67-31b8-404c-8c55-e1f1f1c7996c",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 9.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "If unstable, details",
+      "uuid" : "36139728-6a86-4140-ae19-3064b47926c4",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "If unstable, details",
+        "uuid" : "3e833df1-4e7c-4e92-959b-35fd0fd52f2d",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Not fully Conscious",
+          "uuid" : "e8960a8d-3bd8-4c5a-bd5a-37ccecd7a9b5",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "other(specify)",
+          "uuid" : "2b464088-093b-4406-8cc3-89eade99a972",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Unable to stand without support",
+          "uuid" : "449e6bda-8301-49b4-9cc9-ebbf09936555",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 10.0,
+      "type" : "MultiSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"f471124d-b975-47e4-a345-35f4ccabd1c7\").containsAnswerConceptName(\"cb9d37bf-1360-4b08-860c-b04f584801bc\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "General Condition",
+                "conceptUuid" : "f471124d-b975-47e4-a345-35f4ccabd1c7",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Unstable" ],
+                "answerConceptUuids" : [ "cb9d37bf-1360-4b08-860c-b04f584801bc" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : false
+    }, {
+      "name" : "Other (specify)",
+      "uuid" : "c695f3eb-40fb-4d63-9e5a-ae8972a06259",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "If unstable, details Other (specify)",
+        "uuid" : "d8c8c1e2-d782-4993-a534-e489edb25bbe",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 11.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"3e833df1-4e7c-4e92-959b-35fd0fd52f2d\").containsAnswerConceptName(\"2b464088-093b-4406-8cc3-89eade99a972\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "If unstable, details",
+                "conceptUuid" : "3e833df1-4e7c-4e92-959b-35fd0fd52f2d",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "other(specify)" ],
+                "answerConceptUuids" : [ "2b464088-093b-4406-8cc3-89eade99a972" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : false
+    }, {
+      "name" : "Diastolic BP",
+      "uuid" : "4b26b8fc-81d1-4239-bf15-b70bbde24a6d",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Diastolic BP New (voided~258156)",
+        "uuid" : "d4967ebe-1258-4b6f-859b-6b73ab71ad49",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Unstable",
+          "uuid" : "cb9d37bf-1360-4b08-860c-b04f584801bc",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Stable",
+          "uuid" : "32127d67-31b8-404c-8c55-e1f1f1c7996c",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ],
+        "voided" : true
+      },
+      "displayOrder" : 12.0,
+      "type" : "SingleSelect",
+      "voided" : true,
+      "mandatory" : true
+    } ],
+    "display" : "Examination",
+    "timed" : false
+  }, {
+    "uuid" : "a4f19cff-e95e-4217-a5f3-575d2d891b28",
+    "name" : "Form Filled Details",
+    "displayOrder" : 4.0,
+    "formElements" : [ {
+      "name" : "Form Filled by (write initials)",
+      "uuid" : "89919e26-4936-470d-9e97-3fb676068ed4",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Form Filled by (write initials)",
+        "uuid" : "5bbc3b12-5ccb-4068-b67d-59c172234c9f",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "voided" : true,
+      "mandatory" : false
+    }, {
+      "name" : "Date of form filling",
+      "uuid" : "1764f7f6-da5b-42c3-b24b-405d67b10fa8",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Date of form filling",
+        "uuid" : "7aed2be8-f1af-4a4e-af74-a69168807ca5",
+        "dataType" : "Date",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "voided" : true,
+      "mandatory" : false
+    } ],
+    "display" : "Form Filled Details",
+    "voided" : true,
+    "timed" : false
+  } ],
+  "decisionRule" : "",
+  "visitScheduleRule" : "\"use strict\";\n({ params, imports }) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({programEncounter});\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter}).when.valueInEncounter(\"ea51cd0c-d6b2-4097-be01-4c2bdb908d79\").defined.matches();\n  \n  if(condition11 ){\n    const earliestDate = moment(programEncounter.encounterDateTime).add(0, 'days').toDate();\n    const maxDate = moment(programEncounter.encounterDateTime).add(0, 'days').toDate();\n    scheduleBuilder.add({name: \"TB Study Baseline Labs\", encounterType: \"TB Study Baseline Labs\", earliestDate, maxDate});  \n}\n  \n  return scheduleBuilder.getAll();\n};",
+  "validationRule" : "",
+  "checklistsRule" : "",
+  "decisionConcepts" : [ ],
+  "visitScheduleDeclarativeRule" : [ {
+    "actions" : [ {
+      "details" : {
+        "dateField" : "encounterDateTime",
+        "daysToOverdue" : "0",
+        "encounterName" : "TB Study Baseline Labs",
+        "encounterType" : "TB Study Baseline Labs",
+        "daysToSchedule" : "0"
+      },
+      "actionType" : "scheduleVisit"
+    }, { } ],
+    "conditions" : [ {
+      "compoundRule" : {
+        "rules" : [ {
+          "lhs" : {
+            "type" : "concept",
+            "scope" : "encounter",
+            "conceptName" : "Height (cms)",
+            "conceptUuid" : "ea51cd0c-d6b2-4097-be01-4c2bdb908d79",
+            "conceptDataType" : "Numeric"
+          },
+          "rhs" : { },
+          "operator" : "defined"
+        } ],
+        "conjunction" : "or"
+      }
+    } ]
+  } ]
+}

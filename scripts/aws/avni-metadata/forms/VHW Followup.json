@@ -1,0 +1,979 @@
+{
+  "name" : "VHW Followup",
+  "uuid" : "c9a5e2f9-d990-4bef-9f44-a3ae5f283ec0",
+  "formType" : "Encounter",
+  "formElementGroups" : [ {
+    "uuid" : "fad45e8d-97f9-4d56-ba0d-e92beb010c30",
+    "name" : "Previous Encounter Details",
+    "displayOrder" : 1.0,
+    "formElements" : [ {
+      "name" : "Encounter Type",
+      "uuid" : "46e57a1f-031d-4057-a1a7-32744247b6e7",
+      "keyValues" : [ {
+        "key" : "editable",
+        "value" : false
+      } ],
+      "concept" : {
+        "name" : "Encounter Type",
+        "uuid" : "cc8a428a-d415-4a89-8964-8a9433ecaee7",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "keyValues" : [ ],
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n    const encounter = params.entity;\n    const moment = imports.moment;\n    const formElement = params.formElement;\n    const _ = imports.lodash;\n    let visibility = true;\n    let value = null;\n    let answersToSkip = [];\n    let validationErrors = [];\n    const encounterDateTime = moment(encounter.encounterDateTime);\n    const encounterList = ['VHW Followup', 'Subcenter Followup', 'Cluster Coordinator Followup', 'Referral Communication from VHW', 'MCH Worker Followup', 'Referral Communication'];\n    let encounters = encounter.individual.getEncounters(true)\n        .filter(enc => encounterList.includes(enc.encounterType.name) && enc.uuid != encounter.uuid && moment(enc.encounterDateTime).isBefore(encounterDateTime))\n    \n    if(encounters && encounters.length > 0){\n        const latestEncounter = encounters[0];\n        value = latestEncounter.encounterType.name;\n    }\n    return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "mandatory" : false
+    }, {
+      "name" : "Details of follow up",
+      "uuid" : "574c0cc2-63fd-4fb3-bd06-6eb2c91075c4",
+      "keyValues" : [ {
+        "key" : "editable",
+        "value" : false
+      } ],
+      "concept" : {
+        "name" : "Details of follow up - prev",
+        "uuid" : "60f459f0-ccd1-46a7-82c4-a789825ac80b",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n    const encounter = params.entity;\n    const moment = imports.moment;\n    const formElement = params.formElement;\n    const _ = imports.lodash;\n    let visibility = true;\n    let value = null;\n    let answersToSkip = [];\n    let validationErrors = [];\n    const encounterDateTime = moment(encounter.encounterDateTime);\n    const encounterList = ['VHW Followup', 'Subcenter Followup', 'Cluster Coordinator Followup', 'Referral Communication from VHW', 'MCH Worker Followup', 'Referral Communication'];\n    const referralCommunicationList = ['Referral Communication from VHW', 'Referral Communication']\n    let encounters = encounter.individual.getEncounters(true)\n        .filter(enc => encounterList.includes(enc.encounterType.name) && enc.uuid != encounter.uuid && moment(enc.encounterDateTime).isBefore(encounterDateTime))\n    \n    if(encounters && encounters.length > 0){\n        const latestEncounter = encounters[0];\n        if(referralCommunicationList.includes(latestEncounter.encounterType.name)){\n            visibility = false;\n        }\n        else {\n            value = latestEncounter.getObservationValue('cc2c1de3-92b3-4dec-95ec-8625ffc86463');\n        }\n    }\n    return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "mandatory" : false
+    }, {
+      "name" : "Place of Referral",
+      "uuid" : "85b2768a-28d1-4171-bfb2-3b68e5ad8499",
+      "keyValues" : [ {
+        "key" : "editable",
+        "value" : false
+      } ],
+      "concept" : {
+        "name" : "Place of Referral - prev",
+        "uuid" : "1b82eafa-604f-4395-9a8b-a51c5d2ff474",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Subcenter (SHW OPD)",
+          "uuid" : "64c1b238-e800-4581-8785-2d1897d0dd2e",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/64c1b238-e800-4581-8785-2d1897d0dd2e.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "Doctor",
+          "uuid" : "d7265308-9843-4d5f-859f-1585c119c8cb",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 6.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/d7265308-9843-4d5f-859f-1585c119c8cb.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "Phulwari Supervisor",
+          "uuid" : "a8dffa97-0020-42af-9dc7-4bdbde5520ae",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 8.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/a8dffa97-0020-42af-9dc7-4bdbde5520ae.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "VHW",
+          "uuid" : "355143bf-b812-4ec8-93e6-6795fe4f7dc9",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/355143bf-b812-4ec8-93e6-6795fe4f7dc9.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "Ganiyari Hospital",
+          "uuid" : "e9a08867-baca-43ea-85ac-34c06811190b",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/e9a08867-baca-43ea-85ac-34c06811190b.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "Cluster Coordinator",
+          "uuid" : "c21d00ba-91cd-404e-973d-f25246b15673",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 7.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "SHW",
+          "uuid" : "7ac0d9a2-ff82-41e6-9f38-134904d476f9",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Subcenter (Mobile Clinic)",
+          "uuid" : "22164309-c2d2-4a2b-9dee-5d9b5a205830",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/22164309-c2d2-4a2b-9dee-5d9b5a205830.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "MCHW",
+          "uuid" : "c1b3ea40-291f-49e7-893f-43565a477386",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n    const encounter = params.entity;\n    const moment = imports.moment;\n    const formElement = params.formElement;\n    const _ = imports.lodash;\n    let visibility = true;\n    let value = null;\n    let answersToSkip = [];\n    let validationErrors = [];\n    const encounterDateTime = moment(encounter.encounterDateTime);\n    const encounterList = ['VHW Followup', 'Subcenter Followup', 'Cluster Coordinator Followup', 'Referral Communication from VHW', 'MCH Worker Followup', 'Referral Communication'];\n    const referralCommunicationList = ['Referral Communication from VHW', 'Referral Communication']\n    let encounters = encounter.individual.getEncounters(true)\n        .filter(enc => encounterList.includes(enc.encounterType.name) && enc.uuid != encounter.uuid && moment(enc.encounterDateTime).isBefore(encounterDateTime))\n    \n    if(encounters && encounters.length > 0){\n        const latestEncounter = encounters[0];\n        value = latestEncounter.getObservationReadableValue('c7b12d50-0a60-444a-a3cc-3dc13a2fb04e');\n    }\n    return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "mandatory" : false
+    }, {
+      "name" : "Reason for Referral",
+      "uuid" : "8943b235-cf24-4efd-9b61-09c3f7e72353",
+      "keyValues" : [ {
+        "key" : "editable",
+        "value" : false
+      } ],
+      "concept" : {
+        "name" : "Reason for Referral - Prev",
+        "uuid" : "05f930eb-1673-4732-99b6-f745a493b300",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Counselling",
+          "uuid" : "0ac30adc-5107-4e30-9b8a-c3ef65904cf5",
+          "dataType" : "Coded",
+          "answers" : [ {
+            "name" : "No",
+            "uuid" : "f88da2e8-6ab4-44b5-b762-233485cd25f9",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 2.0,
+            "active" : true,
+            "media" : [ ]
+          }, {
+            "name" : "Yes",
+            "uuid" : "57e20de7-10de-4391-b7ce-87b2f40d19a2",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 1.0,
+            "active" : true,
+            "media" : [ ]
+          } ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/0ac30adc-5107-4e30-9b8a-c3ef65904cf5.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "Treatment at a higher centre or at VHW",
+          "uuid" : "3d9b807d-b7cf-4a92-9d70-92f44c028814",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Other",
+          "uuid" : "798b7942-cf58-4d4e-a529-5972942e0a7e",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Treatment at a higher centre",
+          "uuid" : "19a3191b-e461-4791-a1f3-0743461c3712",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Screening of chronic disease",
+          "uuid" : "e15edf05-5a1c-46bc-86cb-a71c9a1da034",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n    const encounter = params.entity;\n    const moment = imports.moment;\n    const formElement = params.formElement;\n    const _ = imports.lodash;\n    let visibility = true;\n    let value = null;\n    let answersToSkip = [];\n    let validationErrors = [];\n    const encounterDateTime = moment(encounter.encounterDateTime);\n    const encounterList = ['VHW Followup', 'Subcenter Followup', 'Cluster Coordinator Followup', 'Referral Communication from VHW', 'MCH Worker Followup', 'Referral Communication'];\n    const referralCommunicationList = ['Referral Communication from VHW', 'Referral Communication']\n    let encounters = encounter.individual.getEncounters(true)\n        .filter(enc => encounterList.includes(enc.encounterType.name) && enc.uuid != encounter.uuid && moment(enc.encounterDateTime).isBefore(encounterDateTime))\n    \n    if(encounters && encounters.length > 0){\n        const latestEncounter = encounters[0];\n        if(latestEncounter.encounterType.name == 'VHW Followup'){\n            value = latestEncounter.getObservationReadableValue('263293cf-67ed-4f71-9523-48c03948fccf');\n        }\n        else{\n            value = latestEncounter.getObservationReadableValue('3f59afbe-afee-403c-9e5e-363ff1d14a39');\n        }\n    }\n    return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "mandatory" : false
+    }, {
+      "name" : "Other, reason for referral",
+      "uuid" : "5391ae74-6c9a-40c3-abf1-30cfd3054947",
+      "keyValues" : [ {
+        "key" : "editable",
+        "value" : false
+      } ],
+      "concept" : {
+        "name" : "Other, reason for referral - Prev",
+        "uuid" : "774df324-da8a-4b53-9ff3-336e9953e719",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 5.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n    const encounter = params.entity;\n    const moment = imports.moment;\n    const formElement = params.formElement;\n    const _ = imports.lodash;\n    let visibility = false; // Default to false\n    let value = null;\n    let answersToSkip = [];\n    let validationErrors = [];\n    const encounterDateTime = moment(encounter.encounterDateTime);\n    const encounterList = ['VHW Followup', 'Subcenter Followup', 'Cluster Coordinator Followup', 'Referral Communication from VHW', 'MCH Worker Followup', 'Referral Communication'];\n    const referralCommunicationList = ['Referral Communication from VHW', 'Referral Communication'];\n\n    let encounters = encounter.individual.getEncounters(true);\n    if (encounters && encounters.length > 0) {\n        encounters = encounters.filter(enc => \n            encounterList.includes(enc.encounterType.name) &&\n            enc.uuid !== encounter.uuid &&\n            moment(enc.encounterDateTime).isSameOrBefore(encounterDateTime, 'day')\n        );\n    }\n\n    if (encounters && encounters.length > 0) {\n        const latestEncounter = encounters[0];\n        let reason = null;\n        \n        if (referralCommunicationList.includes(latestEncounter.encounterType.name)) {\n            reason = latestEncounter.getObservationReadableValue('5a1d670c-9285-4543-9616-335b7997aa33');\n        } else {\n            reason = latestEncounter.getObservationReadableValue('65e03b54-e2ba-4a48-a089-7d8f3dd316a9');\n        }\n        \n        if (reason != null) {\n            visibility = true;\n            value = reason;\n        }\n    }\n\n    return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "mandatory" : false
+    }, {
+      "name" : "Give more details - what should be done",
+      "uuid" : "68bf15ba-68d5-46fd-879a-21652052fe93",
+      "keyValues" : [ {
+        "key" : "editable",
+        "value" : false
+      } ],
+      "concept" : {
+        "name" : "Give more details - what should be done - Prev",
+        "uuid" : "0aac2fc5-8907-4045-abd5-e0dfaa7ca77d",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 6.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n    const encounter = params.entity;\n    const moment = imports.moment;\n    const formElement = params.formElement;\n    const _ = imports.lodash;\n    let visibility = false; // Default to false\n    let value = null;\n    let answersToSkip = [];\n    let validationErrors = [];\n    const encounterDateTime = moment(encounter.encounterDateTime);\n    const encounterList = ['VHW Followup', 'Subcenter Followup', 'Cluster Coordinator Followup', 'Referral Communication from VHW', 'MCH Worker Followup', 'Referral Communication'];\n    const referralCommunicationList = ['Referral Communication from VHW', 'Referral Communication'];\n\n    let encounters = encounter.individual.getEncounters(true);\n    if (encounters && encounters.length > 0) {\n        encounters = encounters.filter(enc => \n            encounterList.includes(enc.encounterType.name) &&\n            enc.uuid !== encounter.uuid &&\n            moment(enc.encounterDateTime).isSameOrBefore(encounterDateTime, 'day')\n        );\n    }\n\n    if (encounters && encounters.length > 0) {\n        const latestEncounter = encounters[0];\n        let reason = null;\n        reason = latestEncounter.getObservationReadableValue('13af10e4-dd09-4dc1-8e93-aa99bd875d76');\n        \n        if (reason != null) {\n            visibility = true;\n            value = reason;\n        }\n    }\n\n    return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "mandatory" : false
+    } ],
+    "display" : "Previous Encounter Details",
+    "timed" : false
+  }, {
+    "uuid" : "79f26a00-d911-4dbb-82e9-19b93726bf6e",
+    "name" : "Details",
+    "displayOrder" : 2.0,
+    "formElements" : [ {
+      "name" : "What was the reason for followup",
+      "uuid" : "c2fd099f-72b8-455d-8326-982411acb7f0",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "What was the reason for followup",
+        "uuid" : "1f6fc60a-fef4-4235-9bd7-1696ce6bebf9",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "What was the reason for followup",
+      "uuid" : "5ae6b88e-a789-4026-8883-baca83c648df",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "What was the reason for Followup",
+        "uuid" : "f1605d2e-a04d-4b47-ab3c-45ce5f0720fe",
+        "dataType" : "Audio",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "rule" : "",
+      "mandatory" : false
+    }, {
+      "name" : "Follow up done?",
+      "uuid" : "7f01180b-6714-4397-a634-a2042c979c6d",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Follow up done?",
+        "uuid" : "c29d9dd7-353d-4fd2-8696-3fa15367e4b4",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "No",
+          "uuid" : "f88da2e8-6ab4-44b5-b762-233485cd25f9",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Yes",
+          "uuid" : "57e20de7-10de-4391-b7ce-87b2f40d19a2",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Why is the follow-up not done?",
+      "uuid" : "50aafa3d-72ee-4443-844a-cd74d62a2a87",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Why is the follow-up not done?",
+        "uuid" : "8e375877-905c-4fca-8f5f-0c75cd022870",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Other",
+          "uuid" : "798b7942-cf58-4d4e-a529-5972942e0a7e",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Patient not available",
+          "uuid" : "ef8806ad-7b99-44b5-9856-0808402263d9",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({encounter, formElement}).when.valueInEncounter(\"c29d9dd7-353d-4fd2-8696-3fa15367e4b4\").containsAnswerConceptName(\"f88da2e8-6ab4-44b5-b762-233485cd25f9\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Follow up done?",
+                "conceptUuid" : "c29d9dd7-353d-4fd2-8696-3fa15367e4b4",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "No" ],
+                "answerConceptUuids" : [ "f88da2e8-6ab4-44b5-b762-233485cd25f9" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ]
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    }, {
+      "name" : "Other",
+      "uuid" : "d945e6b6-48c2-41a8-b7c1-b162b8b5c83e",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Follow up not done reason",
+        "uuid" : "47fa9c34-ac25-4887-a823-6d8ac4d57540",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 5.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({encounter, formElement}).when.valueInEncounter(\"8e375877-905c-4fca-8f5f-0c75cd022870\").containsAnswerConceptName(\"798b7942-cf58-4d4e-a529-5972942e0a7e\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Why is the follow-up not done?",
+                "conceptUuid" : "8e375877-905c-4fca-8f5f-0c75cd022870",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Other" ],
+                "answerConceptUuids" : [ "798b7942-cf58-4d4e-a529-5972942e0a7e" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ]
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    }, {
+      "name" : "Follow up for?",
+      "uuid" : "29a98125-eda4-49e3-9956-2bd6ed759304",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Follow up for?",
+        "uuid" : "b14fde1b-4d91-4b20-add9-351c54c8f4fa",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Need counselling",
+          "uuid" : "ac1a198a-a7fe-435b-8af2-792f9e078f74",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Other",
+          "uuid" : "798b7942-cf58-4d4e-a529-5972942e0a7e",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Bedridden patient",
+          "uuid" : "e66f2c3c-777b-4069-a14f-088670567300",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 6.0,
+      "type" : "SingleSelect",
+      "voided" : true,
+      "mandatory" : true
+    }, {
+      "name" : "Other reason of follow up, please specify",
+      "uuid" : "5b8ba697-420e-46d7-b303-95117dc69957",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Other reason of follow up, please specify",
+        "uuid" : "ca396ed7-9f94-47d7-a23c-9faa2b246c5a",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 7.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({encounter, formElement}).when.valueInEncounter(\"b14fde1b-4d91-4b20-add9-351c54c8f4fa\").containsAnswerConceptName(\"798b7942-cf58-4d4e-a529-5972942e0a7e\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Follow up for?",
+                "conceptUuid" : "b14fde1b-4d91-4b20-add9-351c54c8f4fa",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Other" ],
+                "answerConceptUuids" : [ "798b7942-cf58-4d4e-a529-5972942e0a7e" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ]
+          }
+        } ]
+      } ],
+      "voided" : true,
+      "mandatory" : true
+    }, {
+      "name" : "Details of follow up",
+      "uuid" : "4851f6dc-1cf8-46bc-907a-b0dad9bd4b09",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Details of follow up",
+        "uuid" : "cc2c1de3-92b3-4dec-95ec-8625ffc86463",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 8.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({encounter, formElement}).when.valueInEncounter(\"c29d9dd7-353d-4fd2-8696-3fa15367e4b4\").containsAnswerConceptName(\"57e20de7-10de-4391-b7ce-87b2f40d19a2\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Follow up done?",
+                "conceptUuid" : "c29d9dd7-353d-4fd2-8696-3fa15367e4b4",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Yes" ],
+                "answerConceptUuids" : [ "57e20de7-10de-4391-b7ce-87b2f40d19a2" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    }, {
+      "name" : "Need to refer further?",
+      "uuid" : "6a76ccf5-7710-47be-96b7-c1d4662d731c",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Need to refer further?",
+        "uuid" : "d18075fb-f382-4595-840f-920a1d39fd45",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Yes",
+          "uuid" : "57e20de7-10de-4391-b7ce-87b2f40d19a2",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "No",
+          "uuid" : "f88da2e8-6ab4-44b5-b762-233485cd25f9",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 9.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Place of referral",
+      "uuid" : "e43ae7ff-b4db-433b-b662-2103bb8cdab2",
+      "keyValues" : [ {
+        "key" : "ExcludedAnswers",
+        "value" : [ "VHW" ]
+      } ],
+      "concept" : {
+        "name" : "Place of Referral",
+        "uuid" : "c7b12d50-0a60-444a-a3cc-3dc13a2fb04e",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "MCHW",
+          "uuid" : "c1b3ea40-291f-49e7-893f-43565a477386",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 6.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Subcenter (SHW OPD)",
+          "uuid" : "64c1b238-e800-4581-8785-2d1897d0dd2e",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/64c1b238-e800-4581-8785-2d1897d0dd2e.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "Subcenter (Mobile Clinic)",
+          "uuid" : "22164309-c2d2-4a2b-9dee-5d9b5a205830",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/22164309-c2d2-4a2b-9dee-5d9b5a205830.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "MCHW (Home visit)",
+          "uuid" : "08e9df58-f7e5-4239-8970-5ff18200007f",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 8.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Ganiyari Hospital",
+          "uuid" : "e9a08867-baca-43ea-85ac-34c06811190b",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/e9a08867-baca-43ea-85ac-34c06811190b.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "Cluster Coordinator",
+          "uuid" : "c21d00ba-91cd-404e-973d-f25246b15673",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 12.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "SHW",
+          "uuid" : "7ac0d9a2-ff82-41e6-9f38-134904d476f9",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "VHW",
+          "uuid" : "355143bf-b812-4ec8-93e6-6795fe4f7dc9",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 7.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/355143bf-b812-4ec8-93e6-6795fe4f7dc9.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "Doctor (Home visit)",
+          "uuid" : "472c2a76-d982-4f9e-8e93-f9aea9deb8fc",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 9.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Doctor",
+          "uuid" : "d7265308-9843-4d5f-859f-1585c119c8cb",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 10.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/d7265308-9843-4d5f-859f-1585c119c8cb.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "Phulwari Supervisor",
+          "uuid" : "a8dffa97-0020-42af-9dc7-4bdbde5520ae",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 13.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/a8dffa97-0020-42af-9dc7-4bdbde5520ae.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "Cluster Coordinator (Home visit)",
+          "uuid" : "1dec2135-0ccb-4dc6-9f5f-3f86d8ea2f45",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 11.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "SHW (Home visit)",
+          "uuid" : "185e2243-2b9d-4c67-8ff1-eb1f00136800",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ {
+          "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/c7b12d50-0a60-444a-a3cc-3dc13a2fb04e.jpg",
+          "type" : "Image"
+        } ]
+      },
+      "displayOrder" : 10.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({encounter, formElement}).when.valueInEncounter(\"d18075fb-f382-4595-840f-920a1d39fd45\").containsAnswerConceptName(\"57e20de7-10de-4391-b7ce-87b2f40d19a2\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Need to refer further?",
+                "conceptUuid" : "d18075fb-f382-4595-840f-920a1d39fd45",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Yes" ],
+                "answerConceptUuids" : [ "57e20de7-10de-4391-b7ce-87b2f40d19a2" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ]
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    }, {
+      "name" : "Reason for referral",
+      "uuid" : "2a1eaa19-ec8e-456f-97f9-7085ee0d3bed",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "reason for referral",
+        "uuid" : "263293cf-67ed-4f71-9523-48c03948fccf",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Counselling",
+          "uuid" : "0ac30adc-5107-4e30-9b8a-c3ef65904cf5",
+          "dataType" : "Coded",
+          "answers" : [ {
+            "name" : "No",
+            "uuid" : "f88da2e8-6ab4-44b5-b762-233485cd25f9",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 2.0,
+            "active" : true,
+            "media" : [ ]
+          }, {
+            "name" : "Yes",
+            "uuid" : "57e20de7-10de-4391-b7ce-87b2f40d19a2",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 1.0,
+            "active" : true,
+            "media" : [ ]
+          } ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/0ac30adc-5107-4e30-9b8a-c3ef65904cf5.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "Screening of chronic disease",
+          "uuid" : "e15edf05-5a1c-46bc-86cb-a71c9a1da034",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Treatment at a higher centre",
+          "uuid" : "19a3191b-e461-4791-a1f3-0743461c3712",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Other",
+          "uuid" : "798b7942-cf58-4d4e-a529-5972942e0a7e",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 11.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({encounter, formElement}).when.valueInEncounter(\"d18075fb-f382-4595-840f-920a1d39fd45\").containsAnswerConceptName(\"57e20de7-10de-4391-b7ce-87b2f40d19a2\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Need to refer further?",
+                "conceptUuid" : "d18075fb-f382-4595-840f-920a1d39fd45",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Yes" ],
+                "answerConceptUuids" : [ "57e20de7-10de-4391-b7ce-87b2f40d19a2" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ]
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    }, {
+      "name" : "Other, reason for referral, please specify",
+      "uuid" : "6764233a-759c-41ad-bec1-572c61ca8f7b",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Other, reason for referral, please specify",
+        "uuid" : "65e03b54-e2ba-4a48-a089-7d8f3dd316a9",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 12.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({encounter, formElement}).when.valueInEncounter(\"263293cf-67ed-4f71-9523-48c03948fccf\").containsAnswerConceptName(\"798b7942-cf58-4d4e-a529-5972942e0a7e\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "reason for referral",
+                "conceptUuid" : "263293cf-67ed-4f71-9523-48c03948fccf",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Other" ],
+                "answerConceptUuids" : [ "798b7942-cf58-4d4e-a529-5972942e0a7e" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ]
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    }, {
+      "name" : "Give more details - what should be done",
+      "uuid" : "16660eff-f47c-4478-a62b-acb04c30000d",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Give more details - what should be done",
+        "uuid" : "ca20965a-9c5d-475d-b4fe-44af22a90ac1",
+        "dataType" : "Audio",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 13.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({encounter, formElement}).when.valueInEncounter(\"d18075fb-f382-4595-840f-920a1d39fd45\").containsAnswerConceptName(\"57e20de7-10de-4391-b7ce-87b2f40d19a2\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Need to refer further?",
+                "conceptUuid" : "d18075fb-f382-4595-840f-920a1d39fd45",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Yes" ],
+                "answerConceptUuids" : [ "57e20de7-10de-4391-b7ce-87b2f40d19a2" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ]
+          }
+        } ]
+      } ],
+      "mandatory" : false
+    }, {
+      "name" : "Give more details - what should be done",
+      "uuid" : "020439bc-3c42-4fbf-8ca7-fbef8e830f19",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Give more details - What should be done",
+        "uuid" : "13af10e4-dd09-4dc1-8e93-aa99bd875d76",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 14.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({encounter, formElement}).when.valueInEncounter(\"d18075fb-f382-4595-840f-920a1d39fd45\").containsAnswerConceptName(\"57e20de7-10de-4391-b7ce-87b2f40d19a2\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Need to refer further?",
+                "conceptUuid" : "d18075fb-f382-4595-840f-920a1d39fd45",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Yes" ],
+                "answerConceptUuids" : [ "57e20de7-10de-4391-b7ce-87b2f40d19a2" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ]
+          }
+        } ]
+      } ],
+      "mandatory" : false
+    } ],
+    "display" : "Details",
+    "timed" : false
+  } ],
+  "decisionRule" : "",
+  "visitScheduleRule" : "\"use strict\";\n({ params, imports }) => {\n    const encounter = params.entity;\n    const moment = imports.moment;\n    const earliestDate = moment(encounter.encounterDateTime).toDate();\n    const maxDate = moment(encounter.encounterDateTime).add(15, 'days').endOf('day').toDate();\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({encounter});\n\n    function isAlreadyScheduled(encounterType, earliestDate) {\n        const earliestDateTime = moment(earliestDate);\n        const isAlreadyPresent = encounter.individual.getEncounters(true)\n            .some((enc) => \n                enc &&\n                enc.encounterType.name == encounterType &&\n                enc.voided == false &&\n                moment(enc.earliestVisitDateTime).isSame(earliestDateTime, 'day')\n            );\n    \n        return isAlreadyPresent;\n    }\n\n    function scheduleVisit(encounterName, encounterType, earliestDate, maxDate) {\n        if(!isAlreadyScheduled(encounterType, earliestDate)) {\n            scheduleBuilder.add({\n                name: encounterName, \n                encounterType: encounterType, \n                earliestDate, \n                maxDate\n            });\n        }\n    }\n\n    const referralMap = {\n        'Subcenter Followup': ['22164309-c2d2-4a2b-9dee-5d9b5a205830', '64c1b238-e800-4581-8785-2d1897d0dd2e'],\n        'VHW Followup': ['355143bf-b812-4ec8-93e6-6795fe4f7dc9'],\n        'MCH Worker Followup': ['c1b3ea40-291f-49e7-893f-43565a477386'],\n        'Cluster Coordinator Followup': [\n            'e9a08867-baca-43ea-85ac-34c06811190b',\n            'c21d00ba-91cd-404e-973d-f25246b15673'\n        ]\n    };\n\n    const placeOfReferral = encounter.getObservationValue('c7b12d50-0a60-444a-a3cc-3dc13a2fb04e');\n    if(placeOfReferral) {\n        for (const [encounterName, uuids] of Object.entries(referralMap)) {\n            if (uuids.includes(placeOfReferral)) {\n                scheduleVisit(encounterName, encounterName, earliestDate, maxDate);\n                break;\n            }\n        }\n    }\n    \n    return scheduleBuilder.getAll();\n};",
+  "validationRule" : "'use strict';\n({params, imports}) => {\n  const individual = params.entity;\n  const moment = imports.moment;\n  const validationResults = [];\n  \n  const audioDescription = individual.getObservationValue(\"ca20965a-9c5d-475d-b4fe-44af22a90ac1\")\n  const textDescription = individual.getObservationValue(\"13af10e4-dd09-4dc1-8e93-aa99bd875d76\")\n   const audioReason = individual.getObservationValue(\"f1605d2e-a04d-4b47-ab3c-45ce5f0720fe\")\n  const textReason = individual.getObservationValue(\"1f6fc60a-fef4-4235-9bd7-1696ce6bebf9\")\n  const isFollowupDone = individual.getObservationReadableValue('d18075fb-f382-4595-840f-920a1d39fd45') == 'Yes'\n  \n  \n   if((isFollowupDone && audioDescription == null && textDescription == null) || (audioReason == null && textReason == null)){\n        let validationError = imports.common.createValidationError('Please answer \"What was the reason for followup\" and \"Give more details - what should be done\" in either text or audio to move forward');\n        validationResults.push(validationError);\n    }\n  \n  return validationResults;\n};",
+  "checklistsRule" : "",
+  "decisionConcepts" : [ ]
+}

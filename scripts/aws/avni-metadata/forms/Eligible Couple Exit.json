@@ -1,0 +1,201 @@
+{
+  "name" : "Eligible Couple Exit",
+  "uuid" : "51b302f8-efb0-4ac1-ba66-f2312144e7bf",
+  "formType" : "ProgramEncounter",
+  "formElementGroups" : [ {
+    "uuid" : "7111defc-d46b-44f9-8924-5f2bd6a361f7",
+    "name" : "Exit Form Details",
+    "displayOrder" : 1.0,
+    "formElements" : [ {
+      "name" : "Reason for Exit",
+      "uuid" : "de4f3045-e4ec-4e2e-bb4b-21950c0a5307",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Reason for Exit",
+        "uuid" : "e440c91a-81bd-409c-bf98-5e8175e77cb6",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Menopause",
+          "uuid" : "202a344b-da1b-44f6-b292-232bf951310b",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Tubectomy done",
+          "uuid" : "ffc27c16-a2c0-4418-b79f-c1965e676ace",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Other",
+          "uuid" : "798b7942-cf58-4d4e-a529-5972942e0a7e",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 6.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Death",
+          "uuid" : "c125eec0-2bc4-4add-b1d0-7531e5ffa9c8",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Migration",
+          "uuid" : "899e33d1-a54b-4ce5-8efd-2efc255129b6",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Pregnancy",
+          "uuid" : "bdcc36df-61af-4840-94ac-6428756f8eff",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Infertility",
+          "uuid" : "8e3ebab9-902d-48d2-8cbb-29daacf0b4ab",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "MultiSelect",
+      "voided" : true,
+      "mandatory" : true
+    }, {
+      "name" : "Reason for Exit",
+      "uuid" : "30b4c7b7-6f57-4564-aef3-c0e56daa02f2",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Reason for Exit",
+        "uuid" : "e440c91a-81bd-409c-bf98-5e8175e77cb6",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Menopause",
+          "uuid" : "202a344b-da1b-44f6-b292-232bf951310b",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Tubectomy done",
+          "uuid" : "ffc27c16-a2c0-4418-b79f-c1965e676ace",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Other",
+          "uuid" : "798b7942-cf58-4d4e-a529-5972942e0a7e",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 6.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Death",
+          "uuid" : "c125eec0-2bc4-4add-b1d0-7531e5ffa9c8",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Migration",
+          "uuid" : "899e33d1-a54b-4ce5-8efd-2efc255129b6",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Pregnancy",
+          "uuid" : "bdcc36df-61af-4840-94ac-6428756f8eff",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Infertility",
+          "uuid" : "8e3ebab9-902d-48d2-8cbb-29daacf0b4ab",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Other reason for exit",
+      "uuid" : "7496bc37-1806-4b40-bab7-732eaa0f5ef1",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Other reason for exit",
+        "uuid" : "4bd41d1d-b556-4fb7-b57d-f077f050c808",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"e440c91a-81bd-409c-bf98-5e8175e77cb6\").containsAnswerConceptName(\"798b7942-cf58-4d4e-a529-5972942e0a7e\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Reason for Exit",
+                "conceptUuid" : "e440c91a-81bd-409c-bf98-5e8175e77cb6",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Other" ],
+                "answerConceptUuids" : [ "798b7942-cf58-4d4e-a529-5972942e0a7e" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ]
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    } ],
+    "display" : "Exit Form Details",
+    "timed" : false
+  } ],
+  "decisionRule" : "",
+  "visitScheduleRule" : "",
+  "validationRule" : "",
+  "checklistsRule" : "",
+  "decisionConcepts" : [ ]
+}

@@ -1,0 +1,1696 @@
+{
+  "name" : "TB Study Baseline Labs Encounter",
+  "uuid" : "66ca9d54-db70-4a12-9df7-f2fbe327751d",
+  "formType" : "ProgramEncounter",
+  "formElementGroups" : [ {
+    "uuid" : "98620ad4-d3ff-4c9f-96b3-bdddbc962838",
+    "name" : "Study ID",
+    "displayOrder" : 1.0,
+    "formElements" : [ {
+      "name" : "TB Study ID (TBS001 to TBS999)",
+      "uuid" : "fd8a401e-2393-4476-a0cf-5244f67de35d",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "TB Study ID (TBS001 to TBS999)",
+        "uuid" : "a52a64d8-2f50-433f-853f-2d1299a73a33",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "voided" : true,
+      "mandatory" : true
+    } ],
+    "display" : "Study ID",
+    "voided" : true,
+    "timed" : false
+  }, {
+    "uuid" : "9585c5d2-1317-4cab-a03d-b03e14e057f2",
+    "name" : "Date Information",
+    "displayOrder" : 2.0,
+    "formElements" : [ {
+      "name" : "Date of filling the form",
+      "uuid" : "9f962790-d2fb-4872-aae1-5bb90e5a4e47",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Date of filling the form",
+        "uuid" : "147fa701-db8f-47c7-b468-6bbfbd9e485b",
+        "dataType" : "Date",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    } ],
+    "display" : "Date Information",
+    "timed" : false
+  }, {
+    "uuid" : "1e736d18-ab01-4f9b-98a8-6ac4b3d4b6f2",
+    "name" : "Baseline Labs For ATT Initiation",
+    "displayOrder" : 3.0,
+    "formElements" : [ {
+      "name" : "Which of the following Baseline Labs tests were done?",
+      "uuid" : "0a9d72af-b177-44c8-af58-104d39e71325",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Which of the following Baseline Labs tests were done?",
+        "uuid" : "d8dbe936-0e1a-4c48-90f8-911e0b6575cf",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Creatinine",
+          "uuid" : "d4d49c99-26e9-4d45-a780-e40e58f8d0a0",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 7.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "SGPT/ALT",
+          "uuid" : "0b025dd7-075f-4f60-badb-7d2e738fba48",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 6.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Electrolytes (For BMI Below 16)",
+          "uuid" : "677f89b2-43d0-4909-867d-63f2aa320999",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 9.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "RBS New (voided~258165)",
+          "uuid" : "c970a243-41dd-4aa1-a4d7-abcc2a87493b",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ],
+          "voided" : true
+        }, {
+          "name" : "RBS Baseline Labs test",
+          "uuid" : "8ba23710-f8da-4d33-bfae-019df766caa0",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        }, {
+          "name" : "Serum Phosphorus (For BMI Below 16)",
+          "uuid" : "d7c7f19d-3379-4345-b9d0-616cc09419b2",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 10.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "RBS",
+          "uuid" : "6926107f-5793-4ef8-98e1-4a3cc1e2725f",
+          "dataType" : "Numeric",
+          "answers" : [ ],
+          "order" : 1.0,
+          "lowNormal" : 60.0,
+          "highNormal" : 160.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "HIV Elisa",
+          "uuid" : "7a4f71fe-aa40-4a97-8593-250e4163cac5",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Hemoglobin",
+          "uuid" : "310cdaeb-83be-4210-b73e-236c46e84be4",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Serum Albumin (For BMI Below 16)",
+          "uuid" : "ac1a4c4c-f0d2-46c8-a339-729c2c442747",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 8.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "FBS & PP2BS",
+          "uuid" : "df7b2cd5-6b1b-4cfc-ba2b-00271ad84966",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "MultiSelect",
+      "mandatory" : true
+    }, {
+      "name" : "RBS (mg/dl)",
+      "uuid" : "2854c05a-c48b-4690-9d92-4277643745ba",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "RBS (mg/dl)",
+        "uuid" : "a7e872cc-2042-4a1a-be3f-9d80fcb5ed16",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"d8dbe936-0e1a-4c48-90f8-911e0b6575cf\").containsAnswerConceptName(\"8ba23710-f8da-4d33-bfae-019df766caa0\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Which of the following Baseline Labs tests were done?",
+                "conceptUuid" : "d8dbe936-0e1a-4c48-90f8-911e0b6575cf",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "RBS Baseline Labs test" ],
+                "answerConceptUuids" : [ "8ba23710-f8da-4d33-bfae-019df766caa0" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : false
+    }, {
+      "name" : "FBS (mg/dl)",
+      "uuid" : "31b39483-511d-40c4-9c32-0fa262467d43",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "FBS (mg/dl)",
+        "uuid" : "e6a57a0a-49fa-4335-9663-4a238706d2bd",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"d8dbe936-0e1a-4c48-90f8-911e0b6575cf\").containsAnswerConceptName(\"df7b2cd5-6b1b-4cfc-ba2b-00271ad84966\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Which of the following Baseline Labs tests were done?",
+                "conceptUuid" : "d8dbe936-0e1a-4c48-90f8-911e0b6575cf",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "FBS & PP2BS" ],
+                "answerConceptUuids" : [ "df7b2cd5-6b1b-4cfc-ba2b-00271ad84966" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : false
+    }, {
+      "name" : "PP2BS (mg/dl)",
+      "uuid" : "adad0306-0343-400a-9d0d-651966840c96",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "PP2BS (mg/dl)",
+        "uuid" : "96ca8f30-1694-41fe-a734-90b2039ff654",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"d8dbe936-0e1a-4c48-90f8-911e0b6575cf\").containsAnswerConceptName(\"df7b2cd5-6b1b-4cfc-ba2b-00271ad84966\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Which of the following Baseline Labs tests were done?",
+                "conceptUuid" : "d8dbe936-0e1a-4c48-90f8-911e0b6575cf",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "FBS & PP2BS" ],
+                "answerConceptUuids" : [ "df7b2cd5-6b1b-4cfc-ba2b-00271ad84966" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : false
+    }, {
+      "name" : "HIV Elisa",
+      "uuid" : "143ae314-c522-41bc-b338-8489ccbb84a9",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "HIV Elisa New",
+        "uuid" : "01829da2-8636-45b6-93bd-03da89ea1b2e",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Pending.",
+          "uuid" : "10b746a1-bd0b-4406-a1b2-baf3989b26a7",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Reactive",
+          "uuid" : "1b285b39-5225-4736-9c52-c1e65ff27faa",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Non-Reactive",
+          "uuid" : "2a07f125-bf50-4b2f-9647-5811f67f4adc",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Pending",
+          "uuid" : "630c1dc1-3cc5-42f7-965e-3a95a6407a55",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 5.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"d8dbe936-0e1a-4c48-90f8-911e0b6575cf\").containsAnswerConceptName(\"7a4f71fe-aa40-4a97-8593-250e4163cac5\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Which of the following Baseline Labs tests were done?",
+                "conceptUuid" : "d8dbe936-0e1a-4c48-90f8-911e0b6575cf",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "HIV Elisa" ],
+                "answerConceptUuids" : [ "7a4f71fe-aa40-4a97-8593-250e4163cac5" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : false
+    }, {
+      "name" : "Hemoglobin (mg/dl)",
+      "uuid" : "e626e63b-ebdb-4641-87d1-252af9b60869",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Hemoglobin (mg/dl)",
+        "uuid" : "ec4e04f9-e257-4974-9234-f6f84ab19fe8",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 6.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"d8dbe936-0e1a-4c48-90f8-911e0b6575cf\").containsAnswerConceptName(\"310cdaeb-83be-4210-b73e-236c46e84be4\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Which of the following Baseline Labs tests were done?",
+                "conceptUuid" : "d8dbe936-0e1a-4c48-90f8-911e0b6575cf",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Hemoglobin" ],
+                "answerConceptUuids" : [ "310cdaeb-83be-4210-b73e-236c46e84be4" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : false
+    }, {
+      "name" : "SGPT / ALT",
+      "uuid" : "c6d7e55b-4294-4f15-b62a-abde81b6f77c",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "SGPT / ALT",
+        "uuid" : "b2156f92-8741-4074-bd02-02ae84347ec3",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 7.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"d8dbe936-0e1a-4c48-90f8-911e0b6575cf\").containsAnswerConceptName(\"0b025dd7-075f-4f60-badb-7d2e738fba48\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Which of the following Baseline Labs tests were done?",
+                "conceptUuid" : "d8dbe936-0e1a-4c48-90f8-911e0b6575cf",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "SGPT/ALT" ],
+                "answerConceptUuids" : [ "0b025dd7-075f-4f60-badb-7d2e738fba48" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : false
+    }, {
+      "name" : "Creatinine (mg/dl)",
+      "uuid" : "722e0fa3-4393-4eec-a9b1-446028d12d6a",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Creatinine (mg/dl)",
+        "uuid" : "cd1c3600-5087-4609-b786-914ca6515209",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 8.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"d8dbe936-0e1a-4c48-90f8-911e0b6575cf\").containsAnswerConceptName(\"d4d49c99-26e9-4d45-a780-e40e58f8d0a0\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Which of the following Baseline Labs tests were done?",
+                "conceptUuid" : "d8dbe936-0e1a-4c48-90f8-911e0b6575cf",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Creatinine" ],
+                "answerConceptUuids" : [ "d4d49c99-26e9-4d45-a780-e40e58f8d0a0" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : false
+    }, {
+      "name" : "Serum Albumin (mg/dl)",
+      "uuid" : "5fc0d654-8640-40e4-8947-5dbd14151c95",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Serum Albumin (mg/dl)",
+        "uuid" : "e03e8b17-fa83-40ae-9b3e-64bd1efa7d07",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 9.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"d8dbe936-0e1a-4c48-90f8-911e0b6575cf\").containsAnswerConceptName(\"ac1a4c4c-f0d2-46c8-a339-729c2c442747\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Which of the following Baseline Labs tests were done?",
+                "conceptUuid" : "d8dbe936-0e1a-4c48-90f8-911e0b6575cf",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Serum Albumin (For BMI Below 16)" ],
+                "answerConceptUuids" : [ "ac1a4c4c-f0d2-46c8-a339-729c2c442747" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : false
+    }, {
+      "name" : "Sodium (mEq/dl)",
+      "uuid" : "c49a08e8-9f29-45e3-9007-b8307ca4d846",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Sodium (mEq/dl)",
+        "uuid" : "939d6abd-7a91-4f73-9bfa-3498fb00f9b3",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 10.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"d8dbe936-0e1a-4c48-90f8-911e0b6575cf\").containsAnswerConceptName(\"677f89b2-43d0-4909-867d-63f2aa320999\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Which of the following Baseline Labs tests were done?",
+                "conceptUuid" : "d8dbe936-0e1a-4c48-90f8-911e0b6575cf",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Electrolytes (For BMI Below 16)" ],
+                "answerConceptUuids" : [ "677f89b2-43d0-4909-867d-63f2aa320999" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : false
+    }, {
+      "name" : "Potassium (mEq/dl)",
+      "uuid" : "edb93719-f069-49dc-bfc3-d13f7941a4e0",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Potassium (mEq/dl)",
+        "uuid" : "a7728e72-6be4-43ab-a382-49c7b7944de4",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 11.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"d8dbe936-0e1a-4c48-90f8-911e0b6575cf\").containsAnswerConceptName(\"677f89b2-43d0-4909-867d-63f2aa320999\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Which of the following Baseline Labs tests were done?",
+                "conceptUuid" : "d8dbe936-0e1a-4c48-90f8-911e0b6575cf",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Electrolytes (For BMI Below 16)" ],
+                "answerConceptUuids" : [ "677f89b2-43d0-4909-867d-63f2aa320999" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : false
+    }, {
+      "name" : "Calcium (mEq/dl)",
+      "uuid" : "435c2e5a-0899-4515-9583-448ac4c75378",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Calcium (mEq/dl)",
+        "uuid" : "7666ef85-eb41-45c3-9c81-2daa69f6063e",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 12.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"d8dbe936-0e1a-4c48-90f8-911e0b6575cf\").containsAnswerConceptName(\"677f89b2-43d0-4909-867d-63f2aa320999\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Which of the following Baseline Labs tests were done?",
+                "conceptUuid" : "d8dbe936-0e1a-4c48-90f8-911e0b6575cf",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Electrolytes (For BMI Below 16)" ],
+                "answerConceptUuids" : [ "677f89b2-43d0-4909-867d-63f2aa320999" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : false
+    }, {
+      "name" : "Phosphorus (mEq/dl)",
+      "uuid" : "ebf7c164-be97-45ab-a9aa-2ab1341ffbff",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Phosphorus (mEq/dl)",
+        "uuid" : "d8cc8d9c-4ea9-4af8-80f7-083b09887d38",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 13.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"d8dbe936-0e1a-4c48-90f8-911e0b6575cf\").containsAnswerConceptName(\"d7c7f19d-3379-4345-b9d0-616cc09419b2\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Which of the following Baseline Labs tests were done?",
+                "conceptUuid" : "d8dbe936-0e1a-4c48-90f8-911e0b6575cf",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Serum Phosphorus (For BMI Below 16)" ],
+                "answerConceptUuids" : [ "d7c7f19d-3379-4345-b9d0-616cc09419b2" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : false
+    } ],
+    "display" : "Baseline Labs For ATT Initiation",
+    "timed" : false
+  }, {
+    "uuid" : "b96cbe8e-1d27-41a2-8d8a-bc17dc27cbbb",
+    "name" : "Microbiological Confirmation of TB",
+    "displayOrder" : 4.0,
+    "formElements" : [ {
+      "name" : "Which of the following Baseline Labs tests were done?",
+      "uuid" : "6d9360ed-a9db-4ada-ad2c-1c3c90f3cc3d",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Which of the following Baseline Labs tests were done New",
+        "uuid" : "1f9050b8-7fc0-4750-a5c3-05293af3e135",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "CBNAAT",
+          "uuid" : "7a10b895-cea7-4c69-983c-ef8ef7664fb2",
+          "dataType" : "Coded",
+          "answers" : [ {
+            "name" : "RIF resistant",
+            "uuid" : "b2584708-fbe9-4b39-ab60-f2bf8f23bc48",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 1.0,
+            "active" : true,
+            "media" : [ ]
+          }, {
+            "name" : "RIF sensitive",
+            "uuid" : "b5f17c02-86ff-44fe-a3ef-274831a57005",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 0.0,
+            "active" : true,
+            "media" : [ ]
+          } ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Sputum AFB",
+          "uuid" : "616f9638-375a-477d-b5a0-3e660edeba8d",
+          "dataType" : "Coded",
+          "answers" : [ {
+            "name" : "Positive",
+            "uuid" : "6f6458f7-ce0b-46c2-bd03-0fa30943d75d",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 0.0,
+            "active" : true,
+            "media" : [ ]
+          }, {
+            "name" : "Negative",
+            "uuid" : "0fe2ae63-332a-40bf-82c7-371ef7b66494",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 1.0,
+            "active" : true,
+            "media" : [ ]
+          } ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Sputum AFB Baseline Lab",
+          "uuid" : "cc88693c-b726-44e4-b3f3-0659c61f7895",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "CBNAAT Baseline Lab",
+          "uuid" : "98f8182c-6513-4626-9451-ac0e4c7b0a1d",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "MultiSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Sputum AFB (write positive if any one test is positive. If multiple tests positive then write highest positive result)",
+      "uuid" : "b505aea2-3607-410b-86a6-94ace013acd3",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Sputum AFB (write positive if any one test is positive. If multiple tests positive then write highest positive result)",
+        "uuid" : "f2fe0d75-16e3-454c-acab-c2bd4f944002",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Not applicable",
+          "uuid" : "fd1731b5-f55f-46a8-96ce-59b5e40bc6ba",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 8.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        }, {
+          "name" : "Scanty Positive",
+          "uuid" : "0464f99c-0342-4d3b-829c-38e35ec7ef61",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "2+",
+          "uuid" : "ba904c8d-502d-4979-bc99-cfa077678279",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        }, {
+          "name" : "3+",
+          "uuid" : "63513531-d5a4-47c1-a4ef-a02063b43871",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        }, {
+          "name" : "4+",
+          "uuid" : "b133d9ce-1661-420f-b73a-392300959b4e",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        }, {
+          "name" : "1+",
+          "uuid" : "d791406f-86bd-47ef-8c23-22accc521558",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        }, {
+          "name" : "Not Applicable.",
+          "uuid" : "1c69d75d-88fc-4621-86d6-362c5fe2fe94",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 7.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Sample Taken",
+          "uuid" : "9970bb38-c6d6-4f5d-90ca-44c4662debcb",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 6.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Negative",
+          "uuid" : "0fe2ae63-332a-40bf-82c7-371ef7b66494",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"1f9050b8-7fc0-4750-a5c3-05293af3e135\").containsAnswerConceptName(\"cc88693c-b726-44e4-b3f3-0659c61f7895\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Which of the following Baseline Labs tests were done New",
+                "conceptUuid" : "1f9050b8-7fc0-4750-a5c3-05293af3e135",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Sputum AFB Baseline Lab" ],
+                "answerConceptUuids" : [ "cc88693c-b726-44e4-b3f3-0659c61f7895" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : false
+    }, {
+      "name" : "CBNAAT Sample Type",
+      "uuid" : "ef4e4d4f-c373-489b-bf3f-c8837e1a349e",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "CBNAAT Sample Type",
+        "uuid" : "39aa61f9-bb97-4697-ab66-f1ac6a8e1afd",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Sputum",
+          "uuid" : "d2442ff9-7521-4ad3-a4e9-b4e5d6f01663",
+          "dataType" : "Text",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        }, {
+          "name" : "Ascitic Fluid",
+          "uuid" : "37cb5d5d-49a4-4acf-b5b6-c11e4a3ce0e7",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Pleural Fluid",
+          "uuid" : "2ddc25ad-cf96-4345-a781-192e9c455c82",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Sample Not Taken",
+          "uuid" : "2f6b07e0-a1ca-4691-88e1-f0860e34edc4",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Other (specify)",
+          "uuid" : "cba7dcb1-9cbe-487e-bf1e-125ea22ee260",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 6.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Lymph Node Aspirate",
+          "uuid" : "fc5379f9-8a38-4f80-a716-fd7e07a3b913",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "CSF Fluid",
+          "uuid" : "7e50f893-fc2f-42dc-8aba-a99900251d4a",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"1f9050b8-7fc0-4750-a5c3-05293af3e135\").containsAnswerConceptName(\"98f8182c-6513-4626-9451-ac0e4c7b0a1d\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Which of the following Baseline Labs tests were done New",
+                "conceptUuid" : "1f9050b8-7fc0-4750-a5c3-05293af3e135",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "CBNAAT Baseline Lab" ],
+                "answerConceptUuids" : [ "98f8182c-6513-4626-9451-ac0e4c7b0a1d" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : false
+    }, {
+      "name" : "CBNAAT MTB Report",
+      "uuid" : "13737d79-6bd0-45fb-afd6-bd949a5adef9",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "CBNAAT MTB Report",
+        "uuid" : "c611a849-b44d-4f17-a1eb-6980d0ec2a6c",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "MTB detected",
+          "uuid" : "0af63722-233d-4f51-97ad-7caa130fdd27",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        }, {
+          "name" : "Result Not Available",
+          "uuid" : "dffe56ea-43fb-414a-bfa7-05ec16747d97",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "MTB not detected",
+          "uuid" : "dfd79a9b-ff60-4b43-91b8-171a8e95d0b1",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"1f9050b8-7fc0-4750-a5c3-05293af3e135\").containsAnswerConceptName(\"98f8182c-6513-4626-9451-ac0e4c7b0a1d\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Which of the following Baseline Labs tests were done New",
+                "conceptUuid" : "1f9050b8-7fc0-4750-a5c3-05293af3e135",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "CBNAAT Baseline Lab" ],
+                "answerConceptUuids" : [ "98f8182c-6513-4626-9451-ac0e4c7b0a1d" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : false
+    }, {
+      "name" : "CBNAAT Rifampicin Sensitivity Report",
+      "uuid" : "a67a3380-ab2f-4194-b1d5-a84b3be87506",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "CBNAAT Rifampicin Sensitivity Report",
+        "uuid" : "b2afb0d0-13dd-48da-91ce-787c1d330f62",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Result Not Available",
+          "uuid" : "dffe56ea-43fb-414a-bfa7-05ec16747d97",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "RIF Indeterminate",
+          "uuid" : "22a59307-13a5-4f0a-9df8-b4ce8d32fa3f",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "RIF Resistance",
+          "uuid" : "a28a28a7-0485-46ab-9acc-55dcbede3574",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "RIF Sensitive",
+          "uuid" : "3d9375c3-aaae-4fcc-b070-77faa92882cf",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "RIF Sensitive.",
+          "uuid" : "4ebc5c25-0c58-4845-8eb2-66bb0e6e272b",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 5.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"1f9050b8-7fc0-4750-a5c3-05293af3e135\").containsAnswerConceptName(\"98f8182c-6513-4626-9451-ac0e4c7b0a1d\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Which of the following Baseline Labs tests were done New",
+                "conceptUuid" : "1f9050b8-7fc0-4750-a5c3-05293af3e135",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "CBNAAT Baseline Lab" ],
+                "answerConceptUuids" : [ "98f8182c-6513-4626-9451-ac0e4c7b0a1d" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : false
+    } ],
+    "display" : "Microbiological Confirmation of TB",
+    "timed" : false
+  }, {
+    "uuid" : "8656c9f8-b0e0-4a64-87cd-f1609322b366",
+    "name" : "Other Sensitivity Test",
+    "displayOrder" : 5.0,
+    "formElements" : [ {
+      "name" : "Other Sensitivity Reports - Sample sent",
+      "uuid" : "11de69c4-eaaf-49ea-8ac7-e92672ddf038",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Other Sensitivity Reports - Sample sent",
+        "uuid" : "8ab097d3-db38-4761-9c79-b623fa578df4",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Yes",
+          "uuid" : "57e20de7-10de-4391-b7ce-87b2f40d19a2",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "No",
+          "uuid" : "f88da2e8-6ab4-44b5-b762-233485cd25f9",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "If yes, tick the test for which sample was sent",
+      "uuid" : "a4c31b90-cd70-41e0-9e21-4cb684ecd07c",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "If yes, tick the test for which sample was sent",
+        "uuid" : "cfa2bc73-4112-4f8b-a83e-5d4ebd225897",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "LJ Culture",
+          "uuid" : "6a469944-24ff-42bd-81db-08ca2a5603df",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "LPA Culture",
+          "uuid" : "d0406dbd-70f1-4d82-b1cf-4fc20bed9096",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "MultiSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"8ab097d3-db38-4761-9c79-b623fa578df4\").containsAnswerConceptName(\"57e20de7-10de-4391-b7ce-87b2f40d19a2\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Other Sensitivity Reports - Sample sent",
+                "conceptUuid" : "8ab097d3-db38-4761-9c79-b623fa578df4",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Yes" ],
+                "answerConceptUuids" : [ "57e20de7-10de-4391-b7ce-87b2f40d19a2" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : false
+    }, {
+      "name" : "LPA Culture Report",
+      "uuid" : "d4a2efb4-3806-4844-86ff-0161d56a75cd",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "LPA Culture Report",
+        "uuid" : "e2a91932-ac6b-4fd8-a134-f4ccdf389301",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "No growth",
+          "uuid" : "2166790e-5d9c-4930-a7d0-7f3ec5fd5f05",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        }, {
+          "name" : "Sample Invalid",
+          "uuid" : "6a860132-1013-49f4-a2f0-57c43ca5e5b4",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Results Pending",
+          "uuid" : "b4d5d331-d70e-468f-a90f-b2ce36bdd964",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Growth positive",
+          "uuid" : "bc959c58-6a89-4cce-8130-6fc1e15ac384",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"cfa2bc73-4112-4f8b-a83e-5d4ebd225897\").containsAnswerConceptName(\"d0406dbd-70f1-4d82-b1cf-4fc20bed9096\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "If yes, tick the test for which sample was sent",
+                "conceptUuid" : "cfa2bc73-4112-4f8b-a83e-5d4ebd225897",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "LPA Culture" ],
+                "answerConceptUuids" : [ "d0406dbd-70f1-4d82-b1cf-4fc20bed9096" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : false
+    }, {
+      "name" : "Growth Positive",
+      "uuid" : "93330cba-197c-492d-8e1a-1e4f58f17a11",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Growth Positive",
+        "uuid" : "13d51303-575e-4b2a-8904-da9bba73b3fd",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "RIF Resistance",
+          "uuid" : "a28a28a7-0485-46ab-9acc-55dcbede3574",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "INH Sensitive",
+          "uuid" : "a432c869-c3f4-4e16-bb43-c485a6780c86",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        }, {
+          "name" : "RIF Sensitive",
+          "uuid" : "3d9375c3-aaae-4fcc-b070-77faa92882cf",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "INH Resistance",
+          "uuid" : "582a0e00-3cd4-430e-b355-677cbf211cef",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 4.0,
+      "type" : "MultiSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"cfa2bc73-4112-4f8b-a83e-5d4ebd225897\").containsAnswerConceptName(\"d0406dbd-70f1-4d82-b1cf-4fc20bed9096\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "If yes, tick the test for which sample was sent",
+                "conceptUuid" : "cfa2bc73-4112-4f8b-a83e-5d4ebd225897",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "LPA Culture" ],
+                "answerConceptUuids" : [ "d0406dbd-70f1-4d82-b1cf-4fc20bed9096" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : false
+    }, {
+      "name" : "LJ Culture Report",
+      "uuid" : "ca6d093b-0747-4748-a07f-0a93e753effc",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "LJ Culture Report",
+        "uuid" : "7937d155-96fa-4519-888b-b88648c8a023",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Growth positive",
+          "uuid" : "bc959c58-6a89-4cce-8130-6fc1e15ac384",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        }, {
+          "name" : "Results Pending",
+          "uuid" : "b4d5d331-d70e-468f-a90f-b2ce36bdd964",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "No growth",
+          "uuid" : "2166790e-5d9c-4930-a7d0-7f3ec5fd5f05",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 5.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"cfa2bc73-4112-4f8b-a83e-5d4ebd225897\").containsAnswerConceptName(\"6a469944-24ff-42bd-81db-08ca2a5603df\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "If yes, tick the test for which sample was sent",
+                "conceptUuid" : "cfa2bc73-4112-4f8b-a83e-5d4ebd225897",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "LJ Culture" ],
+                "answerConceptUuids" : [ "6a469944-24ff-42bd-81db-08ca2a5603df" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : false
+    }, {
+      "name" : "Growth Positive",
+      "uuid" : "645e7e31-c930-4e79-9a39-98c01c0ee6b9",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Growth Positive New",
+        "uuid" : "399a5e12-2ad4-4ca6-8945-f57e87dbea66",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Ethambutol Resitance",
+          "uuid" : "921ef385-2388-4eb3-8499-28856ee61c03",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 6.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "RIF Sensitive",
+          "uuid" : "3d9375c3-aaae-4fcc-b070-77faa92882cf",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "RIF Resistance",
+          "uuid" : "a28a28a7-0485-46ab-9acc-55dcbede3574",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Ethambutol Sensitive",
+          "uuid" : "eaf10486-0875-4c42-8f03-95f5a9b3b935",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        }, {
+          "name" : "Pyrezinamide Sensitive",
+          "uuid" : "3b1daa3c-223a-478a-bfe4-a0c55364e02d",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 7.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Streptomycine Resistance",
+          "uuid" : "bbcee611-b85f-4434-b301-b289f9880c74",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 10.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "RIF Sensitive.",
+          "uuid" : "4ebc5c25-0c58-4845-8eb2-66bb0e6e272b",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "INH Sensitive",
+          "uuid" : "a432c869-c3f4-4e16-bb43-c485a6780c86",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        }, {
+          "name" : "Streptomycine Sensitive",
+          "uuid" : "78d305a1-9b6f-43d3-8164-c92174466062",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 9.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "INH Resistance",
+          "uuid" : "582a0e00-3cd4-430e-b355-677cbf211cef",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        }, {
+          "name" : "Pyrezinamide Resistance",
+          "uuid" : "c1ac7691-48e9-4647-a617-f60940479012",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 8.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 6.0,
+      "type" : "MultiSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"cfa2bc73-4112-4f8b-a83e-5d4ebd225897\").containsAnswerConceptName(\"6a469944-24ff-42bd-81db-08ca2a5603df\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "If yes, tick the test for which sample was sent",
+                "conceptUuid" : "cfa2bc73-4112-4f8b-a83e-5d4ebd225897",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "LJ Culture" ],
+                "answerConceptUuids" : [ "6a469944-24ff-42bd-81db-08ca2a5603df" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : false
+    } ],
+    "display" : "Other Sensitivity Test",
+    "timed" : false
+  }, {
+    "uuid" : "e8a5421a-96cc-40a2-90b3-0c970d2b79c1",
+    "name" : "Other Tests",
+    "displayOrder" : 6.0,
+    "formElements" : [ {
+      "name" : "Other Relevent tests done (write the test name and result)",
+      "uuid" : "28c6acb5-332a-4f3d-99b0-4c772af3f633",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Other Relevent tests done (write the test name and result) (voided~258212)",
+        "uuid" : "51111efe-bd9c-4ac1-b7ad-a0542e9be07f",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ],
+        "voided" : true
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "voided" : true,
+      "mandatory" : false
+    }, {
+      "name" : "Other Relevent tests done (write the test name and result)",
+      "uuid" : "058f5232-ff0b-4839-973c-2024a55680bb",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Other Relevent tests done (write the test name and result)",
+        "uuid" : "cbcdf8c9-007f-42c9-bb78-970e1be89827",
+        "dataType" : "Image",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "MultiSelect",
+      "mandatory" : false
+    } ],
+    "display" : "Other Tests",
+    "timed" : false
+  }, {
+    "uuid" : "7fd4ce83-ae48-4d7a-af68-49b03f81ca5f",
+    "name" : "Form Filled Details",
+    "displayOrder" : 7.0,
+    "formElements" : [ {
+      "name" : "Form Filled by (write initials)",
+      "uuid" : "e8fdc3b5-fb83-485a-bb65-e1dc9c4eddd4",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Form Filled by (write initials)",
+        "uuid" : "5bbc3b12-5ccb-4068-b67d-59c172234c9f",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "voided" : true,
+      "mandatory" : false
+    }, {
+      "name" : "Date of form filling",
+      "uuid" : "a40585e0-e2d4-4cab-a938-e61ec4b16ff2",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Date of form filling",
+        "uuid" : "7aed2be8-f1af-4a4e-af74-a69168807ca5",
+        "dataType" : "Date",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "voided" : true,
+      "mandatory" : false
+    } ],
+    "display" : "Form Filled Details",
+    "voided" : true,
+    "timed" : false
+  } ],
+  "decisionRule" : "",
+  "visitScheduleRule" : "\"use strict\";\n({ params, imports }) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({programEncounter});\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter}).when.valueInEncounter(\"d8dbe936-0e1a-4c48-90f8-911e0b6575cf\").defined.matches();\n  \n  if(condition11 ){\n    const earliestDate = moment(programEncounter.encounterDateTime).add(0, 'days').toDate();\n    const maxDate = moment(programEncounter.encounterDateTime).add(0, 'days').toDate();\n    scheduleBuilder.add({name: \"TB Study Baseline Treatment\", encounterType: \"TB Study Baseline Treatment\", earliestDate, maxDate});  \n}\n  \n  return scheduleBuilder.getAll();\n};",
+  "validationRule" : "",
+  "checklistsRule" : "",
+  "decisionConcepts" : [ ],
+  "visitScheduleDeclarativeRule" : [ {
+    "actions" : [ {
+      "details" : {
+        "dateField" : "encounterDateTime",
+        "daysToOverdue" : "0",
+        "encounterName" : "TB Study Baseline Treatment",
+        "encounterType" : "TB Study Baseline Treatment",
+        "daysToSchedule" : "0"
+      },
+      "actionType" : "scheduleVisit"
+    }, { } ],
+    "conditions" : [ {
+      "compoundRule" : {
+        "rules" : [ {
+          "lhs" : {
+            "type" : "concept",
+            "scope" : "encounter",
+            "conceptName" : "Which of the following Baseline Labs tests were done?",
+            "conceptUuid" : "d8dbe936-0e1a-4c48-90f8-911e0b6575cf",
+            "conceptDataType" : "Coded"
+          },
+          "rhs" : { },
+          "operator" : "defined"
+        } ],
+        "conjunction" : "or"
+      }
+    } ]
+  } ]
+}

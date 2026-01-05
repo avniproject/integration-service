@@ -1,0 +1,279 @@
+{
+  "name" : "Women's Health Camp Enrolment",
+  "uuid" : "446b4a21-2172-493d-b475-0cf0dacf11df",
+  "formType" : "ProgramEnrolment",
+  "formElementGroups" : [ {
+    "uuid" : "8f2818c7-0512-4e77-ae9f-846afcd70cae",
+    "name" : "Enrolment Details",
+    "displayOrder" : 1.0,
+    "formElements" : [ {
+      "name" : "Date of enrolment",
+      "uuid" : "23f51e93-f3bf-4d92-830b-9ce0cefa0bcf",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Date of enrolment",
+        "uuid" : "96b37c80-389b-4c5c-87bc-0a6aa4c7cf99",
+        "dataType" : "Date",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "voided" : true,
+      "mandatory" : false
+    }, {
+      "name" : "Does woman have any symptoms?",
+      "uuid" : "1047f1f3-712a-4520-908e-3de66e9c5c40",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Are there any symptoms?",
+        "uuid" : "c379dc8c-a9af-401d-b95f-261da065f75d",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "No",
+          "uuid" : "f88da2e8-6ab4-44b5-b762-233485cd25f9",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Yes",
+          "uuid" : "57e20de7-10de-4391-b7ce-87b2f40d19a2",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Please mention symptoms",
+      "uuid" : "52f504c1-5a8c-426e-aa66-c0a224a4b9f2",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Please mention symptoms",
+        "uuid" : "7c2415c1-1e32-48ac-98de-aeb26210b32a",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEnrolment = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEnrolment, formElement}).when.valueInEnrolment(\"c379dc8c-a9af-401d-b95f-261da065f75d\").containsAnswerConceptName(\"57e20de7-10de-4391-b7ce-87b2f40d19a2\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "enrolment",
+                "conceptName" : "Are there any symptoms?",
+                "conceptUuid" : "c379dc8c-a9af-401d-b95f-261da065f75d",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Yes" ],
+                "answerConceptUuids" : [ "57e20de7-10de-4391-b7ce-87b2f40d19a2" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    }, {
+      "name" : "Woman is referred for which complaint related to cervix?",
+      "uuid" : "861c1423-a40d-4f6a-92f5-f4551faa746e",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Woman is referred for which complaint related to cervix?",
+        "uuid" : "8e85b3e3-1950-406f-9a60-cdebdfbc675c",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Problem in menstrual cycle",
+          "uuid" : "db119a98-d573-4f9b-960b-7547802b31fa",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "No complaints",
+          "uuid" : "4451ddad-468c-4e27-a637-0baed318a085",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Other",
+          "uuid" : "798b7942-cf58-4d4e-a529-5972942e0a7e",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "White Discharge",
+          "uuid" : "5520c736-a412-40ea-9c64-7479c9f68609",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Lower abdominal/back pain",
+          "uuid" : "9c6950e0-8bdb-463e-af11-86b9883902c4",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 4.0,
+      "type" : "MultiSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Woman is referred for which complaint related to breast?",
+      "uuid" : "de403de8-3fa3-489e-89f3-eea229cd0ed6",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Woman is referred for which complaint related to breast?",
+        "uuid" : "6d5c3679-d2e0-41a1-8bf9-04a7e6c86dc7",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Discharge (blood/pus) from nipple",
+          "uuid" : "6cf10d31-7d26-41a6-a373-a1467ecd197f",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Other",
+          "uuid" : "798b7942-cf58-4d4e-a529-5972942e0a7e",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 6.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "No complaints",
+          "uuid" : "4451ddad-468c-4e27-a637-0baed318a085",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Swelling/nodule in breast",
+          "uuid" : "9cc45e5d-441d-4ebe-b328-e2612498d41f",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "lymphnode in axila",
+          "uuid" : "b4970946-b055-407d-a227-8a8d4086ce03",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Ulcer in breast/retraction in breast",
+          "uuid" : "27e9a338-470d-4703-9661-59ad13a523c5",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Pus in breast",
+          "uuid" : "ad99201a-6db6-4554-860e-bb83f7699ba8",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 5.0,
+      "type" : "MultiSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Woman is referred for which complaint related to Oral cavity?",
+      "uuid" : "c0b072a3-9d69-42ea-880f-b4c9d41dd526",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Woman is referred for which complaint related to Oral cavity?",
+        "uuid" : "9a85164b-201f-4ade-a0c8-9a75412ac321",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Other",
+          "uuid" : "798b7942-cf58-4d4e-a529-5972942e0a7e",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "No complaints",
+          "uuid" : "4451ddad-468c-4e27-a637-0baed318a085",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "White oral mucosal lesion",
+          "uuid" : "25895d7b-0dce-4b97-85bc-d8d58322f5a1",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Red oral musocal lesion",
+          "uuid" : "5b3774a1-6b89-4ad3-bfc3-8e4b152f1ec2",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 6.0,
+      "type" : "MultiSelect",
+      "mandatory" : false
+    } ],
+    "display" : "Enrolment Details",
+    "timed" : false
+  } ],
+  "decisionRule" : "",
+  "visitScheduleRule" : "",
+  "validationRule" : "",
+  "checklistsRule" : "",
+  "decisionConcepts" : [ ]
+}

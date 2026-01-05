@@ -1,0 +1,125 @@
+{
+  "name" : "Leprosy Exit",
+  "uuid" : "9c226d92-a80b-4c28-8057-f4c1d3971750",
+  "formType" : "ProgramExit",
+  "formElementGroups" : [ {
+    "uuid" : "9426f010-9e29-4e58-8bec-a2231ef34bff",
+    "name" : "Leprosy endline/exit",
+    "displayOrder" : 1.0,
+    "formElements" : [ {
+      "name" : "Other outcome",
+      "uuid" : "1300d525-a6e8-42eb-8c9e-8c0f5cd33154",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Other outcome",
+        "uuid" : "72bf684e-0334-43d2-a227-ec3df0c9b200",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEnrolment = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEnrolment, formElement}).when.valueInExit(\"8cc66da0-b652-4587-bdb8-ea8b8bd8f28c\").containsAnswerConceptName().matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "exit",
+                "conceptName" : "Result of treatment",
+                "conceptUuid" : "8cc66da0-b652-4587-bdb8-ea8b8bd8f28c",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept"
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "voided" : true,
+      "mandatory" : false
+    }, {
+      "name" : "Outcome of treatment",
+      "uuid" : "6130bcfa-9dac-470e-8c8c-ea2c4d41fef8",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Outcome of treatment",
+        "uuid" : "788fcaf9-a36c-433b-bac6-12f5fa8c6323",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Completed",
+          "uuid" : "e5b37f65-cc1c-4174-81e9-f1a293facd68",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        }, {
+          "name" : "Default",
+          "uuid" : "01de3d31-cdc7-48da-8d6d-6409e74a452a",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        }, {
+          "name" : "Migration",
+          "uuid" : "899e33d1-a54b-4ce5-8efd-2efc255129b6",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Failure",
+          "uuid" : "352b0f1c-5d9f-4aa3-a034-2fd26c3c275a",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Death during treatment",
+          "uuid" : "d5db8603-1099-4ae5-a8f2-12181753debe",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        }, {
+          "name" : "Cured",
+          "uuid" : "ca055965-5f64-4ca9-ba22-13763b9eb5f8",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    } ],
+    "display" : "Leprosy endline/exit",
+    "timed" : false
+  } ],
+  "decisionRule" : "",
+  "visitScheduleRule" : "",
+  "validationRule" : "",
+  "checklistsRule" : "",
+  "decisionConcepts" : [ ]
+}

@@ -1,0 +1,766 @@
+{
+  "name" : "TB Study Baseline Barrier and Social support assessment Encounter",
+  "uuid" : "94a73e47-1b6d-4660-b4c1-0a76c3c67bfc",
+  "formType" : "ProgramEncounter",
+  "formElementGroups" : [ {
+    "uuid" : "d8a9724c-7d0c-43a4-b5e3-3279cc280d3f",
+    "name" : "Barrier Assessment If Patient would be taking treatment from routine NTEP protocol for additional Support",
+    "displayOrder" : 1.0,
+    "formElements" : [ {
+      "name" : "Patient Related Barrier Assessment (tick whichever is applicable)",
+      "uuid" : "2b44374b-db6a-4ab1-9b20-98791831246e",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Patient Related Barrier Assessment (tick whichever is applicable)",
+        "uuid" : "4e9a288a-45d1-485f-9a10-b33999aca9b9",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Lack of Social Support",
+          "uuid" : "f3957ed7-aed1-46a2-be9e-16582eb92cb8",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Fear or stigma",
+          "uuid" : "b8c292f3-fc54-4fb7-9546-6ec4d8f894b5",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Lack of Belief that disease is worth the treatment",
+          "uuid" : "d2d7a3ce-4c02-4418-8349-d37c260d6d67",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Poverty",
+          "uuid" : "e52448f4-366c-46d2-9b68-29247b9c3882",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "No faith in Allopathic Treatment",
+          "uuid" : "2d075855-6a54-4709-bcd4-cb734b3ea262",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Faith in Traditional Healing",
+          "uuid" : "71fef577-a5b6-4d73-89b5-a35d780c1741",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "MultiSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Healthcare Related Barrier Assessment (tick whichever is applicable)",
+      "uuid" : "7aec719f-6c96-4ac4-abf7-e5f6f029ced8",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Healthcare Related Barrier Assessment (tick whichever is applicable)",
+        "uuid" : "4b055c40-a868-42d3-8496-431a6db0aeeb",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Previous Bad Experience",
+          "uuid" : "d2c63c2d-f864-4c79-8316-2f5353b4ff37",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 10.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Lack of Transport Facility",
+          "uuid" : "ec40c24c-2654-42f1-a5ee-b472dd59d5a8",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Distant Health Facility",
+          "uuid" : "b747f0b2-e12d-4bf6-ba4a-41bd18c92147",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Fear of Getting lost at Health Facility",
+          "uuid" : "7b6f78a9-1126-4746-a42c-5b78657c065e",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Fear of Injection/ Surgery",
+          "uuid" : "11c61a19-d63f-440c-a660-0ec40bc1a2a6",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 9.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Disrespect at Health Facility",
+          "uuid" : "2aa61f60-ceb9-4319-a0ca-4839d448c4b5",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Fear of going to hospitals outside forest",
+          "uuid" : "3f6ffca4-8831-4057-897a-b48cdb3a9c46",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Long wait time at health facility",
+          "uuid" : "b6aad15e-5d7e-4c0b-bf9d-f71a2a1fb0e4",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Language Barrier",
+          "uuid" : "f243ee63-ffda-4af1-bf3c-b3f756b72ef0",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 6.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Food issues at health facility",
+          "uuid" : "bd1f2560-af98-40ed-87fb-42e6d38951a7",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 7.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Cost of Care",
+          "uuid" : "1e21448b-1058-4d10-98ba-e7d88728eea8",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 8.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "MultiSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Any Other Barriers",
+      "uuid" : "cdfb35a1-b104-42cd-9c19-986bdce3edc9",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Any Other Barriers",
+        "uuid" : "f88f4777-1c72-4633-b47a-d31da7797f2c",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    } ],
+    "display" : "Barrier Assessment If Patient would be taking treatment from routine NTEP protocol for additional Support",
+    "timed" : false
+  }, {
+    "uuid" : "1720ac62-2188-4ce0-926f-83fb7fd92a88",
+    "name" : "Types of Social Support Offered Until the Date",
+    "displayOrder" : 2.0,
+    "formElements" : [ {
+      "name" : "Educational Support",
+      "uuid" : "1af9cb00-4e1f-4642-b93d-b91b7a2950af",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Educational Support",
+        "uuid" : "fde0dce8-1e0a-4b01-ad55-8cb0a602ea51",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Importance of treatment adherence",
+          "uuid" : "04e2c143-edbb-4acc-946e-9f2a1d8db693",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 6.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Seriousness about illness",
+          "uuid" : "33d1ab14-1763-4e42-ac39-9351d9737c7b",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Counselling to patient/ Counselling to family members/ Repeated home visits (more than 1) : seriousness about illness",
+          "uuid" : "e36340a5-fc43-4890-8bc8-2879ec9923a9",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "contraception counselling/ Other (specify)",
+          "uuid" : "7688f58a-a0cc-40b6-a963-c613ccecb006",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 8.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Risk of spread",
+          "uuid" : "119c5979-c6ed-4ec0-8084-8eefff4cffa4",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Counselling to family members",
+          "uuid" : "5c3c0bc3-8b87-4213-8278-ef30bd478147",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Repeated home visits (more than 1)",
+          "uuid" : "47e4390f-690d-4e34-9910-8d9c4f08e282",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "About drug reactions and how to treat them",
+          "uuid" : "d42a69d3-6e62-4496-a51a-4918ee39b796",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 7.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Contraception counselling",
+          "uuid" : "1ae96cee-d741-4001-ae8f-bd34c28448fd",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 9.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Counselling to patient",
+          "uuid" : "63be2728-762d-4a83-a7cb-9a4604dd45b1",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Other (specify)",
+          "uuid" : "cba7dcb1-9cbe-487e-bf1e-125ea22ee260",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 10.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "MultiSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Psychological Support",
+      "uuid" : "f15e3e26-5b9f-4447-9baa-07773582767f",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Psychological Support",
+        "uuid" : "f690cbb0-44f8-468b-8ae1-b4297318c2b6",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Support to deal with stigma",
+          "uuid" : "043886cf-66d2-42fb-b19d-d8a65e665a38",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Other",
+          "uuid" : "798b7942-cf58-4d4e-a529-5972942e0a7e",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Peer Support",
+          "uuid" : "3fabe85d-a94d-4cd7-9f62-02cae4df03fa",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Support to accept diagnosis",
+          "uuid" : "0bcaedb4-d261-4a96-9da9-de2b36769868",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "MultiSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Social Support",
+      "uuid" : "55faa94f-1748-4191-82f7-d3cee813d0d3",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Social Support",
+        "uuid" : "611c6b1b-636c-4e51-b633-cd306486f719",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Contact Number – Vouchers",
+          "uuid" : "ebaa422b-c91a-4f6e-a5ca-15d670cf3a87",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Recharge Vouchers",
+          "uuid" : "dae7ef65-0582-49cd-915f-62a8b4bf1911",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "DOTS by Health Worker",
+          "uuid" : "465fa9dc-4ae4-4622-847d-44a20e372da3",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Support for linking bank account",
+          "uuid" : "173120b7-f819-43c7-be9b-6288f41b9058",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 6.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Family DOTS",
+          "uuid" : "c57a09f8-6a2b-4d5d-b55b-67c78a102505",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Help for getting house under Awas Yojna",
+          "uuid" : "db345d68-a76f-417c-ab35-5135623f3709",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 7.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Other",
+          "uuid" : "798b7942-cf58-4d4e-a529-5972942e0a7e",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 8.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Support for AB card",
+          "uuid" : "b9145114-ee93-4297-b307-3ed5f76afadf",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Contact Number",
+          "uuid" : "0a725832-b21c-4151-b017-7e6af770ba54",
+          "dataType" : "Text",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 3.0,
+      "type" : "MultiSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Support for Accessing healthcare",
+      "uuid" : "4013e7ae-4227-4914-88d0-c6e89908d95e",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Support for Accessing healthcare new",
+        "uuid" : "9e5e0255-da32-4115-94cd-41e84a92acd5",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Phone no for Communication",
+          "uuid" : "9ca5b876-22d1-4427-bcc8-ce312bf84eea",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 7.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Rations at Home",
+          "uuid" : "8ef94c84-b577-4111-9dc3-034a26132f35",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 11.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "TB Drug Box",
+          "uuid" : "84985e7a-fd47-444b-bf78-81a461c4f61d",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 6.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Transport support- to camp",
+          "uuid" : "d26405b9-08b0-4af1-8642-9cfaaeb4530f",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Free Treatment",
+          "uuid" : "a203bca3-a8f0-40a6-a2fd-4074af581834",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Hospital Admission",
+          "uuid" : "b80fa855-5ed1-4cd8-8d61-c5706b0c30e4",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Medicines at home",
+          "uuid" : "d3da8eb2-94c3-4b41-a2c3-e8f2a3ecbb0b",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 10.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Competent Staff to address concerns",
+          "uuid" : "1aa1945b-bc2e-4fde-8c07-34510c256b93",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 9.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Home Visits",
+          "uuid" : "3b5d9d23-cbcb-4245-b07d-bbf14d996ee3",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 8.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Care Coordinator",
+          "uuid" : "05c7224d-24d5-4e94-92c3-19774edbcc2c",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "To Referral Centre",
+          "uuid" : "b544dd87-d716-4f0d-b039-3a2523329451",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Transport for offsite Investigations",
+          "uuid" : "d5f0212a-4b05-459a-a6db-f1b1f9939429",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 4.0,
+      "type" : "MultiSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Nutritional Support",
+      "uuid" : "69a7048d-8686-4a26-afff-a5dfbbfdeb90",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Nutritional Support",
+        "uuid" : "88f10efd-5eaf-43e1-a95e-fdca7898278a",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Food Supplementation",
+          "uuid" : "9c445372-8e16-4e11-b2b6-d05a0715c07a",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Linking Ration Card",
+          "uuid" : "71a4d8c0-aa3a-4ddf-b6d1-5640f152abf8",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 5.0,
+      "type" : "MultiSelect",
+      "mandatory" : false
+    }, {
+      "name" : "De-Addiction Support",
+      "uuid" : "edd46a0b-d07c-4af4-85bf-e4765e04350b",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "De-Addiction Support",
+        "uuid" : "290eb3aa-17cc-487f-90ac-086e6d12cfbc",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Withdrawal Management",
+          "uuid" : "dda483af-de72-40f9-82f2-d24eff27fb9c",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Linkage with Peer Support Group",
+          "uuid" : "a04ef654-17b4-4409-be99-5f551be69fd5",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Other",
+          "uuid" : "798b7942-cf58-4d4e-a529-5972942e0a7e",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Counselling",
+          "uuid" : "0ac30adc-5107-4e30-9b8a-c3ef65904cf5",
+          "dataType" : "Coded",
+          "answers" : [ {
+            "name" : "No",
+            "uuid" : "f88da2e8-6ab4-44b5-b762-233485cd25f9",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 2.0,
+            "active" : true,
+            "media" : [ ]
+          }, {
+            "name" : "Yes",
+            "uuid" : "57e20de7-10de-4391-b7ce-87b2f40d19a2",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 1.0,
+            "active" : true,
+            "media" : [ ]
+          } ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/0ac30adc-5107-4e30-9b8a-c3ef65904cf5.jpg",
+            "type" : "Image"
+          } ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 6.0,
+      "type" : "MultiSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Support for Linking with Nikshay",
+      "uuid" : "f8c08b62-4959-4823-9f89-4a865ff70bea",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Support for Linking with Nikshay",
+        "uuid" : "09629793-c6a9-4a7f-ad14-bfa148d34724",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Documents Available",
+          "uuid" : "f74ba78b-0d3d-4949-9de8-60b93605c023",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Needs Support (specify)",
+          "uuid" : "c0ee7d5f-505b-47e8-844c-d488a694e601",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 7.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Specify Support for Nikshay Linking",
+      "uuid" : "825fa17e-4fc2-48db-b063-daec171a1012",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Specify Support for Nikshay Linking",
+        "uuid" : "292b0e15-1c3b-43cc-8265-55cb0209f4ee",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 8.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"09629793-c6a9-4a7f-ad14-bfa148d34724\").containsAnswerConceptName(\"c0ee7d5f-505b-47e8-844c-d488a694e601\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Support for Linking with Nikshay",
+                "conceptUuid" : "09629793-c6a9-4a7f-ad14-bfa148d34724",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Needs Support (specify)" ],
+                "answerConceptUuids" : [ "c0ee7d5f-505b-47e8-844c-d488a694e601" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : false
+    }, {
+      "name" : "Any Other Support Needed (If not mentioned in the list above)",
+      "uuid" : "5b0db201-6415-464f-9391-105145940391",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Any Other Support Needed (If not mentioned in the list above)",
+        "uuid" : "c9b48011-6b8e-48c1-bae9-9140354a064a",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 9.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    } ],
+    "display" : "Types of Social Support Offered Until the Date",
+    "timed" : false
+  } ],
+  "decisionRule" : "",
+  "visitScheduleRule" : "\"use strict\";\n({ params, imports }) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({programEncounter});\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter}).when.valueInEncounter(\"4e9a288a-45d1-485f-9a10-b33999aca9b9\").defined.matches();\n  \n  if(condition11 ){\n    const earliestDate = moment(programEncounter.encounterDateTime).add(0, 'days').toDate();\n    const maxDate = moment(programEncounter.encounterDateTime).add(0, 'days').toDate();\n    scheduleBuilder.add({name: \"TB Study Baseline Family \", encounterType: \"TB Study Baseline Family \", earliestDate, maxDate});  \n}\n  \n  return scheduleBuilder.getAll();\n};",
+  "validationRule" : "",
+  "checklistsRule" : "",
+  "decisionConcepts" : [ ],
+  "visitScheduleDeclarativeRule" : [ {
+    "actions" : [ {
+      "details" : {
+        "dateField" : "encounterDateTime",
+        "daysToOverdue" : "0",
+        "encounterName" : "TB Study Baseline Family ",
+        "encounterType" : "TB Study Baseline Family ",
+        "daysToSchedule" : "0"
+      },
+      "actionType" : "scheduleVisit"
+    }, { } ],
+    "conditions" : [ {
+      "compoundRule" : {
+        "rules" : [ {
+          "lhs" : {
+            "type" : "concept",
+            "scope" : "encounter",
+            "conceptName" : "Patient Related Barrier Assessment (tick whichever is applicable)",
+            "conceptUuid" : "4e9a288a-45d1-485f-9a10-b33999aca9b9",
+            "conceptDataType" : "Coded"
+          },
+          "rhs" : { },
+          "operator" : "defined"
+        } ],
+        "conjunction" : "and"
+      }
+    } ]
+  } ]
+}

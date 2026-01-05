@@ -1,0 +1,18 @@
+{
+  "name" : "HBNC Encounter Cancellation",
+  "uuid" : "4c8c7e07-e910-498f-8e86-47b2c2602b16",
+  "formType" : "IndividualEncounterCancellation",
+  "formElementGroups" : [ {
+    "uuid" : "9e2a0081-bbcb-486a-9568-607171e175d8",
+    "name" : "Cancel",
+    "displayOrder" : 1.0,
+    "formElements" : [ ],
+    "display" : "Cancel",
+    "timed" : false
+  } ],
+  "decisionRule" : "",
+  "visitScheduleRule" : "\"use strict\";\n({ params, imports }) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({encounter});\n  \n  const totalEnc = encounter.individual.encounters.length;\n  const allEnc = encounter.individual.encounters;\n  \n  const sortedEnc = [...allEnc].sort((a, b) => {\n    return new Date(b.earliestVisitDateTime) - new Date(a.earliestVisitDateTime);\n  });\n  \n  const currentUUID = encounter.uuid;\n  \n  const lastEnc = sortedEnc[0];\n\n  const currentInList = sortedEnc.find(e => e.uuid === currentUUID)\n  \n  if(totalEnc < 10){\n    let earliestDate, maxDate;\n    console.log(currentInList.encounterDateTime);\n    if(currentInList.encounterDateTime != null){ \n    } else if(currentInList.cancelDateTime != null){\n    } else {\n      earliestDate = moment(lastEnc.earliestVisitDateTime).add(1, 'days').toDate();\n      maxDate = moment(lastEnc.earliestVisitDateTime).add(2, 'days').toDate();\n      scheduleBuilder.add({name: \"HBNC\", encounterType: \"HBNC\", earliestDate, maxDate});\n    }\n  }  \n\n  \n  return scheduleBuilder.getAll();\n};",
+  "validationRule" : "",
+  "checklistsRule" : "",
+  "decisionConcepts" : [ ]
+}

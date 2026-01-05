@@ -1,0 +1,7 @@
+{
+  "name" : "VHW Followup Encounter Cancellation",
+  "uuid" : "d2f2dcbe-f115-40a0-852a-9b6e8751545f",
+  "formType" : "IndividualEncounterCancellation",
+  "formElementGroups" : [ ],
+  "decisionConcepts" : [ ]
+}

@@ -1,0 +1,7 @@
+{
+  "name" : "TB Study Health Seeking Encounter Cancellation",
+  "uuid" : "fa656a3d-37a7-4cdc-babe-748c6a83fcac",
+  "formType" : "ProgramEncounterCancellation",
+  "formElementGroups" : [ ],
+  "decisionConcepts" : [ ]
+}
