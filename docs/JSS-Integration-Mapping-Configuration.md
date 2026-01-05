@@ -1,51 +1,61 @@
-# JSS Avni-Bahmni Integration Mapping Configuration
+# JSS Avni-Bahmni Integration - Metadata Mapping Configuration
 
-**Document Version:** 1.0  
-**Created:** January 2025  
-**Status:** Draft - Pending Doctor Review  
+**Version:** 2.0 (Feed-Based, Metadata-Driven)  
+**Last Updated:** January 2025  
+**Status:** Technical Reference
 
 ---
 
 ## Table of Contents
 
 1. [Overview](#1-overview)
-2. [Unique Identifier Strategy](#2-unique-identifier-strategy)
-3. [Bahmni → Avni Mapping (Clinical Data for Field Service)](#3-bahmni--avni-mapping)
-4. [Avni → Bahmni Mapping (Community Health Data)](#4-avni--bahmni-mapping)
-5. [Concept-Level Mappings](#5-concept-level-mappings)
-6. [New Forms & Encounter Types Required](#6-new-forms--encounter-types-required)
-7. [Doctor Questionnaire](#7-doctor-questionnaire)
-8. [Implementation Checklist](#8-implementation-checklist)
+2. [Sync Strategy](#2-sync-strategy)
+3. [Identifier Mapping](#3-identifier-mapping)
+4. [Encounter Type Mappings](#4-encounter-type-mappings)
+5. [Concept Mappings](#5-concept-mappings)
+6. [Program Mappings](#6-program-mappings)
+7. [Database Configuration](#7-database-configuration)
 
 ---
 
 ## 1. Overview
 
-### Integration Principles
+This document defines all metadata mappings required by the integration service to perform 1-to-1 entity synchronization between Avni and Bahmni. No business logic or data transformation is performed in the integration service—only metadata-driven mapping.
 
-| Principle | Description |
-|-----------|-------------|
-| **ID Source** | JSS team surveys community → generates unique IDs → updates Avni Individuals first → then syncs to Bahmni as IDs are added |
-| **Bahmni → Avni** | Only sync for patients enrolled in Avni programs (TB, Hypertension, Diabetes, etc.) |
-| **Avni → Bahmni** | All clinical program data syncs to Bahmni for research |
-| **Concept Mapping** | Concept-level mapping required; use fallbacks for missing concepts, don't error unless mandatory |
-| **Forms Strategy** | Create new dedicated "Bahmni Sync" forms in Avni; Create new "Field" visit types in Bahmni |
+### Core Principles
 
-### Key Decisions Summary
-
-| Decision | Choice |
-|----------|--------|
-| Sync Lab Results | Only for program-enrolled patients |
-| Discharge Summary | New "General" encounter type in Avni |
-| Visit Summary | Single record with list of encounters |
-| Bahmni Visit Types | New "Field" visit type for Avni data |
-| Program-specific Visit Types | Create "Field-TB", "Field-HTN", etc. if sensible |
-| Household/Phulwari Sync | **NO** - no primary identifier for integration |
-| Existing Avni Lab Forms | **IGNORE** - create new comprehensive forms |
+1. **No Business Data in Integration Service:** Only metadata mapping and entity transformation
+2. **Avni → Bahmni:** Sync to existing Patient with same JSS ID, or create new Patient with JSS ID
+3. **Bahmni → Avni:** Sync only if JSS ID exists and Individual already exists (no new Individual creation)
+4. **Feed-Based:** Bahmni uses Atom feeds; Avni uses REST APIs
+5. **Metadata-Driven:** All mappings defined in integration DB, not hardcoded
 
 ---
 
-## 2. Unique Identifier Strategy
+## 2. Sync Strategy
+
+### Avni → Bahmni (All Community Data)
+
+| Avni Entity | Bahmni Entity | Condition | Notes |
+|-------------|---------------|-----------|-------|
+| Individual | Patient | Always | Create if not exists with JSS ID |
+| Program Enrolment | Encounter | Always | Maps to program-specific encounter type |
+| Program Encounter | Encounter | Always | Maps to program-specific encounter type |
+| General Encounter | Encounter | Always | Maps to general encounter type |
+
+### Bahmni → Avni (Field Service Data Only)
+
+| Bahmni Entity | Avni Entity | Condition | Notes |
+|---------------|-------------|-----------|-------|
+| Patient | Individual | Only if JSS ID exists in Avni | No new Individual creation |
+| Lab Result Encounter | General Encounter | Only if Patient has JSS ID | Lab results for followup |
+| Radiology Encounter | General Encounter | Only if Patient has JSS ID | X-ray/imaging reports |
+| Discharge Encounter | General Encounter | Only if Patient has JSS ID | Discharge summaries |
+| Visit Summary | General Encounter | Only if Patient has JSS ID | Visit list aggregation |
+
+---
+
+## 3. Identifier Mapping
 
 ### ID Generation Flow
 
@@ -96,7 +106,7 @@ INSERT INTO constant (name, value) VALUES
 
 ---
 
-## 3. Bahmni → Avni Mapping
+## 4. Encounter Type Mappings
 
 ### Sync Eligibility Rule
 
@@ -215,7 +225,7 @@ Create a single **Bahmni Visit Summary** encounter in Avni containing:
 
 ---
 
-## 5. Concept-Level Mappings
+## 6. Program Mappings
 
 ### 5.1 Mapping Strategy
 
@@ -625,314 +635,6 @@ Create a single **Bahmni Visit Summary** encounter in Avni containing:
 }
 ```
 
-### 6.3 New Bahmni Observation Templates Required
-
-For each Avni program, create a corresponding observation template in Bahmni:
-
-| Template Name | Source Avni Program | Key Observations |
-|---------------|---------------------|------------------|
-| **Avni TB Data** | Tuberculosis | Treatment status, adherence, side effects, weight, symptoms |
-| **Avni HTN Data** | Hypertension | BP readings, medication adherence, symptoms, lifestyle |
-| **Avni DM Data** | Diabetes | Blood sugar, medication adherence, symptoms, foot exam |
-| **Avni Epilepsy Data** | Epilepsy | Seizure frequency, medication adherence, triggers |
-| **Avni Sickle Cell Data** | Sickle cell | Crisis episodes, transfusions, hydroxyurea adherence |
-| **Avni ANC Data** | Pregnancy | ANC visits, weight, BP, fetal heart rate, complications |
-| **Avni Referral Data** | Referral encounters | Referral reason, status, outcome |
-
----
-
-## 7. Doctor Questionnaire
-
-### Purpose
-The following questions require clinical input from JSS doctors to finalize the integration mapping. These decisions affect what data is synced and how it's presented to field workers.
-
----
-
-### Section A: Lab Results for Field Service
-
-**Context:** Lab results from Bahmni will be synced to Avni for field workers to follow up with patients.
-
-#### Q1. Lab Result Priority
-Which lab results are **most critical** for field workers to see for patient follow-up?
-
-| Lab Test | Priority (High/Medium/Low/Not Needed) | Notes |
-|----------|---------------------------------------|-------|
-| Haemoglobin | | |
-| Blood Sugar (Fasting/PP) | | |
-| HbA1c | | |
-| Serum Creatinine | | |
-| Sputum AFB | | |
-| Sickling Test | | |
-| Hb Electrophoresis | | |
-| HIV Test | | |
-| Liver Function (ALT/AST) | | |
-| Lipid Profile | | |
-| Thyroid (TSH) | | |
-| Urine Routine | | |
-
-#### Q2. Abnormal Value Alerts
-Should field workers see **alerts for abnormal values**? If yes, please specify thresholds:
-
-| Lab Test | Low Alert Threshold | High Alert Threshold |
-|----------|---------------------|----------------------|
-| Haemoglobin | < ___ g/dL | > ___ g/dL |
-| Fasting Blood Sugar | < ___ mg/dL | > ___ mg/dL |
-| HbA1c | | > ___ % |
-| Serum Creatinine | | > ___ mg/dL |
-| Systolic BP | < ___ mmHg | > ___ mmHg |
-| Diastolic BP | < ___ mmHg | > ___ mmHg |
-
-#### Q3. Lab Result Grouping
-Should lab results be grouped by:
-- [ ] Date of test
-- [ ] Lab panel (CBC, LFT, KFT, etc.)
-- [ ] Clinical relevance (Diabetes panel, TB panel, etc.)
-- [ ] Other: _______________
-
----
-
-### Section B: Radiology/X-Ray Results
-
-#### Q4. Radiology Types for Field Service
-Which radiology results should be synced to Avni?
-
-| Radiology Type | Sync to Avni (Yes/No) | Use Case |
-|----------------|----------------------|----------|
-| Chest X-Ray | | |
-| USG Abdomen | | |
-| USG Pelvis/Obstetric | | |
-| ECG | | |
-| Echo | | |
-| CT Scan | | |
-| MRI | | |
-
-#### Q5. Radiology Information Detail
-What level of detail should field workers see?
-- [ ] Full report text
-- [ ] Summary/impression only
-- [ ] Abnormal findings only
-- [ ] Just the fact that test was done + normal/abnormal flag
-
-#### Q6. TB-Specific X-Ray Findings
-For TB patients, should we extract specific findings from chest X-rays?
-- [ ] Cavity present (Yes/No)
-- [ ] Infiltrates (Yes/No)
-- [ ] Pleural effusion (Yes/No)
-- [ ] Miliary pattern (Yes/No)
-- [ ] Other: _______________
-
----
-
-### Section C: Discharge Summary
-
-#### Q7. Discharge Summary Content
-What information from discharge summaries is essential for field follow-up?
-
-| Field | Include (Yes/No) | Priority |
-|-------|------------------|----------|
-| Primary Diagnosis | | |
-| Secondary Diagnoses | | |
-| Procedures Performed | | |
-| Discharge Medications | | |
-| Follow-up Date | | |
-| Follow-up Instructions | | |
-| Warning Signs | | |
-| Diet Instructions | | |
-| Activity Restrictions | | |
-| Condition at Discharge | | |
-
-#### Q8. Discharge Follow-up Actions
-What actions should field workers take after seeing a discharge summary?
-- [ ] Home visit within X days
-- [ ] Medication adherence check
-- [ ] Vital signs monitoring
-- [ ] Referral back if warning signs
-- [ ] Other: _______________
-
----
-
-### Section D: Visit Summary
-
-#### Q9. Visit Summary Content
-What should the visit summary include?
-
-| Field | Include (Yes/No) | Notes |
-|-------|------------------|-------|
-| Visit Date | | |
-| Visit Type (OPD/IPD/Emergency) | | |
-| Chief Complaints | | |
-| Diagnoses | | |
-| Medications Prescribed | | |
-| Lab Tests Ordered | | |
-| Radiology Ordered | | |
-| Next Follow-up Date | | |
-| Referrals | | |
-
-#### Q10. Visit Frequency
-How often should visit summaries be synced?
-- [ ] Every visit
-- [ ] Only if new diagnosis
-- [ ] Only if hospitalization (IPD)
-- [ ] Only if specific conditions (specify): _______________
-
----
-
-### Section E: Program-Specific Questions
-
-#### Q11. TB Program
-For TB patients, what Bahmni data is most important for field workers?
-
-| Data Type | Priority | Notes |
-|-----------|----------|-------|
-| Sputum AFB results | | |
-| CBNAAT results | | |
-| Chest X-ray findings | | |
-| Drug sensitivity results | | |
-| Treatment regimen changes | | |
-| Side effects documented | | |
-| Weight changes | | |
-
-#### Q12. Hypertension Program
-For hypertension patients, what Bahmni data is most important?
-
-| Data Type | Priority | Notes |
-|-----------|----------|-------|
-| BP readings at clinic | | |
-| Medication changes | | |
-| Kidney function (Creatinine) | | |
-| Cardiac evaluation (ECG/Echo) | | |
-| Complications documented | | |
-
-#### Q13. Diabetes Program
-For diabetes patients, what Bahmni data is most important?
-
-| Data Type | Priority | Notes |
-|-----------|----------|-------|
-| Blood sugar readings | | |
-| HbA1c | | |
-| Medication changes | | |
-| Kidney function | | |
-| Eye examination results | | |
-| Foot examination results | | |
-| Complications documented | | |
-
-#### Q14. Sickle Cell Program
-For sickle cell patients, what Bahmni data is most important?
-
-| Data Type | Priority | Notes |
-|-----------|----------|-------|
-| Hb levels | | |
-| Hb Electrophoresis | | |
-| Crisis episodes documented | | |
-| Transfusion records | | |
-| Hydroxyurea dosing | | |
-| Complications | | |
-
----
-
-### Section F: General Questions
-
-#### Q15. Data Freshness
-How recent should synced data be for field workers?
-- [ ] Real-time (within hours)
-- [ ] Daily sync
-- [ ] Weekly sync
-- [ ] On-demand only
-
-#### Q16. Historical Data
-How much historical data should be visible to field workers?
-- [ ] Last visit only
-- [ ] Last 3 months
-- [ ] Last 6 months
-- [ ] Last 1 year
-- [ ] All available data
-
-#### Q17. Notification/Alerts
-Should field workers receive notifications for:
-- [ ] New lab results available
-- [ ] Abnormal lab values
-- [ ] Discharge from hospital
-- [ ] Missed follow-up appointments
-- [ ] Other: _______________
-
-#### Q18. Additional Data Needs
-Is there any other data from Bahmni that would be valuable for field workers?
-
-_____________________________________________________________
-_____________________________________________________________
-_____________________________________________________________
-
----
-
-## 8. Implementation Checklist
-
-### Phase 1: Setup
-
-- [ ] **Avni Configuration**
-  - [ ] Create "Bahmni Lab Results" encounter type
-  - [ ] Create "Bahmni Radiology Report" encounter type
-  - [ ] Create "Bahmni Discharge Summary" encounter type
-  - [ ] Create "Bahmni Visit Summary" encounter type
-  - [ ] Create corresponding forms for each encounter type
-  - [ ] Add "JSS ID" field to Individual registration (if not exists)
-  - [ ] Create form mappings
-
-- [ ] **Bahmni Configuration**
-  - [ ] Create "Field" visit type
-  - [ ] Create "Field-TB" visit type
-  - [ ] Create "Field-NCD" visit type
-  - [ ] Create "Field-MCH" visit type
-  - [ ] Create Avni encounter types (see Section 4.2)
-  - [ ] Create Avni observation templates (see Section 6.3)
-
-- [ ] **Integration Service Configuration**
-  - [ ] Configure constants in integration DB
-  - [ ] Create subject type mapping (Individual ↔ Patient)
-  - [ ] Create encounter type mappings (Bahmni → Avni)
-  - [ ] Create encounter type mappings (Avni → Bahmni)
-  - [ ] Create concept mappings (see Section 5)
-
-### Phase 2: Concept Mapping
-
-- [ ] **Lab Concepts**
-  - [ ] Extract all Bahmni lab test UUIDs
-  - [ ] Create corresponding Avni concepts
-  - [ ] Create mapping entries in integration DB
-
-- [ ] **Vital Signs Concepts**
-  - [ ] Map BP, Pulse, Temperature, etc.
-
-- [ ] **Diagnosis Concepts**
-  - [ ] Map diagnosis structure
-
-- [ ] **Program-Specific Concepts**
-  - [ ] TB concepts
-  - [ ] HTN concepts
-  - [ ] DM concepts
-  - [ ] Sickle cell concepts
-
-### Phase 3: Testing
-
-- [ ] **Bahmni → Avni Testing**
-  - [ ] Test lab result sync
-  - [ ] Test radiology sync
-  - [ ] Test discharge summary sync
-  - [ ] Test visit summary sync
-  - [ ] Verify only program-enrolled patients receive data
-
-- [ ] **Avni → Bahmni Testing**
-  - [ ] Test Individual registration sync
-  - [ ] Test program enrolment sync
-  - [ ] Test program followup sync
-  - [ ] Verify data appears in correct visit types
-
-### Phase 4: Doctor Review
-
-- [ ] Complete doctor questionnaire
-- [ ] Incorporate feedback into mappings
-- [ ] Finalize alert thresholds
-- [ ] Finalize data priority
-
 ---
 
 ## Appendix A: Bahmni Metadata Reference
@@ -994,7 +696,6 @@ _____________________________________________________________
 
 ---
 
-*Document Version: 1.0*  
-*Created: January 2025*  
-*Status: Draft - Pending Doctor Review*  
-*Authors: Himesh*
+*Document Version: 2.0*  
+*Last Updated: January 2025*  
+*Status: Technical Reference - Feed-Based Architecture*
