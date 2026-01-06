@@ -11,14 +11,6 @@ Bi-directional integration between **Avni** (community health platform) and **Ba
 **Architecture:** Feed-based synchronization using Atom feeds (Bahmni) and REST APIs (Avni)  
 **Sync Strategy:** 1-to-1 entity mapping with no business logic in integration service
 
-### Core Principles
-
-1. **No Business Data in Integration Service:** Only metadata mapping and entity transformation
-2. **Avni → Bahmni:** Sync to existing Patient with same JSS ID, or create new Patient with JSS ID
-3. **Bahmni → Avni:** Sync only if JSS ID exists and Individual already exists (no new Individual creation)
-4. **Feed-Based:** Bahmni uses Atom feeds; Avni uses REST APIs
-5. **Metadata-Driven:** All mappings defined in integration DB, not hardcoded
-
 ---
 
 ## Table of Contents
@@ -120,57 +112,23 @@ Bi-directional integration between **Avni** (community health platform) and **Ba
 
 ---
 
-## 3. Entity Types & Sync Scope
+## 3. Sync Scope Summary
 
-### 3.1 Programs in Scope (7 Programs)
+> **Detailed mappings:** See [JSS-Integration-Mapping-Configuration.md](./JSS-Integration-Mapping-Configuration.md)
 
-| Avni Program | Bahmni Visit Type | Priority | Notes |
-|--------------|-------------------|----------|-------|
-| **Tuberculosis** | Field-TB | High | TB treatment monitoring |
-| **Hypertension** | Field-NCD | High | BP monitoring, medication adherence |
-| **Diabetes** | Field-NCD | High | Blood sugar monitoring |
-| **Sickle Cell** | Field-NCD | High | Crisis monitoring, Hb tracking |
-| **Epilepsy** | Field-NCD | High | Seizure tracking |
-| **Pregnancy** | Field-MCH | High | ANC visits |
-| **Child** | Field-MCH | High | Growth monitoring |
+### 3.1 Sync Direction Overview
 
-### 3.2 Avni → Bahmni Sync
+| Direction | What Syncs | Purpose |
+|-----------|------------|--------|
+| **Avni → Bahmni** | Individual, Program Enrolment, Program Encounter | Doctors see field data |
+| **Bahmni → Avni** | Lab Results, Radiology, Consultation | Field workers see hospital data |
 
-| Avni Entity | Bahmni Entity | Condition | Notes |
-|-------------|---------------|-----------|-------|
-| **Individual** | Patient | Has JSS ID | Create patient if not exists |
-| **Program Enrolment** | Encounter | Program in scope | Maps to program-specific encounter type |
-| **Program Encounter** | Encounter | Program in scope | Followup data for doctors |
+### 3.2 Key Decisions
 
-**Subject Types:**
-- ✅ **Individual** — Primary subject with JSS ID
-- ❌ Household, Phulwari, SHG — No sync (no primary identifier)
-
-### 3.3 Bahmni → Avni Sync
-
-**Bahmni Encounter Types (from metadata extraction):**
-
-| Encounter Type | UUID | Contains | Sync to Avni |
-|----------------|------|----------|--------------|
-| **Consultation** | `da7a4fe0-0a6a-11e3-939c-8c50edb4be99` | Diagnosis, Prescriptions (Drug Orders), Vitals, Observations | ✅ Yes |
-| **LAB_RESULT** | `960469a8-9bc6-11e3-927e-8840ab96f0f1` | Lab test results | ✅ Yes |
-| **RADIOLOGY** | `949dba36-9bc6-11e3-927e-8840ab96f0f1` | X-ray, USG, ECG results | ✅ Yes |
-| DISCHARGE | `58c22773-9bc6-11e3-927e-8840ab96f0f1` | Discharge observations | ❌ No (PDF only) |
-| REG | `b469afaa-c79a-11e2-b284-107d46e7b2c5` | Registration | ❌ No (patient feed) |
-| ADMISSION | `57efc389-9bc6-11e3-927e-8840ab96f0f1` | Admission details | ❌ No |
-
-**Data to Sync:**
-
-| Bahmni Data | Source | Avni Entity | Notes |
-|-------------|--------|-------------|-------|
-| **Lab Results** | LAB_RESULT encounter | General Encounter | Hb, Blood Sugar, Sputum AFB, etc. |
-| **Radiology Results** | RADIOLOGY encounter | General Encounter | Chest X-ray (TB), USG, ECG |
-| **Consultation** | Consultation encounter | General Encounter | Current medications list, diagnosis, vitals |
-
-**Key Observation Templates in Consultation:**
-- `Visit Diagnoses` (uuid: `56104bb2-9bc6-11e3-927e-8840ab96f0f1`) — Diagnosis
-- `Nutritional Values` (uuid: `3ccfba5b-82b6-43c3-939b-449f228b66d1`) — Weight, Height
-- `Discharge Summary` (uuid: `f709eca4-e349-11e3-983a-91270dcbd3bf`) — Discharge notes (observation, not encounter)
+- **7 Programs in scope:** TB, Hypertension, Diabetes, Sickle Cell, Epilepsy, Pregnancy, Child
+- **Only Individual subject type syncs** (has JSS ID)
+- **DISCHARGE encounters excluded** — only contains "Adt Notes" (335 obs), PDF-based
+- **Consultation contains prescriptions** — Drug Orders, not separate encounter
 
 ---
 
@@ -213,42 +171,17 @@ Bi-directional integration between **Avni** (community health platform) and **Ba
 
 ---
 
-## 5. New Encounter Types & Visit Types
+## 5. New Entity Types Required
 
-### 5.1 New Avni Encounter Types (for Bahmni → Avni sync)
+> **Full mapping details:** See [JSS-Integration-Mapping-Configuration.md](./JSS-Integration-Mapping-Configuration.md)
 
-| Encounter Type | Purpose | Source Bahmni Encounter |
-|----------------|---------|-------------------------|
-| **Bahmni Lab Results** | Lab results for field followup | LAB_RESULT (`960469a8-9bc6-11e3-927e-8840ab96f0f1`) |
-| **Bahmni Radiology Results** | X-ray, USG, ECG for field followup | RADIOLOGY (`949dba36-9bc6-11e3-927e-8840ab96f0f1`) |
-| **Bahmni Consultation** | Diagnosis, Prescriptions, Vitals | Consultation (`da7a4fe0-0a6a-11e3-939c-8c50edb4be99`) |
+### Summary
 
-### 5.2 New Bahmni Visit Types (for Avni → Bahmni sync)
-
-| Visit Type | Code | Programs |
-|------------|------|----------|
-| **Field-TB** | FIELD_TB | Tuberculosis |
-| **Field-NCD** | FIELD_NCD | Hypertension, Diabetes, Epilepsy, Sickle Cell |
-| **Field-MCH** | FIELD_MCH | Pregnancy, Child |
-
-### 5.3 New Bahmni Encounter Types (for Avni → Bahmni sync)
-
-| Encounter Type | Visit Type | Avni Source |
-|----------------|-----------|-------------|
-| **Avni TB Enrolment** | Field-TB | TB Program Enrolment |
-| **Avni TB Followup** | Field-TB | TB Followup Encounter |
-| **Avni HTN Enrolment** | Field-NCD | Hypertension Enrolment |
-| **Avni HTN Followup** | Field-NCD | Hypertension Followup |
-| **Avni DM Enrolment** | Field-NCD | Diabetes Enrolment |
-| **Avni DM Followup** | Field-NCD | Diabetes Followup |
-| **Avni Epilepsy Enrolment** | Field-NCD | Epilepsy Enrolment |
-| **Avni Epilepsy Followup** | Field-NCD | Epilepsy Followup |
-| **Avni Sickle Cell Enrolment** | Field-NCD | Sickle Cell Enrolment |
-| **Avni Sickle Cell Followup** | Field-NCD | Sickle Cell Followup |
-| **Avni Pregnancy Enrolment** | Field-MCH | Pregnancy Enrolment |
-| **Avni ANC Visit** | Field-MCH | ANC Home Visit |
-| **Avni Child Enrolment** | Field-MCH | Child Enrolment |
-| **Avni Growth Monitoring** | Field-MCH | Growth Monitoring Encounter |
+| System | New Entity Types | Count |
+|--------|------------------|-------|
+| **Avni** | Bahmni Lab Results, Bahmni Radiology Results, Bahmni Consultation | 3 |
+| **Bahmni** | Field visit types (Field-TB, Field-NCD, Field-MCH) | 3 |
+| **Bahmni** | Avni encounter types (per program enrolment/followup) | 14 |
 
 ---
 
