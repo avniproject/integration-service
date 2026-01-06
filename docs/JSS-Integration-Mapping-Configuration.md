@@ -34,24 +34,35 @@ This document defines all metadata mappings required by the integration service 
 
 ## 2. Sync Strategy
 
-### Avni → Bahmni (All Community Data)
+### Programs in Scope (7 Programs)
+
+| Avni Program | Bahmni Visit Type |
+|--------------|-------------------|
+| Tuberculosis | Field-TB |
+| Hypertension | Field-NCD |
+| Diabetes | Field-NCD |
+| Sickle Cell | Field-NCD |
+| Epilepsy | Field-NCD |
+| Pregnancy | Field-MCH |
+| Child | Field-MCH |
+
+### Avni → Bahmni (Clinically Important Data)
 
 | Avni Entity | Bahmni Entity | Condition | Notes |
 |-------------|---------------|-----------|-------|
-| Individual | Patient | Always | Create if not exists with JSS ID |
-| Program Enrolment | Encounter | Always | Maps to program-specific encounter type |
-| Program Encounter | Encounter | Always | Maps to program-specific encounter type |
-| General Encounter | Encounter | Always | Maps to general encounter type |
+| Individual | Patient | Has JSS ID | Create if not exists |
+| Program Enrolment | Encounter | Program in scope | Program-specific encounter type |
+| Program Encounter | Encounter | Program in scope | Followup data for doctors |
 
-### Bahmni → Avni (Field Service Data Only)
+### Bahmni → Avni (Field Service Data)
 
-| Bahmni Entity | Avni Entity | Condition | Notes |
-|---------------|-------------|-----------|-------|
-| Patient | Individual | Only if JSS ID exists in Avni | No new Individual creation |
-| Lab Result Encounter | General Encounter | Only if Patient has JSS ID | Lab results for followup |
-| Radiology Encounter | General Encounter | Only if Patient has JSS ID | X-ray/imaging reports |
-| Discharge Encounter | General Encounter | Only if Patient has JSS ID | Discharge summaries |
-| Visit Summary | General Encounter | Only if Patient has JSS ID | Visit list aggregation |
+| Bahmni Data | Avni Entity | Condition | Source |
+|-------------|-------------|-----------|--------|
+| Consultation | General Encounter | JSS ID exists in Avni | Encounter Feed (CONSULTATION) |
+| Radiology | General Encounter | JSS ID exists in Avni | Encounter Feed (RADIOLOGY) |
+| Discharge | General Encounter | JSS ID exists in Avni | Encounter Feed (DISCHARGE) |
+| Lab Results | General Encounter | JSS ID exists in Avni | Encounter Feed (LAB_RESULT) |
+| Prescriptions | General Encounter | JSS ID exists in Avni | Drug Orders in Encounter |
 
 ---
 
@@ -65,23 +76,23 @@ This document defines all metadata mappings required by the integration service 
 ├─────────────────────────────────────────────────────────────────────────────┤
 │                                                                             │
 │  Step 1: JSS Community Survey                                               │
-│  ┌─────────────────────────────────────────────────────────────────────┐   │
-│  │  JSS team surveys community and generates unique IDs for everyone   │   │
-│  └─────────────────────────────────────────────────────────────────────┘   │
+│  ┌─────────────────────────────────────────────────────────────────────┐    │
+│  │  JSS team surveys community and generates unique IDs for everyone   │    │
+│  └─────────────────────────────────────────────────────────────────────┘    │
 │                                    │                                        │
 │                                    ▼                                        │
 │  Step 2: Update Avni Individuals                                            │
-│  ┌─────────────────────────────────────────────────────────────────────┐   │
-│  │  Unique IDs are first updated to Individuals in Avni                │   │
-│  │  Field: "JSS ID" or designated identifier field                     │   │
-│  └─────────────────────────────────────────────────────────────────────┘   │
+│  ┌─────────────────────────────────────────────────────────────────────┐    │
+│  │  Unique IDs are first updated to Individuals in Avni                │    │
+│  │  Field: "JSS ID" or designated identifier field                     │    │
+│  └─────────────────────────────────────────────────────────────────────┘    │
 │                                    │                                        │
 │                                    ▼                                        │
 │  Step 3: Phased Sync to Bahmni                                              │
-│  ┌─────────────────────────────────────────────────────────────────────┐   │
-│  │  As IDs get added to patients in Bahmni, sync begins in phases      │   │
-│  │  Integration uses JSS ID for bi-directional linking                 │   │
-│  └─────────────────────────────────────────────────────────────────────┘   │
+│  ┌─────────────────────────────────────────────────────────────────────┐    │
+│  │  As IDs get added to patients in Bahmni, sync begins in phases      │    │
+│  │  Integration uses JSS ID for bi-directional linking                 │    │
+│  └─────────────────────────────────────────────────────────────────────┘    │
 │                                                                             │
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
@@ -111,7 +122,7 @@ INSERT INTO constant (name, value) VALUES
 ### Sync Eligibility Rule
 
 **IMPORTANT:** Only sync Bahmni data to Avni for patients who are:
-1. Enrolled in at least one Avni program (TB, Hypertension, Diabetes, Sickle Cell, Epilepsy, etc.)
+1. Enrolled in at least one Avni program (Pregnancy, TB, Hypertension, Diabetes, Sickle Cell, Epilepsy, etc.)
 2. Have a valid JSS ID in both systems
 
 ### 3.1 Encounter Type Mappings (Bahmni → Avni)
@@ -120,8 +131,9 @@ INSERT INTO constant (name, value) VALUES
 |-----------------------|-------------|---------------------------|---------------------|----------|
 | LAB_RESULT | `81d6e852-3f10-11e4-adec-0800271c1b75` | **Bahmni Lab Results** | General (all programs) | High |
 | RADIOLOGY | `7c3f0372-a586-11e4-9beb-0800271c1b75` | **Bahmni Radiology Report** | General (all programs) | High |
-| DISCHARGE | `81d72550-3f10-11e4-adec-0800271c1b75` | **Bahmni Discharge Summary** | General (all programs) | High |
-| Consultation | `81d210e8-3f10-11e4-adec-0800271c1b75` | **Bahmni Visit Summary** | General (all programs) | Medium |
+| DISCHARGE | `58c22773-9bc6-11e3-927e-8840ab96f0f1` | **Bahmni Discharge Summary** | General (all programs) | High |
+| Consultation | `da7a4fe0-0a6a-11e3-939c-8c50edb4be99` | **Bahmni Consultation Notes** | General (all programs) | Medium |
+| Prescription | NOT availabe | **Bahmni Prescription** | General (all programs) | Medium |
 
 ### 3.2 Visit Summary Structure
 
@@ -162,6 +174,12 @@ Create a single **Bahmni Visit Summary** encounter in Avni containing:
 | USG Pelvis | Radiology Results | Medium | Pregnancy, gynecology |
 | ECG | Cardiology Results | Medium | Heart disease |
 | Echo | Cardiology Results | Medium | Heart disease |
+
+### 3.5 Discharge Summary Mapping
+
+| Field | Source | Description |
+|-----------------------|-------------------|----------|-------|
+
 
 ---
 
@@ -323,336 +341,42 @@ Create a single **Bahmni Visit Summary** encounter in Avni containing:
 
 ---
 
-## 6. New Forms & Encounter Types Required
+## 6. Bahmni Encounter Types Reference
 
-### 6.1 New Avni Encounter Types
+**Source:** `scripts/aws/bahmni-metadata/encounter_types/encounter_types.json`
 
-| Encounter Type Name | Program Association | Form Type | Description |
-|--------------------|---------------------|-----------|-------------|
-| **Bahmni Lab Results** | General (Individual) | ProgramEncounter | Lab results synced from Bahmni |
-| **Bahmni Radiology Report** | General (Individual) | ProgramEncounter | X-ray/imaging results from Bahmni |
-| **Bahmni Discharge Summary** | General (Individual) | ProgramEncounter | Discharge summary from Bahmni |
-| **Bahmni Visit Summary** | General (Individual) | ProgramEncounter | Visit summary from Bahmni |
+| ID | Name | UUID | Sync to Avni |
+|----|------|------|--------------|
+| 1 | REG | `b469afaa-c79a-11e2-b284-107d46e7b2c5` | ❌ (use Patient feed) |
+| 2 | **Consultation** | `da7a4fe0-0a6a-11e3-939c-8c50edb4be99` | ✅ (contains diagnosis, prescriptions) |
+| 3 | ADMISSION | `57efc389-9bc6-11e3-927e-8840ab96f0f1` | ❌ |
+| 4 | DISCHARGE | `58c22773-9bc6-11e3-927e-8840ab96f0f1` | ❌ (PDF only) |
+| 5 | TRANSFER | `6f6b5658-9bc6-11e3-927e-8840ab96f0f1` | ❌ |
+| 6 | **RADIOLOGY** | `949dba36-9bc6-11e3-927e-8840ab96f0f1` | ✅ |
+| 7 | INVESTIGATION | `952c63ca-9bc6-11e3-927e-8840ab96f0f1` | ❌ |
+| 8 | **LAB_RESULT** | `960469a8-9bc6-11e3-927e-8840ab96f0f1` | ✅ |
+| 9 | Patient Document | `e34027b5-a663-4370-bb6d-fe6d9cd31107` | ❌ |
+| 10 | VALIDATION NOTES | `e6166d69-e349-11e3-983a-91270dcbd3bf` | ❌ |
 
-### 6.2 New Avni Forms Required
+### Consultation Encounter Structure
 
-#### Form: Bahmni Lab Results
+The **Consultation** encounter contains:
+- **Observations:** Vitals, diagnosis, clinical notes
+- **Drug Orders:** Prescriptions (accessed via `/openmrs/ws/rest/v1/order?patient={uuid}&t=drugorder`)
+- **Observation Templates:** Visit Diagnoses, Nutritional Values, etc.
 
-```json
-{
-  "name": "Bahmni Lab Results",
-  "formType": "ProgramEncounter",
-  "encounterType": "Bahmni Lab Results",
-  "formElementGroups": [
-    {
-      "name": "Lab Metadata",
-      "displayOrder": 1,
-      "formElements": [
-        { "name": "Lab Order Date", "dataType": "Date", "mandatory": true },
-        { "name": "Lab Result Date", "dataType": "Date", "mandatory": true },
-        { "name": "Lab Name", "dataType": "Text", "mandatory": false },
-        { "name": "Bahmni Encounter UUID", "dataType": "Text", "mandatory": true }
-      ]
-    },
-    {
-      "name": "Hematology",
-      "displayOrder": 2,
-      "formElements": [
-        { "name": "Haemoglobin", "dataType": "Numeric", "unit": "g/dL" },
-        { "name": "WBC Count", "dataType": "Numeric", "unit": "/cumm" },
-        { "name": "Platelet Count", "dataType": "Numeric", "unit": "/cumm" },
-        { "name": "RBC Count", "dataType": "Numeric", "unit": "million/cumm" },
-        { "name": "PCV", "dataType": "Numeric", "unit": "%" },
-        { "name": "MCV", "dataType": "Numeric", "unit": "fL" },
-        { "name": "MCH", "dataType": "Numeric", "unit": "pg" },
-        { "name": "MCHC", "dataType": "Numeric", "unit": "g/dL" },
-        { "name": "ESR", "dataType": "Numeric", "unit": "mm/hr" }
-      ]
-    },
-    {
-      "name": "Sickle Cell Panel",
-      "displayOrder": 3,
-      "formElements": [
-        { "name": "Sickling Test", "dataType": "Coded", "answers": ["Positive", "Negative"] },
-        { "name": "Hb Electrophoresis", "dataType": "Text" },
-        { "name": "Hb Electrophoresis Result", "dataType": "Coded", "answers": ["AA", "AS", "SS", "SC", "Other"] }
-      ]
-    },
-    {
-      "name": "Diabetes Panel",
-      "displayOrder": 4,
-      "formElements": [
-        { "name": "Fasting Blood Sugar", "dataType": "Numeric", "unit": "mg/dL" },
-        { "name": "Post Prandial Blood Sugar", "dataType": "Numeric", "unit": "mg/dL" },
-        { "name": "Random Blood Sugar", "dataType": "Numeric", "unit": "mg/dL" },
-        { "name": "HbA1c", "dataType": "Numeric", "unit": "%" }
-      ]
-    },
-    {
-      "name": "Kidney Function",
-      "displayOrder": 5,
-      "formElements": [
-        { "name": "Serum Creatinine", "dataType": "Numeric", "unit": "mg/dL" },
-        { "name": "Blood Urea", "dataType": "Numeric", "unit": "mg/dL" },
-        { "name": "Blood Urea Nitrogen", "dataType": "Numeric", "unit": "mg/dL" },
-        { "name": "Serum Uric Acid", "dataType": "Numeric", "unit": "mg/dL" }
-      ]
-    },
-    {
-      "name": "Liver Function",
-      "displayOrder": 6,
-      "formElements": [
-        { "name": "ALT", "dataType": "Numeric", "unit": "U/L" },
-        { "name": "AST", "dataType": "Numeric", "unit": "U/L" },
-        { "name": "Total Bilirubin", "dataType": "Numeric", "unit": "mg/dL" },
-        { "name": "Direct Bilirubin", "dataType": "Numeric", "unit": "mg/dL" },
-        { "name": "Serum Albumin", "dataType": "Numeric", "unit": "g/dL" },
-        { "name": "Total Protein", "dataType": "Numeric", "unit": "g/dL" },
-        { "name": "Alkaline Phosphatase", "dataType": "Numeric", "unit": "U/L" }
-      ]
-    },
-    {
-      "name": "Lipid Profile",
-      "displayOrder": 7,
-      "formElements": [
-        { "name": "Total Cholesterol", "dataType": "Numeric", "unit": "mg/dL" },
-        { "name": "Triglycerides", "dataType": "Numeric", "unit": "mg/dL" },
-        { "name": "HDL Cholesterol", "dataType": "Numeric", "unit": "mg/dL" },
-        { "name": "LDL Cholesterol", "dataType": "Numeric", "unit": "mg/dL" },
-        { "name": "VLDL Cholesterol", "dataType": "Numeric", "unit": "mg/dL" }
-      ]
-    },
-    {
-      "name": "Thyroid Function",
-      "displayOrder": 8,
-      "formElements": [
-        { "name": "TSH", "dataType": "Numeric", "unit": "mIU/L" },
-        { "name": "T3", "dataType": "Numeric", "unit": "ng/dL" },
-        { "name": "T4", "dataType": "Numeric", "unit": "µg/dL" },
-        { "name": "Free T3", "dataType": "Numeric", "unit": "pg/mL" },
-        { "name": "Free T4", "dataType": "Numeric", "unit": "ng/dL" }
-      ]
-    },
-    {
-      "name": "TB Panel",
-      "displayOrder": 9,
-      "formElements": [
-        { "name": "Sputum AFB Result", "dataType": "Coded", "answers": ["Positive", "Negative", "Scanty"] },
-        { "name": "Sputum AFB Grade", "dataType": "Coded", "answers": ["1+", "2+", "3+", "Scanty"] },
-        { "name": "CBNAAT Result", "dataType": "Coded", "answers": ["MTB Detected", "MTB Not Detected", "Invalid"] },
-        { "name": "Rifampicin Resistance", "dataType": "Coded", "answers": ["Detected", "Not Detected", "Indeterminate"] },
-        { "name": "Culture Result", "dataType": "Coded", "answers": ["Positive", "Negative", "Contaminated"] }
-      ]
-    },
-    {
-      "name": "Serology",
-      "displayOrder": 10,
-      "formElements": [
-        { "name": "HIV Test Result", "dataType": "Coded", "answers": ["Positive", "Negative", "Indeterminate"] },
-        { "name": "HBsAg", "dataType": "Coded", "answers": ["Positive", "Negative"] },
-        { "name": "HCV", "dataType": "Coded", "answers": ["Positive", "Negative"] },
-        { "name": "VDRL", "dataType": "Coded", "answers": ["Reactive", "Non-Reactive"] }
-      ]
-    },
-    {
-      "name": "Urine Analysis",
-      "displayOrder": 11,
-      "formElements": [
-        { "name": "Urine Protein", "dataType": "Coded", "answers": ["Nil", "Trace", "1+", "2+", "3+", "4+"] },
-        { "name": "Urine Sugar", "dataType": "Coded", "answers": ["Nil", "Trace", "1+", "2+", "3+", "4+"] },
-        { "name": "Urine Pus Cells", "dataType": "Text" },
-        { "name": "Urine RBC", "dataType": "Text" }
-      ]
-    }
-  ]
-}
-```
+### Key Observation Templates
 
-#### Form: Bahmni Radiology Report
-
-```json
-{
-  "name": "Bahmni Radiology Report",
-  "formType": "ProgramEncounter",
-  "encounterType": "Bahmni Radiology Report",
-  "formElementGroups": [
-    {
-      "name": "Radiology Metadata",
-      "displayOrder": 1,
-      "formElements": [
-        { "name": "Radiology Order Date", "dataType": "Date", "mandatory": true },
-        { "name": "Radiology Report Date", "dataType": "Date", "mandatory": true },
-        { "name": "Radiology Type", "dataType": "Coded", "answers": ["X-Ray", "USG", "CT Scan", "MRI", "ECG", "Echo", "Other"], "mandatory": true },
-        { "name": "Bahmni Encounter UUID", "dataType": "Text", "mandatory": true }
-      ]
-    },
-    {
-      "name": "X-Ray Details",
-      "displayOrder": 2,
-      "formElements": [
-        { "name": "X-Ray Site", "dataType": "Coded", "answers": ["Chest PA", "Chest AP", "Chest Lateral", "Abdomen", "Spine", "Extremity", "Other"] },
-        { "name": "X-Ray Findings", "dataType": "Text" },
-        { "name": "X-Ray Impression", "dataType": "Text" }
-      ]
-    },
-    {
-      "name": "USG Details",
-      "displayOrder": 3,
-      "formElements": [
-        { "name": "USG Type", "dataType": "Coded", "answers": ["Abdomen", "Pelvis", "Obstetric", "KUB", "Thyroid", "Other"] },
-        { "name": "USG Findings", "dataType": "Text" },
-        { "name": "USG Impression", "dataType": "Text" }
-      ]
-    },
-    {
-      "name": "ECG/Echo Details",
-      "displayOrder": 4,
-      "formElements": [
-        { "name": "ECG Findings", "dataType": "Text" },
-        { "name": "Echo Findings", "dataType": "Text" },
-        { "name": "Ejection Fraction", "dataType": "Numeric", "unit": "%" }
-      ]
-    },
-    {
-      "name": "Overall Impression",
-      "displayOrder": 5,
-      "formElements": [
-        { "name": "Radiologist Notes", "dataType": "Text" },
-        { "name": "Abnormal Findings", "dataType": "Coded", "answers": ["Yes", "No"] },
-        { "name": "Follow-up Recommended", "dataType": "Coded", "answers": ["Yes", "No"] }
-      ]
-    }
-  ]
-}
-```
-
-#### Form: Bahmni Discharge Summary
-
-```json
-{
-  "name": "Bahmni Discharge Summary",
-  "formType": "ProgramEncounter",
-  "encounterType": "Bahmni Discharge Summary",
-  "formElementGroups": [
-    {
-      "name": "Admission Details",
-      "displayOrder": 1,
-      "formElements": [
-        { "name": "Admission Date", "dataType": "Date", "mandatory": true },
-        { "name": "Discharge Date", "dataType": "Date", "mandatory": true },
-        { "name": "Ward", "dataType": "Text" },
-        { "name": "Treating Doctor", "dataType": "Text" },
-        { "name": "Bahmni Encounter UUID", "dataType": "Text", "mandatory": true }
-      ]
-    },
-    {
-      "name": "Diagnosis",
-      "displayOrder": 2,
-      "formElements": [
-        { "name": "Primary Diagnosis", "dataType": "Text", "mandatory": true },
-        { "name": "Secondary Diagnoses", "dataType": "Text" },
-        { "name": "Procedures Performed", "dataType": "Text" }
-      ]
-    },
-    {
-      "name": "Treatment Summary",
-      "displayOrder": 3,
-      "formElements": [
-        { "name": "Treatment Given", "dataType": "Text" },
-        { "name": "Condition at Discharge", "dataType": "Coded", "answers": ["Improved", "Unchanged", "Worse", "LAMA", "Expired"] },
-        { "name": "Discharge Medications", "dataType": "Text" }
-      ]
-    },
-    {
-      "name": "Follow-up Instructions",
-      "displayOrder": 4,
-      "formElements": [
-        { "name": "Follow-up Date", "dataType": "Date" },
-        { "name": "Follow-up Instructions", "dataType": "Text" },
-        { "name": "Warning Signs", "dataType": "Text" },
-        { "name": "Diet Instructions", "dataType": "Text" },
-        { "name": "Activity Instructions", "dataType": "Text" }
-      ]
-    }
-  ]
-}
-```
-
-#### Form: Bahmni Visit Summary
-
-```json
-{
-  "name": "Bahmni Visit Summary",
-  "formType": "ProgramEncounter",
-  "encounterType": "Bahmni Visit Summary",
-  "formElementGroups": [
-    {
-      "name": "Visit Details",
-      "displayOrder": 1,
-      "formElements": [
-        { "name": "Visit Date", "dataType": "Date", "mandatory": true },
-        { "name": "Visit Type", "dataType": "Coded", "answers": ["OPD", "IPD", "Emergency"], "mandatory": true },
-        { "name": "Department", "dataType": "Text" },
-        { "name": "Bahmni Visit UUID", "dataType": "Text", "mandatory": true }
-      ]
-    },
-    {
-      "name": "Clinical Summary",
-      "displayOrder": 2,
-      "formElements": [
-        { "name": "Chief Complaints", "dataType": "Text" },
-        { "name": "Primary Diagnosis", "dataType": "Text" },
-        { "name": "Other Diagnoses", "dataType": "Text" }
-      ]
-    },
-    {
-      "name": "Encounters in Visit",
-      "displayOrder": 3,
-      "formElements": [
-        { "name": "Encounter List", "dataType": "Text" },
-        { "name": "Lab Tests Ordered", "dataType": "Text" },
-        { "name": "Radiology Ordered", "dataType": "Text" }
-      ]
-    },
-    {
-      "name": "Prescriptions",
-      "displayOrder": 4,
-      "formElements": [
-        { "name": "Medications Prescribed", "dataType": "Text" },
-        { "name": "Prescription Notes", "dataType": "Text" }
-      ]
-    },
-    {
-      "name": "Follow-up",
-      "displayOrder": 5,
-      "formElements": [
-        { "name": "Next Follow-up Date", "dataType": "Date" },
-        { "name": "Follow-up Instructions", "dataType": "Text" },
-        { "name": "Referral", "dataType": "Text" }
-      ]
-    }
-  ]
-}
-```
+| Template | UUID | Purpose |
+|----------|------|---------|
+| Visit Diagnoses | `56104bb2-9bc6-11e3-927e-8840ab96f0f1` | Diagnosis |
+| Nutritional Values | `3ccfba5b-82b6-43c3-939b-449f228b66d1` | Weight, Height |
+| Discharge Summary | `f709eca4-e349-11e3-983a-91270dcbd3bf` | Discharge notes (observation, not encounter) |
+| Blood Pressure | `f4762e56-e349-11e3-983a-91270dcbd3bf` | BP readings |
 
 ---
 
 ## Appendix A: Bahmni Metadata Reference
-
-### Encounter Types (from extraction)
-
-| ID | Name | UUID |
-|----|------|------|
-| 1 | REG | 81d865e8-3f10-11e4-adec-0800271c1b75 |
-| 2 | Consultation | 81d210e8-3f10-11e4-adec-0800271c1b75 |
-| 3 | ADMISSION | 81d6e852-3f10-11e4-adec-0800271c1b75 |
-| 4 | DISCHARGE | 81d72550-3f10-11e4-adec-0800271c1b75 |
-| 5 | TRANSFER | 7dc96b01-a509-11e4-9beb-0800271c1b75 |
-| 6 | RADIOLOGY | 7c3f0372-a586-11e4-9beb-0800271c1b75 |
-| 7 | INVESTIGATION | 81d6e852-3f10-11e4-adec-0800271c1b75 |
-| 8 | LAB_RESULT | 81d6e852-3f10-11e4-adec-0800271c1b75 |
-| 9 | Patient Document | TBD |
-| 10 | VALIDATION NOTES | TBD |
 
 ### Patient Identifier Types
 
@@ -669,21 +393,21 @@ Create a single **Bahmni Visit Summary** encounter in Avni containing:
 
 ## Appendix B: Avni Metadata Reference
 
-### Programs (Active)
+### Programs in Scope (7 Programs)
 
-| Program | UUID | Priority |
-|---------|------|----------|
-| Tuberculosis | TBD | High |
-| Hypertension | TBD | High |
-| Diabetes | TBD | High |
-| Sickle cell | TBD | High |
-| Epilepsy | TBD | High |
-| Mental Illness | TBD | Medium |
-| Heart Disease | TBD | Medium |
-| Stroke | TBD | Medium |
-| Pregnancy | TBD | High |
-| Child | TBD | Medium |
-| TB - INH Prophylaxis | TBD | Medium |
+| Program | Bahmni Visit Type | In Scope |
+|---------|-------------------|----------|
+| **Tuberculosis** | Field-TB | ✅ Yes |
+| **Hypertension** | Field-NCD | ✅ Yes |
+| **Diabetes** | Field-NCD | ✅ Yes |
+| **Sickle Cell** | Field-NCD | ✅ Yes |
+| **Epilepsy** | Field-NCD | ✅ Yes |
+| **Pregnancy** | Field-MCH | ✅ Yes |
+| **Child** | Field-MCH | ✅ Yes (Growth Monitoring) |
+| Mental Illness | - | ❌ No |
+| Heart Disease | - | ❌ No |
+| Stroke | - | ❌ No |
+| TB - INH Prophylaxis | - | ❌ No |
 
 ### Subject Types
 

@@ -91,7 +91,7 @@ Bi-directional integration between **Avni** (community health platform) and **Ba
 | **MySQL** | OpenMRS DB | 5.6 | Local Docker container |
 | **Bahmni Web** | UI Frontend | 1.1.0-696 | Apache HTTPD proxy |
 | **SSL/HTTPS** | Let's Encrypt | Current | Certbot auto-renewal |
-| **Integration Service** | Spring Boot (Java) | jss_ganiyari branch | To be deployed on EC2 |
+| **Integration Service** | Spring Boot (Java) | jss_ganiyari_dev branch | To be deployed on EC2 |
 | **Integration DB** | PostgreSQL | 15.x | To be configured |
 | **Avni** | Cloud hosted | prerelease.avniproject.org | Bi-directional sync |
 
@@ -101,7 +101,7 @@ Bi-directional integration between **Avni** (community health platform) and **Ba
 
 | Repository | Purpose | Branch/Tag |
 |------------|---------|------------|
-| [avniproject/integration-service](https://github.com/avniproject/integration-service/tree/jss_ganiyari) | Integration service code | jss_ganiyari |
+| [avniproject/integration-service](https://github.com/avniproject/integration-service/tree/jss_ganiyari) | Integration service code | jss_ganiyari_dev |
 | [JanSwasthyaSahyog/bahmni-docker](https://github.com/JanSwasthyaSahyog/bahmni-docker) | JSS Bahmni Docker setup | master |
 | [JanSwasthyaSahyog/jss-config](https://github.com/JanSwasthyaSahyog/jss-config) | JSS Bahmni configuration (UI, forms, concepts) | master |
 | [avniproject/integration-service (scripts/aws)](https://github.com/avniproject/integration-service/tree/master/scripts/aws) | AWS infrastructure automation | master |
@@ -122,33 +122,55 @@ Bi-directional integration between **Avni** (community health platform) and **Ba
 
 ## 3. Entity Types & Sync Scope
 
-### 3.1 Avni → Bahmni (All Community Data)
+### 3.1 Programs in Scope (7 Programs)
 
-| Avni Entity | Bahmni Entity | Sync Condition | Notes |
-|-------------|---------------|----------------|-------|
-| **Individual** | Patient | Always | Create if not exists with JSS ID |
-| **Program Enrolment** | Encounter | Always | Maps to program-specific encounter type |
-| **Program Encounter** | Encounter | Always | Maps to program-specific encounter type |
-| **General Encounter** | Encounter | Always | Maps to general encounter type |
+| Avni Program | Bahmni Visit Type | Priority | Notes |
+|--------------|-------------------|----------|-------|
+| **Tuberculosis** | Field-TB | High | TB treatment monitoring |
+| **Hypertension** | Field-NCD | High | BP monitoring, medication adherence |
+| **Diabetes** | Field-NCD | High | Blood sugar monitoring |
+| **Sickle Cell** | Field-NCD | High | Crisis monitoring, Hb tracking |
+| **Epilepsy** | Field-NCD | High | Seizure tracking |
+| **Pregnancy** | Field-MCH | High | ANC visits |
+| **Child** | Field-MCH | High | Growth monitoring |
 
-### 3.2 Bahmni → Avni (Field Service Data Only)
+### 3.2 Avni → Bahmni Sync
 
-| Bahmni Entity | Avni Entity | Sync Condition | Notes |
-|---------------|-------------|----------------|-------|
-| **Patient** | Individual | Only if JSS ID exists in Avni | No new Individual creation |
-| **Lab Result Encounter** | General Encounter | Only if Patient has JSS ID | Lab results for followup |
-| **Radiology Encounter** | General Encounter | Only if Patient has JSS ID | X-ray/imaging reports |
-| **Discharge Encounter** | General Encounter | Only if Patient has JSS ID | Discharge summaries |
-| **Visit Summary** | General Encounter | Only if Patient has JSS ID | Visit list aggregation |
+| Avni Entity | Bahmni Entity | Condition | Notes |
+|-------------|---------------|-----------|-------|
+| **Individual** | Patient | Has JSS ID | Create patient if not exists |
+| **Program Enrolment** | Encounter | Program in scope | Maps to program-specific encounter type |
+| **Program Encounter** | Encounter | Program in scope | Followup data for doctors |
 
-### 3.3 Subject Type Sync Scope
+**Subject Types:**
+- ✅ **Individual** — Primary subject with JSS ID
+- ❌ Household, Phulwari, SHG — No sync (no primary identifier)
 
-| Avni Subject Type | Sync to Bahmni | Reason |
-|-------------------|----------------|--------|
-| **Individual** | ✅ YES | Primary subject with JSS ID |
-| Household | ❌ NO | No primary identifier |
-| Phulwari | ❌ NO | No primary identifier |
-| SHG | ❌ NO | No primary identifier |
+### 3.3 Bahmni → Avni Sync
+
+**Bahmni Encounter Types (from metadata extraction):**
+
+| Encounter Type | UUID | Contains | Sync to Avni |
+|----------------|------|----------|--------------|
+| **Consultation** | `da7a4fe0-0a6a-11e3-939c-8c50edb4be99` | Diagnosis, Prescriptions (Drug Orders), Vitals, Observations | ✅ Yes |
+| **LAB_RESULT** | `960469a8-9bc6-11e3-927e-8840ab96f0f1` | Lab test results | ✅ Yes |
+| **RADIOLOGY** | `949dba36-9bc6-11e3-927e-8840ab96f0f1` | X-ray, USG, ECG results | ✅ Yes |
+| DISCHARGE | `58c22773-9bc6-11e3-927e-8840ab96f0f1` | Discharge observations | ❌ No (PDF only) |
+| REG | `b469afaa-c79a-11e2-b284-107d46e7b2c5` | Registration | ❌ No (patient feed) |
+| ADMISSION | `57efc389-9bc6-11e3-927e-8840ab96f0f1` | Admission details | ❌ No |
+
+**Data to Sync:**
+
+| Bahmni Data | Source | Avni Entity | Notes |
+|-------------|--------|-------------|-------|
+| **Lab Results** | LAB_RESULT encounter | General Encounter | Hb, Blood Sugar, Sputum AFB, etc. |
+| **Radiology Results** | RADIOLOGY encounter | General Encounter | Chest X-ray (TB), USG, ECG |
+| **Prescriptions** | Drug Orders in Consultation | General Encounter | Current medications list |
+
+**Key Observation Templates in Consultation:**
+- `Visit Diagnoses` (uuid: `56104bb2-9bc6-11e3-927e-8840ab96f0f1`) — Diagnosis
+- `Nutritional Values` (uuid: `3ccfba5b-82b6-43c3-939b-449f228b66d1`) — Weight, Height
+- `Discharge Summary` (uuid: `f709eca4-e349-11e3-983a-91270dcbd3bf`) — Discharge notes (observation, not encounter)
 
 ---
 
@@ -156,57 +178,38 @@ Bi-directional integration between **Avni** (community health platform) and **Ba
 
 ### 4.1 Bahmni Atom Feeds
 
-Bahmni publishes events via Atom feeds. Integration service consumes these feeds:
+**Reference:** [Atom Feed Synchronization in Bahmni](https://bahmni.atlassian.net/wiki/spaces/BAH/pages/3506200)
 
-| Feed | Endpoint | Event Type | Frequency |
-|------|----------|-----------|-----------|
-| **Patient Feed** | `/openmrs/ws/atomfeed/patient/recent` | Patient creation/update | Real-time |
-| **Encounter Feed** | `/openmrs/ws/atomfeed/encounter/recent` | Encounter creation/update | Real-time |
+| Feed | Endpoint | Use Case |
+|------|----------|----------|
+| **Patient** | `/openmrs/ws/atomfeed/patient/recent` | Patient create/update → sync to Avni |
+| **Encounter** | `/openmrs/ws/atomfeed/encounter/recent` | Filter by encounter type (Consultation, LAB_RESULT) |
+| **Lab** | `/openmrs/ws/atomfeed/lab/recent` | Lab result notifications |
 
-**Processing:**
-- AtomFeedClient reads feed entries
-- EventWorker processes each event
-- Markers track processed events (no re-processing)
-- Failed events stored in error table
+**Feed Processing:**
+1. `AtomFeedClient` polls feed endpoint
+2. `EventWorker` filters by encounter type UUID
+3. `markers` table tracks last processed entry
+4. `failed_events` table stores errors for retry
 
-### 4.2 Avni REST APIs
+### 4.2 Bahmni REST APIs
 
-Integration service calls Avni APIs for sync:
+**Reference:** [Bahmni REST API](https://bahmni.atlassian.net/wiki/spaces/BAH/pages/6488066)
+
+| API | Endpoint | Purpose |
+|-----|----------|---------|
+| **Patient** | `/openmrs/ws/rest/v1/patient/{uuid}` | Get patient details |
+| **Encounter** | `/openmrs/ws/rest/v1/encounter/{uuid}?v=full` | Get encounter with observations + drug orders |
+| **Drug Orders** | `/openmrs/ws/rest/v1/order?patient={uuid}&t=drugorder` | Get prescriptions |
+
+### 4.3 Avni REST APIs
 
 | API | Method | Purpose |
 |-----|--------|---------|
-| `/api/subject` | GET/POST | Individual sync |
-| `/api/programEnrolment` | GET/POST | Program enrolment sync |
-| `/api/programEncounter` | GET/POST | Program encounter sync |
-| `/api/generalEncounter` | GET/POST | General encounter sync |
-
-**Processing:**
-- Fetch entities from Avni
-- Transform to Bahmni format
-- Create/update via OpenMRS REST API
-- Track sync status in integration DB
-
-### 4.3 Sync Flow
-
-```
-Bahmni Atom Feed                    Avni REST API
-       │                                  │
-       ├─ Patient Event                   ├─ Individual
-       │  └─ PatientEventWorker           │  └─ AvniIndividualWorker
-       │     └─ Create/Update in Avni     │     └─ Create/Update Patient in Bahmni
-       │
-       ├─ Encounter Event                 ├─ Program Enrolment
-       │  └─ PatientEncounterEventWorker  │  └─ AvniEnrolmentWorker
-       │     └─ Create/Update in Avni     │     └─ Create Encounter in Bahmni
-       │                                  │
-       │                                  ├─ Program Encounter
-       │                                  │  └─ AvniEncounterWorker
-       │                                  │     └─ Create Encounter in Bahmni
-       │                                  │
-       │                                  └─ General Encounter
-       │                                     └─ AvniGeneralEncounterWorker
-       │                                        └─ Create Encounter in Bahmni
-```
+| `/api/subjects` | GET/POST | Individual sync |
+| `/api/programEnrolments` | GET/POST | Program enrolment sync |
+| `/api/programEncounters` | GET/POST | Program encounter sync |
+| `/api/encounters` | POST | Create general encounter (for lab results, prescriptions) |
 
 ---
 
@@ -214,40 +217,38 @@ Bahmni Atom Feed                    Avni REST API
 
 ### 5.1 New Avni Encounter Types (for Bahmni → Avni sync)
 
-| Encounter Type | Program | Purpose | Form Type |
-|----------------|---------|---------|-----------|
-| **Bahmni Lab Results** | Individual (General) | Lab results from Bahmni | GeneralEncounter |
-| **Bahmni Radiology Report** | Individual (General) | X-ray/imaging from Bahmni | GeneralEncounter |
-| **Bahmni Discharge Summary** | Individual (General) | Discharge info from Bahmni | GeneralEncounter |
-| **Bahmni Visit Summary** | Individual (General) | Visit aggregation from Bahmni | GeneralEncounter |
+| Encounter Type | Purpose | Source Bahmni Encounter |
+|----------------|---------|-------------------------|
+| **Bahmni Lab Results** | Lab results for field followup | LAB_RESULT (`960469a8-9bc6-11e3-927e-8840ab96f0f1`) |
+| **Bahmni Radiology Results** | X-ray, USG, ECG for field followup | RADIOLOGY (`949dba36-9bc6-11e3-927e-8840ab96f0f1`) |
+| **Bahmni Prescriptions** | Current medications list | Drug Orders from Consultation |
 
 ### 5.2 New Bahmni Visit Types (for Avni → Bahmni sync)
 
-| Visit Type | Code | Purpose | Programs |
-|------------|------|---------|----------|
-| **Field** | FIELD | General field visits from Avni | All |
-| **Field-TB** | FIELD_TB | TB program field visits | TB, TB-INH Prophylaxis |
-| **Field-NCD** | FIELD_NCD | NCD program field visits | HTN, DM, Epilepsy, Sickle Cell, etc. |
-| **Field-MCH** | FIELD_MCH | MCH program field visits | Pregnancy, Child |
+| Visit Type | Code | Programs |
+|------------|------|----------|
+| **Field-TB** | FIELD_TB | Tuberculosis |
+| **Field-NCD** | FIELD_NCD | Hypertension, Diabetes, Epilepsy, Sickle Cell |
+| **Field-MCH** | FIELD_MCH | Pregnancy, Child |
 
 ### 5.3 New Bahmni Encounter Types (for Avni → Bahmni sync)
 
-| Encounter Type | Visit Type | Avni Source | Purpose |
-|----------------|-----------|-------------|---------|
-| **Avni Registration** | Field | Individual Registration | Demographics sync |
-| **Avni TB Enrolment** | Field-TB | TB Program Enrolment | TB enrollment data |
-| **Avni TB Followup** | Field-TB | TB Followup Encounter | TB treatment followup |
-| **Avni HTN Enrolment** | Field-NCD | Hypertension Enrolment | HTN enrollment |
-| **Avni HTN Followup** | Field-NCD | Hypertension Followup | HTN followup |
-| **Avni DM Enrolment** | Field-NCD | Diabetes Enrolment | DM enrollment |
-| **Avni DM Followup** | Field-NCD | Diabetes Followup | DM followup |
-| **Avni Epilepsy Enrolment** | Field-NCD | Epilepsy Enrolment | Epilepsy enrollment |
-| **Avni Epilepsy Followup** | Field-NCD | Epilepsy Followup | Epilepsy followup |
-| **Avni Sickle Cell Enrolment** | Field-NCD | Sickle cell Enrolment | Sickle cell enrollment |
-| **Avni Sickle Cell Followup** | Field-NCD | Sickle cell Followup | Sickle cell followup |
-| **Avni ANC Visit** | Field-MCH | ANC Home Visit | Antenatal care |
-| **Avni Delivery** | Field-MCH | Delivery | Delivery details |
-| **Avni PNC** | Field-MCH | Mother PNC, Child PNC | Postnatal care |
+| Encounter Type | Visit Type | Avni Source |
+|----------------|-----------|-------------|
+| **Avni TB Enrolment** | Field-TB | TB Program Enrolment |
+| **Avni TB Followup** | Field-TB | TB Followup Encounter |
+| **Avni HTN Enrolment** | Field-NCD | Hypertension Enrolment |
+| **Avni HTN Followup** | Field-NCD | Hypertension Followup |
+| **Avni DM Enrolment** | Field-NCD | Diabetes Enrolment |
+| **Avni DM Followup** | Field-NCD | Diabetes Followup |
+| **Avni Epilepsy Enrolment** | Field-NCD | Epilepsy Enrolment |
+| **Avni Epilepsy Followup** | Field-NCD | Epilepsy Followup |
+| **Avni Sickle Cell Enrolment** | Field-NCD | Sickle Cell Enrolment |
+| **Avni Sickle Cell Followup** | Field-NCD | Sickle Cell Followup |
+| **Avni Pregnancy Enrolment** | Field-MCH | Pregnancy Enrolment |
+| **Avni ANC Visit** | Field-MCH | ANC Home Visit |
+| **Avni Child Enrolment** | Field-MCH | Child Enrolment |
+| **Avni Growth Monitoring** | Field-MCH | Growth Monitoring Encounter |
 
 ---
 
@@ -428,19 +429,15 @@ What Bahmni data is most important for Sickle Cell field workers?
 ### Section F: General Questions
 
 **Q1:** How recent should synced data be for field workers?
-- [ ] Real-time (within hours)
-- [ ] Daily sync
-- [ ] Weekly sync
-- [ ] On-demand only
+- [x] Regular Real-time (within hours)
+- [x] Error retrial Weekly sync
+- [x] On-demand sync for specific criteria
 
 **Q2:** How much historical data should be visible?
-- [ ] Last visit only
-- [ ] Last 3 months
-- [ ] Last 6 months
-- [ ] Last 1 year
 - [ ] All available data
+- [ ] Other: _______________
 
-**Q3:** Should field workers receive notifications for:
+**Q3:** Should field workers see indicators on dashboard for:
 - [ ] New lab results available
 - [ ] Abnormal lab values
 - [ ] Discharge from hospital
