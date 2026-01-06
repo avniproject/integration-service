@@ -60,10 +60,7 @@ This document defines all metadata mappings required by the integration service 
 |-------------|-------------|-----------|--------|
 | Consultation | General Encounter | JSS ID exists in Avni | Encounter Feed (CONSULTATION) |
 | Radiology | General Encounter | JSS ID exists in Avni | Encounter Feed (RADIOLOGY) |
-| Discharge | General Encounter | JSS ID exists in Avni | Encounter Feed (DISCHARGE) |
 | Lab Results | General Encounter | JSS ID exists in Avni | Encounter Feed (LAB_RESULT) |
-| Prescriptions | General Encounter | JSS ID exists in Avni | Drug Orders in Encounter |
-
 ---
 
 ## 3. Identifier Mapping
@@ -131,24 +128,9 @@ INSERT INTO constant (name, value) VALUES
 |-----------------------|-------------|---------------------------|---------------------|----------|
 | LAB_RESULT | `81d6e852-3f10-11e4-adec-0800271c1b75` | **Bahmni Lab Results** | General (all programs) | High |
 | RADIOLOGY | `7c3f0372-a586-11e4-9beb-0800271c1b75` | **Bahmni Radiology Report** | General (all programs) | High |
-| DISCHARGE | `58c22773-9bc6-11e3-927e-8840ab96f0f1` | **Bahmni Discharge Summary** | General (all programs) | High |
 | Consultation | `da7a4fe0-0a6a-11e3-939c-8c50edb4be99` | **Bahmni Consultation Notes** | General (all programs) | Medium |
-| Prescription | NOT availabe | **Bahmni Prescription** | General (all programs) | Medium |
 
-### 3.2 Visit Summary Structure
-
-Create a single **Bahmni Visit Summary** encounter in Avni containing:
-
-| Field | Source | Description |
-|-------|--------|-------------|
-| Visit Date | `visit.start_datetime` | Date of hospital visit |
-| Visit Type | `visit_type.name` | OPD, IPD, Emergency, etc. |
-| Encounter List | Aggregated | List of all encounters in the visit |
-| Primary Diagnosis | `obs` where concept = 'Visit Diagnoses' | Main diagnosis |
-| Prescriptions Summary | Drug orders | Current medications |
-| Next Follow-up Date | `obs` where concept = 'Follow up Date' | Scheduled follow-up |
-
-### 3.3 Lab Results Mapping
+### 3.2 Lab Results Mapping
 
 **Source:** Bahmni LAB_RESULT encounter type + OpenELIS integration
 
@@ -165,7 +147,7 @@ Create a single **Bahmni Visit Summary** encounter in Avni containing:
 | Thyroid Function | Endocrine | Medium | TSH, T3, T4 |
 | Urine Routine | General | Medium | Protein, Sugar, etc. |
 
-### 3.4 Radiology/X-Ray Mapping
+### 3.3 Radiology/X-Ray Mapping
 
 | Bahmni Radiology Type | Avni Form Section | Priority | Notes |
 |-----------------------|-------------------|----------|-------|
@@ -174,12 +156,6 @@ Create a single **Bahmni Visit Summary** encounter in Avni containing:
 | USG Pelvis | Radiology Results | Medium | Pregnancy, gynecology |
 | ECG | Cardiology Results | Medium | Heart disease |
 | Echo | Cardiology Results | Medium | Heart disease |
-
-### 3.5 Discharge Summary Mapping
-
-| Field | Source | Description |
-|-----------------------|-------------------|----------|-------|
-
 
 ---
 

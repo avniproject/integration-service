@@ -165,7 +165,7 @@ Bi-directional integration between **Avni** (community health platform) and **Ba
 |-------------|--------|-------------|-------|
 | **Lab Results** | LAB_RESULT encounter | General Encounter | Hb, Blood Sugar, Sputum AFB, etc. |
 | **Radiology Results** | RADIOLOGY encounter | General Encounter | Chest X-ray (TB), USG, ECG |
-| **Prescriptions** | Drug Orders in Consultation | General Encounter | Current medications list |
+| **Consultation** | Consultation encounter | General Encounter | Current medications list, diagnosis, vitals |
 
 **Key Observation Templates in Consultation:**
 - `Visit Diagnoses` (uuid: `56104bb2-9bc6-11e3-927e-8840ab96f0f1`) — Diagnosis
@@ -221,7 +221,7 @@ Bi-directional integration between **Avni** (community health platform) and **Ba
 |----------------|---------|-------------------------|
 | **Bahmni Lab Results** | Lab results for field followup | LAB_RESULT (`960469a8-9bc6-11e3-927e-8840ab96f0f1`) |
 | **Bahmni Radiology Results** | X-ray, USG, ECG for field followup | RADIOLOGY (`949dba36-9bc6-11e3-927e-8840ab96f0f1`) |
-| **Bahmni Prescriptions** | Current medications list | Drug Orders from Consultation |
+| **Bahmni Consultation** | Diagnosis, Prescriptions, Vitals | Consultation (`da7a4fe0-0a6a-11e3-939c-8c50edb4be99`) |
 
 ### 5.2 New Bahmni Visit Types (for Avni → Bahmni sync)
 
@@ -483,7 +483,7 @@ _________________________________________________________________
 - [ ] Test Avni → Bahmni Program Enrolment sync
 - [ ] Test Bahmni → Avni Lab Result sync
 - [ ] Test Bahmni → Avni Radiology sync
-- [ ] Test Bahmni → Avni Discharge sync
+- [ ] Test Bahmni → Avni Consultation sync
 - [ ] Verify error handling and retry logic
 
 ### Phase 5: Doctor Review & Finalization
