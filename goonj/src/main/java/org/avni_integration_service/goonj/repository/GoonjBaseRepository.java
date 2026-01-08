@@ -123,7 +123,7 @@ public abstract class GoonjBaseRepository {
         try {
             ResponseEntity<HashMap<String, Object>[]> responseEntity = goonjRestTemplate.exchange(uri, HttpMethod.POST, requestEntity, responseType);
             if (responseEntity.getStatusCode().is2xxSuccessful()) {
-                logger.info(String.format("Successfully created resource %s,  response status code is %s, payload is %s", resource, responseEntity.getStatusCode(), requestBodyString));
+                logger.debug(String.format("Successfully created resource %s,  response status code is %s", resource, responseEntity.getStatusCode()));
                 return responseEntity.getBody();
             }
             logger.error(String.format("Failed to create resource %s,  response status code is %s", resource, responseEntity.getStatusCode()));
