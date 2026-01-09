@@ -17,7 +17,7 @@ Bi-directional integration between **Avni** (community health platform) and **Ba
 
 1. [Organization Context](#1-organization-context)
 2. [Technical Architecture](#2-technical-architecture)
-3. [Entity Types & Sync Scope](#3-entity-types--sync-scope)
+3. [Sync Scope Summary](#3-sync-scope-summary)
 4. [Feed-Based Synchronization](#4-feed-based-synchronization)
 5. [New Encounter Types & Visit Types](#5-new-encounter-types--visit-types)
 6. [Metadata Mapping Steps](#6-metadata-mapping-steps)
@@ -123,12 +123,25 @@ Bi-directional integration between **Avni** (community health platform) and **Ba
 | **Avni → Bahmni** | Individual, Program Enrolment, Program Encounter | Doctors see field data |
 | **Bahmni → Avni** | Lab Results, Radiology, Consultation | Field workers see hospital data |
 
+=> Ability to map family constitution change over time for historical health data.
+
+=> Data warehouse for research on all community data
+
+=> Split encounters based on location of followup, whereever followup location is present // not to do
+
 ### 3.2 Key Decisions
 
-- **7 Programs in scope:** TB, Hypertension, Diabetes, Sickle Cell, Epilepsy, Pregnancy, Child
+- **7 Programs in scope:** TB, Hypertension, Diabetes, Sickle Cell, Epilepsy, Pregnancy, Child, Eye Screening, Women's Health Camp
 - **Only Individual subject type syncs** (has JSS ID)
 - **DISCHARGE encounters excluded** — only contains "Adt Notes" (335 obs), PDF-based
 - **Consultation contains prescriptions** — Drug Orders, not separate encounter
+
+=> Discharge Summary has to be saved as PDF and uploaded to new Discharge Summary encoutner on EMR system.
+
+=> DICOM for Radiology open on devices
+=> DICOM for Radiology open on devices
+
+=> vitals, nutrional values, Diagnosis, Lab, treatments, Radiology, Documents sync if possible
 
 ---
 
