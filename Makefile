@@ -35,11 +35,11 @@ _drop_roles:
 	-psql -h localhost -p $(dbPort) -U $(postgres_user) -d postgres -c 'drop role avni_int';
 
 define _run_server
-	java -jar --enable-preview integrator/build/libs/$(application_jar) --app.cron.main="0/3 * * * * ?" --app.cron.full.error="0 1 * * * ?" --avni.api.url=https://staging.avniproject.org/ --avni.impl.username=test-user@bahmni_ashwini --avni.impl.password=password
+	java -jar --enable-preview integrator/build/libs/$(application_jar)
 endef
 
 define _debug_server
-	java -Xmx2048m -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005 -jar --enable-preview integrator/build/libs/$(application_jar) --app.cron.main="0/3 * * * * ?" --app.cron.full.error="0 1 * * * ?" --avni.api.url=https://staging.avniproject.org/ --avni.impl.username=test-user@bahmni_ashwini --avni.impl.password=password
+	java -Xmx2048m -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005 -jar --enable-preview integrator/build/libs/$(application_jar)
 endef
 
 
@@ -105,7 +105,7 @@ debug-server: build-db build-server
 	$(call _debug_server)
 
 run-server-without-background: build-server
-	java -jar --enable-preview integrator/build/libs/$(application_jar) --app.cron.main="0 0 6 6 9 ? 2035" --avni.api.url=https://example.com/ --avni.impl.username=foo --avni.impl.password=bar
+	java -jar --enable-preview integrator/build/libs/$(application_jar)
 
 run-migrator: build-server
 	$(call _run_migrator)
