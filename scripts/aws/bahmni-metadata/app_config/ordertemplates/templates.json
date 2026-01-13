@@ -1,0 +1,116 @@
+{
+  "orderTemplates": [{
+    "name": "Cyclophosphamide + Doxorubicin + Fluorouracil",
+    "drugOrders": [
+      {"drug": {"name": "DNS", "form": "Injection"}, "dosingInstructions": {"dose":  1000.0, "doseUnits":  "ml", "route":  "Intravenous", "frequency":  "Immediately", "quantity":  2.0, "quantityUnits":  "ml", "administrationInstructions": "{\"additionalInstructions\":  \"4 hours\"}"}, "duration": 1, "durationUnits":  "Day(s)"},
+      {"drug": {"name": "Dexamethasone 8mg/2ml", "form":  "Injection"}, "dosingInstructions": {"dose":  2.0, "doseUnits":  "ml", "route":  "Intravenous", "frequency":  "Immediately", "quantity":  1.0, "quantityUnits":  "ml"}, "duration": 1, "durationUnits":  "Day(s)"},
+      {"drug": {"name": "Ondansetron 8mg/4ml", "form":  "Injection"}, "dosingInstructions": {"dose":  2.0, "doseUnits":  "ml", "route":  "Intravenous", "frequency":  "Immediately", "quantity":  1.0, "quantityUnits":  "ml"}, "duration": 1, "durationUnits":  "Day(s)"},
+      {"drug": {"name": "Cyclophosphamide 500mg", "form":  "Injection"}, "dosingInstructions": {"doseUnits":  "mg", "route":  "Intravenous", "frequency":  "Immediately", "quantityUnits":  "mg", "administrationInstructions": "{\"additionalInstructions\":  \"with Dextrose 5% (Injection) 500ml. 4 hours\"}"}, "duration": 1, "durationUnits":  "Day(s)"},
+      {"drug": {"name": "Doxorubicin Hydrochloride 10mg", "form":  "Injection"}, "dosingInstructions": {"doseUnits":  "mg", "route":  "Intravenous", "frequency":  "Immediately", "quantityUnits":  "mg"}, "duration": 1, "durationUnits":  "Day(s)"},
+      {"drug": {"name": "Doxorubicin Hydrochloride 50mg", "form":  "Injection"}, "dosingInstructions": {"doseUnits":  "mg", "route":  "Intravenous", "frequency":  "Immediately", "quantityUnits":  "mg", "administrationInstructions": "{\"additionalInstructions\":  \"with Dextrose 5% (Injection) 500ml. 4 hours\"}"}, "duration": 1, "durationUnits":  "Day(s)"},
+      {"drug": {"name": "Flurouracil 10ml", "form":  "Injection"}, "dosingInstructions": {"doseUnits":  "mg", "route":  "Intravenous", "frequency":  "Immediately", "quantityUnits":  "mg", "administrationInstructions": "{\"additionalInstructions\":  \"with Dextrose 5% (Injection) 500ml. 4 hours\"}"}, "duration": 1, "durationUnits":  "Day(s)"},
+      {"drug": {"name": "Dextrose 5%", "form":  "Injection"}, "dosingInstructions": {"dose":  500.0, "doseUnits":  "ml", "route":  "Intravenous", "frequency":  "Immediately", "quantity":  1, "quantityUnits":  "ml", "administrationInstructions": "{\"additionalInstructions\":  \"diluent\"}"}, "duration": 1, "durationUnits":  "Day(s)"},
+      {"drug": {"name": "Ondansetron 4mg", "form": "Tablet"}, "dosingInstructions": {"route": "Oral", "doseUnits": "Tablet(s)", "quantity": 6, "quantityUnits": "Tablet(s)", "administrationInstructions": "{\"instructions\":\"As directed\",\"morningDose\":1,\"afternoonDose\":0,\"eveningDose\":1}"}, "durationUnits": "Day(s)", "duration": 3},
+      {"drug": {"name": "Chlorpromazine 50mg", "form": "Tablet"}, "dosingInstructions": {"route": "Oral", "doseUnits": "Tablet(s)", "quantity": 3, "quantityUnits": "Tablet(s)", "administrationInstructions": "{\"instructions\":\"As directed\",\"morningDose\":0.25,\"afternoonDose\":0,\"eveningDose\":0.25}"}, "durationUnits": "Day(s)", "duration": 5 },
+      {"drug": {"name": "B-Complex", "form":  "Tablet"}, "dosingInstructions": {"dose":  1, "doseUnits":  "Tablet(s)", "route":  "Oral", "frequency":  "Once a day", "quantity":  30, "quantityUnits":  "Tablet(s)"}, "duration": 1, "durationUnits":  "Month(s)"},
+      {"drug": {"name": "Ferrous Sulphate with Folic Acid Large", "form":  "Tablet"}, "dosingInstructions": {"dose":  1, "doseUnits":  "Tablet(s)", "route":  "Oral", "frequency":  "Twice a day", "quantity":  30, "quantityUnits":  "Tablet(s)"}, "duration": 1, "durationUnits":  "Month(s)"}
+    ]
+  },
+    {
+      "name": "Doxorubicin + Cyclophosphamide",
+      "drugOrders": [
+        {"drug": {"name": "DNS", "form": "Injection"}, "dosingInstructions": {"dose":  1000.0, "doseUnits":  "ml", "route":  "Intravenous", "frequency":  "Immediately", "quantity":  2.0, "quantityUnits":  "ml", "administrationInstructions": "{\"additionalInstructions\":  \"4 hours\"}"}, "duration": 1, "durationUnits":  "Day(s)"},
+        {"drug": {"name": "Dexamethasone 8mg/2ml", "form":  "Injection"}, "dosingInstructions": {"dose":  2.0, "doseUnits":  "ml", "route":  "Intravenous", "frequency":  "Immediately", "quantity":  1.0, "quantityUnits":  "ml"}, "duration": 1, "durationUnits":  "Day(s)"},
+        {"drug": {"name": "Ondansetron 8mg/4ml", "form":  "Injection"}, "dosingInstructions": {"dose":  2.0, "doseUnits":  "ml", "route":  "Intravenous", "frequency":  "Immediately", "quantity":  1.0, "quantityUnits":  "ml"}, "duration": 1, "durationUnits":  "Day(s)"},
+        {"drug": {"name": "Cyclophosphamide 500mg", "form":  "Injection"}, "dosingInstructions": {"doseUnits":  "mg", "route":  "Intravenous", "frequency":  "Immediately", "quantityUnits":  "mg", "administrationInstructions": "{\"additionalInstructions\":  \"with Dextrose 5% (Injection) 500ml. 4 hours\"}"}, "duration": 1, "durationUnits":  "Day(s)"},
+        {"drug": {"name": "Doxorubicin Hydrochloride 10mg", "form":  "Injection"}, "dosingInstructions": {"doseUnits":  "mg", "route":  "Intravenous", "frequency":  "Immediately", "quantityUnits":  "mg", "administrationInstructions": "{\"additionalInstructions\":  \"with Dextrose 5% (Injection)\"}"}, "duration": 1, "durationUnits":  "Day(s)"},
+        {"drug": {"name": "Dextrose 5%", "form":  "Injection"}, "dosingInstructions": {"dose":  500.0, "doseUnits":  "ml", "route":  "Intravenous", "frequency":  "Immediately", "quantity":  1, "quantityUnits":  "ml", "administrationInstructions": "{\"additionalInstructions\":  \"diluent\"}"}, "duration": 1, "durationUnits":  "Day(s)"},
+        {"drug": {"name": "Ondansetron 4mg", "form": "Tablet"}, "dosingInstructions": {"route": "Oral", "doseUnits": "Tablet(s)", "quantity": 6, "quantityUnits": "Tablet(s)", "administrationInstructions": "{\"instructions\":\"As directed\",\"morningDose\":1,\"afternoonDose\":0,\"eveningDose\":1}"}, "durationUnits": "Day(s)", "duration": 3},
+        {"drug": {"name": "Chlorpromazine 50mg", "form": "Tablet"}, "dosingInstructions": {"route": "Oral", "doseUnits": "Tablet(s)", "quantity": 3, "quantityUnits": "Tablet(s)", "administrationInstructions": "{\"instructions\":\"As directed\",\"morningDose\":0.25,\"afternoonDose\":0,\"eveningDose\":0.25}"}, "durationUnits": "Day(s)", "duration": 5 },
+        {"drug": {"name": "B-Complex", "form":  "Tablet"}, "dosingInstructions": {"dose":  1, "doseUnits":  "Tablet(s)", "route":  "Oral", "frequency":  "Once a day", "quantity":  30, "quantityUnits":  "Tablet(s)"}, "duration": 1, "durationUnits":  "Month(s)"},
+        {"drug": {"name": "Ferrous Sulphate with Folic Acid Large", "form":  "Tablet"}, "dosingInstructions": {"dose":  1, "doseUnits":  "Tablet(s)", "route":  "Oral", "frequency":  "Twice a day", "quantity":  30, "quantityUnits":  "Tablet(s)"}, "duration": 1, "durationUnits":  "Month(s)"}
+      ]
+    },
+    {
+      "name": "Paclitaxel",
+      "drugOrders": [
+        {"drug": {"name": "DNS", "form": "Injection"}, "dosingInstructions": {"dose":  1000.0, "doseUnits":  "ml", "route":  "Intravenous", "frequency":  "Immediately", "quantity":  2.0, "quantityUnits":  "ml", "administrationInstructions": "{\"additionalInstructions\":  \"4 hours\"}"}, "duration": 1, "durationUnits":  "Day(s)"},
+        {"drug": {"name": "Dexamethasone 8mg/2ml", "form":  "Injection"}, "dosingInstructions": {"dose":  2.0, "doseUnits":  "ml", "route":  "Intravenous", "frequency":  "Immediately", "quantity":  1.0, "quantityUnits":  "ml"}, "duration": 1, "durationUnits":  "Day(s)"},
+        {"drug": {"name": "Ondansetron 8mg/4ml", "form":  "Injection"}, "dosingInstructions": {"dose":  8.0, "doseUnits":  "mg", "route":  "Intravenous", "frequency":  "Immediately", "quantity":  1.0, "quantityUnits":  "mg"}, "duration": 1, "durationUnits":  "Day(s)"},
+        {"drug": {"name": "Texeleon 260mg", "form":  "Injection"}, "dosingInstructions": {"doseUnits":  "mg", "route":  "Intravenous", "frequency":  "Immediately", "quantityUnits":  "mg", "administrationInstructions": "{\"additionalInstructions\":  \"with Dextrose 5% (Injection) 500ml. 4 hours\"}"}, "duration": 1, "durationUnits":  "Day(s)"},
+        {"drug": {"name": "Dextrose 5%", "form":  "Injection"}, "dosingInstructions": {"dose":  500.0, "doseUnits":  "ml", "route":  "Intravenous", "frequency":  "Immediately", "quantity":  0, "quantityUnits":  "ml", "administrationInstructions": "{\"additionalInstructions\":  \"diluent\"}"}, "duration": 1, "durationUnits":  "Day(s)"},
+        {"drug": {"name": "Ondansetron 4mg", "form": "Tablet"}, "dosingInstructions": {"route": "Oral", "doseUnits": "Tablet(s)", "quantity": 6, "quantityUnits": "Tablet(s)", "administrationInstructions": "{\"instructions\":\"As directed\",\"morningDose\":1,\"afternoonDose\":0,\"eveningDose\":1}"}, "durationUnits": "Day(s)", "duration": 3},
+        {"drug": {"name": "Chlorpromazine 50mg", "form": "Tablet"}, "dosingInstructions": {"route": "Oral", "doseUnits": "Tablet(s)", "quantity": 10, "quantityUnits": "Tablet(s)", "administrationInstructions": "{\"instructions\":\"As directed\",\"morningDose\":0.5,\"afternoonDose\":0,\"eveningDose\":0.5}"}, "durationUnits": "Day(s)", "duration": 10 },
+        {"drug": {"name": "B-Complex", "form":  "Tablet"}, "dosingInstructions": {"dose":  1, "doseUnits":  "Tablet(s)", "route":  "Oral", "frequency":  "Once a day", "quantity":  30, "quantityUnits":  "Tablet(s)"}, "duration": 1, "durationUnits":  "Month(s)"},
+        {"drug": {"name": "Ferrous Sulphate with Folic Acid Large", "form":  "Tablet"}, "dosingInstructions": {"dose":  1, "doseUnits":  "Tablet(s)", "route":  "Oral", "frequency":  "Twice a day", "quantity":  30, "quantityUnits":  "Tablet(s)"}, "duration": 1, "durationUnits":  "Month(s)"}
+      ]
+    },
+    {
+      "name": "Tamoxifen",
+      "drugOrders": [
+        {"drug": {"name": "Tamoxifen 10mg", "form": "Tablet"},"dosingInstructions": {"dose": 2, "doseUnits": "Tablet(s)", "route": "Oral", "frequency": "Once a day", "quantity": 120, "quantityUnits": "Tablet(s)", "numberOfRefills": null, "administrationInstructions": "{\"instructions\":\"As directed\"}" }, "duration": 2, "durationUnits": "Month(s)"}
+      ]
+    },
+    {
+      "name": "2HRZE + 4HR",
+      "drugOrders": [
+        {"drug": {"name": "Isoniazid 100mg", "form": "Tablet"}, "dosingInstructions": {"dose":  null, "doseUnits":  "Tablet(s)", "route":  "Oral", "frequency":  "Once a day", "quantity":  null, "quantityUnits":  "Tablet(s)"}, "duration": 30, "durationUnits":  "Day(s)"},
+        {"drug": {"name": "Isoniazid 300mg", "form": "Tablet"}, "dosingInstructions": {"dose":  null, "doseUnits":  "Tablet(s)", "route":  "Oral", "frequency":  "Once a day", "quantity":  null, "quantityUnits":  "Tablet(s)"}, "duration": 30, "durationUnits":  "Day(s)"},
+        {"drug": {"name": "Rifampicin 150mg", "form":  "Capsule"}, "dosingInstructions": {"dose":  null, "doseUnits":  "Capsule(s)", "route":  "Oral", "frequency":  "Once a day", "quantity":  null, "quantityUnits":  "Capsule(s)"}, "duration": 30, "durationUnits":  "Day(s)"},
+        {"drug": {"name": "Rifampicin 450mg", "form":  "Capsule"}, "dosingInstructions": {"dose":  null, "doseUnits":  "Capsule(s)", "route":  "Oral", "frequency":  "Once a day", "quantity":  null, "quantityUnits":  "Capsule(s)"}, "duration": 30, "durationUnits":  "Day(s)"},
+        {"drug": {"name": "Pyrazinamide 300mg", "form":  "Tablet"}, "dosingInstructions": {"dose":  null, "doseUnits":  "Tablet(s)", "route":  "Oral", "frequency":  "Once a day", "quantity":  null, "quantityUnits":  "Tablet(s)"}, "duration": 30, "durationUnits":  "Day(s)"},
+        {"drug": {"name": "Pyrazinamide 500mg", "form":  "Tablet"}, "dosingInstructions": {"dose":  null, "doseUnits":  "Tablet(s)", "route":  "Oral", "frequency":  "Once a day", "quantity":  null, "quantityUnits":  "Tablet(s)"}, "duration": 30, "durationUnits":  "Day(s)"},
+        {"drug": {"name": "Pyrazinamide 750mg", "form":  "Tablet"}, "dosingInstructions": {"dose":  null, "doseUnits":  "Tablet(s)", "route":  "Oral", "frequency":  "Once a day", "quantity":  null, "quantityUnits":  "Tablet(s)"}, "duration": 30, "durationUnits":  "Day(s)"},
+        {"drug": {"name": "Ethambutal 200mg", "form":  "Tablet"}, "dosingInstructions": {"dose":  null, "doseUnits":  "Tablet(s)", "route":  "Oral", "frequency":  "Once a day", "quantity":  null, "quantityUnits":  "Tablet(s)"}, "duration": 30, "durationUnits":  "Day(s)"},
+        {"drug": {"name": "Ethambutal 400mg", "form":  "Tablet"}, "dosingInstructions": {"dose":  null, "doseUnits":  "Tablet(s)", "route":  "Oral", "frequency":  "Once a day", "quantity":  null, "quantityUnits":  "Tablet(s)"}, "duration": 30, "durationUnits":  "Day(s)"},
+        {"drug": {"name": "Ethambutal 800mg", "form":  "Tablet"}, "dosingInstructions": {"dose":  null, "doseUnits":  "Tablet(s)", "route":  "Oral", "frequency":  "Once a day", "quantity":  null, "quantityUnits":  "Tablet(s)"}, "duration": 30, "durationUnits":  "Day(s)"},
+        {"drug": {"name": "Pyridoxine 100mg", "form":  "Tablet"}, "dosingInstructions": {"dose":  null, "doseUnits":  "Tablet(s)", "route":  "Oral", "frequency":  "Once a day", "quantity":  null, "quantityUnits":  "Tablet(s)"}, "duration": 30, "durationUnits":  "Day(s)"},
+        {"drug": {"name": "Pyridoxine 10mg", "form":  "Tablet"}, "dosingInstructions": {"dose":  null, "doseUnits":  "Tablet(s)", "route":  "Oral", "frequency":  "Once a day", "quantity":  null, "quantityUnits":  "Tablet(s)"}, "duration": 30, "durationUnits":  "Day(s)"},
+        {"drug": {"name": "Chana", "form":  "Food Supplement"}, "dosingInstructions": {"dose":  null, "doseUnits":  null, "route":  "Oral", "frequency":  "Twice a day", "quantity":  2.0, "quantityUnits":  "Unit(s)"}, "duration": 30, "durationUnits":  "Day(s)"}
+      ]
+    },
+    {
+      "name": "3HRZE + 6HRE",
+      "drugOrders": [
+        {"drug": {"name": "Isoniazid 100mg", "form": "Tablet"}, "dosingInstructions": {"dose":  null, "doseUnits":  "Tablet(s)", "route":  "Oral", "frequency":  "Once a day", "quantity":  null, "quantityUnits":  "Tablet(s)"}, "duration": 30, "durationUnits":  "Day(s)"},
+        {"drug": {"name": "Isoniazid 300mg", "form": "Tablet"}, "dosingInstructions": {"dose":  null, "doseUnits":  "Tablet(s)", "route":  "Oral", "frequency":  "Once a day", "quantity":  null, "quantityUnits":  "Tablet(s)"}, "duration": 30, "durationUnits":  "Day(s)"},
+        {"drug": {"name": "Rifampicin 150mg", "form":  "Capsule"}, "dosingInstructions": {"dose":  null, "doseUnits":  "Capsule(s)", "route":  "Oral", "frequency":  "Once a day", "quantity":  null, "quantityUnits":  "Capsule(s)"}, "duration": 30, "durationUnits":  "Day(s)"},
+        {"drug": {"name": "Rifampicin 450mg", "form":  "Capsule"}, "dosingInstructions": {"dose":  null, "doseUnits":  "Capsule(s)", "route":  "Oral", "frequency":  "Once a day", "quantity":  null, "quantityUnits":  "Capsule(s)"}, "duration": 30, "durationUnits":  "Day(s)"},
+        {"drug": {"name": "Pyrazinamide 300mg", "form":  "Tablet"}, "dosingInstructions": {"dose":  null, "doseUnits":  "Tablet(s)", "route":  "Oral", "frequency":  "Once a day", "quantity":  null, "quantityUnits":  "Tablet(s)"}, "duration": 30, "durationUnits":  "Day(s)"},
+        {"drug": {"name": "Pyrazinamide 500mg", "form":  "Tablet"}, "dosingInstructions": {"dose":  null, "doseUnits":  "Tablet(s)", "route":  "Oral", "frequency":  "Once a day", "quantity":  null, "quantityUnits":  "Tablet(s)"}, "duration": 30, "durationUnits":  "Day(s)"},
+        {"drug": {"name": "Pyrazinamide 750mg", "form":  "Tablet"}, "dosingInstructions": {"dose":  null, "doseUnits":  "Tablet(s)", "route":  "Oral", "frequency":  "Once a day", "quantity":  null, "quantityUnits":  "Tablet(s)"}, "duration": 30, "durationUnits":  "Day(s)"},
+        {"drug": {"name": "Ethambutal 200mg", "form":  "Tablet"}, "dosingInstructions": {"dose":  null, "doseUnits":  "Tablet(s)", "route":  "Oral", "frequency":  "Once a day", "quantity":  null, "quantityUnits":  "Tablet(s)"}, "duration": 30, "durationUnits":  "Day(s)"},
+        {"drug": {"name": "Ethambutal 400mg", "form":  "Tablet"}, "dosingInstructions": {"dose":  null, "doseUnits":  "Tablet(s)", "route":  "Oral", "frequency":  "Once a day", "quantity":  null, "quantityUnits":  "Tablet(s)"}, "duration": 30, "durationUnits":  "Day(s)"},
+        {"drug": {"name": "Ethambutal 800mg", "form":  "Tablet"}, "dosingInstructions": {"dose":  null, "doseUnits":  "Tablet(s)", "route":  "Oral", "frequency":  "Once a day", "quantity":  null, "quantityUnits":  "Tablet(s)"}, "duration": 30, "durationUnits":  "Day(s)"},
+        {"drug": {"name": "Pyridoxine 100mg", "form":  "Tablet"}, "dosingInstructions": {"dose":  null, "doseUnits":  "Tablet(s)", "route":  "Oral", "frequency":  "Once a day", "quantity":  null, "quantityUnits":  "Tablet(s)"}, "duration": 30, "durationUnits":  "Day(s)"},
+        {"drug": {"name": "Pyridoxine 10mg", "form":  "Tablet"}, "dosingInstructions": {"dose":  null, "doseUnits":  "Tablet(s)", "route":  "Oral", "frequency":  "Once a day", "quantity":  null, "quantityUnits":  "Tablet(s)"}, "duration": 30, "durationUnits":  "Day(s)"},
+        {"drug": {"name": "Chana", "form":  "Food Supplement"}, "dosingInstructions": {"dose":  null, "doseUnits":  null, "route":  "Oral", "frequency":  "Twice a day", "quantity":  2.0, "quantityUnits":  "Unit(s)"}, "duration": 30, "durationUnits":  "Day(s)"}
+      ]
+    },
+    {
+      "name": "12RZFqE",
+      "drugOrders": [
+        {"drug": {"name": "Rifampicin 150mg", "form":  "Capsule"}, "dosingInstructions": {"dose":  null, "doseUnits":  "Capsule(s)", "route":  "Oral", "frequency":  "Once a day", "quantity":  null, "quantityUnits":  "Capsule(s)"}, "duration": 30, "durationUnits":  "Day(s)"},
+        {"drug": {"name": "Rifampicin 450mg", "form":  "Capsule"}, "dosingInstructions": {"dose":  null, "doseUnits":  "Capsule(s)", "route":  "Oral", "frequency":  "Once a day", "quantity":  null, "quantityUnits":  "Capsule(s)"}, "duration": 30, "durationUnits":  "Day(s)"},
+        {"drug": {"name": "Pyrazinamide 300mg", "form":  "Tablet"}, "dosingInstructions": {"dose":  null, "doseUnits":  "Tablet(s)", "route":  "Oral", "frequency":  "Once a day", "quantity":  null, "quantityUnits":  "Tablet(s)"}, "duration": 30, "durationUnits":  "Day(s)"},
+        {"drug": {"name": "Pyrazinamide 500mg", "form":  "Tablet"}, "dosingInstructions": {"dose":  null, "doseUnits":  "Tablet(s)", "route":  "Oral", "frequency":  "Once a day", "quantity":  null, "quantityUnits":  "Tablet(s)"}, "duration": 30, "durationUnits":  "Day(s)"},
+        {"drug": {"name": "Pyrazinamide 750mg", "form":  "Tablet"}, "dosingInstructions": {"dose":  null, "doseUnits":  "Tablet(s)", "route":  "Oral", "frequency":  "Once a day", "quantity":  null, "quantityUnits":  "Tablet(s)"}, "duration": 30, "durationUnits":  "Day(s)"},
+        {"drug": {"name": "Ethambutal 200mg", "form":  "Tablet"}, "dosingInstructions": {"dose":  null, "doseUnits":  "Tablet(s)", "route":  "Oral", "frequency":  "Once a day", "quantity":  null, "quantityUnits":  "Tablet(s)"}, "duration": 30, "durationUnits":  "Day(s)"},
+        {"drug": {"name": "Ethambutal 400mg", "form":  "Tablet"}, "dosingInstructions": {"dose":  null, "doseUnits":  "Tablet(s)", "route":  "Oral", "frequency":  "Once a day", "quantity":  null, "quantityUnits":  "Tablet(s)"}, "duration": 30, "durationUnits":  "Day(s)"},
+        {"drug": {"name": "Ethambutal 800mg", "form":  "Tablet"}, "dosingInstructions": {"dose":  null, "doseUnits":  "Tablet(s)", "route":  "Oral", "frequency":  "Once a day", "quantity":  null, "quantityUnits":  "Tablet(s)"}, "duration": 30, "durationUnits":  "Day(s)"},
+        {"drug": {"name": "Chana", "form":  "Food Supplement"}, "dosingInstructions": {"dose":  null, "doseUnits":  null, "route":  "Oral", "frequency":  "Twice a day", "quantity":  2.0, "quantityUnits":  "Unit(s)"}, "duration": 30, "durationUnits":  "Day(s)"}
+      ]
+    },
+    {
+      "name": "9H",
+      "drugOrders": [
+        {"drug": {"name": "Isoniazid 100mg", "form": "Tablet"}, "dosingInstructions": {"dose":  null, "doseUnits":  "Tablet(s)", "route":  "Oral", "frequency":  "Once a day", "quantity":  null, "quantityUnits":  "Tablet(s)"}, "duration": 30, "durationUnits":  "Day(s)"},
+        {"drug": {"name": "Isoniazid 300mg", "form": "Tablet"}, "dosingInstructions": {"dose":  null, "doseUnits":  "Tablet(s)", "route":  "Oral", "frequency":  "Once a day", "quantity":  null, "quantityUnits":  "Tablet(s)"}, "duration": 30, "durationUnits":  "Day(s)"},
+        {"drug": {"name": "Pyridoxine 100mg", "form": "Tablet"}, "dosingInstructions": {"dose":  null, "doseUnits":  "Tablet(s)", "route":  "Oral", "frequency":  "Once a day", "quantity":  null, "quantityUnits":  "Tablet(s)"}, "duration": 30, "durationUnits":  "Day(s)"},
+        {"drug": {"name": "Pyridoxine 10mg", "form": "Tablet"}, "dosingInstructions": {"dose":  null, "doseUnits":  "Tablet(s)", "route":  "Oral", "frequency":  "Once a day", "quantity":  null, "quantityUnits":  "Tablet(s)"}, "duration": 30, "durationUnits":  "Day(s)"},
+        {"drug": {"name": "Chana", "form":  "Food Supplement"}, "dosingInstructions": {"dose":  null, "doseUnits":  null, "route":  "Oral", "frequency":  "Twice a day", "quantity":  2.0, "quantityUnits":  "Unit(s)"}, "duration": 30, "durationUnits":  "Day(s)"}
+
+      ]
+    }
+  ]
+}

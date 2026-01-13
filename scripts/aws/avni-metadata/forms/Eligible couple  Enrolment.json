@@ -1,0 +1,18 @@
+{
+  "name" : "Eligible couple  Enrolment",
+  "uuid" : "89541fbe-ca7c-45df-a6a7-5c317e0da1ab",
+  "formType" : "ProgramEnrolment",
+  "formElementGroups" : [ {
+    "uuid" : "34cd26dd-35f8-4510-941e-0e95d210d06a",
+    "name" : "Enrolment",
+    "displayOrder" : 1.0,
+    "formElements" : [ ],
+    "display" : "Enrolment",
+    "timed" : false
+  } ],
+  "decisionRule" : "",
+  "visitScheduleRule" : "\"use strict\";\n({ params, imports }) => {\n    const programEnrolment = params.entity;\n    const moment = imports.moment;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({programEnrolment});\n\n    function isAlreadyScheduled(encounterType, earliestDate) {\n        const earliestDateTime = moment(earliestDate);\n        const isAlreadyPresent = programEnrolment.getEncountersOfType(encounterType, true)\n            .some((enc) => \n                enc &&\n                enc.voided == false &&\n                moment(enc.earliestVisitDateTime).isSame(earliestDateTime, 'day')\n            );\n\n        return isAlreadyPresent;\n    }\n\n    const baseDate = programEnrolment.enrolmentDateTime;\n\n    const earliestDate = moment(baseDate).add(1, 'month').startOf('month').toDate();\n    const maxDate = moment(baseDate).add(1, 'month').endOf('month').toDate();\n    \n    if(!isAlreadyScheduled(\"Eligible Couple Follow-up\", earliestDate)) {\n        scheduleBuilder.add({\n            name: \"Eligible Couple Follow-up\", \n            encounterType: \"Eligible Couple Follow-up\", \n            earliestDate, \n            maxDate\n        });  \n    }\n    \n    return scheduleBuilder.getAll();\n};",
+  "validationRule" : "",
+  "checklistsRule" : "",
+  "decisionConcepts" : [ ]
+}

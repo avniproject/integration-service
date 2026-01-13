@@ -1,0 +1,141 @@
+# Docker Compose Override for JSS Bahmni with Local MySQL 5.6
+# 
+# This file configures Bahmni to use a LOCAL MySQL 5.6 container instead of external RDS.
+#
+# Key Configuration:
+#   1. MySQL 5.6 container (x86_64/amd64 platform) - required for 1942-1945 historical dates
+#   2. JSON-file logging for all services (no Loki plugin required)
+#   3. External named volume 'openmrs_db_data' for database persistence
+#   4. Health checks to ensure MySQL is ready before OpenMRS starts
+#
+# IMPORTANT - HOUR_OF_DAY Errors:
+#   - OpenMRS logs will show HOUR_OF_DAY errors during Hibernate Search indexing
+#   - These are NON-FATAL background indexing errors (production has them too)
+#   - OpenMRS becomes fully functional after search index update (~5-10 minutes)
+#   - DO NOT try to fix by changing timezone, JDBC version, or disabling search
+#   - This is expected behavior - wait for startup to complete
+#
+# Setup:
+#   1. Create external volume: docker volume create openmrs_db_data
+#   2. Restore database: gunzip -c backup.sql.gz | docker exec -i openmrsdb mysql -u root -pOpenMRS_JSS2024 openmrs
+#   3. Start services: docker compose -f docker-compose.yml -f docker-compose.override.yml --profile emr up -d
+#   4. Wait for OpenMRS: docker logs openmrs-1 | grep "Server startup"
+#   5. Verify: curl -u admin:test http://localhost:8080/openmrs/ws/rest/v1/session
+
+# Default logging configuration for all services (overrides loki)
+x-default-logging: &default-logging
+  driver: "json-file"
+  options:
+    max-size: "10m"
+    max-file: "3"
+
+services:
+  # ============================================================================
+  # OpenMRS - Main EMR application
+  # ============================================================================
+  openmrs:
+    depends_on:
+      openmrsdb:
+        condition: service_healthy
+    environment:
+      OPENMRS_DB_HOST: openmrsdb
+      OMRS_DB_EXTRA_ARGS: "&zeroDateTimeBehavior=convertToNull"
+    logging: *default-logging
+
+  # ============================================================================
+  # MySQL 5.6 - Local database container (x86_64/amd64) - matches JSS prod
+  # ============================================================================
+  openmrsdb:
+    image: mysql:5.6
+    platform: linux/amd64
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-OpenMRS_JSS2024}
+      MYSQL_DATABASE: ${OPENMRS_DB_NAME:-openmrs}
+      MYSQL_USER: ${OPENMRS_DB_USERNAME:-openmrs_admin}
+      MYSQL_PASSWORD: ${OPENMRS_DB_PASSWORD:-OpenMRS_JSS2024}
+      TZ: ${TZ:-Asia/Kolkata}
+    command: >
+      --default-time-zone='+05:30'
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_unicode_ci
+      --skip-log-bin
+      --max_allowed_packet=256M
+      --innodb_buffer_pool_size=512M
+    ports:
+      - "3306:3306"
+    volumes:
+      - openmrs_db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD:-OpenMRS_JSS2024}"]
+      interval: 10s
+      timeout: 20s
+      retries: 10
+      start_period: 60s
+    logging: *default-logging
+
+  # ============================================================================
+  # Override logging for all other services to bypass loki plugin
+  # ============================================================================
+  proxy:
+    logging: *default-logging
+
+  bahmni-web:
+    logging: *default-logging
+
+  implementer-interface:
+    logging: *default-logging
+
+  openelisdb:
+    logging: *default-logging
+
+  openelis:
+    logging: *default-logging
+
+  reportsdb:
+    logging: *default-logging
+
+  reports:
+    logging: *default-logging
+
+  pacsdb:
+    logging: *default-logging
+
+  dcm4chee:
+    logging: *default-logging
+
+  pacs-integration:
+    logging: *default-logging
+
+  patient-documents:
+    logging: *default-logging
+
+  appointments:
+    logging: *default-logging
+
+  rabbitmq:
+    logging: *default-logging
+
+  abha-verification:
+    logging: *default-logging
+
+  db:
+    logging: *default-logging
+
+  hiu:
+    logging: *default-logging
+
+  hiu-ui:
+    logging: *default-logging
+
+  hiu-db-setup:
+    logging: *default-logging
+
+  otp:
+    logging: *default-logging
+
+  hip-atomfeed-listener:
+    logging: *default-logging
+
+volumes:
+  openmrs_db_data:
+    external: true

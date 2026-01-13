@@ -1,0 +1,114 @@
+{
+  "name" : "Eligible Couple Follow-up Encounter",
+  "uuid" : "33312d95-12ad-47ec-b0c9-2b06786e4948",
+  "formType" : "ProgramEncounter",
+  "formElementGroups" : [ {
+    "uuid" : "8d036ad4-02c9-47bc-a4cf-ad4a01a54fc5",
+    "name" : "Details",
+    "displayOrder" : 1.0,
+    "formElements" : [ {
+      "name" : "Is the woman pregnant?",
+      "uuid" : "e0cd64dc-45ec-4602-934b-64c2e4da2ec1",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Is the woman pregnant?",
+        "uuid" : "2e3fd646-4857-4227-86f4-19e7019cff4c",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Yes",
+          "uuid" : "57e20de7-10de-4391-b7ce-87b2f40d19a2",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "No",
+          "uuid" : "f88da2e8-6ab4-44b5-b762-233485cd25f9",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ {
+          "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/2e3fd646-4857-4227-86f4-19e7019cff4c.jpg",
+          "type" : "Image"
+        } ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Performing UPT test to confirm pregnancy",
+      "uuid" : "5e0669d0-554f-49bf-b08d-26deb147cd7c",
+      "keyValues" : [ {
+        "key" : "editable",
+        "value" : false
+      }, {
+        "key" : "ExcludedAnswers",
+        "value" : [ "NA" ]
+      } ],
+      "concept" : {
+        "name" : "Performing UPT test to confirm pregnancy",
+        "uuid" : "96a85885-207d-4408-8020-0c70230e5b98",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "NA",
+          "uuid" : "7efbfba4-66d1-4510-9024-aaaedf439392",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Performing UPT test to confirm pregnancy",
+      "uuid" : "24f97804-f06e-4948-af16-c64a9369617e",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Performing UPT test to confirm pregnancy (voided~303560)",
+        "uuid" : "8982c982-111d-4b43-b081-41e15f145b0a",
+        "dataType" : "Notes",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ],
+        "voided" : true
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "voided" : true,
+      "mandatory" : true
+    }, {
+      "name" : "Note",
+      "uuid" : "14cde599-c00b-491f-ad8b-30b8348c1a06",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Note",
+        "uuid" : "bb47093a-8029-4689-a07d-b7b4e2709302",
+        "dataType" : "Notes",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "voided" : true,
+      "mandatory" : false
+    } ],
+    "display" : "Details",
+    "timed" : false
+  } ],
+  "decisionRule" : "",
+  "visitScheduleRule" : "\"use strict\";\n({ params, imports }) => {\n    const programEncounter = params.entity;\n    const moment = imports.moment;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({programEncounter});\n    const isActiveInProgram = !programEncounter.programEnrolment.programExitDateTime;\n    if(isActiveInProgram) {\n        function isAlreadyScheduled(encounterType, earliestDate) {\n            const earliestDateTime = moment(earliestDate);\n            const isAlreadyPresent = programEncounter.programEnrolment.getEncountersOfType(encounterType)\n                .some((enc) => \n                    enc &&\n                    enc.uuid != programEncounter.uuid &&\n                    enc.voided == false &&\n                    moment(enc.earliestVisitDateTime).isSame(earliestDateTime, 'day')\n                );\n        \n            return isAlreadyPresent;\n        }\n        \n        const baseDate = programEncounter.earliestVisitDateTime || programEncounter.encounterDateTime;\n        \n        const earliestDate = moment(baseDate).add(1, 'month').startOf('month').toDate();\n        const maxDate = moment(baseDate).add(1, 'month').endOf('month').toDate();\n        \n        if(!isAlreadyScheduled(\"Eligible Couple Follow-up\", earliestDate)) {\n        \n            scheduleBuilder.add({\n                name: \"Eligible Couple Follow-up\", \n                encounterType: \"Eligible Couple Follow-up\", \n                earliestDate, \n                maxDate\n            });  \n        }\n    }\n\n    return scheduleBuilder.getAll();\n};",
+  "validationRule" : "",
+  "checklistsRule" : "",
+  "decisionConcepts" : [ ]
+}

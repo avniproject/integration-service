@@ -1,0 +1,7 @@
+{
+  "name" : "Subcenter Followup Encounter Cancellation",
+  "uuid" : "f2d62c77-657f-4284-af7a-55993b84b64a",
+  "formType" : "IndividualEncounterCancellation",
+  "formElementGroups" : [ ],
+  "decisionConcepts" : [ ]
+}

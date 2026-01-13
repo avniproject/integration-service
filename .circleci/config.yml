@@ -1,0 +1,329 @@
+version: 2.1
+orbs:
+  aws-cli: circleci/aws-cli@4.1.1
+
+commands:
+  deploy:
+    description: Deployment of int-server
+    parameters:
+      hostname:
+        type: string
+        default: "int-staging.avniproject.org"
+      env:
+        type: string
+        default: "staging"
+    steps:
+      - attach_workspace:
+          at: ~/artifacts
+
+      - run: curl -L https://github.com/avniproject/avni-infra/archive/master.zip >> ~/infra.zip
+
+      - run: |
+          cd ~/
+          unzip infra.zip
+          mv avni-infra-master avni-infra
+          rm -rf infra.zip
+
+      - run: echo $ANSIBLE_VAULT_PASS > ~/.vault-pass.txt
+
+      - run: |
+          pwd
+          cd ~/avni-infra/configure
+          mv ~/artifacts/avni-int.jar ~/artifacts/integrator-0.0.2-SNAPSHOT.jar
+          VAULT_PASSWORD_FILE=~/.vault-pass.txt app_zip_path=~/artifacts/ make deploy-int-server-<< parameters.env >>
+
+      - run: rm ~/.vault-pass.txt
+
+  setup_server_access:
+    description: Generate and copy temporary keys to server
+    parameters:
+      instance-id:
+        type: string
+      os-user:
+        type: string
+        default: ubuntu
+      availability-zone:
+        type: string
+        default: ap-south-1a
+    steps:
+      - run: rm -rf /tmp/temp_rsa_key*
+      - run: ssh-keygen -b 2048 -t rsa -f /tmp/temp_rsa_key -q -N ""
+      - run: eval `ssh-agent -s`
+      - run: ssh-add /tmp/temp_rsa_key
+      - run: |
+          aws ec2-instance-connect send-ssh-public-key --instance-id << parameters.instance-id >> --availability-zone << parameters.availability-zone >> --instance-os-user << parameters.os-user >> --no-paginate --ssh-public-key file:///tmp/temp_rsa_key.pub --output text | head -1
+
+jobs:
+  test:
+    docker:
+      - image: cimg/openjdk:17.0.5
+
+      - image: cimg/postgres:12.7
+        environment:
+          POSTGRES_USER: avni_int
+          POSTGRES_DB: avni_int_test
+          POSTGRES_PASSWORD: password
+
+
+    working_directory: ~/avni-int
+
+    environment:
+      - MAVEN_OPTS: -Xmx3200m
+      - POSTGRES_USER: avni_int
+      - POSTGRES_DB: avni_int_test
+      - POSTGRES_PASSWORD: password
+
+    steps:
+      - checkout
+
+      - run: sudo apt-get update
+
+      - run: sudo apt-get install make postgresql-client
+
+      - run: wget -qO- https://repo1.maven.org/maven2/org/flywaydb/flyway-commandline/8.5.9/flyway-commandline-8.5.9-linux-x64.tar.gz | tar xvz && sudo ln -s `pwd`/flyway-8.5.9/flyway /usr/local/bin
+
+      - run: |
+          cd ~/avni-int
+          make rebuild-test-db-schema SU=avni_int postgres_user=avni_int
+          make test-server SU=avni_int postgres_user=avni_int
+
+      - store_artifacts:
+          path: ~/avni-int/amrit/build/reports/tests/test
+          destination: testReports/amrit
+
+      - store_artifacts:
+          path: ~/avni-int/avni/build/reports/tests/test
+          destination: testReports/avni
+
+      - store_artifacts:
+          path: ~/avni-int/bahmni/build/reports/tests/test
+          destination: testReports/bahmni
+
+      - store_artifacts:
+          path: ~/avni-int/goonj/build/reports/tests/test
+          destination: testReports/goonj
+
+      - store_artifacts:
+          path: ~/avni-int/integration-data/build/reports/tests/test
+          destination: testReports/integration-data
+
+      - store_artifacts:
+          path: ~/avni-int/integrator/build/reports/tests/test
+          destination: testReports/integrator
+
+      - store_artifacts:
+          path: ~/avni-int/metadata-migrator/build/reports/tests/test
+          destination: testReports/metadata-migrator
+
+      - store_artifacts:
+          path: ~/avni-int/power/build/reports/tests/test
+          destination: testReports/power
+
+      - store_artifacts:
+          path: ~/avni-int/lahi/build/reports/tests/test
+          destination: testReports/lahi
+
+      - store_artifacts:
+          path: ~/avni-int/util/build/reports/tests/test
+          destination: testReports/util
+
+  build:
+    docker:
+      - image: cimg/openjdk:17.0.5
+
+      - image: cimg/postgres:12.7
+        environment:
+          POSTGRES_USER: avni_int
+          POSTGRES_DB: avni_int_test
+          POSTGRES_PASSWORD: password
+
+    working_directory: ~/avni-int
+
+    environment:
+      - ANSIBLE_HOST_KEY_CHECKING: False
+      - ANSIBLE_LOCAL_TEMP: /home/circleci/.ansible/tmp
+      - ANSIBLE_REMOTE_TEMP: /home/circleci/.ansible/tmp
+      - MAVEN_OPTS: -Xmx3200m
+      - POSTGRES_USER: avni_int
+      - POSTGRES_DB: avni_int_test
+      - POSTGRES_PASSWORD: password
+
+    steps:
+      - checkout
+
+      - run: sudo apt-get install make openssl postgresql-client
+
+      - run: make create-test-db-extensions SU=avni_int postgres_user=avni_int
+
+      - run: make test-server SU=avni_int postgres_user=avni_int
+
+      - run: mkdir -p ~/artifacts;
+
+      - run: cp ~/avni-int/integrator/build/libs/integrator-0.0.2-SNAPSHOT.jar ~/artifacts/avni-int.jar;
+
+      - persist_to_workspace:
+          root: ~/artifacts
+          paths:
+            - avni-int.jar
+
+      - store_artifacts:
+          path: amrit/build/reports/tests/test
+          destination: testReports/amrit
+
+      - store_artifacts:
+          path: avni/build/reports/tests/test
+          destination: testReports/avni
+
+      - store_artifacts:
+          path: bahmni/build/reports/tests/test
+          destination: testReports/bahmni
+
+      - store_artifacts:
+          path: goonj/build/reports/tests/test
+          destination: testReports/goonj
+
+      - store_artifacts:
+          path: integration-data/build/reports/tests/test
+          destination: testReports/integration-data
+
+      - store_artifacts:
+          path: lahi/build/reports/tests/test
+          destination: testReports/lahi
+
+      - store_artifacts:
+          path: integrator/build/reports/tests/test
+          destination: testReports/integrator
+
+      - store_artifacts:
+          path: power/build/reports/tests/test
+          destination: testReports/power
+
+      - store_artifacts:
+          path: util/build/reports/tests/test
+          destination: testReports/util
+
+  PRERELEASE_deploy:
+    docker:
+      - image: cimg/deploy:2024.11
+        environment:
+          ANSIBLE_HOST_KEY_CHECKING: no
+    working_directory: ~/
+    steps:
+      - aws-cli/setup:
+          role_arn: "arn:aws:iam::118388513628:role/avni_circleci_instance_connect"
+          region: "ap-south-1"
+      - setup_server_access:
+          instance-id: "i-0a357dbb9e5a91ca2"
+          availability-zone: "ap-south-1b"
+      - deploy:
+          hostname: "int-prerelease.avniproject.org"
+          env: "prerelease"
+
+  STAGING_deploy:
+    docker:
+      - image: cimg/deploy:2024.11
+        environment:
+          ANSIBLE_HOST_KEY_CHECKING: no
+    working_directory: ~/
+    steps:
+      - aws-cli/setup:
+          role_arn: "arn:aws:iam::118388513628:role/avni_circleci_instance_connect"
+          region: "ap-south-1"
+      - setup_server_access:
+          instance-id: "i-029f9587b33d91f35"
+          availability-zone: "ap-south-1a"
+      - deploy:
+          hostname: "int-staging.avniproject.org"
+          env: "staging"
+
+  PRODUCTION_deploy:
+    docker:
+      - image: cimg/deploy:2024.11
+    working_directory: ~/
+    steps:
+      - aws-cli/setup:
+          role_arn: "arn:aws:iam::118388513628:role/avni_circleci_instance_connect"
+          region: "ap-south-1"
+      - setup_server_access:
+          instance-id: "i-07e5114eea30b3b61"
+          availability-zone: "ap-south-1a"
+      - deploy:
+          hostname: "int-prod.avniproject.org"
+          env: "prod"
+
+  RWB_STAGING_deploy:
+    docker:
+      - image: cimg/deploy:2024.11
+        environment:
+          ANSIBLE_HOST_KEY_CHECKING: no
+    working_directory: ~/
+    steps:
+      - aws-cli/setup:
+          role_arn: "arn:aws:iam::730335671779:role/avni_circleci_instance_connect"
+          region: "ap-south-1"
+      - setup_server_access:
+          instance-id: "i-0b9dc7b3e65a44aec"
+          availability-zone: "ap-south-1b"
+      - deploy:
+          hostname: "etl-staging.rwb.avniproject.org"
+          env: "rwb-staging"
+
+  RWB_PRODUCTION_deploy:
+    docker:
+      - image: cimg/deploy:2024.11
+    working_directory: ~/
+    steps:
+      - aws-cli/setup:
+          role_arn: "arn:aws:iam::730335671779:role/avni_circleci_instance_connect"
+          region: "ap-south-1"
+      - setup_server_access:
+          instance-id: "i-067dc4ef8c36f8053"
+          availability-zone: "ap-south-1a"
+      - deploy:
+          hostname: "etl.rwb.avniproject.org"
+          env: "rwb-prod"
+workflows:
+  version: 2
+  build_and_deploy:
+    jobs:
+      - build
+      - PRERELEASE_approve:
+          type: approval
+          requires:
+            - build
+      - PRERELEASE_deploy:
+          context: non-prod-deploy
+          requires:
+            - PRERELEASE_approve
+      - STAGING_approve:
+          type: approval
+          requires:
+            - build
+      - STAGING_deploy:
+          context: non-prod-deploy
+          requires:
+            - STAGING_approve
+      - PRODUCTION_approve:
+          type: approval
+          requires:
+            - build
+      - PRODUCTION_deploy:
+          context: prod-deploy
+          requires:
+            - PRODUCTION_approve
+      - RWB_STAGING_approve:
+          type: approval
+          requires:
+            - build
+      - RWB_STAGING_deploy:
+          context: non-prod-deploy
+          requires:
+            - RWB_STAGING_approve
+      - RWB_PRODUCTION_approve:
+          type: approval
+          requires:
+            - build
+      - RWB_PRODUCTION_deploy:
+          context: prod-deploy
+          requires:
+            - RWB_PRODUCTION_approve

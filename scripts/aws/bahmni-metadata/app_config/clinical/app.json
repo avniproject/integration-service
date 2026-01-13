@@ -1,0 +1,768 @@
+{
+  "id": "bahmni.clinical",
+  "extensionPoints": [
+    {
+      "id": "org.bahmni.clinical.consultation.board",
+      "description": "Bahmni Clinical Consultation Page"
+    },
+    {
+      "id": "org.bahmni.clinical.conceptSetGroup.*",
+      "description": "Define conceptsets part of a conceptset group"
+    },
+    {
+      "id": "org.bahmni.clinical.orders",
+      "description": "Bahmni Orders Page"
+    },
+    {
+      "id": "org.bahmni.patient.search",
+      "description": "Bahmni Patient search, lookups Page"
+    }
+  ],
+  "contextModel": [
+    "patientUuid",
+    "visitUuid"
+  ],
+  "config": {
+    "enablePACSOptions": true,
+    "preferExtraIdInSearchResults": false,
+    "obsIgnoreList": [
+      "Fee Information",
+      "Patient file"
+    ],
+    "otherInvestigationsMap": {
+      "Radiology": "Radiology Order",
+      "Endoscopy": "Endoscopy Order"
+    },
+    "printConfig": {
+      "visitSummaryPrint": {
+        "showChart": false
+      },
+      "opdSummaryPrint": {
+        "showChart": false
+      }
+    },
+    "patientContext": {
+      "personAttributes": [
+        "primaryContact"
+      ],
+      "additionalPatientIdentifiers": [
+        "ABHA Address"
+      ]
+    },
+    "maxConceptSetLevels": 3,
+    "conceptSetUI": {
+      "Psychiatry Followup Template": {
+        "showPreviousButton": true
+      },
+      "Follow up on (date)":{
+        "allowFutureDates": true
+      },
+      "CDST Form, Drugs used in his treatment": {
+        "multiSelect": true
+      },
+      "Signs": {
+	"multiSelect": true
+      },
+      "Plan of Treatment": {
+         "multiSelect": true
+      },
+      "Danger sign and Symptoms": {
+        "multiSelect": true
+      },
+      "Present Pregnancy with Diagnosed Complications": {
+        "multiSelect": true
+      },
+      "History of Prior Chemo Radio Therapy": {
+        "multiSelect": true
+      },
+      "Comorbidities (if any)": {
+        "multiSelect": true
+      },
+      "Associated Risk Factors": {
+        "multiSelect": true
+      },
+      "Any Symptoms": {
+        "multiSelect": true
+      },
+      "Clinical diagnosis of EPTB, Investigation used": {
+        "multiSelect": true
+      },
+      "Procedure Detail": {
+        "allowAddMore": true
+      },
+      "Follow Up": {
+        "allowAddMore": true
+      },
+      "Previous Antibiotics Used Or Report": {
+	"required": true
+      },
+      "Discharge Summary": {
+        "showPreviousButton": true,
+        "numberOfVisits": 1
+      },
+      "Follow up Date": {
+        "allowFutureDates": true
+      },
+      "Recent Diagnosis": {
+				"required": true
+			},
+     "APPOINTMENT_DATE": {
+	"allowFutureDates": true
+     },
+     "Tuberculosis, Sputum Sample Collection Date": {
+        "required": true
+       },
+     "Tuberculosis, AFB (Zn Stain)": {
+        "required": true
+       },
+     "Tuberculosis, Sample Type": {
+        "required": true
+       },
+      "Tuberculosis, Sample": {
+        "required": true
+       },
+      "Tuberculosis, Tuberculosis, Sample": {
+        "required": true
+       },
+      "Tuberculosis, Testing Centre": {
+        "required": true
+       },
+      "Tuberculosis, Test Type": {
+        "required": true
+       },
+      "Tuberculosis, Test Report Date": {
+        "required": true
+       },
+      "Date and Time of Death": {
+        "required": true
+       },
+      "Immediate Cause": {
+        "required": true
+       },
+      "Underlying Disease": {
+        "required": true
+       },
+      "Associated Conditions": {
+        "required": true
+       },
+    "Birth Information": {
+	"allowAddMore": true
+      },
+ "ANC Template": {
+        "allowAddMore": true
+      },
+ "Bacteriology Detailed Results": {
+        "allowAddMore": true
+      },
+"Wagner Megitt Classification":{
+      "isTabular": true
+      },
+"Left Foot":{
+"disableAddNotes": true,
+                "dropdown": true
+            },
+
+"Right Foot":{
+"disableAddNotes": true,
+                "dropdown": true
+            },
+
+"Sensory Neuropathy Testing by 10 g Monofilament":{
+"isTabular": true
+      },
+
+      "1st Metatarsal Head Left":{
+                "disableAddNotes": true,
+                "dropdown": true
+            },
+
+      "1st Metatarsal Head Right":{
+                "disableAddNotes": true,
+                "dropdown": true
+            },
+
+"2nd Metatarsal Head Left":{
+                "disableAddNotes": true,
+                "dropdown": true
+            },
+
+"2nd Metatarsal Head Right":{
+                "disableAddNotes": true,
+                "dropdown": true
+            },
+
+"5th Metatarsal Head Left":{
+                "disableAddNotes": true,
+                "dropdown": true
+            },
+
+"5th Metatarsal Head Right":{
+                "disableAddNotes": true,
+                "dropdown": true
+            },
+
+"Plantar Surface of Distal Hallux Left":{
+                "disableAddNotes": true,
+                "dropdown": true
+            },
+
+"Plantar Surface of Distal Hallux Right":{
+                "disableAddNotes": true,
+                "dropdown": true
+            },
+
+      "Vibration Sensation Using 128 Hz Tuning Forks over tip of great toe":{
+        "isTabular": true
+      },
+
+      "Vibration Sensation Status Left":{
+                "disableAddNotes": true,
+                "dropdown": true
+            },
+
+      "Vibration Sensation Status Right":{
+                "disableAddNotes": true,
+                "dropdown": true
+            },
+
+      
+
+      "Ankle Reflex":{
+                "isTabular": true
+            },
+
+      "Ankle Reflex Status Left":{
+                "disableAddNotes": true,
+                "dropdown": true
+            },
+
+      "Ankle Reflex Status Right":{
+                "disableAddNotes": true,
+                "dropdown": true
+            },
+
+"Pinprick Sensation Over Dorsum of Toe":{
+                "isTabular": true
+            },
+
+      "Pinprick Sensation Status Left":{
+                "disableAddNotes": true,
+                "dropdown": true
+            },
+
+      "Pinprick Sensation Status Right":{
+                "disableAddNotes": true,
+                "dropdown": true
+            },
+
+      "Vascular Assessment":{
+                "isTabular": true
+            },
+
+      "Dorsalis Pedis Artery Left":{
+                "disableAddNotes": true,
+                "dropdown": true
+            },
+
+      "Dorsalis Pedis Artery Right":{
+                "disableAddNotes": true,
+                "dropdown": true
+            },
+
+      "Ankle systolic pressure Left":{
+                "disableAddNotes": true
+            },
+
+"Ankle systolic pressure Right":{
+"disableAddNotes": true
+},
+
+"Brachial systolic pressure Left":{
+"disableAddNotes": true
+},
+
+"Brachial systolic pressure Right":{
+"disableAddNotes": true
+},
+
+
+"Musculoskeletal Assesment":{
+                "isTabular": true
+            },
+
+"Skin Color / Cracking / Sweating Left":{
+                "disableAddNotes": true,
+                "dropdown": true
+            },
+"Skin Color / Cracking / Sweating Right":{
+                "disableAddNotes": true,
+                "dropdown": true
+            },
+
+"Claw Toes / Hammer Toes Left":{
+                "disableAddNotes": true,
+                "dropdown": true
+            },
+"Claw Toes / Hammer Toes Right":{
+                "disableAddNotes": true,
+                "dropdown": true
+            },
+
+"Charcoat Joint Left":{
+                "disableAddNotes": true,
+                "dropdown": true
+            },
+
+"Charcoat Joint Right":{
+                "disableAddNotes": true,
+                "dropdown": true
+            },
+"Muscle Wasting (guttering between muscles) left":{
+                "disableAddNotes": true,
+                "dropdown": true
+            },
+"Muscle Wasting (guttering between muscles) right":{
+                "disableAddNotes": true,
+                "dropdown": true
+            },
+
+"Calluses Left":{
+                "disableAddNotes": true,
+                "dropdown": true
+            },
+"Calluses Right":{
+                "disableAddNotes": true,
+                "dropdown": true
+            },
+
+"Blisters Left":{
+                "disableAddNotes": true,
+                "dropdown": true
+            },
+"Blisters Right":{
+                "disableAddNotes": true,
+                "dropdown": true
+            },
+"Nail Infection Left":{
+                "disableAddNotes": true,
+                "dropdown": true
+            },
+"Nail Infection Right":{
+                "disableAddNotes": true,
+                "dropdown": true
+            },
+"Prominent Metatarsal Head Left":{
+                "disableAddNotes": true,
+                "dropdown": true
+            },
+"Prominent Metatarsal Head Right":{
+                "disableAddNotes": true,
+                "dropdown": true
+            },
+
+     "Why was CBNAAT useful?": {
+        "multiSelect": true
+      },
+     "Tuberculosis, Comorbidity": {
+        "multiSelect": true
+      },
+     "Tuberculosis, Extrapulmonary Site": {
+        "multiSelect": true
+      },
+      "High Risk Last Pregnancy": {
+        "multiSelect": true
+      },
+      "High Risk This Pregnancy": {
+        "multiSelect": true
+      },
+
+      "Tuberculosis Intake Template": {
+        "computeDrugs": true,
+        "showPreviousButton": true
+      },
+      "Tuberculosis Followup Template": {
+        "showPreviousButton": true,
+        "computeDrugs": true
+      },
+      "Breast Cancer Intake Template": {
+        "computeDrugs": true,
+        "showPreviousButton": true
+      },
+      "Breast Cancer Followup Template": {
+        "computeDrugs": true,
+        "showPreviousButton": true
+      },
+      "Breast Cancer, TNM Pathologic Staging": {
+        "grid": true
+      },
+      "Breast Cancer, Axillary": {
+        "multiSelect": true
+      },
+      "Breast Cancer, Supra Clavicular": {
+        "multiSelect": true
+      },
+      "Breast Cancer, Infra Clavicular": {
+        "multiSelect": true
+      },
+      "Breast Cancer, Imaging Studies": {
+        "allowAddMore": true
+      },
+      "Breast Cancer, Treatment Planned": {
+        "multiSelect": true
+      },
+      "Breast Cancer, Breast Examination Details": {
+        "allowAddMore": true
+      },
+      "Breast Cancer, Lymph Nodes": {
+        "allowAddMore": true
+      },
+      "Breast Cancer, Chemotherapy Cycle number": {
+        "stepper": true
+      },
+      "Diabetes Intake Template": {
+        "computeDrugs": true,
+        "showPreviousButton": true
+      },
+      "Diabetes Followup Template": {
+        "computeDrugs": true
+      },
+      "Chief Complaint": {
+        "answersConceptName": "Chief Complaint Answers",
+        "codedConceptName":"Chief Complaint",
+        "nonCodedConceptName":"Non-Coded Chief Complaint",
+        "autocomplete": true,
+        "durationRequired": false,
+        "allowAddMore": true
+      },
+      "Haemoglobin Range": {
+        "answersConceptName": "Haemoglobin Range Set",
+        "buttonSelect": true,
+        "durationRequired": false
+      },
+      "Surgical Procedure": {
+        "codedConceptName":"Surgical Procedure",
+        "nonCodedConceptName":"Surgical Procedure Non Coded",
+        "answersConceptName": "Surgical Procedure Answers",
+        "autocomplete": true
+      },
+      "Ayushman Bharat Package Data": {
+        "codedConceptName":"Ayushman Bharat Package List",
+        "autocomplete": true
+      },
+      "Pain Study Intevention Data": {
+        "codedConceptName":"Pain Study Intevention List",
+        "autocomplete": true
+      },
+      "Pain Study Followup Date":{
+        "allowFutureDates": true
+      },
+      "Gynaecology, P/S (per speculum) - Cervix": {
+        "grid": true
+      },
+      "Gynaecology, P/V (per vaginal) - Uterus": {
+        "grid": true
+      },
+      "Diabetes, Current Status": {
+        "conciseText": true
+      },
+      "cervical, Investigations Done": {
+        "multiSelect": true
+      },
+      "Cervical, Complications": {
+        "multiSelect": true
+      },
+      "Cervical Cancer, Chemo": {
+        "multiSelect": true
+      },
+      "Image": {
+        "allowAddMore": true
+      },
+      "Diabetes, Complications": {
+        "multiSelect": true
+      },
+      "Diabetes, Complaint": {
+        "multiSelect": true
+      },
+      "Operative Note, Type of Surgery (Procedure based)": {
+        "required": true
+      },
+      "Operative Note, Type of Surgery (Time based)": {
+        "required": true
+      },
+      "Date of Surgery": {
+        "required": true
+      },
+      "Coded Operating Surgeon": {
+        "multiSelect": true
+      },
+      "Coded Operating Assistant Surgeon": {
+        "multiSelect": true
+      },
+      "Coded Operation Anesthetist": {
+        "multiSelect": true
+      },
+      "Scrub Nurse": {
+        "conciseText": true
+      },
+      "Incision": {
+        "conciseText": true
+      },
+      "Obstetrics, Fundal Height": {
+        "conciseText": true
+      },
+      "Obstetrics, Gravida": {
+        "stepper": true
+      },
+      "Obstetrics, Parity": {
+        "stepper": true
+      },
+      "Obstetrics, Live Births": {
+        "stepper": true
+      },
+      "Obstetrics, Abortion": {
+        "stepper": true
+      },
+      "Gynaecology, Gravida": {
+        "stepper": true
+      },
+      "Cancer, Regimen Type": {
+        "multiSelect": true
+      },
+      "Gynaecology, Parity": {
+        "stepper": true
+      },
+      "Gynaecology, Live Births": {
+        "stepper": true
+      },
+      "Gynaecology, Abortion": {
+        "stepper": true
+      },
+      "Operative Drains": {
+        "conciseText": true
+      },
+      "Anesthesia Administered": {
+        "multiSelect": true
+      },
+      "Tuberculosis, Symptoms": {
+        "allowAddMore": true,
+        "autocomplete": true
+      },
+      "Tuberculosis, Symptoms Duration": {
+        "allowAddMore": true
+      },
+      "Tuberculosis, X-Ray Findings": {
+        "grid": true
+      },
+      "Tuberculosis, Basis of Diagnosis": {
+        "multiSelect": true
+      },
+      "Tuberculosis, Adverse Effects": {
+        "multiSelect": true
+      },
+      "Tuberculosis, Family Member Name": {
+        "conciseText": true
+      },
+      "Tuberculosis, Under 5 Year Name": {
+        "conciseText": true
+      },
+      "Tuberculosis, Family Member Relation": {
+        "conciseText": true
+      },
+      "Tuberculosis, Sensitivity": {
+        "allowAddMore": true
+      },
+      "Tuberculosis, Contact Screening": {
+        "allowAddMore": true
+      },
+      "Tuberculosis, Under 5 Year Mantoux Screening": {
+        "allowAddMore": true
+      },
+      "Tuberculosis, Next Followup Visit": {
+        "allowFutureDates": true
+       },
+      "Psychiatry, Mania Complaints": {
+        "multiSelect": true
+      },
+      "Psychiatry, Depression Complaints": {
+        "multiSelect": true
+      },
+      "Psychiatry, Anxiety Complaints": {
+        "multiSelect": true
+      },
+      "Psychiatry, Psychosis Complaints": {
+        "multiSelect": true
+      },
+      "Psychiatry, Physical Complaints": {
+        "multiSelect": true
+      },
+      "Psychiatry, Substance Use": {
+        "allowAddMore": true
+      },
+      "Psychiatry, Substance amount consumed": {
+        "conciseText": true
+      },
+      "Psychiatry, Substance Use Drug Dependence Criteria": {
+        "multiSelect": true
+      },
+      "Psychiatry, Substance Use Complications": {
+        "multiSelect": true
+      },
+      "Psychiatry, Sexual History": {
+        "multiSelect": true
+      },
+      "Palliative Care Assessment, Complaints": {
+        "multiSelect": true
+      },
+      "Next follow up Date": {
+         "allowFutureDates": true
+      },
+      "Cancer Registration, Head and Neck": {
+        "multiSelect": true
+      },
+      "Cancer Registration, Gastro Intestinal": {
+        "multiSelect": true
+      },
+      "Cancer Registration, Genitourinary": {
+        "multiSelect": true
+      },
+      "Cancer Registration, Gynecology": {
+        "multiSelect": true
+      },
+      "Cancer Registration, Musculo skeletal": {
+        "multiSelect": true
+      },
+      "Cancer Registration, Skin": {
+        "multiSelect": true
+      },	
+      "Cancer Registration, Basis of Diagnosis": {
+        "multiSelect": true
+      },
+      "Cancer Registration, Co-morbid conditions": {
+        "multiSelect": true
+      },
+      "Cancer Registration, Addictions": {
+        "multiSelect": true
+      },
+      "RMRCT, Microbiology test requirement, Test": {
+	"required": true
+       },
+       "RMRCT, Microbiology test requirement, Type of Sample": {
+        "required": true
+       },
+      "RMRCT, Previsiosly treated with TB": {
+        "required": true
+       },
+       "RMRCT, Standardized History, Symptoms": {
+        "required": true
+       },
+      "RMRCT, Standardized History, How long have you been sick ?": {
+        "required": true
+       },
+       "RMRCT, Standardized History, Did you have other symptoms of lung diseases prior to this episode": {
+        "required": true
+       },
+      "RMRCT, Standardized History, Did you have X-ray Examination Prior to this episode ?": {
+        "required": true
+       },
+       "RMRCT, Standardized History, Did you ever take tuberculosis drugs for more than one month ?": {
+        "required": true
+       },
+      "RMRCT, Standardized History, Did you have Sputum examinations prior to this episode ?": {
+        "required": true
+      },
+      "RNTCP, Testing centre": {
+        "multiSelect": true,
+        "required": true
+      },
+      "ANC, Estimated Date of Delivery": {
+         "allowFutureDates": true
+      },
+      "Summary, Advice": {
+        "multiSelect": true
+      },
+      "Discharge Summary, Treating Doctor":{
+        "disableAddNotes": true,
+        "dropdown": true,
+        "required": true
+      },
+      "Discharge Summary, Emergency Care": {
+        "required": true
+      },
+      "Discharge Summary, Condition at the time of discharge": {
+        "required": true
+      },
+      "Discharge Summary, Urgent Care": {
+        "required": true
+      },
+      "Emergency Contact Person": {
+        "required": true
+      },
+      "Emergency Contact Number": {
+        "required": true
+      },
+      "Cause of seizure": {
+        "multiSelect": true
+      },
+      "Epilepsy, Type of disease": {
+        "multiSelect": true
+      },
+      "Date of next visit": {
+	      "allowFutureDates": true
+     },
+      "If No, what is the problem": {
+        "multiSelect": true
+      },
+      "Are there any medicine side effects": {
+        "multiSelect": true
+      },
+      "Medication": {
+        "multiSelect": true
+      },	  
+      "Referral reason": {
+        "multiSelect": true
+      },
+      "Dental Advice": {
+        "multiSelect": true
+      },
+      "Past Medical History": {
+        "multiSelect": true
+      },
+      "Past Dental History": {
+        "multiSelect": true
+      },
+      "Habits": {
+        "multiSelect": true
+      },
+      "Next follow up Date": {
+	      "allowFutureDates": true
+     },		
+      "Sickle Cell Disease, Complications": {
+        "multiSelect": true
+      },
+      "Habits": {
+        "multiSelect" : true
+      },
+      "If No, what is the problem": {
+				"multiSelect": true
+			},
+      "Are there any medicine side effects": {
+        "multiSelect": true
+      },
+      "Medicine": {
+        "multiSelect": true
+      },
+      "Past Medical History": {
+        "multiSelect": true
+      },
+      "Dental, Personal History": {
+        "multiSelect": true
+      },
+      "Dental Advice": {
+        "multiSelect": true
+      },
+      "Date of next visit": {
+        "allowFutureDates": true
+      }
+    }
+  }
+}

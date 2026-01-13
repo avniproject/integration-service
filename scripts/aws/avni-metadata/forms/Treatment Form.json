@@ -1,0 +1,1591 @@
+{
+  "name" : "Treatment Form",
+  "uuid" : "9c9ae2c3-4773-492d-9e86-6c7dafbcc0e9",
+  "formType" : "Encounter",
+  "formElementGroups" : [ {
+    "uuid" : "c16bf971-6af5-4b0d-be20-3168cdf248cd",
+    "name" : "Illness information",
+    "displayOrder" : 1.0,
+    "formElements" : [ {
+      "name" : "What is the health issue (Illness / Major symptoms)",
+      "uuid" : "3bbafc05-3561-4de3-8841-7df0d684ac2e",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "What is the health issue (Illness / Major symptoms)",
+        "uuid" : "696141f9-3bf2-434b-a00b-ac19d3303985",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Abdominal pain",
+          "uuid" : "31f2517b-3806-4461-b1a4-fb292782ecbe",
+          "dataType" : "Coded",
+          "answers" : [ {
+            "name" : "Very Severe",
+            "uuid" : "c8acb0fb-93a3-489f-97e3-e80af6a8f7ac",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 4.0,
+            "active" : true,
+            "keyValues" : [ ],
+            "media" : [ ]
+          }, {
+            "name" : "Severe",
+            "uuid" : "b45be430-84a2-4aac-b1b4-d06392b11516",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 3.0,
+            "active" : true,
+            "keyValues" : [ ],
+            "media" : [ ]
+          }, {
+            "name" : "No pain",
+            "uuid" : "04ba19f6-bdae-4ebf-9793-47841d8fde08",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 0.0,
+            "active" : true,
+            "keyValues" : [ ],
+            "media" : [ ]
+          }, {
+            "name" : "Mild",
+            "uuid" : "41c4edd9-4d03-4824-86e4-9431cae8a7fd",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 1.0,
+            "active" : true,
+            "keyValues" : [ ],
+            "media" : [ ]
+          }, {
+            "name" : "Moderate",
+            "uuid" : "a5183999-791a-4b60-8206-3168bae6e523",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 2.0,
+            "active" : true,
+            "keyValues" : [ ],
+            "media" : [ ]
+          } ],
+          "order" : 15.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/31f2517b-3806-4461-b1a4-fb292782ecbe.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "Worms",
+          "uuid" : "7e68904a-38e3-471f-a35c-e562a293518d",
+          "dataType" : "Numeric",
+          "answers" : [ ],
+          "order" : 22.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/7e68904a-38e3-471f-a35c-e562a293518d.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "Anaemia",
+          "uuid" : "52beb15d-bae3-4125-8a93-8401e26df818",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 23.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/52beb15d-bae3-4125-8a93-8401e26df818.png",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "Wound cleaning and Dressing",
+          "uuid" : "50045e20-1fb9-4a04-a684-2c8408caf1d4",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 25.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/50045e20-1fb9-4a04-a684-2c8408caf1d4.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "White discharge",
+          "uuid" : "b4f6f848-4e61-46ef-87c9-9571e7e34a9c",
+          "dataType" : "Numeric",
+          "answers" : [ ],
+          "order" : 21.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/b4f6f848-4e61-46ef-87c9-9571e7e34a9c.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "Cold",
+          "uuid" : "800cf30b-fd86-4038-b3fa-1ba73719b8a9",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/800cf30b-fd86-4038-b3fa-1ba73719b8a9.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "Rash/Urticaria (Choti mata)",
+          "uuid" : "ec570fbd-8adf-4b65-bf9c-02654f8987e1",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 7.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/ec570fbd-8adf-4b65-bf9c-02654f8987e1.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "Scabies",
+          "uuid" : "86f4a490-17ea-42cb-9036-5012d12149c8",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/86f4a490-17ea-42cb-9036-5012d12149c8.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "Diarrhoea",
+          "uuid" : "d4b0f920-e3d4-4ae5-9339-6d466f409c9b",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 10.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/d4b0f920-e3d4-4ae5-9339-6d466f409c9b.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "Vomiting",
+          "uuid" : "9ad19f3b-3a8c-4e7e-81d8-12f796763291",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 16.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/9ad19f3b-3a8c-4e7e-81d8-12f796763291.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "Fungle infection (Daad)",
+          "uuid" : "6997290d-47c2-4bae-af83-b83b6e04e5ed",
+          "dataType" : "Numeric",
+          "answers" : [ ],
+          "order" : 6.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/6997290d-47c2-4bae-af83-b83b6e04e5ed.png",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "Otitis media",
+          "uuid" : "5e4a484c-89fe-41c9-b92d-e9d98db9b4b5",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 9.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/5e4a484c-89fe-41c9-b92d-e9d98db9b4b5.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "Backache",
+          "uuid" : "f56bf6eb-ca9d-4e32-bcbf-d54f5e7e2826",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 14.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/f56bf6eb-ca9d-4e32-bcbf-d54f5e7e2826.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "Cough",
+          "uuid" : "6faa04f7-fa23-4a7d-9b0c-e901ca752b23",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/6faa04f7-fa23-4a7d-9b0c-e901ca752b23.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "Cough (Dry)",
+          "uuid" : "533f38e3-6c4e-4d23-8562-0088f893be03",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 8.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/533f38e3-6c4e-4d23-8562-0088f893be03.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "Dysentry",
+          "uuid" : "971fbe65-053e-45d7-b0ff-0c18e46c26b5",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 11.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/971fbe65-053e-45d7-b0ff-0c18e46c26b5.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "Pneumonia",
+          "uuid" : "a5564d9b-6f34-49ba-b4c1-5c8e0260bb86",
+          "dataType" : "Numeric",
+          "answers" : [ ],
+          "order" : 17.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/a5564d9b-6f34-49ba-b4c1-5c8e0260bb86.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "Heavy menstruation",
+          "uuid" : "05f206a3-f1b7-4d3e-a6b1-ae4ffd90da4f",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 19.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/05f206a3-f1b7-4d3e-a6b1-ae4ffd90da4f.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "Fever",
+          "uuid" : "232ae0c9-533f-48cf-8439-79aa03e23e6b",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/232ae0c9-533f-48cf-8439-79aa03e23e6b.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "Other",
+          "uuid" : "798b7942-cf58-4d4e-a529-5972942e0a7e",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 28.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Hand and leg pain",
+          "uuid" : "a625f8ca-6861-4cd3-b2a7-cd3d76c3ef13",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 13.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/a625f8ca-6861-4cd3-b2a7-cd3d76c3ef13.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "Counselling",
+          "uuid" : "0ac30adc-5107-4e30-9b8a-c3ef65904cf5",
+          "dataType" : "Coded",
+          "answers" : [ {
+            "name" : "No",
+            "uuid" : "f88da2e8-6ab4-44b5-b762-233485cd25f9",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 2.0,
+            "active" : true,
+            "media" : [ ]
+          }, {
+            "name" : "Yes",
+            "uuid" : "57e20de7-10de-4391-b7ce-87b2f40d19a2",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 1.0,
+            "active" : true,
+            "media" : [ ]
+          } ],
+          "order" : 26.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/0ac30adc-5107-4e30-9b8a-c3ef65904cf5.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "Ear Pain",
+          "uuid" : "6513dd49-fd7e-4da5-8fbc-2dba4929b720",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 27.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/6513dd49-fd7e-4da5-8fbc-2dba4929b720.png",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "Conjunctivitis",
+          "uuid" : "038cb9f7-121b-43d2-aab7-98da956f397d",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 12.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/038cb9f7-121b-43d2-aab7-98da956f397d.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "Malaria",
+          "uuid" : "e7516c53-9d56-4ff7-be86-18b6f4927523",
+          "dataType" : "Numeric",
+          "answers" : [ ],
+          "order" : 18.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/e7516c53-9d56-4ff7-be86-18b6f4927523.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "Vitamin A Def",
+          "uuid" : "653cc206-a8bf-471c-bf9f-1e490ae765ce",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 24.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/653cc206-a8bf-471c-bf9f-1e490ae765ce.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "Mouth Ulcer",
+          "uuid" : "93aac4a4-3806-4b95-a53f-5a55537f996e",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/93aac4a4-3806-4b95-a53f-5a55537f996e.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "Lower abdominal pain",
+          "uuid" : "f5c36c2c-b6ea-4454-be22-f9f24e99a9ae",
+          "dataType" : "Numeric",
+          "answers" : [ ],
+          "order" : 20.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/f5c36c2c-b6ea-4454-be22-f9f24e99a9ae.jpg",
+            "type" : "Image"
+          } ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "MultiSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Other health issue, please specify",
+      "uuid" : "21b27b37-089f-46c1-b51f-f34adaa1ba64",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Other health issue, please specify",
+        "uuid" : "ca06eb35-81bc-4df9-a7b6-9f60221079a0",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({encounter, formElement}).when.valueInEncounter(\"696141f9-3bf2-434b-a00b-ac19d3303985\").containsAnswerConceptName(\"798b7942-cf58-4d4e-a529-5972942e0a7e\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "What is the health issue (Illness / Major symptoms)",
+                "conceptUuid" : "696141f9-3bf2-434b-a00b-ac19d3303985",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Other" ],
+                "answerConceptUuids" : [ "798b7942-cf58-4d4e-a529-5972942e0a7e" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ]
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    }, {
+      "name" : "Lab Investigations",
+      "uuid" : "d162698d-cea0-40a4-af3d-da87ea98cb1d",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Lab Investigations",
+        "uuid" : "a0b2a0bd-7718-4d12-9f12-435ac67214ce",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Malaria slide",
+          "uuid" : "85fe703e-1ca1-4729-880b-6d4baf57d880",
+          "dataType" : "Numeric",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Malaria Slide",
+          "uuid" : "580f7810-fe5b-4877-aa46-bc175c943f21",
+          "dataType" : "Coded",
+          "answers" : [ {
+            "name" : "Malaria slide prepared",
+            "uuid" : "82e7a2dc-6444-4584-8ed3-13988e2e70de",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 0.0,
+            "active" : true,
+            "media" : [ ]
+          }, {
+            "name" : "Malaria slide not prepared",
+            "uuid" : "da25c23c-6eeb-4621-afd3-75d6688f1c60",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 1.0,
+            "active" : true,
+            "media" : [ ]
+          } ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Malaria RDK",
+          "uuid" : "0c9919e1-110b-438b-86be-69774878cdb0",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Other",
+          "uuid" : "798b7942-cf58-4d4e-a529-5972942e0a7e",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 9.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "malaria slide",
+          "uuid" : "7e76b240-c174-439c-b74e-26b8960a8efb",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "TB slide prepared",
+          "uuid" : "8560bf4d-1239-42cc-ac81-4b197b8c0659",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 6.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "TB slide",
+          "uuid" : "121e49ab-b71d-4af6-ba93-94572a1549e4",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 7.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "UPT",
+          "uuid" : "cc2b4f4f-0069-4a22-8500-08349566aee8",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Not Needed",
+          "uuid" : "52aea3ae-ea02-4182-bb0b-058d83289325",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 8.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "None",
+          "uuid" : "8b77f487-c885-4b54-8925-153733913b10",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "unique" : true,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 3.0,
+      "type" : "MultiSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Other Lab Investigations, please specify",
+      "uuid" : "55d59395-c175-4c11-8a5b-011e060521ff",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Other Lab Investigations, please specify",
+        "uuid" : "fea12c03-b66b-4bd8-bbfd-902b1ad676d6",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({encounter, formElement}).when.valueInEncounter(\"a0b2a0bd-7718-4d12-9f12-435ac67214ce\").containsAnswerConceptName(\"798b7942-cf58-4d4e-a529-5972942e0a7e\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Lab Investigations",
+                "conceptUuid" : "a0b2a0bd-7718-4d12-9f12-435ac67214ce",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Other" ],
+                "answerConceptUuids" : [ "798b7942-cf58-4d4e-a529-5972942e0a7e" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ]
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    }, {
+      "name" : "UPT",
+      "uuid" : "0da83934-2470-4e4f-a251-fcd87d74b71a",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Upt",
+        "uuid" : "73c35532-59e1-4585-b57f-6c42f1dcceb7",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Positive",
+          "uuid" : "6f6458f7-ce0b-46c2-bd03-0fa30943d75d",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Negative",
+          "uuid" : "0fe2ae63-332a-40bf-82c7-371ef7b66494",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 5.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({encounter, formElement}).when.valueInEncounter(\"a0b2a0bd-7718-4d12-9f12-435ac67214ce\").containsAnswerConceptName(\"cc2b4f4f-0069-4a22-8500-08349566aee8\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Lab Investigations",
+                "conceptUuid" : "a0b2a0bd-7718-4d12-9f12-435ac67214ce",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "UPT" ],
+                "answerConceptUuids" : [ "cc2b4f4f-0069-4a22-8500-08349566aee8" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ]
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    }, {
+      "name" : "Malaria slide",
+      "uuid" : "d30167b8-6cc8-4ef8-8877-00b877c9b13b",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Malaria Slide",
+        "uuid" : "580f7810-fe5b-4877-aa46-bc175c943f21",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Malaria slide prepared",
+          "uuid" : "82e7a2dc-6444-4584-8ed3-13988e2e70de",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Malaria slide not prepared",
+          "uuid" : "da25c23c-6eeb-4621-afd3-75d6688f1c60",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 6.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({encounter, formElement}).when.valueInEncounter(\"a0b2a0bd-7718-4d12-9f12-435ac67214ce\").containsAnswerConceptName(\"7e76b240-c174-439c-b74e-26b8960a8efb\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Lab Investigations",
+                "conceptUuid" : "a0b2a0bd-7718-4d12-9f12-435ac67214ce",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "malaria slide" ],
+                "answerConceptUuids" : [ "7e76b240-c174-439c-b74e-26b8960a8efb" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ]
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    }, {
+      "name" : "Malaria RDK",
+      "uuid" : "3eca6f7c-6cd7-47c7-ade5-e862f673ce48",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Malaria rdk",
+        "uuid" : "336aa9cb-ce51-4453-a90c-a1bf50bffcca",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Negative",
+          "uuid" : "0fe2ae63-332a-40bf-82c7-371ef7b66494",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "PV",
+          "uuid" : "a3ca75ef-2013-4875-b108-e1b1b3fe58d7",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Both",
+          "uuid" : "ee256131-d01e-45ab-a5c4-7fe879be8b93",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        }, {
+          "name" : "PF",
+          "uuid" : "8bd7b149-4276-4be8-ab49-6e7f3a4d9d38",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 7.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({encounter, formElement}).when.valueInEncounter(\"a0b2a0bd-7718-4d12-9f12-435ac67214ce\").containsAnswerConceptName(\"0c9919e1-110b-438b-86be-69774878cdb0\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Lab Investigations",
+                "conceptUuid" : "a0b2a0bd-7718-4d12-9f12-435ac67214ce",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Malaria RDK" ],
+                "answerConceptUuids" : [ "0c9919e1-110b-438b-86be-69774878cdb0" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ]
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    } ],
+    "display" : "Illness information",
+    "timed" : false
+  }, {
+    "uuid" : "d4e5794d-70c4-4d42-95f9-83dc0e771e54",
+    "name" : "Treatment",
+    "displayOrder" : 2.0,
+    "formElements" : [ {
+      "name" : "Treatment",
+      "uuid" : "473394af-926a-46f8-b9b7-0d87721a2ac5",
+      "keyValues" : [ {
+        "key" : "repeatable",
+        "value" : true
+      } ],
+      "concept" : {
+        "name" : "Treatment",
+        "uuid" : "6f2ffe10-0f9a-4966-85de-1577fecb5d35",
+        "dataType" : "QuestionGroup",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Medicine",
+      "uuid" : "a6f5c628-1c9a-45de-8d3b-148456d051ae",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Medicine",
+        "uuid" : "be8e652e-fc6b-45e9-8110-0c6367785465",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "B-Complex",
+          "uuid" : "fcb8780c-4d3e-4888-84dc-2e2e13b91505",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 17.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Iron",
+          "uuid" : "380bdf8f-6848-4669-ae4a-89a349c4876b",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 9.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Dicyclomine",
+          "uuid" : "79c228fd-2afc-4c20-b4e6-9e7d1e7d0c2b",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 15.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Triphala churn",
+          "uuid" : "30c66124-625f-4c09-8d5a-db3a4d9574b7",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 29.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Gentamycin eye drop",
+          "uuid" : "6acc553e-d722-47c6-b2ea-f5f0d396e77e",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 25.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Kumalhar tablet",
+          "uuid" : "7cb771be-984f-4272-ba02-a694e16c25ee",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 30.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Promethazine",
+          "uuid" : "3b39b074-39d9-4d8e-b96f-5fcabab2a395",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 23.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "ORS packet",
+          "uuid" : "dd7847a7-c83a-414b-9746-60d1ccb675ed",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 13.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Metoclopramide",
+          "uuid" : "1d350e25-d9cd-4044-bf65-9f7ce1dba834",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 24.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Calcium Tablet",
+          "uuid" : "46a6c824-829f-47e5-8d47-552ac9d50215",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 34.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Tanu churn",
+          "uuid" : "dfd9b936-c40c-46ac-a79d-17ccb18ad543",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 28.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Gentian violet",
+          "uuid" : "8461df37-23aa-4f93-aba9-ab4776575c1c",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 18.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Mala-D",
+          "uuid" : "1ca0b6b3-414e-4b07-b009-02731e835c80",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 20.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Amoxycilin 500mg",
+          "uuid" : "2e5c6f25-2e16-4e8b-820c-7553641ca33b",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 33.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Ciprofloxacin",
+          "uuid" : "400aa442-eb66-4f29-a260-d0c4eec61342",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 19.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Albendazole",
+          "uuid" : "00f054e6-5686-41bc-9bb8-f134c8ca5979",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 16.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Chlorpheniramine (CPM)",
+          "uuid" : "bdee79e1-0b53-4482-86de-959ce126d6c4",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 12.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Cough Syrup",
+          "uuid" : "d6675c42-a4b8-4ce9-88b5-23c374fbcbee",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 21.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Lindane lotion",
+          "uuid" : "2ece65a4-6e78-4955-925a-b128dd662e1c",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 7.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Chloroquine (tablet)",
+          "uuid" : "05b7d836-4fb4-4bad-80ba-0d23f3f6c061",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "No treatment given",
+          "uuid" : "e1bdb6b5-4656-4355-8459-d9723999eeae",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 31.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Paracetamol (Syp)",
+          "uuid" : "6c95021f-5cd6-40d7-bfa7-424e87845ea3",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Chloroquine (syrup)",
+          "uuid" : "4696f8f2-2823-4f16-8881-38bb751c0f8c",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Vyghri Haritaki Avleha",
+          "uuid" : "bbc9a1f7-1067-4066-b603-e178388189f4",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 26.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Furazolidin",
+          "uuid" : "df288046-2e8c-4d19-b628-d68d3cddd251",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 10.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "No treatment needed",
+          "uuid" : "06b96d97-7ac7-4e0d-9569-994379a20704",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 32.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Becadexamine",
+          "uuid" : "efb0dc46-8eb3-4623-86f4-ae0d4150d8f5",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 11.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Clotrimazole cream",
+          "uuid" : "8279e63d-e883-4090-87bf-e6bef152a80b",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 22.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Other",
+          "uuid" : "798b7942-cf58-4d4e-a529-5972942e0a7e",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 35.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Vitamin A (2 Lacs)",
+          "uuid" : "4525425c-da61-40cf-94c1-aaeefdee02bf",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 6.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Amoxicillin (125mg)",
+          "uuid" : "c4c0ef3a-c487-4157-ab83-21c020bdaea4",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Saral churn",
+          "uuid" : "c700e9ab-3fcd-4e04-ba72-010d6d388cc5",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 27.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Metronidazole",
+          "uuid" : "84ab14fa-30e8-4cbe-b7b9-b392dc69fdf1",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 14.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Cotrimox",
+          "uuid" : "ef7b5bd7-952c-41f3-b756-fab7f28b7261",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 8.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Paracetamol (tablet)",
+          "uuid" : "1b33a266-86af-4f71-9538-3ef82169f5d5",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "keyValues" : [ ],
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "parentFormElementUuid" : "473394af-926a-46f8-b9b7-0d87721a2ac5",
+      "mandatory" : true
+    }, {
+      "name" : "Dosage",
+      "uuid" : "d3483a00-9b06-4046-a3da-898a6a68d4d0",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Dosage",
+        "uuid" : "7ba19370-2a1f-4b95-a922-e020dcec99dd",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Equal to Ber fruit",
+          "uuid" : "83a91bab-e98a-497a-8ba0-f6651764866e",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 23.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "11 / 2 Tablet",
+          "uuid" : "a37d28c7-658e-4467-9c01-e68d6af4e3dd",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 9.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "3 Tablets",
+          "uuid" : "b1939098-7435-42d3-b87f-a90a9d3cacd0",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 12.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Mix in 1 litre water",
+          "uuid" : "9cdb3cf6-95fe-470e-aa0c-995d0b22d504",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 17.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "4 Tablets",
+          "uuid" : "eaa14d5f-9e2c-4014-9cfe-eb86d486b6a1",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 13.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Half teaspoon",
+          "uuid" : "6efea829-42de-4e24-a53e-8a54ec521880",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 18.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "2 Tablet",
+          "uuid" : "5e32951c-471b-4aca-b6d2-52735a4937d2",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 10.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "1/2 Tablet",
+          "uuid" : "d54384d1-6e1c-45a0-9430-c18acbe39360",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 7.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "5 ml",
+          "uuid" : "3ce87d3b-5315-4459-9404-94eb4525ee41",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "7.5 ml",
+          "uuid" : "81e04309-1ad8-4d81-af68-e6a10b2f9fff",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "12.5 ml",
+          "uuid" : "b74d1268-3631-4bc7-83c8-81f2893095f4",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "1 teaspoon",
+          "uuid" : "afb9a8c1-fa47-4909-887e-63d019bf0ebe",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 19.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "1 Capsule",
+          "uuid" : "e015beae-b654-4132-8c04-e51f3409c1fc",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 14.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "2 Capsules",
+          "uuid" : "d18f0c4b-1af2-4d81-b9d3-83832e6b8534",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 15.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "21/2 Tablet",
+          "uuid" : "56a83407-db2f-4547-9e9e-ba9385a31125",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 11.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Equal to peanut",
+          "uuid" : "35d7b081-a3c6-4c95-b0c2-e8ee7c63e617",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 20.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "1-2 Drops",
+          "uuid" : "19325bfa-c50f-46ab-a4ed-d935fba34126",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 24.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "12 ml",
+          "uuid" : "da67279b-4c38-4b28-ad37-6b640383f2fa",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Equal to big peanut",
+          "uuid" : "7c4335f0-3685-45a0-a8d6-96e4bec5dd33",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 21.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Equal to seed of Ber fruit",
+          "uuid" : "2ac732dd-96df-41c6-ab85-87ea7fea3cf0",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 22.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "1/3 Tablet",
+          "uuid" : "36ecd8fe-cd8d-4b58-80b9-fe56990cdef2",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 6.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "2.5 ml",
+          "uuid" : "90a29189-f981-4692-9821-34bcfa3a4665",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Local Application",
+          "uuid" : "f63f891c-44a0-4df4-ae5e-35e0f4629462",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 16.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "1 Tablet",
+          "uuid" : "1192899c-dce3-4461-b4e5-f3ed873df274",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 8.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "keyValues" : [ ],
+        "media" : [ ]
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({encounter, formElement}).when.questionGroupValueInEncounter(\"be8e652e-fc6b-45e9-8110-0c6367785465\", \"6f2ffe10-0f9a-4966-85de-1577fecb5d35\", params.questionGroupIndex).containsAnswerConceptName(\"e1bdb6b5-4656-4355-8459-d9723999eeae\").matches();\n  \n  const condition21 = new imports.rulesConfig.RuleCondition({encounter, formElement}).when.questionGroupValueInEncounter(\"be8e652e-fc6b-45e9-8110-0c6367785465\", \"6f2ffe10-0f9a-4966-85de-1577fecb5d35\", params.questionGroupIndex).containsAnswerConceptName(\"06b96d97-7ac7-4e0d-9569-994379a20704\").matches();\n  \n  visibility = !(condition11 || condition21 );\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "hideFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "conjunction" : "or",
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "questionGroupEncounter",
+                "conceptName" : "Medicine",
+                "conceptUuid" : "be8e652e-fc6b-45e9-8110-0c6367785465",
+                "conceptDataType" : "Coded",
+                "parentConceptUuid" : "6f2ffe10-0f9a-4966-85de-1577fecb5d35"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "No treatment given" ],
+                "answerConceptUuids" : [ "e1bdb6b5-4656-4355-8459-d9723999eeae" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "or"
+          }
+        }, {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "questionGroupEncounter",
+                "conceptName" : "Medicine",
+                "conceptUuid" : "be8e652e-fc6b-45e9-8110-0c6367785465",
+                "conceptDataType" : "Coded",
+                "parentConceptUuid" : "6f2ffe10-0f9a-4966-85de-1577fecb5d35"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "No treatment needed" ],
+                "answerConceptUuids" : [ "06b96d97-7ac7-4e0d-9569-994379a20704" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ]
+          }
+        } ]
+      } ],
+      "parentFormElementUuid" : "473394af-926a-46f8-b9b7-0d87721a2ac5",
+      "mandatory" : true
+    }, {
+      "name" : "How many times a day",
+      "uuid" : "b1e8a980-bfa6-453d-bee8-e48248361041",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "How many times a day",
+        "uuid" : "d81bcea8-471c-4a2d-a56c-309b04c329e2",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Multiple Times in a day",
+          "uuid" : "d7a2727e-8899-4d7e-a900-252e602b8444",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "One Time",
+          "uuid" : "793804ca-5bc7-4076-ac47-454d0f813f32",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Three Times",
+          "uuid" : "8d15f926-70e6-45d2-90c9-a5b375654219",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Four Times",
+          "uuid" : "0f23eea9-0afc-496c-b298-b03b671e3781",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Two Times",
+          "uuid" : "d8b79c7e-8f20-42be-b969-d1f36a724ead",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({encounter, formElement}).when.questionGroupValueInEncounter(\"be8e652e-fc6b-45e9-8110-0c6367785465\", \"6f2ffe10-0f9a-4966-85de-1577fecb5d35\", params.questionGroupIndex).containsAnswerConceptName(\"e1bdb6b5-4656-4355-8459-d9723999eeae\").matches();\n  \n  const condition21 = new imports.rulesConfig.RuleCondition({encounter, formElement}).when.questionGroupValueInEncounter(\"be8e652e-fc6b-45e9-8110-0c6367785465\", \"6f2ffe10-0f9a-4966-85de-1577fecb5d35\", params.questionGroupIndex).containsAnswerConceptName(\"06b96d97-7ac7-4e0d-9569-994379a20704\").matches();\n  \n  visibility = !(condition11 || condition21 );\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "hideFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "conjunction" : "or",
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "questionGroupEncounter",
+                "conceptName" : "Medicine",
+                "conceptUuid" : "be8e652e-fc6b-45e9-8110-0c6367785465",
+                "conceptDataType" : "Coded",
+                "parentConceptUuid" : "6f2ffe10-0f9a-4966-85de-1577fecb5d35"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "No treatment given" ],
+                "answerConceptUuids" : [ "e1bdb6b5-4656-4355-8459-d9723999eeae" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        }, {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "questionGroupEncounter",
+                "conceptName" : "Medicine",
+                "conceptUuid" : "be8e652e-fc6b-45e9-8110-0c6367785465",
+                "conceptDataType" : "Coded",
+                "parentConceptUuid" : "6f2ffe10-0f9a-4966-85de-1577fecb5d35"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "No treatment needed" ],
+                "answerConceptUuids" : [ "06b96d97-7ac7-4e0d-9569-994379a20704" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ]
+          }
+        } ]
+      } ],
+      "parentFormElementUuid" : "473394af-926a-46f8-b9b7-0d87721a2ac5",
+      "mandatory" : true
+    }, {
+      "name" : "For how many days?",
+      "uuid" : "5f11f724-4c15-4e4b-9911-ffbc5339073a",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "For how many days?",
+        "uuid" : "02889887-6ec3-4f1c-88a7-ca2872593ab0",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "lowAbsolute" : 0.0,
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 5.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({encounter, formElement}).when.questionGroupValueInEncounter(\"be8e652e-fc6b-45e9-8110-0c6367785465\", \"6f2ffe10-0f9a-4966-85de-1577fecb5d35\", params.questionGroupIndex).containsAnswerConceptName(\"e1bdb6b5-4656-4355-8459-d9723999eeae\").matches();\n  \n  const condition21 = new imports.rulesConfig.RuleCondition({encounter, formElement}).when.questionGroupValueInEncounter(\"be8e652e-fc6b-45e9-8110-0c6367785465\", \"6f2ffe10-0f9a-4966-85de-1577fecb5d35\", params.questionGroupIndex).containsAnswerConceptName(\"06b96d97-7ac7-4e0d-9569-994379a20704\").matches();\n  \n  visibility = !(condition11 || condition21 );\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "hideFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "conjunction" : "or",
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "questionGroupEncounter",
+                "conceptName" : "Medicine",
+                "conceptUuid" : "be8e652e-fc6b-45e9-8110-0c6367785465",
+                "conceptDataType" : "Coded",
+                "parentConceptUuid" : "6f2ffe10-0f9a-4966-85de-1577fecb5d35"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "No treatment given" ],
+                "answerConceptUuids" : [ "e1bdb6b5-4656-4355-8459-d9723999eeae" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        }, {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "questionGroupEncounter",
+                "conceptName" : "Medicine",
+                "conceptUuid" : "be8e652e-fc6b-45e9-8110-0c6367785465",
+                "conceptDataType" : "Coded",
+                "parentConceptUuid" : "6f2ffe10-0f9a-4966-85de-1577fecb5d35"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "No treatment needed" ],
+                "answerConceptUuids" : [ "06b96d97-7ac7-4e0d-9569-994379a20704" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ]
+          }
+        } ]
+      } ],
+      "parentFormElementUuid" : "473394af-926a-46f8-b9b7-0d87721a2ac5",
+      "mandatory" : true
+    }, {
+      "name" : "Is referral required ?",
+      "uuid" : "ea2f0a4f-2066-4109-8729-3123abd7b3dc",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Is referral required ?",
+        "uuid" : "871be6c0-2377-4ec6-add9-8b49d6dc9274",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Yes",
+          "uuid" : "57e20de7-10de-4391-b7ce-87b2f40d19a2",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "No",
+          "uuid" : "f88da2e8-6ab4-44b5-b762-233485cd25f9",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 6.0,
+      "type" : "SingleSelect",
+      "voided" : true,
+      "mandatory" : true
+    } ],
+    "display" : "Treatment",
+    "timed" : false
+  }, {
+    "uuid" : "eb580edf-f0a0-4352-9f46-0c9d3de43b28",
+    "name" : "Referral",
+    "displayOrder" : 3.0,
+    "formElements" : [ {
+      "name" : "Is referral required ?",
+      "uuid" : "70360daf-9cff-40f7-b866-5ca59957fb4f",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Is referral required ?",
+        "uuid" : "871be6c0-2377-4ec6-add9-8b49d6dc9274",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Yes",
+          "uuid" : "57e20de7-10de-4391-b7ce-87b2f40d19a2",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "No",
+          "uuid" : "f88da2e8-6ab4-44b5-b762-233485cd25f9",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    } ],
+    "display" : "Referral",
+    "timed" : false
+  } ],
+  "decisionRule" : "",
+  "visitScheduleRule" : "\"use strict\";\n({ params, imports }) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({encounter});\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({encounter}).when.valueInEncounter(\"871be6c0-2377-4ec6-add9-8b49d6dc9274\").containsAnswerConceptName(\"57e20de7-10de-4391-b7ce-87b2f40d19a2\").matches();\n\n  if(condition11 ){\n    const earliestDate = moment(encounter.encounterDateTime).add(0, 'days').toDate();\n    const maxDate = moment(encounter.encounterDateTime).add(15, 'days').toDate();\n    scheduleBuilder.add({name: \"Referral Communication from VHW\", encounterType: \"Referral Communication from VHW\", earliestDate, maxDate});  \n}\n  \n  return scheduleBuilder.getAll();\n};",
+  "validationRule" : "",
+  "checklistsRule" : "",
+  "decisionConcepts" : [ ]
+}

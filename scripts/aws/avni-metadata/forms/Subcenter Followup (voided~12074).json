@@ -1,0 +1,584 @@
+{
+  "name" : "Subcenter Followup (voided~12074)",
+  "uuid" : "c8fc952d-6f7f-4c0a-8c4b-bc272fb6db66",
+  "formType" : "Encounter",
+  "formElementGroups" : [ {
+    "uuid" : "da6bcb70-dcca-429b-888a-bf37c5e45980",
+    "name" : "Details",
+    "displayOrder" : 1.0,
+    "formElements" : [ {
+      "name" : "What was the reason for followup",
+      "uuid" : "12a753bc-b811-446f-8f13-f56e4524d44b",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "What was the reason for followup",
+        "uuid" : "1f6fc60a-fef4-4235-9bd7-1696ce6bebf9",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "What was the reason for followup",
+      "uuid" : "8e8e8ed0-caf6-4bf7-a828-496f68ac83fe",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "What was the reason for Followup",
+        "uuid" : "f1605d2e-a04d-4b47-ab3c-45ce5f0720fe",
+        "dataType" : "Audio",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "rule" : "",
+      "mandatory" : false
+    }, {
+      "name" : "Follow up done?",
+      "uuid" : "04ea6723-ca6a-45a1-8ca1-5c98aea4aae4",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Follow up done?",
+        "uuid" : "c29d9dd7-353d-4fd2-8696-3fa15367e4b4",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "No",
+          "uuid" : "f88da2e8-6ab4-44b5-b762-233485cd25f9",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Yes",
+          "uuid" : "57e20de7-10de-4391-b7ce-87b2f40d19a2",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Why is the follow-up not done?",
+      "uuid" : "749e1313-54ce-4c42-93dd-49a667104f54",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Why is the follow-up not done?",
+        "uuid" : "8e375877-905c-4fca-8f5f-0c75cd022870",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Other",
+          "uuid" : "798b7942-cf58-4d4e-a529-5972942e0a7e",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Patient not available",
+          "uuid" : "ef8806ad-7b99-44b5-9856-0808402263d9",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({encounter, formElement}).when.valueInEncounter(\"c29d9dd7-353d-4fd2-8696-3fa15367e4b4\").containsAnswerConceptName(\"f88da2e8-6ab4-44b5-b762-233485cd25f9\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Follow up done?",
+                "conceptUuid" : "c29d9dd7-353d-4fd2-8696-3fa15367e4b4",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "No" ],
+                "answerConceptUuids" : [ "f88da2e8-6ab4-44b5-b762-233485cd25f9" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ]
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    }, {
+      "name" : "Other",
+      "uuid" : "8a6f4e26-000b-455a-8adc-c04a0cade90f",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Follow up not done reason",
+        "uuid" : "47fa9c34-ac25-4887-a823-6d8ac4d57540",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 5.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({encounter, formElement}).when.valueInEncounter(\"8e375877-905c-4fca-8f5f-0c75cd022870\").containsAnswerConceptName(\"798b7942-cf58-4d4e-a529-5972942e0a7e\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Why is the follow-up not done?",
+                "conceptUuid" : "8e375877-905c-4fca-8f5f-0c75cd022870",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Other" ],
+                "answerConceptUuids" : [ "798b7942-cf58-4d4e-a529-5972942e0a7e" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ]
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    }, {
+      "name" : "Follow up for?",
+      "uuid" : "195a3ff2-a16d-40d4-8274-e94ade03d47e",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Follow up for?",
+        "uuid" : "b14fde1b-4d91-4b20-add9-351c54c8f4fa",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Need counselling",
+          "uuid" : "ac1a198a-a7fe-435b-8af2-792f9e078f74",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Other",
+          "uuid" : "798b7942-cf58-4d4e-a529-5972942e0a7e",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Bedridden patient",
+          "uuid" : "e66f2c3c-777b-4069-a14f-088670567300",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 6.0,
+      "type" : "SingleSelect",
+      "voided" : true,
+      "mandatory" : true
+    }, {
+      "name" : "Other reason of follow up, please specify",
+      "uuid" : "dd2ab818-6e11-4d56-9931-75334d19383b",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Other reason of follow up, please specify",
+        "uuid" : "ca396ed7-9f94-47d7-a23c-9faa2b246c5a",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 7.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({encounter, formElement}).when.valueInEncounter(\"b14fde1b-4d91-4b20-add9-351c54c8f4fa\").containsAnswerConceptName(\"798b7942-cf58-4d4e-a529-5972942e0a7e\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Follow up for?",
+                "conceptUuid" : "b14fde1b-4d91-4b20-add9-351c54c8f4fa",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Other" ],
+                "answerConceptUuids" : [ "798b7942-cf58-4d4e-a529-5972942e0a7e" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ]
+          }
+        } ]
+      } ],
+      "voided" : true,
+      "mandatory" : true
+    }, {
+      "name" : "Details of follow up",
+      "uuid" : "cd8aa0af-97cb-4fb8-9103-764a10577721",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Details of follow up",
+        "uuid" : "cc2c1de3-92b3-4dec-95ec-8625ffc86463",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 8.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Need to refer further?",
+      "uuid" : "731b18fd-6551-4774-8cf9-2c1786d0f70d",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Need to refer further?",
+        "uuid" : "d18075fb-f382-4595-840f-920a1d39fd45",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Yes",
+          "uuid" : "57e20de7-10de-4391-b7ce-87b2f40d19a2",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "No",
+          "uuid" : "f88da2e8-6ab4-44b5-b762-233485cd25f9",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 9.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Place of referral",
+      "uuid" : "63a5f762-e61a-4512-b230-d0a3a6923899",
+      "keyValues" : [ {
+        "key" : "ExcludedAnswers",
+        "value" : [ "MCHW", "VHW" ]
+      } ],
+      "concept" : {
+        "name" : "Place of Referral",
+        "uuid" : "c7b12d50-0a60-444a-a3cc-3dc13a2fb04e",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "MCHW",
+          "uuid" : "c1b3ea40-291f-49e7-893f-43565a477386",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 6.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Subcenter (SHW OPD)",
+          "uuid" : "64c1b238-e800-4581-8785-2d1897d0dd2e",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/64c1b238-e800-4581-8785-2d1897d0dd2e.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "Subcenter (Mobile Clinic)",
+          "uuid" : "22164309-c2d2-4a2b-9dee-5d9b5a205830",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/22164309-c2d2-4a2b-9dee-5d9b5a205830.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "MCHW (Home visit)",
+          "uuid" : "08e9df58-f7e5-4239-8970-5ff18200007f",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 8.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Ganiyari Hospital",
+          "uuid" : "e9a08867-baca-43ea-85ac-34c06811190b",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/e9a08867-baca-43ea-85ac-34c06811190b.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "Cluster Coordinator",
+          "uuid" : "c21d00ba-91cd-404e-973d-f25246b15673",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 12.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "SHW",
+          "uuid" : "7ac0d9a2-ff82-41e6-9f38-134904d476f9",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "VHW",
+          "uuid" : "355143bf-b812-4ec8-93e6-6795fe4f7dc9",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 7.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/355143bf-b812-4ec8-93e6-6795fe4f7dc9.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "Doctor (Home visit)",
+          "uuid" : "472c2a76-d982-4f9e-8e93-f9aea9deb8fc",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 9.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Doctor",
+          "uuid" : "d7265308-9843-4d5f-859f-1585c119c8cb",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 10.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/d7265308-9843-4d5f-859f-1585c119c8cb.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "Phulwari Supervisor",
+          "uuid" : "a8dffa97-0020-42af-9dc7-4bdbde5520ae",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 13.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/a8dffa97-0020-42af-9dc7-4bdbde5520ae.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "Cluster Coordinator (Home visit)",
+          "uuid" : "1dec2135-0ccb-4dc6-9f5f-3f86d8ea2f45",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 11.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "SHW (Home visit)",
+          "uuid" : "185e2243-2b9d-4c67-8ff1-eb1f00136800",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ {
+          "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/c7b12d50-0a60-444a-a3cc-3dc13a2fb04e.jpg",
+          "type" : "Image"
+        } ]
+      },
+      "displayOrder" : 10.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Reason for referral",
+      "uuid" : "44b8d18d-1cb2-43f8-88c4-077cb9db788c",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "reason for referral",
+        "uuid" : "263293cf-67ed-4f71-9523-48c03948fccf",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Counselling",
+          "uuid" : "0ac30adc-5107-4e30-9b8a-c3ef65904cf5",
+          "dataType" : "Coded",
+          "answers" : [ {
+            "name" : "No",
+            "uuid" : "f88da2e8-6ab4-44b5-b762-233485cd25f9",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 2.0,
+            "active" : true,
+            "media" : [ ]
+          }, {
+            "name" : "Yes",
+            "uuid" : "57e20de7-10de-4391-b7ce-87b2f40d19a2",
+            "dataType" : "NA",
+            "answers" : [ ],
+            "order" : 1.0,
+            "active" : true,
+            "media" : [ ]
+          } ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/0ac30adc-5107-4e30-9b8a-c3ef65904cf5.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "Screening of chronic disease",
+          "uuid" : "e15edf05-5a1c-46bc-86cb-a71c9a1da034",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Treatment at a higher centre",
+          "uuid" : "19a3191b-e461-4791-a1f3-0743461c3712",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Other",
+          "uuid" : "798b7942-cf58-4d4e-a529-5972942e0a7e",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 11.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Other, reason for referral, please specify",
+      "uuid" : "681c8a75-fedf-4fcf-8441-821c62fdbfac",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Other, reason for referral, please specify",
+        "uuid" : "65e03b54-e2ba-4a48-a089-7d8f3dd316a9",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 12.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({encounter, formElement}).when.valueInEncounter(\"263293cf-67ed-4f71-9523-48c03948fccf\").containsAnswerConceptName(\"798b7942-cf58-4d4e-a529-5972942e0a7e\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "reason for referral",
+                "conceptUuid" : "263293cf-67ed-4f71-9523-48c03948fccf",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Other" ],
+                "answerConceptUuids" : [ "798b7942-cf58-4d4e-a529-5972942e0a7e" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ]
+          }
+        } ]
+      } ],
+      "mandatory" : false
+    }, {
+      "name" : "Give more details - what should be done",
+      "uuid" : "ffb64422-4570-4dc1-87e4-e135b2545d29",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Give more details - what should be done",
+        "uuid" : "ca20965a-9c5d-475d-b4fe-44af22a90ac1",
+        "dataType" : "Audio",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 13.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Give more details - what should be done",
+      "uuid" : "77eecca6-4156-4193-880b-04d35d32895d",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Give more details - What should be done",
+        "uuid" : "13af10e4-dd09-4dc1-8e93-aa99bd875d76",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 14.0,
+      "type" : "SingleSelect",
+      "rule" : "",
+      "mandatory" : false
+    } ],
+    "display" : "Details",
+    "timed" : false
+  } ],
+  "decisionRule" : "",
+  "visitScheduleRule" : "",
+  "validationRule" : "'use strict';\n({params, imports}) => {\n  const individual = params.entity;\n  const moment = imports.moment;\n  const validationResults = [];\n  \n  const audioDescription = individual.getObservationValue(\"ca20965a-9c5d-475d-b4fe-44af22a90ac1\")\n  const textDescription = individual.getObservationValue(\"13af10e4-dd09-4dc1-8e93-aa99bd875d76\")\n   const audioReason = individual.getObservationValue(\"f1605d2e-a04d-4b47-ab3c-45ce5f0720fe\")\n  const textReason = individual.getObservationValue(\"1f6fc60a-fef4-4235-9bd7-1696ce6bebf9\")\n\n   if((audioDescription == null && textDescription == null) || (audioReason == null && textReason == null)){\n        let validationError = imports.common.createValidationError('Please answer \"What was the reason for followup\" and \"Give more details - what should be done\" in either text or audio to move forward');\n        validationResults.push(validationError);\n    }\n  \n  return validationResults;\n};",
+  "checklistsRule" : "",
+  "decisionConcepts" : [ ],
+  "voided" : true
+}

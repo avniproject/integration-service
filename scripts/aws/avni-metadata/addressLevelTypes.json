@@ -1,0 +1,49 @@
+[ {
+  "uuid" : "92e3306e-07cf-439f-be33-f9565026910a",
+  "id" : 38,
+  "name" : "Cluster",
+  "level" : 2.0
+}, {
+  "uuid" : "0e2cd5f9-5efd-404b-95de-8a7832a4afb8",
+  "id" : 39,
+  "name" : "Village",
+  "level" : 1.0,
+  "parent" : {
+    "uuid" : "92e3306e-07cf-439f-be33-f9565026910a"
+  }
+}, {
+  "uuid" : "b3fa7b59-4227-460e-87a6-f49e5fcae11a",
+  "id" : 2483,
+  "name" : "District",
+  "level" : 4.0
+}, {
+  "uuid" : "5fc35365-49bb-4b3e-ad70-a31cc6fd7c2d",
+  "id" : 2484,
+  "name" : "Block",
+  "level" : 3.0,
+  "parent" : {
+    "uuid" : "b3fa7b59-4227-460e-87a6-f49e5fcae11a"
+  }
+}, {
+  "uuid" : "c6817b31-a088-4011-a4bb-2aaf40e13e9a",
+  "id" : 2485,
+  "name" : "Study Cluster",
+  "level" : 2.5,
+  "parent" : {
+    "uuid" : "5fc35365-49bb-4b3e-ad70-a31cc6fd7c2d"
+  }
+}, {
+  "uuid" : "288e1e22-a72d-4372-b37c-10fd9e67f453",
+  "id" : 2486,
+  "name" : "Study Village",
+  "level" : 1.5,
+  "parent" : {
+    "uuid" : "c6817b31-a088-4011-a4bb-2aaf40e13e9a"
+  }
+}, {
+  "uuid" : "9befe0d4-cdfb-47cd-9793-70abbcb47de9",
+  "id" : 2895,
+  "name" : "Test (voided~2431)",
+  "level" : 1.0,
+  "voided" : true
+} ]

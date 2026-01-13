@@ -1,0 +1,44 @@
+[
+  {
+    "visit_type_id": 3,
+    "name": "EMERGENCY",
+    "uuid": "b1a60bef-487a-11e3-82fc-4f0c5172470d",
+    "description": "Emergency patient visit"
+  },
+  {
+    "visit_type_id": 5,
+    "name": "LAB VISIT",
+    "uuid": "97b80034-9bc6-11e3-927e-8840ab96f0f1",
+    "description": "Visits for lab visit by patient when the tests are not ordered through OpenMRS"
+  },
+  {
+    "visit_type_id": 7,
+    "name": "PHARMACY VISIT",
+    "uuid": "98b2c48d-9bc6-11e3-927e-8840ab96f0f1",
+    "description": "Visit for PHARMACY_VISIT"
+  },
+  {
+    "visit_type_id": 8,
+    "name": "IPD",
+    "uuid": "a52293a5-9bc6-11e3-927e-8840ab96f0f1",
+    "description": "Visit for patients being admitted"
+  },
+  {
+    "visit_type_id": 12,
+    "name": "OPD",
+    "uuid": "f6ce7bf9-e349-11e3-983a-91270dcbd3bf",
+    "description": "OPD visit"
+  },
+  {
+    "visit_type_id": 13,
+    "name": "ANC",
+    "uuid": "3acaab1c-6307-4f17-83ee-ded945f37602",
+    "description": "Visit for ANC clinic"
+  },
+  {
+    "visit_type_id": 14,
+    "name": "Field",
+    "uuid": "fbafed22-3fa6-4925-a4ab-c2f91f5ee8f2",
+    "description": null
+  }
+]

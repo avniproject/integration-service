@@ -1,0 +1,7 @@
+{
+  "name" : "TB Study Risk Factors Assessment Encounter Cancellation",
+  "uuid" : "523862ba-5415-49de-84c2-ed77a1b607f0",
+  "formType" : "ProgramEncounterCancellation",
+  "formElementGroups" : [ ],
+  "decisionConcepts" : [ ]
+}

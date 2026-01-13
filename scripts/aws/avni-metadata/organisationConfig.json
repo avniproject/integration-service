@@ -1,0 +1,82 @@
+{
+  "uuid" : "e2c8b297-1b6f-491a-b6de-aa97b215fcc8",
+  "settings" : {
+    "languages" : [ "en", "hi_IN" ],
+    "customRegistrationLocations" : [ ],
+    "maxAddressDisplayInlineCount" : 0,
+    "searchResultFields" : [ {
+      "subjectTypeName" : "Individual",
+      "subjectTypeUUID" : "c3e43b29-2a63-49bf-870b-8365d2dd9251",
+      "searchResultConcepts" : [ {
+        "name" : "First Name (Hindi)",
+        "uuid" : "de490ab6-5c24-4de5-9f95-fe78be1b0c11",
+        "displayOrder" : 1
+      }, {
+        "name" : "Last Name (Hindi)",
+        "uuid" : "9131372e-6e9b-4d07-b088-d7e961c61f76",
+        "displayOrder" : 2
+      } ]
+    }, {
+      "subjectTypeName" : "Household",
+      "subjectTypeUUID" : "a2eee202-b440-4120-ada1-f3a820820f9c",
+      "searchResultConcepts" : [ {
+        "name" : "First Name (Hindi)",
+        "uuid" : "de490ab6-5c24-4de5-9f95-fe78be1b0c11",
+        "displayOrder" : 1
+      }, {
+        "name" : "Last Name (Hindi)",
+        "uuid" : "9131372e-6e9b-4d07-b088-d7e961c61f76",
+        "displayOrder" : 2
+      } ]
+    } ],
+    "searchFilters" : [ {
+      "type" : "Name",
+      "widget" : "Default",
+      "titleKey" : "Name",
+      "subjectTypeUUID" : "c3e43b29-2a63-49bf-870b-8365d2dd9251"
+    }, {
+      "type" : "Gender",
+      "widget" : "Default",
+      "titleKey" : "Gender",
+      "subjectTypeUUID" : "c3e43b29-2a63-49bf-870b-8365d2dd9251"
+    }, {
+      "type" : "SearchAll",
+      "widget" : "Default",
+      "titleKey" : "Search all",
+      "subjectTypeUUID" : "c3e43b29-2a63-49bf-870b-8365d2dd9251"
+    }, {
+      "type" : "Address",
+      "widget" : "Default",
+      "titleKey" : "Address",
+      "subjectTypeUUID" : "c3e43b29-2a63-49bf-870b-8365d2dd9251"
+    }, {
+      "type" : "Age",
+      "widget" : "Default",
+      "titleKey" : "Age",
+      "subjectTypeUUID" : "c3e43b29-2a63-49bf-870b-8365d2dd9251"
+    }, {
+      "type" : "Name",
+      "widget" : "Default",
+      "titleKey" : "Household",
+      "subjectTypeUUID" : "a2eee202-b440-4120-ada1-f3a820820f9c"
+    } ],
+    "hideTotalForProgram" : false,
+    "myDashboardFilters" : [ {
+      "type" : "Address",
+      "widget" : "Default",
+      "titleKey" : "Address",
+      "subjectTypeUUID" : "c3e43b29-2a63-49bf-870b-8365d2dd9251"
+    }, {
+      "type" : "EnrolmentDate",
+      "widget" : "Default",
+      "titleKey" : "Programme Enrolment",
+      "subjectTypeUUID" : "c3e43b29-2a63-49bf-870b-8365d2dd9251"
+    }, {
+      "type" : "ProgramEncounterDate",
+      "widget" : "Default",
+      "titleKey" : "Programme Encounter",
+      "subjectTypeUUID" : "c3e43b29-2a63-49bf-870b-8365d2dd9251"
+    } ]
+  },
+  "worklistUpdationRule" : "({ params, imports }) => {\n    const workLists = params.workLists;\n    const context = params.context;\n    const RuleCondition = imports.rulesConfig.RuleCondition;\n    const WorkItem = imports.models.WorkItem;\n    const entity = context.entity;\n    const currentWorkItem = workLists.getCurrentWorkItem();\n    const moment = imports.moment;\n    \n    function generateUUID() {\n        const timestamp = new Date().getTime();\n        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {\n            const r = (timestamp + Math.random() * 16) % 16 | 0;\n            return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);\n        });\n    }\n\n    function encounterWorkFlow() {\n        const currentWorkList = workLists.currentWorkList;\n        const encounter = context.entity;\n        let answerValue = null;\n        \n        if(currentWorkList.workItems && currentWorkList.workItems.length > 0){\n            currentWorkList.workItems.splice(0); \n        }\n        \n        \n        if (currentWorkItem.parameters.encounterType == 'Treatment Form') {\n          /*const observations = encounter.observations;\n\n          for (let i = 0; i < observations.length && !answerValue; i++) {\n            const obs = observations[i];\n          \n            if (obs && obs.concept && obs.concept.name === \"Treatment\" && obs.valueJSON && Array.isArray(obs.valueJSON.repeatableObservations)) {\n              const repeatables = obs.valueJSON.repeatableObservations;\n              for (let j = 0; j < repeatables.length && !answerValue; j++) {\n                const groupObs = repeatables[j].groupObservations;\n                if (!Array.isArray(groupObs)) continue;\n                for (let k = 0; k < groupObs.length; k++) {\n                  const that = groupObs[k].that;\n                  if (that.concept && that.concept.name === \"Is referral required ?\" && that.valueJSON) {\n                    answerValue = that.valueJSON;\n                    break;\n                  }\n                }\n              }\n            }\n          }\n          const isReferralRequiredYes = '57e20de7-10de-4391-b7ce-87b2f40d19a2';*/\n          \n          const needsReferral = encounter.getObservationReadableValue('Is referral required ?') === 'Yes';\n          if (needsReferral) {\n            console.log('in if');\n            currentWorkList.workItems.splice(\n                0,\n                currentWorkList.workItems.length,\n                new WorkItem(generateUUID(),\n                  WorkItem.type.ENCOUNTER,\n                  {\n                      encounterTypeName: \"Referral Communication\",\n                      subjectTypeName: encounter.individual.subjectType.name,\n                      subjectUUID: encounter.individual.uuid,\n                      encounterType: \"Referral Communication\"\n                  }));\n          }\n        }\n\n        if (currentWorkItem.parameters.encounterType == 'HBNC') {\n            const needsReferral = encounter.getObservationReadableValue('Does newborn need referral') === 'Yes';\n            if (needsReferral) {\n                currentWorkList.workItems.splice(\n                    0,\n                    currentWorkList.workItems.length,\n                    new WorkItem(generateUUID(),\n                        WorkItem.type.ENCOUNTER,\n                        {\n                            encounterTypeName: \"Referral Communication\",\n                            subjectTypeName: encounter.individual.subjectType.name,\n                            subjectUUID: encounter.individual.uuid,\n                            encounterType: \"Referral Communication\"\n                        })\n                );\n            }\n        }\n\n        if (currentWorkItem.parameters.encounterType == 'PPMC') {\n            const needsReferral = encounter.getObservationReadableValue('Does mother need referral?') === 'Yes';\n            if (needsReferral) {\n                currentWorkList.workItems.splice(\n                    0,\n                    currentWorkList.workItems.length,\n                    new WorkItem(generateUUID(),\n                        WorkItem.type.ENCOUNTER,\n                        {\n                            encounterTypeName: \"Referral Communication\",\n                            subjectTypeName: encounter.individual.subjectType.name,\n                            subjectUUID: encounter.individual.uuid,\n                            encounterType: \"Referral Communication\"\n                        })\n                );\n            }\n        }\n    }\n\n    const main = () => {\n        switch (currentWorkItem.type) {\n            case 'ENCOUNTER':\n                encounterWorkFlow();\n                break;\n        }\n        return workLists;\n    };\n\n    \n\n    return main();\n};"
+}

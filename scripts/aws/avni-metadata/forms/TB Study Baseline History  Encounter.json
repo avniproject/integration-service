@@ -1,0 +1,2643 @@
+{
+  "name" : "TB Study Baseline History  Encounter",
+  "uuid" : "d8b3cebe-71c6-433e-bb40-683a5d5fd608",
+  "formType" : "ProgramEncounter",
+  "formElementGroups" : [ {
+    "uuid" : "33ab5ab1-871b-49f0-86fe-d2d6c5e6633a",
+    "name" : "Study ID",
+    "displayOrder" : 1.0,
+    "formElements" : [ {
+      "name" : "TB Study ID (TBS001 to TBS999)",
+      "uuid" : "5c6c1c7f-3211-4965-8c34-f185baf029dc",
+      "keyValues" : [ {
+        "key" : "unique",
+        "value" : true
+      } ],
+      "concept" : {
+        "name" : "TB Study ID (TBS001 to TBS999)",
+        "uuid" : "a52a64d8-2f50-433f-853f-2d1299a73a33",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "voided" : true,
+      "mandatory" : true
+    } ],
+    "display" : "Study ID",
+    "voided" : true,
+    "timed" : false
+  }, {
+    "uuid" : "fb69eaf2-7278-46a8-9519-12bd27338199",
+    "name" : "TB Study Diagnosis Process Information",
+    "displayOrder" : 2.0,
+    "formElements" : [ {
+      "name" : "TB Survey Family Number",
+      "uuid" : "18364951-9ccc-4dec-8d4d-b36b6b319efa",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "TB Survey Family Number",
+        "uuid" : "bff908da-6e86-407b-991a-128be4fb31d1",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "voided" : true,
+      "mandatory" : false
+    }, {
+      "name" : "Camp Date",
+      "uuid" : "2872a8b4-53bd-426b-80c5-343ecd542e2d",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Camp Date",
+        "uuid" : "51c2341a-972b-4c6c-8a7f-e51c638a7a13",
+        "dataType" : "Date",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "voided" : true,
+      "mandatory" : false
+    }, {
+      "name" : "Date of Confirmed Diagnosis",
+      "uuid" : "862e90a0-ea42-46f0-8824-3b5c043f4783",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Date of Confirmed Diagnosis",
+        "uuid" : "ebd58acd-5e56-4bfc-ba1c-3870f57f11e2",
+        "dataType" : "Date",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "voided" : true,
+      "mandatory" : false
+    }, {
+      "name" : "Date of Starting ATT",
+      "uuid" : "29f4caa4-f67a-4384-b026-fc0e0d3ebc65",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Date of Starting ATT",
+        "uuid" : "adac3441-95d8-47ef-ad3e-bcb7644f0627",
+        "dataType" : "Date",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "voided" : true,
+      "mandatory" : true
+    }, {
+      "name" : "TB Registry Number (Given by Saukhi Bhaiya)",
+      "uuid" : "64dd7851-267e-401c-8f0f-fbfb480a208e",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "TB Registry Number (Given by Saukhi Bhaiya)",
+        "uuid" : "8f94a65e-77cb-4d0b-9ccd-d82c5d09f717",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 5.0,
+      "type" : "SingleSelect",
+      "voided" : true,
+      "mandatory" : false
+    } ],
+    "display" : "TB Study Diagnosis Process Information",
+    "voided" : true,
+    "timed" : false
+  }, {
+    "uuid" : "48f20d0f-c2b4-4970-b4e3-e7c7c6e3203b",
+    "name" : "Date Information",
+    "displayOrder" : 3.0,
+    "formElements" : [ {
+      "name" : "Baseline information filled on",
+      "uuid" : "e742567e-3035-4d1e-ba5c-9f7b765118a1",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Baseline information filled on",
+        "uuid" : "7127be18-e59c-4b91-a835-e8f9198dfe81",
+        "dataType" : "Date",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    } ],
+    "display" : "Date Information",
+    "timed" : false
+  }, {
+    "uuid" : "efb5f4e1-383b-473e-acc8-f6b734714f05",
+    "name" : "Diagnosis Informaton",
+    "displayOrder" : 4.0,
+    "formElements" : [ {
+      "name" : "Site",
+      "uuid" : "8f28a0af-cd4a-4cac-b5a3-c4bf57b6f20d",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Site",
+        "uuid" : "2db9614d-50f1-4f67-928b-16e704072daf",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Extra-Pulmonary",
+          "uuid" : "ba787a5d-386d-4397-be11-36491a97d751",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Pulmonary",
+          "uuid" : "75c26f3f-631b-4759-a290-22eac77b33e4",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        }, {
+          "name" : "Miliary",
+          "uuid" : "a3ebe53e-a38a-4988-82dd-7b2d8eb2e7eb",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        }, {
+          "name" : "Pulmonary + Extra-Pulmonary",
+          "uuid" : "c0bb4fcf-eb78-4b91-9d20-2076c334a651",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Disseminated",
+          "uuid" : "def80a98-0967-46ed-a1ba-dd577558f034",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"2db9614d-50f1-4f67-928b-16e704072daf\").containsAnswerConceptName(\"ba787a5d-386d-4397-be11-36491a97d751\").or.when.valueInEncounter(\"2db9614d-50f1-4f67-928b-16e704072daf\").containsAnswerConceptName(\"c0bb4fcf-eb78-4b91-9d20-2076c334a651\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "voided" : true,
+      "mandatory" : true
+    }, {
+      "name" : "Site",
+      "uuid" : "4e082d70-f896-4958-8394-d1908703151f",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Site New",
+        "uuid" : "5b35d0b3-7506-4a5f-a411-7385430b1889",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Pulmonary + Extra-Pulmonary",
+          "uuid" : "c0bb4fcf-eb78-4b91-9d20-2076c334a651",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Extra-Pulmonary",
+          "uuid" : "ba787a5d-386d-4397-be11-36491a97d751",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Pulmonary",
+          "uuid" : "75c26f3f-631b-4759-a290-22eac77b33e4",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        }, {
+          "name" : "Miliary",
+          "uuid" : "a3ebe53e-a38a-4988-82dd-7b2d8eb2e7eb",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        }, {
+          "name" : "Disseminated",
+          "uuid" : "def80a98-0967-46ed-a1ba-dd577558f034",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Extra-Pulmonary Site",
+      "uuid" : "0ed6beb2-4866-44db-8f5b-4d039a961db8",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Extra-Pulmonary Site",
+        "uuid" : "e1283cab-28c6-4945-b338-0dc51bc59930",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Meningitis",
+          "uuid" : "2817549d-a9c1-43eb-a024-ad1d6bcaf787",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Spine",
+          "uuid" : "7ba7cdfc-d755-4bf8-8abd-78d416b7474b",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Arthritis",
+          "uuid" : "6609670d-cd0e-414d-afde-af1d491d8b97",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Abdomen",
+          "uuid" : "b2685d30-f195-4f5e-a48b-3e73d1cb46ba",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Other (specify)",
+          "uuid" : "cba7dcb1-9cbe-487e-bf1e-125ea22ee260",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 6.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Lymph node",
+          "uuid" : "6ca403ce-3d84-4c2c-825d-d7e3f10b855d",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        }, {
+          "name" : "Pleural",
+          "uuid" : "64f895ad-aadf-419f-88d5-1df156378beb",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"5b35d0b3-7506-4a5f-a411-7385430b1889\").containsAnswerConceptName(\"ba787a5d-386d-4397-be11-36491a97d751\").or.when.valueInEncounter(\"5b35d0b3-7506-4a5f-a411-7385430b1889\").containsAnswerConceptName(\"c0bb4fcf-eb78-4b91-9d20-2076c334a651\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Site New",
+                "conceptUuid" : "5b35d0b3-7506-4a5f-a411-7385430b1889",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Extra-Pulmonary" ],
+                "answerConceptUuids" : [ "ba787a5d-386d-4397-be11-36491a97d751" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            }, {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Site New",
+                "conceptUuid" : "5b35d0b3-7506-4a5f-a411-7385430b1889",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Pulmonary + Extra-Pulmonary" ],
+                "answerConceptUuids" : [ "c0bb4fcf-eb78-4b91-9d20-2076c334a651" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "or"
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    }, {
+      "name" : "Category",
+      "uuid" : "df272e98-b243-4e90-a461-b08d18d5ea39",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Category New",
+        "uuid" : "0e6250de-5ece-4820-9ed8-96865c5a9f68",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Previously Treated",
+          "uuid" : "6f362cae-f760-426b-b50e-b2cbaba26c40",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "New",
+          "uuid" : "8f799ad2-a01c-4325-b01c-5d395a68e17c",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "If Previously Treated",
+      "uuid" : "c2a74373-9bae-44c5-87c6-2b00ddd8c257",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "If Previously Treated",
+        "uuid" : "e513d28d-93e0-470a-aeb5-8410cf8c7851",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Relapse",
+          "uuid" : "2ee8f4ec-97c5-49f0-a61a-c7f230e0423e",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Default",
+          "uuid" : "01de3d31-cdc7-48da-8d6d-6409e74a452a",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        }, {
+          "name" : "Treatent Failure",
+          "uuid" : "e8a7f672-2279-4bf4-b517-031545b77f6f",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 5.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"0e6250de-5ece-4820-9ed8-96865c5a9f68\").containsAnswerConceptName(\"6f362cae-f760-426b-b50e-b2cbaba26c40\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Category New",
+                "conceptUuid" : "0e6250de-5ece-4820-9ed8-96865c5a9f68",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Previously Treated" ],
+                "answerConceptUuids" : [ "6f362cae-f760-426b-b50e-b2cbaba26c40" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    }, {
+      "name" : "Basis for Diagnosis",
+      "uuid" : "9b3a6ad9-a589-4077-9b3b-9899c6f1c2f3",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Basis for Diagnosis",
+        "uuid" : "6438604f-dc8b-4e44-ba58-4aad0f53af4f",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Clinically Diagnosed",
+          "uuid" : "8a16164c-f2ad-4810-8aa6-e113bc5a1e97",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Microbiologically Confirmed",
+          "uuid" : "c65d635c-c836-4637-a92e-6125807479e5",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 6.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Microbiological Confirmation By",
+      "uuid" : "d769a738-81e2-4b85-b623-2a737f37f87f",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Microbiological Confirmation By",
+        "uuid" : "e52d265e-21d1-4217-8349-fdd18e32fdfb",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Culture Positive",
+          "uuid" : "74010b90-1494-4881-bdb2-1b3f83a805da",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "AFB Positive",
+          "uuid" : "259987b4-cbc1-4a09-a4d9-1629e2307468",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "CBNAAT Positive",
+          "uuid" : "ccb2e253-75bc-4999-b0b4-f9dfc99d317f",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 7.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"6438604f-dc8b-4e44-ba58-4aad0f53af4f\").containsAnswerConceptName(\"c65d635c-c836-4637-a92e-6125807479e5\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Basis for Diagnosis",
+                "conceptUuid" : "6438604f-dc8b-4e44-ba58-4aad0f53af4f",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Microbiologically Confirmed" ],
+                "answerConceptUuids" : [ "c65d635c-c836-4637-a92e-6125807479e5" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    }, {
+      "name" : "Basis for Clinical Diagnosis",
+      "uuid" : "e33a56d9-daac-4c43-961f-0dfb44169be8",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Basis for Clinical Diagnosis",
+        "uuid" : "ba707ffd-9d5a-4e91-be9a-25b34ceac4e8",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Contact History",
+          "uuid" : "e09a6f21-c13e-4544-a407-6c7e99b32d94",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Symptom History",
+          "uuid" : "a7fc5697-4490-4660-8766-1832b8d3cb22",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Other (specify)",
+          "uuid" : "cba7dcb1-9cbe-487e-bf1e-125ea22ee260",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 6.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "CXR/CT scan",
+          "uuid" : "9cee679b-5323-48af-b450-a0d5441e7432",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Ultrasound",
+          "uuid" : "71664930-a7b6-4d54-bb33-372249aba828",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "MRI",
+          "uuid" : "fc63f0ce-eda1-4ec4-85d6-5764411c3619",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "HPE",
+          "uuid" : "b5df5fa4-c374-4b11-bcfa-3a38d31aa136",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 8.0,
+      "type" : "MultiSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"6438604f-dc8b-4e44-ba58-4aad0f53af4f\").containsAnswerConceptName(\"8a16164c-f2ad-4810-8aa6-e113bc5a1e97\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Basis for Diagnosis",
+                "conceptUuid" : "6438604f-dc8b-4e44-ba58-4aad0f53af4f",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Clinically Diagnosed" ],
+                "answerConceptUuids" : [ "8a16164c-f2ad-4810-8aa6-e113bc5a1e97" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    }, {
+      "name" : "Sputum AFB",
+      "uuid" : "3a49a326-8e4d-4c37-8001-6e66a909bb40",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Sputum AFB New",
+        "uuid" : "f0ddb043-19a0-4cf2-b7ad-19a5a325567c",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "1+",
+          "uuid" : "d791406f-86bd-47ef-8c23-22accc521558",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        }, {
+          "name" : "2+",
+          "uuid" : "ba904c8d-502d-4979-bc99-cfa077678279",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        }, {
+          "name" : "Negative.",
+          "uuid" : "7305f0e9-3e11-4f51-ad38-34eb13a32fc5",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "3+",
+          "uuid" : "63513531-d5a4-47c1-a4ef-a02063b43871",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        }, {
+          "name" : "4+",
+          "uuid" : "b133d9ce-1661-420f-b73a-392300959b4e",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 6.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        }, {
+          "name" : "Negative",
+          "uuid" : "0fe2ae63-332a-40bf-82c7-371ef7b66494",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Scanty Positive",
+          "uuid" : "0464f99c-0342-4d3b-829c-38e35ec7ef61",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 9.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"5b35d0b3-7506-4a5f-a411-7385430b1889\").containsAnswerConceptName(\"75c26f3f-631b-4759-a290-22eac77b33e4\").or.when.valueInEncounter(\"5b35d0b3-7506-4a5f-a411-7385430b1889\").containsAnswerConceptName(\"c0bb4fcf-eb78-4b91-9d20-2076c334a651\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Site New",
+                "conceptUuid" : "5b35d0b3-7506-4a5f-a411-7385430b1889",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Pulmonary" ],
+                "answerConceptUuids" : [ "75c26f3f-631b-4759-a290-22eac77b33e4" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            }, {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Site New",
+                "conceptUuid" : "5b35d0b3-7506-4a5f-a411-7385430b1889",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Pulmonary + Extra-Pulmonary" ],
+                "answerConceptUuids" : [ "c0bb4fcf-eb78-4b91-9d20-2076c334a651" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "or"
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    }, {
+      "name" : "AFB Tested for Other Samples",
+      "uuid" : "c1c12c74-2413-4595-9a04-620b817889e3",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "AFB Tested for Other Samples",
+        "uuid" : "58baae44-9115-44ae-a41a-572ff1baf855",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "LN Aspirate",
+          "uuid" : "ce8150d7-9473-4774-9167-e82f8643975a",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Synovial Fluid",
+          "uuid" : "4c8a721a-d295-4307-b7d2-f501440b4850",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Other",
+          "uuid" : "798b7942-cf58-4d4e-a529-5972942e0a7e",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Pleural Fluid",
+          "uuid" : "2ddc25ad-cf96-4345-a781-192e9c455c82",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "CSF",
+          "uuid" : "7d4c82b5-76e4-4018-afb2-1eea2728577d",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Ascitic Fluid",
+          "uuid" : "37cb5d5d-49a4-4acf-b5b6-c11e4a3ce0e7",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 10.0,
+      "type" : "SingleSelect",
+      "voided" : true,
+      "mandatory" : true
+    }, {
+      "name" : "AFB Tested for Other Samples",
+      "uuid" : "786c19fd-8f8f-4f0b-b336-dc8ae583ea42",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "AFB Tested for Other Samples New",
+        "uuid" : "93f0d82f-e4bc-4024-b6b3-687615968636",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "CSF",
+          "uuid" : "7d4c82b5-76e4-4018-afb2-1eea2728577d",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Synovial Fluid",
+          "uuid" : "4c8a721a-d295-4307-b7d2-f501440b4850",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Other",
+          "uuid" : "798b7942-cf58-4d4e-a529-5972942e0a7e",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "LN Aspirate",
+          "uuid" : "ce8150d7-9473-4774-9167-e82f8643975a",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Ascitic Fluid",
+          "uuid" : "37cb5d5d-49a4-4acf-b5b6-c11e4a3ce0e7",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Pleural Fluid",
+          "uuid" : "2ddc25ad-cf96-4345-a781-192e9c455c82",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 11.0,
+      "type" : "MultiSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"5b35d0b3-7506-4a5f-a411-7385430b1889\").containsAnswerConceptName(\"ba787a5d-386d-4397-be11-36491a97d751\").or.when.valueInEncounter(\"5b35d0b3-7506-4a5f-a411-7385430b1889\").containsAnswerConceptName(\"c0bb4fcf-eb78-4b91-9d20-2076c334a651\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Site New",
+                "conceptUuid" : "5b35d0b3-7506-4a5f-a411-7385430b1889",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Extra-Pulmonary" ],
+                "answerConceptUuids" : [ "ba787a5d-386d-4397-be11-36491a97d751" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            }, {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Site New",
+                "conceptUuid" : "5b35d0b3-7506-4a5f-a411-7385430b1889",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Pulmonary + Extra-Pulmonary" ],
+                "answerConceptUuids" : [ "c0bb4fcf-eb78-4b91-9d20-2076c334a651" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "or"
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    }, {
+      "name" : "AFB Report for Other Samples",
+      "uuid" : "fde17ba5-5e21-4c72-9747-0769b527edee",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "AFB Report for Other Samples",
+        "uuid" : "3329a819-b208-47b5-bfca-2d3c8707fa38",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "4+",
+          "uuid" : "b133d9ce-1661-420f-b73a-392300959b4e",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 6.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        }, {
+          "name" : "1+",
+          "uuid" : "d791406f-86bd-47ef-8c23-22accc521558",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        }, {
+          "name" : "Negative",
+          "uuid" : "0fe2ae63-332a-40bf-82c7-371ef7b66494",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Negative.",
+          "uuid" : "7305f0e9-3e11-4f51-ad38-34eb13a32fc5",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "2+",
+          "uuid" : "ba904c8d-502d-4979-bc99-cfa077678279",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        }, {
+          "name" : "3+",
+          "uuid" : "63513531-d5a4-47c1-a4ef-a02063b43871",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        }, {
+          "name" : "Scanty Positive",
+          "uuid" : "0464f99c-0342-4d3b-829c-38e35ec7ef61",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 12.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"5b35d0b3-7506-4a5f-a411-7385430b1889\").containsAnswerConceptName(\"ba787a5d-386d-4397-be11-36491a97d751\").or.when.valueInEncounter(\"5b35d0b3-7506-4a5f-a411-7385430b1889\").containsAnswerConceptName(\"c0bb4fcf-eb78-4b91-9d20-2076c334a651\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Site New",
+                "conceptUuid" : "5b35d0b3-7506-4a5f-a411-7385430b1889",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Extra-Pulmonary" ],
+                "answerConceptUuids" : [ "ba787a5d-386d-4397-be11-36491a97d751" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            }, {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Site New",
+                "conceptUuid" : "5b35d0b3-7506-4a5f-a411-7385430b1889",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Pulmonary + Extra-Pulmonary" ],
+                "answerConceptUuids" : [ "c0bb4fcf-eb78-4b91-9d20-2076c334a651" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "or"
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    }, {
+      "name" : "Lung Involvement Extent on CXR",
+      "uuid" : "bd1e5f2d-8862-4d2e-9b06-185732cfe505",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Lung Involvement Extent on CXR",
+        "uuid" : "4c87587d-d6b2-454b-ac7c-c933012d6249",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Extensive",
+          "uuid" : "975ebd10-9f09-4d0c-80e9-c27599d0461d",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        }, {
+          "name" : "Extensive.",
+          "uuid" : "cf0195b0-077b-4cac-89a5-574774d64514",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Limited",
+          "uuid" : "acf0110b-d2e6-4e41-a564-203df561a6e4",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        }, {
+          "name" : "Limited.",
+          "uuid" : "f806f2c4-0e70-41de-af04-5bdf7dd93cdf",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 13.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"5b35d0b3-7506-4a5f-a411-7385430b1889\").containsAnswerConceptName(\"75c26f3f-631b-4759-a290-22eac77b33e4\").or.when.valueInEncounter(\"5b35d0b3-7506-4a5f-a411-7385430b1889\").containsAnswerConceptName(\"c0bb4fcf-eb78-4b91-9d20-2076c334a651\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Site New",
+                "conceptUuid" : "5b35d0b3-7506-4a5f-a411-7385430b1889",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Pulmonary" ],
+                "answerConceptUuids" : [ "75c26f3f-631b-4759-a290-22eac77b33e4" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            }, {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Site New",
+                "conceptUuid" : "5b35d0b3-7506-4a5f-a411-7385430b1889",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Pulmonary + Extra-Pulmonary" ],
+                "answerConceptUuids" : [ "c0bb4fcf-eb78-4b91-9d20-2076c334a651" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "or"
+          }
+        } ]
+      } ],
+      "mandatory" : false
+    }, {
+      "name" : "Lung Involvement Type on CXR",
+      "uuid" : "2f160c4e-dd80-433b-a2d4-6ccb6bd3cc29",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Lung Involvement Type on CXR",
+        "uuid" : "df1d8d3b-756b-45da-9f3a-9275d2599f84",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Non-Cavitory",
+          "uuid" : "b04e99e8-8766-4b1e-8979-d93c87fee166",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Pleural Effusion",
+          "uuid" : "9ba3419c-8feb-4167-a7a0-b44ef3bf38e0",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Cavitory",
+          "uuid" : "d2f31f18-32c5-4ea2-a281-db64ae5501b3",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Consoliation",
+          "uuid" : "df2b4e97-a587-4a42-9076-826491f1f1cd",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Fibrosis",
+          "uuid" : "d49325a0-9bcd-4278-9e19-f05731fd6223",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Nodules",
+          "uuid" : "eedc9879-5bb2-4f63-8cad-0b4e28e02807",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 6.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Miliary",
+          "uuid" : "a3ebe53e-a38a-4988-82dd-7b2d8eb2e7eb",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 14.0,
+      "type" : "MultiSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"5b35d0b3-7506-4a5f-a411-7385430b1889\").containsAnswerConceptName(\"75c26f3f-631b-4759-a290-22eac77b33e4\").or.when.valueInEncounter(\"5b35d0b3-7506-4a5f-a411-7385430b1889\").containsAnswerConceptName(\"c0bb4fcf-eb78-4b91-9d20-2076c334a651\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Site New",
+                "conceptUuid" : "5b35d0b3-7506-4a5f-a411-7385430b1889",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Pulmonary" ],
+                "answerConceptUuids" : [ "75c26f3f-631b-4759-a290-22eac77b33e4" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            }, {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Site New",
+                "conceptUuid" : "5b35d0b3-7506-4a5f-a411-7385430b1889",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Pulmonary + Extra-Pulmonary" ],
+                "answerConceptUuids" : [ "c0bb4fcf-eb78-4b91-9d20-2076c334a651" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "or"
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    } ],
+    "display" : "Diagnosis Informaton",
+    "timed" : false
+  }, {
+    "uuid" : "d09365f5-8bec-4402-a1e1-eef8ea206692",
+    "name" : "Co-morbidity Assessment",
+    "displayOrder" : 5.0,
+    "formElements" : [ {
+      "name" : "Anemia",
+      "uuid" : "f4416402-7b4a-4fe4-b7c6-73a3de1456fe",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Anemia",
+        "uuid" : "735da6fa-0ee9-4d07-8bdb-ce7e579aed7c",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Severe",
+          "uuid" : "b45be430-84a2-4aac-b1b4-d06392b11516",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        }, {
+          "name" : "Mild",
+          "uuid" : "41c4edd9-4d03-4824-86e4-9431cae8a7fd",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        }, {
+          "name" : "No Anemia",
+          "uuid" : "52c5632b-f8bc-421e-9c05-4fb6bb06deb9",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Moderate",
+          "uuid" : "a5183999-791a-4b60-8206-3168bae6e523",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Diabetes Status",
+      "uuid" : "ab1c9f50-32a7-4807-a694-c5b1fdf655c6",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Diabetes Status",
+        "uuid" : "f7257b43-cfb1-4842-b1f2-776a1607bfb4",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Non Diabetes",
+          "uuid" : "535832c9-5fc3-4f08-91c0-67079fe72048",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Diabetes",
+          "uuid" : "1928469b-a981-4579-beb7-ae47b972e671",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "HIV Status",
+      "uuid" : "7ff2bb16-275e-41ce-833f-2ce1fa1a2e3d",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "HIV Status",
+        "uuid" : "19d9f5f0-efd1-41b2-877e-f06d8f4f81fd",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Reactive",
+          "uuid" : "1b285b39-5225-4736-9c52-c1e65ff27faa",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Non-Reactive",
+          "uuid" : "2a07f125-bf50-4b2f-9647-5811f67f4adc",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Pending.",
+          "uuid" : "10b746a1-bd0b-4406-a1b2-baf3989b26a7",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Pending",
+          "uuid" : "630c1dc1-3cc5-42f7-965e-3a95a6407a55",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Undernutrition (Based on BMI Range)",
+      "uuid" : "a3491e42-064b-485d-8e9b-148f34ba4340",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Undernutrition (Based on BMI Range)",
+        "uuid" : "f3983517-456a-4302-bf18-0802431f46b2",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "15.99 and below - Severe Underweight",
+          "uuid" : "45685134-f1b7-4c33-ae65-7081d70ed15c",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "18.5 -23.49 - Normally Nourished",
+          "uuid" : "41385ed6-d4bb-4b8b-87ad-1a987e1dbfa2",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "16-17.49 -Moderate Undernutrition",
+          "uuid" : "77229115-98be-4aaf-a40d-09bf648e3f29",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "17.5 - 18.49- Mild Undernutrition",
+          "uuid" : "0e3afe57-c85d-449a-919b-1baf538ddce0",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "23.5 -29.99 - Overweight",
+          "uuid" : "33faaece-08ac-4d5b-a5e8-170bb6bd326b",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "30 and above - Obesity",
+          "uuid" : "18badb5f-e0e9-4d5c-abbb-8ccf3d7bbd3c",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Other Comorbitiy",
+      "uuid" : "48f8a305-137a-46c7-bb6a-5ac1444634ad",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Other Comorbitiy",
+        "uuid" : "bc0f34fd-7ece-4b15-ad9b-7177f41445dd",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "No",
+          "uuid" : "f88da2e8-6ab4-44b5-b762-233485cd25f9",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Yes",
+          "uuid" : "57e20de7-10de-4391-b7ce-87b2f40d19a2",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "No.",
+          "uuid" : "0b5d951b-18c8-4bc5-8c23-f89f17eb44b8",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 5.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Other Comorbitiy If Yes (Specify)",
+      "uuid" : "ac750266-434c-4669-8321-67f5c4111486",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "If Yes (Specify)",
+        "uuid" : "71621cf6-a8cb-4648-8015-33db27ca6fc7",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 6.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"bc0f34fd-7ece-4b15-ad9b-7177f41445dd\").containsAnswerConceptName(\"57e20de7-10de-4391-b7ce-87b2f40d19a2\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Other Comorbitiy",
+                "conceptUuid" : "bc0f34fd-7ece-4b15-ad9b-7177f41445dd",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Yes" ],
+                "answerConceptUuids" : [ "57e20de7-10de-4391-b7ce-87b2f40d19a2" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : false
+    } ],
+    "display" : "Co-morbidity Assessment",
+    "timed" : false
+  }, {
+    "uuid" : "48d771a3-e2c2-4028-a211-ab635dc07664",
+    "name" : "Symptoms",
+    "displayOrder" : 6.0,
+    "formElements" : [ {
+      "name" : "Baseline Symptoms",
+      "uuid" : "78d13044-bc25-42ca-8568-7bc6126acf2e",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Baseline Symptoms",
+        "uuid" : "ba40ba27-1851-4f2b-8066-0f3519a91dd5",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Hemoptysis",
+          "uuid" : "c95ac765-8b8a-4c9a-8bf6-f365940c88f8",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "night sweats",
+          "uuid" : "3092b124-29eb-4ccd-b1bf-0d7d47b39e95",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 7.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Breathlessness",
+          "uuid" : "6f958082-6f7f-4bf7-9b50-1542a22ba4e6",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Anorexia",
+          "uuid" : "5bf354e7-66c9-46b9-90e4-32d5c800002d",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Chest Pain",
+          "uuid" : "3b583322-ab97-4650-9802-8328b21144be",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Cough",
+          "uuid" : "6faa04f7-fa23-4a7d-9b0c-e901ca752b23",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/6faa04f7-fa23-4a7d-9b0c-e901ca752b23.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "Fever",
+          "uuid" : "232ae0c9-533f-48cf-8439-79aa03e23e6b",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/232ae0c9-533f-48cf-8439-79aa03e23e6b.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "other(specify)",
+          "uuid" : "2b464088-093b-4406-8cc3-89eade99a972",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 8.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Weight loss",
+          "uuid" : "9c9cf2e8-aa1e-4813-ae12-b64f6d78e42e",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 6.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "MultiSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Other Symptoms (Symptom name with duration since symptom is positive)",
+      "uuid" : "84bc9a92-9d9f-412b-92e6-96cb78e84f76",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Other Symptoms (Symptom name with duration since symptom is positive)",
+        "uuid" : "6fd82ae2-9c2b-4c88-9e85-4d3e91435884",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"ba40ba27-1851-4f2b-8066-0f3519a91dd5\").containsAnswerConceptName(\"2b464088-093b-4406-8cc3-89eade99a972\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Baseline Symptoms",
+                "conceptUuid" : "ba40ba27-1851-4f2b-8066-0f3519a91dd5",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "other(specify)" ],
+                "answerConceptUuids" : [ "2b464088-093b-4406-8cc3-89eade99a972" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : false
+    } ],
+    "display" : "Symptoms",
+    "timed" : false
+  }, {
+    "uuid" : "a1c755a5-d8db-4217-93ee-f564e28008ee",
+    "name" : "Symptoms Duration (In Days)",
+    "displayOrder" : 7.0,
+    "formElements" : [ {
+      "name" : "Cough Since ...Days",
+      "uuid" : "e70ed3dc-702f-4dc9-be54-6d73e1128ec4",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Cough Since ...Days",
+        "uuid" : "95da9fa0-d627-47c7-8c5e-2749228f9f4b",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"ba40ba27-1851-4f2b-8066-0f3519a91dd5\").containsAnswerConceptName(\"6faa04f7-fa23-4a7d-9b0c-e901ca752b23\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Baseline Symptoms",
+                "conceptUuid" : "ba40ba27-1851-4f2b-8066-0f3519a91dd5",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Cough" ],
+                "answerConceptUuids" : [ "6faa04f7-fa23-4a7d-9b0c-e901ca752b23" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    }, {
+      "name" : "Fever Since ...Days",
+      "uuid" : "cbfb5d07-a114-4b54-a8d4-50f86437b229",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Fever Since ...Days",
+        "uuid" : "316e1f00-7e0b-4451-a278-eadb3b3bf647",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"ba40ba27-1851-4f2b-8066-0f3519a91dd5\").containsAnswerConceptName(\"232ae0c9-533f-48cf-8439-79aa03e23e6b\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Baseline Symptoms",
+                "conceptUuid" : "ba40ba27-1851-4f2b-8066-0f3519a91dd5",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Fever" ],
+                "answerConceptUuids" : [ "232ae0c9-533f-48cf-8439-79aa03e23e6b" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    }, {
+      "name" : "Breathlessess Since ...Days",
+      "uuid" : "94fdd989-8d30-47e6-a0b3-3503d2886b37",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Breathlessess Since ...Days",
+        "uuid" : "0ef07265-9ded-488b-8002-26c3776fe6b9",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"ba40ba27-1851-4f2b-8066-0f3519a91dd5\").containsAnswerConceptName(\"6f958082-6f7f-4bf7-9b50-1542a22ba4e6\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Baseline Symptoms",
+                "conceptUuid" : "ba40ba27-1851-4f2b-8066-0f3519a91dd5",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Breathlessness" ],
+                "answerConceptUuids" : [ "6f958082-6f7f-4bf7-9b50-1542a22ba4e6" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    }, {
+      "name" : "Anorexia Since ...Days",
+      "uuid" : "6fbca75b-3bb3-43ba-8bf0-b48ced05b06d",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Anorexia Since ...Days",
+        "uuid" : "89bd24b9-51cf-45d6-8608-0cc71d2b42be",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"ba40ba27-1851-4f2b-8066-0f3519a91dd5\").containsAnswerConceptName(\"5bf354e7-66c9-46b9-90e4-32d5c800002d\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Baseline Symptoms",
+                "conceptUuid" : "ba40ba27-1851-4f2b-8066-0f3519a91dd5",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Anorexia" ],
+                "answerConceptUuids" : [ "5bf354e7-66c9-46b9-90e4-32d5c800002d" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    }, {
+      "name" : "Chest pain Since ...Days",
+      "uuid" : "ea7ca8b8-9611-42b0-9782-dd64be2c461e",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Chest pain Since ...Days",
+        "uuid" : "890593f4-850b-4527-b900-fe6096c5065e",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 5.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"ba40ba27-1851-4f2b-8066-0f3519a91dd5\").containsAnswerConceptName(\"3b583322-ab97-4650-9802-8328b21144be\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Baseline Symptoms",
+                "conceptUuid" : "ba40ba27-1851-4f2b-8066-0f3519a91dd5",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Chest Pain" ],
+                "answerConceptUuids" : [ "3b583322-ab97-4650-9802-8328b21144be" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    }, {
+      "name" : "Hemoptysis Since ...Days",
+      "uuid" : "b685a48d-b526-4ddd-9029-58f753e9f944",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Hemoptysis Since ...Days",
+        "uuid" : "df9ef51b-55a9-4790-bf63-439ec5218580",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 6.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"ba40ba27-1851-4f2b-8066-0f3519a91dd5\").containsAnswerConceptName(\"c95ac765-8b8a-4c9a-8bf6-f365940c88f8\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Baseline Symptoms",
+                "conceptUuid" : "ba40ba27-1851-4f2b-8066-0f3519a91dd5",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Hemoptysis" ],
+                "answerConceptUuids" : [ "c95ac765-8b8a-4c9a-8bf6-f365940c88f8" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    }, {
+      "name" : "Weight Loss Since ...Days",
+      "uuid" : "791d3448-ca58-4665-9007-98e1298b64c4",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Weight Loss Since ...Days",
+        "uuid" : "d6dedff4-e915-4f89-8b56-b92559c3a411",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 7.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"ba40ba27-1851-4f2b-8066-0f3519a91dd5\").containsAnswerConceptName(\"9c9cf2e8-aa1e-4813-ae12-b64f6d78e42e\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Baseline Symptoms",
+                "conceptUuid" : "ba40ba27-1851-4f2b-8066-0f3519a91dd5",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Weight loss" ],
+                "answerConceptUuids" : [ "9c9cf2e8-aa1e-4813-ae12-b64f6d78e42e" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    }, {
+      "name" : "Night Sweats Since ...Days",
+      "uuid" : "e77263ca-14d5-4a97-ada9-ff86da8da4a2",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Night Sweats Since ...Days",
+        "uuid" : "39ce2645-6864-4a87-8b9c-425868758440",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 8.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"ba40ba27-1851-4f2b-8066-0f3519a91dd5\").containsAnswerConceptName(\"3092b124-29eb-4ccd-b1bf-0d7d47b39e95\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Baseline Symptoms",
+                "conceptUuid" : "ba40ba27-1851-4f2b-8066-0f3519a91dd5",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "night sweats" ],
+                "answerConceptUuids" : [ "3092b124-29eb-4ccd-b1bf-0d7d47b39e95" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    } ],
+    "display" : "Symptoms Duration (In Days)",
+    "timed" : false
+  }, {
+    "uuid" : "295852bc-4cb0-4751-a07f-f3ea623dfca9",
+    "name" : "Past TB History",
+    "displayOrder" : 8.0,
+    "formElements" : [ {
+      "name" : "Was the patient diagnosed with TB in Past?",
+      "uuid" : "f611df84-01a9-4177-8349-dafab01ff07b",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Was the patient diagnosed with TB in Past?",
+        "uuid" : "bc00adc1-0067-4fa4-886a-e718a84d73a3",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Yes",
+          "uuid" : "57e20de7-10de-4391-b7ce-87b2f40d19a2",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "No",
+          "uuid" : "f88da2e8-6ab4-44b5-b762-233485cd25f9",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "yes.",
+          "uuid" : "27514bd8-7a18-4078-9670-26fa0aa31eed",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    } ],
+    "display" : "Past TB History",
+    "timed" : false
+  }, {
+    "uuid" : "db2465e6-a97c-46cf-b0c6-05d6ca491ac7",
+    "name" : "Past TB Details",
+    "displayOrder" : 9.0,
+    "formElements" : [ {
+      "name" : "Labs Done for Past TB",
+      "uuid" : "5dcc56c4-dc45-458c-a7a8-800179350f4a",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Labs Done for Past TB",
+        "uuid" : "91def8ee-8238-4d6d-9ea1-39e6126a9a34",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Sensitivity testing – CBNAAT",
+          "uuid" : "c841b125-226e-4902-981f-25e319202306",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Sugar Testing",
+          "uuid" : "58043865-95a4-4dbe-9472-9213eaa146c1",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "ATT – adequate dose",
+          "uuid" : "caeb9ce1-a963-4b65-8e7e-a06abda85848",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "ATT -  inadequate dose",
+          "uuid" : "56643850-fa12-49b6-a7ba-ca28fec6898f",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Sensitivity testing – Culture",
+          "uuid" : "acc8f369-7eed-4160-8122-bfd934ec0d36",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "CXR",
+          "uuid" : "706ec8af-b2a5-444a-bdaf-bf17d1ed6a41",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "MultiSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"bc00adc1-0067-4fa4-886a-e718a84d73a3\").containsAnswerConceptName(\"57e20de7-10de-4391-b7ce-87b2f40d19a2\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Was the patient diagnosed with TB in Past?",
+                "conceptUuid" : "bc00adc1-0067-4fa4-886a-e718a84d73a3",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Yes" ],
+                "answerConceptUuids" : [ "57e20de7-10de-4391-b7ce-87b2f40d19a2" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    }, {
+      "name" : "Category (at the time of past diagnosis)",
+      "uuid" : "cbfa2900-e06e-44df-99f3-8c47753988c9",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Category (at the time of past diagnosis)",
+        "uuid" : "fbadca40-5ac0-452c-920a-50f01cf123d0",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "New",
+          "uuid" : "8f799ad2-a01c-4325-b01c-5d395a68e17c",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Treatent Failure",
+          "uuid" : "e8a7f672-2279-4bf4-b517-031545b77f6f",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Relapse",
+          "uuid" : "2ee8f4ec-97c5-49f0-a61a-c7f230e0423e",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Default",
+          "uuid" : "01de3d31-cdc7-48da-8d6d-6409e74a452a",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"bc00adc1-0067-4fa4-886a-e718a84d73a3\").containsAnswerConceptName(\"57e20de7-10de-4391-b7ce-87b2f40d19a2\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Was the patient diagnosed with TB in Past?",
+                "conceptUuid" : "bc00adc1-0067-4fa4-886a-e718a84d73a3",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Yes" ],
+                "answerConceptUuids" : [ "57e20de7-10de-4391-b7ce-87b2f40d19a2" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    }, {
+      "name" : "Basis for Past Diagnosis",
+      "uuid" : "97197c34-85d2-4b44-a552-4b0db3cf6907",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Basis for Past Diagnosis",
+        "uuid" : "aba9fffd-60be-4623-a1be-9cb760f733cf",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Clinically Diagnosed",
+          "uuid" : "8a16164c-f2ad-4810-8aa6-e113bc5a1e97",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Microbiologically Confirmed",
+          "uuid" : "c65d635c-c836-4637-a92e-6125807479e5",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"bc00adc1-0067-4fa4-886a-e718a84d73a3\").containsAnswerConceptName(\"57e20de7-10de-4391-b7ce-87b2f40d19a2\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Was the patient diagnosed with TB in Past?",
+                "conceptUuid" : "bc00adc1-0067-4fa4-886a-e718a84d73a3",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Yes" ],
+                "answerConceptUuids" : [ "57e20de7-10de-4391-b7ce-87b2f40d19a2" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : false
+    }, {
+      "name" : "Place of ATT treatment",
+      "uuid" : "2ff8bfce-4946-4219-9d20-5f42925bafc4",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Place of ATT treatment",
+        "uuid" : "13a2ddc0-4434-4b43-8345-4dd67f76e5b1",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"bc00adc1-0067-4fa4-886a-e718a84d73a3\").containsAnswerConceptName(\"57e20de7-10de-4391-b7ce-87b2f40d19a2\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Was the patient diagnosed with TB in Past?",
+                "conceptUuid" : "bc00adc1-0067-4fa4-886a-e718a84d73a3",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Yes" ],
+                "answerConceptUuids" : [ "57e20de7-10de-4391-b7ce-87b2f40d19a2" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : false
+    }, {
+      "name" : "Hospitalisation for previous TB",
+      "uuid" : "93b72acd-e6e3-4cbb-9ee9-2424a06861de",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Hospitalisation for previous TB",
+        "uuid" : "ce3c4fb3-6e96-4e1f-a92b-c984893d0faa",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Yes",
+          "uuid" : "57e20de7-10de-4391-b7ce-87b2f40d19a2",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "No",
+          "uuid" : "f88da2e8-6ab4-44b5-b762-233485cd25f9",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 5.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"bc00adc1-0067-4fa4-886a-e718a84d73a3\").containsAnswerConceptName(\"57e20de7-10de-4391-b7ce-87b2f40d19a2\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Was the patient diagnosed with TB in Past?",
+                "conceptUuid" : "bc00adc1-0067-4fa4-886a-e718a84d73a3",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Yes" ],
+                "answerConceptUuids" : [ "57e20de7-10de-4391-b7ce-87b2f40d19a2" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : false
+    }, {
+      "name" : "If Yes, Duration (days)",
+      "uuid" : "9d5308e0-999e-4420-9b0e-3971ef53e3bd",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "If Yes, Duration (days)",
+        "uuid" : "18705dba-fcc2-45c0-ab3f-0dde890b35fe",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 6.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"ce3c4fb3-6e96-4e1f-a92b-c984893d0faa\").containsAnswerConceptName(\"57e20de7-10de-4391-b7ce-87b2f40d19a2\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Hospitalisation for previous TB",
+                "conceptUuid" : "ce3c4fb3-6e96-4e1f-a92b-c984893d0faa",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Yes" ],
+                "answerConceptUuids" : [ "57e20de7-10de-4391-b7ce-87b2f40d19a2" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : false
+    }, {
+      "name" : "If Yes, Indication for Hospitalisation",
+      "uuid" : "01ffb527-1c8e-4174-aa28-96d09922aa99",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "If Yes, Indication for Hospitalisation",
+        "uuid" : "4c0ada68-188c-4917-b2d6-165012574659",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 7.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    } ],
+    "display" : "Past TB Details",
+    "timed" : false
+  }, {
+    "uuid" : "d15bd2bb-39b8-4edf-a9c9-fa927ce5e428",
+    "name" : "Family History of TB",
+    "displayOrder" : 10.0,
+    "formElements" : [ {
+      "name" : "Any deaths in the family due to diagnosed or suspected TB?",
+      "uuid" : "4b72c4f6-c75e-4f7e-b2ff-845a81b65236",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Any deaths in the family due to diagnosed or suspected TB?",
+        "uuid" : "f2aa117d-2754-4d37-a1c4-b769d6d36703",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "No",
+          "uuid" : "f88da2e8-6ab4-44b5-b762-233485cd25f9",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Yes",
+          "uuid" : "57e20de7-10de-4391-b7ce-87b2f40d19a2",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "If relative died, relation with the patient",
+      "uuid" : "90b111b7-3abb-4ac1-9e2a-086943761bd9",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "If relative died, relation with the patient",
+        "uuid" : "48870995-43ce-4f4b-bdc4-5e270343a59d",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"f2aa117d-2754-4d37-a1c4-b769d6d36703\").containsAnswerConceptName(\"57e20de7-10de-4391-b7ce-87b2f40d19a2\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Any deaths in the family due to diagnosed or suspected TB?",
+                "conceptUuid" : "f2aa117d-2754-4d37-a1c4-b769d6d36703",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Yes" ],
+                "answerConceptUuids" : [ "57e20de7-10de-4391-b7ce-87b2f40d19a2" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : false
+    }, {
+      "name" : "If relative died, month and year of reltive dealth",
+      "uuid" : "675de50c-5d00-4886-a6f2-9a0ba3737da6",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "If relative died, month and year of reltive dealth",
+        "uuid" : "d5566c5c-3575-4019-9d55-70247173a915",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"f2aa117d-2754-4d37-a1c4-b769d6d36703\").containsAnswerConceptName(\"57e20de7-10de-4391-b7ce-87b2f40d19a2\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Any deaths in the family due to diagnosed or suspected TB?",
+                "conceptUuid" : "f2aa117d-2754-4d37-a1c4-b769d6d36703",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Yes" ],
+                "answerConceptUuids" : [ "57e20de7-10de-4391-b7ce-87b2f40d19a2" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : false
+    } ],
+    "display" : "Family History of TB",
+    "timed" : false
+  }, {
+    "uuid" : "79f5cd1b-0c85-448e-8bd5-07d5e9e2e644",
+    "name" : "Form Filled Details",
+    "displayOrder" : 11.0,
+    "formElements" : [ {
+      "name" : "Form Filled by (write initials)",
+      "uuid" : "a468289f-8b8f-4c41-9677-85ea59b13116",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Form Filled by (write initials)",
+        "uuid" : "5bbc3b12-5ccb-4068-b67d-59c172234c9f",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "voided" : true,
+      "mandatory" : false
+    }, {
+      "name" : "Date of form filling",
+      "uuid" : "b2202b77-aecc-43b4-912a-2070f3c23207",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Date of form filling",
+        "uuid" : "7aed2be8-f1af-4a4e-af74-a69168807ca5",
+        "dataType" : "Date",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "voided" : true,
+      "mandatory" : false
+    } ],
+    "display" : "Form Filled Details",
+    "voided" : true,
+    "timed" : false
+  } ],
+  "decisionRule" : "",
+  "visitScheduleRule" : "\"use strict\";\n({ params, imports }) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({programEncounter});\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter}).when.valueInEntireEnrolment(\"adac3441-95d8-47ef-ad3e-bcb7644f0627\").defined.matches();\n  \n  if(condition11 ){\n    const earliestDate = moment(programEncounter.programEnrolment.enrolmentDateTime).add(0, 'days').toDate();\n    const maxDate = moment(programEncounter.programEnrolment.enrolmentDateTime).add(0, 'days').toDate();\n    scheduleBuilder.add({name: \"TB Study Risk Factors Assessment\", encounterType: \"TB Study Risk Factors Assessment\", earliestDate, maxDate});  \n}\n  \n  return scheduleBuilder.getAll();\n};",
+  "validationRule" : "",
+  "checklistsRule" : "",
+  "decisionConcepts" : [ ],
+  "visitScheduleDeclarativeRule" : [ {
+    "actions" : [ {
+      "details" : {
+        "dateField" : "enrolmentDateTime",
+        "daysToOverdue" : "0",
+        "encounterName" : "TB Study Risk Factors Assessment",
+        "encounterType" : "TB Study Risk Factors Assessment",
+        "daysToSchedule" : "0"
+      },
+      "actionType" : "scheduleVisit"
+    }, { } ],
+    "conditions" : [ {
+      "compoundRule" : {
+        "rules" : [ {
+          "lhs" : {
+            "type" : "concept",
+            "scope" : "entireEnrolment",
+            "conceptName" : "Date of Starting ATT",
+            "conceptUuid" : "adac3441-95d8-47ef-ad3e-bcb7644f0627",
+            "conceptDataType" : "Date"
+          },
+          "rhs" : { },
+          "operator" : "defined"
+        } ],
+        "conjunction" : "or"
+      }
+    } ]
+  } ]
+}

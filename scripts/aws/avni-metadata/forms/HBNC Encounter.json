@@ -1,0 +1,366 @@
+{
+  "name" : "HBNC Encounter",
+  "uuid" : "c46ae77b-a79b-48d3-94e4-c7939ceaa37d",
+  "formType" : "Encounter",
+  "formElementGroups" : [ {
+    "uuid" : "54a2932e-8c29-4027-8536-8f342524599a",
+    "name" : "Health Check Up Details of Newborn",
+    "displayOrder" : 1.0,
+    "formElements" : [ {
+      "name" : "Fever",
+      "uuid" : "64846826-7039-479c-92d9-82868bea52c8",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Fever HBNC",
+        "uuid" : "0be994fe-d768-42eb-a9da-81d3b6d74fbc",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Normal",
+          "uuid" : "ec89cb1f-491b-46de-95c1-3009effa9041",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "High",
+          "uuid" : "98bac919-1c59-4e8d-8ac3-bf8fd7ec3d51",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "abnormal" : true,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Low",
+          "uuid" : "d89810ac-b17a-482a-b57e-33cb910d62a1",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "abnormal" : true,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ {
+          "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/0be994fe-d768-42eb-a9da-81d3b6d74fbc.jpg",
+          "type" : "Image"
+        } ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Is the Newborn able to suck milk? (good signs of latching)",
+      "uuid" : "3a800118-cf69-4a8a-9321-dc39711b19ab",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Is the Newborn able to suck milk? (good signs of latching)",
+        "uuid" : "6a5103bd-1aa9-4581-9d3e-f92df6017528",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Yes",
+          "uuid" : "57e20de7-10de-4391-b7ce-87b2f40d19a2",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "No",
+          "uuid" : "f88da2e8-6ab4-44b5-b762-233485cd25f9",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ {
+          "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/6a5103bd-1aa9-4581-9d3e-f92df6017528.jpg",
+          "type" : "Image"
+        } ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Does mother have any problem in breastfeeding?",
+      "uuid" : "ae715875-a5c7-4a11-803c-51c39a4da75a",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Does mother have any problem in breastfeeding?",
+        "uuid" : "01b9f45d-f798-46ab-9232-14b40786d973",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "No issues/problems",
+          "uuid" : "5cd37a0c-8271-4fc7-845b-0e97c018d4ea",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        }, {
+          "name" : "Not enough breast milk",
+          "uuid" : "69b4816e-a58d-4afa-a635-37d38e44d2cc",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "abnormal" : true,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        }, {
+          "name" : "No breast milk at all",
+          "uuid" : "90502bf9-8178-44e7-b60f-86e92cb32de3",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "abnormal" : true,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ {
+          "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/01b9f45d-f798-46ab-9232-14b40786d973.jpg",
+          "type" : "Image"
+        } ]
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Umbilicus chord",
+      "uuid" : "e21ab326-751a-48bc-a869-9b916c7a64e6",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Umbilicus chord",
+        "uuid" : "6bda74f6-4029-411d-a834-82559ee64bba",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Bleeding from the cord",
+          "uuid" : "cbc7095d-a90d-49b0-9e71-0decdcf7dc25",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "abnormal" : true,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Red/Inflamed",
+          "uuid" : "8c429860-57eb-4b04-b4a0-dbe1942b4773",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "abnormal" : true,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Normal",
+          "uuid" : "ec89cb1f-491b-46de-95c1-3009effa9041",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Pus",
+          "uuid" : "62f7fafd-5abe-45a7-ba94-2d19a4f065c1",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "abnormal" : true,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ {
+          "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/6bda74f6-4029-411d-a834-82559ee64bba.jpg",
+          "type" : "Image"
+        } ]
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Any danger sign of sepsis",
+      "uuid" : "708dac01-f697-4440-9b7a-83f56bcc7ba9",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Any danger sign of sepsis",
+        "uuid" : "d0b1d1f7-649b-4c0f-be41-bd6e4d162a50",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Weak and flaccid legs and hands",
+          "uuid" : "709f2b19-f4a4-4029-ab10-3575e2e47380",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        }, {
+          "name" : "Mother says baby is cold or temperature is more than 37.2 DC",
+          "uuid" : "f0988459-4895-4b69-8473-61186073e105",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 6.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Chest indrawing",
+          "uuid" : "536afd11-f8cd-4526-87de-ced171f37c99",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 7.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Distended abdomen or mother says baby vomits frequently",
+          "uuid" : "d10d96b0-066e-4782-a07b-37a7ad993eea",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Other danger sign",
+          "uuid" : "be961dbb-ab01-46f0-9989-cf66ac7365d8",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 8.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Weak cry or stopped crying",
+          "uuid" : "06697930-4d4d-425a-8edc-d081d944b1d7",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        }, {
+          "name" : "Difficulty in breathing",
+          "uuid" : "cc710839-9b8c-4d52-944e-8ba21ad3de72",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        }, {
+          "name" : "Reduced or stopped breastfeeding",
+          "uuid" : "ce7a0737-7770-4eb7-a4b2-0b4fdcc4b381",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        }, {
+          "name" : "No danger sign",
+          "uuid" : "daba85d0-c31a-426c-a179-1305fdd51ecf",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "unique" : true,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 5.0,
+      "type" : "MultiSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Other danger sign, please specify",
+      "uuid" : "8cb6df11-d7b5-4761-8e77-48f431bd494c",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Other danger sign, please specify",
+        "uuid" : "710ff153-63e2-42b4-a1d1-1794ba58c5a3",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 6.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({encounter, formElement}).when.valueInEncounter(\"d0b1d1f7-649b-4c0f-be41-bd6e4d162a50\").containsAnswerConceptName(\"be961dbb-ab01-46f0-9989-cf66ac7365d8\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Any danger sign of sepsis",
+                "conceptUuid" : "d0b1d1f7-649b-4c0f-be41-bd6e4d162a50",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Other danger sign" ],
+                "answerConceptUuids" : [ "be961dbb-ab01-46f0-9989-cf66ac7365d8" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ]
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    } ],
+    "display" : "Health Check Up Details of Newborn",
+    "timed" : false
+  }, {
+    "uuid" : "6c60d599-ea4e-4005-93a8-26e947cd36dc",
+    "name" : "Referral",
+    "displayOrder" : 2.0,
+    "formElements" : [ {
+      "name" : "Does newborn need referral ?",
+      "uuid" : "dee964fb-9515-4dc4-bb07-bcf4ec30a383",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Does newborn need referral",
+        "uuid" : "b26f5927-78a3-46b1-83bb-8a8b24680be4",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "No",
+          "uuid" : "f88da2e8-6ab4-44b5-b762-233485cd25f9",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Yes",
+          "uuid" : "57e20de7-10de-4391-b7ce-87b2f40d19a2",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    } ],
+    "display" : "Referral",
+    "timed" : false
+  } ],
+  "decisionRule" : "",
+  "visitScheduleRule" : "\"use strict\";\n({ params, imports }) => {\n    const encounter = params.entity;\n    const moment = imports.moment;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({encounter});\n\n    function isAlreadyScheduled(encounterType, earliestDate) {\n        const earliestDateTime = moment(earliestDate);\n        const isAlreadyPresent = encounter.individual.getEncounters(true)\n            .some((enc) => \n                enc &&\n                enc.encounterType.name == encounterType &&\n                enc.voided == false &&\n                moment(enc.earliestVisitDateTime).isSame(earliestDateTime, 'day')\n            );\n    \n        return isAlreadyPresent;\n    }\n    \n    const totalEnc = encounter.individual.encounters.length;\n    const allEnc = encounter.individual.encounters;\n    \n    const sortedEnc = [...allEnc].sort((a, b) => {\n        return new Date(b.earliestVisitDateTime) - new Date(a.earliestVisitDateTime);\n    });\n    \n    const currentUUID = encounter.uuid;\n    \n    const lastEnc = sortedEnc[0];\n\n    const currentInList = sortedEnc.find(e => e.uuid === currentUUID)\n    \n    if(totalEnc < 10){\n        let earliestDate, maxDate;\n        console.log(currentInList.encounterDateTime);\n        if(currentInList.encounterDateTime != null){  \n        } else if(currentInList.cancelDateTime != null){\n        } else {\n            earliestDate = moment(lastEnc.earliestVisitDateTime).add(1, 'days').toDate();\n            maxDate = moment(lastEnc.earliestVisitDateTime).add(2, 'days').toDate();\n            scheduleBuilder.add({name: \"HBNC\", encounterType: \"HBNC\", earliestDate, maxDate});\n        }\n    }  \n\n    const doesNewBornNeedReferral = new imports.rulesConfig.RuleCondition({encounter}).when.valueInEncounter(\"b26f5927-78a3-46b1-83bb-8a8b24680be4\").containsAnswerConceptName(\"57e20de7-10de-4391-b7ce-87b2f40d19a2\").matches();\n  \n    const baseDate = encounter.encounterDateTime;\n\n    if(doesNewBornNeedReferral){\n        const earliestDate = moment(baseDate).toDate();\n        const maxDate = moment(baseDate).add(15, 'days').toDate();\n        if(!isAlreadyScheduled(\"Referral Communication from VHW\", earliestDate)) {\n            scheduleBuilder.add({\n                name: \"Referral Communication from VHW\", \n                encounterType: \"Referral Communication from VHW\", \n                earliestDate, \n                maxDate\n            });\n        }  \n    }\n    \n    return scheduleBuilder.getAll();\n};",
+  "validationRule" : "",
+  "checklistsRule" : "",
+  "decisionConcepts" : [ ]
+}

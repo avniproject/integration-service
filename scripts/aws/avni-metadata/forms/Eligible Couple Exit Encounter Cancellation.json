@@ -1,0 +1,7 @@
+{
+  "name" : "Eligible Couple Exit Encounter Cancellation",
+  "uuid" : "ba0b6bdc-9b68-4eec-a5d6-b3b662f202ff",
+  "formType" : "ProgramEncounterCancellation",
+  "formElementGroups" : [ ],
+  "decisionConcepts" : [ ]
+}

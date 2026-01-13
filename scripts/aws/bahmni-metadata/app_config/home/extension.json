@@ -1,0 +1,161 @@
+{
+    "bahmniRegistration": {
+        "id": "bahmni.registration",
+        "extensionPointId": "org.bahmni.home.dashboard",
+        "type": "link",
+        "label": "Registration",
+        "url": "../registration/index.html",
+        "icon": "fa-user",
+        "order": 1,
+        "requiredPrivilege": "app:registration"
+    },
+    "bahmniClinical": {
+        "id": "bahmni.clinical",
+        "extensionPointId": "org.bahmni.home.dashboard",
+        "type": "link",
+        "label": "Clinical",
+        "url": "../clinical/index.html#/default/patient/search",
+        "icon": "fa-stethoscope",
+        "order": 3,
+        "requiredPrivilege": "app:clinicalapp"
+    },
+    "bahmniAdt": {
+        "id": "bahmni.adt",
+        "extensionPointId": "org.bahmni.home.dashboard",
+        "type": "link",
+        "label": "InPatient",
+        "url": "../adt/",
+        "icon": "fa-bed",
+        "order": 4,
+        "requiredPrivilege": "app:adt"
+    },
+    "bahmniRadiologyDocumentUpload": {
+        "id": "bahmni.radiology.document.upload",
+        "extensionPointId": "org.bahmni.home.dashboard",
+        "type": "link",
+        "label": "Radiology Upload",
+        "url": "../document-upload/?encounterType=RADIOLOGY&topLevelConcept=Radiology",
+        "icon": "fa-camera",
+        "order": 5,
+        "requiredPrivilege": "app:document-upload"
+    },
+    "bahmniPatientDocumentUpload": {
+        "id": "bahmni.patient.document.upload",
+        "extensionPointId": "org.bahmni.home.dashboard",
+        "type": "link",
+        "label": "Patient Documents",
+        "url": "../document-upload/?encounterType=Patient Document&topLevelConcept=Patient Document&defaultOption=Patient file",
+        "icon": "fa-paperclip",
+        "order": 6,
+        "requiredPrivilege": "app:document-upload"
+    },
+    "bahmniAdmin": {
+        "id": "bahmni.admin",
+        "extensionPointId": "org.bahmni.home.dashboard",
+        "type": "link",
+        "label": "Admin",
+        "url": "../admin/#/dashboard/home",
+        "icon": "fa-cogs",
+        "order": 7,
+        "requiredPrivilege": "app:admin"
+    },
+    "bahmniBilling": {
+        "id": "bahmni.billing",
+        "extensionPointId": "org.bahmni.home.dashboard",
+        "type": "link",
+        "label": "Prescription",
+        "url": "../clinical/#/default/patient/search",
+        "icon": "fa-inr",
+        "order": 8,
+        "requiredPrivilege": "app:billing"
+    },
+    "bahmniDhis": {
+        "id": "bahmni.dhis",
+        "extensionPointId": "org.bahmni.home.dashboard",
+        "type": "link",
+        "label": "Dhis",
+        "url": "../dhis/#/dashboard/home",
+        "icon": "fa-book",
+        "order": 9,
+        "requiredPrivilege": "app:dhis"
+    },
+    "bahmniOrders": {
+        "id": "bahmni.orders",
+        "extensionPointId": "org.bahmni.home.dashboard",
+        "type": "link",
+        "label": "Orders",
+        "url": "../orders/#/search",
+        "icon": "fa-folder-open",
+        "order": 10,
+        "requiredPrivilege": "app:orders"
+    },
+    "bahmniReports": {
+        "id": "bahmni.reports",
+        "extensionPointId": "org.bahmni.home.dashboard",
+        "type": "link",
+        "label": "Reports",
+        "url": "../reports/#/dashboard",
+        "icon": "fa-bar-chart-o",
+        "order": 11
+    },
+    "bahmniPrograms": {
+        "id": "bahmni.programs",
+        "extensionPointId": "org.bahmni.home.dashboard",
+        "type": "link",
+        "label": "Programs",
+        "url": "../clinical/#/programs/patient/search",
+        "icon": "fa-tasks",
+        "order": 12
+    },
+    "appointmentScheduling": {
+      "id": "bahmni.appointment.scheduling",
+      "extensionPointId": "org.bahmni.home.dashboard",
+      "type": "link",
+      "translationKey": "MODULE_LABEL_APPOINTMENT_SCHEDULING_KEY",
+      "url": "/appointments",
+      "icon": "fa fa-calendar",
+      "order": 13,
+      "requiredPrivilege": "app:appointments"
+    },
+    "implementerInterface": {
+      "id": "bahmni.implementer.interface",
+      "extensionPointId": "org.bahmni.home.dashboard",
+      "type": "link",
+      "translationKey": "MODULE_LABEL_IMPLEMENTER_INTERFACE_KEY",
+      "url": "/implementer-interface",
+      "icon": "fa fa-pencil-square-o",
+      "order": 14,
+      "requiredPrivilege": "app:implementer-interface"
+    },
+    "atomfeedConsole": {
+         "id": "bahmni.atomfeed.console",
+         "extensionPointId": "org.bahmni.home.dashboard",
+         "type": "link",
+         "label": "Atomfeed Console",
+         "url": "/atomfeed-console",
+         "icon": "fa fa-terminal",
+         "order": 15,
+        "requiredPrivilege": "app:admin"
+    },
+    "resources": {
+        "id": "bahmni.provider.resources",
+        "extensionPointId": "org.bahmni.home.dashboard",
+        "type": "link",
+        "label": "Resources",
+        "url": "/bahmni_config/resources/index.html",
+        "icon": "fa fa-newspaper-o",
+        "order": 14,
+        "requiredPrivilege": "app:clinical"
+   },
+   "ndhmHIU": {
+        "id": "bahmni.ndhm.hiu",
+        "extensionPointId": "org.bahmni.home.dashboard",
+        "type": "link",
+        "translationKey": "MODULE_LABEL_NDHMHIU_KEY",
+        "url": "/hiuser",
+        "icon": "fa fa-hospital-o",
+        "order": 16,
+        "requiredPrivilege": "app:disable-clinical"
+  }
+}
+

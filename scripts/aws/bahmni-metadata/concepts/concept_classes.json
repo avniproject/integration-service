@@ -1,0 +1,224 @@
+[
+  {
+    "concept_class_id": 1,
+    "name": "Test",
+    "uuid": "8d4907b2-c2cc-11de-8d13-0010c6dffd0f",
+    "description": "Acq. during patient encounter (vitals, labs, etc.)"
+  },
+  {
+    "concept_class_id": 2,
+    "name": "Procedure",
+    "uuid": "8d490bf4-c2cc-11de-8d13-0010c6dffd0f",
+    "description": "Describes a clinical procedure"
+  },
+  {
+    "concept_class_id": 3,
+    "name": "Drug",
+    "uuid": "8d490dfc-c2cc-11de-8d13-0010c6dffd0f",
+    "description": "Drug"
+  },
+  {
+    "concept_class_id": 4,
+    "name": "Diagnosis",
+    "uuid": "8d4918b0-c2cc-11de-8d13-0010c6dffd0f",
+    "description": "Conclusion drawn through findings"
+  },
+  {
+    "concept_class_id": 5,
+    "name": "Finding",
+    "uuid": "8d491a9a-c2cc-11de-8d13-0010c6dffd0f",
+    "description": "Practitioner observation/finding"
+  },
+  {
+    "concept_class_id": 6,
+    "name": "Anatomy",
+    "uuid": "8d491c7a-c2cc-11de-8d13-0010c6dffd0f",
+    "description": "Anatomic sites / descriptors"
+  },
+  {
+    "concept_class_id": 7,
+    "name": "Question",
+    "uuid": "8d491e50-c2cc-11de-8d13-0010c6dffd0f",
+    "description": "Question (eg, patient history, SF36 items)"
+  },
+  {
+    "concept_class_id": 8,
+    "name": "LabSet",
+    "uuid": "8d492026-c2cc-11de-8d13-0010c6dffd0f",
+    "description": "Panels"
+  },
+  {
+    "concept_class_id": 9,
+    "name": "MedSet",
+    "uuid": "8d4923b4-c2cc-11de-8d13-0010c6dffd0f",
+    "description": "Term to describe medication sets"
+  },
+  {
+    "concept_class_id": 10,
+    "name": "ConvSet",
+    "uuid": "8d492594-c2cc-11de-8d13-0010c6dffd0f",
+    "description": "Term to describe convenience sets"
+  },
+  {
+    "concept_class_id": 11,
+    "name": "Misc",
+    "uuid": "8d492774-c2cc-11de-8d13-0010c6dffd0f",
+    "description": "Terms which don't fit other categories"
+  },
+  {
+    "concept_class_id": 12,
+    "name": "Symptom",
+    "uuid": "8d492954-c2cc-11de-8d13-0010c6dffd0f",
+    "description": "Patient-reported observation"
+  },
+  {
+    "concept_class_id": 13,
+    "name": "Symptom/Finding",
+    "uuid": "8d492b2a-c2cc-11de-8d13-0010c6dffd0f",
+    "description": "Observation that can be reported from patient or found on exam"
+  },
+  {
+    "concept_class_id": 14,
+    "name": "Specimen",
+    "uuid": "8d492d0a-c2cc-11de-8d13-0010c6dffd0f",
+    "description": "Body or fluid specimen"
+  },
+  {
+    "concept_class_id": 15,
+    "name": "Misc Order",
+    "uuid": "8d492ee0-c2cc-11de-8d13-0010c6dffd0f",
+    "description": "Orderable items which aren't tests or drugs"
+  },
+  {
+    "concept_class_id": 16,
+    "name": "Concept Attribute",
+    "uuid": "e633a702-e349-11e3-983a-91270dcbd3bf",
+    "description": "Concept Attribute class"
+  },
+  {
+    "concept_class_id": 17,
+    "name": "Abnormal",
+    "uuid": "e68e0d60-e349-11e3-983a-91270dcbd3bf",
+    "description": "Abnormal class"
+  },
+  {
+    "concept_class_id": 18,
+    "name": "Duration",
+    "uuid": "e6a6f642-e349-11e3-983a-91270dcbd3bf",
+    "description": "Duration class"
+  },
+  {
+    "concept_class_id": 19,
+    "name": "Concept Details",
+    "uuid": "e6d04546-e349-11e3-983a-91270dcbd3bf",
+    "description": "Concept Details class"
+  },
+  {
+    "concept_class_id": 20,
+    "name": "Frequency",
+    "uuid": "8e071bfe-520c-44c0-a89b-538e9129b42a",
+    "description": "A class for order frequencies"
+  },
+  {
+    "concept_class_id": 21,
+    "name": "Image",
+    "uuid": "70bf684e-1666-11e4-9b1f-a53a324dedbc",
+    "description": "Image class"
+  },
+  {
+    "concept_class_id": 22,
+    "name": "Computed",
+    "uuid": "70eaa5f9-1666-11e4-9b1f-a53a324dedbc",
+    "description": "Computed"
+  },
+  {
+    "concept_class_id": 23,
+    "name": "URL",
+    "uuid": "7a40b037-603c-11e4-a1f2-ba526e30a5ad",
+    "description": "URL"
+  },
+  {
+    "concept_class_id": 24,
+    "name": "Sample",
+    "uuid": "5e2fc40b-603e-11e4-a1f2-ba526e30a5ad",
+    "description": "Lab Samples Concept Class"
+  },
+  {
+    "concept_class_id": 25,
+    "name": "Department",
+    "uuid": "5e514105-603e-11e4-a1f2-ba526e30a5ad",
+    "description": "Lab Departments Concept Class"
+  },
+  {
+    "concept_class_id": 26,
+    "name": "LabTest",
+    "uuid": "7bba17a2-6c1d-11e4-a1f2-ba526e30a5ad",
+    "description": "Lab Tests"
+  },
+  {
+    "concept_class_id": 27,
+    "name": "Radiology",
+    "uuid": "7beb3fa8-6c1d-11e4-a1f2-ba526e30a5ad",
+    "description": "Radiology Orders"
+  },
+  {
+    "concept_class_id": 28,
+    "name": "Computed/Editable",
+    "uuid": "0a6822a5-89ef-11e4-a1f2-ba526e30a5ad",
+    "description": "Computed/Editable"
+  },
+  {
+    "concept_class_id": 29,
+    "name": "Case Intake",
+    "uuid": "66ea5ebb-bc49-11e4-b3be-f30e6df790ea",
+    "description": "Case Intake class"
+  },
+  {
+    "concept_class_id": 30,
+    "name": "Bacteriology Attributes",
+    "uuid": "1ad90c35-3014-11e6-8d4b-60df3d942e2a",
+    "description": "Bacteriology Attributes Concept Class"
+  },
+  {
+    "concept_class_id": 31,
+    "name": "Bacteriology Results",
+    "uuid": "1b81db20-3014-11e6-8d4b-60df3d942e2a",
+    "description": "Bacteriology Results Concept Class"
+  },
+  {
+    "concept_class_id": 32,
+    "name": "Unknown",
+    "uuid": "219eb1ff-3014-11e6-8d4b-60df3d942e2a",
+    "description": "Unknown class"
+  },
+  {
+    "concept_class_id": 33,
+    "name": "Video",
+    "uuid": "96a00f2f-84d0-11e6-82a6-b8ca3a736bd4",
+    "description": "Video class"
+  },
+  {
+    "concept_class_id": 34,
+    "name": "RSBY Package",
+    "uuid": "c164ef78-81d6-4b15-a056-5e0f64dcd79d",
+    "description": "Describes a RSBY Package list"
+  },
+  {
+    "concept_class_id": 35,
+    "name": "Ayushman Bharat Package",
+    "uuid": "50c85f02-dcba-43ff-ab31-4a565c79a000",
+    "description": "Describes a Ayushman Bharat Package list"
+  },
+  {
+    "concept_class_id": 36,
+    "name": "Intevention List",
+    "uuid": "7373d630-c9ee-40dd-ba99-28e838d4e784",
+    "description": "Describes a Pain Study Intevention List"
+  },
+  {
+    "concept_class_id": 37,
+    "name": "Radiology/Imaging Procedure",
+    "uuid": "c6664c16-16b4-4bf4-91da-93f2ac88a0eb",
+    "description": "Radiology Orders"
+  }
+]

@@ -1,0 +1,18 @@
+{
+  "name" : "PPMC Encounter Cancellation",
+  "uuid" : "da2564ed-4627-4dcc-854f-d1bb7cc2493c",
+  "formType" : "IndividualEncounterCancellation",
+  "formElementGroups" : [ {
+    "uuid" : "1846652a-4210-4822-bb0e-7b03c32a18fe",
+    "name" : "Cancel",
+    "displayOrder" : 1.0,
+    "formElements" : [ ],
+    "display" : "Cancel",
+    "timed" : false
+  } ],
+  "decisionRule" : "",
+  "visitScheduleRule" : "\"use strict\";\n({ params, imports }) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({encounter});\n  \n  const totalEnc = encounter.individual.encounters.length;\n  const allEnc = encounter.individual.encounters;\n\n  const sortedEnc = [...allEnc].sort((a, b) => {\n    return new Date(b.earliestVisitDateTime) - new Date(a.earliestVisitDateTime);\n  });\n  \n  const currentUUID = encounter.uuid;\n  \n  const lastEnc = sortedEnc[0];\n\n  const currentInList = sortedEnc.find(e => e.uuid === currentUUID);\n\n  if(totalEnc < 10){\n    let earliestDate, maxDate;\n    if(currentInList.encounterDateTime != null){\n      earliestDate = currentInList.earliestVisitDateTime;\n      maxDate = currentInList.maxVisitDateTime;\n      scheduleBuilder.add({name: \"PPMC\", encounterType: \"PPMC\", earliestDate, maxDate});  \n    } else if(currentInList.cancelDateTime != null){\n    } else {\n      earliestDate = moment(lastEnc.earliestVisitDateTime).add(1, 'days').toDate();\n      maxDate = moment(lastEnc.earliestVisitDateTime).add(2, 'days').toDate();\n      scheduleBuilder.add({name: \"PPMC\", encounterType: \"PPMC\", earliestDate, maxDate});\n    }\n  }  \n\n  \n  return scheduleBuilder.getAll();\n};",
+  "validationRule" : "",
+  "checklistsRule" : "",
+  "decisionConcepts" : [ ]
+}

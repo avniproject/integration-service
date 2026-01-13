@@ -1,0 +1,93 @@
+[ {
+  "uuid" : "9c3ad20e-8d39-4291-8935-386a5e3f4f90",
+  "id" : 37,
+  "name" : "Everyone",
+  "notEveryoneGroup" : false
+}, {
+  "uuid" : "3bb007c2-7acb-43b7-be40-5ad6c1595a98",
+  "id" : 185,
+  "name" : "NCD (voided~2552)",
+  "voided" : true
+}, {
+  "uuid" : "4164283b-b515-4585-b39e-0144831bd9ab",
+  "id" : 98,
+  "name" : "Phulwari"
+}, {
+  "uuid" : "484dfe09-287e-4646-bcb9-785f7b37bf9a",
+  "id" : 99,
+  "name" : "MCH"
+}, {
+  "uuid" : "0dfec97a-b264-4086-b6bf-325c30f2db89",
+  "id" : 294,
+  "name" : "Supervisor"
+}, {
+  "uuid" : "8e319f29-bee6-4fbb-b745-1bd20de3f16f",
+  "id" : 295,
+  "name" : "Data Entry Operator"
+}, {
+  "uuid" : "9c9e8f2c-9f11-4885-a358-281a080fd924",
+  "id" : 403,
+  "name" : "Doctor"
+}, {
+  "uuid" : "e5e07d0d-31dd-4723-930c-b311a8e96c39",
+  "id" : 696,
+  "name" : "First level field workers"
+}, {
+  "uuid" : "bd116441-3e7d-49c7-bc7a-a611c32e4f1c",
+  "id" : 699,
+  "name" : "Cluster coordinator"
+}, {
+  "uuid" : "b1714d96-3c92-4a04-995d-afd5f6586eee",
+  "id" : 701,
+  "name" : "SHG Supervisor"
+}, {
+  "uuid" : "b25764fd-8af8-4d96-9371-092160192603",
+  "id" : 702,
+  "name" : "Animal Health worker"
+}, {
+  "uuid" : "a7c68593-67ed-4f43-9ebd-ebb8bc90b17b",
+  "id" : 697,
+  "name" : "MCH (voided~697)",
+  "voided" : true
+}, {
+  "uuid" : "1282f197-2d00-4259-b003-15c2a8cc31c2",
+  "id" : 700,
+  "name" : "Dev"
+}, {
+  "uuid" : "c0e334ea-fc65-48f0-be9a-c9cc535da8f6",
+  "id" : 2158,
+  "name" : "TB Survey NPV"
+}, {
+  "uuid" : "3898d0b9-bc9a-4da2-acc4-38c92371fbbf",
+  "id" : 3253,
+  "name" : "WHC"
+}, {
+  "uuid" : "9bee7180-ead2-4a36-b9a8-b0c7ef6ac7e0",
+  "id" : 3254,
+  "name" : "Admin"
+}, {
+  "uuid" : "5683e375-6359-43cc-9cb2-63d92137929f",
+  "id" : 3266,
+  "name" : "Eye screening"
+}, {
+  "uuid" : "a8dc3c65-2bd8-413c-bdf8-09589f263de3",
+  "id" : 698,
+  "name" : "NCD (voided~698)",
+  "voided" : true
+}, {
+  "uuid" : "fbd78e7a-9bc0-415e-b6bc-29591b9318b7",
+  "id" : 3309,
+  "name" : "TB Study"
+}, {
+  "uuid" : "e5f07dbb-be66-4c84-afa2-69990d560c37",
+  "id" : 3310,
+  "name" : "VHW"
+}, {
+  "uuid" : "1e842cb9-a9ea-4405-9284-4c58ee5de5a3",
+  "id" : 3311,
+  "name" : "Senior Health Worker (SHW)"
+}, {
+  "uuid" : "3d17bce2-57cc-4b22-817d-edee253d09d2",
+  "id" : 3312,
+  "name" : "Community Health Office"
+} ]

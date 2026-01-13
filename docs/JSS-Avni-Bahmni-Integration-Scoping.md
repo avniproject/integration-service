@@ -1,17 +1,15 @@
 # JSS Avni-Bahmni Integration - Scoping Document
 
+**Version:** 2.0 (Feed-Based Architecture)  
+**Last Updated:** January 2025  
+**Status:** Active Development
+
 ## Executive Summary
 
-This document outlines the integration between **Avni** (field-based community health platform) and **Bahmni** (hospital EMR) for **Jan Swasthya Sahyog (JSS)**, a healthcare organization serving tribal and rural communities in Chhattisgarh, India.
+Bi-directional integration between **Avni** (community health platform) and **Bahmni** (hospital EMR) for **Jan Swasthya Sahyog (JSS)**.
 
-**Integration Type:** Bi-directional (asymmetric)  
-**Primary Goal:** Enable clinical data synchronization for field service and unified research data
-
-### Key Principles
-- **ID Generation:** Always on Bahmni (GAN ID)
-- **Avni receives:** Only information needed for field service (lab reports, X-rays, visits list, discharge summaries for followup)
-- **Bahmni receives:** All data from Avni (complete community health data)
-- **Research:** Bahmni serves as the unified repository for clinical + community data research
+**Architecture:** Feed-based synchronization using Atom feeds (Bahmni) and REST APIs (Avni)  
+**Sync Strategy:** 1-to-1 entity mapping with no business logic in integration service
 
 ---
 
@@ -19,16 +17,12 @@ This document outlines the integration between **Avni** (field-based community h
 
 1. [Organization Context](#1-organization-context)
 2. [Technical Architecture](#2-technical-architecture)
-3. [Integration Scope](#3-integration-scope)
-4. [Phase Breakdown](#4-phase-breakdown)
-5. [Development Environment Setup](#5-development-environment-setup)
-6. [AWS RDS Setup](#6-aws-rds-setup)
-7. [Bahmni Docker Setup](#7-bahmni-docker-setup)
-8. [Integration Service Configuration](#8-integration-service-configuration)
-9. [Mapping Configuration](#9-mapping-configuration)
-10. [Dev Environment Respawn Procedures](#10-dev-environment-respawn-procedures)
-11. [Testing & Verification](#11-testing--verification)
-12. [Deliverables Checklist](#12-deliverables-checklist)
+3. [Sync Scope Summary](#3-sync-scope-summary)
+4. [Feed-Based Synchronization](#4-feed-based-synchronization)
+5. [New Encounter Types & Visit Types](#5-new-encounter-types--visit-types)
+6. [Metadata Mapping Steps](#6-metadata-mapping-steps)
+7. [Doctor Questionnaire](#7-doctor-questionnaire)
+8. [Implementation Checklist](#8-implementation-checklist)
 
 ---
 
@@ -80,847 +74,373 @@ This document outlines the integration between **Avni** (field-based community h
 
 ### Technology Stack
 
-| Component | Technology | Version |
-|-----------|------------|---------|
-| **Bahmni** | Docker Compose | See JSS bahmni-docker repo |
-| **OpenMRS** | Core EMR | 1.0.0-644 |
-| **MySQL** | OpenMRS DB | 5.6 |
-| **Integration Service** | Spring Boot (Java) | jss_ganiyari branch |
-| **Integration DB** | PostgreSQL | 15.x |
-| **Avni** | Cloud hosted | prerelease.avniproject.org |
+| Component | Technology | Version | Notes |
+|-----------|------------|---------|-------|
+| **EC2 Instance** | AWS t3.large | 7.6 GiB RAM + 8 GiB swap | 100GB gp3 volume |
+| **OS** | Ubuntu 22.04 LTS | x86_64 | Docker pre-installed |
+| **Docker Compose** | Docker Compose | Latest | Local MySQL setup (not RDS) |
+| **OpenMRS** | Core EMR | 1.0.0-644 | Bahmni OpenMRS image |
+| **MySQL** | OpenMRS DB | 5.6 | Local Docker container |
+| **Bahmni Web** | UI Frontend | 1.1.0-696 | Apache HTTPD proxy |
+| **SSL/HTTPS** | Let's Encrypt | Current | Certbot auto-renewal |
+| **Integration Service** | Spring Boot (Java) | jss_ganiyari_dev branch | To be deployed on EC2 |
+| **Integration DB** | PostgreSQL | 15.x | To be configured |
+| **Avni** | Cloud hosted | prerelease.avniproject.org | Bi-directional sync |
+
+**Key Change:** Using **local MySQL 5.6 Docker container** instead of external RDS for better performance and simplicity.
 
 ### Key Repositories
 
-| Repository | Purpose |
-|------------|---------|
-| [avniproject/integration-service](https://github.com/avniproject/integration-service/tree/jss_ganiyari) | Integration service code (jss_ganiyari branch) |
-| [JanSwasthyaSahyog/bahmni-docker](https://github.com/JanSwasthyaSahyog/bahmni-docker) | JSS Bahmni Docker setup |
-| [JanSwasthyaSahyog/jss-config](https://github.com/JanSwasthyaSahyog/jss-config) | JSS Bahmni configuration |
+| Repository | Purpose | Branch/Tag |
+|------------|---------|------------|
+| [avniproject/integration-service](https://github.com/avniproject/integration-service/tree/jss_ganiyari) | Integration service code | jss_ganiyari_dev |
+| [JanSwasthyaSahyog/bahmni-docker](https://github.com/JanSwasthyaSahyog/bahmni-docker) | JSS Bahmni Docker setup | master |
+| [JanSwasthyaSahyog/jss-config](https://github.com/JanSwasthyaSahyog/jss-config) | JSS Bahmni configuration (UI, forms, concepts) | master |
+| [avniproject/integration-service (scripts/aws)](https://github.com/avniproject/integration-service/tree/master/scripts/aws) | AWS infrastructure automation | master |
 
----
+### Current Prerelease Server Details
 
-## 3. Integration Scope
-
-### Data Flow Directions
-
-#### Avni → Bahmni (Complete - All Community Data)
-- Subject registration data → Patient creation
-- Program enrolments → Bahmni encounters
-- Program encounters → Bahmni encounters
-- Field observations → Clinical observations
-- All community health data for research purposes
-
-#### Bahmni → Avni (Selective - Field Service Data Only)
-- Lab reports → Avni encounters
-- X-ray reports → Avni encounters  
-- Visits list → Avni encounters
-- Discharge summaries → Avni encounters (for followup)
-
-### 3.1 Bahmni Forms Analysis (TODO)
-
-**Objective:** Identify clinical data in Bahmni that should sync to Avni for field service.
-
-#### Analysis Steps
-
-1. **Access Bahmni Forms Configuration**
-   ```bash
-   # Location in jss-config repo
-   git clone https://github.com/JanSwasthyaSahyog/jss-config.git
-   
-   # Key directories to examine:
-   # - openmrs/apps/clinical/formConditions.js
-   # - openmrs/apps/clinical/app.json
-   # - openmrs/apps/registration/
-   # - bahmni_config/openmrs/apps/
-   ```
-
-2. **Query OpenMRS Database for Forms/Concepts**
-   ```sql
-   -- List all encounter types
-   SELECT encounter_type_id, name, uuid FROM encounter_type WHERE retired = 0;
-   
-   -- List all forms
-   SELECT form_id, name, uuid, encounter_type FROM form WHERE retired = 0;
-   
-   -- List concept sets (form structure)
-   SELECT cs.concept_set, c.name as set_name, cm.name as member_name
-   FROM concept_set cs
-   JOIN concept_name c ON cs.concept_set = c.concept_id
-   JOIN concept_name cm ON cs.concept_id = cm.concept_id
-   WHERE c.locale = 'en' AND cm.locale = 'en';
-   
-   -- List lab test concepts
-   SELECT c.concept_id, cn.name, c.uuid 
-   FROM concept c
-   JOIN concept_name cn ON c.concept_id = cn.concept_id
-   JOIN concept_class cc ON c.class_id = cc.concept_class_id
-   WHERE cc.name IN ('Test', 'LabSet', 'Finding')
-   AND cn.locale = 'en' AND cn.concept_name_type = 'FULLY_SPECIFIED';
-   ```
-
-3. **Review Bahmni Clinical App Configuration**
-   - Check `app.json` for enabled features
-   - Review observation templates
-   - Identify discharge summary templates
-   - List radiology order types
-
-4. **Document Findings**
-
-#### Bahmni Clinical Data for Avni (To Be Populated)
-
-| Data Type | Bahmni Source | Avni Target | Priority | Notes |
-|-----------|---------------|-------------|----------|-------|
-| Lab Results | OpenELIS / Lab Module | Lab Results Encounter | High | TBD after analysis |
-| X-Ray Reports | PACS / Radiology | Radiology Encounter | High | TBD after analysis |
-| Visit Summary | Visit Notes | Visit Summary Encounter | Medium | TBD after analysis |
-| Discharge Summary | Discharge Template | Discharge Encounter | High | TBD after analysis |
-| Prescriptions | Drug Orders | Prescription Encounter | Medium | TBD after analysis |
-| Diagnoses | Diagnosis Module | Diagnosis Encounter | Medium | TBD after analysis |
-
-#### Bahmni Encounter Types (To Be Populated After Analysis)
-
-| Encounter Type | UUID | Sync to Avni | Notes |
-|----------------|------|--------------|-------|
-| *To be populated after Bahmni DB analysis* | | | |
-
-#### Bahmni Concept Mapping (To Be Populated After Analysis)
-
-| Bahmni Concept | UUID | Avni Concept | Notes |
-|----------------|------|--------------|-------|
-| *To be populated after Bahmni DB analysis* | | | |
-
-### Patient Matching Strategy
-
-**Primary Identifier:** GAN ID (Ganiyari ID)
-- Bahmni patients have GAN ID as patient identifier
-- Avni subjects must store GAN ID for matching
-- Integration service uses GAN ID for bi-directional linking
-
-### Avni Subject Types (JSSCP)
-
-| Subject Type | Category | Integration Scope |
-|--------------|----------|-------------------|
-| **Individual** | Clinical | Primary - maps to Bahmni Patient |
-| Household | Non-Clinical | Sync to Bahmni for research (P1) |
-| Phulwari | Non-Clinical | Not in Phase 1 |
-| SHG | Non-Clinical | Not in Phase 1 |
-| Monthly Monitoring | Operational | Not in Phase 1 |
-
-### Avni Programs - Data Categorization
-
-#### Clinical Programs (P1 - Sync to Bahmni)
-
-| Program | Priority | Notes |
-|---------|----------|-------|
-| Tuberculosis | High | Active treatment tracking |
-| Hypertension | High | Chronic disease management |
-| Sickle Cell | High | Chronic disease management |
-| Diabetes | High | Chronic disease management |
-| Epilepsy | High | Chronic disease management |
-| Mental Illness | Medium | Chronic disease management |
-| Heart Disease | Medium | Chronic disease management |
-| Stroke | Medium | Chronic disease management |
-| Asthma | Medium | Chronic disease management |
-| Cancer | Medium | Chronic disease management |
-| Thyroidism | Medium | Chronic disease management |
-| Arthritis | Medium | Chronic disease management |
-| COPD | Medium | Chronic disease management |
-| TB-INH Prophylaxis | Medium | Preventive treatment |
-| Pregnancy | High | MCH - clinical tracking |
-
-#### Non-Clinical Programs (P1 - Sync to Bahmni for Research)
-
-| Program | Category | Notes |
-|---------|----------|-------|
-| Eligible Couple | Reproductive Health | Family planning tracking |
-| Child | Growth Monitoring | Nutrition surveillance |
-| Women's Health Camp | Community Health | Camp-based screening |
-
-#### Non-Clinical Programs (Exclude from P1)
-
-| Program | Category | Reason |
-|---------|----------|--------|
-| Phulwari | Nutrition/Childcare | Operational - not patient-specific |
-| TB Study | Research | Separate research protocol |
-
-### Avni Encounter Types - Data Categorization
-
-#### Clinical Encounters (P1 - Sync to Bahmni)
-
-| Encounter Type | Program Context |
-|----------------|----------------|
-| Treatment review | TB |
-| TB followup | TB |
-| TB Lab test results | TB |
-| TB Family Screening Form | TB |
-| TB Mantoux test result | TB |
-| TB referral status | TB |
-| CBNAAT result, LPA result, LJ result | TB Lab |
-| INH Prophylaxis follow up | TB Prevention |
-| Hypertension Followup | Hypertension |
-| Hypertension referral status | Hypertension |
-| Diabetes Followup | Diabetes |
-| Diabetes lab test | Diabetes |
-| Diabetes referral status | Diabetes |
-| Epilepsy followup | Epilepsy |
-| Epilepsy referral status | Epilepsy |
-| Sickle cell followup | Sickle Cell |
-| Sickle cell lab test | Sickle Cell |
-| Sickle cell referral status | Sickle Cell |
-| Lab test | General |
-| Lab Investigations | Pregnancy |
-| ANC Clinic Visit | Pregnancy |
-| ANC Home Visit | Pregnancy |
-| USG Report | Pregnancy |
-| Delivery | Pregnancy |
-| Birth | Pregnancy |
-| Mother PNC | Pregnancy |
-| Child PNC | Pregnancy |
-| Child Birth | Pregnancy |
-| Abortion | Pregnancy |
-| Abortion followup | Pregnancy |
-| Referral Status | General |
-
-#### Non-Clinical Encounters (Sync to Bahmni for Research)
-
-| Encounter Type | Category |
-|----------------|----------|
-| Death | Mortality surveillance |
-| Verbal autopsy (newborn/child/maternal/adult) | Mortality surveillance |
-| Eligible Couple Follow-up | Reproductive health |
-| Growth Monitoring | Child nutrition |
-| Eye screening form | Screening |
-| Women's Health Camp | Community screening |
-| HBNC | Newborn care |
-| PPMC | Postpartum care |
-
-#### Operational Encounters (Exclude from P1)
-
-| Encounter Type | Reason |
-|----------------|--------|
-| Village Round | Household survey - not patient-specific |
-| Daily Attendance Form | Phulwari operations |
-| Observation Checklist | Phulwari quality |
-| Child Absent followup Form | Phulwari tracking |
-| Monthly monitoring | Operational reporting |
-| Monthly Cluster monitoring | Operational reporting |
-| SHG monthly data collection | SHG operations |
-| Monthly/Weekly VHW reports | Staff reporting |
-| Senior Health Worker reports | Staff reporting |
-| Monthly Animal Health Worker Reporting | Animal health |
-| Albendazole | Mass drug administration |
-| TB Study encounters | Research protocol |
-
----
-
-## 4. Phase Breakdown
-
-### Phase 1 (P1): Clinically Important Data Integration
-
-**Objective:** Integrate clinically important data between Avni and Bahmni
-
-| Deliverable | Description | Owner | Status |
-|-------------|-------------|-------|--------|
-| Bahmni System Assessment | Understand JSS Bahmni - network topology, server setup, versions | Himesh | Started |
-| Setup Bahmni on Samanvay | EC2 instance with Bahmni Docker + RDS | Himesh | Started |
-| Integration Service Deployment | Linux service setup with DB configuration | Himesh | Not Started |
-| Integration Service Learning | Understand codebase, Avni-Bahmni integration patterns | Himesh/Nupoor | Started |
-| Integration Service Module | Merged codebase with fixed unit tests, CI running | Himesh | Not Started |
-| DB Configuration | PostgreSQL setup for integration service | Himesh | Not Started |
-| Makefile Commands | Logging, DB dump, restart, build, deploy operations | Himesh | Not Started |
-
-| Admin Console App | Web app for mapping concepts, encounter types, programs | Nupoor | Not Started |
-| Tech Analysis & Flow Definition | Analyze Bahmni-Avni form compatibility, define MainJob/ErrorJobs | Himesh/Nupoor | Not Started |
-| Bahmni Forms Analysis | Identify clinical data in Bahmni to sync to Avni (see Section 3.1) | Himesh/Nupoor | Not Started |
-| Data-fix Analysis | Data updates needed on both systems for integration | Himesh/Nupoor | Not Started |
-| Mapping Configuration | Concept, encounter type, program mappings | Nupoor | Not Started |
-| Data Correction Endpoints | Idempotent endpoints for data fixes | Nupoor | Not Started |
-| Postman Collection | API requests with documentation | Himesh | Not Started |
-
-### Documentation & Training (Across Phases)
-
-| Deliverable | Description | Owner | Status |
-|-------------|-------------|-------|--------|
-| Comprehensive Integration Document | Architecture, setup, troubleshooting | Nupoor | Not Started |
-| Maintenance Commands Handbook | Quick reference for operations | Nupoor | Not Started |
-| Learning & Maintenance Videos | YouTube training for IT admin | Nupoor | Not Started |
-| IT Admin Training | Train Gajanan on operations | Nupoor | Not Started |
-| End User Training | Train-the-trainer for field workers | Nupoor | Not Started |
-
-### Review Process
-
-1. **Internal Review:** Scoping document review within team
-2. **External Review:** Share with JSS stakeholders (Gaja, Ravi, Ramna, Subhangee)
-
----
-
-## 5. Development Environment Setup
-
-### Prerequisites
-
-- AWS CLI configured with appropriate credentials
-- Docker & Docker Compose installed
-- Java 17+ (for integration service)
-- PostgreSQL client
-- Git access to all repositories
-
-### Environment Variables Reference
-
-```bash
-# Integration Service
-export AVNI_INT_DATABASE=bahmni_avni
-export AVNI_INT_DB_USER=bahmni_avni_admin
-export AVNI_INT_DB_PASSWORD=<secure_password>
-
-# Avni Connection
-export BAHMNI_AVNI_API_URL=https://prerelease.avniproject.org
-export BAHMNI_AVNI_API_USER=<avni_integration_user>
-export BAHMNI_AVNI_API_PASSWORD=<avni_password>
-export BAHMNI_AVNI_IDP_TYPE=Cognito
-
-# OpenMRS/Bahmni Connection
-export OPENMRS_BASE_URL=http://localhost:8080
-export OPENMRS_USER=superman
-export OPENMRS_PASSWORD=Admin123
-
-# Scheduling (disabled for dev)
-export BAHMNI_SCHEDULE_CRON=-
-export BAHMNI_SCHEDULE_CRON_FULL_ERROR=-
-```
-
----
-
-## 6. AWS Infrastructure Setup
-
-### Prerelease Environment (Actual)
-
-| Resource | Value |
-|----------|-------|
-| **VPC** | vpc-0132b5c63278b2c52 (prerelease VPC) |
-| **VPC CIDR** | 172.1.0.0/16 |
-| **Subnet A** | subnet-016c5045517fb38f9 (ap-south-1a) |
-| **Subnet B** | subnet-094989bce9a2c6955 (ap-south-1b) |
-| **Subnet C** | subnet-0b4d26175373ac1f8 (ap-south-1c) |
-| **MySQL Security Group** | sg-06fe53dc3c585722b (jss-avni-bahmni-prerelease-mysql-sg) |
-| **Bahmni Security Group** | sg-0fe474a48f8d01921 (jss-avni-bahmni-prerelease-bahmni-sg) |
-| **DB Subnet Group** | jss-avni-bahmni-prerelease-db-subnet-group |
-
-### RDS Instance (Prerelease)
-
-| Resource | Value |
-|----------|-------|
-| **Instance ID** | jss-prerelease-mysql |
-| **Instance Class** | db.t3.small |
-| **Storage** | 40GB gp3 |
-| **MySQL Version** | 5.7.44 |
-| **Endpoint** | jss-prerelease-mysql.cnwnxgm8rsnb.ap-south-1.rds.amazonaws.com |
-| **DNS** | jss-db-prerelease.avniproject.org |
-| **Username** | openmrs_admin |
-| **Database** | openmrs |
-
-### EC2 Instance (Prerelease - Bahmni Docker)
-
-| Resource | Value |
-|----------|-------|
-| **Instance ID** | i-0489ada1d5197a6f9 |
-| **Instance Type** | t4g.small (ARM64/Graviton) |
-| **Volume** | 30GB gp3 |
-| **OS** | Ubuntu 22.04 LTS |
-| **Public IP** | 13.127.31.160 |
+| Item | Value |
+|------|-------|
+| **Instance ID** | i-0e128ab9da4c8d30f |
+| **Instance Type** | t3.large (7.6 GiB RAM) |
+| **Public IP** | 3.110.219.176 |
 | **DNS** | jss-bahmni-prerelease.avniproject.org |
-| **Pre-installed** | Docker, Docker Compose, MySQL client |
-
-### Infrastructure Scripts
-
-Scripts are available at `scripts/aws/`:
-
-```bash
-# Full environment setup
-./jss-infra-setup.sh setup-prerelease "YourPassword"
-./jss-infra-setup.sh wait-rds jss-prerelease-mysql
-./jss-infra-setup.sh dns-rds-prerelease
-
-# Check status
-./jss-infra-setup.sh status
-
-# Using Makefile
-make help                # Show all commands
-make status              # Show infrastructure status
-make ssh-prerelease      # SSH to EC2
-make copy-backup         # Copy backup to EC2
-make restore-backup      # Restore to RDS
-make create-snapshot     # Create RDS snapshot
-```
-
-### Restore from Backup
-
-```bash
-# From local machine using Makefile
-cd scripts/aws
-make copy-backup         # Copy backup file to EC2 via scp
-make restore-backup      # Restore to RDS from EC2
-make verify-restore      # Verify tables were restored
-
-# Or manually from EC2
-ssh -i ~/.ssh/openchs-infra.pem ubuntu@jss-bahmni-prerelease.avniproject.org
-gunzip -c /home/ubuntu/backups/openmrsdb_backup.sql.gz | mysql -h jss-db-prerelease.avniproject.org -u openmrs_admin -p openmrs
-```
-
-### Create RDS Snapshot (for respawn)
-
-```bash
-make create-snapshot
-
-# Or manually
-aws rds create-db-snapshot \
-    --db-instance-identifier jss-prerelease-mysql \
-    --db-snapshot-identifier "jss-prerelease-mysql-baseline-$(date +%Y%m%d)" \
-    --region ap-south-1
-```
+| **URL** | https://jss-bahmni-prerelease.avniproject.org/bahmni/home/index.html#/dashboard |
+| **Database** | 246 tables (restored from production backup) |
+| **Status** | ✓ Fully Operational |
 
 ---
 
-## 7. Bahmni Docker Setup
+## 3. Sync Scope Summary
 
-### Clone and Configure
+> **Detailed mappings:** See [JSS-Integration-Mapping-Configuration.md](./JSS-Integration-Mapping-Configuration.md)
 
-```bash
-# Clone JSS Bahmni Docker repo
-git clone https://github.com/JanSwasthyaSahyog/bahmni-docker.git
-cd bahmni-docker
+### 3.1 Sync Direction Overview
 
-# Clone JSS config
-git clone https://github.com/JanSwasthyaSahyog/jss-config.git
-```
+| Direction | What Syncs | Purpose |
+|-----------|------------|--------|
+| **Avni → Bahmni** | Individual, Program Enrolment, Program Encounter | Doctors see field data |
+| **Bahmni → Avni** | Lab Results, Radiology, Consultation | Field workers see hospital data |
 
-### Modify .env for Cloud Setup
+=> Ability to map family constitution change over time for historical health data.
 
-Key modifications needed in `.env`:
+=> Data warehouse for research on all community data
 
-```bash
-# Point to RDS instead of local MySQL
-OPENMRS_DB_HOST=<rds-endpoint>
-OPENMRS_DB_USERNAME=openmrs_admin
-OPENMRS_DB_PASSWORD=<rds-password>
+=> Split encounters based on location of followup, whereever followup location is present // not to do
 
-# Disable local MySQL container (modify docker-compose.yml)
-# Comment out openmrsdb service
+### 3.2 Key Decisions
 
-# Adjust memory settings for EC2
-OMRS_JAVA_SERVER_OPTS='-Dfile.encoding=UTF-8 -server -Xms512m -Xmx2048m ...'
-```
+- **7 Programs in scope:** TB, Hypertension, Diabetes, Sickle Cell, Epilepsy, Pregnancy, Child, Eye Screening, Women's Health Camp
+- **Only Individual subject type syncs** (has JSS ID)
+- **DISCHARGE encounters excluded** — only contains "Adt Notes" (335 obs), PDF-based
+- **Consultation contains prescriptions** — Drug Orders, not separate encounter
 
-### Docker Compose Profiles
+=> Discharge Summary has to be saved as PDF and uploaded to new Discharge Summary encoutner on EMR system.
 
-```bash
-# Start with EMR profile only (minimal for integration testing)
-docker-compose --profile emr up -d
+=> DICOM for Radiology open on devices
+=> DICOM for Radiology open on devices
 
-# Start with reports
-docker-compose --profile emr --profile reports up -d
-
-# Full stack
-docker-compose --profile emr --profile reports --profile openelis --profile pacs up -d
-```
-
-### Verify Bahmni is Running
-
-```bash
-# Check containers
-docker-compose ps
-
-# Check OpenMRS logs
-docker-compose logs -f openmrs
-
-# Access Bahmni
-# URL: http://<ec2-public-ip>/bahmni/home
-# Credentials: superman / Admin123
-```
+=> vitals, nutrional values, Diagnosis, Lab, treatments, Radiology, Documents sync if possible
 
 ---
 
-## 8. Integration Service Configuration
+## 4. Feed-Based Synchronization
 
-### Clone and Setup
+### 4.1 Bahmni Atom Feeds
 
-```bash
-# Clone integration service
-git clone https://github.com/avniproject/integration-service.git
-cd integration-service
+**Reference:** [Atom Feed Synchronization in Bahmni](https://bahmni.atlassian.net/wiki/spaces/BAH/pages/3506200)
 
-# Checkout JSS branch
-git checkout jss_ganiyari
+| Feed | Endpoint | Use Case |
+|------|----------|----------|
+| **Patient** | `/openmrs/ws/atomfeed/patient/recent` | Patient create/update → sync to Avni |
+| **Encounter** | `/openmrs/ws/atomfeed/encounter/recent` | Filter by encounter type (Consultation, LAB_RESULT) |
+| **Lab** | `/openmrs/ws/atomfeed/lab/recent` | Lab result notifications |
 
-# Build
-make build-server
-```
+**Feed Processing:**
+1. `AtomFeedClient` polls feed endpoint
+2. `EventWorker` filters by encounter type UUID
+3. `markers` table tracks last processed entry
+4. `failed_events` table stores errors for retry
 
-### Database Setup
+### 4.2 Bahmni REST APIs
 
-```bash
-# Create integration database
-make build-db
+**Reference:** [Bahmni REST API](https://bahmni.atlassian.net/wiki/spaces/BAH/pages/6488066)
 
-# Or manually:
-psql -h localhost -U postgres -c "CREATE USER bahmni_avni_admin WITH PASSWORD 'password' CREATEROLE;"
-psql -h localhost -U postgres -c "CREATE DATABASE bahmni_avni WITH OWNER bahmni_avni_admin;"
+| API | Endpoint | Purpose |
+|-----|----------|---------|
+| **Patient** | `/openmrs/ws/rest/v1/patient/{uuid}` | Get patient details |
+| **Encounter** | `/openmrs/ws/rest/v1/encounter/{uuid}?v=full` | Get encounter with observations + drug orders |
+| **Drug Orders** | `/openmrs/ws/rest/v1/order?patient={uuid}&t=drugorder` | Get prescriptions |
 
-# Run migrations
-./gradlew migrateDb
-```
+### 4.3 Avni REST APIs
 
-### Configuration File
-
-Create `/etc/avni-integration/jss.conf`:
-
-```bash
-# Integration Service Database
-export AVNI_INT_DATABASE=bahmni_avni
-export AVNI_INT_DATABASE_PORT=5432
-export AVNI_INT_DB_USER=bahmni_avni_admin
-export AVNI_INT_DB_PASSWORD=<password>
-
-# Avni API
-export BAHMNI_AVNI_API_URL=https://prerelease.avniproject.org
-export BAHMNI_AVNI_API_USER=<jss-integration-user>@jsscp
-export BAHMNI_AVNI_API_PASSWORD=<password>
-export BAHMNI_AVNI_IDP_TYPE=Cognito
-
-# OpenMRS API
-export OPENMRS_BASE_URL=http://<bahmni-host>:8080
-export OPENMRS_USER=avni_int_user
-export OPENMRS_PASSWORD=<password>
-
-# Scheduling
-export BAHMNI_SCHEDULE_CRON="0 */5 * * * ?"  # Every 5 minutes
-export BAHMNI_SCHEDULE_CRON_FULL_ERROR="0 0 2 * * ?"  # 2 AM daily
-
-# Server
-export AVNI_INT_SERVER_PORT=6013
-```
-
-### Run Integration Service
-
-```bash
-# Source config
-source /etc/avni-integration/jss.conf
-
-# Run (development)
-java -jar integrator/build/libs/integrator-0.0.1-SNAPSHOT.jar
-
-# Run as systemd service (production)
-# See systemd service file below
-```
-
-### Systemd Service File
-
-Create `/etc/systemd/system/avni-bahmni-integration.service`:
-
-```ini
-[Unit]
-Description=Avni Bahmni Integration Service
-After=network.target postgresql.service
-
-[Service]
-Type=simple
-User=avni
-EnvironmentFile=/etc/avni-integration/jss.conf
-ExecStart=/usr/bin/java -jar /opt/avni-integration/integrator-0.0.1-SNAPSHOT.jar
-Restart=always
-RestartSec=10
-
-[Install]
-WantedBy=multi-user.target
-```
+| API | Method | Purpose |
+|-----|--------|---------|
+| `/api/subjects` | GET/POST | Individual sync |
+| `/api/programEnrolments` | GET/POST | Program enrolment sync |
+| `/api/programEncounters` | GET/POST | Program encounter sync |
+| `/api/encounters` | POST | Create general encounter (for lab results, prescriptions) |
 
 ---
 
-## 9. Mapping Configuration
+## 5. New Entity Types Required
 
-### Database Constants Setup
+> **Full mapping details:** See [JSS-Integration-Mapping-Configuration.md](./JSS-Integration-Mapping-Configuration.md)
 
-These must be set directly in the integration database:
+### Summary
 
-```sql
--- Connect to integration DB
-psql -h localhost -U bahmni_avni_admin -d bahmni_avni
-
--- Insert constants
-INSERT INTO constant (name, value) VALUES 
-    ('BahmniIdentifierPrefix', 'GAN'),
-    ('IntegrationBahmniIdentifierType', '<uuid-of-gan-identifier-type>'),
-    ('IntegrationBahmniProvider', 'Avni Integration'),
-    ('IntegrationBahmniEncounterRole', 'Unknown'),
-    ('IntegrationBahmniLocation', '<uuid-of-avni-location>'),
-    ('IntegrationBahmniVisitType', '<uuid-of-opd-visit-type>'),
-    ('IntegrationAvniSubjectType', 'Individual');
-
--- For lab results (if needed)
-INSERT INTO constant (name, value) VALUES 
-    ('OutpatientVisitTypes', '<uuid-of-opd-visit-type>');
-```
-
-### Core Mappings Required
-
-#### 1. Subject Type to Patient Mapping
-
-```
-Mapping Group: PatientSubject
-Mapping Type: Subject_EncounterType
-Avni Value: Individual
-Bahmni Value: <UUID of encounter type for Avni data>
-```
-
-#### 2. Concept Mappings
-
-For each concept that needs to sync:
-
-```
-Mapping Group: Observation
-Mapping Type: Concept
-Avni Value: <Avni Concept Name>
-Bahmni Value: <OpenMRS Concept UUID>
-Is Coded: true/false (for coded concepts)
-```
-
-#### 3. Program Mappings
-
-For each program:
-
-```
-Mapping Group: ProgramEnrolment
-Mapping Type: <Program Name>_EncounterType
-Avni Value: <Avni Program Name>
-Bahmni Value: <OpenMRS Encounter Type UUID>
-```
-
-### Admin App Access
-
-After starting integration service:
-
-```
-URL: http://localhost:6013/
-Login: Create user via database (see docs)
-```
+| System | New Entity Types | Count |
+|--------|------------------|-------|
+| **Avni** | Bahmni Lab Results, Bahmni Radiology Results, Bahmni Consultation | 3 |
+| **Bahmni** | Field visit types (Field-TB, Field-NCD, Field-MCH) | 3 |
+| **Bahmni** | Avni encounter types (per program enrolment/followup) | 14 |
 
 ---
 
-## 10. Dev Environment Respawn Procedures
+## 6. Metadata Mapping Steps
 
-### Quick Respawn Script
+### 6.1 Concept Mapping
 
-Create `respawn-dev-env.sh`:
+**Step 1:** Extract all Bahmni concepts from database
+- Query: `SELECT concept_id, name, uuid, class FROM concept`
+- Output: `bahmni-metadata/concepts/concepts.json`
 
-```bash
-#!/bin/bash
-set -e
+**Step 2:** Extract all Avni concepts from REST API
+- Endpoint: `/api/concept`
+- Output: `avni-metadata/concepts.json`
 
-echo "=== JSS Avni-Bahmni Dev Environment Respawn ==="
+**Step 3:** Create mapping entries in integration DB
+- Table: `concept_mapping`
+- Columns: `bahmni_concept_uuid`, `avni_concept_name`, `mapping_type` (EXACT, SEMANTIC, FALLBACK)
 
-# Configuration
-RDS_INSTANCE_ID="jss-bahmni-openmrs-dev"
-SNAPSHOT_ID="jss-bahmni-baseline-YYYYMMDD"  # Update with actual snapshot
-AWS_REGION="ap-south-1"
-INTEGRATION_DB="bahmni_avni"
+**Step 4:** Validate mappings
+- Ensure all mandatory concepts are mapped
+- Document fallback concepts for missing mappings
 
-# Step 1: Restore RDS from Snapshot
-echo "Step 1: Restoring RDS from snapshot..."
-aws rds restore-db-instance-from-db-snapshot \
-    --db-instance-identifier "${RDS_INSTANCE_ID}-new" \
-    --db-snapshot-identifier $SNAPSHOT_ID \
-    --region $AWS_REGION
+### 6.2 Encounter Type Mapping
 
-echo "Waiting for RDS to be available..."
-aws rds wait db-instance-available \
-    --db-instance-identifier "${RDS_INSTANCE_ID}-new" \
-    --region $AWS_REGION
+**Step 1:** Extract Bahmni encounter types
+- Query: `SELECT encounter_type_id, name, uuid FROM encounter_type`
+- Output: `bahmni-metadata/encounter_types/encounter_types.json`
 
-# Step 2: Restart Bahmni Docker
-echo "Step 2: Restarting Bahmni Docker services..."
-cd /path/to/bahmni-docker
-docker-compose down
-# Update .env with new RDS endpoint if needed
-docker-compose --profile emr up -d
+**Step 2:** Extract Avni encounter types
+- Endpoint: `/api/encounterType`
+- Output: `avni-metadata/encounterTypes.json`
 
-echo "Waiting for Bahmni to start..."
-sleep 60
+**Step 3:** Create mapping entries
+- Table: `encounter_type_mapping`
+- Columns: `bahmni_encounter_type_uuid`, `avni_encounter_type_name`, `direction` (BAHMNI_TO_AVNI, AVNI_TO_BAHMNI)
 
-# Step 3: Clear Integration DB
-echo "Step 3: Clearing Integration DB..."
-psql -h localhost -U bahmni_avni_admin -d $INTEGRATION_DB << EOF
-TRUNCATE TABLE error_record CASCADE;
-TRUNCATE TABLE avni_entity_status CASCADE;
-TRUNCATE TABLE bahmni_entity_status CASCADE;
--- Keep mappings and constants
-EOF
+### 6.3 Program Mapping
 
-# Step 4: Restart Integration Service
-echo "Step 4: Restarting Integration Service..."
-sudo systemctl restart avni-bahmni-integration
+**Step 1:** Extract Avni programs
+- Endpoint: `/api/program`
+- Output: `avni-metadata/programs.json`
 
-echo "=== Respawn Complete ==="
-echo "Bahmni URL: http://<ec2-ip>/bahmni/home"
-echo "Integration Service: http://<ec2-ip>:6013/"
-```
+**Step 2:** Create mapping entries
+- Table: `program_mapping`
+- Columns: `avni_program_name`, `bahmni_encounter_type_uuid`, `bahmni_visit_type_uuid`
 
-### Manual Steps
+### 6.4 Patient/Subject Identifier Mapping
 
-#### 1. Restore RDS Snapshot
+**Step 1:** Identify identifier fields
+- Bahmni: `Patient Identifier` (type_id = 3) = JSS ID
+- Avni: `JSS ID` field in Individual registration
 
-```bash
-# Delete existing instance (if needed)
-aws rds delete-db-instance \
-    --db-instance-identifier $DB_INSTANCE_ID \
-    --skip-final-snapshot \
-    --region $AWS_REGION
-
-# Restore from snapshot
-aws rds restore-db-instance-from-db-snapshot \
-    --db-instance-identifier $DB_INSTANCE_ID \
-    --db-snapshot-identifier $SNAPSHOT_ID \
-    --db-instance-class db.t3.medium \
-    --region $AWS_REGION
-```
-
-#### 2. Restart Bahmni Services
-
-```bash
-cd /path/to/bahmni-docker
-
-# Stop all
-docker-compose down
-
-# Start fresh
-docker-compose --profile emr up -d
-
-# Verify
-docker-compose ps
-docker-compose logs -f openmrs
-```
-
-#### 3. Clear Integration DB
-
-```bash
-psql -h localhost -U bahmni_avni_admin -d bahmni_avni
-
--- Clear sync status (keeps mappings)
-TRUNCATE TABLE error_record CASCADE;
-TRUNCATE TABLE avni_entity_status CASCADE;
-TRUNCATE TABLE bahmni_entity_status CASCADE;
-
--- Reset bookmarks
-UPDATE integration_system SET 
-    patient_feed_offset = NULL,
-    encounter_feed_offset = NULL,
-    lab_feed_offset = NULL;
-```
-
-#### 4. Restart Integration Service
-
-```bash
-sudo systemctl restart avni-bahmni-integration
-sudo journalctl -u avni-bahmni-integration -f
-```
+**Step 2:** Create mapping constants
+- Table: `constant`
+- Entries:
+  - `BahmniIdentifierType`: UUID of Patient Identifier type
+  - `AvniIdentifierConcept`: "JSS ID"
 
 ---
 
-## 11. Testing & Verification
+## 7. Doctor Questionnaire
 
-### Verification Checklist
+### Purpose
+Clinical input to finalize sync decisions for field service data.
 
-#### Infrastructure
-- [ ] RDS instance accessible from EC2
-- [ ] Bahmni Docker containers running
-- [ ] OpenMRS accessible at `/openmrs`
-- [ ] Bahmni UI accessible at `/bahmni/home`
-- [ ] Integration service running on port 6013
-- [ ] Integration DB migrations applied
+### Section A: Lab Results Priority
 
-#### Connectivity
-- [ ] Integration service can reach Avni API
-- [ ] Integration service can reach OpenMRS API
-- [ ] Atom feeds accessible (`/openmrs/ws/atomfeed/patient/recent`)
+Which lab results are **most critical** for field workers?
 
-#### Mappings
-- [ ] Constants configured in DB
-- [ ] Subject type mapping created
-- [ ] At least one concept mapping created
-- [ ] At least one program mapping created
+| Lab Test | Priority (High/Medium/Low) | Notes |
+|----------|---------------------------|-------|
+| Haemoglobin | | |
+| Blood Sugar (Fasting/PP) | | |
+| HbA1c | | |
+| Serum Creatinine | | |
+| Sputum AFB | | |
+| Sickling Test | | |
+| Hb Electrophoresis | | |
+| HIV Test | | |
+| Liver Function (ALT/AST) | | |
+| Lipid Profile | | |
+| Thyroid (TSH) | | |
+| Urine Routine | | |
 
-#### Data Sync Tests
+### Section B: Abnormal Value Alerts
 
-**Avni → Bahmni:**
-1. Create new Individual in Avni with GAN ID
-2. Trigger sync (or wait for cron)
-3. Verify patient created in Bahmni with matching GAN ID
-4. Verify observations synced
+Should field workers see alerts for abnormal values? If yes, specify thresholds:
 
-**Bahmni → Avni:**
-1. Create patient in Bahmni
-2. Add lab results / prescription
-3. Trigger sync
-4. Verify encounter created in Avni
+| Lab Test | Low Alert | High Alert |
+|----------|-----------|------------|
+| Haemoglobin | < ___ g/dL | > ___ g/dL |
+| Fasting Blood Sugar | < ___ mg/dL | > ___ mg/dL |
+| HbA1c | | > ___ % |
+| Serum Creatinine | | > ___ mg/dL |
+| Systolic BP | < ___ mmHg | > ___ mmHg |
+| Diastolic BP | < ___ mmHg | > ___ mmHg |
 
-### Useful Commands
+### Section C: Radiology Results
 
-```bash
-# Check integration service logs
-tail -f /var/log/abi/integration-service.log
+Which radiology results should sync to Avni?
 
-# Check error records
-psql -h localhost -U bahmni_avni_admin -d bahmni_avni \
-    -c "SELECT * FROM error_record ORDER BY created_at DESC LIMIT 10;"
+| Radiology Type | Sync (Yes/No) | Detail Level |
+|----------------|---------------|--------------|
+| Chest X-Ray | | Full/Summary/Abnormal only |
+| USG Abdomen | | Full/Summary/Abnormal only |
+| USG Pelvis | | Full/Summary/Abnormal only |
+| ECG | | Full/Summary/Abnormal only |
+| Echo | | Full/Summary/Abnormal only |
 
-# Check sync status
-psql -h localhost -U bahmni_avni_admin -d bahmni_avni \
-    -c "SELECT * FROM avni_entity_status ORDER BY last_modified_date DESC LIMIT 10;"
+### Section D: Discharge Summary
 
-# Trigger manual sync (via API)
-curl -X POST http://localhost:6013/int/bahmni/trigger-sync \
-    -H "Content-Type: application/json"
-```
+What discharge information is essential for field followup?
+
+| Field | Include (Yes/No) |
+|-------|------------------|
+| Primary Diagnosis | |
+| Secondary Diagnoses | |
+| Procedures Performed | |
+| Discharge Medications | |
+| Follow-up Date | |
+| Follow-up Instructions | |
+| Warning Signs | |
+| Diet Instructions | |
+| Activity Restrictions | |
+
+### Section E: Program-Specific Questions
+
+#### TB Program
+What Bahmni data is most important for TB field workers?
+
+| Data Type | Priority | Notes |
+|-----------|----------|-------|
+| Sputum AFB results | | |
+| CBNAAT results | | |
+| Chest X-ray findings | | |
+| Drug sensitivity results | | |
+| Treatment regimen changes | | |
+| Side effects documented | | |
+| Weight changes | | |
+
+#### Hypertension Program
+What Bahmni data is most important for HTN field workers?
+
+| Data Type | Priority | Notes |
+|-----------|----------|-------|
+| BP readings at clinic | | |
+| Medication changes | | |
+| Kidney function (Creatinine) | | |
+| Cardiac evaluation (ECG/Echo) | | |
+| Complications documented | | |
+
+#### Diabetes Program
+What Bahmni data is most important for DM field workers?
+
+| Data Type | Priority | Notes |
+|-----------|----------|-------|
+| Blood sugar readings | | |
+| HbA1c | | |
+| Medication changes | | |
+| Kidney function | | |
+| Eye examination results | | |
+| Foot examination results | | |
+| Complications documented | | |
+
+#### Sickle Cell Program
+What Bahmni data is most important for Sickle Cell field workers?
+
+| Data Type | Priority | Notes |
+|-----------|----------|-------|
+| Hb levels | | |
+| Hb Electrophoresis | | |
+| Crisis episodes documented | | |
+| Transfusion records | | |
+| Hydroxyurea dosing | | |
+| Complications | | |
+
+### Section F: General Questions
+
+**Q1:** How recent should synced data be for field workers?
+- [x] Regular Real-time (within hours)
+- [x] Error retrial Weekly sync
+- [x] On-demand sync for specific criteria
+
+**Q2:** How much historical data should be visible?
+- [ ] All available data
+- [ ] Other: _______________
+
+**Q3:** Should field workers see indicators on dashboard for:
+- [ ] New lab results available
+- [ ] Abnormal lab values
+- [ ] Discharge from hospital
+- [ ] Missed follow-up appointments
+- [ ] Other: _______________
+
+**Q4:** Any other data from Bahmni that would be valuable for field workers?
+
+_________________________________________________________________
 
 ---
 
-## 12. Deliverables Checklist
+## 8. Implementation Checklist
 
-### P1 Deliverables
+### Phase 1: Infrastructure & Setup
 
-- [ ] Bahmni system assessment document
-- [ ] EC2 instance with Bahmni Docker running
-- [ ] RDS instance with restored OpenMRS data
-- [ ] RDS baseline snapshot created
-- [ ] Integration service deployed and running
-- [ ] Integration DB configured
-- [ ] All required concept/encounter mappings created
-- [ ] Clinical data sync verified (lab reports, X-rays, visits, discharge summaries)
-- [ ] Community data sync to Bahmni verified
-- [ ] Internal review completed
-- [ ] External review with JSS stakeholders completed
+- [ ] Bahmni Docker running on EC2
+- [ ] MySQL 5.6 database restored
+- [ ] Integration service deployed
+- [ ] PostgreSQL integration DB configured
+- [ ] Atom feed endpoints accessible
+- [ ] Avni API endpoints accessible
+
+### Phase 2: Metadata Mapping
+
+- [ ] Extract Bahmni concepts
+- [ ] Extract Avni concepts
+- [ ] Create concept mappings
+- [ ] Extract encounter types
+- [ ] Create encounter type mappings
+- [ ] Create program mappings
+- [ ] Configure identifier mapping constants
+
+### Phase 3: New Entity Types
+
+- [ ] Create Avni encounter types (Lab Results, Radiology, Discharge, Visit Summary)
+- [ ] Create Bahmni visit types (Field, Field-TB, Field-NCD, Field-MCH)
+- [ ] Create Bahmni encounter types (Avni Registration, Avni TB Enrolment, etc.)
+
+### Phase 4: Testing
+
+- [ ] Test Avni → Bahmni Patient sync
+- [ ] Test Avni → Bahmni Program Enrolment sync
+- [ ] Test Bahmni → Avni Lab Result sync
+- [ ] Test Bahmni → Avni Radiology sync
+- [ ] Test Bahmni → Avni Consultation sync
+- [ ] Verify error handling and retry logic
+
+### Phase 5: Doctor Review & Finalization
+
+- [ ] Complete doctor questionnaire
+- [ ] Incorporate feedback into mappings
+- [ ] Finalize alert thresholds
+- [ ] Finalize data priority
 
 ---
 
-## Appendix A: Key URLs
-
-| Resource | URL |
-|----------|-----|
-| Avni (Prerelease) | https://prerelease.avniproject.org |
-| Avni Integration Docs | https://avni.readme.io/docs/avni-bahmni-integration-specific |
-| Bahmni Docs | https://bahmni.atlassian.net/wiki/spaces/BAH/overview |
-| JSS Website | https://www.jssbilaspur.org/ |
-| Integration Service Repo | https://github.com/avniproject/integration-service |
-| JSS Bahmni Docker | https://github.com/JanSwasthyaSahyog/bahmni-docker |
-| JSS Config | https://github.com/JanSwasthyaSahyog/jss-config |
-
-## Appendix B: Contact & Support
-
-| Role | Contact |
-|------|---------|
-| Avni Support | support@avniproject.org |
-| JSS IT Admin | Ram Narayan |
-
----
-
-*Document Version: 1.0*  
-*Last Updated: December 2024*  
-*Authors: Himesh, Nupoor*
+*Document Version: 2.0*  
+*Last Updated: January 2025*  
+*Focus: Feed-based architecture, entity types, metadata mapping*

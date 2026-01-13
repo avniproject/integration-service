@@ -1,0 +1,62 @@
+[
+  {
+    "encounter_type_id": 1,
+    "name": "REG",
+    "uuid": "b469afaa-c79a-11e2-b284-107d46e7b2c5",
+    "description": "Registration encounter"
+  },
+  {
+    "encounter_type_id": 2,
+    "name": "Consultation",
+    "uuid": "da7a4fe0-0a6a-11e3-939c-8c50edb4be99",
+    "description": "Consultation encounter"
+  },
+  {
+    "encounter_type_id": 3,
+    "name": "ADMISSION",
+    "uuid": "57efc389-9bc6-11e3-927e-8840ab96f0f1",
+    "description": "ADMISSION encounter"
+  },
+  {
+    "encounter_type_id": 4,
+    "name": "DISCHARGE",
+    "uuid": "58c22773-9bc6-11e3-927e-8840ab96f0f1",
+    "description": "DISCHARGE encounter"
+  },
+  {
+    "encounter_type_id": 5,
+    "name": "TRANSFER",
+    "uuid": "6f6b5658-9bc6-11e3-927e-8840ab96f0f1",
+    "description": "TRANSFER encounter"
+  },
+  {
+    "encounter_type_id": 6,
+    "name": "RADIOLOGY",
+    "uuid": "949dba36-9bc6-11e3-927e-8840ab96f0f1",
+    "description": "RADIOLOGY encounter"
+  },
+  {
+    "encounter_type_id": 7,
+    "name": "INVESTIGATION",
+    "uuid": "952c63ca-9bc6-11e3-927e-8840ab96f0f1",
+    "description": "Investigation encounter"
+  },
+  {
+    "encounter_type_id": 8,
+    "name": "LAB_RESULT",
+    "uuid": "960469a8-9bc6-11e3-927e-8840ab96f0f1",
+    "description": "Lab Result encounter"
+  },
+  {
+    "encounter_type_id": 9,
+    "name": "Patient Document",
+    "uuid": "e34027b5-a663-4370-bb6d-fe6d9cd31107",
+    "description": "Patient Document"
+  },
+  {
+    "encounter_type_id": 10,
+    "name": "VALIDATION NOTES",
+    "uuid": "e6166d69-e349-11e3-983a-91270dcbd3bf",
+    "description": "Validation Notes encounter"
+  }
+]

@@ -1,0 +1,18 @@
+{
+  "name" : "Eligible Couple Follow-up Encounter Cancellation",
+  "uuid" : "4a5ea39a-7617-4c87-a17e-58213bb221d2",
+  "formType" : "ProgramEncounterCancellation",
+  "formElementGroups" : [ {
+    "uuid" : "5fb5022c-f7e3-4f48-8202-e88472781ea6",
+    "name" : "Cancel Details",
+    "displayOrder" : 1.0,
+    "formElements" : [ ],
+    "display" : "Cancel Details",
+    "timed" : false
+  } ],
+  "decisionRule" : "",
+  "visitScheduleRule" : "\"use strict\";\n({ params, imports }) => {\n    const programEncounter = params.entity;\n    const moment = imports.moment;\n    const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({programEncounter});\n    const isActiveInProgram = !programEncounter.programEnrolment.programExitDateTime;\n    if(isActiveInProgram) {\n        function isAlreadyScheduled(encounterType, earliestDate) {\n            const earliestDateTime = moment(earliestDate);\n            const isAlreadyPresent = programEncounter.programEnrolment.getEncountersOfType(encounterType)\n                .some((enc) => \n                    enc &&\n                    enc.uuid != programEncounter.uuid &&\n                    enc.voided == false &&\n                    moment(enc.earliestVisitDateTime).isSame(earliestDateTime, 'day')\n                );\n        \n            return isAlreadyPresent;\n        }\n        \n        const baseDate = programEncounter.earliestVisitDateTime || programEncounter.cancelDateTime;\n        \n        const earliestDate = moment(baseDate).add(1, 'month').startOf('month').toDate();\n        const maxDate = moment(baseDate).add(1, 'month').endOf('month').toDate();\n        \n        if(!isAlreadyScheduled(\"Eligible Couple Follow-up\", earliestDate)) {\n        \n            scheduleBuilder.add({\n                name: \"Eligible Couple Follow-up\", \n                encounterType: \"Eligible Couple Follow-up\", \n                earliestDate, \n                maxDate\n            });  \n        }\n    }\n\n    return scheduleBuilder.getAll();\n};",
+  "validationRule" : "",
+  "checklistsRule" : "",
+  "decisionConcepts" : [ ]
+}

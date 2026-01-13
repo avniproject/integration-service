@@ -1,0 +1,97 @@
+{
+  "name" : "Arthritis Enrolment",
+  "uuid" : "648ee6a7-7a66-4c3c-be04-471382d1b228",
+  "formType" : "ProgramEnrolment",
+  "formElementGroups" : [ {
+    "uuid" : "12a71b7a-7caf-4eae-9d5d-b9d18733204d",
+    "name" : "Details",
+    "displayOrder" : 1.0,
+    "formElements" : [ {
+      "name" : "Date of diagnosis",
+      "uuid" : "18fa8eec-d9cc-4d2c-b660-51da2f835d2d",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Date of diagnosis",
+        "uuid" : "cb549d98-5890-4182-a930-70939b0c0e33",
+        "dataType" : "Date",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEnrolment = params.entity;\n  const formElement = params.formElement;\n  const statusBuilder = new imports.rulesConfig.FormElementStatusBuilder({programEnrolment, formElement});\n  \n  const diagnosisDate = programEnrolment.getObservationReadableValue('Date of diagnosis');\n  let visitDate = programEnrolment.enrolmentDateTime;\n \n if(imports.moment(diagnosisDate).isAfter(visitDate, 'date'))\n statusBuilder.validationError(\"Diagnosis Date cannot be after visit date\");\n \n  return statusBuilder.build();\n};",
+      "mandatory" : true
+    }, {
+      "name" : "Arthritis Type",
+      "uuid" : "a01c3733-7c41-4199-9a1a-1e2508d87090",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Arthritis Type",
+        "uuid" : "8cc509d7-2c4a-4a3a-b32f-fa22ad61d9ae",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Both-Osteo arthritis and Rheumatoid arthritis",
+          "uuid" : "81c68b2d-8bb4-49fa-b4a8-37acd23aa79d",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Rheumatoid arthritis",
+          "uuid" : "b9307167-7aa6-48ff-b036-02b5e5c7d0a4",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Other",
+          "uuid" : "798b7942-cf58-4d4e-a529-5972942e0a7e",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Osteo arthritis",
+          "uuid" : "42ee93a0-7267-42af-9a3b-c45edad1d274",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Name of subcategory of disease",
+      "uuid" : "50b8b193-c375-4525-8a4b-e887f5175433",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Name of subcategory of disease",
+        "uuid" : "677b90f4-aba1-47d0-8f8a-4d0ead1288b0",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "voided" : true,
+      "mandatory" : true
+    } ],
+    "display" : "Details",
+    "timed" : false
+  } ],
+  "decisionRule" : "",
+  "visitScheduleRule" : "",
+  "validationRule" : "",
+  "checklistsRule" : "",
+  "decisionConcepts" : [ ]
+}

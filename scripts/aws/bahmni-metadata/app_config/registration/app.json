@@ -1,0 +1,106 @@
+{
+  "id": "bahmni.registration",
+  "instanceOf": "bahmni.template.registration",
+  "description": "Bahmni Patient Registration App",
+  "extensionPoints": [
+    {
+      "id": "org.bahmni.registration.patient.search.result.action",
+      "description": "Bahmni Patient Search Result Action"
+    },
+    {
+      "id": "org.bahmni.registration.patient.next",
+      "description": "After Bahmni Patient Registration, forward url configuration"
+    },
+    {
+        "id": "org.bahmni.registration.identifier",
+        "description": "NDHM HealthID Verification"
+    }
+  ],
+  "contextModel": [
+    "patientUuid",
+    "activeVisitUuid"
+  ],
+  "config": {
+    "mandatoryPersonAttributes": [
+      "Smart card holder"
+    ],
+    "readOnlyExtraIdentifiers": ["ABHA Number","ABHA Address"],
+    "patientInformation": {
+      "additionalPatientInformation": {
+        "title": "Additional Patient Information",
+        "attributes": [
+          "smoking",
+          "alcohol",
+          "tbTreatmentLocation",
+          "landHolding",
+          "foodSecurity",
+          "rationCard",
+          "familySupport",
+          "familyIncome",
+          "earningMembers",
+          "debt",
+          "debtReason",
+          "migrationHistory",
+          "migrationHistoryDetails",
+          "distanceFromCenter",
+	  "nikshayId"
+        ]
+      }
+    },
+    "autoCompleteFields": [
+      "familyName",
+      "caste"
+    ],
+    "defaultIdentifierPrefix": "GAN",
+    "identifierPattern": "[0-9]{1,9}",
+    "defaultVisitType": "OPD",
+    "searchByIdForwardUrl": "/patient/{{patientUuid}}",
+    "showMiddleName": false,
+    "showLastName": true,
+    "showCasteSameAsLastNameCheckbox": true,
+    "localNameSearch": false,
+    "printOptions": [
+      {
+        "label": "<u>P</u>rint Registration Card",
+        "templateUrl": "/bahmni_config/openmrs/apps/registration/registrationCardLayout/print.html",
+        "shortcutKey": "p"
+      },
+      {
+        "label": "P<u>r</u>int Supplemental Paper",
+        "templateUrl": "/bahmni_config/openmrs/apps/registration/supplementalPaperLayout/print.html",
+        "shortcutKey": "r"
+      }
+    ],
+    "conceptSetUI": {
+      "REGISTRATION FEES": {
+        "required": true,
+        "label": "Fee"
+      },
+      "BMI Status Data": {
+        "abnormalIndicator": true
+      },
+      "BMI Data": {
+        "abnormalIndicator": true
+      }
+    },
+    "fieldValidation" : {
+                "primaryContact" : {"pattern" : "^((?:\\+91)?[1-9]{1}[0-9]{9})$", "errorMessage" : "Phone Number should be 10 digits with or without prefix +91"},
+                "secondaryContact" : {"pattern" : "^((?:\\+91)?[1-9]{1}[0-9]{9})$", "errorMessage" : "Phone Number should be 10 digits with or without prefix +91"},
+		"aadharCard" : {"pattern" : "[0-9]{12}", "errorMessage" : "Should be 12 characters"},
+                "ayushmanId" : {"pattern" : "[a-zA-Z0-9]{8,12}", "errorMessage" : "Should be 8 to 12 characters"}
+    },
+    "patientSearch": {
+      "address": {
+        "label": "Village",
+        "placeholder": "Enter Village",
+        "field": "city_village"
+      },
+      "customAttributes": {
+         "label": "AADHAR",
+         "placeholder": "Enter Card Number",
+         "fields": ["aadharCard"]
+      }
+    },
+    "showBirthTime": false
+  }
+}

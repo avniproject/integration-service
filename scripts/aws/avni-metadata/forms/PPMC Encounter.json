@@ -1,0 +1,297 @@
+{
+  "name" : "PPMC Encounter",
+  "uuid" : "5118e629-96b5-46c7-af2c-833b3152ae0b",
+  "formType" : "Encounter",
+  "formElementGroups" : [ {
+    "uuid" : "f48b3cbb-c6d1-4ba7-b05b-77e749821094",
+    "name" : "Health Checkup Details of Mother",
+    "displayOrder" : 1.0,
+    "formElements" : [ {
+      "name" : "Any cut/tear in birth track",
+      "uuid" : "ed582b4d-2492-457d-a190-e8db5677874e",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Any cut/tear in birth track",
+        "uuid" : "e3cd525c-f0fd-4c67-b175-2ad59af68ba0",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Yes",
+          "uuid" : "57e20de7-10de-4391-b7ce-87b2f40d19a2",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "No",
+          "uuid" : "f88da2e8-6ab4-44b5-b762-233485cd25f9",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ {
+          "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/e3cd525c-f0fd-4c67-b175-2ad59af68ba0.jpg",
+          "type" : "Image"
+        } ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Fever",
+      "uuid" : "47960f8b-215a-4103-aba9-421405608f9b",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Fever PPMC",
+        "uuid" : "8dfd2bb5-304d-4250-bf21-9108a33c99c7",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Yes",
+          "uuid" : "57e20de7-10de-4391-b7ce-87b2f40d19a2",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "No",
+          "uuid" : "f88da2e8-6ab4-44b5-b762-233485cd25f9",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ {
+          "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/8dfd2bb5-304d-4250-bf21-9108a33c99c7.jpg",
+          "type" : "Image"
+        } ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Abscess/Swelling in breast",
+      "uuid" : "a8622d29-b6ef-461f-aa69-a17b62980870",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Abscess/Swelling in breast",
+        "uuid" : "73fd2d48-5c4b-473a-bea0-c37c19f69f68",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Yes",
+          "uuid" : "57e20de7-10de-4391-b7ce-87b2f40d19a2",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "No",
+          "uuid" : "f88da2e8-6ab4-44b5-b762-233485cd25f9",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ {
+          "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/73fd2d48-5c4b-473a-bea0-c37c19f69f68.jpg",
+          "type" : "Image"
+        } ]
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Severe abdominal pain",
+      "uuid" : "f7ebfae0-481c-4f2b-b7bd-fc1021f6cfe3",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Severe abdominal pain",
+        "uuid" : "7ec6f122-c689-4105-b116-2a4f1fe0eaeb",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "No",
+          "uuid" : "f88da2e8-6ab4-44b5-b762-233485cd25f9",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Yes",
+          "uuid" : "57e20de7-10de-4391-b7ce-87b2f40d19a2",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ {
+          "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/7ec6f122-c689-4105-b116-2a4f1fe0eaeb.bmp",
+          "type" : "Image"
+        } ]
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "PPH",
+      "uuid" : "b4cdf514-db52-4985-ae04-92faaebeb58b",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "PPH",
+        "uuid" : "d12fb748-bdab-4906-b766-b11942bf8ddf",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Yes",
+          "uuid" : "57e20de7-10de-4391-b7ce-87b2f40d19a2",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "No",
+          "uuid" : "f88da2e8-6ab4-44b5-b762-233485cd25f9",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ {
+          "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/d12fb748-bdab-4906-b766-b11942bf8ddf.jpg",
+          "type" : "Image"
+        } ]
+      },
+      "displayOrder" : 5.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Uterus round and hard",
+      "uuid" : "3c0c0242-9148-4648-a074-8440f7da0ea1",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Uterus round and hard",
+        "uuid" : "37015e90-3c6a-4b5b-b143-e1922b5cc8a5",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Yes",
+          "uuid" : "57e20de7-10de-4391-b7ce-87b2f40d19a2",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "No",
+          "uuid" : "f88da2e8-6ab4-44b5-b762-233485cd25f9",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ {
+          "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/37015e90-3c6a-4b5b-b143-e1922b5cc8a5.jpg",
+          "type" : "Image"
+        } ]
+      },
+      "displayOrder" : 6.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Mother is getting food and water",
+      "uuid" : "78f80968-0215-4ca4-beac-358c76483d1b",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Mother is getting food and water",
+        "uuid" : "811d1c01-f72c-4d9f-ae14-279186f67a7d",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "No",
+          "uuid" : "f88da2e8-6ab4-44b5-b762-233485cd25f9",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Yes",
+          "uuid" : "57e20de7-10de-4391-b7ce-87b2f40d19a2",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ {
+          "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/811d1c01-f72c-4d9f-ae14-279186f67a7d.jpg",
+          "type" : "Image"
+        } ]
+      },
+      "displayOrder" : 7.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    } ],
+    "display" : "Health Checkup Details of Mother",
+    "timed" : false
+  }, {
+    "uuid" : "733f3031-3169-4a85-937d-3f09de5db09f",
+    "name" : "Referral",
+    "displayOrder" : 2.0,
+    "formElements" : [ {
+      "name" : "Does mother need referral?",
+      "uuid" : "b4a66cd8-f74b-4f3d-98a8-1f5707609695",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Does mother need referral?",
+        "uuid" : "fca13899-87f0-433b-a74f-5d7f3d7e8131",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Yes",
+          "uuid" : "57e20de7-10de-4391-b7ce-87b2f40d19a2",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "No",
+          "uuid" : "f88da2e8-6ab4-44b5-b762-233485cd25f9",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ {
+          "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/fca13899-87f0-433b-a74f-5d7f3d7e8131.jpg",
+          "type" : "Image"
+        } ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    } ],
+    "display" : "Referral",
+    "timed" : false
+  } ],
+  "decisionRule" : "",
+  "visitScheduleRule" : "\"use strict\";\n({ params, imports }) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({encounter});\n  \n  \n  function isAlreadyScheduled(encounterType, earliestDate) {\n    const earliestDateTime = moment(earliestDate);\n    const isAlreadyPresent = encounter.individual.getEncounters(true)\n        .some((enc) => \n            enc &&\n            enc.encounterType.name == encounterType &&\n            enc.voided == false &&\n            moment(enc.earliestVisitDateTime).isSame(earliestDateTime, 'day')\n        );\n\n    return isAlreadyPresent;\n  }\n  \n  const totalEnc = encounter.individual.encounters.length;\n  const allEnc = encounter.individual.encounters;\n\n  const sortedEnc = [...allEnc].sort((a, b) => {\n    return new Date(b.earliestVisitDateTime) - new Date(a.earliestVisitDateTime);\n  });\n  \n  const currentUUID = encounter.uuid;\n  \n  const lastEnc = sortedEnc[0];\n\n  const currentInList = sortedEnc.find(e => e.uuid === currentUUID);\n  \n  if(totalEnc < 10){\n    let earliestDate, maxDate;\n    if(currentInList.encounterDateTime != null){\n      earliestDate = currentInList.earliestVisitDateTime;\n      maxDate = currentInList.maxVisitDateTime;\n      scheduleBuilder.add({name: \"PPMC\", encounterType: \"PPMC\", earliestDate, maxDate});  \n    } else if(currentInList.cancelDateTime != null){\n    } else {\n      earliestDate = moment(lastEnc.earliestVisitDateTime).add(1, 'days').toDate();\n      maxDate = moment(lastEnc.earliestVisitDateTime).add(2, 'days').toDate();\n      scheduleBuilder.add({name: \"PPMC\", encounterType: \"PPMC\", earliestDate, maxDate});\n    }\n  }  \n  \n  const doesMotherNeedReferral = new imports.rulesConfig.RuleCondition({encounter}).when.valueInEncounter(\"fca13899-87f0-433b-a74f-5d7f3d7e8131\").containsAnswerConceptName(\"57e20de7-10de-4391-b7ce-87b2f40d19a2\").matches();\n  \n  console.log('doesMotherNeedReferral--->',doesMotherNeedReferral);\n  \n  const baseDate = encounter.encounterDateTime;\n  \n  console.log('baseDate--->',baseDate);\n\n  if(doesMotherNeedReferral){\n    console.log('in if');\n    const earliestDate = moment(baseDate).toDate();\n    const maxDate = moment(baseDate).add(15, 'days').toDate();\n    if(!isAlreadyScheduled(\"Referral Communication from VHW\", earliestDate)) {\n      scheduleBuilder.add({\n          name: \"Referral Communication from VHW\", \n          encounterType: \"Referral Communication from VHW\", \n          earliestDate, \n          maxDate\n      });\n    }  \n  }\n  return scheduleBuilder.getAll();\n};",
+  "validationRule" : "",
+  "checklistsRule" : "",
+  "decisionConcepts" : [ ]
+}

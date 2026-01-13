@@ -1,0 +1,452 @@
+[
+  {
+    "location_id": 2,
+    "location_name": "Ganiyari",
+    "location_tag_id": 1,
+    "tag_name": "Login Location"
+  },
+  {
+    "location_id": 3,
+    "location_name": "Semariya",
+    "location_tag_id": 1,
+    "tag_name": "Login Location"
+  },
+  {
+    "location_id": 4,
+    "location_name": "Shivtarai",
+    "location_tag_id": 1,
+    "tag_name": "Login Location"
+  },
+  {
+    "location_id": 5,
+    "location_name": "Bahmni",
+    "location_tag_id": 1,
+    "tag_name": "Login Location"
+  },
+  {
+    "location_id": 29,
+    "location_name": "ANC - Achanakmar",
+    "location_tag_id": 1,
+    "tag_name": "Login Location"
+  },
+  {
+    "location_id": 30,
+    "location_name": "ANC - Bamhani",
+    "location_tag_id": 1,
+    "tag_name": "Login Location"
+  },
+  {
+    "location_id": 31,
+    "location_name": "ANC - Bijrakachar",
+    "location_tag_id": 1,
+    "tag_name": "Login Location"
+  },
+  {
+    "location_id": 32,
+    "location_name": "ANC - Boirha",
+    "location_tag_id": 1,
+    "tag_name": "Login Location"
+  },
+  {
+    "location_id": 33,
+    "location_name": "ANC - Danganiya",
+    "location_tag_id": 1,
+    "tag_name": "Login Location"
+  },
+  {
+    "location_id": 34,
+    "location_name": "ANC - Karpiha",
+    "location_tag_id": 1,
+    "tag_name": "Login Location"
+  },
+  {
+    "location_id": 35,
+    "location_name": "ANC - Manpur",
+    "location_tag_id": 1,
+    "tag_name": "Login Location"
+  },
+  {
+    "location_id": 36,
+    "location_name": "ANC - Nevsa",
+    "location_tag_id": 1,
+    "tag_name": "Login Location"
+  },
+  {
+    "location_id": 37,
+    "location_name": "ANC - Semariya",
+    "location_tag_id": 1,
+    "tag_name": "Login Location"
+  },
+  {
+    "location_id": 38,
+    "location_name": "ANC - Shivtarai",
+    "location_tag_id": 1,
+    "tag_name": "Login Location"
+  },
+  {
+    "location_id": 50,
+    "location_name": "ANC - Chhuiha",
+    "location_tag_id": 1,
+    "tag_name": "Login Location"
+  },
+  {
+    "location_id": 56,
+    "location_name": "ANC - Kupabandha",
+    "location_tag_id": 1,
+    "tag_name": "Login Location"
+  },
+  {
+    "location_id": 57,
+    "location_name": "ANC - Karkha",
+    "location_tag_id": 1,
+    "tag_name": "Login Location"
+  },
+  {
+    "location_id": 63,
+    "location_name": "ANC - Barar",
+    "location_tag_id": 1,
+    "tag_name": "Login Location"
+  },
+  {
+    "location_id": 64,
+    "location_name": "ANC - Ghameri",
+    "location_tag_id": 1,
+    "tag_name": "Login Location"
+  },
+  {
+    "location_id": 65,
+    "location_name": "ANC - Karhikachhar",
+    "location_tag_id": 1,
+    "tag_name": "Login Location"
+  },
+  {
+    "location_id": 6,
+    "location_name": "HD Ward",
+    "location_tag_id": 2,
+    "tag_name": "Admission Location"
+  },
+  {
+    "location_id": 7,
+    "location_name": "HD Ward Physical Location",
+    "location_tag_id": 2,
+    "tag_name": "Admission Location"
+  },
+  {
+    "location_id": 8,
+    "location_name": "Ward 1",
+    "location_tag_id": 2,
+    "tag_name": "Admission Location"
+  },
+  {
+    "location_id": 9,
+    "location_name": "Ward 1 Physical Location",
+    "location_tag_id": 2,
+    "tag_name": "Admission Location"
+  },
+  {
+    "location_id": 10,
+    "location_name": "Ward 2",
+    "location_tag_id": 2,
+    "tag_name": "Admission Location"
+  },
+  {
+    "location_id": 11,
+    "location_name": "Ward 2 Physical Location",
+    "location_tag_id": 2,
+    "tag_name": "Admission Location"
+  },
+  {
+    "location_id": 12,
+    "location_name": "Ward 3",
+    "location_tag_id": 2,
+    "tag_name": "Admission Location"
+  },
+  {
+    "location_id": 13,
+    "location_name": "Ward 3 Physical Location",
+    "location_tag_id": 2,
+    "tag_name": "Admission Location"
+  },
+  {
+    "location_id": 14,
+    "location_name": "OPD",
+    "location_tag_id": 2,
+    "tag_name": "Admission Location"
+  },
+  {
+    "location_id": 15,
+    "location_name": "OPD Physical Location",
+    "location_tag_id": 2,
+    "tag_name": "Admission Location"
+  },
+  {
+    "location_id": 16,
+    "location_name": "NICU",
+    "location_tag_id": 2,
+    "tag_name": "Admission Location"
+  },
+  {
+    "location_id": 17,
+    "location_name": "NICU Physical Location",
+    "location_tag_id": 2,
+    "tag_name": "Admission Location"
+  },
+  {
+    "location_id": 18,
+    "location_name": "Pediatric Ward",
+    "location_tag_id": 2,
+    "tag_name": "Admission Location"
+  },
+  {
+    "location_id": 19,
+    "location_name": "Pediatric Physical Location",
+    "location_tag_id": 2,
+    "tag_name": "Admission Location"
+  },
+  {
+    "location_id": 20,
+    "location_name": "TB Ward",
+    "location_tag_id": 2,
+    "tag_name": "Admission Location"
+  },
+  {
+    "location_id": 21,
+    "location_name": "TB Ward Physical Location",
+    "location_tag_id": 2,
+    "tag_name": "Admission Location"
+  },
+  {
+    "location_id": 22,
+    "location_name": "Staff Ward",
+    "location_tag_id": 2,
+    "tag_name": "Admission Location"
+  },
+  {
+    "location_id": 23,
+    "location_name": "Staff Ward Physical Location",
+    "location_tag_id": 2,
+    "tag_name": "Admission Location"
+  },
+  {
+    "location_id": 24,
+    "location_name": "Dharamshala",
+    "location_tag_id": 2,
+    "tag_name": "Admission Location"
+  },
+  {
+    "location_id": 25,
+    "location_name": "Dharamshala Physical Location",
+    "location_tag_id": 2,
+    "tag_name": "Admission Location"
+  },
+  {
+    "location_id": 26,
+    "location_name": "OT RR",
+    "location_tag_id": 2,
+    "tag_name": "Admission Location"
+  },
+  {
+    "location_id": 27,
+    "location_name": "OT RR Physical Location",
+    "location_tag_id": 2,
+    "tag_name": "Admission Location"
+  },
+  {
+    "location_id": 43,
+    "location_name": "PNC Ward",
+    "location_tag_id": 2,
+    "tag_name": "Admission Location"
+  },
+  {
+    "location_id": 44,
+    "location_name": "PNC Ward Physical Location",
+    "location_tag_id": 2,
+    "tag_name": "Admission Location"
+  },
+  {
+    "location_id": 45,
+    "location_name": "Labor Room",
+    "location_tag_id": 2,
+    "tag_name": "Admission Location"
+  },
+  {
+    "location_id": 46,
+    "location_name": "Labor Room Physical Location",
+    "location_tag_id": 2,
+    "tag_name": "Admission Location"
+  },
+  {
+    "location_id": 52,
+    "location_name": "Ward 4 (Chemo Ward)",
+    "location_tag_id": 2,
+    "tag_name": "Admission Location"
+  },
+  {
+    "location_id": 53,
+    "location_name": "Ward 4 (Chemo Ward Physical Location)",
+    "location_tag_id": 2,
+    "tag_name": "Admission Location"
+  },
+  {
+    "location_id": 54,
+    "location_name": "Pre Operative Ward",
+    "location_tag_id": 2,
+    "tag_name": "Admission Location"
+  },
+  {
+    "location_id": 55,
+    "location_name": "Pre Operative Ward Physical Location",
+    "location_tag_id": 2,
+    "tag_name": "Admission Location"
+  },
+  {
+    "location_id": 59,
+    "location_name": "Post Operative Ward",
+    "location_tag_id": 2,
+    "tag_name": "Admission Location"
+  },
+  {
+    "location_id": 60,
+    "location_name": "Post Operative Ward Physical Location",
+    "location_tag_id": 2,
+    "tag_name": "Admission Location"
+  },
+  {
+    "location_id": 61,
+    "location_name": "Ward 5",
+    "location_tag_id": 2,
+    "tag_name": "Admission Location"
+  },
+  {
+    "location_id": 62,
+    "location_name": "Ward 5 Physical Location",
+    "location_tag_id": 2,
+    "tag_name": "Admission Location"
+  },
+  {
+    "location_id": 66,
+    "location_name": "Eye Ward",
+    "location_tag_id": 2,
+    "tag_name": "Admission Location"
+  },
+  {
+    "location_id": 67,
+    "location_name": "Eye Ward Physical Location",
+    "location_tag_id": 2,
+    "tag_name": "Admission Location"
+  },
+  {
+    "location_id": 68,
+    "location_name": "AB Ward",
+    "location_tag_id": 2,
+    "tag_name": "Admission Location"
+  },
+  {
+    "location_id": 69,
+    "location_name": "AB Ward Physical Location",
+    "location_tag_id": 2,
+    "tag_name": "Admission Location"
+  },
+  {
+    "location_id": 2,
+    "location_name": "Ganiyari",
+    "location_tag_id": 3,
+    "tag_name": "Visit Location"
+  },
+  {
+    "location_id": 3,
+    "location_name": "Semariya",
+    "location_tag_id": 3,
+    "tag_name": "Visit Location"
+  },
+  {
+    "location_id": 4,
+    "location_name": "Shivtarai",
+    "location_tag_id": 3,
+    "tag_name": "Visit Location"
+  },
+  {
+    "location_id": 5,
+    "location_name": "Bahmni",
+    "location_tag_id": 3,
+    "tag_name": "Visit Location"
+  },
+  {
+    "location_id": 28,
+    "location_name": "ANC clinic",
+    "location_tag_id": 3,
+    "tag_name": "Visit Location"
+  },
+  {
+    "location_id": 58,
+    "location_name": "Community Program",
+    "location_tag_id": 3,
+    "tag_name": "Visit Location"
+  },
+  {
+    "location_id": 71,
+    "location_name": "OPD - 1",
+    "location_tag_id": 4,
+    "tag_name": "Appointment Location"
+  },
+  {
+    "location_id": 72,
+    "location_name": "OPD - 2",
+    "location_tag_id": 4,
+    "tag_name": "Appointment Location"
+  },
+  {
+    "location_id": 73,
+    "location_name": "OPD - 3",
+    "location_tag_id": 4,
+    "tag_name": "Appointment Location"
+  },
+  {
+    "location_id": 74,
+    "location_name": "OPD - 4",
+    "location_tag_id": 4,
+    "tag_name": "Appointment Location"
+  },
+  {
+    "location_id": 75,
+    "location_name": "OPD - 5",
+    "location_tag_id": 4,
+    "tag_name": "Appointment Location"
+  },
+  {
+    "location_id": 76,
+    "location_name": "OPD - 6",
+    "location_tag_id": 4,
+    "tag_name": "Appointment Location"
+  },
+  {
+    "location_id": 77,
+    "location_name": "OPD - 7",
+    "location_tag_id": 4,
+    "tag_name": "Appointment Location"
+  },
+  {
+    "location_id": 78,
+    "location_name": "OPD - 8",
+    "location_tag_id": 4,
+    "tag_name": "Appointment Location"
+  },
+  {
+    "location_id": 79,
+    "location_name": "Dental OPD",
+    "location_tag_id": 4,
+    "tag_name": "Appointment Location"
+  },
+  {
+    "location_id": 80,
+    "location_name": "Eye OPD",
+    "location_tag_id": 4,
+    "tag_name": "Appointment Location"
+  },
+  {
+    "location_id": 70,
+    "location_name": "OT",
+    "location_tag_id": 5,
+    "tag_name": "Operation Theater"
+  }
+]

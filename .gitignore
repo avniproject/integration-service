@@ -6,3 +6,24 @@ out
 integration-service.iml
 logs
 dump.sql
+goonj/src/test/resources/goonj-secret.properties
+amrit/src/test/resources/amrit-secret.properties
+lahi/src/test/resources/lahi-secret.properties
+rwb/src/test/resources/rwb-secret.properties
+**/avni-secret.properties
+**/**-secret.properties
+
+**/bin/**
+*.iml
+/integration-data/src/main/resources/db/onetime/poststart-move-goonj-config-to.db.sql
+/integrator/src/main/resources/glific-lms-lahi-ce0a0d334825.json
+
+# Credentials and sensitive files - NEVER commit
+docs/credential_jss_bahmni_prerelease_integration.md
+docs/*-credentials.md
+docs/*-secrets.md
+.env.local
+.env.*.local
+*.pem
+*.key
+*.crt

@@ -1,0 +1,98 @@
+{
+  "name" : "Women's Health Camp Encounter Cancellation",
+  "uuid" : "dd309e1b-c82d-4c4d-8b95-87532954ea59",
+  "formType" : "ProgramEncounterCancellation",
+  "formElementGroups" : [ {
+    "uuid" : "3c8f2247-f73b-4e30-afb5-8c9124b4dc67",
+    "name" : "Cancel Details",
+    "displayOrder" : 1.0,
+    "formElements" : [ {
+      "name" : "Reason of Cancel",
+      "uuid" : "324fb611-e186-4c19-897d-705bcdd9cf87",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Reason of Cancel",
+        "uuid" : "151dcbf4-fb31-4ffc-ad13-4fdb61d28b30",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Others",
+          "uuid" : "f3ef9337-b2d9-4e33-9a69-e7692b66f045",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Woman did not come",
+          "uuid" : "8fccee8c-cf06-4a35-99f6-38e678cd8858",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Woman dont want to do check",
+          "uuid" : "974572d5-657a-475c-9090-8a26dd5da88f",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Specify Other",
+      "uuid" : "4ae4fa96-03c8-4c60-a720-eae905b2c058",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Specify Other",
+        "uuid" : "97d5be0d-8aa1-4d9f-9365-36df78c3a179",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInCancelEncounter(\"151dcbf4-fb31-4ffc-ad13-4fdb61d28b30\").containsAnswerConceptName(\"f3ef9337-b2d9-4e33-9a69-e7692b66f045\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "cancelEncounter",
+                "conceptName" : "Reason of Cancel",
+                "conceptUuid" : "151dcbf4-fb31-4ffc-ad13-4fdb61d28b30",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Others" ],
+                "answerConceptUuids" : [ "f3ef9337-b2d9-4e33-9a69-e7692b66f045" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : false
+    } ],
+    "display" : "Cancel Details",
+    "timed" : false
+  } ],
+  "decisionRule" : "",
+  "visitScheduleRule" : "",
+  "validationRule" : "",
+  "checklistsRule" : "",
+  "decisionConcepts" : [ ]
+}

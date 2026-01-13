@@ -1,0 +1,7 @@
+{
+  "name" : "TB Study Followup Encounter Cancellation",
+  "uuid" : "501234b8-08cb-43e2-87b3-0bb456cdfdf6",
+  "formType" : "ProgramEncounterCancellation",
+  "formElementGroups" : [ ],
+  "decisionConcepts" : [ ]
+}

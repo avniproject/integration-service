@@ -1,0 +1,135 @@
+{
+  "name" : "MCH Worker Followup Encounter",
+  "uuid" : "8867edcb-dabb-468d-827e-5eeb445fac30",
+  "formType" : "Encounter",
+  "formElementGroups" : [ {
+    "uuid" : "209499dc-1e39-4361-bfcb-ba7e38e45a87",
+    "name" : "Details",
+    "displayOrder" : 1.0,
+    "formElements" : [ {
+      "name" : "What was the reason for followup",
+      "uuid" : "e5e98a85-19ce-4e03-944a-fca5189dfbe4",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "What was the reason for followup",
+        "uuid" : "1f6fc60a-fef4-4235-9bd7-1696ce6bebf9",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "What was the reason for followup",
+      "uuid" : "3286dffe-c2ac-4f97-b2dd-315ca9f01406",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "What was the reason for Followup",
+        "uuid" : "f1605d2e-a04d-4b47-ab3c-45ce5f0720fe",
+        "dataType" : "Audio",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Follow up done?",
+      "uuid" : "b971190f-233e-420a-b9b7-b049a8a09b1d",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Follow up done?",
+        "uuid" : "c29d9dd7-353d-4fd2-8696-3fa15367e4b4",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "No",
+          "uuid" : "f88da2e8-6ab4-44b5-b762-233485cd25f9",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Yes",
+          "uuid" : "57e20de7-10de-4391-b7ce-87b2f40d19a2",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Why is the follow-up not done?",
+      "uuid" : "08c5404c-c8b5-4eab-b8e1-0a012f23c081",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Why is the follow-up not done?",
+        "uuid" : "8e375877-905c-4fca-8f5f-0c75cd022870",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Other",
+          "uuid" : "798b7942-cf58-4d4e-a529-5972942e0a7e",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Patient not available",
+          "uuid" : "ef8806ad-7b99-44b5-9856-0808402263d9",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({encounter, formElement}).when.valueInEncounter(\"c29d9dd7-353d-4fd2-8696-3fa15367e4b4\").containsAnswerConceptName(\"f88da2e8-6ab4-44b5-b762-233485cd25f9\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Follow up done?",
+                "conceptUuid" : "c29d9dd7-353d-4fd2-8696-3fa15367e4b4",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "No" ],
+                "answerConceptUuids" : [ "f88da2e8-6ab4-44b5-b762-233485cd25f9" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ]
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    } ],
+    "display" : "Details",
+    "timed" : false
+  } ],
+  "decisionRule" : "",
+  "visitScheduleRule" : "",
+  "validationRule" : "",
+  "checklistsRule" : "",
+  "decisionConcepts" : [ ]
+}

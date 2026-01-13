@@ -1,0 +1,152 @@
+{
+  "observations": {
+    "id": "bahmni.clinical.consultation.observations",
+    "extensionPointId": "org.bahmni.clinical.consultation.board",
+    "type": "link",
+    "label": "Observations",
+    "url": "concept-set-group/observations",
+    "default": true,
+    "icon": "fa-user-md",
+    "order": 1,
+    "requiredPrivilege": "app:clinical:observationTab"
+  },
+  "diagnosis": {
+    "id": "bahmni.clinical.consultation.diagnosis",
+    "extensionPointId": "org.bahmni.clinical.consultation.board",
+    "type": "link",
+    "label": "Diagnosis",
+    "url": "diagnosis",
+    "icon": "fa-user-md",
+    "order": 2,
+    "requiredPrivilege": "app:clinical:diagnosisTab"
+  },
+  "disposition": {
+    "id": "bahmni.clinical.consultation.disposition",
+    "extensionPointId": "org.bahmni.clinical.consultation.board",
+    "type": "link",
+    "label": "Disposition",
+    "url": "disposition",
+    "icon": "fa-user-md",
+    "order": 3,
+    "requiredPrivilege": "app:clinical:dispositionTab"
+  },
+  "consultationSummary": {
+    "id": "bahmni.clinical.consultation.summary",
+    "extensionPointId": "org.bahmni.clinical.consultation.board",
+    "type": "link",
+    "label": "Consultation",
+    "url": "consultation",
+    "icon": "fa-user-md",
+    "order": 4,
+    "requiredPrivilege": "app:clinical:consultationTab"
+  },
+  "bahmniClinicalBillingTreatmentMedicationTab": {
+    "id": "bahmni.clinical.billing.treatment",
+    "extensionPointId": "org.bahmni.clinical.consultation.board",
+    "type": "link",
+    "label": "Medications",
+    "translationKey": "Medications",
+    "extensionParams": {
+      "tabConfigName": "allMedicationTabConfig"
+    },
+    "url": "treatment",
+    "icon": "fa-user-md",
+    "order": 8,
+    "requiredPrivilege": "app:clinical:consultationTab"
+  },
+  "bahmniClinicalPatientsSearchActivePatients": {
+    "id": "bahmni.clinical.patients.search.allactivePatients",
+    "extensionPointId": "org.bahmni.patient.search",
+    "type": "config",
+    "extensionParams": {
+      "searchHandler": "emrapi.sqlSearch.activePatients",
+      "display": "Active",
+      "forwardUrl": "#/default/patient/{{patientUuid}}/dashboard?encounterUuid=active"
+    },
+    "label": "Active",
+    "order": 1,
+    "requiredPrivilege": "app:clinicalapp"
+  },
+  "bahmniBillingPatientsSearchActivePatients": {
+    "id": "bahmni.billing.patients.search.activePatients",
+    "extensionPointId": "org.bahmni.patient.search",
+    "type": "config",
+    "extensionParams": {
+      "searchHandler": "emrapi.sqlSearch.activePatients",
+      "display": "Active",
+      "forwardUrl": "#/default/patient/{{patientUuid}}/dashboard/treatment?tabConfigName=allMedicationTabConfig"
+    },
+    "label": "Active",
+    "order": 1,
+    "requiredPrivilege": "app:billing"
+  },
+  "bahmniClinicalPatientsSearchTodaysPatientsByProvider": {
+    "id": "bahmni.clinical.patients.search.allPatientsbyProvider",
+    "extensionPointId": "org.bahmni.patient.search",
+    "type": "config",
+    "extensionParams": {
+      "searchHandler": "emrapi.sqlSearch.todaysPatientsByProvider",
+      "display": "My Patients",
+      "forwardUrl": "#/default/patient/{{patientUuid}}/dashboard?encounterUuid=active",
+      "label":"My Patients"
+    },
+    "label": "Active",
+    "order": 2,
+    "requiredPrivilege": "app:clinicalapp"
+  },
+  "bahmniClinicalPatientsSearchAll": {
+    "id": "bahmni.clinical.patients.search.allPatients",
+    "extensionPointId": "org.bahmni.patient.search",
+    "type": "config",
+    "extensionParams": {
+    "display": "All",
+      "forwardUrl": "#/default/patient/{{patientUuid}}/dashboard?encounterUuid=active"
+    },
+    "label": "All",
+    "order": 3,
+    "requiredPrivilege": "app:clinicalapp"
+  },
+  "bahmniBillingPatientsSearchAll": {
+    "id": "bahmni.billing.patients.search.allPatients",
+    "extensionPointId": "org.bahmni.patient.search",
+    "type": "config",
+    "extensionParams": {
+    "display": "All",
+      "forwardUrl": "#/default/patient/{{patientUuid}}/dashboard/treatment"
+    },
+    "label": "All",
+    "order": 3,
+    "requiredPrivilege": "app:billing"
+  },
+  "bahmniClinicalTreatmentLinks": {
+    "id": "bahmni.clinical.treatment.links",
+    "extensionPointId": "org.bahmni.clinical.treatment.links",
+    "type": "link",
+    "label": "Open <u>Q</u>uotation",
+    "url": "http://emr.gan.jssbilaspur.org:8069/quotations/latest?patient_ref={{patient_ref}}&dispensed=false&location_ref={{location_ref}}",
+    "shortcutKey": "q",
+    "requiredPrivilege": "app:billing"
+  },
+  "bahmniClinicalConsultationOrders": {
+    "id": "bahmni.clinical.consultation.orders",
+    "extensionPointId": "org.bahmni.clinical.consultation.board",
+    "type": "link",
+    "label": "Orders",
+    "title":"Orders",
+    "url": "orders",
+    "icon": "fa-user-md",
+    "order": 6,
+    "requiredPrivilege": "app:clinical:ordersTab"
+  },
+ "bahmniClinicalConsultationBacteriology": {
+    "id": "bahmni.clinical.consultation.bacteriology",
+    "extensionPointId": "org.bahmni.clinical.consultation.board",
+    "type": "link",
+    "label": "Bacteriology",
+    "translationKey":"Bacteriology",
+    "url": "bacteriology",
+    "icon": "icon-user-md",
+    "order": 8,
+    "requiredPrivilege": "app:clinical:bacteriologyTab"
+  }
+}

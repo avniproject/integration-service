@@ -1,0 +1,7 @@
+{
+  "name" : "Referral Communication from VHW Encounter Cancellation",
+  "uuid" : "27f924cc-57be-4ec0-8136-7486ce2778e2",
+  "formType" : "IndividualEncounterCancellation",
+  "formElementGroups" : [ ],
+  "decisionConcepts" : [ ]
+}

@@ -1,0 +1,526 @@
+{
+  "general": {
+    "title": "General",
+    "displayByDefault": true,
+    "printing": {
+      "title": "Jan Swasthya Sahyog Community Health Centre",
+      "header": "Visit",
+      "logo": "../images/jss-icon.png",
+      "hideProviderName": true
+    },
+    "defaultSections": true,
+    "sections": {
+      "patientInformation": {
+        "type": "patientInformation",
+        "config": {
+          "title": "PatientInformation",
+          "hideProviderName": true
+        },
+        "displayOrder": 0
+      },
+      "pivotTable": {
+        "type": "pivotTable",
+        "title": "Pivot Table",
+        "config": {
+          "groupBy": "encounters",
+          "obsConcepts": [
+            "Weight",
+            "Vitals"
+          ],
+          "drugConcepts": [],
+          "labConcepts": []
+        },
+        "displayOrder": 0
+      }
+    },
+    "encounterContext": {
+        "filterEncounterTypes": [
+          "Consultation"
+        ]
+    }
+  },
+  "dischargeSummary": {
+    "title": "Discharge Summary",
+    "printing": {
+      "title": "Jan Swasthya Sahyog Community Health Centre",
+      "header": "Discharge Summary",
+      "logo": "../images/jss-icon.png",
+      "hideProviderName": true
+    },
+    "sections": {
+      "patientInformation": {
+        "type": "patientInformation",
+        "config": {
+          "addressFields": [
+            "cityVillage",
+            "address2",
+            "address3",
+            "countyDistrict"
+          ],
+          "title": "PatientInformation",
+          "patientAttributes": [],
+          "hideProviderName": true
+        },
+        "displayOrder": 0
+      },
+      "admissionDetails": {
+        "type": "admissionDetails",
+        "config": {
+          "showDetailsButton": false,
+          "title": "Admission Details"
+        },
+        "displayOrder": 1
+      },
+      "atAdmission": {
+        "type": "observation",
+        "title": "At Admission",
+        "config": {
+          "conceptNames": [
+            "Weight",
+            "Height",
+            "BMI"
+          ],
+          "scope": "initial"
+        },
+        "displayOrder": 2
+      },
+      "lastRecordedWeight": {
+        "type": "observation",
+        "title": "Last Recorded Weight",
+        "config": {
+          "conceptNames": [
+            "Weight"
+          ],
+          "scope": "latest"
+        },
+        "displayOrder": 3
+      },
+      "diagnoses": {
+        "type": "diagnosis",
+        "title": "Diagnoses",
+        "config": {
+          "showCertainty": false,
+          "showOrder": false,
+          "showDetailsButton": true
+        },
+        "displayOrder": 4
+      },
+      "clinicalNotes": {
+        "type": "observation",
+        "title": "Clinical Notes",
+        "config": {
+          "conceptNames": [
+            "History and Examination Notes",
+            "Discharge Summary, Treating Doctor",
+            "Discharge Summary, Admission Indication",
+	    "Discharge Summary, Emergency Care",
+            "Hospital Course",
+	    "Discharge Summary, Condition at the time of discharge",
+            "Discharge Summary, Surgical Indication",
+            "Date of Operation",
+            "Operative Procedure",
+            "Lab Investigation Notes",
+            "Radiology Notes",
+            "Other Notes"
+          ],
+          "scope": "latest",
+          "numberOfVisits": "1"
+        },
+        "displayOrder": 5
+      },
+      "labInvestigations": {
+        "type": "labOrders",
+        "config": {
+          "title": "Lab Investigations",
+          "showChart": true,
+          "showTable": false,
+          "showNormalLabResults": true,
+          "showCommentsExpanded": true,
+          "showAccessionNotes": true,
+          "numberOfVisits": 10,
+          "initialAccessionCount": 1,
+          "latestAccessionCount": 1
+        },
+        "displayOrder": 6
+      },
+      "treatments": {
+        "type": "prescription",
+        "title": "Treatments",
+        "config": {
+          "showFlowSheet": false,
+          "showListView": true,
+          "showOtherActive": true,
+          "showDetailsButton": false,
+          "showRoute": true,
+          "showDrugForm": true
+        },
+        "displayOrder": 7
+      },
+      "adviceOnDischarge": {
+        "type": "observation",
+        "title": "Advice on Discharge",
+        "config": {
+          "conceptNames": [
+            "Advice on Discharge",
+            "Follow up Date",
+            "Discharge Summary, Plan for follow up",
+	    "Discharge Summary, Urgent Care",
+	    "Emergency Contact Person",
+	    "Emergency Contact Number"
+          ],
+          "scope": "latest"
+        },
+        "displayOrder": 8
+      }
+    },
+    "encounterContext": {
+        "filterEncounterTypes": [
+          "Consultation"
+        ]
+    }
+  },
+  "rntcpform": {
+    "title": "RNTCP Form",
+    "printing": {
+      "title": "",
+      "header": "",
+      "logo": "",
+      "hideProviderName": true
+    },
+    "sections": {
+      "RNTCP Form": {
+        "type": "custom",
+        "displayOrder": 1,
+        "config": {
+          "title": "RNTCP Request for Culture and Drug Sensitivity Testing",
+          "template": "<rntcp-form></rntcp-form>"
+        }
+      }
+    },
+    "encounterContext": {
+        "filterEncounterTypes": [
+          "Consultation"
+        ]
+    }
+  },
+  "clinicalinfotbform": {
+    "title": "RMRCT Form",
+    "printing": {
+      "title": "",
+      "header": "",
+      "logo": "",
+      "hideProviderName": true
+    },
+    "sections": {
+      "RMRCT Form": {
+        "type": "custom",
+        "displayOrder": 1,
+        "config": {
+          "title": "RMRCT Clinical TB Information Form for TB Patient",
+          "template": "<clinicalinfo-tb></clinicalinfo-tb>"
+        }
+      }
+    },
+    "encounterContext": {
+        "filterEncounterTypes": [
+          "Consultation"
+        ]
+    }
+  },
+  "Death Certificate": {
+    "title": "Death Certificate",
+    "printing": {
+      "title": "",
+      "header": "Death Certificate",
+      "logo": "",
+      "hideProviderName": true
+    },
+    "sections": {
+      "Death Certificate": {
+        "type": "custom",
+        "displayOrder": 1,
+        "config": {
+          "title": "Patient Death Certificate ",
+          "template": "<death-certificate></death-certificate>"
+        }
+      }
+    },
+    "encounterContext": {
+        "filterEncounterTypes": [
+          "Consultation"
+        ]
+    }
+  },
+  "pplhlthsptgrp": {
+    "title": "PD Hinduja Form",
+    "printing": {
+      "title": "",
+      "header": "",
+      "logo": "../images/jss-icon.png",
+      "hideProviderName": true
+    },
+    "sections": {
+      "PD Hinduja Form": {
+        "type": "custom",
+        "displayOrder": 1,
+        "config": {
+          "title": "Jan Swasthya Sahyog",
+          "template": "<pplhlth-sptgrp></pplhlth-sptgrp>"
+        }
+      }
+    },
+    "encounterContext": {
+        "filterEncounterTypes": [
+          "Consultation"
+        ]
+    }
+  },
+ "OperationNotes": {
+    "title": "Operation Notes",
+    "printing": {
+      "title": "Jan Swasthya Sahyog,Ganiyari",
+      "header": "Operation Notes",
+      "logo": "../images/jss-icon.png",
+      "hideProviderName": true
+    },
+    "sections": {
+      "patientInformation": {
+        "type": "patientInformation",
+        "config": {
+          "addressFields": [
+            "cityVillage",
+            "address2",
+            "address3",
+            "countyDistrict"
+          ],
+          "title": "PatientInformation",
+          "patientAttributes": [],
+          "hideProviderName": true
+        },
+        "displayOrder": 0
+      },
+      "clinicalNotes": {
+        "type": "observation",
+        "title": "Clinical Notes",
+        "config": {
+          "conceptNames": [
+            "Date of Surgery",
+            "Surgical Indication",
+            "Surgical Procedure Data",
+            "Coded Operating Surgeon",
+            "Other Operating Surgeon",
+            "Coded Operating Assistant Surgeon",
+            "Coded Operation Anesthetist",
+            "Scrub Nurse",
+            "Anesthesia Administered",
+	    "Other Operation Notes"
+          ],
+          "scope": "latest",
+          "numberOfVisits": "1"
+        },
+        "displayOrder": 1
+      }
+     },
+    "encounterContext": {
+        "filterEncounterTypes": [
+          "Consultation"
+        ]
+    }
+  },
+  "EchoNotes": {
+    "title": "Echo Notes",
+    "printing": {
+      "title": "Jan Swasthya Sahyog,Ganiyari",
+      "header": "Echo Report",
+      "logo": "../images/jss-icon.png",
+      "hideProviderName": true
+    },
+    "sections": {
+      "patientInformation": {
+        "type": "patientInformation",
+        "config": {
+          "addressFields": [
+            "cityVillage",
+            "address2",
+            "address3",
+            "countyDistrict"
+          ],
+          "title": "PatientInformation",
+          "patientAttributes": [],
+          "hideProviderName": true
+        },
+        "displayOrder": 0
+      },
+      "clinicalNotes": {
+        "type": "observation",
+        "title": "Clinical Notes",
+        "config": {
+          "conceptNames": [
+            "M Mode Measurements",
+	    "Doppler",
+            "Colour Flow",
+            "2D exam",
+            "Ao",
+            "Echo LA",
+            "Valvular Abnormality",
+            "Echo, Pericardial Effusion",
+            "Extracardiac Findings",
+            "Echo Conclusion",
+            "Echo Recommendation",
+	    "Video Link"
+          ],
+          "scope": "latest",
+          "numberOfVisits": "1"
+        },
+        "displayOrder": 1
+	 }
+     },
+    "encounterContext": {
+        "filterEncounterTypes": [
+          "Consultation"
+        ]
+    }
+  },
+  "BacteriologyConceptSet": {
+    "title": "Culture and Drug Sensitivity Report",
+    "printing": {
+      "title": "MICROBIOLOGY CULTURE AND DRUG SENSITIVITY REPORT",
+      "header": "Jan Swasthya Sahyog,Ganiyari",
+      "logo": "",
+      "hideProviderName": true
+    },
+    "sections": {
+      "patientInformation": {
+        "type": "patientInformation",
+        "config": {
+          "addressFields": [
+            "cityVillage",
+            "address2",
+            "address3",
+            "countyDistrict"
+          ],
+          "title": "PatientInformation",
+          "patientAttributes": [],
+          "hideProviderName": true
+        },
+        "displayOrder": 0
+      },
+      "REPORT": {
+        "type": "observation",
+        "title": "REPORT",
+        "config": {
+          "conceptNames": [
+            "Specimen Collection Date",
+            "Specimen Sample Source NonCoded",
+            "Specimen Sample Source",
+            "Specimen Id",
+            "Bacteriology Additional Attributes"
+          ],
+          "scope": "latest",
+          "numberOfVisits": "1"
+        },
+        "displayOrder": 1
+      }
+     },
+    "encounterContext": {
+        "filterEncounterTypes": [
+          "Consultation"
+        ]
+    }
+  },
+  "opdSummary": {
+    "title": "OPD Summary",
+    "printing": {
+      "title": "Jan Swasthya Sahyog Community Health Centre",
+      "header": "OPD Summary",
+      "logo": "../images/jss-icon.png",
+      "hideProviderName": true
+    },
+    "sections": {
+      "patientInformation": {
+        "type": "patientInformation",
+        "config": {
+          "addressFields": [
+            "cityVillage",
+            "address2",
+            "address3",
+            "countyDistrict"
+          ],
+          "title": "PatientInformation",
+          "patientAttributes": [],
+          "hideProviderName": true
+        },
+        "displayOrder": 1
+      },
+      "diagnoses": {
+        "type": "diagnosis",
+        "config": {
+          "title": "Diagnoses",
+          "showCertainty": false,
+          "showOrder": false,
+          "showDetailsButton": true
+        },
+        "displayOrder": 2
+      },
+      "conditions": {
+        "type": "conditionsList",
+        "displayOrder": 3,
+        "config": {
+            "title": "Conditions"
+         }
+      },
+      "labInvestigations": {
+        "type": "labOrders",
+        "config": {
+          "title": "Lab Investigations",
+          "showChart": true,
+          "showTable": false,
+          "showNormalLabResults": true,
+          "showCommentsExpanded": true,
+          "showAccessionNotes": true,
+          "numberOfVisits": 1,
+          "initialAccessionCount": 1,
+          "latestAccessionCount": 1
+        },
+        "displayOrder": 4
+      },
+      "treatments": {
+        "type": "prescription",
+        "title": "Treatments",
+        "config": {
+          "showFlowSheet": false,
+          "showListView": true,
+          "showOtherActive": true,
+          "showDetailsButton": false,
+          "showRoute": true,
+          "showDrugForm": true
+        },
+        "displayOrder": 5
+     },
+     "treatmentPlan": {
+        "type": "observation",
+        "title": "Treatment Plan",
+        "config": {
+          "conceptNames": [
+            "OPD Summary, Treatment Plan"
+          ],
+          "scope": "latest"
+          },
+          "displayOrder": 7
+     },
+     "followUp": {
+        "type": "custom",
+        "displayOrder": 6,
+        "config": {
+          "title": "Follow Up",
+          "template": "<patient-appointments-dashboard section='config' patient='patient'></patient-appointments-dashboard>"
+        }
+      }
+   },
+    "encounterContext": {
+        "filterEncounterTypes": [
+          "Consultation"
+        ]
+    }
+  }
+}

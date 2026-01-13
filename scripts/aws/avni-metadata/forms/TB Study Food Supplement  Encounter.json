@@ -1,0 +1,2026 @@
+{
+  "name" : "TB Study Food Supplement  Encounter",
+  "uuid" : "7552c60a-7f91-454f-a085-d096ed622962",
+  "formType" : "ProgramEncounter",
+  "formElementGroups" : [ {
+    "uuid" : "82d32bc3-31eb-47e2-a598-731a844cce63",
+    "name" : "Study ID",
+    "displayOrder" : 1.0,
+    "formElements" : [ {
+      "name" : "TB Study ID (TBS001 to TBS999)",
+      "uuid" : "2eae6134-ae78-495f-910a-c16ac30490f5",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "TB Study ID (TBS001 to TBS999)",
+        "uuid" : "a52a64d8-2f50-433f-853f-2d1299a73a33",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "voided" : true,
+      "mandatory" : true
+    } ],
+    "display" : "Study ID",
+    "voided" : true,
+    "timed" : false
+  }, {
+    "uuid" : "90b6fa43-fed9-4d2c-b58b-ef34347cb44d",
+    "name" : "For Patient",
+    "displayOrder" : 2.0,
+    "formElements" : [ {
+      "name" : "Month of Food Supplementation",
+      "uuid" : "1e47580a-30b3-46fa-89ee-f2a1c2bf2207",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Month of Food Supplementation",
+        "uuid" : "d61f28b3-d522-49ac-9215-5a962eb82d44",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "1st",
+          "uuid" : "3a454085-8335-41a2-91f9-9e121f2a58ce",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "2nd",
+          "uuid" : "a39a9a06-0537-425b-aca1-0e44ed39d85c",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "4th",
+          "uuid" : "3a96d00e-afa2-4664-97b3-3865a850b71d",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "3rd",
+          "uuid" : "a06ce4db-5e13-45e3-80ac-c10801f25a46",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "9th",
+          "uuid" : "df6282d1-7751-4f11-80fe-dba4ffef1f62",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 8.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "5th",
+          "uuid" : "c92d1880-1afa-49d8-98e1-b4de5feed6d8",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "8th",
+          "uuid" : "a16c89d5-d4b2-45f1-9097-7f03def53ef4",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 7.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "7th",
+          "uuid" : "e910c083-2a9e-45af-97c3-01dac0611923",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 6.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "6th",
+          "uuid" : "47118f1c-b24d-4dc9-81c5-841ba900e0d6",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Type",
+      "uuid" : "869b8752-6e6e-4b71-9161-15ed34d54197",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Type",
+        "uuid" : "556d0f33-fbe1-46b7-b982-c8588927adc0",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Ragi Based",
+          "uuid" : "55e5dfbe-a8aa-4c6e-8b91-7c650e95515b",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Kodo Based",
+          "uuid" : "60f81bd6-d341-4159-be9d-3fb549b91819",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Rice Based",
+          "uuid" : "4a6debd0-8657-4a2b-8042-fd2415774306",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Date of Supply",
+      "uuid" : "3eea02a9-4f1b-4f09-884f-455f4cd54073",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Date of Supply",
+        "uuid" : "7af383ee-3dc7-417d-a4ec-ac19746268f4",
+        "dataType" : "Date",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Items Supplied",
+      "uuid" : "663cbc2f-4267-4f43-9fcc-125f7acf9501",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Items Supplied",
+        "uuid" : "bf0ea265-2d21-440b-8845-44aca8485d1a",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Milk Powder",
+          "uuid" : "7dcf68bc-eb56-43bb-8286-1eb408bcabcf",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Dal",
+          "uuid" : "d3e72f70-0dbe-420f-8d69-3cab004de474",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Ragi",
+          "uuid" : "a88b24ad-4761-42d0-be72-d2f850c04668",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Rice",
+          "uuid" : "811d12d4-7ddb-45f7-97b8-8745ba526822",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Other (specify)",
+          "uuid" : "cba7dcb1-9cbe-487e-bf1e-125ea22ee260",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 10.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Kodo",
+          "uuid" : "0baadbbc-716e-4471-9035-be17740618f9",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Sattu",
+          "uuid" : "a3aec120-284b-4081-9180-52b731ead724",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 6.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Oil",
+          "uuid" : "0e0fdfa6-340c-4e9e-960c-c531e8fe8582",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Calcium",
+          "uuid" : "a90a1a76-c5fe-4020-924e-0e0e9f5b0f9f",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 8.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        }, {
+          "name" : "Soya Badi",
+          "uuid" : "15c1d1cf-7c5a-4639-967a-ffd319c0a16f",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 9.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Becadex",
+          "uuid" : "6ee3459f-367b-4817-a73b-add027132e04",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 7.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 4.0,
+      "type" : "MultiSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Items Supplied Other Item (Specify)",
+      "uuid" : "b92297a1-b1fb-4c89-9b72-9ddc9d3993fc",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Items Supplied Other Item (Specify)",
+        "uuid" : "a131e8a8-1287-42de-be05-cc79dbd80506",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 5.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"bf0ea265-2d21-440b-8845-44aca8485d1a\").containsAnswerConceptName(\"cba7dcb1-9cbe-487e-bf1e-125ea22ee260\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Items Supplied",
+                "conceptUuid" : "bf0ea265-2d21-440b-8845-44aca8485d1a",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Other (specify)" ],
+                "answerConceptUuids" : [ "cba7dcb1-9cbe-487e-bf1e-125ea22ee260" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : false
+    }, {
+      "name" : "Quantity (In Kg Per Month Per Member) of Rice",
+      "uuid" : "0a9101b1-95d8-4dc3-9d41-24806e3a866e",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Quantity (In Kg Per Month Per Member) of Rice",
+        "uuid" : "4bb5a254-3dcf-40f3-a23e-11feaabb70f7",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 6.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"bf0ea265-2d21-440b-8845-44aca8485d1a\").containsAnswerConceptName(\"811d12d4-7ddb-45f7-97b8-8745ba526822\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Items Supplied",
+                "conceptUuid" : "bf0ea265-2d21-440b-8845-44aca8485d1a",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Rice" ],
+                "answerConceptUuids" : [ "811d12d4-7ddb-45f7-97b8-8745ba526822" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    }, {
+      "name" : "Quantity (In Kg Per Month Per Member) of Kodo",
+      "uuid" : "3cc2ef17-6ec9-44fa-ac61-4024f77f0187",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Quantity (In Kg Per Month Per Member) of Kodo",
+        "uuid" : "f18562c5-6bd1-478c-9361-5042791ab958",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 7.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"bf0ea265-2d21-440b-8845-44aca8485d1a\").containsAnswerConceptName(\"0baadbbc-716e-4471-9035-be17740618f9\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Items Supplied",
+                "conceptUuid" : "bf0ea265-2d21-440b-8845-44aca8485d1a",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Kodo" ],
+                "answerConceptUuids" : [ "0baadbbc-716e-4471-9035-be17740618f9" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    }, {
+      "name" : "Quantity (In Kg Per Month Per Member) of Ragi",
+      "uuid" : "4bd71290-9708-43e4-9b83-45b7faab8278",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Quantity (In Kg Per Month Per Member) of Ragi",
+        "uuid" : "149b45ea-8517-45b9-92b7-6140b9e1cf16",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 8.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"bf0ea265-2d21-440b-8845-44aca8485d1a\").containsAnswerConceptName(\"a88b24ad-4761-42d0-be72-d2f850c04668\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Items Supplied",
+                "conceptUuid" : "bf0ea265-2d21-440b-8845-44aca8485d1a",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Ragi" ],
+                "answerConceptUuids" : [ "a88b24ad-4761-42d0-be72-d2f850c04668" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    }, {
+      "name" : "Quantity (In Kg Per Month Per Member) of Dal",
+      "uuid" : "ba15fa98-eb47-482f-80d5-53ee6f62c4c1",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Quantity (In Kg Per Month Per Member) of Dal",
+        "uuid" : "b61f7f4b-3f25-44f3-9ebb-248db93b9422",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 9.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"bf0ea265-2d21-440b-8845-44aca8485d1a\").containsAnswerConceptName(\"d3e72f70-0dbe-420f-8d69-3cab004de474\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Items Supplied",
+                "conceptUuid" : "bf0ea265-2d21-440b-8845-44aca8485d1a",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Dal" ],
+                "answerConceptUuids" : [ "d3e72f70-0dbe-420f-8d69-3cab004de474" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    }, {
+      "name" : "Quantity ( In Kg Per Month Per Member) of Soya Badi",
+      "uuid" : "21f83758-19ef-45a5-b28d-649e1da40108",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Quantity ( In Kg Per Month Per Member) of Soya Badi",
+        "uuid" : "1501c867-694a-480b-a7b5-6c1dabc74527",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 10.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"bf0ea265-2d21-440b-8845-44aca8485d1a\").containsAnswerConceptName(\"15c1d1cf-7c5a-4639-967a-ffd319c0a16f\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Items Supplied",
+                "conceptUuid" : "bf0ea265-2d21-440b-8845-44aca8485d1a",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Soya Badi" ],
+                "answerConceptUuids" : [ "15c1d1cf-7c5a-4639-967a-ffd319c0a16f" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    }, {
+      "name" : "Quantity (In Kg Per Month Per Member) of Milk Powder",
+      "uuid" : "53d71c3f-9832-470e-9545-a573a25fe023",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Quantity (In Kg Per Month Per Member) of Milk Powder",
+        "uuid" : "001ac901-2379-4386-97c3-3ab23be9b0e2",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 11.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"bf0ea265-2d21-440b-8845-44aca8485d1a\").containsAnswerConceptName(\"7dcf68bc-eb56-43bb-8286-1eb408bcabcf\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Items Supplied",
+                "conceptUuid" : "bf0ea265-2d21-440b-8845-44aca8485d1a",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Milk Powder" ],
+                "answerConceptUuids" : [ "7dcf68bc-eb56-43bb-8286-1eb408bcabcf" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    }, {
+      "name" : "Quantity (In Liter Per Month Per Member) of Oil",
+      "uuid" : "d69d4306-482f-41f3-aee9-9bbb92da3422",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Quantity (In Liter Per Month Per Member) of Oil",
+        "uuid" : "4ce6f966-3d78-44d3-8388-b5757529efdd",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 12.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"bf0ea265-2d21-440b-8845-44aca8485d1a\").containsAnswerConceptName(\"0e0fdfa6-340c-4e9e-960c-c531e8fe8582\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Items Supplied",
+                "conceptUuid" : "bf0ea265-2d21-440b-8845-44aca8485d1a",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Oil" ],
+                "answerConceptUuids" : [ "0e0fdfa6-340c-4e9e-960c-c531e8fe8582" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    }, {
+      "name" : "Quantity ( In Kg Per Month Per Member) of Sattu",
+      "uuid" : "5cebe5ac-05c6-41b8-9c67-24a119bc4352",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Quantity ( In Kg Per Month Per Member) of Sattu",
+        "uuid" : "534b9ace-1267-4a84-92b2-5203b365f06f",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 13.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"bf0ea265-2d21-440b-8845-44aca8485d1a\").containsAnswerConceptName(\"a3aec120-284b-4081-9180-52b731ead724\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Items Supplied",
+                "conceptUuid" : "bf0ea265-2d21-440b-8845-44aca8485d1a",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Sattu" ],
+                "answerConceptUuids" : [ "a3aec120-284b-4081-9180-52b731ead724" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    }, {
+      "name" : "Quantity ( In Kg Per Month Per Member) of Becadex",
+      "uuid" : "8016e62c-1086-457c-8626-185e0c603b71",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Quantity ( In Kg Per Month Per Member) of Becadex",
+        "uuid" : "f502f4f2-cad6-48d8-9123-26b049d992e8",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 14.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"bf0ea265-2d21-440b-8845-44aca8485d1a\").containsAnswerConceptName(\"6ee3459f-367b-4817-a73b-add027132e04\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Items Supplied",
+                "conceptUuid" : "bf0ea265-2d21-440b-8845-44aca8485d1a",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Becadex" ],
+                "answerConceptUuids" : [ "6ee3459f-367b-4817-a73b-add027132e04" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    }, {
+      "name" : "Quantity (In Kg Per Month Per Member) of Calcium",
+      "uuid" : "3a0ea861-2580-422e-8649-ebabff58f75d",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Quantity (In Kg Per Month Per Member) of Calcium",
+        "uuid" : "93ded60f-99e8-406f-8436-fbdddf1e7cff",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 15.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"bf0ea265-2d21-440b-8845-44aca8485d1a\").containsAnswerConceptName(\"a90a1a76-c5fe-4020-924e-0e0e9f5b0f9f\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Items Supplied",
+                "conceptUuid" : "bf0ea265-2d21-440b-8845-44aca8485d1a",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Calcium" ],
+                "answerConceptUuids" : [ "a90a1a76-c5fe-4020-924e-0e0e9f5b0f9f" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    }, {
+      "name" : "Quantity ( In Kg/Liter Per Month Per Member) of Other(Specify)",
+      "uuid" : "c548ddaf-e2ca-4ca4-8e73-ca3e6e728033",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Quantity ( In Kg/Liter Per Month Per Member) of Other(Specify)",
+        "uuid" : "7a589e02-4b5f-4f77-b5e8-5a2a974d1566",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 16.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"bf0ea265-2d21-440b-8845-44aca8485d1a\").containsAnswerConceptName(\"cba7dcb1-9cbe-487e-bf1e-125ea22ee260\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Items Supplied",
+                "conceptUuid" : "bf0ea265-2d21-440b-8845-44aca8485d1a",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Other (specify)" ],
+                "answerConceptUuids" : [ "cba7dcb1-9cbe-487e-bf1e-125ea22ee260" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    }, {
+      "name" : "Is Patient eating nutritional supplements",
+      "uuid" : "80e2c497-7e28-4359-8b3a-5e9606e0b3a6",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "For Patient Is Patient eating nutritional supplements",
+        "uuid" : "8b444f31-ddd6-4c13-9434-22c23e67d945",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "No",
+          "uuid" : "f88da2e8-6ab4-44b5-b762-233485cd25f9",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Yes",
+          "uuid" : "57e20de7-10de-4391-b7ce-87b2f40d19a2",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Partial",
+          "uuid" : "e4d6424a-0991-43bd-8148-2baebcc1f53e",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 17.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"d61f28b3-d522-49ac-9215-5a962eb82d44\").containsAnswerConceptName(\"a39a9a06-0537-425b-aca1-0e44ed39d85c\").or.when.valueInEncounter(\"d61f28b3-d522-49ac-9215-5a962eb82d44\").containsAnswerConceptName(\"a06ce4db-5e13-45e3-80ac-c10801f25a46\").or.when.valueInEncounter(\"d61f28b3-d522-49ac-9215-5a962eb82d44\").containsAnswerConceptName(\"3a96d00e-afa2-4664-97b3-3865a850b71d\").or.when.valueInEncounter(\"d61f28b3-d522-49ac-9215-5a962eb82d44\").containsAnswerConceptName(\"c92d1880-1afa-49d8-98e1-b4de5feed6d8\").or.when.valueInEncounter(\"d61f28b3-d522-49ac-9215-5a962eb82d44\").containsAnswerConceptName(\"47118f1c-b24d-4dc9-81c5-841ba900e0d6\").or.when.valueInEncounter(\"d61f28b3-d522-49ac-9215-5a962eb82d44\").containsAnswerConceptName(\"e910c083-2a9e-45af-97c3-01dac0611923\").or.when.valueInEncounter(\"d61f28b3-d522-49ac-9215-5a962eb82d44\").containsAnswerConceptName(\"a16c89d5-d4b2-45f1-9097-7f03def53ef4\").or.when.valueInEncounter(\"d61f28b3-d522-49ac-9215-5a962eb82d44\").containsAnswerConceptName(\"df6282d1-7751-4f11-80fe-dba4ffef1f62\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Month of Food Supplementation",
+                "conceptUuid" : "d61f28b3-d522-49ac-9215-5a962eb82d44",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "2nd" ],
+                "answerConceptUuids" : [ "a39a9a06-0537-425b-aca1-0e44ed39d85c" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            }, {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Month of Food Supplementation",
+                "conceptUuid" : "d61f28b3-d522-49ac-9215-5a962eb82d44",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "3rd" ],
+                "answerConceptUuids" : [ "a06ce4db-5e13-45e3-80ac-c10801f25a46" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            }, {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Month of Food Supplementation",
+                "conceptUuid" : "d61f28b3-d522-49ac-9215-5a962eb82d44",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "4th" ],
+                "answerConceptUuids" : [ "3a96d00e-afa2-4664-97b3-3865a850b71d" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            }, {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Month of Food Supplementation",
+                "conceptUuid" : "d61f28b3-d522-49ac-9215-5a962eb82d44",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "5th" ],
+                "answerConceptUuids" : [ "c92d1880-1afa-49d8-98e1-b4de5feed6d8" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            }, {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Month of Food Supplementation",
+                "conceptUuid" : "d61f28b3-d522-49ac-9215-5a962eb82d44",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "6th" ],
+                "answerConceptUuids" : [ "47118f1c-b24d-4dc9-81c5-841ba900e0d6" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            }, {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Month of Food Supplementation",
+                "conceptUuid" : "d61f28b3-d522-49ac-9215-5a962eb82d44",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "7th" ],
+                "answerConceptUuids" : [ "e910c083-2a9e-45af-97c3-01dac0611923" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            }, {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Month of Food Supplementation",
+                "conceptUuid" : "d61f28b3-d522-49ac-9215-5a962eb82d44",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "8th" ],
+                "answerConceptUuids" : [ "a16c89d5-d4b2-45f1-9097-7f03def53ef4" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            }, {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Month of Food Supplementation",
+                "conceptUuid" : "d61f28b3-d522-49ac-9215-5a962eb82d44",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "9th" ],
+                "answerConceptUuids" : [ "df6282d1-7751-4f11-80fe-dba4ffef1f62" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "or"
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    }, {
+      "name" : "If Partial, Reason",
+      "uuid" : "b255349f-f3dc-43ea-9de6-c0adbcc6a8f0",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "If Partial, Reason",
+        "uuid" : "181368d0-c961-4111-846b-374b7e81f93e",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 18.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"8b444f31-ddd6-4c13-9434-22c23e67d945\").containsAnswerConceptName(\"e4d6424a-0991-43bd-8148-2baebcc1f53e\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "For Patient Is Patient eating nutritional supplements",
+                "conceptUuid" : "8b444f31-ddd6-4c13-9434-22c23e67d945",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Partial" ],
+                "answerConceptUuids" : [ "e4d6424a-0991-43bd-8148-2baebcc1f53e" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : false
+    } ],
+    "display" : "For Patient",
+    "timed" : false
+  }, {
+    "uuid" : "2c92f07d-f8bc-41c4-9162-99602799708f",
+    "name" : "For Family Members (Eating from The same Kitchen)",
+    "displayOrder" : 3.0,
+    "formElements" : [ {
+      "name" : "Number of Adults",
+      "uuid" : "397c6657-07ea-4029-ba91-2aa8b8c94283",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Number of Adults",
+        "uuid" : "582baef1-fe25-4182-a194-418e0e587ebe",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Number of Children",
+      "uuid" : "0b85add6-c2cf-4cbd-a53a-a791292c2f4b",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Number of Children",
+        "uuid" : "1311637e-f9fa-455b-b685-b9d99d1cf164",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Month of Food Supplementation",
+      "uuid" : "a19accbd-80fd-40cd-bb83-b256865ea537",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Family Month of Food Supplementation",
+        "uuid" : "220bdd85-d9b9-4063-9935-9d3f73f987f1",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "7th",
+          "uuid" : "e910c083-2a9e-45af-97c3-01dac0611923",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 6.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "1st",
+          "uuid" : "3a454085-8335-41a2-91f9-9e121f2a58ce",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "8th",
+          "uuid" : "a16c89d5-d4b2-45f1-9097-7f03def53ef4",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 7.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "4th",
+          "uuid" : "3a96d00e-afa2-4664-97b3-3865a850b71d",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "5th",
+          "uuid" : "c92d1880-1afa-49d8-98e1-b4de5feed6d8",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "3rd",
+          "uuid" : "a06ce4db-5e13-45e3-80ac-c10801f25a46",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "9th",
+          "uuid" : "df6282d1-7751-4f11-80fe-dba4ffef1f62",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 8.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "6th",
+          "uuid" : "47118f1c-b24d-4dc9-81c5-841ba900e0d6",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "2nd",
+          "uuid" : "a39a9a06-0537-425b-aca1-0e44ed39d85c",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Type",
+      "uuid" : "d3de8a7f-85d8-4d26-91a6-db290473b015",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Family Type",
+        "uuid" : "f0969a3c-6649-4478-ba1d-62b8744747d0",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Kodo Based",
+          "uuid" : "60f81bd6-d341-4159-be9d-3fb549b91819",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Ragi Based",
+          "uuid" : "55e5dfbe-a8aa-4c6e-8b91-7c650e95515b",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Rice Based",
+          "uuid" : "4a6debd0-8657-4a2b-8042-fd2415774306",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Date of Supply",
+      "uuid" : "860ac8a9-562f-4dcc-9e70-d04fda6ccb53",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Family Date of Supply",
+        "uuid" : "3d33b40b-83ce-48ef-92cb-2b3405d1e046",
+        "dataType" : "Date",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 5.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Items Supplied",
+      "uuid" : "61dc33ac-0a9f-4858-bdff-eaf3338a6bc4",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Family Items Supplied",
+        "uuid" : "78aa757e-1b70-4e40-89a1-8351278daeb5",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Sattu",
+          "uuid" : "a3aec120-284b-4081-9180-52b731ead724",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 6.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Oil",
+          "uuid" : "0e0fdfa6-340c-4e9e-960c-c531e8fe8582",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Becadex",
+          "uuid" : "6ee3459f-367b-4817-a73b-add027132e04",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 7.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Ragi",
+          "uuid" : "a88b24ad-4761-42d0-be72-d2f850c04668",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Soya Badi",
+          "uuid" : "15c1d1cf-7c5a-4639-967a-ffd319c0a16f",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 9.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Calcium",
+          "uuid" : "a90a1a76-c5fe-4020-924e-0e0e9f5b0f9f",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 8.0,
+          "active" : true,
+          "keyValues" : [ ],
+          "media" : [ ]
+        }, {
+          "name" : "Other (specify)",
+          "uuid" : "cba7dcb1-9cbe-487e-bf1e-125ea22ee260",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 10.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Rice",
+          "uuid" : "811d12d4-7ddb-45f7-97b8-8745ba526822",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Dal",
+          "uuid" : "d3e72f70-0dbe-420f-8d69-3cab004de474",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Kodo",
+          "uuid" : "0baadbbc-716e-4471-9035-be17740618f9",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Milk Powder",
+          "uuid" : "7dcf68bc-eb56-43bb-8286-1eb408bcabcf",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 6.0,
+      "type" : "MultiSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Other Item (Specify)",
+      "uuid" : "f485bc43-8552-4ccb-8c9e-c18f260e49b3",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Family Other Item (Specify)",
+        "uuid" : "a33df83b-5d3d-4dac-863e-9ec1e079aec4",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 7.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"78aa757e-1b70-4e40-89a1-8351278daeb5\").containsAnswerConceptName(\"cba7dcb1-9cbe-487e-bf1e-125ea22ee260\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Family Items Supplied",
+                "conceptUuid" : "78aa757e-1b70-4e40-89a1-8351278daeb5",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Other (specify)" ],
+                "answerConceptUuids" : [ "cba7dcb1-9cbe-487e-bf1e-125ea22ee260" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : false
+    }, {
+      "name" : "Quantity (In Kg Per Month Per Member) of Rice",
+      "uuid" : "ac79f1ed-6ee1-4add-8f35-7c615dacdb69",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Family Quantity (In Kg Per Month Per Member) of Rice",
+        "uuid" : "59a9909b-3909-4cc5-b660-5479abfd567b",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 8.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"78aa757e-1b70-4e40-89a1-8351278daeb5\").containsAnswerConceptName(\"811d12d4-7ddb-45f7-97b8-8745ba526822\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Family Items Supplied",
+                "conceptUuid" : "78aa757e-1b70-4e40-89a1-8351278daeb5",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Rice" ],
+                "answerConceptUuids" : [ "811d12d4-7ddb-45f7-97b8-8745ba526822" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    }, {
+      "name" : "Quantity (In Kg Per Month Per Member) of Kodo",
+      "uuid" : "5f4f336c-73b7-4338-9875-54b7776279a6",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Family Quantity (In Kg Per Month Per Member) of Kodo",
+        "uuid" : "0e8edc5a-f736-49a4-b04e-448ddf4d6bc3",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 9.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"78aa757e-1b70-4e40-89a1-8351278daeb5\").containsAnswerConceptName(\"0baadbbc-716e-4471-9035-be17740618f9\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Family Items Supplied",
+                "conceptUuid" : "78aa757e-1b70-4e40-89a1-8351278daeb5",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Kodo" ],
+                "answerConceptUuids" : [ "0baadbbc-716e-4471-9035-be17740618f9" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    }, {
+      "name" : "Quantity (In Kg Per Month Per Member) of Ragi",
+      "uuid" : "fecabd23-887b-4aa7-aed4-85c65f3cad41",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Family Quantity (In Kg Per Month Per Member) of Ragi",
+        "uuid" : "eb3703f9-8d60-4654-a63f-06179a46a332",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 10.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"78aa757e-1b70-4e40-89a1-8351278daeb5\").containsAnswerConceptName(\"a88b24ad-4761-42d0-be72-d2f850c04668\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Family Items Supplied",
+                "conceptUuid" : "78aa757e-1b70-4e40-89a1-8351278daeb5",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Ragi" ],
+                "answerConceptUuids" : [ "a88b24ad-4761-42d0-be72-d2f850c04668" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    }, {
+      "name" : "Quantity (In Kg Per Month Per Member) of Dal",
+      "uuid" : "01c44f4f-451e-4260-bcb5-19a8ab20d53c",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Family Quantity (In Kg Per Month Per Member) of Dal",
+        "uuid" : "c2e0cc09-29fe-44d9-8433-a060b58bd1aa",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 11.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"78aa757e-1b70-4e40-89a1-8351278daeb5\").containsAnswerConceptName(\"d3e72f70-0dbe-420f-8d69-3cab004de474\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Family Items Supplied",
+                "conceptUuid" : "78aa757e-1b70-4e40-89a1-8351278daeb5",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Dal" ],
+                "answerConceptUuids" : [ "d3e72f70-0dbe-420f-8d69-3cab004de474" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    }, {
+      "name" : "Quantity ( In Kg Per Month Per Member) of Soya Badi",
+      "uuid" : "8eb16d0b-e78e-4332-8b2d-5d96e1682918",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Family Quantity ( In Kg Per Month Per Member) of Soya Badi",
+        "uuid" : "a5f4a311-5b00-444a-93f7-dff3fdac7464",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 12.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"78aa757e-1b70-4e40-89a1-8351278daeb5\").containsAnswerConceptName(\"15c1d1cf-7c5a-4639-967a-ffd319c0a16f\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Family Items Supplied",
+                "conceptUuid" : "78aa757e-1b70-4e40-89a1-8351278daeb5",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Soya Badi" ],
+                "answerConceptUuids" : [ "15c1d1cf-7c5a-4639-967a-ffd319c0a16f" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    }, {
+      "name" : "Quantity (In Kg Per Month Per Member) of Milk Powder",
+      "uuid" : "0b265089-879d-41f5-97bd-ee4b8c61859f",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Family Quantity (In Kg Per Month Per Member) of Milk Powder",
+        "uuid" : "21e655aa-0e97-4d81-8252-5e92a387b886",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 13.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"78aa757e-1b70-4e40-89a1-8351278daeb5\").containsAnswerConceptName(\"7dcf68bc-eb56-43bb-8286-1eb408bcabcf\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Family Items Supplied",
+                "conceptUuid" : "78aa757e-1b70-4e40-89a1-8351278daeb5",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Milk Powder" ],
+                "answerConceptUuids" : [ "7dcf68bc-eb56-43bb-8286-1eb408bcabcf" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    }, {
+      "name" : "Quantity (In Liter Per Month Per Member) of Oil",
+      "uuid" : "22e7d01c-83fb-4282-a321-60c01cca3b5a",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Family Quantity (In Liter Per Month Per Member) of Oil",
+        "uuid" : "45ba85b9-40dc-4300-a588-b68aca00eca8",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 14.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"78aa757e-1b70-4e40-89a1-8351278daeb5\").containsAnswerConceptName(\"0e0fdfa6-340c-4e9e-960c-c531e8fe8582\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Family Items Supplied",
+                "conceptUuid" : "78aa757e-1b70-4e40-89a1-8351278daeb5",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Oil" ],
+                "answerConceptUuids" : [ "0e0fdfa6-340c-4e9e-960c-c531e8fe8582" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    }, {
+      "name" : "Quantity ( In Kg Per Month Per Member) of Sattu",
+      "uuid" : "6a6c5099-10e2-4fe5-b93c-0a1142d7a425",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Family Quantity ( In Kg Per Month Per Member) of Sattu",
+        "uuid" : "62fd8023-477e-4e6c-94c9-7bd952410266",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 15.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"78aa757e-1b70-4e40-89a1-8351278daeb5\").containsAnswerConceptName(\"a3aec120-284b-4081-9180-52b731ead724\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Family Items Supplied",
+                "conceptUuid" : "78aa757e-1b70-4e40-89a1-8351278daeb5",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Sattu" ],
+                "answerConceptUuids" : [ "a3aec120-284b-4081-9180-52b731ead724" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    }, {
+      "name" : "Quantity ( In Kg Per Month Per Member) of Becadex",
+      "uuid" : "a2072cf6-10cb-4341-8489-4a6792447e18",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Family Quantity ( In Kg Per Month Per Member) of Becadex",
+        "uuid" : "b1e6805c-6783-407b-ac8c-c4bc24037f53",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 16.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"78aa757e-1b70-4e40-89a1-8351278daeb5\").containsAnswerConceptName(\"6ee3459f-367b-4817-a73b-add027132e04\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Family Items Supplied",
+                "conceptUuid" : "78aa757e-1b70-4e40-89a1-8351278daeb5",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Becadex" ],
+                "answerConceptUuids" : [ "6ee3459f-367b-4817-a73b-add027132e04" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    }, {
+      "name" : "Quantity (In Kg Per Month Per Member) of Calcium",
+      "uuid" : "0ab9483c-82dc-4868-afeb-5de0655bab25",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Family Quantity (In Kg Per Month Per Member) of Calcium",
+        "uuid" : "86f97461-3526-4c57-9210-bb38c156c914",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 17.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"78aa757e-1b70-4e40-89a1-8351278daeb5\").containsAnswerConceptName(\"a90a1a76-c5fe-4020-924e-0e0e9f5b0f9f\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Family Items Supplied",
+                "conceptUuid" : "78aa757e-1b70-4e40-89a1-8351278daeb5",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Calcium" ],
+                "answerConceptUuids" : [ "a90a1a76-c5fe-4020-924e-0e0e9f5b0f9f" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    }, {
+      "name" : "Quantity ( In Kg/Liter Per Month Per Member) of Other(Specify)",
+      "uuid" : "f485435a-ae30-4f5d-ba6a-81ed936ee928",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Family Quantity ( In Kg/Liter Per Month Per Member) of Other(Specify)",
+        "uuid" : "9612291f-ddfd-45b2-b13c-21350b3aa961",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 18.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"78aa757e-1b70-4e40-89a1-8351278daeb5\").containsAnswerConceptName(\"cba7dcb1-9cbe-487e-bf1e-125ea22ee260\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Family Items Supplied",
+                "conceptUuid" : "78aa757e-1b70-4e40-89a1-8351278daeb5",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Other (specify)" ],
+                "answerConceptUuids" : [ "cba7dcb1-9cbe-487e-bf1e-125ea22ee260" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    }, {
+      "name" : "Are family members eating nutritional supplements",
+      "uuid" : "710ad487-2a7b-4a82-8c6c-969d848cad46",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Family Are family members eating nutritional supplements",
+        "uuid" : "12b74736-a2ae-47b1-8125-0ec125a942d5",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "No",
+          "uuid" : "f88da2e8-6ab4-44b5-b762-233485cd25f9",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Yes",
+          "uuid" : "57e20de7-10de-4391-b7ce-87b2f40d19a2",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Partial",
+          "uuid" : "e4d6424a-0991-43bd-8148-2baebcc1f53e",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 19.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"220bdd85-d9b9-4063-9935-9d3f73f987f1\").containsAnswerConceptName(\"a39a9a06-0537-425b-aca1-0e44ed39d85c\").or.when.valueInEncounter(\"220bdd85-d9b9-4063-9935-9d3f73f987f1\").containsAnswerConceptName(\"a06ce4db-5e13-45e3-80ac-c10801f25a46\").or.when.valueInEncounter(\"220bdd85-d9b9-4063-9935-9d3f73f987f1\").containsAnswerConceptName(\"3a96d00e-afa2-4664-97b3-3865a850b71d\").or.when.valueInEncounter(\"220bdd85-d9b9-4063-9935-9d3f73f987f1\").containsAnswerConceptName(\"c92d1880-1afa-49d8-98e1-b4de5feed6d8\").or.when.valueInEncounter(\"220bdd85-d9b9-4063-9935-9d3f73f987f1\").containsAnswerConceptName(\"47118f1c-b24d-4dc9-81c5-841ba900e0d6\").or.when.valueInEncounter(\"220bdd85-d9b9-4063-9935-9d3f73f987f1\").containsAnswerConceptName(\"e910c083-2a9e-45af-97c3-01dac0611923\").or.when.valueInEncounter(\"220bdd85-d9b9-4063-9935-9d3f73f987f1\").containsAnswerConceptName(\"a16c89d5-d4b2-45f1-9097-7f03def53ef4\").or.when.valueInEncounter(\"220bdd85-d9b9-4063-9935-9d3f73f987f1\").containsAnswerConceptName(\"df6282d1-7751-4f11-80fe-dba4ffef1f62\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Family Month of Food Supplementation",
+                "conceptUuid" : "220bdd85-d9b9-4063-9935-9d3f73f987f1",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "2nd" ],
+                "answerConceptUuids" : [ "a39a9a06-0537-425b-aca1-0e44ed39d85c" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            }, {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Family Month of Food Supplementation",
+                "conceptUuid" : "220bdd85-d9b9-4063-9935-9d3f73f987f1",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "3rd" ],
+                "answerConceptUuids" : [ "a06ce4db-5e13-45e3-80ac-c10801f25a46" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            }, {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Family Month of Food Supplementation",
+                "conceptUuid" : "220bdd85-d9b9-4063-9935-9d3f73f987f1",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "4th" ],
+                "answerConceptUuids" : [ "3a96d00e-afa2-4664-97b3-3865a850b71d" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            }, {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Family Month of Food Supplementation",
+                "conceptUuid" : "220bdd85-d9b9-4063-9935-9d3f73f987f1",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "5th" ],
+                "answerConceptUuids" : [ "c92d1880-1afa-49d8-98e1-b4de5feed6d8" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            }, {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Family Month of Food Supplementation",
+                "conceptUuid" : "220bdd85-d9b9-4063-9935-9d3f73f987f1",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "6th" ],
+                "answerConceptUuids" : [ "47118f1c-b24d-4dc9-81c5-841ba900e0d6" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            }, {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Family Month of Food Supplementation",
+                "conceptUuid" : "220bdd85-d9b9-4063-9935-9d3f73f987f1",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "7th" ],
+                "answerConceptUuids" : [ "e910c083-2a9e-45af-97c3-01dac0611923" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            }, {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Family Month of Food Supplementation",
+                "conceptUuid" : "220bdd85-d9b9-4063-9935-9d3f73f987f1",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "8th" ],
+                "answerConceptUuids" : [ "a16c89d5-d4b2-45f1-9097-7f03def53ef4" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            }, {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Family Month of Food Supplementation",
+                "conceptUuid" : "220bdd85-d9b9-4063-9935-9d3f73f987f1",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "9th" ],
+                "answerConceptUuids" : [ "df6282d1-7751-4f11-80fe-dba4ffef1f62" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "or"
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    }, {
+      "name" : "If Partial, Reason",
+      "uuid" : "d748cf6d-e6a9-455f-9d45-ad2217c84d12",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Family If Partial, Reason",
+        "uuid" : "4e2ea660-2f42-44ba-a3d3-fa9b0194d05d",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 20.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter, formElement}).when.valueInEncounter(\"12b74736-a2ae-47b1-8125-0ec125a942d5\").containsAnswerConceptName(\"e4d6424a-0991-43bd-8148-2baebcc1f53e\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Family Are family members eating nutritional supplements",
+                "conceptUuid" : "12b74736-a2ae-47b1-8125-0ec125a942d5",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Partial" ],
+                "answerConceptUuids" : [ "e4d6424a-0991-43bd-8148-2baebcc1f53e" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ],
+            "conjunction" : "and"
+          }
+        } ]
+      } ],
+      "mandatory" : false
+    } ],
+    "display" : "For Family Members (Eating from The same Kitchen)",
+    "timed" : false
+  }, {
+    "uuid" : "eeb5cb3e-862c-4f87-ba7b-7cb6aedf1742",
+    "name" : "Form Filled Details",
+    "displayOrder" : 4.0,
+    "formElements" : [ {
+      "name" : "Form Filled by (write initials)",
+      "uuid" : "b65c4d3b-45ec-4999-bdc5-c1249d8f8f0a",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Form Filled by (write initials)",
+        "uuid" : "5bbc3b12-5ccb-4068-b67d-59c172234c9f",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Date of form filling",
+      "uuid" : "a159b59f-c1ce-4deb-ab34-adba0f1a5567",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Date of form filling",
+        "uuid" : "7aed2be8-f1af-4a4e-af74-a69168807ca5",
+        "dataType" : "Date",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    } ],
+    "display" : "Form Filled Details",
+    "timed" : false
+  } ],
+  "decisionRule" : "",
+  "visitScheduleRule" : "\"use strict\";\n({ params, imports }) => {\n  const programEncounter = params.entity;\n  const moment = imports.moment;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({programEncounter});\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({programEncounter}).when.valueInEncounter(\"556d0f33-fbe1-46b7-b982-c8588927adc0\").defined.matches();\n  \n  if(condition11 ){\n    const earliestDate = moment(programEncounter.encounterDateTime).add(15, 'days').toDate();\n    const maxDate = moment(programEncounter.encounterDateTime).add(7, 'days').toDate();\n    scheduleBuilder.add({name: \"TB Study Followup\", encounterType: \"TB Study Followup\", earliestDate, maxDate});  \n}\n  \n  return scheduleBuilder.getAll();\n};",
+  "validationRule" : "",
+  "checklistsRule" : "",
+  "decisionConcepts" : [ ],
+  "visitScheduleDeclarativeRule" : [ {
+    "actions" : [ {
+      "details" : {
+        "dateField" : "encounterDateTime",
+        "daysToOverdue" : "7",
+        "encounterName" : "TB Study Followup",
+        "encounterType" : "TB Study Followup",
+        "daysToSchedule" : "15"
+      },
+      "actionType" : "scheduleVisit"
+    }, { } ],
+    "conditions" : [ {
+      "compoundRule" : {
+        "rules" : [ {
+          "lhs" : {
+            "type" : "concept",
+            "scope" : "encounter",
+            "conceptName" : "Type",
+            "conceptUuid" : "556d0f33-fbe1-46b7-b982-c8588927adc0",
+            "conceptDataType" : "Coded"
+          },
+          "rhs" : { },
+          "operator" : "defined"
+        } ],
+        "conjunction" : "or"
+      }
+    } ]
+  } ]
+}

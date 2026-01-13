@@ -20,8 +20,8 @@ PRERELEASE_SUBNET_B="subnet-094989bce9a2c6955"
 PRERELEASE_SUBNET_C="subnet-0b4d26175373ac1f8"
 PRERELEASE_SG="sg-022fe3f581de4d6f4"  # prerelease-sg (SSH, HTTP, HTTPS)
 
-# AMI for Ubuntu 22.04 ARM64 (Graviton)
-UBUNTU_ARM64_AMI="ami-00c6cc6ebf54a632b"  # ubuntu-jammy-22.04-arm64
+# AMI for Ubuntu 22.04 x86_64
+UBUNTU_X86_64_AMI="ami-0ff91eb5c6fe7cc86"  # ubuntu-jammy-22.04-amd64-server (ap-south-1)
 
 # Colors for output
 RED='\033[0;31m'
@@ -209,7 +209,7 @@ create_ec2_instance() {
     local INSTANCE_NAME=$2
     local SUBNET_ID=$3
     local SECURITY_GROUP_IDS=$4  # Comma-separated
-    local INSTANCE_TYPE=${5:-t4g.small}
+    local INSTANCE_TYPE=${5:-t3.medium}
     local VOLUME_SIZE=${6:-30}
     
     log_info "Creating EC2 instance ${INSTANCE_NAME}..."
@@ -223,13 +223,13 @@ apt-get update
 apt-get upgrade -y
 apt-get install -y apt-transport-https ca-certificates curl software-properties-common
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-echo "deb [arch=arm64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu jammy stable" | tee /etc/apt/sources.list.d/docker.list
+echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu jammy stable" | tee /etc/apt/sources.list.d/docker.list
 apt-get update
 apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
 usermod -aG docker ubuntu
 systemctl enable docker
 systemctl start docker
-curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-Linux-aarch64" -o /usr/local/bin/docker-compose
+curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-Linux-x86_64" -o /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
 apt-get install -y git htop vim mysql-client jq unzip
 mkdir -p /home/ubuntu/bahmni-docker
@@ -238,7 +238,7 @@ echo "Setup complete" > /home/ubuntu/setup-complete.txt
 USERDATA
     
     INSTANCE_ID=$(aws ec2 run-instances \
-        --image-id $UBUNTU_ARM64_AMI \
+        --image-id $UBUNTU_X86_64_AMI \
         --instance-type $INSTANCE_TYPE \
         --key-name $KEY_PAIR_NAME \
         --subnet-id $SUBNET_ID \
@@ -352,6 +352,201 @@ EOF
 }
 
 # ============================================================================
+# EC2 SNAPSHOT FUNCTIONS
+# ============================================================================
+create_ec2_snapshot() {
+    local INSTANCE_ID=$1
+    local DESCRIPTION=${2:-"JSS Bahmni snapshot"}
+    
+    if [ -z "$INSTANCE_ID" ]; then
+        log_error "Instance ID is required"
+        return 1
+    fi
+    
+    log_info "Creating snapshot for instance: $INSTANCE_ID"
+    
+    # Get the root volume ID
+    VOLUME_ID=$(aws ec2 describe-instances \
+        --instance-ids $INSTANCE_ID \
+        --query 'Reservations[0].Instances[0].BlockDeviceMappings[0].Ebs.VolumeId' \
+        --output text \
+        --region $AWS_REGION)
+    
+    if [ -z "$VOLUME_ID" ] || [ "$VOLUME_ID" == "None" ]; then
+        log_error "Could not find volume for instance $INSTANCE_ID"
+        return 1
+    fi
+    
+    log_info "Found volume: $VOLUME_ID"
+    
+    # Create snapshot
+    SNAPSHOT_ID=$(aws ec2 create-snapshot \
+        --volume-id $VOLUME_ID \
+        --description "$DESCRIPTION" \
+        --tag-specifications "ResourceType=snapshot,Tags=[{Key=Name,Value=${PROJECT}-snapshot-$(date +%Y%m%d-%H%M%S)},{Key=Project,Value=${PROJECT}},{Key=InstanceId,Value=${INSTANCE_ID}}]" \
+        --region $AWS_REGION \
+        --query 'SnapshotId' \
+        --output text)
+    
+    log_info "Snapshot creation initiated: $SNAPSHOT_ID"
+    log_info "Use 'aws ec2 describe-snapshots --snapshot-ids $SNAPSHOT_ID' to check status"
+    
+    echo $SNAPSHOT_ID
+}
+
+wait_for_snapshot() {
+    local SNAPSHOT_ID=$1
+    
+    log_info "Waiting for snapshot $SNAPSHOT_ID to complete..."
+    aws ec2 wait snapshot-completed --snapshot-ids $SNAPSHOT_ID --region $AWS_REGION
+    log_info "Snapshot $SNAPSHOT_ID completed"
+}
+
+create_ami_from_instance() {
+    local INSTANCE_ID=$1
+    local AMI_NAME=${2:-"${PROJECT}-ami-$(date +%Y%m%d-%H%M%S)"}
+    local DESCRIPTION=${3:-"JSS Bahmni AMI with restored database"}
+    
+    if [ -z "$INSTANCE_ID" ]; then
+        log_error "Instance ID is required"
+        return 1
+    fi
+    
+    log_info "Creating AMI from instance: $INSTANCE_ID"
+    log_info "AMI Name: $AMI_NAME"
+    
+    AMI_ID=$(aws ec2 create-image \
+        --instance-id $INSTANCE_ID \
+        --name "$AMI_NAME" \
+        --description "$DESCRIPTION" \
+        --no-reboot \
+        --tag-specifications "ResourceType=image,Tags=[{Key=Name,Value=${AMI_NAME}},{Key=Project,Value=${PROJECT}},{Key=SourceInstance,Value=${INSTANCE_ID}}]" \
+        --region $AWS_REGION \
+        --query 'ImageId' \
+        --output text)
+    
+    log_info "AMI creation initiated: $AMI_ID"
+    log_info "Use 'aws ec2 describe-images --image-ids $AMI_ID' to check status"
+    
+    echo $AMI_ID
+}
+
+list_snapshots() {
+    log_info "Listing JSS snapshots..."
+    aws ec2 describe-snapshots \
+        --filters "Name=tag:Project,Values=${PROJECT}" \
+        --query 'Snapshots[*].[SnapshotId,VolumeId,StartTime,State,Description]' \
+        --output table \
+        --region $AWS_REGION
+}
+
+# Launch EC2 instance from AMI (safest restoration method)
+launch_from_ami() {
+    local AMI_ID=$1
+    local ENV_NAME=${2:-prerelease}
+    local INSTANCE_TYPE=${3:-t3.medium}
+    local VOLUME_SIZE=${4:-100}
+    
+    if [ -z "$AMI_ID" ]; then
+        log_error "Usage: $0 launch-from-ami <ami-id> [env-name] [instance-type] [volume-size]"
+        exit 1
+    fi
+    
+    # Verify AMI exists and is available
+    log_info "Verifying AMI: $AMI_ID"
+    AMI_STATE=$(aws ec2 describe-images --image-ids $AMI_ID \
+        --query 'Images[0].State' --output text --region $AWS_REGION 2>/dev/null)
+    
+    if [ "$AMI_STATE" != "available" ]; then
+        log_error "AMI $AMI_ID is not available (state: $AMI_STATE)"
+        log_info "Check AMI status: aws ec2 describe-images --image-ids $AMI_ID --region $AWS_REGION"
+        exit 1
+    fi
+    
+    log_info "AMI is available. Launching instance..."
+    
+    # Determine subnet and security groups based on environment
+    local SUBNET_ID=$PRERELEASE_SUBNET_B
+    local SECURITY_GROUPS="${PRERELEASE_SG}"
+    
+    # Check if bahmni-specific security group exists
+    BAHMNI_SG=$(aws ec2 describe-security-groups \
+        --filters "Name=group-name,Values=${PROJECT}-${ENV_NAME}-bahmni-sg" \
+        --query 'SecurityGroups[0].GroupId' --output text --region $AWS_REGION 2>/dev/null)
+    
+    if [ "$BAHMNI_SG" != "None" ] && [ -n "$BAHMNI_SG" ]; then
+        SECURITY_GROUPS="${PRERELEASE_SG},${BAHMNI_SG}"
+    fi
+    
+    local INSTANCE_NAME="${PROJECT}-${ENV_NAME}-bahmni-restored"
+    
+    log_info "Configuration:"
+    log_info "  AMI:             $AMI_ID"
+    log_info "  Instance Type:   $INSTANCE_TYPE"
+    log_info "  Subnet:          $SUBNET_ID"
+    log_info "  Security Groups: $SECURITY_GROUPS"
+    log_info "  Volume Size:     ${VOLUME_SIZE}GB"
+    log_info "  Instance Name:   $INSTANCE_NAME"
+    
+    # Launch instance
+    INSTANCE_ID=$(aws ec2 run-instances \
+        --image-id $AMI_ID \
+        --instance-type $INSTANCE_TYPE \
+        --key-name $KEY_PAIR_NAME \
+        --subnet-id $SUBNET_ID \
+        --security-group-ids $(echo $SECURITY_GROUPS | tr ',' ' ') \
+        --block-device-mappings "[{\"DeviceName\":\"/dev/sda1\",\"Ebs\":{\"VolumeSize\":${VOLUME_SIZE},\"VolumeType\":\"gp3\",\"DeleteOnTermination\":true}}]" \
+        --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=${INSTANCE_NAME}},{Key=Project,Value=${PROJECT}},{Key=Environment,Value=${ENV_NAME}},{Key=RestoredFrom,Value=${AMI_ID}}]" \
+        --region $AWS_REGION \
+        --query 'Instances[0].InstanceId' \
+        --output text)
+    
+    if [ -z "$INSTANCE_ID" ]; then
+        log_error "Failed to launch instance"
+        exit 1
+    fi
+    
+    log_info "Instance launched: $INSTANCE_ID"
+    log_info "Waiting for instance to be running..."
+    
+    aws ec2 wait instance-running --instance-ids $INSTANCE_ID --region $AWS_REGION
+    
+    # Get IPs
+    INSTANCE_INFO=$(aws ec2 describe-instances \
+        --instance-ids $INSTANCE_ID \
+        --query 'Reservations[0].Instances[0].[PublicIpAddress,PrivateIpAddress]' \
+        --output text \
+        --region $AWS_REGION)
+    
+    PUBLIC_IP=$(echo $INSTANCE_INFO | awk '{print $1}')
+    PRIVATE_IP=$(echo $INSTANCE_INFO | awk '{print $2}')
+    
+    log_info "Instance is running!"
+    log_info "  Instance ID:  $INSTANCE_ID"
+    log_info "  Public IP:    $PUBLIC_IP"
+    log_info "  Private IP:   $PRIVATE_IP"
+    
+    echo ""
+    echo "=========================================="
+    echo "  Instance Launched Successfully"
+    echo "=========================================="
+    echo "Instance ID:  $INSTANCE_ID"
+    echo "Public IP:    $PUBLIC_IP"
+    echo "Private IP:   $PRIVATE_IP"
+    echo ""
+    echo "Next steps:"
+    echo "  1. Wait ~1 min for SSH to be ready"
+    echo "  2. SSH: ssh -i ~/.ssh/${KEY_PAIR_NAME}.pem ubuntu@$PUBLIC_IP"
+    echo "  3. Verify data: docker start openmrsdb && docker exec openmrsdb mysql -u root -pOpenMRS_JSS2024 openmrs -e 'SELECT COUNT(*) FROM information_schema.tables WHERE table_schema=\"openmrs\";'"
+    echo "  4. Start Bahmni: cd /home/ubuntu/bahmni-docker && docker compose -f docker-compose.yml -f docker-compose.override.yml --profile emr up -d"
+    echo "  5. Update DNS: $0 dns jss-bahmni-${ENV_NAME}.avniproject.org $PUBLIC_IP"
+    echo "  6. After verification, terminate old instance if needed"
+    echo "=========================================="
+    
+    echo "$INSTANCE_ID $PUBLIC_IP $PRIVATE_IP"
+}
+
+# ============================================================================
 # FULL ENVIRONMENT SETUP (Using existing prerelease VPC)
 # ============================================================================
 setup_jss_prerelease() {
@@ -423,7 +618,7 @@ setup_jss_prerelease() {
     
     if [ "$EXISTING_EC2" == "None" ] || [ -z "$EXISTING_EC2" ]; then
         # Use both prerelease-sg and bahmni-sg
-        EC2_RESULT=$(create_ec2_instance "prerelease" $EC2_NAME $PRERELEASE_SUBNET_B "${PRERELEASE_SG},${BAHMNI_SG}" "t4g.small" 30)
+        EC2_RESULT=$(create_ec2_instance "prerelease" $EC2_NAME $PRERELEASE_SUBNET_B "${PRERELEASE_SG},${BAHMNI_SG}" "t3.medium" 30)
         EC2_ID=$(echo $EC2_RESULT | awk '{print $1}')
         PUBLIC_IP=$(echo $EC2_RESULT | awk '{print $2}')
         
@@ -565,6 +760,35 @@ main() {
             create_dns_record "jss-db-prerelease.avniproject.org" "$RDS_ENDPOINT" "CNAME" 300
             ;;
         
+        # ============ SNAPSHOT COMMANDS ============
+        "snapshot")
+            if [ -z "$2" ]; then
+                log_error "Usage: $0 snapshot <instance-id> [description]"
+                exit 1
+            fi
+            create_ec2_snapshot "$2" "${3:-JSS Bahmni snapshot $(date +%Y-%m-%d)}"
+            ;;
+        "snapshot-wait")
+            if [ -z "$2" ]; then
+                log_error "Usage: $0 snapshot-wait <snapshot-id>"
+                exit 1
+            fi
+            wait_for_snapshot "$2"
+            ;;
+        "create-ami")
+            if [ -z "$2" ]; then
+                log_error "Usage: $0 create-ami <instance-id> [ami-name] [description]"
+                exit 1
+            fi
+            create_ami_from_instance "$2" "${3:-}" "${4:-}"
+            ;;
+        "list-snapshots")
+            list_snapshots
+            ;;
+        "launch-from-ami")
+            launch_from_ami "$2" "${3:-prerelease}" "${4:-t3.medium}" "${5:-100}"
+            ;;
+        
         # ============ UTILITY COMMANDS ============
         "wait-rds")
             if [ -z "$2" ]; then
@@ -653,16 +877,24 @@ main() {
             echo "  dns <name> <value> [type]    Create/update DNS record"
             echo "  dns-rds-prerelease           Create DNS CNAME for prerelease RDS"
             echo ""
+            echo "=== Snapshot & AMI Commands ==="
+            echo "  snapshot <instance-id>       Create EBS snapshot of instance"
+            echo "  snapshot-wait <snapshot-id>  Wait for snapshot to complete"
+            echo "  create-ami <instance-id>     Create AMI from instance (no reboot)"
+            echo "  list-snapshots               List all JSS snapshots"
+            echo "  launch-from-ami <ami-id>     Launch new instance from AMI (safest restore)"
+            echo ""
             echo "=== Utility Commands ==="
             echo "  wait-rds <instance-id>       Wait for RDS to be available"
             echo "  status                       Show all JSS infrastructure"
             echo "  cleanup-prerelease           Delete prerelease infrastructure"
             echo ""
-            echo "=== Example: Full Prerelease Setup ==="
+            echo "=== Example: Full Prerelease Setup (Local MySQL) ==="
             echo "  $0 setup-prerelease 'YourSecurePassword123'"
-            echo "  $0 wait-rds jss-prerelease-mysql"
-            echo "  $0 dns-rds-prerelease"
-            echo "  ./jss-restore-backup.sh restore <rds-endpoint> openmrs_admin 'YourPassword'"
+            echo "  # SSH to instance and run setup-bahmni.sh"
+            echo "  # Restore database backup"
+            echo "  # Create snapshot after successful setup:"
+            echo "  $0 snapshot <instance-id> 'Bahmni with restored DB'"
             ;;
     esac
 }

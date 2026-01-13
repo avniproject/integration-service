@@ -1,17 +1,17 @@
 ,,,,,,
 ,Deliverable,Description,Milestone,Owner,Status,Completion Date
-,Bahmni System Assessment,"Understand Bahmni system running in JSS LAN - network topology, server setup, access points, Server version",P1,Himesh,Started,
-,Setup Bahmni on Samanvay ,Setup same version Bahmni on Samanvay Cloud EC2 instance as done in Ganyari,P1,Himesh,Started,
+,Bahmni System Assessment,"Understand Bahmni system running in JSS LAN - network topology, server setup, access points, Server version",P1,Himesh,Completed,2025-01-05
+,Setup Bahmni on Samanvay ,Setup same version Bahmni on Samanvay Cloud EC2 instance as done in Ganyari,P1,Himesh,Completed,2025-01-05
 ,Integration Service Deployment,Linux service setup on JSS server with DB configuration,P1,Himesh,Not Started,
-,Integration Service Learning for Avni Bahmni integration,Integration Service Learning for Avni Bahmni integration,P1,Himesh / Nupoor,Started,
+,Integration Service Learning for Avni Bahmni integration,Integration Service Learning for Avni Bahmni integration,P1,Himesh / Nupoor,In Progress,
 ,DB Configuration,Database setup and configuration for integration service,P1,Himesh,Not Started,
 ,Integration Service Module,"Merged codebase from Ashwini repo with fixed unit tests, running in CI",P1,Himesh,Not Started,
 ,Makefile Commands,"Commands for logging, DB dump, restart, build, deploy operations (used via Jumpbox)",P1,Himesh,Not Started,
-,Bahmni Forms Analysis,"Identify clinical data in Bahmni to sync to Avni - forms, concepts, encounter types",P1,Himesh / Nupoor,Not Started,
+,Bahmni Forms Analysis,"Identify clinical data in Bahmni to sync to Avni - forms, concepts, encounter types",P1,Himesh / Nupoor,Completed,2025-01-05
 ,Admin Console App,"Web app for mapping concepts, encounter types, and programs between Bahmni and Avni",P1,Nupoor,Not Started,
 ,Integration Tech Analysis,"Analyze Bahmni-Avni form compatibility, define MainJob/ErrorJobs",P1,Himesh / Nupoor,Not Started,
 ,Data-fix Analysis,"Data updates needed on Avni and Bahmni systems to be capable of integration",P1,Himesh / Nupoor,Not Started,
-,Mapping Configuration,"Concept, encounter type, and program mappings between Bahmni ↔ Avni",P1,Nupoor,Not Started,
+,Mapping Configuration,"Concept, encounter type, and program mappings between Bahmni ↔ Avni",P1,Nupoor,Completed,2025-01-05
 ,Data Correction Endpoints,"Idempotent endpoints: delete Avni data in OpenMRS, delete OpenMRS data in Avni, force sync subject↔patient",P1,Nupoor,Not Started,
 ,Postman Collection,API requests for data correction endpoints with usage documentation,P1,Himesh,Not Started,
 ,Clinical Data Sync Verification,"Verify lab reports, X-rays, visits, discharge summaries sync from Bahmni to Avni",P1,Himesh / Nupoor,Not Started,

@@ -1,0 +1,2 @@
+ALTER TABLE error_type
+    ADD COLUMN IF NOT EXISTS follow_up_step VARCHAR(255) DEFAULT '0';

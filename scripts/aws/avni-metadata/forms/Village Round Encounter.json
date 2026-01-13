@@ -1,0 +1,897 @@
+{
+  "name" : "Village Round Encounter",
+  "uuid" : "70bb267c-0d24-45a2-8387-5ab46e8c2fd9",
+  "formType" : "Encounter",
+  "formElementGroups" : [ {
+    "uuid" : "37dd0b98-102c-4b50-a353-36d39e321151",
+    "name" : "Health Seeking Behaviour",
+    "displayOrder" : 1.0,
+    "formElements" : [ {
+      "name" : "Had anyone in the family fallen sick in last month or in last 15 Days?",
+      "uuid" : "efdc9f5e-8c60-43d9-a4f4-ea553a267d57",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Had anyone in the family fallen sick in last month or in last 15 Days?",
+        "uuid" : "6cab8ccb-086c-48b4-9240-7d1946e3e475",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "No",
+          "uuid" : "f88da2e8-6ab4-44b5-b762-233485cd25f9",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Yes",
+          "uuid" : "57e20de7-10de-4391-b7ce-87b2f40d19a2",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    } ],
+    "display" : "Health Seeking Behaviour",
+    "timed" : false
+  }, {
+    "uuid" : "45c42fe0-1786-4f1a-a9bb-f4fed3f0b9ce",
+    "name" : "Sick Individuals",
+    "displayOrder" : 2.0,
+    "formElements" : [ {
+      "name" : "Sick Individuals",
+      "uuid" : "cdfe591d-4337-4bca-99a1-859d413b3857",
+      "keyValues" : [ {
+        "key" : "repeatable",
+        "value" : true
+      } ],
+      "concept" : {
+        "name" : "Sick Individuals",
+        "uuid" : "2b16198e-0600-4186-b474-3f580e2a86a4",
+        "dataType" : "QuestionGroup",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : false
+    }, {
+      "name" : "Person",
+      "uuid" : "0f84ca3f-27d7-4188-912a-9e670375c574",
+      "keyValues" : [ {
+        "key" : "displayAllGroupMembers",
+        "value" : true
+      } ],
+      "concept" : {
+        "name" : "Person",
+        "uuid" : "8763f8b4-0647-49ba-8485-98561237f0e4",
+        "dataType" : "Subject",
+        "answers" : [ ],
+        "active" : true,
+        "keyValues" : [ {
+          "key" : "subjectTypeUUID",
+          "value" : "c3e43b29-2a63-49bf-870b-8365d2dd9251"
+        } ],
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "rule" : "",
+      "voided" : true,
+      "mandatory" : true
+    }, {
+      "name" : "Person",
+      "uuid" : "d8b5c9ea-53f2-4204-8497-58401d829962",
+      "keyValues" : [ {
+        "key" : "displayAllGroupMembers",
+        "value" : true
+      } ],
+      "concept" : {
+        "name" : "Person",
+        "uuid" : "8763f8b4-0647-49ba-8485-98561237f0e4",
+        "dataType" : "Subject",
+        "answers" : [ ],
+        "active" : true,
+        "keyValues" : [ {
+          "key" : "subjectTypeUUID",
+          "value" : "c3e43b29-2a63-49bf-870b-8365d2dd9251"
+        } ],
+        "media" : [ ]
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "voided" : true,
+      "mandatory" : false
+    }, {
+      "name" : "Person",
+      "uuid" : "8954b564-d4a5-4ede-93d9-f9954e612688",
+      "keyValues" : [ {
+        "key" : "displayAllGroupMembers",
+        "value" : false
+      } ],
+      "concept" : {
+        "name" : "Person",
+        "uuid" : "8763f8b4-0647-49ba-8485-98561237f0e4",
+        "dataType" : "Subject",
+        "answers" : [ ],
+        "active" : true,
+        "keyValues" : [ {
+          "key" : "subjectTypeUUID",
+          "value" : "c3e43b29-2a63-49bf-870b-8365d2dd9251"
+        } ],
+        "media" : [ ]
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let answersToShow = [];\n  let validationErrors = [];\n  \n  const memberSubject = params.entity.that.individual.groupSubjects;\n  const uuids = memberSubject.map(item => item.memberSubject.uuid);\n\n  if(uuids && uuids.length > 0){\n    answersToShow.push(...uuids);\n  } else {\n    answersToShow.push(...uuids);\n    validationErrors.push(\"There are no members added for the household.\");\n  }\n\n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors, answersToShow);\n};",
+      "parentFormElementUuid" : "cdfe591d-4337-4bca-99a1-859d413b3857",
+      "mandatory" : true
+    }, {
+      "name" : "Illness suffered from - Illness",
+      "uuid" : "fe9038c4-0647-4c6f-ad50-c70a793bf742",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Illness suffered from - Illness",
+        "uuid" : "16668949-0cfa-4eb3-b4a6-c4b4f9ce9f3b",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 5.0,
+      "type" : "SingleSelect",
+      "parentFormElementUuid" : "cdfe591d-4337-4bca-99a1-859d413b3857",
+      "mandatory" : true
+    }, {
+      "name" : "Treatment place",
+      "uuid" : "c748e7c3-e2c0-4428-a80c-bcda05b95b20",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Treatment place",
+        "uuid" : "8c890e7c-e2f5-43c4-96e6-9d23d9a92a30",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Nowhere",
+          "uuid" : "b9b77de7-53ae-4f11-868a-7c85cd84d763",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/b9b77de7-53ae-4f11-868a-7c85cd84d763.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "Over the counter",
+          "uuid" : "fd1b3ead-8956-46c1-bfc5-ad21ffe7bdb8",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 9.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/fd1b3ead-8956-46c1-bfc5-ad21ffe7bdb8.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "Pvt. Doctor/Hospital",
+          "uuid" : "d197e4a9-a279-4df4-abb9-7d51775d0c71",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 6.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/d197e4a9-a279-4df4-abb9-7d51775d0c71.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "Govt (Nurse, SC, PHC, CHC, DH)",
+          "uuid" : "6e764693-8ba1-4978-842e-ff251b8e4fbb",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/6e764693-8ba1-4978-842e-ff251b8e4fbb.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "VHW",
+          "uuid" : "355143bf-b812-4ec8-93e6-6795fe4f7dc9",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 7.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/355143bf-b812-4ec8-93e6-6795fe4f7dc9.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "Other",
+          "uuid" : "798b7942-cf58-4d4e-a529-5972942e0a7e",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 10.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Herbal medicine",
+          "uuid" : "1dce4781-c403-4876-822e-abf253219546",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/1dce4781-c403-4876-822e-abf253219546.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "Quack",
+          "uuid" : "98302a74-48b0-4fda-a1a5-2f0b5b16e07f",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/98302a74-48b0-4fda-a1a5-2f0b5b16e07f.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "JSS (SC/Ganiayari Hospital)",
+          "uuid" : "04d4dcf7-eace-4986-8367-2ee00e46f78d",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 8.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/04d4dcf7-eace-4986-8367-2ee00e46f78d.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "Traditional healer",
+          "uuid" : "d5971814-12e3-4cdb-89a0-092ee1f49ca7",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/d5971814-12e3-4cdb-89a0-092ee1f49ca7.jpg",
+            "type" : "Image"
+          } ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 6.0,
+      "type" : "SingleSelect",
+      "parentFormElementUuid" : "cdfe591d-4337-4bca-99a1-859d413b3857",
+      "mandatory" : true
+    }, {
+      "name" : "Other treatment place, please specify",
+      "uuid" : "60edb9a3-e63d-4e29-a631-fd3ecfd85c54",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Other treatment place, please specify",
+        "uuid" : "b4c55f85-3cf8-485a-a648-76bbf71987a4",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 7.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({encounter, formElement}).when.questionGroupValueInEncounter(\"8c890e7c-e2f5-43c4-96e6-9d23d9a92a30\", \"2b16198e-0600-4186-b474-3f580e2a86a4\", params.questionGroupIndex).containsAnswerConceptName(\"798b7942-cf58-4d4e-a529-5972942e0a7e\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "questionGroupEncounter",
+                "conceptName" : "Treatment place",
+                "conceptUuid" : "8c890e7c-e2f5-43c4-96e6-9d23d9a92a30",
+                "conceptDataType" : "Coded",
+                "parentConceptUuid" : "2b16198e-0600-4186-b474-3f580e2a86a4"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Other" ],
+                "answerConceptUuids" : [ "798b7942-cf58-4d4e-a529-5972942e0a7e" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ]
+          }
+        } ]
+      } ],
+      "parentFormElementUuid" : "cdfe591d-4337-4bca-99a1-859d413b3857",
+      "mandatory" : true
+    }, {
+      "name" : "Expenditure for treatment",
+      "uuid" : "e2afcd36-497e-4e3d-8e67-00d92e8fc0d8",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Expenditure for treatment",
+        "uuid" : "296a37e8-ec36-46bd-b15a-8c5b7832a7d3",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "lowAbsolute" : 0.0,
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 8.0,
+      "type" : "SingleSelect",
+      "parentFormElementUuid" : "cdfe591d-4337-4bca-99a1-859d413b3857",
+      "mandatory" : true
+    } ],
+    "rule" : "'use strict';\n({params, imports}) => {\n    const encounter = params.entity;\n    const moment = imports.moment;\n    const formElementGroup = params.formElementGroup;\n    const _ = imports.lodash;\n    let visibility = true;\n    return formElementGroup.formElements.map((formElement) => {\n        \n  const condition11 = new imports.rulesConfig.RuleCondition({encounter, formElement}).when.valueInEncounter(\"6cab8ccb-086c-48b4-9240-7d1946e3e475\").containsAnswerConceptName(\"57e20de7-10de-4391-b7ce-87b2f40d19a2\").matches();\n  \n        visibility = condition11 ;\n  \n        return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, null);\n    });\n};",
+    "declarativeRule" : [ {
+      "actions" : [ {
+        "actionType" : "showFormElementGroup"
+      }, { } ],
+      "conditions" : [ {
+        "compoundRule" : {
+          "rules" : [ {
+            "lhs" : {
+              "type" : "concept",
+              "scope" : "encounter",
+              "conceptName" : "Had anyone in the family fallen sick in last month or in last 15 Days?",
+              "conceptUuid" : "6cab8ccb-086c-48b4-9240-7d1946e3e475",
+              "conceptDataType" : "Coded"
+            },
+            "rhs" : {
+              "type" : "answerConcept",
+              "answerConceptNames" : [ "Yes" ],
+              "answerConceptUuids" : [ "57e20de7-10de-4391-b7ce-87b2f40d19a2" ]
+            },
+            "operator" : "containsAnswerConceptName"
+          } ]
+        }
+      } ]
+    } ],
+    "display" : "Sick Individuals",
+    "timed" : false
+  }, {
+    "uuid" : "48b7c4ac-ebdb-4e1f-8006-f7135351d331",
+    "name" : "Sick Individuals",
+    "displayOrder" : 3.0,
+    "formElements" : [ {
+      "name" : "Person",
+      "uuid" : "b1f01c82-fdb5-4fd8-9b31-e362b321055a",
+      "keyValues" : [ {
+        "key" : "displayAllGroupMembers",
+        "value" : true
+      } ],
+      "concept" : {
+        "name" : "Person",
+        "uuid" : "8763f8b4-0647-49ba-8485-98561237f0e4",
+        "dataType" : "Subject",
+        "answers" : [ ],
+        "active" : true,
+        "keyValues" : [ {
+          "key" : "subjectTypeUUID",
+          "value" : "c3e43b29-2a63-49bf-870b-8365d2dd9251"
+        } ],
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "voided" : true,
+      "mandatory" : true
+    }, {
+      "name" : "Sick Individuals",
+      "uuid" : "9e68d4bf-bbe5-4118-a9f9-941c4e4494d2",
+      "keyValues" : [ {
+        "key" : "repeatable",
+        "value" : true
+      } ],
+      "concept" : {
+        "name" : "Individuals Who Got Sick (voided~303543)",
+        "uuid" : "606ff667-b4d7-4d17-b7d1-59129c6c99b0",
+        "dataType" : "QuestionGroup",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ],
+        "voided" : true
+      },
+      "displayOrder" : 2.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({encounter, formElement}).when.valueInEncounter(\"6cab8ccb-086c-48b4-9240-7d1946e3e475\").containsAnswerConceptName(\"57e20de7-10de-4391-b7ce-87b2f40d19a2\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Had anyone in the family fallen sick in last month or in last 15 Days?",
+                "conceptUuid" : "6cab8ccb-086c-48b4-9240-7d1946e3e475",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Yes" ],
+                "answerConceptUuids" : [ "57e20de7-10de-4391-b7ce-87b2f40d19a2" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ]
+          }
+        } ]
+      } ],
+      "voided" : true,
+      "mandatory" : false
+    }, {
+      "name" : "Person",
+      "uuid" : "0f93aa33-fce0-45e1-8e83-dba70ac8a387",
+      "keyValues" : [ {
+        "key" : "displayAllGroupMembers",
+        "value" : true
+      } ],
+      "concept" : {
+        "name" : "Person",
+        "uuid" : "8763f8b4-0647-49ba-8485-98561237f0e4",
+        "dataType" : "Subject",
+        "answers" : [ ],
+        "active" : true,
+        "keyValues" : [ {
+          "key" : "subjectTypeUUID",
+          "value" : "c3e43b29-2a63-49bf-870b-8365d2dd9251"
+        } ],
+        "media" : [ ]
+      },
+      "displayOrder" : 3.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({encounter, formElement}).when.valueInEncounter(\"6cab8ccb-086c-48b4-9240-7d1946e3e475\", \"606ff667-b4d7-4d17-b7d1-59129c6c99b0\", params.questionGroupIndex).containsAnswerConceptName(\"57e20de7-10de-4391-b7ce-87b2f40d19a2\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Had anyone in the family fallen sick in last month or in last 15 Days?",
+                "conceptUuid" : "6cab8ccb-086c-48b4-9240-7d1946e3e475",
+                "conceptDataType" : "Coded",
+                "parentConceptUuid" : "606ff667-b4d7-4d17-b7d1-59129c6c99b0"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Yes" ],
+                "answerConceptUuids" : [ "57e20de7-10de-4391-b7ce-87b2f40d19a2" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ]
+          }
+        } ]
+      } ],
+      "parentFormElementUuid" : "9e68d4bf-bbe5-4118-a9f9-941c4e4494d2",
+      "voided" : true,
+      "mandatory" : true
+    }, {
+      "name" : "Illness suffered from - Illness",
+      "uuid" : "a33b90a2-6883-475a-8606-617d49d9a4c8",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Illness suffered from - Illness",
+        "uuid" : "16668949-0cfa-4eb3-b4a6-c4b4f9ce9f3b",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 4.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({encounter, formElement}).when.valueInEncounter(\"6cab8ccb-086c-48b4-9240-7d1946e3e475\", \"606ff667-b4d7-4d17-b7d1-59129c6c99b0\", params.questionGroupIndex).containsAnswerConceptName(\"57e20de7-10de-4391-b7ce-87b2f40d19a2\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Had anyone in the family fallen sick in last month or in last 15 Days?",
+                "conceptUuid" : "6cab8ccb-086c-48b4-9240-7d1946e3e475",
+                "conceptDataType" : "Coded",
+                "parentConceptUuid" : "606ff667-b4d7-4d17-b7d1-59129c6c99b0"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Yes" ],
+                "answerConceptUuids" : [ "57e20de7-10de-4391-b7ce-87b2f40d19a2" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ]
+          }
+        } ]
+      } ],
+      "parentFormElementUuid" : "9e68d4bf-bbe5-4118-a9f9-941c4e4494d2",
+      "voided" : true,
+      "mandatory" : true
+    }, {
+      "name" : "Treatment place",
+      "uuid" : "68de5d24-ae6d-451c-a5be-ad08c1da46a4",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Treatment place",
+        "uuid" : "8c890e7c-e2f5-43c4-96e6-9d23d9a92a30",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Nowhere",
+          "uuid" : "b9b77de7-53ae-4f11-868a-7c85cd84d763",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/b9b77de7-53ae-4f11-868a-7c85cd84d763.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "Over the counter",
+          "uuid" : "fd1b3ead-8956-46c1-bfc5-ad21ffe7bdb8",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 9.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/fd1b3ead-8956-46c1-bfc5-ad21ffe7bdb8.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "Pvt. Doctor/Hospital",
+          "uuid" : "d197e4a9-a279-4df4-abb9-7d51775d0c71",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 6.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/d197e4a9-a279-4df4-abb9-7d51775d0c71.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "Govt (Nurse, SC, PHC, CHC, DH)",
+          "uuid" : "6e764693-8ba1-4978-842e-ff251b8e4fbb",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 5.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/6e764693-8ba1-4978-842e-ff251b8e4fbb.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "VHW",
+          "uuid" : "355143bf-b812-4ec8-93e6-6795fe4f7dc9",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 7.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/355143bf-b812-4ec8-93e6-6795fe4f7dc9.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "Other",
+          "uuid" : "798b7942-cf58-4d4e-a529-5972942e0a7e",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 10.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Herbal medicine",
+          "uuid" : "1dce4781-c403-4876-822e-abf253219546",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 3.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/1dce4781-c403-4876-822e-abf253219546.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "Quack",
+          "uuid" : "98302a74-48b0-4fda-a1a5-2f0b5b16e07f",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 4.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/98302a74-48b0-4fda-a1a5-2f0b5b16e07f.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "JSS (SC/Ganiayari Hospital)",
+          "uuid" : "04d4dcf7-eace-4986-8367-2ee00e46f78d",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 8.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/04d4dcf7-eace-4986-8367-2ee00e46f78d.jpg",
+            "type" : "Image"
+          } ]
+        }, {
+          "name" : "Traditional healer",
+          "uuid" : "d5971814-12e3-4cdb-89a0-092ee1f49ca7",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 2.0,
+          "active" : true,
+          "media" : [ {
+            "url" : "https://s3.ap-south-1.amazonaws.com/prod-user-media/jsscp/metadata/d5971814-12e3-4cdb-89a0-092ee1f49ca7.jpg",
+            "type" : "Image"
+          } ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 5.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({encounter, formElement}).when.valueInEncounter(\"6cab8ccb-086c-48b4-9240-7d1946e3e475\", \"606ff667-b4d7-4d17-b7d1-59129c6c99b0\", params.questionGroupIndex).containsAnswerConceptName(\"57e20de7-10de-4391-b7ce-87b2f40d19a2\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Had anyone in the family fallen sick in last month or in last 15 Days?",
+                "conceptUuid" : "6cab8ccb-086c-48b4-9240-7d1946e3e475",
+                "conceptDataType" : "Coded",
+                "parentConceptUuid" : "606ff667-b4d7-4d17-b7d1-59129c6c99b0"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Yes" ],
+                "answerConceptUuids" : [ "57e20de7-10de-4391-b7ce-87b2f40d19a2" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ]
+          }
+        } ]
+      } ],
+      "parentFormElementUuid" : "9e68d4bf-bbe5-4118-a9f9-941c4e4494d2",
+      "voided" : true,
+      "mandatory" : true
+    }, {
+      "name" : "Other treatment place, please specify",
+      "uuid" : "dfd3da66-f761-4952-b753-1e3e31479549",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Other treatment place, please specify",
+        "uuid" : "b4c55f85-3cf8-485a-a648-76bbf71987a4",
+        "dataType" : "Text",
+        "answers" : [ ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 6.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({encounter, formElement}).when.questionGroupValueInEncounter(\"8c890e7c-e2f5-43c4-96e6-9d23d9a92a30\", \"606ff667-b4d7-4d17-b7d1-59129c6c99b0\", params.questionGroupIndex).containsAnswerConceptName(\"798b7942-cf58-4d4e-a529-5972942e0a7e\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "questionGroupEncounter",
+                "conceptName" : "Treatment place",
+                "conceptUuid" : "8c890e7c-e2f5-43c4-96e6-9d23d9a92a30",
+                "conceptDataType" : "Coded",
+                "parentConceptUuid" : "606ff667-b4d7-4d17-b7d1-59129c6c99b0"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Other" ],
+                "answerConceptUuids" : [ "798b7942-cf58-4d4e-a529-5972942e0a7e" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ]
+          }
+        } ]
+      } ],
+      "parentFormElementUuid" : "9e68d4bf-bbe5-4118-a9f9-941c4e4494d2",
+      "voided" : true,
+      "mandatory" : true
+    }, {
+      "name" : "Expenditure for treatment",
+      "uuid" : "1a2ef8e2-2017-4ad3-adbc-124a33e29d8e",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Expenditure for treatment",
+        "uuid" : "296a37e8-ec36-46bd-b15a-8c5b7832a7d3",
+        "dataType" : "Numeric",
+        "answers" : [ ],
+        "lowAbsolute" : 0.0,
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 7.0,
+      "type" : "SingleSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({encounter, formElement}).when.valueInEncounter(\"6cab8ccb-086c-48b4-9240-7d1946e3e475\", \"606ff667-b4d7-4d17-b7d1-59129c6c99b0\", params.questionGroupIndex).containsAnswerConceptName(\"57e20de7-10de-4391-b7ce-87b2f40d19a2\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Had anyone in the family fallen sick in last month or in last 15 Days?",
+                "conceptUuid" : "6cab8ccb-086c-48b4-9240-7d1946e3e475",
+                "conceptDataType" : "Coded",
+                "parentConceptUuid" : "606ff667-b4d7-4d17-b7d1-59129c6c99b0"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Yes" ],
+                "answerConceptUuids" : [ "57e20de7-10de-4391-b7ce-87b2f40d19a2" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ]
+          }
+        } ]
+      } ],
+      "parentFormElementUuid" : "9e68d4bf-bbe5-4118-a9f9-941c4e4494d2",
+      "voided" : true,
+      "mandatory" : true
+    } ],
+    "display" : "Sick Individuals",
+    "voided" : true,
+    "timed" : false
+  }, {
+    "uuid" : "1db58262-a839-474b-b04f-80eb03c6973c",
+    "name" : "Chronic Illness Screening",
+    "displayOrder" : 4.0,
+    "formElements" : [ {
+      "name" : "Anyone in the family with suspected chronic disease?",
+      "uuid" : "222a2353-b07d-4e40-b3bb-5ab9d766eb1c",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Anyone in the family with suspected chronic disease?",
+        "uuid" : "88cf5f79-c0d3-4d97-bc87-be34f6a33de0",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "Yes",
+          "uuid" : "57e20de7-10de-4391-b7ce-87b2f40d19a2",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "No",
+          "uuid" : "f88da2e8-6ab4-44b5-b762-233485cd25f9",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    }, {
+      "name" : "Family member/members suspected with chronic disease?",
+      "uuid" : "00b20596-bb6a-412f-bf48-9d692720e949",
+      "keyValues" : [ {
+        "key" : "displayAllGroupMembers",
+        "value" : true
+      } ],
+      "concept" : {
+        "name" : "Family member/members suspected with chronic disease?",
+        "uuid" : "14eb0cd4-95f7-4739-b985-546281dbc7cf",
+        "dataType" : "Subject",
+        "answers" : [ ],
+        "active" : true,
+        "keyValues" : [ {
+          "key" : "subjectTypeUUID",
+          "value" : "c3e43b29-2a63-49bf-870b-8365d2dd9251"
+        } ],
+        "media" : [ ]
+      },
+      "displayOrder" : 2.0,
+      "type" : "MultiSelect",
+      "rule" : "'use strict';\n({params, imports}) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const formElement = params.formElement;\n  const _ = imports.lodash;\n  let visibility = true;\n  let value = null;\n  let answersToSkip = [];\n  let validationErrors = [];\n  \n  const condition11 = new imports.rulesConfig.RuleCondition({encounter, formElement}).when.valueInEncounter(\"88cf5f79-c0d3-4d97-bc87-be34f6a33de0\").containsAnswerConceptName(\"57e20de7-10de-4391-b7ce-87b2f40d19a2\").matches();\n  \n  visibility = condition11 ;\n  \n  return new imports.rulesConfig.FormElementStatus(formElement.uuid, visibility, value, answersToSkip, validationErrors);\n};",
+      "declarativeRule" : [ {
+        "actions" : [ {
+          "actionType" : "showFormElement"
+        }, { } ],
+        "conditions" : [ {
+          "compoundRule" : {
+            "rules" : [ {
+              "lhs" : {
+                "type" : "concept",
+                "scope" : "encounter",
+                "conceptName" : "Anyone in the family with suspected chronic disease?",
+                "conceptUuid" : "88cf5f79-c0d3-4d97-bc87-be34f6a33de0",
+                "conceptDataType" : "Coded"
+              },
+              "rhs" : {
+                "type" : "answerConcept",
+                "answerConceptNames" : [ "Yes" ],
+                "answerConceptUuids" : [ "57e20de7-10de-4391-b7ce-87b2f40d19a2" ]
+              },
+              "operator" : "containsAnswerConceptName"
+            } ]
+          }
+        } ]
+      } ],
+      "mandatory" : true
+    } ],
+    "display" : "Chronic Illness Screening",
+    "timed" : false
+  }, {
+    "uuid" : "575ec0fd-a930-48cd-8b71-06c8881c063c",
+    "name" : "Eligible couple",
+    "displayOrder" : 5.0,
+    "formElements" : [ {
+      "name" : "Are there any eligible couple in the household?",
+      "uuid" : "5c78d171-dead-47a6-8ad3-070822727845",
+      "keyValues" : [ ],
+      "concept" : {
+        "name" : "Are there any eligible couple in the household?",
+        "uuid" : "1c93ade0-22af-45fc-9d21-91bf30d9089e",
+        "dataType" : "Coded",
+        "answers" : [ {
+          "name" : "No",
+          "uuid" : "f88da2e8-6ab4-44b5-b762-233485cd25f9",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 1.0,
+          "active" : true,
+          "media" : [ ]
+        }, {
+          "name" : "Yes",
+          "uuid" : "57e20de7-10de-4391-b7ce-87b2f40d19a2",
+          "dataType" : "NA",
+          "answers" : [ ],
+          "order" : 0.0,
+          "active" : true,
+          "media" : [ ]
+        } ],
+        "active" : true,
+        "media" : [ ]
+      },
+      "displayOrder" : 1.0,
+      "type" : "SingleSelect",
+      "mandatory" : true
+    } ],
+    "display" : "Eligible couple",
+    "timed" : false
+  } ],
+  "decisionRule" : "",
+  "visitScheduleRule" : "\"use strict\";\n({ params, imports }) => {\n  const encounter = params.entity;\n  const moment = imports.moment;\n  const scheduleBuilder = new imports.rulesConfig.VisitScheduleBuilder({encounter});\n  \n  const earliestDate = moment(encounter.earliestVisitDateTime || encounter.encounterDateTime).add(1, 'month').startOf('month').toDate();\n\n  const firstDay = moment(earliestDate).startOf('month').toDate();\n  const lastDay = moment(earliestDate).endOf('month').toDate();\n\n  const earliestDate = moment(firstDay).add(0, 'days').toDate();\n  const maxDate = moment(lastDay).add(0, 'days').toDate();\n  scheduleBuilder.add({name: \"Village Round\", encounterType: \"Village Round\", earliestDate, maxDate});\n  \n  \n  \n  /*let encounterDate = encounter.encounterDateTime; \n  let isChronicDiseaseSuspect = encounter.getObservationValue('88cf5f79-c0d3-4d97-bc87-be34f6a33de0');\n  let isChronicDiseaseSuspectYes = '57e20de7-10de-4391-b7ce-87b2f40d19a2';\n  \n  if(isChronicDiseaseSuspect === isChronicDiseaseSuspectYes){\n    const earliestDate = moment(encounterDate).add(0, 'days').toDate();\n    const maxDate = moment(encounterDate).add(15, 'days').toDate();\n    scheduleBuilder.add({name: \"Referral Communication from VHW\", encounterType: \"Referral Communication from VHW\", earliestDate, maxDate});  \n  }  */\n  \n  return scheduleBuilder.getAll();\n};",
+  "validationRule" : "",
+  "checklistsRule" : "",
+  "decisionConcepts" : [ ]
+}
