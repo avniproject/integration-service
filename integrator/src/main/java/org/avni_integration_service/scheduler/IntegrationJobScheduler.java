@@ -122,7 +122,7 @@ public class IntegrationJobScheduler {
             IntegrationSystemConfigCollection integrationSystemConfigs = integrationSystemConfigRepository.getInstanceConfiguration(goonjSystem);
             GoonjConfig goonjConfig = new GoonjConfig(integrationSystemConfigs, goonjSystem);
 
-            if (!validateEnvironment(goonjSystem.getName(), goonjConfig.getEnvironment())) {
+            if (!isGoonjEnvironmentValid(goonjConfig)) {
                 continue;
             }
 
@@ -176,10 +176,6 @@ public class IntegrationJobScheduler {
 
         logger.info(String.format("%s environment validation passed. Environment: %s", systemName, currentEnvironment));
         return true;
-    }
-
-    private boolean isRwbEnvironmentValid(RwbConfig rwbConfig) {
-        return validateEnvironment(rwbConfig.getIntegrationSystem().getName(), rwbConfig.getEnvironment());
     }
 
     private boolean scheduleAmrit() {
@@ -270,5 +266,14 @@ public class IntegrationJobScheduler {
             }
         }
         return anyScheduled;
+    }
+
+
+    private boolean isRwbEnvironmentValid(RwbConfig rwbConfig) {
+        return validateEnvironment(rwbConfig.getIntegrationSystem().getName(), rwbConfig.getEnvironment());
+    }
+
+    private boolean isGoonjEnvironmentValid(GoonjConfig goonjConfig) {
+        return validateEnvironment(goonjConfig.getIntegrationSystem().getName(), goonjConfig.getEnvironment());
     }
 }
