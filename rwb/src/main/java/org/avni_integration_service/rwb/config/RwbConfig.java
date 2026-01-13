@@ -51,6 +51,14 @@ public class RwbConfig {
         return getStringConfigValue("mgs_template_id", "542201");
     }
 
+    /**
+     * Gets the integration environment from DB config.
+     * This should match the environment where the integration service is running.
+     * @return environment string (e.g., "prod", "staging", "prerelease")
+     */
+    public String getEnvironment() {
+        return getStringConfigValue("int_env", null);
+    }
 
     public ContextIntegrationSystem getIntegrationSystem() {
         return integrationSystem;

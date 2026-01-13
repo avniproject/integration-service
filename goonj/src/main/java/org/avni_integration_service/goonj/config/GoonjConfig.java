@@ -64,7 +64,7 @@ public class GoonjConfig {
     }
 
     public String getTasks() {
-        return getStringConfigValue("int_tasks", "all");
+        return getStringConfigValue("int_tasks", "none");
     }
 
     public boolean getDeleteAndRecreateDispatchReceipt() {
@@ -79,5 +79,14 @@ public class GoonjConfig {
     }
     public String getS3Url(){
         return getStringConfigValue("avni_s3_url_prefix","dummy");
+    }
+
+    /**
+     * Gets the integration environment from DB config.
+     * This should match the environment where the integration service is running.
+     * @return environment string (e.g., "prod", "staging", "prerelease")
+     */
+    public String getEnvironment() {
+        return getStringConfigValue("int_env", null);
     }
 }

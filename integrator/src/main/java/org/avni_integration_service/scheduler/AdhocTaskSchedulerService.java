@@ -13,6 +13,7 @@ import org.avni_integration_service.integration_data.domain.config.IntegrationSy
 import org.avni_integration_service.integration_data.repository.IntegrationSystemRepository;
 import org.avni_integration_service.integration_data.repository.config.IntegrationSystemConfigRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.stereotype.Service;
@@ -31,6 +32,9 @@ public class AdhocTaskSchedulerService {
     private final IntegrationSystemRepository integrationSystemRepository;
     private final AvniGoonjAdhocJob avniGoonjAdhocJob;
     private final GoonjAdhocTaskRepository goonjAdhocTaskRepository;
+    @Value("${avni.int.env:#{null}}")
+    private String currentEnvironment;
+
     @Autowired
     public AdhocTaskSchedulerService(TaskScheduler taskScheduler, IntegrationSystemConfigRepository integrationSystemConfigRepository, IntegrationSystemRepository integrationSystemRepository, AvniGoonjAdhocJob avniGoonjAdhocJob, GoonjAdhocTaskRepository goonjAdhocTaskRepository) {
         this.taskScheduler = taskScheduler;
@@ -40,15 +44,33 @@ public class AdhocTaskSchedulerService {
         this.goonjAdhocTaskRepository = goonjAdhocTaskRepository;
     }
 
-    public void schedule(GoonjAdhocTask goonjAdhocTask){
-        logger.info(String.format("scheduling start %s for %s",goonjAdhocTask.getIntegrationTask(),goonjAdhocTask.getUuid()));
+    public void schedule(GoonjAdhocTask goonjAdhocTask, IntegrationSystem integrationSystem) {
+        logger.info(String.format("scheduling start %s for %s (system: %s)", 
+                goonjAdhocTask.getIntegrationTask(), goonjAdhocTask.getUuid(), integrationSystem.getName()));
+        
+        // Validate that the provided integration system is of type Goonj
+        if (!IntegrationSystem.IntegrationSystemType.Goonj.equals(integrationSystem.getSystemType())) {
+            logger.error(String.format("Goonj adhoc task SKIPPED: Invalid system type. Expected: Goonj, Actual: %s", 
+                    integrationSystem.getSystemType()));
+            goonjAdhocTask.setGoonjAdhocTaskSatus(GoonjAdhocTaskSatus.ERROR);
+            goonjAdhocTaskRepository.save(goonjAdhocTask);
+            return;
+        }
+
+        GoonjConfig goonjConfig = getGoonjConfig(integrationSystem);
+
+        if (!isGoonjEnvironmentValid(goonjConfig)) {
+            goonjAdhocTask.setGoonjAdhocTaskSatus(GoonjAdhocTaskSatus.ERROR);
+            goonjAdhocTaskRepository.save(goonjAdhocTask);
+            return;
+        }
+
         IntegrationTask integrationTask = goonjAdhocTask.getIntegrationTask();
         Map<String, Object> taskConfig = goonjAdhocTask.getTaskConfig();
         Map<String, Object> filters = getFilters(goonjAdhocTask, taskConfig);
-        GoonjConfig goonjConfig = getGoonjConfig();
         taskScheduler.schedule(() -> {
             try {
-                logger.info(String.format("running start for  %s ", goonjAdhocTask));
+                logger.info(String.format("running start for  %s (system: %s)", goonjAdhocTask, integrationSystem.getName()));
                 avniGoonjAdhocJob.execute(goonjConfig, integrationTask, filters);
                 goonjAdhocTask.setGoonjAdhocTaskSatus(GoonjAdhocTaskSatus.COMPLETED);
             } catch (Exception e) {
@@ -60,11 +82,9 @@ public class AdhocTaskSchedulerService {
         }, goonjAdhocTask.getTriggerDateTime());
     }
 
-    private GoonjConfig getGoonjConfig() {
-        List<IntegrationSystem> goonjSystems = integrationSystemRepository.findAllBySystemType(IntegrationSystem.IntegrationSystemType.Goonj);
-        IntegrationSystem goonjSystem = goonjSystems.stream().findFirst().get();
-        IntegrationSystemConfigCollection integrationSystemConfigs = integrationSystemConfigRepository.getInstanceConfiguration(goonjSystem);
-        return new GoonjConfig(integrationSystemConfigs, goonjSystem);
+    private GoonjConfig getGoonjConfig(IntegrationSystem integrationSystem) {
+        IntegrationSystemConfigCollection integrationSystemConfigs = integrationSystemConfigRepository.getInstanceConfiguration(integrationSystem);
+        return new GoonjConfig(integrationSystemConfigs, integrationSystem);
     }
 
     private Map<String,Object> getFilters(GoonjAdhocTask goonjAdhocTask, Map<String, Object> taskConfig) {
@@ -76,4 +96,29 @@ public class AdhocTaskSchedulerService {
         return filters;
     }
 
+    private boolean isGoonjEnvironmentValid(GoonjConfig goonjConfig) {
+        String dbEnvironment = goonjConfig.getEnvironment();
+
+        if (currentEnvironment == null || currentEnvironment.isBlank()) {
+            logger.warn("Goonj adhoc task SKIPPED: avni.int.env property not set. " +
+                    "Set this property to match the DB config int_env to enable Goonj integration.");
+            return false;
+        }
+
+        if (dbEnvironment == null || dbEnvironment.isBlank()) {
+            logger.warn("Goonj adhoc task SKIPPED: int_env not configured in DB. " +
+                    "Configure int_env in integration_system_config table to enable Goonj integration.");
+            return false;
+        }
+
+        if (!currentEnvironment.equals(dbEnvironment)) {
+            logger.error(String.format("Goonj adhoc task SKIPPED: Environment mismatch detected! " +
+                            "Current environment (from env): '%s', DB config environment: '%s'. " +
+                            "This likely indicates a non-prod environment using prod DB config.",
+                    currentEnvironment, dbEnvironment));
+            return false;
+        }
+
+        return true;
+    }
 }
