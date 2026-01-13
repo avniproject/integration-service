@@ -2,6 +2,7 @@ package org.avni_integration_service.web;
 
 import org.apache.log4j.Logger;
 import org.avni_integration_service.goonj.dto.GoonjAdhocTaskDTO;
+import org.avni_integration_service.integration_data.domain.IntegrationSystem;
 import org.avni_integration_service.integration_data.repository.UserRepository;
 import org.avni_integration_service.scheduler.AdhocTaskSchedulerService;
 import org.avni_integration_service.service.GoonjAdhocTaskService;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -32,10 +34,23 @@ public class GoonjExternalController extends BaseController{
     }
 
     @PostMapping("/v1/task")
-    public ResponseEntity<?> creatAdhocTask(@Validated  @RequestBody GoonjAdhocTaskDTO goonjAdhocTaskDTO){
+    public ResponseEntity<?> creatAdhocTask(@Validated @RequestBody GoonjAdhocTaskDTO goonjAdhocTaskDTO, Principal principal){
         logger.info("creating goonj adhoc task for "+goonjAdhocTaskDTO);
+        
+        // Get the user's working integration system
+        IntegrationSystem integrationSystem = getCurrentIntegrationSystem(principal);
+        logger.info(String.format("User %s creating task for integration system: %s (type: %s)", 
+                principal.getName(), integrationSystem.getName(), integrationSystem.getSystemType()));
+        
+        // Validate that the user's working integration system is a Goonj system
+        if (!IntegrationSystem.IntegrationSystemType.Goonj.equals(integrationSystem.getSystemType())) {
+            logger.error(String.format("User %s attempted to create Goonj task but working integration system is not Goonj: %s (type: %s)", 
+                    principal.getName(), integrationSystem.getName(), integrationSystem.getSystemType()));
+            return new ResponseEntity<>("User's working integration system is not a Goonj system", HttpStatus.FORBIDDEN);
+        }
+        
         var savedTask = goonjAdhocTaskService.createAdhocTask(goonjAdhocTaskDTO);
-        adhocTaskSchedulerService.schedule(savedTask);
+        adhocTaskSchedulerService.schedule(savedTask, integrationSystem);
         var response = goonjAdhocTaskService.entityToDto(savedTask);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
