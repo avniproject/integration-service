@@ -1,0 +1,5 @@
+"uuid","name","description","class","shortname","child.1","child.2","child.3","child.4","child.5","child.6","child.7","child.8","reference-term-source","reference-term-code","reference-term-relationship"
+"22cc6305-42a8-4441-9aba-f3f10c0aedc3","Diabetes, History","If patient was diagnosed and treated outside JSS","Misc","History","Diabetes, Diagnosed Date","Diabetes, Treatment Stopped Date","","","","","","",,,
+"87056e57-48df-4a61-b98f-8444f4e03624","Diabetes, Examination",,"Misc","Examination","Diabetes, Peripheral Pulses","Diabetes, Sensory Charting Assessment","Diabetes, Skin fold Thickness","Diabetes, Foot Exam","Diabetes, Eye Exam","","","",,,
+"74b7a6f1-659a-404b-bcf8-91880af48789","Diabetes, Investigations",,"Misc","Investigations","Diabetes, Electrocardiography","Diabetes, X-Ray","","","","","","",,,
+"60619143-5b49-4c10-92f4-0d080cd10b8a","Diabetes Intake Template",,"ConvSet","Diabetes Intake","Diabetes, History","Diabetes, Complaint","Diabetes, Other Complaints","Diabetes, Complications","Diabetes, Other Complications","Diabetes, Examination","Diabetes, Investigations","",,,

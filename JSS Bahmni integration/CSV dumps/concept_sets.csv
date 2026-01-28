@@ -1,0 +1,4 @@
+"uuid","name","description","class","shortname","child.1","child.2","child.3","child.4","child.5","child.6","child.7","child.8","child.9","child.10","reference-term-source","reference-term-code","reference-term-relationship"
+"f5c53fdb-e349-11e3-983a-91270dcbd3bf","Chief Complaint Data",,"Concept Details","Chief Complaint","Chief Complaint","Chief Complaint Duration","Non-Coded Chief Complaint","","","","","","","",,,
+"3d4cbf52-9dab-4e55-8957-e9319fa603b8","Consultation Images",,"Misc",,"Image","","","","","","","","","",,,
+"f5c4b6a0-e349-11e3-983a-91270dcbd3bf","History and Examination",,"Misc","History and Examination","Chief Complaint Data","Chief Complaint Notes","History","Examination","Taking Medications","Change in symptoms","Lab Investigation Notes","Radiology Notes","Consultation Images","",,,

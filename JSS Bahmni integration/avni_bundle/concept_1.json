@@ -1,0 +1,565 @@
+[
+  {
+    "name": "Bahmni - Diabetes Complication, Retinopathy",
+    "uuid": "af7254c6-7ace-4e4e-aa16-c015cd9597cc",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Background Diabetic Retinopathy",
+    "uuid": "baf97c55-454f-4c14-bcc3-059cdd26c720",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Weight loss",
+    "uuid": "2a13f92e-4cb9-491a-a017-9230ecb2b6b1",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Diabetes, Erectile Dysfunction",
+    "uuid": "20b15708-0bc5-4005-8886-9b7457cebd81",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Diabetes Complication, CRF",
+    "uuid": "f69b1c67-3271-4d6d-a4de-9e5d3bc6da69",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Diabetes, Other Complaints",
+    "uuid": "1b924377-b2a4-454e-88d6-124c939c46b4",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cough",
+    "uuid": "5939d92c-e34d-11e3-983a-91270dcbd3bf",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - White Discharge",
+    "uuid": "41d9001b-ed86-11e3-8f57-746bba63c2a3",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Diabetes Complication, Other complications",
+    "uuid": "89df58c7-8535-474c-bfe4-0bb970be8e71",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Weakness",
+    "uuid": "fc5a1852-3383-4824-8d0e-51d20d9f7bc1",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Diabetes, Other Complications",
+    "uuid": "a1cb3d0c-cecd-4589-9e3c-d0836bc93194",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Loss of sensation",
+    "uuid": "3cce8878-66c5-46b1-9084-d6bfc912f4e3",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Thirsty Feeling",
+    "uuid": "aad0e01b-6094-4fbd-ad52-27f4183ffe19",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Diabetes Complication, Brain",
+    "uuid": "44026594-658c-446f-a42b-66492fd8408d",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Diabetic Foot",
+    "uuid": "10fef182-42d3-4a2d-8aec-fcccd6e854cd",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Diabetes Complication, Neuropathy",
+    "uuid": "a78168b1-9b54-45aa-87be-3e955f22c42c",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Diabetes Complication, None",
+    "uuid": "155bdbaa-b551-4734-8b90-4e4e5302517d",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Tingling",
+    "uuid": "4e294e8c-ed86-11e3-8f57-746bba63c2a3",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Obesity And Weight Gain",
+    "uuid": "740dbbb7-75a6-4179-bd97-91d5f01d0e87",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Diabetes, Eye Exam",
+    "uuid": "77f81858-101d-4726-abe6-b279d81cdbb6",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Background Diabetic Retinopathy",
+        "uuid": "baf97c55-454f-4c14-bcc3-059cdd26c720",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - PreProliferative Diabetic Retinopathy",
+        "uuid": "7ef5a585-49d5-4641-9f1e-a3c93a62b471",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Proliferative Diabetic Retinopathy",
+        "uuid": "a8f968e9-a584-4bff-b5a2-df5d82e76cf7",
+        "order": 3
+      },
+      {
+        "name": "Bahmni - Normal",
+        "uuid": "e4355857-c460-41bf-af24-a5318062e6d6",
+        "order": 4
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Fever",
+    "uuid": "5d432407-e34d-11e3-983a-91270dcbd3bf",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Diabetes, Abnormal",
+    "uuid": "da46b45c-aa7b-4858-975f-7827cd831108",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Diabetes, X-Ray",
+    "uuid": "f2884e7d-0173-4b6c-8108-a4d80b37e713",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Neuropathy",
+    "uuid": "f5310242-25db-492d-a93f-473b5d2602de",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Diabetes, Foot Exam",
+    "uuid": "5508a7b2-f583-473d-8cf9-f7fc25101ee8",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Diabetes, Foot Normal",
+        "uuid": "d4ba9647-bc87-4698-b357-9c26a2aa2486",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Neuropathy",
+        "uuid": "f5310242-25db-492d-a93f-473b5d2602de",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - PVD",
+        "uuid": "a3d1e582-dec1-4921-bf13-10f23e37d4e8",
+        "order": 3
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Diabetes, Sensory Charting Assessment",
+    "uuid": "2b40efca-8d5d-4690-a37f-ff4d4ada5102",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Diabetes, Abnormal",
+        "uuid": "da46b45c-aa7b-4858-975f-7827cd831108",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Diabetes, Normal",
+        "uuid": "b1ddb87d-8930-43ef-a1cc-1430cea57005",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Normal",
+    "uuid": "e4355857-c460-41bf-af24-a5318062e6d6",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Diabetes, Foot Normal",
+    "uuid": "d4ba9647-bc87-4698-b357-9c26a2aa2486",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Proliferative Diabetic Retinopathy",
+    "uuid": "a8f968e9-a584-4bff-b5a2-df5d82e76cf7",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Ulcer",
+    "uuid": "64f8a8f3-10dd-44da-bf85-f794bf9edea8",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Diabetes, Treatment Stopped Date",
+    "uuid": "93cee5e7-b8f6-4ea5-a3e6-b94b6a9c6f30",
+    "dataType": "Date",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Breathlessness",
+    "uuid": "18e65a93-ed86-11e3-8f57-746bba63c2a3",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Diabetes, Diagnosed Date",
+    "uuid": "1c413fb2-801a-4e84-8fee-8f7d79f0312b",
+    "dataType": "Date",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Diabetes, Peripheral Pulses",
+    "uuid": "db466f75-584e-47ef-96a6-ccde4482a1db",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Diabetes, Abnormal",
+        "uuid": "da46b45c-aa7b-4858-975f-7827cd831108",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Diabetes, Normal",
+        "uuid": "b1ddb87d-8930-43ef-a1cc-1430cea57005",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Excessive Urine",
+    "uuid": "59201706-fe05-4451-9da6-c173267d7291",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Sweating",
+    "uuid": "80197de2-6aa9-47cd-9c57-ca5de6dbc3bf",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Diabetes, Complaint",
+    "uuid": "01badc59-8cd7-4c6e-846b-e1a923c223ee",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Weakness",
+        "uuid": "fc5a1852-3383-4824-8d0e-51d20d9f7bc1",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Tingling",
+        "uuid": "4e294e8c-ed86-11e3-8f57-746bba63c2a3",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Breathlessness",
+        "uuid": "18e65a93-ed86-11e3-8f57-746bba63c2a3",
+        "order": 3
+      },
+      {
+        "name": "Bahmni - Fever",
+        "uuid": "5d432407-e34d-11e3-983a-91270dcbd3bf",
+        "order": 4
+      },
+      {
+        "name": "Bahmni - Excessive Urine",
+        "uuid": "59201706-fe05-4451-9da6-c173267d7291",
+        "order": 5
+      },
+      {
+        "name": "Bahmni - Excessive Appetite",
+        "uuid": "c13a89df-37e1-4333-8b1f-f527ac408443",
+        "order": 6
+      },
+      {
+        "name": "Bahmni - Thirsty Feeling",
+        "uuid": "aad0e01b-6094-4fbd-ad52-27f4183ffe19",
+        "order": 7
+      },
+      {
+        "name": "Bahmni - Loss of sensation",
+        "uuid": "3cce8878-66c5-46b1-9084-d6bfc912f4e3",
+        "order": 8
+      },
+      {
+        "name": "Bahmni - Sweating",
+        "uuid": "80197de2-6aa9-47cd-9c57-ca5de6dbc3bf",
+        "order": 9
+      },
+      {
+        "name": "Bahmni - Dizziness",
+        "uuid": "a64a9305-cdee-4833-bb27-a89585b1f588",
+        "order": 10
+      },
+      {
+        "name": "Bahmni - Unconsciousness",
+        "uuid": "9860475e-623a-4c4e-95a0-7fd468844431",
+        "order": 11
+      },
+      {
+        "name": "Bahmni - Nocturia",
+        "uuid": "68b47bd2-e34d-11e3-983a-91270dcbd3bf",
+        "order": 12
+      },
+      {
+        "name": "Bahmni - Obesity And Weight Gain",
+        "uuid": "740dbbb7-75a6-4179-bd97-91d5f01d0e87",
+        "order": 13
+      },
+      {
+        "name": "Bahmni - Weight loss",
+        "uuid": "2a13f92e-4cb9-491a-a017-9230ecb2b6b1",
+        "order": 14
+      },
+      {
+        "name": "Bahmni - Ulcer",
+        "uuid": "64f8a8f3-10dd-44da-bf85-f794bf9edea8",
+        "order": 15
+      },
+      {
+        "name": "Bahmni - Cough",
+        "uuid": "5939d92c-e34d-11e3-983a-91270dcbd3bf",
+        "order": 16
+      },
+      {
+        "name": "Bahmni - Diabetes, Itchy skin lesion",
+        "uuid": "a87fb923-c5d6-4acf-a42b-48bb10533053",
+        "order": 17
+      },
+      {
+        "name": "Bahmni - Giddiness",
+        "uuid": "1fb6a0c4-ed86-11e3-8f57-746bba63c2a3",
+        "order": 18
+      },
+      {
+        "name": "Bahmni - Blurring of Vision",
+        "uuid": "6cb6592e-6483-42bc-a0cb-1b86cb05bf7f",
+        "order": 19
+      },
+      {
+        "name": "Bahmni - White Discharge",
+        "uuid": "41d9001b-ed86-11e3-8f57-746bba63c2a3",
+        "order": 20
+      },
+      {
+        "name": "Bahmni - Diabetes, Erectile Dysfunction",
+        "uuid": "20b15708-0bc5-4005-8886-9b7457cebd81",
+        "order": 21
+      },
+      {
+        "name": "Bahmni - None",
+        "uuid": "a6c9e9d4-02cf-4354-9193-1a35b5704751",
+        "order": 22
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Diabetes, Skin fold Thickness",
+    "uuid": "a408441f-d028-4a61-9a3b-2ffa1a607e5e",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Diabetes, Abnormal",
+        "uuid": "da46b45c-aa7b-4858-975f-7827cd831108",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Diabetes, Normal",
+        "uuid": "b1ddb87d-8930-43ef-a1cc-1430cea57005",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Diabetes Complication, Heart",
+    "uuid": "32687510-5fd7-42f4-913a-4711a6250b01",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Unconsciousness",
+    "uuid": "9860475e-623a-4c4e-95a0-7fd468844431",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - PVD",
+    "uuid": "a3d1e582-dec1-4921-bf13-10f23e37d4e8",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Giddiness",
+    "uuid": "1fb6a0c4-ed86-11e3-8f57-746bba63c2a3",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - PreProliferative Diabetic Retinopathy",
+    "uuid": "7ef5a585-49d5-4641-9f1e-a3c93a62b471",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Diabetes, Normal",
+    "uuid": "b1ddb87d-8930-43ef-a1cc-1430cea57005",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Diabetes, Complications",
+    "uuid": "5ec8dd19-2446-4edf-818b-5faffec63427",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Diabetes Complication, Brain",
+        "uuid": "44026594-658c-446f-a42b-66492fd8408d",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Diabetic Foot",
+        "uuid": "10fef182-42d3-4a2d-8aec-fcccd6e854cd",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Diabetes Complication, CRF",
+        "uuid": "f69b1c67-3271-4d6d-a4de-9e5d3bc6da69",
+        "order": 3
+      },
+      {
+        "name": "Bahmni - Diabetes Complication, Heart",
+        "uuid": "32687510-5fd7-42f4-913a-4711a6250b01",
+        "order": 4
+      },
+      {
+        "name": "Bahmni - Diabetes Complication, Nephropathy",
+        "uuid": "51c08e63-4455-4cb4-a3f8-60aa062ef5a1",
+        "order": 5
+      },
+      {
+        "name": "Bahmni - Diabetes Complication, Neuropathy",
+        "uuid": "a78168b1-9b54-45aa-87be-3e955f22c42c",
+        "order": 6
+      },
+      {
+        "name": "Bahmni - Diabetes Complication, Retinopathy",
+        "uuid": "af7254c6-7ace-4e4e-aa16-c015cd9597cc",
+        "order": 7
+      },
+      {
+        "name": "Bahmni - Diabetes Complication, Skin",
+        "uuid": "f6c89bec-21fc-4535-b4ab-fb83f05c6eae",
+        "order": 8
+      },
+      {
+        "name": "Bahmni - Diabetes Complication, Other complications",
+        "uuid": "89df58c7-8535-474c-bfe4-0bb970be8e71",
+        "order": 9
+      },
+      {
+        "name": "Bahmni - Diabetes Complication, None",
+        "uuid": "155bdbaa-b551-4734-8b90-4e4e5302517d",
+        "order": 10
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Diabetes Complication, Skin",
+    "uuid": "f6c89bec-21fc-4535-b4ab-fb83f05c6eae",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Diabetes, Electrocardiography",
+    "uuid": "e1aafdd6-29fb-4b1d-b78c-8b1768b98efd",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Nocturia",
+    "uuid": "68b47bd2-e34d-11e3-983a-91270dcbd3bf",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Excessive Appetite",
+    "uuid": "c13a89df-37e1-4333-8b1f-f527ac408443",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Diabetes, Itchy skin lesion",
+    "uuid": "a87fb923-c5d6-4acf-a42b-48bb10533053",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Blurring of Vision",
+    "uuid": "6cb6592e-6483-42bc-a0cb-1b86cb05bf7f",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - None",
+    "uuid": "a6c9e9d4-02cf-4354-9193-1a35b5704751",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Dizziness",
+    "uuid": "a64a9305-cdee-4833-bb27-a89585b1f588",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Diabetes Complication, Nephropathy",
+    "uuid": "51c08e63-4455-4cb4-a3f8-60aa062ef5a1",
+    "dataType": "NA",
+    "active": true
+  }
+]
