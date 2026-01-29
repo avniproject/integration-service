@@ -166,7 +166,7 @@ tunnel-server-debug-vagrant:
 	ssh -p 2222 -i ~/.vagrant.d/insecure_private_key vagrant@127.0.0.1 -L 6031:localhost:6031
 
 tunnel-jss-bahmni-db: ## Tunnel to JSS integration server and forward Bahmni DB to localhost:4322
-	ssh -L 4322:jss-bahmni-db.c6nmpq8u8k8k.ap-south-1.rds.amazonaws.com:3306 ubuntu@jss-prerelease.avniproject.org
+	ssh -L 4322:localhost:43307 ubuntu@jss-bahmni-prerelease
 #######
 
 
