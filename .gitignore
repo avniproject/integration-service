@@ -27,3 +27,4 @@ docs/*-secrets.md
 *.pem
 *.key
 *.crt
+\.vscode/**

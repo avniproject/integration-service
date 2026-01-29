@@ -1,0 +1,80 @@
+formname,formuuid,formelementgroup,formelementgroupuuid,FormElement,concept,datatype,conceptuuid
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,ANC Visit Details,0bb80408-e8a7-4eab-aef9-268cb4553946,Name of ANC Clinic,Name of ANC Clinic,Coded,7dd50376-7ba1-441c-aa0c-7ff5ce0468e2
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,Anthropometry,b193c937-752c-4735-ac61-aca5f68b020e,Height,Height,Numeric,23bcad9f-ec16-46ec-92f5-e144411e5dec
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,Anthropometry,b193c937-752c-4735-ac61-aca5f68b020e,Weight,Weight,Numeric,8d947379-7a1d-48b2-8760-88fff6add987
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,Anthropometry,b193c937-752c-4735-ac61-aca5f68b020e,BMI,BMI,Numeric,a205563d-0ac2-4955-93ac-e2e7adebb56e
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,Anthropometry,b193c937-752c-4735-ac61-aca5f68b020e,Blood Pressure - Systolic,Systolic,Numeric,cabae2d4-6561-431c-9130-96dc4f38821b
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,Anthropometry,b193c937-752c-4735-ac61-aca5f68b020e,Blood Pressure - Diastolic,Diastolic,Numeric,158af9c8-23b5-4cf4-ac92-bce9152b5f16
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,Anthropometry,b193c937-752c-4735-ac61-aca5f68b020e,Mosquito net given,Is mosquito net given,Coded,b7be4ddc-14ee-4caf-ab38-e1c87d088688
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,Anthropometry,b193c937-752c-4735-ac61-aca5f68b020e,Safe delivery kit given,Is safe delivery kit given,Coded,04eecc2b-93eb-49d4-83a4-6629442711ea
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,Basic details,c76c6300-5f5e-4646-abfd-800984c653bd,Blood Pressure (systolic),Blood Pressure (systolic),Numeric,6874d48e-8c2f-4009-992c-1d3ca1678cc6
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,Basic details,c76c6300-5f5e-4646-abfd-800984c653bd,Blood Pressure (Diastolic),Blood Pressure (Diastolic),Numeric,da871f6c-cef0-4191-b307-6751b31ac9ec
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,Basic details,c76c6300-5f5e-4646-abfd-800984c653bd,BMI,BMI,Numeric,a205563d-0ac2-4955-93ac-e2e7adebb56e
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,Basic details,c76c6300-5f5e-4646-abfd-800984c653bd,Is mosquito net given?,Is mosquito net given,Coded,b7be4ddc-14ee-4caf-ab38-e1c87d088688
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,Basic details,c76c6300-5f5e-4646-abfd-800984c653bd,Is Safe delivery kit given?,Is safe delivery kit given,Coded,04eecc2b-93eb-49d4-83a4-6629442711ea
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,History and Physical examination,05a197d2-cba6-4134-b21f-a0b9f394e467,New complaint,New complaint,Coded,74599453-6fbd-4f8d-bf7f-34faa3c10eb9
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,History and Physical examination,05a197d2-cba6-4134-b21f-a0b9f394e467,Specify the other complaint,Other complaint,Text,dc0c10ca-c151-4c5c-aedc-2b8040dbea52
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,History and Physical examination,05a197d2-cba6-4134-b21f-a0b9f394e467,Whether mother found with pregnancy induced disease,Mother found with pregnancy induced disease,Coded,2a3a4f97-0ca7-4498-b7ec-37225ba3d4c5
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,History and Physical examination,05a197d2-cba6-4134-b21f-a0b9f394e467,Oedema,Oedema,Coded,95dd3094-6c99-4622-8614-bf5d33a509e4
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,History and Physical examination,05a197d2-cba6-4134-b21f-a0b9f394e467,Abdomen check,Abdomen check,Coded,2a15dc0b-d6a0-4670-b109-4013789cb403
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,History and Physical examination,05a197d2-cba6-4134-b21f-a0b9f394e467,Current gestational age,Current gestational age,Numeric,9b087651-34e8-4391-aa08-8db73f55d7e6
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,History and Physical examination,05a197d2-cba6-4134-b21f-a0b9f394e467,Gestational age,Gestational age,Numeric,5edc0b6a-aaa2-4499-a673-3db8f0b056e1
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,History and Physical examination,05a197d2-cba6-4134-b21f-a0b9f394e467,Fundle Height,Fundle Height,Coded,f5ff8848-798a-4b0f-bcaf-33f2d4528f37
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,History and Physical examination,05a197d2-cba6-4134-b21f-a0b9f394e467,Position,Position,Coded,69a95145-505b-497a-9fc9-61fcc5d2ff59
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,History and Physical examination,05a197d2-cba6-4134-b21f-a0b9f394e467,FHS,FHS,Coded,7c6d3fc6-6a9f-4b44-beef-8c2200da5281
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,History and Physical examination,05a197d2-cba6-4134-b21f-a0b9f394e467,FHS number,FHS number,Numeric,532ae011-4380-4ff5-b7c7-7d163e396221
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,History and Physical examination,05a197d2-cba6-4134-b21f-a0b9f394e467,Foetus movement,Foetus movement,Coded,31651632-0acb-4ee5-a0f3-1628bbed456c
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,History and Physical examination,05a197d2-cba6-4134-b21f-a0b9f394e467,Position of baby 2,Position of baby 2,Coded,1887a0e8-81d4-477c-a3d7-103a929d7e7b
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,History and Physical examination,05a197d2-cba6-4134-b21f-a0b9f394e467,FHS of baby 2,FHS of baby 2,Coded,3c83c5d7-8c02-49d1-bde4-9e74cd5c8b31
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,History and Physical examination,05a197d2-cba6-4134-b21f-a0b9f394e467,FHS number of baby 2,FHS number of baby 2,Numeric,6dd83097-9b6d-44fc-b98f-f4819f40ed05
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,History and Physical examination,05a197d2-cba6-4134-b21f-a0b9f394e467,Foetal movement baby 2,Foetal movement baby 2,Coded,4bd77a68-14cc-4dc2-b283-eff91894ed34
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,History and Physical examination,05a197d2-cba6-4134-b21f-a0b9f394e467,Breast examination,Breast examination,Coded,7259b0fa-c8d1-4e04-8d13-7dbc05f0169b
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,History and Physical examination,05a197d2-cba6-4134-b21f-a0b9f394e467,High risk condition in this pregnancy?,High risk condition in this pregnancy?,Coded,93679880-83f5-4877-bfc4-e525421c7e52
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,History and Physical examination,05a197d2-cba6-4134-b21f-a0b9f394e467,High risk condition in this pregnancy,High risk condition in this pregnancy,Coded,b8724e63-db1d-46fc-8ecc-17ee200bf1a2
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,Lab investigations,40835036-76b9-4d86-adbb-b3e9ed1db071,Blood group,Blood group,Coded,c50c8196-01c9-422f-b917-fd2309adb261
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,Lab investigations,40835036-76b9-4d86-adbb-b3e9ed1db071,HIV (Elisa),HIV (Elisa),Coded,b3e8a85a-c7ca-49b8-9c6f-8bd5ee6bfad1
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,Lab investigations,40835036-76b9-4d86-adbb-b3e9ed1db071,Hepatitis B,Hepatitis B,Coded,f874c217-2fed-41c9-a094-ba6519bd537d
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,Lab investigations,40835036-76b9-4d86-adbb-b3e9ed1db071,Sickle prep,Sickle prep,Coded,610db330-fafe-456f-bd58-e062cb6e52e3
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,Lab investigations,40835036-76b9-4d86-adbb-b3e9ed1db071,Hb Electrophoresis,Hb Electrophoresis,Coded,198d08c6-b742-4b22-97fd-2293472e571e
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,Lab investigations,40835036-76b9-4d86-adbb-b3e9ed1db071,VDRL,VDRL,Coded,cbe884a3-c5f3-441e-900a-6bc76f3cabca
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,Lab investigations,40835036-76b9-4d86-adbb-b3e9ed1db071,Pus Cell,Pus Cell,Numeric,0b8bc1f8-43db-4ecb-9677-22709e91681f
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,Lab investigations,40835036-76b9-4d86-adbb-b3e9ed1db071,RBC,RBC,Numeric,b59c126f-975b-45e6-8dd6-584dd54e25c9
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,Lab investigations,40835036-76b9-4d86-adbb-b3e9ed1db071,Epithelial cells,Epithelial cells,Numeric,0343e35f-afd0-41ce-af93-e69c184b159c
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,Lab investigations,40835036-76b9-4d86-adbb-b3e9ed1db071,Cast,Cast,Numeric,a2b6d675-4c70-4f15-a5ad-b8f5273602f9
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,Lab investigations,40835036-76b9-4d86-adbb-b3e9ed1db071,Crystel,Crystel,Coded,14a023d3-bd25-4343-9d93-34d9f88eb4b3
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,Lab investigations,40835036-76b9-4d86-adbb-b3e9ed1db071,Urine Albumin,Urine Albumin,Coded,78fcebd3-17e5-4621-89be-c580fbf13168
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,Lab investigations,40835036-76b9-4d86-adbb-b3e9ed1db071,Urine sugar,Urine sugar,Coded,55ae9e7a-f6ff-4c0b-861c-fd29b6c5c646
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,Lab investigations,40835036-76b9-4d86-adbb-b3e9ed1db071,Haemoglobin,Hb,Numeric,a240115e-47a2-4244-8f74-d13d20f087df
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,Lab investigations,40835036-76b9-4d86-adbb-b3e9ed1db071,Malaria parasite,Malaria parasite,Coded,9a89e9d6-f6e4-4d14-8841-34df9ece70a5
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,Lab investigations,40835036-76b9-4d86-adbb-b3e9ed1db071,Random Blood Sugar (RBS),Random Blood Sugar (RBS),Numeric,d6ac43a2-527d-4168-ba7d-2d233add3a6e
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,Lab investigations,40835036-76b9-4d86-adbb-b3e9ed1db071,Glucose test (75gm Glucose),Glucose test (75gm Glucose),Numeric,ae2046a4-015c-44e2-9703-01bc3da13202
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,Urine Microscopy,b7c5bb37-2f83-4c7c-97ee-73adb0d698c1,Pus Cell,Pus Cell,Numeric,0b8bc1f8-43db-4ecb-9677-22709e91681f
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,Urine Microscopy,b7c5bb37-2f83-4c7c-97ee-73adb0d698c1,RBC,RBC,Numeric,b59c126f-975b-45e6-8dd6-584dd54e25c9
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,Urine Microscopy,b7c5bb37-2f83-4c7c-97ee-73adb0d698c1,Epithelial cells,Epithelial cells,Numeric,0343e35f-afd0-41ce-af93-e69c184b159c
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,Urine Microscopy,b7c5bb37-2f83-4c7c-97ee-73adb0d698c1,Cast,Cast,Numeric,a2b6d675-4c70-4f15-a5ad-b8f5273602f9
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,Urine Microscopy,b7c5bb37-2f83-4c7c-97ee-73adb0d698c1,Crystel,Crystel,Coded,14a023d3-bd25-4343-9d93-34d9f88eb4b3
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,Medicines & Vaccines,8ff2c73e-10d1-4905-80cf-e56248f4387a,Iron & Folic Acid,Iron & Folic Acid,Numeric,2c1760f2-c976-46be-b744-fa97c7448dff
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,Medicines & Vaccines,8ff2c73e-10d1-4905-80cf-e56248f4387a,Whether Folic acid given?,Whether Folic acid given,Coded,bf1e5598-594c-4444-94e0-9390f5081e41
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,Medicines & Vaccines,8ff2c73e-10d1-4905-80cf-e56248f4387a,Whether IFA given?,Whether IFA given,Coded,5740f87b-8cc6-4927-88a2-44636e8f396c
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,Medicines & Vaccines,8ff2c73e-10d1-4905-80cf-e56248f4387a,Whether Calcium given?,Whether Calcium given,Coded,00de9acc-4ff6-485b-b979-41ff00745d23
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,Medicines & Vaccines,8ff2c73e-10d1-4905-80cf-e56248f4387a,Whether Amala given,Whether Amala given,Coded,2a5a3b4d-80c4-4d05-8585-e16966ff0c3e
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,Medicines & Vaccines,8ff2c73e-10d1-4905-80cf-e56248f4387a,Does mother require other medicine?,Does mother require other medicine?,Coded,567732c8-0d25-4155-9f97-28eb284c8963
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,Medicines & Vaccines,8ff2c73e-10d1-4905-80cf-e56248f4387a,TT 1,TT 1,Coded,ddeb2311-4a90-4a7c-a698-1cd3db4ff0f3
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,Medicines & Vaccines,8ff2c73e-10d1-4905-80cf-e56248f4387a,TT 2,TT 2,Coded,858f66e6-1ed3-4c13-9fdf-08f667b092ba
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,Next ANC Details,fe16a7e6-ea50-4711-b5f3-afdd0e40d3d8,Date of next ANC Clinic Visit,Date of next ANC Visit,Date,6e50431c-6cb0-495f-9735-dd431c9970ff
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,Referral Details,21c53019-cf6b-4adb-bfc7-5390bd77ac00,Referral required for?,Referral required for?,Coded,049cbcbe-d953-49ad-8198-10ae86bc6bff
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,Referral Details,21c53019-cf6b-4adb-bfc7-5390bd77ac00,Does woman require referral?,Does woman require referral?,Coded,77d122e8-0620-4754-8375-b0cbe329003c
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,Referral Details,21c53019-cf6b-4adb-bfc7-5390bd77ac00,Place of referral,Place of referral,Coded,80fccb06-a62f-43e8-92eb-358bdb600079
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,Referral Details,21c53019-cf6b-4adb-bfc7-5390bd77ac00,Other place of referral,Other place of referral,Text,d169efa9-49af-4c84-ae09-b1b7296c62da
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,Referral Details,21c53019-cf6b-4adb-bfc7-5390bd77ac00,Referral reason,Referral reason,Coded,8a56f008-a910-4d6f-b028-a95db330dbf2
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,Referral Details,21c53019-cf6b-4adb-bfc7-5390bd77ac00,Other referral reason,Other referral reason,Text,e048675e-eb86-41c2-a47b-aecfa9a3bb8c
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,Referral Details,21c53019-cf6b-4adb-bfc7-5390bd77ac00,Is referral required,Does woman require referral?,Coded,77d122e8-0620-4754-8375-b0cbe329003c
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,Referral Details,21c53019-cf6b-4adb-bfc7-5390bd77ac00,Referral place,Referral place,Coded,d78183dd-aa99-47fa-b562-f761f5415028
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,USG report,004ae98e-4c94-4b7e-b50d-e48f3b447c3d,Foetus is ok,Foetus is ok,Coded,6618dfd6-5df2-4c85-b916-0679bcb9be03
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,USG report,004ae98e-4c94-4b7e-b50d-e48f3b447c3d,Presentation of baby,Presentation of baby,Coded,e7b5d460-47dd-490b-af0a-a73a19a93a9d
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,USG report,004ae98e-4c94-4b7e-b50d-e48f3b447c3d,Twin baby,Twin baby,Coded,9f55f157-c835-4068-a948-c849073d1d86
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,USG report,004ae98e-4c94-4b7e-b50d-e48f3b447c3d,Follow USG required,Follow USG required,Coded,96499ee7-ad90-4831-a0bd-1fd765f6f6c0
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,USG report,004ae98e-4c94-4b7e-b50d-e48f3b447c3d,Date of next USG,Date of next USG,Date,71efca55-ad55-4814-a16f-44d714c6ecf5
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,Next visit details,1f46c3c8-459c-4125-81e9-b6457cdd46a1,Date of next ANC Visit,Date of next ANC Visit,Date,6e50431c-6cb0-495f-9735-dd431c9970ff
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,Next visit details,1f46c3c8-459c-4125-81e9-b6457cdd46a1,Next ANC Date,next anc date,Date,dd59a4df-f13b-4ead-9089-1dd1129d6b60
+ANC Clinic Visit,991876fd-3297-4e5b-b8f8-2b02ffed4bb5,Next visit details,490fe358-718d-4596-91bb-6ce0e8a7f224,Date of next ANC Visit,Date of next ANC Visit,Date,6e50431c-6cb0-495f-9735-dd431c9970ff
