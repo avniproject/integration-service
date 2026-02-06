@@ -25,7 +25,7 @@ class PatientServiceExternalTest {
 
 
     @Test
-//    @Disabled("Requires connection to JSS Bahmni server")
+    @Disabled("Requires connection to JSS Bahmni server")
     public void findPatientByIdentifier_GAN279731() throws JsonProcessingException {
         // Create constants with JSS values (since DB is empty in test)
         List<Constant> constantList = new ArrayList<>();
@@ -54,7 +54,7 @@ class PatientServiceExternalTest {
     }
 
     @Test
-//    @Disabled("Requires connection to JSS Bahmni server")
+    @Disabled("Requires connection to JSS Bahmni server")
     public void findSubject_UsingGAN279731_WithActualConfig() throws Exception {
         // Create constants with JSS values (since DB is empty in test)
         List<Constant> constantList = new ArrayList<>();
