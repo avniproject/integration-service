@@ -76,7 +76,11 @@ public class OpenMRSLoginAuthenticator implements Authenticator {
             confirmAuthenticated(openMRSResponse);
 
             ClientCookies clientCookies = new ClientCookies();
-            clientCookies.put(SESSION_ID_KEY, openMRSResponse.getSessionId());
+            String sessionId = openMRSResponse.getSessionId();
+            if (sessionId == null) {
+                sessionId = extractSessionIdFromResponse(response);
+            }
+            clientCookies.put(SESSION_ID_KEY, sessionId);
 
             previousSuccessfulRequest = new HttpRequestDetails(uri, clientCookies, new HttpHeaders());
             return previousSuccessfulRequest;
@@ -86,6 +90,21 @@ public class OpenMRSLoginAuthenticator implements Authenticator {
         } finally {
             httpClient.getConnectionManager().shutdown();
         }
+    }
+
+    private String extractSessionIdFromResponse(HttpResponse response) {
+        for (Header header : response.getHeaders("Set-Cookie")) {
+            String value = header.getValue();
+            if (value != null && value.contains(SESSION_ID_KEY)) {
+                for (String part : value.split(";")) {
+                    part = part.trim();
+                    if (part.startsWith(SESSION_ID_KEY + "=")) {
+                        return part.substring((SESSION_ID_KEY + "=").length());
+                    }
+                }
+            }
+        }
+        return null;
     }
 
     protected void setCredentials(HttpGet httpGet) throws AuthenticationException {
