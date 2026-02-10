@@ -1,7 +1,7 @@
 # Comprehensive Technical Guide: Avni-Bahmni Integration for JSS
 
-**Version:** 1.0
-**Last Updated:** January 2025
+**Version:** 1.2
+**Last Updated:** February 4, 2025
 **Purpose:** Technical reference for mapping config changes, integration config changes, and integration code changes
 
 ---
@@ -19,6 +19,9 @@
 9. [JSS-Specific Setup](#9-jss-specific-setup)
 10. [Troubleshooting & Error Handling](#10-troubleshooting--error-handling)
 11. [Quick Reference](#11-quick-reference)
+12. [ANC Clinic Visit Mapping Implementation - Case Study](#12-anc-clinic-visit-mapping-implementation---case-study)
+13. [Subject to Bahmni Mapping Implementation - Case Study](#13-subject-to-bahmni-mapping-implementation---case-study)
+14. [Summary of SQL Mapping Files](#14-summary-of-sql-mapping-files)
 
 ---
 
@@ -626,17 +629,17 @@ AVNI_INT_DB_PASSWORD=<password>
 
 #### Avni Connection
 ```bash
-BAHMNI_AVNI_API_URL=https://app.avniproject.org
-BAHMNI_AVNI_API_USER=<avni-user>
-BAHMNI_AVNI_API_PASSWORD=<avni-password>
+BAHMNI_AVNI_API_URL=https://prerelease.avniproject.org
+BAHMNI_AVNI_API_USER=nupoork@jsscp
+BAHMNI_AVNI_API_PASSWORD=password
 BAHMNI_AVNI_IDP_TYPE=Cognito  # or Keycloak
 ```
 
 #### Bahmni/OpenMRS Connection
 ```bash
-OPENMRS_BASE_URL=https://bahmni.example.org/openmrs
-OPENMRS_USER=<openmrs-user>
-OPENMRS_PASSWORD=<openmrs-password>
+OPENMRS_BASE_URL=https://jss-bahmni-prerelease.avniproject.org/openmrs/
+OPENMRS_USER=apiuser
+OPENMRS_PASSWORD=Apiuser23
 ```
 
 #### Scheduler Configuration
@@ -734,18 +737,18 @@ java -jar integrator/build/libs/integrator-0.0.2-SNAPSHOT.jar
 ### 9.1 JSS ID Setup
 
 **Step 1: Create JSS ID Concept in Avni**
-```sql
--- See: JSS Bahmni integration/avni_bundle/insert_jss_id_concept.sql
--- Concept UUID: abdac5eb-dded-4da9-b59e-4d285690a8c4
--- Concept Name: Avni Bahmni JSS ID
-```
+- **Method:** Metadata upload via Avni admin interface
+- **Concept UUID:** abdac5eb-dded-4da9-b59e-4d285690a8c4
+- **Concept Name:** Avni Bahmni JSS ID
+- **Data Type:** Text
+- **Reference:** See concept.json in avni_bundle folder
 
 **Step 2: Create JSS ID Identifier Type in Bahmni**
-```sql
--- Run in OpenMRS database
-INSERT INTO patient_identifier_type (name, description, required, uuid, creator, date_created)
-VALUES ('JSS ID', 'Avni-Bahmni Integration Identifier', 0, UUID(), 1, NOW());
-```
+- **Method:** Created via Bahmni admin UI interface
+- **Identifier Type Name:** JSS ID
+- **Description:** Avni-Bahmni Integration Identifier
+- **Required:** No
+- **Note:** Created in Bahmni, then exported and uploaded to Avni
 
 ### 9.2 Sync Eligibility Rules
 
@@ -879,6 +882,248 @@ python scripts/generate_concept_summary.py
 
 ---
 
+## 12. ANC Clinic Visit Mapping Implementation - Case Study
+
+### 12.1 Overview
+
+This section documents the complete process of implementing ANC Clinic Visit mappings from Avni to Bahmni on the local avni-int database. This serves as a practical example of the mapping configuration process.
+
+**Completed:** February 3, 2025  
+**Scope:** 70 total mappings (2 encounter + 68 observation)  
+**Direction:** Avni → Bahmni (Outbound)
+
+### 12.2 Pre-Implementation Analysis
+
+#### 12.2.1 Form Complexity Assessment
+- **Form Name:** ANC Clinic Visit
+- **Total Concepts:** 268 concepts across 12 sections
+- **Data Types:** Coded (43), Numeric (19), Date (5), Text (3)
+- **Sections:** Visit Details, Anthropometry, Complaints, Examination, Investigations, etc.
+
+#### 12.2.2 Bahmni Target Analysis
+- **Target Encounter Type:** `Pregnancy- ANC Clinic Visit [A]`
+- **Target Form:** `Avni - JSS ANC Clinic Visit` (Concept Set)
+- **Visit Type:** Field-MCH (Maternal Child Health)
+
+### 12.3 Implementation Process
+
+#### Step 1: Database Structure Preparation
+```sql
+-- Verified required mapping groups and types exist
+INSERT INTO mapping_group (name, integration_system_id, uuid, is_voided)
+SELECT 'Observation', id, uuid_generate_v4(), false
+FROM integration_system WHERE name = 'bahmni'
+ON CONFLICT DO NOTHING;
+
+INSERT INTO mapping_group (name, integration_system_id, uuid, is_voided)
+SELECT 'ProgramEncounter', id, uuid_generate_v4(), false
+FROM integration_system WHERE name = 'bahmni'
+ON CONFLICT DO NOTHING;
+```
+
+#### Step 2: Encounter Type Mapping
+```sql
+-- Maps Avni "ANC Clinic Visit" to Bahmni "Pregnancy- ANC Clinic Visit [A]"
+INSERT INTO mapping_metadata (int_system_value, avni_value, data_type_hint,
+    integration_system_id, mapping_group_id, mapping_type_id, uuid, is_voided)
+VALUES (
+    '2d79e469-88e1-4bd8-9f39-743109962db8',  -- Bahmni encounter type UUID
+    'ANC Clinic Visit',                       -- Avni encounter type name
+    NULL,
+    (SELECT id FROM integration_system WHERE name = 'bahmni'),
+    (SELECT id FROM mapping_group WHERE name = 'ProgramEncounter' AND integration_system_id = (SELECT id FROM integration_system WHERE name = 'bahmni')),
+    (SELECT id FROM mapping_type WHERE name = 'CommunityProgramEncounter_EncounterType' AND integration_system_id = (SELECT id FROM integration_system WHERE name = 'bahmni')),
+    uuid_generate_v4(),
+    false
+);
+```
+
+#### Step 3: Form Mapping
+```sql
+-- Maps ANC Clinic Visit form to Bahmni concept set
+INSERT INTO mapping_metadata (int_system_value, avni_value, data_type_hint,
+    integration_system_id, mapping_group_id, mapping_type_id, uuid, is_voided)
+VALUES (
+    '29a946e8-9153-474d-86e7-a0b3d26474c5',  -- Bahmni concept set UUID
+    'ANC Clinic Visit',                       -- Avni encounter type name
+    NULL,
+    (SELECT id FROM integration_system WHERE name = 'bahmni'),
+    (SELECT id FROM mapping_group WHERE name = 'ProgramEncounter' AND integration_system_id = (SELECT id FROM integration_system WHERE name = 'bahmni')),
+    (SELECT id FROM mapping_type WHERE name = 'CommunityProgramEncounter_BahmniForm' AND integration_system_id = (SELECT id FROM integration_system WHERE name = 'bahmni')),
+    uuid_generate_v4(),
+    false
+);
+```
+
+#### Step 4: Observation Mappings (68 concepts)
+
+**Key Mapping Categories:**
+
+1. **Anthropometry (5 mappings)**
+   - Height → `Avni - Height` (Numeric)
+   - Weight → `Avni - Weight at diagnosis` (Numeric)
+   - BMI → `Avni - ANC - BMI` (Numeric)
+
+2. **Vitals & Examination (15 mappings)**
+   - Blood Pressure (systolic/diastolic) → `Avni - Blood Pressure` (Numeric)
+   - FHS, Fetal movement → `Avni - FHS`, `Avni - Foetus movement` (Coded)
+
+3. **Laboratory Investigations (25 mappings)**
+   - Haemoglobin → `Avni - Hb` (Numeric)
+   - Urine tests → `Avni - Urine Albumin`, `Avni - Urine sugar` (Coded)
+   - Blood tests → `Avni - HIV (Elisa)`, `Avni - VDRL` (Coded)
+
+4. **Medications & Supplements (8 mappings)**
+   - Iron & Folic Acid → `Avni - Iron & Folic Acid` (Numeric)
+   - TT1, TT2 → `Avni - TT 1`, `Avni - TT 2` (Coded)
+
+5. **Referrals & Follow-up (10 mappings)**
+   - Referral required → `Avni - Does woman require referral?` (Coded)
+   - Next ANC visit → `Avni - Date of next ANC Visit` (Date)
+
+6. **Special Cases (5 mappings)**
+   - Multiple concept name variations handled
+   - Alternative names mapped to same Bahmni UUID
+
+### 12.4 Critical Implementation Decisions
+
+#### 12.4.1 Data Type Classification
+- **Numeric:** Height, Weight, BP values, Lab values
+- **Coded:** Yes/No questions, Multiple choice, Lab results
+- **Date:** Next visit dates, Follow-up dates
+- **Text:** "Other specify" fields, Free text comments
+
+#### 12.4.2 Naming Strategy for Conflicts
+- **Standard:** "Avni - [Concept Name]" for most concepts
+- **Enhanced:** "Avni - ANC - [Concept Name]" for conflicts with existing Bahmni concepts
+- **Example:** "BMI" → "Avni - ANC - BMI" (to avoid conflict with existing BMI concept)
+
+#### 12.4.3 Duplicate Concept Handling
+Some Avni concepts had multiple names pointing to same Bahmni concept:
+```sql
+-- Example: Next visit date had multiple names in Avni
+INSERT INTO mapping_metadata ... VALUES ('6e50431c-6cb0-495f-9735-dd431c9970ff', 'Date of next ANC Visit', 'Date', ...);
+INSERT INTO mapping_metadata ... VALUES ('6e50431c-6cb0-495f-9735-dd431c9970ff', 'Date of next ANC Clinic Visit', 'Date', ...);
+```
+
+### 12.5 Quality Assurance Process
+
+#### 12.5.1 Mapping Validation
+```sql
+-- Verify all mappings created successfully
+SELECT COUNT(*) as total_mappings
+FROM mapping_metadata 
+WHERE avni_value = 'ANC Clinic Visit' 
+AND integration_system_id = (SELECT id FROM integration_system WHERE name = 'bahmni')
+AND is_voided = false;
+
+-- Expected: 70 mappings (2 encounter + 68 observation)
+```
+
+#### 12.5.2 Data Type Verification
+```sql
+-- Verify data types are correctly assigned
+SELECT mm.avni_value, mm.data_type_hint, COUNT(*) as count
+FROM mapping_metadata mm
+JOIN mapping_group mg ON mm.mapping_group_id = mg.id
+WHERE mg.name = 'Observation'
+AND mm.integration_system_id = (SELECT id FROM integration_system WHERE name = 'bahmni')
+AND mm.avni_value IN (
+    SELECT avni_value FROM mapping_metadata 
+    WHERE avni_value = 'ANC Clinic Visit' 
+    AND integration_system_id = (SELECT id FROM integration_system WHERE name = 'bahmni')
+)
+GROUP BY mm.avni_value, mm.data_type_hint
+ORDER BY mm.data_type_hint;
+```
+
+#### 12.5.3 UUID Consistency Check
+```sql
+-- Verify no duplicate Bahmni UUIDs for different Avni concepts
+SELECT int_system_value, COUNT(*) as concept_count
+FROM mapping_metadata
+WHERE integration_system_id = (SELECT id FROM integration_system WHERE name = 'bahmni')
+AND avni_value IN (
+    SELECT avni_value FROM mapping_metadata 
+    WHERE avni_value = 'ANC Clinic Visit' 
+    AND integration_system_id = (SELECT id FROM integration_system WHERE name = 'bahmni')
+)
+GROUP BY int_system_value
+HAVING COUNT(*) > 1;
+```
+
+### 12.6 Integration Testing
+
+#### 12.6.1 Test Data Preparation
+- **Test Subject:** Created individual with JSS ID in Avni
+- **Test Program:** Enrolled in Pregnancy program
+- **Test Encounter:** Created ANC Clinic Visit with sample data
+
+#### 12.6.2 Sync Verification
+```sql
+-- Check if encounter was synced to Bahmni
+SELECT * FROM integrating_entity_status 
+WHERE entity_type = 'ProgramEncounter'
+AND integration_system_id = (SELECT id FROM integration_system WHERE name = 'bahmni');
+
+-- Check for any mapping errors
+SELECT er.entity_id, et.name as error_type, erl.error_msg, erl.logged_at
+FROM error_record er
+JOIN error_record_log erl ON erl.error_record_id = er.id
+JOIN error_type et ON erl.error_type_id = et.id
+WHERE erl.logged_at > NOW() - INTERVAL '1 hour'
+ORDER BY erl.logged_at DESC;
+```
+
+### 12.7 Performance Considerations
+
+#### 12.7.1 Mapping Efficiency
+- **Batch Size:** 70 mappings created in single SQL execution
+- **Index Usage:** All queries use indexed columns (integration_system_id, mapping_group_id, mapping_type_id)
+- **UUID Generation:** Used PostgreSQL's uuid_generate_v4() for consistency
+
+#### 12.7.2 Memory Optimization
+- **No Temporary Tables:** Direct INSERT statements used
+- **Minimal Joins:** Subqueries for ID resolution instead of complex joins
+- **Bulk Operations:** All mappings created in one transaction
+
+### 12.8 Lessons Learned
+
+#### 12.8.1 Critical Success Factors
+1. **Complete Concept Analysis:** Understanding all 268 concepts before mapping
+2. **Bahmni UUID Verification:** Ensuring target UUIDs exist in Bahmni instance
+3. **Data Type Accuracy:** Correct classification prevents sync errors
+4. **Naming Strategy:** Proactive conflict avoidance saves rework
+
+#### 12.8.2 Common Pitfalls to Avoid
+1. **Assuming Concept Names:** Never assume Avni and Bahmni concept names match
+2. **Ignoring Data Types:** Wrong data types cause sync failures
+3. **Missing Alternate Names:** Multiple Avni names can map to same Bahmni concept
+4. **Skipping Validation:** Always verify mapping counts and UUID uniqueness
+
+#### 12.8.3 Best Practices Established
+1. **Mapping Documentation:** Include comments in SQL for each mapping category
+2. **Version Control:** Store mapping files with timestamps and versions
+3. **Testing Protocol:** Always test with real data before production deployment
+4. **Rollback Strategy:** Keep voided flag for easy mapping deactivation
+
+### 12.9 Files Created/Modified
+
+| File | Purpose | Size |
+|------|---------|------|
+| `ANCClinicVisitMappings.sql` | Complete mapping configuration | 619 lines, 70 mappings |
+| `ANCVisitConcepts.csv` | Concept reference data | 79 concepts |
+| `02-ANC-to-Bahmni-Conversion-Process.md` | Process documentation | 117 lines |
+
+### 12.10 Next Steps for Similar Implementations
+
+1. **Template Creation:** Use ANC mappings as template for other complex forms
+2. **Automation:** Develop scripts for automatic mapping generation
+3. **Validation Tools:** Create automated validation for mapping completeness
+4. **Documentation:** Standardize documentation format for all mappings
+
+---
+
 ## Sources
 
 - [Avni Integration Developer Guide](https://avni.readme.io/docs/integration-developer-guide)
@@ -890,5 +1135,310 @@ python scripts/generate_concept_summary.py
 
 ---
 
-*Document Version: 1.0*
+## 13. Subject to Bahmni Mapping Implementation - Case Study
+
+### 13.1 Overview
+
+This section documents the complete process of implementing Subject (Individual Registration) mappings from Avni to Bahmni. This enables Avni individuals to be synced as Bahmni patients with their registration observations.
+
+**Completed:** February 4, 2025
+**Scope:** ~120 total mappings (3 base + 36 observations + ~80 answer concepts)
+**Direction:** Avni → Bahmni (Outbound)
+
+### 13.2 Pre-Implementation Requirements
+
+#### 13.2.1 Bahmni Setup Required
+Before creating mappings, the following must exist in Bahmni:
+
+1. **Encounter Type:** `Patient Registration [A]` (UUID: `b805a574-f22a-4a6f-95f8-6ff24c4a8d59`)
+2. **Patient Identifier Type:** `Avni Bahmni JSS ID` (UUID: `15c84573-8294-4e93-8d34-1028848eadca`)
+3. **Concepts:** Upload via Bahmni Admin → Concept Dictionary → Import
+
+#### 13.2.2 Bahmni Concept CSV Files
+
+Create two CSV files for Bahmni concept import:
+
+**File 1: `avni_registration_concepts.csv`** (17 columns)
+```csv
+uuid,name,description,class,shortname,datatype,units,High Normal,Low Normal,synonym.1,answer.1,answer.2,answer.3,answer.4,reference-term-source,reference-term-code,reference-term-relationship
+4b23dc0e-3ae0-4d41-8546-35797063e123,Avni - JSS Registration Form,Avni Registration Form,ConvSet,Avni - JSS Registration Form,N/A,,,,,,,,,,,
+821ba930-505c-4fd3-9f24-66b60ed45bac,Avni - Birth Order,,Misc,Avni - Birth Order,Numeric,,,,,,,,,,,
+...
+```
+
+**File 2: `avni_registration_concept_sets.csv`** (17 columns)
+```csv
+uuid,name,description,class,shortname,child.1,child.2,child.3,child.4,child.5,child.6,child.7,child.8,child.9,child.10,child.11
+4b23dc0e-3ae0-4d41-8546-35797063e123,Avni - JSS Registration Form,Avni Registration Form sections,Concept Details,Avni - JSS Registration Form,Avni - Personal Details,Avni - Individual Information,Avni - Socio-Economic Details,,,,,,,,
+...
+```
+
+**Important CSV Format Rules:**
+- Header must have exactly 17 columns
+- `class` for concept_sets must be "Concept Details" (not "ConvSet")
+- ConvSet datatype is "N/A" for grouping concepts
+- Answer concepts have datatype "N/A"
+
+### 13.3 Step-by-Step Implementation Process
+
+#### Step 1: Upload Concepts to Bahmni
+
+1. Go to Bahmni Admin → Concept Dictionary → Import
+2. Upload `avni_registration_concepts.csv` first
+3. Upload `avni_registration_concept_sets.csv` second
+4. Verify concepts appear in Bahmni Admin → Concept Dictionary
+
+#### Step 2: Create Patient Identifier Type in Bahmni
+
+Run in OpenMRS database or via Admin UI:
+```sql
+INSERT INTO patient_identifier_type (name, description, format, check_digit, creator, date_created, required, uuid)
+VALUES ('Avni Bahmni JSS ID', 'Shared identifier for Avni-Bahmni integration', NULL, 0, 1, NOW(), 0, '15c84573-8294-4e93-8d34-1028848eadca');
+```
+
+#### Step 3: Create Integration Mappings
+
+Run the SQL mapping file `SubjectToBahmniMappings.sql` on avni-int database:
+
+```bash
+psql -h localhost -p 5455 -U avni-int -d avni_int -f integration-data/src/main/resources/db/onetime/SubjectToBahmniMappings.sql
+```
+
+### 13.4 Mapping Structure
+
+#### 13.4.1 Mapping Groups Used
+| Group | Purpose |
+|-------|---------|
+| `PatientSubject` | Subject/Patient level mappings |
+| `Observation` | Individual observation concept mappings |
+
+#### 13.4.2 Mapping Types Used
+| Type | Group | Purpose |
+|------|-------|---------|
+| `Subject_EncounterType` | PatientSubject | Maps Avni Subject to Bahmni Encounter Type |
+| `Subject_BahmniForm` | PatientSubject | Maps Avni Subject to Bahmni Form/Concept Set |
+| `PatientIdentifier_Concept` | PatientSubject | Maps shared identifier between systems |
+| `Concept` | Observation | Maps individual observation concepts |
+
+#### 13.4.3 Core Mappings
+
+**1. Subject to Encounter Type:**
+```sql
+-- Maps Individual (Avni) to "Patient Registration [A]" (Bahmni)
+INSERT INTO mapping_metadata (int_system_value, avni_value, ...)
+VALUES (
+    'b805a574-f22a-4a6f-95f8-6ff24c4a8d59',  -- Bahmni encounter type UUID
+    'Individual',                              -- Avni subject type
+    ...
+);
+```
+
+**2. Subject to Form:**
+```sql
+-- Maps Individual form to Bahmni concept set
+INSERT INTO mapping_metadata (int_system_value, avni_value, ...)
+VALUES (
+    '4b23dc0e-3ae0-4d41-8546-35797063e123',  -- Bahmni form concept set UUID
+    'Individual',                              -- Avni subject type
+    ...
+);
+```
+
+**3. Patient Identifier:**
+```sql
+-- Maps Avni Bahmni JSS ID to Bahmni Patient Identifier Type
+INSERT INTO mapping_metadata (int_system_value, avni_value, ...)
+VALUES (
+    '15c84573-8294-4e93-8d34-1028848eadca',  -- Bahmni patient identifier type UUID
+    'Avni Bahmni JSS ID',                     -- Avni identifier concept name
+    ...
+);
+```
+
+### 13.5 Registration Concepts Mapped
+
+#### 13.5.1 Personal Details (11 concepts)
+| Avni Concept | Bahmni UUID | Data Type |
+|--------------|-------------|-----------|
+| Birth Order | 821ba930-505c-4fd3-9f24-66b60ed45bac | Numeric |
+| Father's Name | 9e6983b8-06ef-4648-b360-6684100b1be1 | Text |
+| Father's Occupation | bf564151-63f9-4176-917f-f37de34b9bae | Coded |
+| Mother's Name | 74a554d8-5b87-4d27-9ae5-272ab326608f | Text |
+| Mother's Occupation | ea760e4f-c12f-490b-9865-9c6e4510ce64 | Coded |
+| Father's Education Level | b1001c4d-0449-464a-947f-a04c4fdcc651 | Coded |
+| Mother's Education Level | d98aae1a-ce33-4e51-b031-66e13bc0ba11 | Coded |
+| Caste Category | 9ad4b520-4e33-4b1b-a056-37ae6418988f | Coded |
+| Sub Caste | 047877ac-dba7-4acf-8c77-97c979c2fc26 | Coded |
+| Other Sub Caste | ae7d54e9-fac0-4898-b334-87664bd055d2 | Text |
+| Religion | b2c60cb8-983c-4e0e-a90d-4b21e87e10bd | Coded |
+
+#### 13.5.2 Individual Information (14 concepts)
+| Avni Concept | Bahmni UUID | Data Type |
+|--------------|-------------|-----------|
+| Aadhaar ID | 681fce2b-ea38-4651-a0b8-2cddd307ade7 | Numeric |
+| Contact Number | 0a725832-b21c-4151-b017-7e6af770ba54 | Text |
+| Date of Marriage | 9d958124-09bb-466c-a4b4-db8d285def1f | Date |
+| Education | 673d65bd-6dc4-4aac-8e1e-1ee355ac081b | Coded |
+| Occupation | 20ef261a-f110-4eaa-a592-2a1eeb0bf061 | Coded |
+| Other Occupation | 4c429211-634e-4c2b-9a31-3f0a395f8f8d | Text |
+| Marital Status | 9e995ea6-a5f7-410f-adc2-2d2ce6d5e19b | Coded |
+| Father/Husband's Name | ecdf3c54-2808-494d-87be-8fb744d5c3bc | Text |
+| First Name (Hindi) | de490ab6-5c24-4de5-9f95-fe78be1b0c11 | Text |
+| Last Name (Hindi) | 9131372e-6e9b-4d07-b088-d7e961c61f76 | Text |
+| Individual Id | 8033840e-a347-474d-a6ad-861ebffcec00 | Text |
+| Relation to Head of Household | eaee156e-8ef3-4148-a80c-a466cd059ae3 | Coded |
+| Whether Any Disability | bab107f6-fc0e-4be7-ab71-658a92d72f35 | Coded |
+| Type of Disability | 7061c675-c2ba-4016-886d-eeb432548378 | Coded |
+
+#### 13.5.3 Socio-Economic Details (11 concepts)
+| Avni Concept | Bahmni UUID | Data Type |
+|--------------|-------------|-----------|
+| Status of Individual | d333f2a2-717e-478f-acbc-173bc7374d66 | Coded |
+| Electricity in House | e23ef639-5d54-46bc-811c-ee1886bce81f | Coded |
+| Smart Card (Insurance) | 2a445ac8-56e7-4eda-8756-0a9c4fa9a77b | Coded |
+| Is Sterilization Done | 852f4e54-4969-4724-94e0-cddef0ac1f66 | Coded |
+| Non Programme Village Name | 1c710642-4f37-4f47-9df9-393127eaafc9 | Text |
+| Ration Card | 86fc3018-8eeb-4a58-a9d9-a40fff839305 | Coded |
+| Land Possession | b984ad33-05d8-4621-adf3-152e72a0db1b | Coded |
+| Land Area | 430ebb19-831d-470d-80eb-7969814f13e4 | Numeric |
+| Property | aa88dba4-4f5d-4d35-9dc1-2390969cc5f3 | Coded |
+| Other Property | 32609e0f-f3c8-4dcb-af7c-5e8a96e8e89d | Text |
+| Type of Residence | c5d2673b-0f5c-48bf-93e4-f1a1ae820732 | Coded |
+
+### 13.6 Answer Concept Mappings (~80 concepts)
+
+All coded field answer options must also be mapped. Categories include:
+
+| Category | Example Answers | Count |
+|----------|-----------------|-------|
+| Yes/No | Yes, No | 2 |
+| Occupation | Business, Farming, Job, Labour, Housework, Other | 8 |
+| Caste Category | General, OBC, SC, ST | 4 |
+| Religion | Hindu, Muslim, Christian, Sikh, Jain | 5 |
+| Marital Status | Unmarried, Currently Married, Divorced, Widowed, etc. | 6 |
+| Education | Illiterate, Education 1-5, 6-7, 8-10, 11-12, Graduation, etc. | 10 |
+| Occupation (Detailed) | Daily Wage Labourer, Farmer, Govt Job, Private Job, etc. | 8 |
+| Ration Card | Antyodaya, APL, BPL | 3 |
+| Type of Residence | Kaccha, Pakka, Aadha Kacha Pakka | 3 |
+| Property | 2 Wheeler, 4 Wheeler, Cycle, Fridge, Generator, Tractor, None | 7 |
+| Status of Individual | Birth Status, Death Status, In Migrant, Out Migrant, Resident | 6 |
+| Type of Disability | Arthritis, Back Pain, Cerebral Palsy, Hearing Impairment, etc. | 13 |
+| Sub Caste | Baiga, Gond, Oraon, Patel, Satnami, Yadav | 6 |
+
+### 13.7 Files Created
+
+| File | Location | Purpose |
+|------|----------|---------|
+| `SubjectToBahmniMappings.sql` | `integration-data/src/main/resources/db/onetime/` | Complete mapping SQL |
+| `avni_registration_concepts.csv` | `JSS Bahmni integration/bahmni_import/` | Bahmni concept import |
+| `avni_registration_concept_sets.csv` | `JSS Bahmni integration/bahmni_import/` | Bahmni concept set import |
+
+### 13.8 Verification Steps
+
+#### 13.8.1 Verify Bahmni Concepts
+```sql
+-- In OpenMRS database
+SELECT concept_id, uuid, name FROM concept_name
+WHERE name LIKE 'Avni - %' AND locale = 'en';
+```
+
+#### 13.8.2 Verify Integration Mappings
+```sql
+-- In avni-int database
+SELECT mm.avni_value, mm.int_system_value, mm.data_type_hint, mg.name as mapping_group, mt.name as mapping_type
+FROM mapping_metadata mm
+JOIN mapping_group mg ON mm.mapping_group_id = mg.id
+JOIN mapping_type mt ON mm.mapping_type_id = mt.id
+WHERE mg.name = 'PatientSubject'
+AND mm.is_voided = false
+ORDER BY mt.name;
+
+-- Expected results:
+-- 1 Subject_EncounterType mapping
+-- 1 Subject_BahmniForm mapping
+-- 1 PatientIdentifier_Concept mapping
+```
+
+#### 13.8.3 Verify Observation Mappings Count
+```sql
+-- In avni-int database
+SELECT COUNT(*) as total_mappings
+FROM mapping_metadata mm
+JOIN mapping_group mg ON mm.mapping_group_id = mg.id
+WHERE mg.name = 'Observation'
+AND mm.is_voided = false;
+
+-- Expected: ~116 mappings (36 questions + ~80 answers)
+```
+
+### 13.9 Integration Testing
+
+#### 13.9.1 Test Sync Flow
+1. Create Individual in Avni with JSS ID
+2. Fill registration form with sample data
+3. Trigger integration sync
+4. Verify patient created in Bahmni with:
+   - Correct patient identifier (JSS ID)
+   - Registration encounter with observations
+
+#### 13.9.2 Troubleshooting
+```sql
+-- Check for sync errors
+SELECT er.entity_id, et.name as error_type, erl.error_msg, erl.logged_at
+FROM error_record er
+JOIN error_record_log erl ON erl.error_record_id = er.id
+JOIN error_type et ON erl.error_type_id = et.id
+WHERE er.avni_entity_type = 'Subject'
+ORDER BY erl.logged_at DESC
+LIMIT 10;
+```
+
+### 13.10 Key Differences from Program Encounter Mappings
+
+| Aspect | Subject Mapping | Program Encounter Mapping |
+|--------|-----------------|---------------------------|
+| Mapping Group | PatientSubject | ProgramEncounter |
+| Encounter Type Mapping | Subject_EncounterType | CommunityProgramEncounter_EncounterType |
+| Form Mapping | Subject_BahmniForm | CommunityProgramEncounter_BahmniForm |
+| Identifier Mapping | PatientIdentifier_Concept | N/A |
+| Creates | Patient + Encounter | Encounter only (Patient must exist) |
+
+---
+
+## 14. Summary of SQL Mapping Files
+
+| File | Direction | Mappings | Description |
+|------|-----------|----------|-------------|
+| `SubjectToBahmniMappings.sql` | Avni → Bahmni | ~120 | Individual registration to Bahmni patient |
+| `ANCClinicVisitMappings.sql` | Avni → Bahmni | 70 | ANC Clinic Visit program encounter |
+| `ANCVisitMappings.sql` | Avni → Bahmni | - | ANC Home Visit program encounter (reference) |
+
+### Running All Mappings
+
+```bash
+# Connect to avni-int database
+psql -h localhost -p 5455 -U avni-int -d avni_int
+
+# Run subject mappings (required first)
+\i integration-data/src/main/resources/db/onetime/SubjectToBahmniMappings.sql
+
+# Run ANC Clinic Visit mappings
+\i integration-data/src/main/resources/db/onetime/ANCClinicVisitMappings.sql
+```
+
+---
+
+## Sources
+
+- [Avni Integration Developer Guide](https://avni.readme.io/docs/integration-developer-guide)
+- [Avni-Bahmni Integration Specific](https://avni.readme.io/docs/avni-bahmni-integration-specific)
+- [Cross-System Field Mapping](https://avni.readme.io/docs/cross-system-field-mapping)
+- [Build, Deployment, Configuration](https://avni.readme.io/docs/build-deployment-and-configuration)
+- JSS Bahmni integration folder documentation
+- Codebase analysis of integration-service repository
+
+---
+
+*Document Version: 1.2*
 *Created: January 2025*
+*Updated: February 4, 2025 (Subject to Bahmni mapping case study added)*

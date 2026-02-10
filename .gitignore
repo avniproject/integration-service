@@ -28,3 +28,4 @@ docs/*-secrets.md
 *.key
 *.crt
 \.vscode/**
+bahmni/src/main/resources/bahmni-application.properties

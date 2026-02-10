@@ -5,6 +5,8 @@ import org.avni_integration_service.amrit.job.AvniAmritMainJob;
 import org.avni_integration_service.goonj.config.GoonjConfig;
 import org.avni_integration_service.goonj.job.AvniGoonjFullErrorJob;
 import org.avni_integration_service.goonj.job.AvniGoonjMainJob;
+import org.avni_integration_service.bahmni.job.AvniBahmniFullErrorJob;
+import org.avni_integration_service.bahmni.job.AvniBahmniMainJob;
 import org.avni_integration_service.integration_data.domain.IntegrationSystem;
 import org.avni_integration_service.integration_data.domain.config.IntegrationSystemConfigCollection;
 import org.avni_integration_service.integration_data.repository.IntegrationSystemRepository;
@@ -38,6 +40,8 @@ public class IntegrationJobScheduler {
 
     private final AvniGoonjMainJob avniGoonjMainJob;
     private final AvniGoonjFullErrorJob avniGoonjFullErrorJob;
+    private final AvniBahmniMainJob avniBahmniMainJob;
+    private final AvniBahmniFullErrorJob avniBahmniFullErrorJob;
     private final AvniPowerMainJob avniPowerMainJob;
     private final AvniPowerFullErrorJob avniPowerFullErrorJob;
     private final AvniLahiMainJob avniLahiMainJob;
@@ -61,6 +65,10 @@ public class IntegrationJobScheduler {
     private String amritCron;
     @Value("${amrit.app.cron.full.error}")
     private String amritCronError;
+    @Value("${bahmni.app.cron.main}")
+    private String bahmniCron;
+    @Value("${bahmni.app.cron.full.error}")
+    private String bahmniCronError;
     @Value("${avni.int.env:#{null}}")
     private String currentEnvironment;
 
@@ -69,10 +77,13 @@ public class IntegrationJobScheduler {
                                    AvniPowerMainJob avniPowerMainJob, AvniPowerFullErrorJob avniPowerFullErrorJob,
                                    AvniLahiMainJob avniLahiMainJob, AvniLahiFullErrorJob avniLahiFullErrorJob,
                                    AvniAmritMainJob avniAmritMainJob, AvniAmritFullErrorJob avniAmritFullErrorJob,
+                                   AvniBahmniMainJob avniBahmniMainJob, AvniBahmniFullErrorJob avniBahmniFullErrorJob,
                                    AvniRwbMainJob avniRwbMainJob, TaskScheduler taskScheduler,
                                    IntegrationSystemConfigRepository integrationSystemConfigRepository, IntegrationSystemRepository integrationSystemRepository) {
         this.avniGoonjMainJob = avniGoonjMainJob;
         this.avniGoonjFullErrorJob = avniGoonjFullErrorJob;
+        this.avniBahmniMainJob = avniBahmniMainJob;
+        this.avniBahmniFullErrorJob = avniBahmniFullErrorJob;
         this.avniPowerMainJob = avniPowerMainJob;
         this.avniPowerFullErrorJob = avniPowerFullErrorJob;
         this.avniRwbMainJob = avniRwbMainJob;
@@ -96,6 +107,7 @@ public class IntegrationJobScheduler {
         if (scheduleRwb()) activeModules.add("RWB"); else skippedModules.add("RWB");
         if (scheduleAmrit()) activeModules.add("Amrit"); else skippedModules.add("Amrit");
         if (scheduleGoonj()) activeModules.add("Goonj"); else skippedModules.add("Goonj");
+        if (scheduleBahmni()) activeModules.add("Bahmni"); else skippedModules.add("Bahmni");
 
         logStartupSummary(activeModules, skippedModules);
     }
@@ -150,6 +162,32 @@ public class IntegrationJobScheduler {
             }
         }
         return anyScheduled;
+    }
+    
+    private boolean scheduleBahmni() {
+        logger.info("--- Bahmni Module ---");
+        
+        // Environment validation - Bahmni integration should only run in production environment
+        if (!validateEnvironment("Bahmni", "prod")) {
+            return false;
+        }
+        
+        boolean scheduled = false;
+        if (CronExpression.isValidExpression(bahmniCron)) {
+            taskScheduler.schedule(avniBahmniMainJob::execute, new CronTrigger(bahmniCron));
+            logger.info(String.format("Bahmni: Main job SCHEDULED with cron: %s", bahmniCron));
+            scheduled = true;
+        } else {
+            logger.info(String.format("Bahmni: Main job SKIPPED - invalid cron: %s", bahmniCron));
+        }
+        if (CronExpression.isValidExpression(bahmniCronError)) {
+            taskScheduler.schedule(avniBahmniFullErrorJob::execute, new CronTrigger(bahmniCronError));
+            logger.info(String.format("Bahmni: Error job SCHEDULED with cron: %s", bahmniCronError));
+            scheduled = true;
+        } else {
+            logger.info(String.format("Bahmni: Error job SKIPPED - invalid cron: %s", bahmniCronError));
+        }
+        return scheduled;
     }
 
     private boolean validateEnvironment(String systemName, String dbEnv) {
