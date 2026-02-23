@@ -76,11 +76,11 @@ VALUES (
 
 -- Section 5: Patient Identifier Mapping
 -- -----------------------------------------------------
--- Maps Avni Bahmni JSS ID to Bahmni Patient Identifier Type
+-- Maps Patient Identifier (Avni) to Bahmni Patient Identifier Type
 INSERT INTO mapping_metadata (int_system_value, avni_value, data_type_hint, integration_system_id, mapping_group_id, mapping_type_id, uuid, is_voided)
 VALUES (
-    '15c84573-8294-4e93-8d34-1028848eadca',
-    'Avni Bahmni JSS ID',
+    'b46af68a-c79a-11e2-b284-107d46e7b2c5',
+    'Patient Identifier',
     NULL,
     (SELECT id FROM integration_system WHERE name = 'bahmni'),
     (SELECT id FROM mapping_group WHERE name = 'PatientSubject' AND integration_system_id = (SELECT id FROM integration_system WHERE name = 'bahmni')),

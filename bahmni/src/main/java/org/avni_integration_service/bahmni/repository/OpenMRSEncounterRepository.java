@@ -9,6 +9,8 @@ import org.ict4h.atomfeed.client.domain.Event;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,8 +55,19 @@ public class OpenMRSEncounterRepository extends BaseOpenMRSRepository {
     }
 
     public OpenMRSFullEncounter createEncounter(OpenMRSEncounter encounter) {
+        System.err.println("\n=== OpenMRSEncounterRepository.createEncounter ===");
+        System.err.println("Encounter Type UUID: " + encounter.getEncounterType());
+        System.err.println("Patient UUID: " + encounter.getPatient());
+        System.err.println("Visit UUID: " + encounter.getVisit());
+        System.err.println("Location UUID: " + encounter.getLocation());
+        System.err.println("Observations count: " + (encounter.getObservations() != null ? encounter.getObservations().size() : 0));
+
         String json = ObjectJsonMapper.writeValueAsString(encounter);
+        System.err.println("Encounter JSON (first 600 chars): " + json.substring(0, Math.min(600, json.length())) + (json.length() > 600 ? "\n...TRUNCATED..." : ""));
+
+        System.err.println("POSTing to Bahmni encounter endpoint...");
         String outputJson = openMRSWebClient.post(getResourcePath("encounter"), json);
+        System.err.println("✓ Bahmni response (first 300 chars): " + outputJson.substring(0, Math.min(300, outputJson.length())) + (outputJson.length() > 300 ? "\n...TRUNCATED..." : ""));
         return ObjectJsonMapper.readValue(outputJson, OpenMRSFullEncounter.class);
     }
 

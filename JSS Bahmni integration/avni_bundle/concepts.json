@@ -1,0 +1,16 @@
+[
+  {
+    "name": "Patient Identifier",
+    "uuid": "b46af68a-c79a-11e2-b284-107d46e7b2c5",
+    "dataType": "Text",
+    "active": true,
+    "keyValues": []
+  },
+  {
+    "name": "Bahmni Entity UUID",
+    "uuid": "a1b2c3d4-e5f6-4a5b-8c9d-0e1f2a3b4c5d",
+    "dataType": "Text",
+    "active": true,
+    "keyValues": []
+  }
+]

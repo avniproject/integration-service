@@ -59,11 +59,47 @@ public class VisitService {
 
     private OpenMRSVisit createVisit(OpenMRSPatient patient, Enrolment enrolment) {
         String location = constantsRepository.findAllConstants().getValue(ConstantKey.IntegrationBahmniLocation.name());
-        String visitType = mappingService.getBahmniValue(bahmniMappingGroup.programEnrolment, bahmniMappingType.communityEnrolmentVisitType, enrolment.getProgram());
-        return createVisit(patient, location, visitType, visitAttributes(enrolment));
+        String programName = enrolment.getProgram();
+        String visitType = mappingService.getBahmniValue(bahmniMappingGroup.programEnrolment, bahmniMappingType.communityEnrolmentVisitType, programName);
+
+        String debugMsg = String.format("VisitService.createVisit - Enrolment: %s, Program: '%s', Location: %s, VisitType: %s (NULL=%s), EnrolmentDate: %s",
+            enrolment.getUuid(), programName, location, visitType, (visitType == null), enrolment.getEnrolmentDateTime());
+        logger.info(debugMsg);
+        System.err.println(debugMsg);
+
+        return createVisit(patient, location, visitType, visitAttributes(enrolment), enrolment);
+    }
+
+    private OpenMRSVisit createVisit(OpenMRSPatient patient, String location, String visitType, List<OpenMRSSaveVisitAttribute> visitAttributes, Enrolment enrolment) {
+        logger.debug("=== VisitService.createVisit START (with Enrolment) ===");
+        logger.debug("Patient UUID: " + patient.getUuid());
+        logger.debug("Location UUID: " + location);
+        logger.debug("Visit Type UUID: " + visitType);
+        logger.debug("Visit Attributes count: " + (visitAttributes != null ? visitAttributes.size() : 0));
+        logger.debug("Enrolment Date (for visit start date): " + enrolment.getEnrolmentDateTime());
+
+        OpenMRSSaveVisit openMRSSaveVisit = new OpenMRSSaveVisit();
+        openMRSSaveVisit.setLocation(location);
+        openMRSSaveVisit.setVisitType(visitType);
+        openMRSSaveVisit.setPatient(patient.getUuid());
+        String startDatetime = FormatAndParseUtil.toISODateString(enrolment.getEnrolmentDateTime());
+        openMRSSaveVisit.setStartDatetime(startDatetime);
+        openMRSSaveVisit.setAttributes(visitAttributes);
+
+        logger.debug("About to POST visit to Bahmni with start date: " + startDatetime);
+        OpenMRSVisit visit = openMRSVisitRepository.createVisit(openMRSSaveVisit);
+        logger.debug("✓ Created visit UUID: " + (visit != null ? visit.getUuid() : "null"));
+        logger.debug("=== VisitService.createVisit END ===");
+        return visit;
     }
 
     private OpenMRSVisit createVisit(OpenMRSPatient patient, String location, String visitType, List<OpenMRSSaveVisitAttribute> visitAttributes) {
+        logger.debug("=== VisitService.createVisit START ===");
+        logger.debug("Patient UUID: " + patient.getUuid());
+        logger.debug("Location UUID: " + location);
+        logger.debug("Visit Type UUID: " + visitType);
+        logger.debug("Visit Attributes count: " + (visitAttributes != null ? visitAttributes.size() : 0));
+
         OpenMRSSaveVisit openMRSSaveVisit = new OpenMRSSaveVisit();
         openMRSSaveVisit.setLocation(location);
         openMRSSaveVisit.setVisitType(visitType);
@@ -72,8 +108,11 @@ public class VisitService {
                 FormatAndParseUtil.fromIsoDateString(patient.getAuditInfo().getDateCreated()));
         openMRSSaveVisit.setStartDatetime(startDatetime);
         openMRSSaveVisit.setAttributes(visitAttributes);
+
+        logger.debug("About to POST visit to Bahmni...");
         OpenMRSVisit visit = openMRSVisitRepository.createVisit(openMRSSaveVisit);
-        logger.debug("Created new visit with uuid %s".formatted(visit.getUuid()));
+        logger.debug("✓ Created visit UUID: " + (visit != null ? visit.getUuid() : "null"));
+        logger.debug("=== VisitService.createVisit END ===");
         return visit;
     }
 

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/amrit" />
+            <option value="$PROJECT_DIR$/avni" />
+            <option value="$PROJECT_DIR$/bahmni" />
+            <option value="$PROJECT_DIR$/glific" />
+            <option value="$PROJECT_DIR$/goonj" />
+            <option value="$PROJECT_DIR$/integration-common" />
+            <option value="$PROJECT_DIR$/integration-data" />
+            <option value="$PROJECT_DIR$/integrator" />
+            <option value="$PROJECT_DIR$/lahi" />
+            <option value="$PROJECT_DIR$/metadata-migrator" />
+            <option value="$PROJECT_DIR$/power" />
+            <option value="$PROJECT_DIR$/rwb" />
+            <option value="$PROJECT_DIR$/util" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>

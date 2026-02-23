@@ -26,7 +26,6 @@ class PatientServiceExternalTest {
 
 
     @Test
-    @Disabled("Requires connection to JSS Bahmni server")
     public void findPatientByIdentifier_GAN279731() throws JsonProcessingException {
         // Create constants with JSS values (since DB is empty in test)
         List<Constant> constantList = new ArrayList<>();
@@ -55,7 +54,6 @@ class PatientServiceExternalTest {
     }
 
     @Test
-    @Disabled("Requires connection to JSS Bahmni server")
     public void findSubject_UsingGAN279731_WithActualConfig() throws Exception {
         // Create constants with JSS values (since DB is empty in test)
         List<Constant> constantList = new ArrayList<>();
@@ -111,6 +109,54 @@ class PatientServiceExternalTest {
         assertEquals("GAN279731", patientIdentifier);
         System.out.println("Constructed identifier: " + patientIdentifier);
         System.out.println("Test passed: Identifier construction works correctly");
+    }
+
+    @Test
+    public void fetchMultiplePatients() throws JsonProcessingException {
+        // Fetch multiple patient IDs to create in Avni
+        String[] patientIds = {"279731", "279732", "279733", "279734", "279735", "279736"};
+
+        List<Constant> constantList = new ArrayList<>();
+        constantList.add(new Constant("BahmniIdentifierPrefix", "GAN"));
+        Constants constants = new Constants(constantList);
+
+        SubjectToPatientMetaData metaData = new SubjectToPatientMetaData(
+            "avniIdentifierConcept",
+            "subject-encounter-type-uuid",
+            "subject-uuid-concept"
+        );
+
+        System.out.println("\n========================================");
+        System.out.println("FETCHING PATIENTS FROM BAHMNI");
+        System.out.println("========================================\n");
+
+        int found = 0;
+        for (String id : patientIds) {
+            Subject subject = new Subject();
+            subject.addObservation("avniIdentifierConcept", id);
+
+            OpenMRSPatient patient = patientService.findPatient(subject, constants, metaData);
+
+            System.out.println("--- GAN" + id + " ---");
+            if (patient != null) {
+                found++;
+                System.out.println("  Patient UUID: " + patient.getUuid());
+                System.out.println("  Patient ID: " + patient.getPatientId());
+                System.out.println("  Display: " + patient.getDisplay());
+                System.out.println("  Name: " + patient.getName());
+                if (patient.getPerson() != null) {
+                    System.out.println("  Gender: " + patient.getPerson().getGender());
+                    System.out.println("  Birthdate: " + patient.getPerson().getBirthdate());
+                    System.out.println("  Person UUID: " + patient.getPerson().getUuid());
+                }
+            } else {
+                System.out.println("  NOT FOUND");
+            }
+            System.out.println();
+        }
+        System.out.println("========================================");
+        System.out.println("Found " + found + " of " + patientIds.length + " patients");
+        System.out.println("========================================\n");
     }
 
 }

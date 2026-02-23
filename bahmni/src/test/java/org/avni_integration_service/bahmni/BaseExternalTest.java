@@ -18,6 +18,8 @@ public class BaseExternalTest {
     }
 
     protected Event encounterEvent(String uuid) {
-        return new Event("0", String.format("/openmrs/ws/rest/v1/encounter/%s?v=full", uuid));
+        Event event = new Event("0", String.format("/openmrs/ws/rest/v1/encounter/%s?v=full", uuid));
+        event.setTitle("Encounter");
+        return event;
     }
 }

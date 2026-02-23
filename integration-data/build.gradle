@@ -29,17 +29,6 @@ task migrateDb(type: org.flywaydb.gradle.task.FlywayMigrateTask) {
     password = 'password'
 }
 
-tasks.withType(JavaCompile).all {
-    options.compilerArgs += ['--enable-preview']
-}
-
-tasks.withType(Test).all {
-    jvmArgs += '--enable-preview'
-}
-
-tasks.withType(JavaExec) {
-    jvmArgs += '--enable-preview'
-}
 
 repositories {
     mavenCentral()

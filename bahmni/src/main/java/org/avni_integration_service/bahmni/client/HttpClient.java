@@ -91,12 +91,17 @@ public class HttpClient {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.put("Accept", "application/json");
         logger.trace(String.format("Posting to: %s Data: %s", path, json));
+        System.err.println("\n===== RAW REQUEST TO BAHMNI =====");
+        System.err.println("Path: " + path);
+        System.err.println("Payload: " + json);
+        System.err.println("==================================\n");
         HttpResponse httpResponse = httpClientInternal.post(authenticator.getRequestDetails(URI.create(path)), httpHeaders, json);
         int statusCode = httpResponse.getStatusLine().getStatusCode();
         String message = asString(httpResponse);
         if (statusCode != HttpStatus.SC_CREATED && statusCode != HttpStatus.SC_OK) {
-            logger.error(message);
-            throw new RuntimeException("Post failed");
+            String errorMsg = String.format("Post failed with status %d. Response: %s", statusCode, message);
+            logger.error(errorMsg);
+            throw new RuntimeException(errorMsg);
         }
         return message;
     }

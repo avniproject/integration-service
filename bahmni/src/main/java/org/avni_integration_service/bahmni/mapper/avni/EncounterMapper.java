@@ -49,6 +49,13 @@ public class EncounterMapper {
     }
 
     private OpenMRSEncounter mapEncounter(AvniBaseEncounter baseEncounter, String patientUuid, Constants constants, OpenMRSVisit visit, String encounterTypeUuid, String formConceptUuid) {
+        System.err.println("\n=== EncounterMapper.mapEncounter START ===");
+        System.err.println("Patient UUID: " + patientUuid);
+        System.err.println("Encounter Type UUID: " + encounterTypeUuid);
+        System.err.println("Form Concept UUID: " + formConceptUuid);
+        System.err.println("Visit UUID: " + (visit != null ? visit.getUuid() : "null"));
+        System.err.println("Base Encounter Observations count: " + (baseEncounter.getObservations() != null ? baseEncounter.getObservations().size() : 0));
+
         var openMRSEncounter = new OpenMRSEncounter();
         openMRSEncounter.setPatient(patientUuid);
         openMRSEncounter.setEncounterType(encounterTypeUuid);
@@ -57,13 +64,22 @@ public class EncounterMapper {
         openMRSEncounter.addEncounterProvider(new OpenMRSEncounterProvider(constants.getValue(ConstantKey.IntegrationBahmniProvider.name()),
                 constants.getValue(ConstantKey.IntegrationBahmniEncounterRole.name())));
 
+        System.err.println("Mapping observations...");
         List<OpenMRSSaveObservation> observations = observationMapper.mapObservations(baseEncounter.getObservations());
+        System.err.println("✓ Mapped observations count: " + observations.size());
+
         observations.add(avniUuidObs(baseEncounter));
         observations.add(eventDateObs(baseEncounter));
+        System.err.println("✓ Added Avni UUID & Event Date obs. Total: " + observations.size());
+
         OpenMRSSaveObservation formGroupObservation = formGroupObservation(formConceptUuid);
         formGroupObservation.setGroupMembers(observations);
+        System.err.println("✓ Created form group observation with " + observations.size() + " members. Form UUID: " + formConceptUuid);
+
         openMRSEncounter.setObservations(List.of(formGroupObservation));
         openMRSEncounter.setVisit(visit.getUuid());
+
+        System.err.println("=== EncounterMapper.mapEncounter END - Encounter ready to POST ===\n");
         return openMRSEncounter;
     }
 
