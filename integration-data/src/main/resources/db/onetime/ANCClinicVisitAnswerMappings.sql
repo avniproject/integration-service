@@ -422,7 +422,7 @@ ON CONFLICT DO NOTHING;
 
 -- Answer: Fundle Height doesn't correspond to the gestational week
 INSERT INTO mapping_metadata (int_system_value, avni_value, data_type_hint, integration_system_id, mapping_group_id, mapping_type_id, uuid, is_voided)
-VALUES ('f86f75fa-9464-44b7-958b-5f3ce04b4f87', 'Avni - Fundle Height doesn''t correspond to the gestational week', NULL,
+VALUES ('f86f75fa-9464-44b7-958b-5f3ce04b4f87', 'Fundle Height doesn''t correspond to the gestational week', NULL,
     (SELECT id FROM integration_system WHERE name = 'bahmni'),
     (SELECT id FROM mapping_group WHERE name = 'Observation' AND integration_system_id = (SELECT id FROM integration_system WHERE name = 'bahmni') LIMIT 1),
     (SELECT id FROM mapping_type WHERE name = 'Concept' AND integration_system_id = (SELECT id FROM integration_system WHERE name = 'bahmni') LIMIT 1),
@@ -746,7 +746,7 @@ ON CONFLICT DO NOTHING;
 
 -- Answer: Not audible/Can't locate
 INSERT INTO mapping_metadata (int_system_value, avni_value, data_type_hint, integration_system_id, mapping_group_id, mapping_type_id, uuid, is_voided)
-VALUES ('05580ea9-fb5c-4f8f-aeae-8c120950de92', 'Avni - Not audible/Can''t locate', NULL,
+VALUES ('05580ea9-fb5c-4f8f-aeae-8c120950de92', 'Not audible/Can''t locate', NULL,
     (SELECT id FROM integration_system WHERE name = 'bahmni'),
     (SELECT id FROM mapping_group WHERE name = 'Observation' AND integration_system_id = (SELECT id FROM integration_system WHERE name = 'bahmni') LIMIT 1),
     (SELECT id FROM mapping_type WHERE name = 'Concept' AND integration_system_id = (SELECT id FROM integration_system WHERE name = 'bahmni') LIMIT 1),
