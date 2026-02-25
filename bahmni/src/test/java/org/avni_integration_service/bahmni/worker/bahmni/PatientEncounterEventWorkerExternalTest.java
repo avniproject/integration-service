@@ -121,7 +121,7 @@ public class PatientEncounterEventWorkerExternalTest extends BaseExternalTest {
      */
     @Test
     @org.junit.jupiter.api.Tag("external")
-    @Transactional(propagation = Propagation.NOT_SUPPORTED)
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void debugDiabetesIntakeSync() {
         testDiabetesSyncByPatientId("GAN279732");
     }
