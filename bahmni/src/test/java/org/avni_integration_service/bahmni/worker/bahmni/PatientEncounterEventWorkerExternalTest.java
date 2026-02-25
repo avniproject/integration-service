@@ -28,7 +28,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.HashMap;
 import java.util.List;
 
@@ -120,7 +121,7 @@ public class PatientEncounterEventWorkerExternalTest extends BaseExternalTest {
      */
     @Test
     @org.junit.jupiter.api.Tag("external")
-    @Transactional
+    @Transactional(propagation = Propagation.NOT_SUPPORTED)
     public void debugDiabetesIntakeSync() {
         testDiabetesSyncByPatientId("GAN279732");
     }
