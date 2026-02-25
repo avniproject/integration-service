@@ -46,26 +46,11 @@ public class OpenMRSPatientMapper {
 
     public LinkedHashMap<String, Object> mapToAvniObservations(OpenMRSPatient openMRSPatient, PatientToSubjectMetaData patientToSubjectMetaData, MappingMetaDataCollection conceptMetaData) {
         LinkedHashMap<String, Object> observations = new LinkedHashMap<>();
-        for (OpenMRSPersonAttribute openMRSPersonAttribute : openMRSPatient.getPerson().getAttributes()) {
-            String attributeTypeUuid = openMRSPersonAttribute.getAttributeType().getUuid();
-            MappingMetaData questionMapping = conceptMetaData.getMappingForBahmniValue(attributeTypeUuid);
-            Object attributeValue = openMRSPersonAttribute.getValue();
-            if (attributeValue == null)
-                continue;
 
-            if (attributeValue instanceof Map) {
-                Map<String, String> attributeValueMap = (Map<String, String>) attributeValue;
-                String attributeUuid = attributeValueMap.get("uuid");
-                MappingMetaData answerMapping = mappingMetaDataRepository.findByMappingGroupAndMappingTypeAndIntSystemValueAndIsVoidedFalse( bahmniMappingGroup.observation, bahmniMappingType.concept, attributeUuid);
-                if (answerMapping == null) {
-                    throw new RuntimeException(String.format("Could not find concept mapped for OpenMRS concept: %s while finding answer to OpenMRS concept/person-attribute: %s which is Avni Concept %s", attributeUuid, attributeTypeUuid, questionMapping.getAvniValue()));
-                }
-                conceptMetaData.getMappingForBahmniValue(attributeUuid);
-                observations.put(questionMapping.getAvniValue(), answerMapping.getAvniValue());
-            } else {
-                observations.put(questionMapping.getAvniValue(), attributeValue);
-            }
-        }
+        // Per integration requirement: Only sync Bahmni Entity UUID in patient registration form
+        // Do NOT sync patient attributes (gender, phone, etc.) - they are not mapped and not needed
+        // Patient attributes should be managed separately in Avni, not synced from Bahmni
+
         observations.put(patientToSubjectMetaData.bahmniEntityUuidConcept(), openMRSPatient.getUuid());
         return observations;
     }
