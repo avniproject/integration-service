@@ -23,7 +23,8 @@ public enum RwbSendMsgErrorType {
             case Sent -> Success;
             case NotSent -> BadConfiguration;
             case NotSentNoPhoneNumberInAvni -> BadRequest;
-            case PartiallySent, Failed, default -> RuntimeError;
+            case PartiallySent, Failed -> RuntimeError;
+            default -> RuntimeError;
         };
     }
 }

@@ -66,7 +66,7 @@ public class AvniGoonjAdhocJob {
                 case AvniActivity -> processActivity(tasks, filters);
                 case AvniDistribution -> processDistribution(tasks, filters);
                 case AvniDispatchReceipt -> processDispatchReceipt(tasks, filters);
-                case default -> {
+                default -> {
                     return;
                 }
             }
