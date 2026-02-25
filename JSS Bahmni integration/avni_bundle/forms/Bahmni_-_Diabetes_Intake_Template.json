@@ -4,9 +4,31 @@
   "formType": "Encounter",
   "formElementGroups": [
     {
+      "uuid": "a1b2c3d4-e5f6-4a5b-8c9d-0e1f2a3b4c5d",
+      "name": "Bahmni - Metadata",
+      "displayOrder": 0.0,
+      "formElements": [
+        {
+          "name": "Bahmni Entity UUID",
+          "uuid": "f6f7f8f9-f0f1-f2f3-f4f5-f6f7f8f9f0f1",
+          "keyValues": [{"key": "editable", "value": false}],
+          "concept": {
+            "name": "Bahmni Entity UUID",
+            "uuid": "a1b2c3d4-e5f6-4a5b-8c9d-0e1f2a3b4c5d",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
       "uuid": "e415ecff-689c-4651-a503-b19f02caa01b",
       "name": "Bahmni - Diabetes, History",
-      "displayOrder": 1.0,
+      "displayOrder": 2.0,
       "formElements": [
         {
           "name": "Bahmni - Diabetes, Diagnosed Date",
@@ -42,7 +64,7 @@
     {
       "uuid": "3b12bb57-b544-44ab-953f-f9aeb1c48165",
       "name": "Bahmni - Diabetes, Complaint",
-      "displayOrder": 2.0,
+      "displayOrder": 3.0,
       "formElements": [
         {
           "name": "Bahmni - Diabetes, Complaint",
@@ -176,7 +198,7 @@
     {
       "uuid": "fdcf6af9-8469-4bda-acc8-3565638f92ed",
       "name": "Bahmni - Diabetes, Other Complaints",
-      "displayOrder": 3.0,
+      "displayOrder": 4.0,
       "formElements": [
         {
           "name": "Bahmni - Diabetes, Other Complaints",
@@ -198,7 +220,7 @@
     {
       "uuid": "0fc1c478-40f0-4ed6-afe6-0436456f7583",
       "name": "Bahmni - Diabetes, Complications",
-      "displayOrder": 4.0,
+      "displayOrder": 5.0,
       "formElements": [
         {
           "name": "Bahmni - Diabetes, Complications",
@@ -272,7 +294,7 @@
     {
       "uuid": "1ed14d47-9385-4c2f-bab1-161a2d2e20fc",
       "name": "Bahmni - Diabetes, Other Complications",
-      "displayOrder": 5.0,
+      "displayOrder": 6.0,
       "formElements": [
         {
           "name": "Bahmni - Diabetes, Other Complications",
@@ -294,7 +316,7 @@
     {
       "uuid": "4fa595c7-8c15-4f38-b682-00439d6dc8a7",
       "name": "Bahmni - Diabetes, Examination",
-      "displayOrder": 6.0,
+      "displayOrder": 7.0,
       "formElements": [
         {
           "name": "Bahmni - Diabetes, Peripheral Pulses",
@@ -447,7 +469,7 @@
     {
       "uuid": "e8ab9147-d135-47ed-b12a-dc65740fd1d0",
       "name": "Bahmni - Diabetes, Investigations",
-      "displayOrder": 7.0,
+      "displayOrder": 8.0,
       "formElements": [
         {
           "name": "Bahmni - Diabetes, Electrocardiography",
