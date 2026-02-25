@@ -148,10 +148,56 @@ public class PatientEncounterEventWorkerExternalTest extends BaseExternalTest {
         System.out.println("        → Verify 'Bahmni Entity UUID' field is populated with: " + bahmniPatientUuid);
         System.out.println("        → (Manual verification required)");
 
-        System.out.println("\nSTEP 3: Syncing Diabetes Intake encounter...");
-        String bahmniEncounterUuid = "b469afaa-c79a-11e2-b284-107d46e7b2c5";
-        patientEncounterEventWorker.process(encounterEvent(bahmniEncounterUuid));
-        System.out.println("✓ Encounter sync completed");
+        System.out.println("\nSTEP 3: Fetching and syncing Diabetes Intake encounters dynamically...");
+
+        // Load encounter mappings from database
+        BahmniEncounterToAvniEncounterMetaData metaData = mappingMetaDataService.getForBahmniEncounterToAvniEntities();
+
+        // Get encounter type UUID for Diabetes Intake from mappings
+        MappingMetaData diabetesEncounterTypeMapping = metaData.getEncounterMappingFor("60619143-5b49-4c10-92f4-0d080cd10b8a");
+        if (diabetesEncounterTypeMapping == null) {
+            System.out.println("  ✗ ERROR - No mapping found for Diabetes Intake form");
+            return;
+        }
+
+        // Query all Diabetes encounters for this patient from Bahmni (not hardcoded!)
+        List<BahmniEncounter> diabetesEncounters = bahmniEncounterService.getEncountersForPatient(
+            bahmniPatientUuid,
+            diabetesEncounterTypeMapping.getIntSystemValue(),
+            metaData
+        );
+
+        if (diabetesEncounters == null || diabetesEncounters.isEmpty()) {
+            System.out.println("  ✗ No Diabetes Intake encounters found for patient");
+            return;
+        }
+
+        System.out.println("  ✓ Found " + diabetesEncounters.size() + " Diabetes Intake encounter(s)");
+
+        // Sync each encounter dynamically discovered
+        int syncedCount = 0;
+        int emptyEncounters = 0;
+        for (BahmniEncounter encounter : diabetesEncounters) {
+            try {
+                String encounterUuid = encounter.getOpenMRSEncounter().getUuid();
+                int obsCount = encounter.getOpenMRSEncounter().getLeafObservations() != null ? encounter.getOpenMRSEncounter().getLeafObservations().size() : 0;
+                System.out.println("  - Syncing encounter: " + encounterUuid + " (observations: " + obsCount + ")");
+
+                if (obsCount == 0) {
+                    System.out.println("    ⚠ WARNING: Encounter has NO observations in Bahmni!");
+                    emptyEncounters++;
+                }
+
+                patientEncounterEventWorker.process(encounterEvent(encounterUuid));
+                syncedCount++;
+            } catch (Exception e) {
+                System.out.println("    ✗ Failed to sync encounter: " + e.getMessage());
+            }
+        }
+        System.out.println("✓ Encounter sync completed - " + syncedCount + " encounter(s) synced");
+        if (emptyEncounters > 0) {
+            System.out.println("  ⚠ Note: " + emptyEncounters + " encounter(s) have NO observations in Bahmni");
+        }
 
         System.out.println("\nSTEP 4: Encounter should now appear in Avni");
         System.out.println("        → Go to Avni patient GAN279732's encounters");
