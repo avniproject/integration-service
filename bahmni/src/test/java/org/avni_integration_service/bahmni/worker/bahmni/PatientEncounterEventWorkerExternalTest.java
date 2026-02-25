@@ -126,6 +126,42 @@ public class PatientEncounterEventWorkerExternalTest extends BaseExternalTest {
         testDiabetesSyncByPatientId("GAN279732");
     }
 
+    @Test
+    @org.junit.jupiter.api.Tag("external")
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public void stepByStepDiabetesSync() {
+        // STEP-BY-STEP VERIFICATION TEST
+        // Step 1: Sync patient registration (Bahmni Entity UUID only)
+        // Step 2: Verify patient appears in Avni
+        // Step 3: Sync Diabetes encounter
+        // Step 4: Verify encounter appears in Avni
+
+        System.out.println("\n========== STEP-BY-STEP DIABETES SYNC VERIFICATION ==========");
+
+        System.out.println("\nSTEP 1: Syncing patient registration...");
+        String bahmniPatientUuid = "3192824d-ec16-4e69-8478-e38aa05ec480";
+        patientEventWorker.process(patientEvent(bahmniPatientUuid));
+        System.out.println("✓ Patient sync completed");
+
+        System.out.println("\nSTEP 2: Patient should now appear in Avni with identifier GAN279732");
+        System.out.println("        → Go to Avni and search for patient GAN279732");
+        System.out.println("        → Verify 'Bahmni Entity UUID' field is populated with: " + bahmniPatientUuid);
+        System.out.println("        → (Manual verification required)");
+
+        System.out.println("\nSTEP 3: Syncing Diabetes Intake encounter...");
+        String bahmniEncounterUuid = "b469afaa-c79a-11e2-b284-107d46e7b2c5";
+        patientEncounterEventWorker.process(encounterEvent(bahmniEncounterUuid));
+        System.out.println("✓ Encounter sync completed");
+
+        System.out.println("\nSTEP 4: Encounter should now appear in Avni");
+        System.out.println("        → Go to Avni patient GAN279732's encounters");
+        System.out.println("        → Look for 'Bahmni - Diabetes Intake Template' encounter");
+        System.out.println("        → Verify observations are populated (Diagnosed Date, Complaint, etc.)");
+        System.out.println("        → (Manual verification required)");
+
+        System.out.println("\n========== VERIFICATION COMPLETE - CHECK AVNI ==========\n");
+    }
+
     /**
      * Test Diabetes Intake sync with a specific patient identifier
      * Patient identifier alone is sufficient - integration resolves the rest
