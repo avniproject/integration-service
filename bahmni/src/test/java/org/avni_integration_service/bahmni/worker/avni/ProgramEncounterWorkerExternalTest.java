@@ -246,6 +246,54 @@ class ProgramEncounterWorkerExternalTest {
     }
 
     @Test
+    public void syncSpecificEncounterByUUID() {
+        System.out.println("\n========== DEBUG: Direct Sync of Specific Encounter by UUID ==========\n");
+
+        String encounterUuid = "dd2b2e77-f2e5-4390-8e00-dfa01a0fcca1";
+        System.out.println("Fetching and syncing encounter: " + encounterUuid);
+
+        Constants constants = constantsRepository.findAllConstants();
+        programEncounterWorker.cacheRunImmutables(constants);
+
+        ProgramEncounter encounter = programEncounterRepository.getProgramEncounter(encounterUuid);
+
+        if (encounter != null) {
+            System.out.println("\n✓ Encounter found!");
+            System.out.println("  Encounter Type: " + encounter.getEncounterType());
+            System.out.println("  Subject ID: " + encounter.getSubjectId());
+
+            // Get the raw "Encounter date time" value
+            Object encounterDateObj = encounter.get("Encounter date time");
+            System.out.println("\n[RAW FIELD DATA]");
+            System.out.println("  Raw 'Encounter date time' value: " + encounterDateObj);
+            System.out.println("  Type: " + (encounterDateObj == null ? "NULL" : encounterDateObj.getClass().getSimpleName()));
+
+            // Now test parsing
+            System.out.println("\n[PARSING TEST]");
+            System.out.println("  getEncounterDateTime(): " + encounter.getEncounterDateTime());
+            System.out.println("  isCompleted(): " + encounter.isCompleted());
+
+            if (encounter.isCompleted()) {
+                System.out.println("\n[SYNC ATTEMPT]");
+                try {
+                    programEncounterWorker.processProgramEncounter(encounter, false);
+                    System.out.println("✓ Sync successful! Check Bahmni for the visit.");
+                } catch (Exception e) {
+                    System.out.println("✗ Sync failed:");
+                    System.out.println("  Error: " + e.getClass().getSimpleName() + ": " + e.getMessage());
+                    e.printStackTrace();
+                }
+            } else {
+                System.out.println("\n✗ Encounter is NOT completed (no encounter date)");
+            }
+        } else {
+            System.out.println("✗ Encounter NOT found in Avni");
+        }
+
+        System.out.println("\n========== Test completed ==========\n");
+    }
+
+    @Test
     @org.junit.jupiter.api.Tag("external")
     public void debugANCClinicVisitSyncMultiplePatients() {
         System.out.println("\n========== DEBUG: ANC Clinic Visit Sync - Testing Multiple Patients ==========\n");

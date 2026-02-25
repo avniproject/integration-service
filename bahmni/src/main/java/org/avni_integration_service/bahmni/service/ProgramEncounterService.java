@@ -59,7 +59,8 @@ public class ProgramEncounterService extends BaseAvniEncounterService {
         System.out.println("\n========== SUBSTEP 3B: GET OR CREATE VISIT IN BAHMNI ==========");
         System.out.println("Patient UUID: " + patient.getUuid());
         System.out.println("Program: " + enrolment.getProgram());
-        var visit = visitService.getOrCreateVisit(patient, enrolment);
+        System.out.println("Encounter Date for Visit: " + programEncounter.getEncounterDateTime());
+        var visit = visitService.getOrCreateVisit(patient, enrolment, programEncounter.getEncounterDateTime());
 
         if (visit == null) {
             System.out.println("✗ ERROR: Visit creation failed!");

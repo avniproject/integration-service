@@ -10,48 +10,61 @@ delete from public.flyway_schema_history
 where script in ('V1_23__UniqueKeyInOneIntergrationSystem.sql',
                  'V1_22__AddIntegrationSystemConfigTable.sql');
 
--- Cleanup duplicate mapping_group entries (keep highest ID for each name/integration_system pair)
-UPDATE mapping_metadata m1
-SET mapping_group_id = (
-    SELECT MAX(mg.id) FROM mapping_group mg
-    WHERE mg.name = (SELECT name FROM mapping_group WHERE id = m1.mapping_group_id)
-    AND mg.integration_system_id = (SELECT integration_system_id FROM mapping_group WHERE id = m1.mapping_group_id)
-)
-WHERE mapping_group_id IN (
-    SELECT id FROM mapping_group mg1
-    WHERE id < (
-        SELECT MAX(id) FROM mapping_group mg2
+-- COMPREHENSIVE DUPLICATE CLEANUP: Remove all duplicate mapping_group and mapping_type entries
+-- This runs BEFORE migrations to ensure clean state for every test/deployment
+
+-- Step 1: Remove mapping_metadata entries that reference old duplicate mapping_groups (keep only max ID for each name/sys pair)
+DELETE FROM mapping_metadata m1
+WHERE m1.mapping_group_id IN (
+    SELECT mg1.id
+    FROM mapping_group mg1
+    WHERE EXISTS (
+        SELECT 1
+        FROM mapping_group mg2
         WHERE mg2.name = mg1.name
         AND mg2.integration_system_id = mg1.integration_system_id
+        AND mg2.id > mg1.id
     )
 );
 
-DELETE FROM mapping_group mg1
-WHERE id < (
-    SELECT MAX(id) FROM mapping_group mg2
-    WHERE mg2.name = mg1.name
-    AND mg2.integration_system_id = mg1.integration_system_id
-);
-
--- Cleanup duplicate mapping_type entries (keep highest ID for each name/integration_system pair)
-UPDATE mapping_metadata m1
-SET mapping_type_id = (
-    SELECT MAX(mt.id) FROM mapping_type mt
-    WHERE mt.name = (SELECT name FROM mapping_type WHERE id = m1.mapping_type_id)
-    AND mt.integration_system_id = (SELECT integration_system_id FROM mapping_type WHERE id = m1.mapping_type_id)
-)
-WHERE mapping_type_id IN (
-    SELECT id FROM mapping_type mt1
-    WHERE id < (
-        SELECT MAX(id) FROM mapping_type mt2
+-- Step 2: Remove mapping_metadata entries that reference old duplicate mapping_types (keep only max ID for each name/sys pair)
+DELETE FROM mapping_metadata m1
+WHERE m1.mapping_type_id IN (
+    SELECT mt1.id
+    FROM mapping_type mt1
+    WHERE EXISTS (
+        SELECT 1
+        FROM mapping_type mt2
         WHERE mt2.name = mt1.name
         AND mt2.integration_system_id = mt1.integration_system_id
+        AND mt2.id > mt1.id
     )
 );
 
+-- Step 3: Delete old duplicate mapping_group entries (keep only the highest ID for each name/integration_system pair)
+DELETE FROM mapping_group mg1
+WHERE mg1.id IN (
+    SELECT mg1.id
+    FROM mapping_group mg1
+    WHERE EXISTS (
+        SELECT 1
+        FROM mapping_group mg2
+        WHERE mg2.name = mg1.name
+        AND mg2.integration_system_id = mg1.integration_system_id
+        AND mg2.id > mg1.id
+    )
+);
+
+-- Step 4: Delete old duplicate mapping_type entries (keep only the highest ID for each name/integration_system pair)
 DELETE FROM mapping_type mt1
-WHERE id < (
-    SELECT MAX(id) FROM mapping_type mt2
-    WHERE mt2.name = mt1.name
-    AND mt2.integration_system_id = mt1.integration_system_id
+WHERE mt1.id IN (
+    SELECT mt1.id
+    FROM mapping_type mt1
+    WHERE EXISTS (
+        SELECT 1
+        FROM mapping_type mt2
+        WHERE mt2.name = mt1.name
+        AND mt2.integration_system_id = mt1.integration_system_id
+        AND mt2.id > mt1.id
+    )
 );

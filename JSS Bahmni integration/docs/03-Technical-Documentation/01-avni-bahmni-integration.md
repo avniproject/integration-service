@@ -127,7 +127,7 @@ Maps 68 Bahmni concepts to Avni form fields (Height, Weight, BMI, Blood Pressure
 ```
 ProgramEnrolment Group:
   - CommunityEnrolment_VisitType:
-    UUID 2ee11869-f426-44a5-9766-1fb195a1c56f (Bahmni) → "ANC" (program name)
+    UUID 2ee11869-f426-44a5-9766-1fb195a1c56f (Bahmni) → "Pregnancy" (program name)
 ```
 
 ### Constants (Key-Value Pairs)

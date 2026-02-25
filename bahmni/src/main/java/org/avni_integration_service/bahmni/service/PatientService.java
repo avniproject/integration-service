@@ -86,6 +86,12 @@ public class PatientService {
 
     public OpenMRSPatient findPatient(Subject subject, Constants constants, SubjectToPatientMetaData subjectToPatientMetaData) {
         String patientIdentifier = constants.getValue(ConstantKey.BahmniIdentifierPrefix.name()) + subject.getId(subjectToPatientMetaData.avniIdentifierConcept());
+        System.out.println("\n========== PATIENT LOOKUP DEBUG ==========");
+        System.out.println("Subject UUID: " + subject.getUuid());
+        System.out.println("Subject ID from concept: " + subject.getId(subjectToPatientMetaData.avniIdentifierConcept()));
+        System.out.println("BahmniIdentifierPrefix: " + constants.getValue(ConstantKey.BahmniIdentifierPrefix.name()));
+        System.out.println("Constructed Identifier: " + patientIdentifier);
+        System.out.println("==========================================\n");
         return openMRSPatientRepository.getPatientByIdentifier(patientIdentifier);
     }
 

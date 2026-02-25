@@ -17,7 +17,7 @@ VALUES ('IntegrationBahmniProvider', 'apiuser', uuid_generate_v4(), false)
 ON CONFLICT DO NOTHING;
 
 INSERT INTO constants (key, value, uuid, is_voided)
-VALUES ('IntegrationBahmniEncounterRole', 'apiuser', uuid_generate_v4(), false)
+VALUES ('IntegrationBahmniEncounterRole', 'Provider', uuid_generate_v4(), false)
 ON CONFLICT DO NOTHING;
 
 INSERT INTO constants (key, value, uuid, is_voided)

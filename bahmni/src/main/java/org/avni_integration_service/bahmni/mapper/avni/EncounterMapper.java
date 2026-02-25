@@ -61,8 +61,11 @@ public class EncounterMapper {
         openMRSEncounter.setEncounterType(encounterTypeUuid);
         openMRSEncounter.setEncounterDatetime(MapperUtils.getEventDateTime(baseEncounter.getEncounterDateTime(), visit));
         openMRSEncounter.setLocation(constants.getValue(ConstantKey.IntegrationBahmniLocation.name()));
-        openMRSEncounter.addEncounterProvider(new OpenMRSEncounterProvider(constants.getValue(ConstantKey.IntegrationBahmniProvider.name()),
-                constants.getValue(ConstantKey.IntegrationBahmniEncounterRole.name())));
+        String providerUuid = constants.getValue(ConstantKey.IntegrationBahmniProviderUUID.name());
+        var encounterProvider = new OpenMRSEncounterProvider(providerUuid,
+                constants.getValue(ConstantKey.IntegrationBahmniEncounterRole.name()));
+        encounterProvider.setUuid(providerUuid);
+        openMRSEncounter.addEncounterProvider(encounterProvider);
 
         System.err.println("Mapping observations...");
         List<OpenMRSSaveObservation> observations = observationMapper.mapObservations(baseEncounter.getObservations());
