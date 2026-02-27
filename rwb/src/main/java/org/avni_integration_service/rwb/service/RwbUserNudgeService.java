@@ -31,17 +31,17 @@ public class RwbUserNudgeService {
         this.rwbContextProvider = rwbContextProvider;
     }
 
-    public List<NudgeUserRequestDTO> getUsersThatHaveToReceiveNudge() {
-        RwbConfig rwbConfig = rwbContextProvider.get();
-        CustomQueryRequest customQueryRequest = new CustomQueryRequest(rwbConfig.getCustomQueryName(), Integer.parseInt(rwbConfig.getSinceNoOfDays()));
+    public List<NudgeUserRequestDTO> getUsersForQuery(String queryName) {
+        CustomQueryRequest customQueryRequest = new CustomQueryRequest(queryName, 0);
         CustomQueryResponse customQueryResponse = avniRwbUserNudgeRepository.executeCustomQuery(customQueryRequest);
-        logger.info(String.format("Custom Query returned %d number of users to nudge", customQueryResponse.getTotal()));
+        logger.info(String.format("Query '%s' returned %d users", queryName, customQueryResponse.getTotal()));
         return customQueryResponse.getData().stream().map(row ->
-                new NudgeUserRequestDTO(row.get(USER_ID_RESULT_COL_INDEX).toString(), row.get(USER_NAME_RESULT_COL_INDEX).toString(),
-                rwbConfig.getSinceNoOfDays(), rwbConfig.getWithinNoOfDays())).collect(Collectors.toList());
+                new NudgeUserRequestDTO(row.get(USER_ID_RESULT_COL_INDEX).toString(),
+                        row.get(USER_NAME_RESULT_COL_INDEX).toString()))
+                .collect(Collectors.toList());
     }
 
-    public SendMessageResponse nudgeUser(NudgeUserRequestDTO nudgeUserRequestDTO) {
-        return avniRwbUserNudgeRepository.sendMessage(nudgeUserRequestDTO);
+    public SendMessageResponse nudgeUser(NudgeUserRequestDTO nudgeUserRequestDTO, String flowId) {
+        return avniRwbUserNudgeRepository.startFlow(nudgeUserRequestDTO, flowId);
     }
 }

@@ -9,8 +9,22 @@ import org.avni_integration_service.rwb.dto.NudgeUserRequestDTO;
 import org.joda.time.DateTime;
 import org.springframework.stereotype.Component;
 
+import java.util.Map;
+
 @Component
 public class AvniRwbUserNudgeRepository {
+    private static final Logger logger = Logger.getLogger(AvniRwbUserNudgeRepository.class);
+
+    private static final Map<String, String> QUERY_TO_FLOW_ID = Map.of(
+            "Work Order Registration", "36875",
+            "Nudge to register WO", "36876",
+            "Nudge to Login", "36859",
+            "Successful WO registration", "36877",
+            "Daily Recording", "36878",
+            "Nudge for Endline", "36879",
+            "Nudge for Work Order Endline", "36880"
+    );
+
     private final AvniMessageRepository avniMessageRepository;
     private final AvniQueryRepository avniQueryRepository;
     private final RwbContextProvider rwbContextProvider;
@@ -21,20 +35,38 @@ public class AvniRwbUserNudgeRepository {
         this.rwbContextProvider = rwbContextProvider;
     }
 
-    public SendMessageResponse sendMessage(NudgeUserRequestDTO nudgeUserRequestDTO) {
-        return avniMessageRepository.sendMessage(createMessageRequestToNudgeUser(nudgeUserRequestDTO));
+    public static Map<String, String> getQueryToFlowIdMap() {
+        return QUERY_TO_FLOW_ID;
     }
 
-    private ManualMessageContract createMessageRequestToNudgeUser(NudgeUserRequestDTO nudgeUserRequestDTO) {
-        ManualMessageContract manualMessageContract = new ManualMessageContract();
-        manualMessageContract.setReceiverId(nudgeUserRequestDTO.getUserId());
-        manualMessageContract.setReceiverType(ReceiverType.User);
-        manualMessageContract.setMessageTemplateId(rwbContextProvider.get().getMsgTemplateId());
-        manualMessageContract.setParameters(new String[]{
-                nudgeUserRequestDTO.getUserName(), nudgeUserRequestDTO.getSinceNoOfDays(), nudgeUserRequestDTO.getWithinNoOfDays()});
-        manualMessageContract.setScheduledDateTime(new DateTime()); //set current date time
-        return manualMessageContract;
+    public SendMessageResponse startFlow(NudgeUserRequestDTO dto, String flowId) {
+        logger.info(String.format("Starting flow %s for user %s", flowId, dto.getUserId()));
+        return avniMessageRepository.startFlowForContact(createFlowRequest(dto, flowId));
     }
+
+    private StartFlowForContactRequest createFlowRequest(NudgeUserRequestDTO dto, String flowId) {
+        StartFlowForContactRequest request = new StartFlowForContactRequest();
+        request.setReceiverId(dto.getUserId());
+        request.setReceiverType(ReceiverType.User);
+        request.setFlowId(flowId);
+        request.setParameters(new String[]{dto.getUserName()});
+        return request;
+    }
+
+//    public SendMessageResponse sendMessage(NudgeUserRequestDTO nudgeUserRequestDTO) {
+//        return avniMessageRepository.sendMessage(createMessageRequestToNudgeUser(nudgeUserRequestDTO));
+//    }
+//
+//    private ManualMessageContract createMessageRequestToNudgeUser(NudgeUserRequestDTO nudgeUserRequestDTO) {
+//        ManualMessageContract manualMessageContract = new ManualMessageContract();
+//        manualMessageContract.setReceiverId(nudgeUserRequestDTO.getUserId());
+//        manualMessageContract.setReceiverType(ReceiverType.User);
+//        manualMessageContract.setMessageTemplateId(rwbContextProvider.get().getMsgTemplateId());
+//        manualMessageContract.setParameters(new String[]{
+//                nudgeUserRequestDTO.getUserName(), nudgeUserRequestDTO.getSinceNoOfDays(), nudgeUserRequestDTO.getWithinNoOfDays()});
+//        manualMessageContract.setScheduledDateTime(new DateTime()); //set current date time
+//        return manualMessageContract;
+//    }
 
     public CustomQueryResponse executeCustomQuery(CustomQueryRequest customQueryRequest) {
         return avniQueryRepository.invokeCustomQuery(customQueryRequest);

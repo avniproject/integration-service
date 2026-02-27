@@ -7,6 +7,11 @@ public class NudgeUserRequestDTO {
     String sinceNoOfDays;
     String withinNoOfDays;
 
+    public NudgeUserRequestDTO(String userId, String userName) {
+        this.userId = userId;
+        this.userName = userName;
+    }
+
     public NudgeUserRequestDTO(String userId, String userName, String sinceNoOfDays, String withinNoOfDays) {
         this.userId = userId;
         this.userName = userName;

@@ -2,18 +2,13 @@ package org.avni_integration_service.rwb.worker;
 
 import org.apache.log4j.Logger;
 import org.avni_integration_service.avni.domain.SendMessageResponse;
-import org.avni_integration_service.common.MessageUnprocessableException;
-import org.avni_integration_service.common.PlatformException;
-import org.avni_integration_service.common.UnknownException;
-import org.avni_integration_service.integration_data.domain.error.ErrorRecord;
-import org.avni_integration_service.rwb.config.RwbSendMsgErrorType;
 import org.avni_integration_service.rwb.dto.NudgeUserRequestDTO;
+import org.avni_integration_service.rwb.repository.AvniRwbUserNudgeRepository;
 import org.avni_integration_service.rwb.service.RwbUserNudgeErrorService;
 import org.avni_integration_service.rwb.service.RwbUserNudgeService;
-import org.avni_integration_service.rwb.util.DateTimeUtil;
 import org.springframework.stereotype.Component;
 
-import java.util.Calendar;
+import java.util.List;
 
 @Component
 public class RWBUsersNudgeWorker {
@@ -27,20 +22,16 @@ public class RWBUsersNudgeWorker {
     }
 
     public void processUsers() {
-        rwbUserNudgeService.getUsersThatHaveToReceiveNudge().forEach(nudgeUserRequestDTO -> processUser(nudgeUserRequestDTO));
+        AvniRwbUserNudgeRepository.getQueryToFlowIdMap().forEach((queryName, flowId) -> {
+            logger.info(String.format("Processing flow %s for query '%s'", flowId, queryName));
+            List<NudgeUserRequestDTO> users = rwbUserNudgeService.getUsersForQuery(queryName);
+            users.forEach(dto -> processUser(dto, flowId));
+        });
     }
 
-    private void processUser(NudgeUserRequestDTO nudgeUserRequestDTO) {
+    private void processUser(NudgeUserRequestDTO nudgeUserRequestDTO, String flowId) {
         try {
-            ErrorRecord errorRecord = rwbUserNudgeErrorService.getErrorRecord(nudgeUserRequestDTO.getUserId());
-            if(errorRecord != null && errorRecord.getLastErrorRecordLog().getErrorType().getName().equals(RwbSendMsgErrorType.Success.name()) &&
-                    DateTimeUtil.differenceWithNowLessThanInterval(errorRecord.getLastErrorRecordLog().getLoggedAt(),
-                            Integer.parseInt(nudgeUserRequestDTO.getWithinNoOfDays()), Calendar.DAY_OF_MONTH)) {
-                logger.debug(String.format("User with id '%s' has already been nudged successfully in the last %s day(s).",
-                        nudgeUserRequestDTO.getUserId(), nudgeUserRequestDTO.getWithinNoOfDays()));
-                return;
-            }
-            SendMessageResponse sendMessageResponse = rwbUserNudgeService.nudgeUser(nudgeUserRequestDTO);
+            SendMessageResponse sendMessageResponse = rwbUserNudgeService.nudgeUser(nudgeUserRequestDTO, flowId);
             rwbUserNudgeErrorService.saveUserNudgeStatus(nudgeUserRequestDTO.getUserId(), sendMessageResponse);
         } catch (Exception exception) {
             rwbUserNudgeErrorService.saveUserNudgeError(nudgeUserRequestDTO.getUserId(), exception);
