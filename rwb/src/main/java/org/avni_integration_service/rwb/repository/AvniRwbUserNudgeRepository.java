@@ -53,20 +53,20 @@ public class AvniRwbUserNudgeRepository {
         return request;
     }
 
-//    public SendMessageResponse sendMessage(NudgeUserRequestDTO nudgeUserRequestDTO) {
-//        return avniMessageRepository.sendMessage(createMessageRequestToNudgeUser(nudgeUserRequestDTO));
-//    }
-//
-//    private ManualMessageContract createMessageRequestToNudgeUser(NudgeUserRequestDTO nudgeUserRequestDTO) {
-//        ManualMessageContract manualMessageContract = new ManualMessageContract();
-//        manualMessageContract.setReceiverId(nudgeUserRequestDTO.getUserId());
-//        manualMessageContract.setReceiverType(ReceiverType.User);
-//        manualMessageContract.setMessageTemplateId(rwbContextProvider.get().getMsgTemplateId());
-//        manualMessageContract.setParameters(new String[]{
-//                nudgeUserRequestDTO.getUserName(), nudgeUserRequestDTO.getSinceNoOfDays(), nudgeUserRequestDTO.getWithinNoOfDays()});
-//        manualMessageContract.setScheduledDateTime(new DateTime()); //set current date time
-//        return manualMessageContract;
-//    }
+    public SendMessageResponse sendMessage(NudgeUserRequestDTO nudgeUserRequestDTO) {
+        return avniMessageRepository.sendMessage(createMessageRequestToNudgeUser(nudgeUserRequestDTO));
+    }
+
+    private ManualMessageContract createMessageRequestToNudgeUser(NudgeUserRequestDTO nudgeUserRequestDTO) {
+        ManualMessageContract manualMessageContract = new ManualMessageContract();
+        manualMessageContract.setReceiverId(nudgeUserRequestDTO.getUserId());
+        manualMessageContract.setReceiverType(ReceiverType.User);
+        manualMessageContract.setMessageTemplateId(rwbContextProvider.get().getMsgTemplateId());
+        manualMessageContract.setParameters(new String[]{
+                nudgeUserRequestDTO.getUserName(), nudgeUserRequestDTO.getSinceNoOfDays(), nudgeUserRequestDTO.getWithinNoOfDays()});
+        manualMessageContract.setScheduledDateTime(new DateTime());
+        return manualMessageContract;
+    }
 
     public CustomQueryResponse executeCustomQuery(CustomQueryRequest customQueryRequest) {
         return avniQueryRepository.invokeCustomQuery(customQueryRequest);
