@@ -12,6 +12,7 @@ VALUES
     WHERE g.name = ''Primary Users''
       AND u.disabled_in_cognito = false
       AND u.is_voided = false
+      AND u.organisation_id = :org_id
 ),
 synced_users AS (
     SELECT DISTINCT user_id
@@ -24,7 +25,7 @@ JOIN synced_users su ON pu.user_id = su.user_id
 WHERE NOT EXISTS (
     SELECT 1 FROM flow_request_queue frq
     WHERE frq.message_receiver_id = pu.user_id
-      AND frq.flow_id = 36875
+      AND frq.flow_id = ''36875''
       AND frq.is_voided = false
 );',
 :org_id, false, 0, 1, 1, now(), now()),
@@ -40,6 +41,7 @@ WHERE NOT EXISTS (
     WHERE g.name = ''Primary Users''
       AND u.disabled_in_cognito = false
       AND u.is_voided = false
+      AND u.organisation_id = :org_id
 ),
 old_sync AS (
     SELECT user_id
@@ -62,7 +64,7 @@ WHERE pu.user_id NOT IN (SELECT user_id FROM wo_users)
   AND NOT EXISTS (
     SELECT 1 FROM flow_request_queue frq
     WHERE frq.message_receiver_id = pu.user_id
-      AND frq.flow_id = 36876
+      AND frq.flow_id = ''36876''
       AND frq.is_voided = false
       AND frq.created_date_time > now() - INTERVAL ''3 DAYS''
 );',
@@ -79,6 +81,7 @@ WHERE pu.user_id NOT IN (SELECT user_id FROM wo_users)
     WHERE g.name = ''Primary Users''
       AND u.disabled_in_cognito = false
       AND u.is_voided = false
+      AND u.organisation_id = :org_id
 ),
 no_sync_users AS (
     SELECT pu.user_id
@@ -97,7 +100,7 @@ WHERE pu.user_id IN (
 AND NOT EXISTS (
     SELECT 1 FROM flow_request_queue frq
     WHERE frq.message_receiver_id = pu.user_id
-      AND frq.flow_id = 36859
+      AND frq.flow_id = '36859'
       AND frq.is_voided = false
       AND frq.created_date_time > now() - INTERVAL ''3 DAYS''
 );',
@@ -114,6 +117,7 @@ AND NOT EXISTS (
     WHERE g.name = ''Primary Users''
       AND u.disabled_in_cognito = false
       AND u.is_voided = false
+      AND u.organisation_id = :org_id
 ),
 wo_users AS (
     SELECT DISTINCT created_by_id AS user_id
@@ -129,7 +133,7 @@ JOIN wo_users wo ON pu.user_id = wo.user_id
 WHERE NOT EXISTS (
     SELECT 1 FROM flow_request_queue frq
     WHERE frq.message_receiver_id = pu.user_id
-      AND frq.flow_id = 36877
+      AND frq.flow_id = ''36877''
       AND frq.is_voided = false
 );',
 :org_id, false, 0, 1, 1, now(), now()),
@@ -144,8 +148,9 @@ WHERE NOT EXISTS (
              JOIN groups g ON g.id = ug.group_id AND g.is_voided = false
     WHERE g.name = ''Primary Users''
       AND u.disabled_in_cognito = false
-      AND u.is_voided = false
-),
+      AND u.is_voided = false 
+      AND u.organisation_id = :org_id
+  ),
 entities AS (
     SELECT u.id AS user_id,
            COUNT(DISTINCT CASE WHEN st.name = ''Farmer'' THEN i.id END) AS farmers,
@@ -162,7 +167,15 @@ SELECT pu.user_id, pu.first_name
 FROM primary_users pu
 JOIN entities e ON pu.user_id = e.user_id
 WHERE (e.farmers > 0 OR e.gps > 0)
-  AND e.machines > 0;',
+  AND e.machines > 0
+  
+  --  NEW CHECK: ensure message not already sent
+AND NOT EXISTS (
+    SELECT 1
+    FROM flow_request_queue frq
+    WHERE frq.message_receiver_id = pu.user_id
+      AND frq.flow_id = ''36878''
+      AND frq.is_voided = false;',
 :org_id, false, 0, 1, 1, now(), now()),
 
 
@@ -176,6 +189,7 @@ WHERE (e.farmers > 0 OR e.gps > 0)
     WHERE g.name = ''Primary Users''
       AND u.disabled_in_cognito = false
       AND u.is_voided = false
+      AND u.organisation_id = :org_id
 ),
 recent_activity AS (
     SELECT DISTINCT created_by_id AS user_id
@@ -207,7 +221,7 @@ WHERE (e.farmers_or_gp > 0 AND e.machines > 0)
   AND NOT EXISTS (
     SELECT 1 FROM flow_request_queue frq
     WHERE frq.message_receiver_id = pu.user_id
-      AND frq.flow_id = 36879
+      AND frq.flow_id = ''36879''
       AND frq.is_voided = false
       AND frq.created_date_time > now() - INTERVAL ''3 DAYS''
 );',
@@ -224,6 +238,7 @@ WHERE (e.farmers_or_gp > 0 AND e.machines > 0)
     WHERE g.name = ''Primary Users''
       AND u.disabled_in_cognito = false
       AND u.is_voided = false
+      AND u.organisation_id = :org_id
 ),
 entity_counts AS (
     SELECT u.id AS user_id,
@@ -268,7 +283,7 @@ WHERE ec.farmers = COALESCE(el.farmer_endlines, 0)
   AND NOT EXISTS (
     SELECT 1 FROM flow_request_queue frq
     WHERE frq.message_receiver_id = pu.user_id
-      AND frq.flow_id = 36880
+      AND frq.flow_id = ''36880''
       AND frq.is_voided = false
       AND frq.created_date_time > now() - INTERVAL ''3 DAYS''
 );',
