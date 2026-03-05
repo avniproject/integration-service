@@ -5,6 +5,8 @@ import org.avni_integration_service.integration_data.domain.IntegrationSystem;
 import org.avni_integration_service.integration_data.domain.config.IntegrationSystemConfigCollection;
 import org.springframework.util.StringUtils;
 
+import java.util.Map;
+
 public class RwbConfig {
     private final IntegrationSystemConfigCollection integrationSystemConfigCollection;
     private final ContextIntegrationSystem integrationSystem;
@@ -58,6 +60,10 @@ public class RwbConfig {
      */
     public String getEnvironment() {
         return getStringConfigValue("int_env", null);
+    }
+
+    public Map<String, String> getQueryToFlowIdMap() {
+        return integrationSystemConfigCollection.getConfigsByPrefix("flow.");
     }
 
     public ContextIntegrationSystem getIntegrationSystem() {

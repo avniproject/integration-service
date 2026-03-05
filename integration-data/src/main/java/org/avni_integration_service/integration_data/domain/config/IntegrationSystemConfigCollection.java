@@ -1,6 +1,8 @@
 package org.avni_integration_service.integration_data.domain.config;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class IntegrationSystemConfigCollection {
     private final List<IntegrationSystemConfig> integrationSystemConfigs;
@@ -28,5 +30,13 @@ public class IntegrationSystemConfigCollection {
 
     public String getErrorScheduledJobCron() {
         return this.getConfigValue(ERROR_SCHEDULED_JOB_CRON, "-");
+    }
+
+    public Map<String, String> getConfigsByPrefix(String prefix) {
+        return integrationSystemConfigs.stream()
+                .filter(x -> x.getKey().startsWith(prefix))
+                .collect(Collectors.toMap(
+                        x -> x.getKey().substring(prefix.length()),
+                        IntegrationSystemConfig::getValue));
     }
 }

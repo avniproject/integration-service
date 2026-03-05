@@ -31,8 +31,8 @@ public class RwbUserNudgeService {
         this.rwbContextProvider = rwbContextProvider;
     }
 
-    public List<NudgeUserRequestDTO> getUsersForQuery(String queryName) {
-        CustomQueryRequest customQueryRequest = new CustomQueryRequest(queryName, 0);
+    public List<NudgeUserRequestDTO> getUsersForQuery(String queryName, String flowId) {
+        CustomQueryRequest customQueryRequest = new CustomQueryRequest(queryName, flowId);
         CustomQueryResponse customQueryResponse = avniRwbUserNudgeRepository.executeCustomQuery(customQueryRequest);
         logger.info(String.format("Query '%s' returned %d users", queryName, customQueryResponse.getTotal()));
         return customQueryResponse.getData().stream().map(row ->

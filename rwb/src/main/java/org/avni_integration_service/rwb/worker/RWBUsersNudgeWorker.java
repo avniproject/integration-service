@@ -3,7 +3,7 @@ package org.avni_integration_service.rwb.worker;
 import org.apache.log4j.Logger;
 import org.avni_integration_service.avni.domain.SendMessageResponse;
 import org.avni_integration_service.rwb.dto.NudgeUserRequestDTO;
-import org.avni_integration_service.rwb.repository.AvniRwbUserNudgeRepository;
+import org.avni_integration_service.rwb.config.RwbContextProvider;
 import org.avni_integration_service.rwb.service.RwbUserNudgeErrorService;
 import org.avni_integration_service.rwb.service.RwbUserNudgeService;
 import org.springframework.stereotype.Component;
@@ -15,16 +15,18 @@ public class RWBUsersNudgeWorker {
     private static final Logger logger = Logger.getLogger(RWBUsersNudgeWorker.class);
     private final RwbUserNudgeService rwbUserNudgeService;
     private final RwbUserNudgeErrorService rwbUserNudgeErrorService;
+    private final RwbContextProvider rwbContextProvider;
 
-    public RWBUsersNudgeWorker(RwbUserNudgeService rwbUserNudgeService, RwbUserNudgeErrorService rwbUserNudgeErrorService) {
+    public RWBUsersNudgeWorker(RwbUserNudgeService rwbUserNudgeService, RwbUserNudgeErrorService rwbUserNudgeErrorService, RwbContextProvider rwbContextProvider) {
         this.rwbUserNudgeService = rwbUserNudgeService;
         this.rwbUserNudgeErrorService = rwbUserNudgeErrorService;
+        this.rwbContextProvider = rwbContextProvider;
     }
 
     public void processUsers() {
-        AvniRwbUserNudgeRepository.getQueryToFlowIdMap().forEach((queryName, flowId) -> {
+        rwbContextProvider.get().getQueryToFlowIdMap().forEach((queryName, flowId) -> {
             logger.info(String.format("Processing flow %s for query '%s'", flowId, queryName));
-            List<NudgeUserRequestDTO> users = rwbUserNudgeService.getUsersForQuery(queryName);
+            List<NudgeUserRequestDTO> users = rwbUserNudgeService.getUsersForQuery(queryName, flowId);
             users.forEach(dto -> processUser(dto, flowId));
         });
     }

@@ -11,6 +11,11 @@ public class CustomQueryRequest {
         this.queryParams = new QueryParams(DateTime.now().minusDays(numberOfDays).toDate());
     }
 
+    public CustomQueryRequest(String name, String flowId) {
+        this.name = name;
+        this.queryParams = new QueryParams(flowId);
+    }
+
     public String getName() {
         return name;
     }

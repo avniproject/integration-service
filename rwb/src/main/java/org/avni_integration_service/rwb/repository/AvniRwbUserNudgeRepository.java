@@ -9,21 +9,9 @@ import org.avni_integration_service.rwb.dto.NudgeUserRequestDTO;
 import org.joda.time.DateTime;
 import org.springframework.stereotype.Component;
 
-import java.util.Map;
-
 @Component
 public class AvniRwbUserNudgeRepository {
     private static final Logger logger = Logger.getLogger(AvniRwbUserNudgeRepository.class);
-
-    private static final Map<String, String> QUERY_TO_FLOW_ID = Map.of(
-            "Work Order Registration", "36875",
-            "Nudge to register WO", "36876",
-            "Nudge to Login", "36859",
-            "Successful WO registration", "36877",
-            "Daily Recording", "36878",
-            "Nudge for Endline", "36879",
-            "Nudge for Work Order Endline", "36880"
-    );
 
     private final AvniMessageRepository avniMessageRepository;
     private final AvniQueryRepository avniQueryRepository;
@@ -33,10 +21,6 @@ public class AvniRwbUserNudgeRepository {
         this.avniMessageRepository = avniMessageRepository;
         this.avniQueryRepository = avniQueryRepository;
         this.rwbContextProvider = rwbContextProvider;
-    }
-
-    public static Map<String, String> getQueryToFlowIdMap() {
-        return QUERY_TO_FLOW_ID;
     }
 
     public SendMessageResponse startFlow(NudgeUserRequestDTO dto, String flowId) {

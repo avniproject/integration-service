@@ -17,7 +17,7 @@ VALUES
 synced_users AS (
     SELECT DISTINCT user_id
     FROM sync_telemetry
-    WHERE sync_status = ''success''
+    WHERE sync_status = ''complete''
 )
 SELECT pu.user_id, pu.first_name
 FROM primary_users pu
@@ -25,8 +25,8 @@ JOIN synced_users su ON pu.user_id = su.user_id
 WHERE NOT EXISTS (
     SELECT 1 FROM flow_request_queue frq
     WHERE frq.message_receiver_id = pu.user_id
-      AND frq.flow_id = ''36875''
-      AND frq.is_voided = false
+      AND frq.flow_id = :flow_id
+      AND frq.is_voided = false AND frq.delivery_status = ''Sent''
 );',
 :org_id, false, 0, 1, 1, now(), now()),
 
@@ -46,7 +46,7 @@ WHERE NOT EXISTS (
 old_sync AS (
     SELECT user_id
     FROM sync_telemetry
-    WHERE sync_status = ''success''
+    WHERE sync_status = ''complete''
       AND created_date_time < now() - INTERVAL ''2 DAYS''
 ),
 wo_users AS (
@@ -64,8 +64,8 @@ WHERE pu.user_id NOT IN (SELECT user_id FROM wo_users)
   AND NOT EXISTS (
     SELECT 1 FROM flow_request_queue frq
     WHERE frq.message_receiver_id = pu.user_id
-      AND frq.flow_id = ''36876''
-      AND frq.is_voided = false
+      AND frq.flow_id = :flow_id
+      AND frq.is_voided = false AND frq.delivery_status = ''Sent''
       AND frq.created_date_time > now() - INTERVAL ''3 DAYS''
 );',
 :org_id, false, 0, 1, 1, now(), now()),
@@ -87,7 +87,7 @@ no_sync_users AS (
     SELECT pu.user_id
     FROM primary_users pu
     WHERE pu.user_id NOT IN (
-        SELECT user_id FROM sync_telemetry WHERE sync_status = ''success''
+        SELECT user_id FROM sync_telemetry WHERE sync_status = ''complete''
     )
 )
 SELECT pu.user_id, pu.first_name
@@ -100,8 +100,8 @@ WHERE pu.user_id IN (
 AND NOT EXISTS (
     SELECT 1 FROM flow_request_queue frq
     WHERE frq.message_receiver_id = pu.user_id
-      AND frq.flow_id = '36859'
-      AND frq.is_voided = false
+      AND frq.flow_id = :flow_id
+      AND frq.is_voided = false AND frq.delivery_status = ''Sent''
       AND frq.created_date_time > now() - INTERVAL ''3 DAYS''
 );',
 :org_id, false, 0, 1, 1, now(), now()),
@@ -133,8 +133,8 @@ JOIN wo_users wo ON pu.user_id = wo.user_id
 WHERE NOT EXISTS (
     SELECT 1 FROM flow_request_queue frq
     WHERE frq.message_receiver_id = pu.user_id
-      AND frq.flow_id = ''36877''
-      AND frq.is_voided = false
+      AND frq.flow_id = :flow_id
+      AND frq.is_voided = false AND frq.delivery_status = ''Sent''
 );',
 :org_id, false, 0, 1, 1, now(), now()),
 
@@ -174,8 +174,9 @@ AND NOT EXISTS (
     SELECT 1
     FROM flow_request_queue frq
     WHERE frq.message_receiver_id = pu.user_id
-      AND frq.flow_id = ''36878''
-      AND frq.is_voided = false;',
+      AND frq.flow_id = :flow_id
+      AND frq.is_voided = false AND frq.delivery_status = ''Sent''
+);',
 :org_id, false, 0, 1, 1, now(), now()),
 
 
@@ -221,8 +222,8 @@ WHERE (e.farmers_or_gp > 0 AND e.machines > 0)
   AND NOT EXISTS (
     SELECT 1 FROM flow_request_queue frq
     WHERE frq.message_receiver_id = pu.user_id
-      AND frq.flow_id = ''36879''
-      AND frq.is_voided = false
+      AND frq.flow_id = :flow_id
+      AND frq.is_voided = false AND frq.delivery_status = ''Sent''
       AND frq.created_date_time > now() - INTERVAL ''3 DAYS''
 );',
 :org_id, false, 0, 1, 1, now(), now()),
@@ -283,8 +284,8 @@ WHERE ec.farmers = COALESCE(el.farmer_endlines, 0)
   AND NOT EXISTS (
     SELECT 1 FROM flow_request_queue frq
     WHERE frq.message_receiver_id = pu.user_id
-      AND frq.flow_id = ''36880''
-      AND frq.is_voided = false
+      AND frq.flow_id = :flow_id
+      AND frq.is_voided = false AND frq.delivery_status = ''Sent''
       AND frq.created_date_time > now() - INTERVAL ''3 DAYS''
 );',
 :org_id, false, 0, 1, 1, now(), now());
