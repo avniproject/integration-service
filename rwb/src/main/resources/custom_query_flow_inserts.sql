@@ -24,7 +24,9 @@ FROM primary_users pu
 JOIN synced_users su ON pu.user_id = su.user_id
 WHERE NOT EXISTS (
     SELECT 1 FROM flow_request_queue frq
-    WHERE frq.message_receiver_id = pu.user_id
+    JOIN message_receiver mr ON mr.id = frq.message_receiver_id
+    WHERE mr.receiver_id = pu.user_id
+      AND mr.receiver_type = ''User''
       AND frq.flow_id = :flow_id
       AND frq.is_voided = false AND frq.delivery_status = ''Sent''
 );',
@@ -63,7 +65,9 @@ JOIN old_sync os ON pu.user_id = os.user_id
 WHERE pu.user_id NOT IN (SELECT user_id FROM wo_users)
   AND NOT EXISTS (
     SELECT 1 FROM flow_request_queue frq
-    WHERE frq.message_receiver_id = pu.user_id
+    JOIN message_receiver mr ON mr.id = frq.message_receiver_id
+    WHERE mr.receiver_id = pu.user_id
+      AND mr.receiver_type = ''User''
       AND frq.flow_id = :flow_id
       AND frq.is_voided = false AND frq.delivery_status = ''Sent''
       AND frq.created_date_time > now() - INTERVAL ''3 DAYS''
@@ -99,7 +103,9 @@ WHERE pu.user_id IN (
 )
 AND NOT EXISTS (
     SELECT 1 FROM flow_request_queue frq
-    WHERE frq.message_receiver_id = pu.user_id
+    JOIN message_receiver mr ON mr.id = frq.message_receiver_id
+    WHERE mr.receiver_id = pu.user_id
+      AND mr.receiver_type = ''User''
       AND frq.flow_id = :flow_id
       AND frq.is_voided = false AND frq.delivery_status = ''Sent''
       AND frq.created_date_time > now() - INTERVAL ''3 DAYS''
@@ -132,7 +138,9 @@ FROM primary_users pu
 JOIN wo_users wo ON pu.user_id = wo.user_id
 WHERE NOT EXISTS (
     SELECT 1 FROM flow_request_queue frq
-    WHERE frq.message_receiver_id = pu.user_id
+    JOIN message_receiver mr ON mr.id = frq.message_receiver_id
+    WHERE mr.receiver_id = pu.user_id
+      AND mr.receiver_type = ''User''
       AND frq.flow_id = :flow_id
       AND frq.is_voided = false AND frq.delivery_status = ''Sent''
 );',
@@ -173,7 +181,9 @@ WHERE (e.farmers > 0 OR e.gps > 0)
 AND NOT EXISTS (
     SELECT 1
     FROM flow_request_queue frq
-    WHERE frq.message_receiver_id = pu.user_id
+    JOIN message_receiver mr ON mr.id = frq.message_receiver_id
+    WHERE mr.receiver_id = pu.user_id
+      AND mr.receiver_type = ''User''
       AND frq.flow_id = :flow_id
       AND frq.is_voided = false AND frq.delivery_status = ''Sent''
 );',
@@ -221,7 +231,9 @@ WHERE (e.farmers_or_gp > 0 AND e.machines > 0)
   AND pu.user_id NOT IN (SELECT user_id FROM recent_activity)
   AND NOT EXISTS (
     SELECT 1 FROM flow_request_queue frq
-    WHERE frq.message_receiver_id = pu.user_id
+    JOIN message_receiver mr ON mr.id = frq.message_receiver_id
+    WHERE mr.receiver_id = pu.user_id
+      AND mr.receiver_type = ''User''
       AND frq.flow_id = :flow_id
       AND frq.is_voided = false AND frq.delivery_status = ''Sent''
       AND frq.created_date_time > now() - INTERVAL ''3 DAYS''
@@ -283,7 +295,9 @@ WHERE ec.farmers = COALESCE(el.farmer_endlines, 0)
   AND pu.user_id NOT IN (SELECT user_id FROM wo_endline)
   AND NOT EXISTS (
     SELECT 1 FROM flow_request_queue frq
-    WHERE frq.message_receiver_id = pu.user_id
+    JOIN message_receiver mr ON mr.id = frq.message_receiver_id
+    WHERE mr.receiver_id = pu.user_id
+      AND mr.receiver_type = ''User''
       AND frq.flow_id = :flow_id
       AND frq.is_voided = false AND frq.delivery_status = ''Sent''
       AND frq.created_date_time > now() - INTERVAL ''3 DAYS''
