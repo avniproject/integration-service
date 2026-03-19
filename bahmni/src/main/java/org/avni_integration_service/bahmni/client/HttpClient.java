@@ -72,22 +72,8 @@ public class HttpClient {
     private void checkSanityOfResponse(HttpResponse httpResponse, URI uri) {
         StatusLine statusLine = httpResponse.getStatusLine();
         int statusCode = statusLine.getStatusCode();
-        if (statusCode < 200 || statusCode >= 300) {
-            String errorMsg = "";
-            try {
-                errorMsg = asString(httpResponse);
-            } catch (Exception e) {
-                errorMsg = "(Unable to read response body)";
-            }
-            System.err.println("\n===== BAHMNI GET ERROR =====");
-            System.err.println("Status Code: " + statusCode);
-            System.err.println("URL: " + uri);
-            System.err.println("Response:\n" + errorMsg);
-            System.err.println("=============================\n");
-            String fullErrorMsg = String.format("GET failed with status %d for URL: %s. Response: %s", statusCode, uri, errorMsg);
-            logger.error(fullErrorMsg);
-            throw WebClientsException.CustomError(statusCode, fullErrorMsg);
-        }
+        if (statusCode < 200 || statusCode >= 300)
+            throw WebClientsException.CustomError(statusCode, "Error reported on call");
 
         HttpEntity entity = httpResponse.getEntity();
         if (entity == null) throw new WebClientsException("Cannot read response");
@@ -105,21 +91,12 @@ public class HttpClient {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.put("Accept", "application/json");
         logger.trace(String.format("Posting to: %s Data: %s", path, json));
-        System.err.println("\n===== RAW REQUEST TO BAHMNI =====");
-        System.err.println("Path: " + path);
-        System.err.println("Payload: " + json);
-        System.err.println("==================================\n");
         HttpResponse httpResponse = httpClientInternal.post(authenticator.getRequestDetails(URI.create(path)), httpHeaders, json);
         int statusCode = httpResponse.getStatusLine().getStatusCode();
         String message = asString(httpResponse);
         if (statusCode != HttpStatus.SC_CREATED && statusCode != HttpStatus.SC_OK) {
-            System.err.println("\n===== BAHMNI ERROR RESPONSE =====");
-            System.err.println("Status Code: " + statusCode);
-            System.err.println("Full Response:\n" + message);
-            System.err.println("==================================\n");
-            String errorMsg = String.format("Post failed with status %d. Response: %s", statusCode, message);
-            logger.error(errorMsg);
-            throw new RuntimeException(errorMsg);
+            logger.error(message);
+            throw new RuntimeException("Post failed");
         }
         return message;
     }

@@ -12,6 +12,6 @@ public class MapperUtils {
                               avniDateTime.after(Calendar.getInstance().getTime()))
                 ? visit.getStartDatetime()
                 : avniDateTime;
-        return FormatAndParseUtil.toISODateTimeString(eventDateTime);
+        return FormatAndParseUtil.toISODateString(eventDateTime);
     }
 }

@@ -90,12 +90,6 @@ public class ProgramEncounterWorker implements ErrorRecordWorker {
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     protected void processProgramEncounter(ProgramEncounter programEncounter, boolean updateSyncStatus) {
-        System.out.println("\n========== STEP 1: START SYNC ==========");
-        System.out.println("Program Encounter UUID: " + programEncounter.getUuid());
-        System.out.println("Encounter Type: " + programEncounter.getEncounterType());
-        System.out.println("Encounter Date: " + programEncounter.getEncounterDateTime());
-        System.out.println("Is Completed: " + programEncounter.isCompleted());
-
         if (mappingMetaDataService.isBahmniEncounterInAvni(programEncounter.getEncounterType())) {
             logger.debug(String.format("Skipping Avni program encounter %s because it was created from Bahmni", programEncounter.getEncounterType()));
             updateSyncStatus(programEncounter, updateSyncStatus);
@@ -112,50 +106,31 @@ public class ProgramEncounterWorker implements ErrorRecordWorker {
         logger.debug(String.format("Processing avni program encounter %s", programEncounter.getUuid()));
 
         if (programEncounterService.shouldFilterEncounter(programEncounter)) {
-            System.out.println("✗ FILTERED: Encounter is incomplete (no encounter date)");
             logger.warn(String.format("Program encounter should be filtered out: %s", programEncounter.getUuid()));
             updateSyncStatus(programEncounter, updateSyncStatus);
             return;
         }
 
-        System.out.println("\n========== STEP 2: GET SUBJECT FROM AVNI ==========");
         var subject = avniSubjectRepository.getSubject(programEncounter.getSubjectId());
-        System.out.println("✓ Subject UUID: " + subject.getUuid());
-        System.out.println("✓ Subject Name: " + subject.getFirstName() + " " + subject.getLastName());
-        System.out.println("✓ Subject ID: " + subject.getId(metaData.avniIdentifierConcept()));
-
         logger.debug(String.format("Found avni subject %s", subject.getUuid()));
         if (subject.getVoided()) {
             logger.debug(String.format("Avni subject is voided. Skipping. %s", subject.getUuid()));
             updateSyncStatus(programEncounter, updateSyncStatus);
             return;
         }
-
-        System.out.println("\n========== STEP 3: GET ENROLMENT FROM AVNI ==========");
-
-        System.out.println("\n========== STEP 4: FIND BAHMNI PATIENT & ENCOUNTER ==========");
         Pair<OpenMRSPatient, OpenMRSFullEncounter> patientEncounter = programEncounterService.findCommunityEncounter(programEncounter, subject, constants, metaData);
         var patient = patientEncounter.getValue0();
         var encounter = patientEncounter.getValue1();
-        System.out.println("✓ Bahmni Patient Found: " + (patient != null ? patient.getUuid() : "NOT FOUND"));
-        System.out.println("✓ Bahmni Encounter Found: " + (encounter != null ? encounter.getUuid() : "NOT FOUND"));
 
-        System.out.println("\n========== STEP 5: CREATE OR UPDATE IN BAHMNI ==========");
         if (patient != null && encounter == null) {
-            System.out.println("ACTION: Creating new visit + encounter in Bahmni");
             programEncounterService.createCommunityEncounter(programEncounter, patient, constants);
-            System.out.println("✓ Successfully created in Bahmni");
         } else if (patient != null && encounter != null) {
-            System.out.println("ACTION: Updating existing encounter in Bahmni");
             programEncounterService.updateCommunityEncounter(encounter, programEncounter, constants);
-            System.out.println("✓ Successfully updated in Bahmni");
         } else if (patient == null && encounter == null) {
-            System.out.println("✗ ACTION: Patient not found - ERROR");
             logger.debug(String.format("Patient with identifier %s not found", subject.getId(metaData.avniIdentifierConcept())));
             programEncounterService.processPatientNotFound(programEncounter);
         }
 
-        System.out.println("========== SYNC COMPLETE ==========\n");
         updateSyncStatus(programEncounter, updateSyncStatus);
     }
 

@@ -10,8 +10,6 @@ import org.avni_integration_service.integration_data.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.*;
 
 import static org.avni_integration_service.bahmni.contract.OpenMRSSaveObservation.createVoidedObs;
@@ -22,23 +20,11 @@ public class BahmniModuleObservationMapper {
     private final BahmniMappingGroup bahmniMappingGroup;
 
     private final BahmniMappingType bahmniMappingType;
-    private static final String DEBUG_LOG = "/tmp/observation_mapping_debug.log";
-
     @Autowired
     public BahmniModuleObservationMapper(MappingService mappingService, BahmniMappingGroup bahmniMappingGroup, BahmniMappingType bahmniMappingType) {
         this.mappingService = mappingService;
         this.bahmniMappingGroup = bahmniMappingGroup;
         this.bahmniMappingType = bahmniMappingType;
-    }
-
-    private void logDebug(String message) {
-        System.err.println(message);
-        try (FileWriter fw = new FileWriter(DEBUG_LOG, true)) {
-            fw.write(message + "\n");
-            fw.flush();
-        } catch (IOException e) {
-            // Ignore file write errors
-        }
     }
 
     public List<OpenMRSSaveObservation> updateOpenMRSObservationsFromAvniObservations(List<OpenMRSObservation> openMRSObservations, Map<String, Object> avniObservations, List<String> hardcodedConcepts) {
@@ -150,70 +136,31 @@ public class BahmniModuleObservationMapper {
 
     public List<OpenMRSSaveObservation> mapObservations(Map<String, Object> avniObservations) {
         List<OpenMRSSaveObservation> openMRSObservations = new ArrayList<>();
-        logDebug("DEBUG: mapObservations called with " + avniObservations.size() + " Avni observations");
         MappingMetaDataCollection conceptMappings = mappingService.findAll(bahmniMappingGroup.observation, bahmniMappingType.concept);
-        int mappedCount = 0;
-        int unmappedCount = 0;
         for (Map.Entry<String, Object> entry : avniObservations.entrySet()) {
             String key = entry.getKey();
             Object value = entry.getValue();
-            System.err.println("  Processing observation: '" + key + "' = '" + value + "'");
-
-            // Skip coded fields with Bahmni concept issues (ZZ error)
-            // These have correct answer UUIDs but Bahmni's concept set doesn't properly link them as answers
-            if (key.endsWith("given") || (key.contains("require") && key.contains("mother")) || key.equals("Oedema") || key.equals("Breast examination")) {
-                System.err.println("    ⊘ SKIPPED: " + key + " - Known Bahmni concept link issue (ZZ error)");
-                continue;
-            }
-
-            if (key.contains("Amala")) {
-                System.err.println("    *** AMALA FIELD FOUND *** value='" + value + "', type=" + (value == null ? "null" : value.getClass().getSimpleName()));
-            }
             MappingMetaData questionMapping = conceptMappings.getMappingForAvniValue(key);
             if (questionMapping != null) {
-                mappedCount++;
-                System.err.println("    ✓ Found mapping for question: " + key + " -> UUID: " + questionMapping.getIntSystemValue());
-                System.err.println("      - isCoded: " + questionMapping.isCoded() + ", isText: " + questionMapping.isText() + ", dataTypeHint: " + questionMapping.getDataTypeHint());
                 if (questionMapping.isCoded()) {
                     if (value instanceof String) {
                         MappingMetaData answerMapping = conceptMappings.getMappingForAvniValue((String) value);
-                        if (answerMapping != null) {
-                            String conceptUuid = questionMapping.getIntSystemValue();
-                            String answerUuid = answerMapping.getIntSystemValue();
-                            System.err.println("    ✓ Added coded observation: concept=" + conceptUuid + ", answer=" + answerUuid);
-                            openMRSObservations.add(OpenMRSSaveObservation.createCodedObs(conceptUuid, answerUuid));
-                        } else {
-                            System.err.println("    ⚠ WARNING: Skipping observation '" + key + "' - no answer mapping for value: '" + value + "'");
-                        }
+                        openMRSObservations.add(OpenMRSSaveObservation.createCodedObs(questionMapping.getIntSystemValue(), answerMapping.getIntSystemValue()));
                     } else if (value instanceof List<?>) {
                         List<String> valueList = (List<String>) value;
                         valueList.forEach(s -> {
                             MappingMetaData answerMapping = conceptMappings.getMappingForAvniValue(s);
-                            if (answerMapping == null) {
-                                System.err.println("    ⚠ WARNING: Skipping answer '" + s + "' for question '" + key + "' - no mapping found");
-                            } else {
-                                String conceptUuid = questionMapping.getIntSystemValue();
-                                String answerUuid = answerMapping.getIntSystemValue();
-                                System.err.println("    ✓ Added coded observation (list): concept=" + conceptUuid + ", answer=" + answerUuid);
-                                openMRSObservations.add(OpenMRSSaveObservation.createCodedObs(conceptUuid, answerUuid));
-                            }
+                            openMRSObservations.add(OpenMRSSaveObservation.createCodedObs(questionMapping.getIntSystemValue(), answerMapping.getIntSystemValue()));
                         });
                     }
                 } else {
                     if (questionMapping.isText() && value instanceof String && ((String)value).isBlank()) {
-                        System.err.println("    ⊘ Skipped blank text observation: " + key);
                         continue;
                     }
-                    String conceptUuid = questionMapping.getIntSystemValue();
-                    System.err.println("    ✓ Added non-coded observation: concept=" + conceptUuid + ", value=" + value);
-                    openMRSObservations.add(OpenMRSSaveObservation.createPrimitiveObs(conceptUuid, value, questionMapping.getDataTypeHint()));
+                    openMRSObservations.add(OpenMRSSaveObservation.createPrimitiveObs(questionMapping.getIntSystemValue(), value, questionMapping.getDataTypeHint()));
                 }
-            } else {
-                unmappedCount++;
-                System.err.println("    ✗ No mapping found for question: '" + key + "'");
             }
         }
-        System.err.println("DEBUG: Observation mapping summary - Total: " + avniObservations.size() + ", Mapped: " + mappedCount + ", Unmapped: " + unmappedCount + ", Created obs: " + openMRSObservations.size());
         return openMRSObservations;
     }
 

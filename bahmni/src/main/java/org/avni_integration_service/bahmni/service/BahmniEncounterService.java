@@ -49,11 +49,4 @@ public class BahmniEncounterService {
     public OpenMRSDefaultEncounter getDefaultEncounter(String uuid) {
         return encounterRepository.getDefaultEncounter(uuid);
     }
-
-    public List<BahmniEncounter> getEncountersForPatient(String patientUuid, String encounterTypeUuid, BahmniEncounterToAvniEncounterMetaData metaData) {
-        List<OpenMRSFullEncounter> encounters = encounterRepository.getEncounterByPatientAndEncType(patientUuid, encounterTypeUuid);
-        return encounters.stream()
-                .map(encounter -> new BahmniEncounter(encounter, metaData))
-                .collect(Collectors.toList());
-    }
 }

@@ -11,7 +11,6 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.CoreConnectionPNames;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 
 public class HttpClientInternal {
     private int connectTimeout;
@@ -59,8 +58,7 @@ public class HttpClientInternal {
         HttpPost httpPost = new HttpPost(requestDetails.getUri());
         requestDetails.addDetailsTo(httpPost);
         httpHeaders.addTo(httpPost);
-        StringEntity requestEntity = new StringEntity(json, StandardCharsets.UTF_8);
-        requestEntity.setContentType("application/json");
+        StringEntity requestEntity = new StringEntity(json, ContentType.APPLICATION_JSON);
         httpPost.setEntity(requestEntity);
 
         try {

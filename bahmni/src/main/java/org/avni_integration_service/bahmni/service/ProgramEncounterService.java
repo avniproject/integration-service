@@ -40,55 +40,11 @@ public class ProgramEncounterService extends BaseAvniEncounterService {
             return null;
         }
 
-        System.out.println("\n========== SUBSTEP 3A: FETCH ENROLMENT FROM AVNI ==========");
-        System.out.println("Enrolment ID to fetch: " + programEncounter.getEnrolmentId());
         logger.debug(String.format("Creating new Bahmni Encounter for Avni encounter %s", programEncounter.getUuid()));
         var enrolment = avniEnrolmentRepository.getEnrolment(programEncounter.getEnrolmentId());
-
-        if (enrolment == null) {
-            System.out.println("✗ ERROR: Enrolment not found!");
-            logger.error(String.format("Enrolment %s not found for encounter %s", programEncounter.getEnrolmentId(), programEncounter.getUuid()));
-            return null;
-        }
-
-        System.out.println("✓ Enrolment Found");
-        System.out.println("  - UUID: " + enrolment.getUuid());
-        System.out.println("  - Program: " + enrolment.getProgram());
-        System.out.println("  - Enrolment Date: " + enrolment.getEnrolmentDateTime());
-
-        System.out.println("\n========== SUBSTEP 3B: GET OR CREATE VISIT IN BAHMNI ==========");
-        System.out.println("Patient UUID: " + patient.getUuid());
-        System.out.println("Program: " + enrolment.getProgram());
-        System.out.println("Encounter Date for Visit: " + programEncounter.getEncounterDateTime());
-        var visit = visitService.getOrCreateVisit(patient, enrolment, programEncounter.getEncounterDateTime());
-
-        if (visit == null) {
-            System.out.println("✗ ERROR: Visit creation failed!");
-            logger.error(String.format("Failed to create visit for patient %s and enrolment %s", patient.getUuid(), enrolment.getUuid()));
-            return null;
-        }
-
-        System.out.println("✓ Visit Created/Retrieved");
-        System.out.println("  - Visit UUID: " + visit.getUuid());
-        System.out.println("  - Visit Type UUID: " + (visit.getVisitType() != null ? visit.getVisitType().getUuid() : "NULL"));
-        System.out.println("  - Start Date: " + visit.getStartDatetime());
-
-        System.out.println("\n========== SUBSTEP 3C: MAP ENCOUNTER FROM AVNI TO BAHMNI FORMAT ==========");
-        System.out.println("Encounter Type: " + programEncounter.getEncounterType());
+        var visit = visitService.getOrCreateVisit(patient, enrolment);
         var encounter = encounterMapper.mapEncounter(programEncounter, patient.getUuid(), constants, visit);
-        System.out.println("✓ Encounter mapped");
-        System.out.println("  - Bahmni Encounter Type UUID: " + encounter.getEncounterType());
-        System.out.println("  - Observations: will be posted to Bahmni");
-
-        System.out.println("\n========== SUBSTEP 3D: CREATE ENCOUNTER IN BAHMNI ==========");
         var savedEncounter = openMRSEncounterRepository.createEncounter(encounter);
-
-        if (savedEncounter != null) {
-            System.out.println("✓ Successfully created Bahmni encounter");
-            System.out.println("  - Encounter UUID: " + savedEncounter.getUuid());
-        } else {
-            System.out.println("✗ ERROR: Encounter creation returned null");
-        }
 
         avniBahmniErrorService.successfullyProcessed(programEncounter);
         return savedEncounter;
