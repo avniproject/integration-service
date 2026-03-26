@@ -18,6 +18,7 @@ synced_users AS (
     SELECT DISTINCT user_id
     FROM sync_telemetry
     WHERE sync_status = ''complete''
+      AND organisation_id = :org_id
 )
 SELECT pu.user_id, pu.first_name
 FROM primary_users pu
@@ -49,6 +50,7 @@ old_sync AS (
     SELECT user_id
     FROM sync_telemetry
     WHERE sync_status = ''complete''
+      AND organisation_id = :org_id
       AND created_date_time < now() - INTERVAL ''2 DAYS''
 ),
 wo_users AS (
@@ -91,7 +93,7 @@ no_sync_users AS (
     SELECT pu.user_id
     FROM primary_users pu
     WHERE pu.user_id NOT IN (
-        SELECT user_id FROM sync_telemetry WHERE sync_status = ''complete''
+        SELECT user_id FROM sync_telemetry WHERE sync_status = ''complete'' AND organisation_id = :org_id
     )
 )
 SELECT pu.user_id, pu.first_name
@@ -289,7 +291,8 @@ SELECT pu.user_id, pu.first_name
 FROM primary_users pu
 JOIN entity_counts ec ON pu.user_id = ec.user_id
 LEFT JOIN endline_counts el ON pu.user_id = el.user_id
-WHERE ec.farmers = COALESCE(el.farmer_endlines, 0)
+WHERE ec.farmers > 0 AND ec.machines > 0
+  AND ec.farmers = COALESCE(el.farmer_endlines, 0)
   AND ec.machines = COALESCE(el.machine_endlines, 0)
   AND (ec.gps = 0 OR ec.gps = COALESCE(el.gp_endlines, 0))
   AND pu.user_id NOT IN (SELECT user_id FROM wo_endline)
@@ -301,5 +304,56 @@ WHERE ec.farmers = COALESCE(el.farmer_endlines, 0)
       AND frq.flow_id = :flow_id
       AND frq.is_voided = false AND frq.delivery_status = ''Sent''
       AND frq.created_date_time > now() - INTERVAL ''3 DAYS''
+);',
+:org_id, false, 0, 1, 1, now(), now()),
+
+
+-- 9. Certificate delivery (32498)
+(DEFAULT, 'f7a1c2d3-1302-11f1-ae23-0248ea85d583', 'Certificate delivery',
+'WITH primary_users AS (
+    SELECT DISTINCT u.id AS user_id, u.name AS first_name
+    FROM public.users u
+             JOIN user_group ug ON u.id = ug.user_id AND ug.is_voided = false
+             JOIN groups g ON g.id = ug.group_id AND g.is_voided = false
+    WHERE g.name = ''Primary Users''
+      AND u.disabled_in_cognito = false
+      AND u.is_voided = false
+      AND u.organisation_id = :org_id
+),
+wo_counts AS (
+    SELECT i.created_by_id AS user_id,
+           COUNT(DISTINCT i.id) AS work_orders
+    FROM individual i
+             JOIN subject_type st ON st.id = i.subject_type_id
+    WHERE st.name = ''Work Order''
+      AND i.organisation_id = :org_id
+      AND i.is_voided = false
+      AND i.created_by_id IN (SELECT user_id FROM primary_users)
+    GROUP BY i.created_by_id
+),
+wo_endline_counts AS (
+    SELECT e.created_by_id AS user_id,
+           COUNT(DISTINCT e.individual_id) AS wo_endlines
+    FROM encounter e
+             JOIN encounter_type et ON et.id = e.encounter_type_id
+    WHERE et.name = ''Work order endline''
+      AND e.organisation_id = :org_id
+      AND e.is_voided = false
+      AND e.created_by_id IN (SELECT user_id FROM primary_users)
+    GROUP BY e.created_by_id
+)
+SELECT pu.user_id, pu.first_name
+FROM primary_users pu
+JOIN wo_counts wc ON pu.user_id = wc.user_id
+JOIN wo_endline_counts wec ON pu.user_id = wec.user_id
+WHERE wc.work_orders > 0
+  AND wc.work_orders = wec.wo_endlines
+  AND NOT EXISTS (
+    SELECT 1 FROM flow_request_queue frq
+    JOIN message_receiver mr ON mr.id = frq.message_receiver_id
+    WHERE mr.receiver_id = pu.user_id
+      AND mr.receiver_type = ''User''
+      AND frq.flow_id = :flow_id
+      AND frq.is_voided = false AND frq.delivery_status = ''Sent''
 );',
 :org_id, false, 0, 1, 1, now(), now());
