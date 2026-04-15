@@ -204,8 +204,8 @@ AND NOT EXISTS (
       AND u.is_voided = false
       AND u.organisation_id = :org_id
 ),
-recent_activity AS (
-    SELECT DISTINCT created_by_id AS user_id
+last_recording AS (
+    SELECT created_by_id AS user_id, MAX(encounter_date_time) AS last_recorded
     FROM encounter
     WHERE encounter_type_id IN (
         SELECT id FROM encounter_type
@@ -213,7 +213,7 @@ recent_activity AS (
           AND organisation_id = :org_id
           AND is_voided = false
     )
-      AND encounter_date_time > now() - INTERVAL ''5 DAYS''
+    GROUP BY created_by_id
 ),
 entities AS (
     SELECT u.id AS user_id,
@@ -229,8 +229,9 @@ entities AS (
 SELECT pu.user_id, pu.first_name
 FROM primary_users pu
 JOIN entities e ON pu.user_id = e.user_id
+JOIN last_recording lr ON pu.user_id = lr.user_id
 WHERE (e.farmers_or_gp > 0 AND e.machines > 0)
-  AND pu.user_id NOT IN (SELECT user_id FROM recent_activity)
+  AND lr.last_recorded < now() - INTERVAL ''5 DAYS''
   AND NOT EXISTS (
     SELECT 1 FROM flow_request_queue frq
     JOIN message_receiver mr ON mr.id = frq.message_receiver_id
