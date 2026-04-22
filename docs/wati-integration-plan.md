@@ -539,3 +539,6 @@ Still to do:
 7. Manually set one row to `Failed`, trigger error job — `attempt_count` should increment
 8. Manually set two rows to `Pending` with same `entity_id` + `flow_name`, trigger job — only one message should send (cooldown check)
 9. Manually set one row to `Sending`, trigger error job — row should reset to `Pending` after 1 hour check
+
+### Add Unit and Integration tests to verify the wati module
+
