@@ -1,319 +1,321 @@
-# Wati Integration — Planning Sheet
+# Wati Integration — Plan (v2, post lead review)
 
-**Status:** Draft — pending review before execution  
-**Reference module:** Goonj (`goonj/`)  
+**Status:** Updated — all G1-G6 review comments addressed  
 **Branch:** `dil-wati-dev`  
-**Current code state:** `wati/` module — all classes and packages use `Wati*` naming
+**First org:** DIL
 
 ---
 
-## 1. Context & Goals
+## What Are We Building?
 
-Build a **Wati WhatsApp messaging integration** in the integration service. The integration will:
-- Track flows of Avni **general encounters** using the Avni external REST API (`GET /api/encounters`)
-- Evaluate each encounter for actionability per configurable rules
-- Create a durable message-request queue with retry and status-tracking capabilities
-- Send WhatsApp template messages **per contact** (not broadcast) via Wati API directly
-- Support multi-org through `integration_system_config` (same pattern as Goonj/RWB)
+A WhatsApp messaging integration using Wati. Every day, the integration service:
+1. Runs SQL queries (stored in Avni server) to find beneficiaries who need a message today
+2. Creates a record for each message to be sent (in a new DB table)
+3. Sends each WhatsApp template message via the Wati API
+4. Tracks delivery, handles failures, and retries if something goes wrong
 
-**Scope:** General encounters only. Subjects, programme enrolments, and programme encounters are out of scope.
-
-DIL is the first org using this framework.
-
----
-
-## 2. Reference Architecture (Goonj Patterns to Follow)
-
-| Goonj Pattern | Wati Equivalent |
-|--------------|-----------------|
-| `GoonjConfig` reads from `integration_system_config` | `WatiConfig` (already exists, extend it) |
-| `GoonjContextProvider` ThreadLocal | `WatiContextProvider` (already exists) |
-| `ErrorRecord` / `AvniGoonjErrorService` | Reuse `ErrorRecord`; create `WatiErrorService` |
-| `AvniGoonjMainJob` → workers → services → repositories | `AvniWatiMainJob` → `WatiFlowWorker` → `WatiMessageService` → repositories |
-| `IntegrationJobScheduler.scheduleGoonj()` | `scheduleWati()` (restore from cleanup) |
-
-**Key reusable repository (already exists in `avni/` module):**
-- `AvniQueryRepository` — `POST /executeQuery` (same as RWB)
+Two flows for DIL:
+- **weekly_survey** — sends a reminder to fill in the weekly activity form
+- **biweekly_payment** — sends a summary of approved/rejected submissions and payment info
 
 ---
 
-## 3. Framework Design
+## Lead Review — What Was Wrong and What We Fixed
 
-### 4.1 Module Structure
+### G1 — SQL does too much (Events, Rules, Actors all in one query)
+**Review feedback:** The custom SQL query decides everything — who to message, when to message, what the rule is. Changing any of these requires editing SQL in Avni server, not just config.
+
+**What we decided (post-discussion):** Keep the SQL approach as-is. The framework is generic — adding a new flow for any org only needs new SQL + new config rows. No Java changes needed. The only small fix: add a check for `flow.<name>.enabled` so a flow can be turned off from config without deleting SQL.
+
+---
+
+### G2 — No place to report permanent failures
+**Review feedback:** When a message permanently fails (e.g. wrong phone number, blocked user), it just sits in the DB as `PermanentFailure`. Nobody is notified.
+
+**Fix:** When a message hits `PermanentFailure`, we write a row to the `error_record` table (the same table Goonj and RWB already use for failure tracking). We add a config key `flow.<name>.failure_report_channel = error_record` that declares this. If in future someone wants email or Slack alerts for failures, they just change this config value — no DB or code change needed.
+
+---
+
+### G3 — No delivery status check
+**Review feedback:** We never check whether Wati actually delivered the message after sending.
+
+**Decision: Deferred.** We verified Wati's API documentation — Wati does **not** provide a polling endpoint to check message delivery status. The only mechanism Wati supports is webhooks (Wati calls us when delivery status changes). Implementing webhooks needs a public HTTP endpoint on the integration service, which is out of scope for phase 1. The `wati_status` column in the DB is reserved for a future webhook phase. For phase 1, `Sent` (Wati accepted the message) is the terminal success state.
+
+> **Verified:** `PUT /api/ext/v3/conversations/{target}/status` is the only relevant Wati API found — it manages conversation inbox state (open/solved/pending), not message delivery. Source: docs.wati.io
+
+---
+
+### G4 — Stream scope not documented
+**Review feedback:** The design brief covers Subjects (ST), Encounters (ET), and Programme streams (PR). The plan only handles Encounters but doesn't say so.
+
+**Fix:** Explicitly stating: **phase-1 covers ET (general encounters) only.** ST and PR are out of scope for phase 1. No code or schema change is needed to support them in future — the `entity_type` column in `wati_message_request` already stores the entity type, so any stream can be added by writing a new SQL query + config rows.
+
+---
+
+### G5 — Template parameters never populated
+**Review feedback:** The `parameters` column in `wati_message_request` is always empty. Templates that use variables (like `{{name}}`, `{{amount}}`) would send blank values.
+
+**Fix:** DIL's templates use named variables:
+- Weekly survey: `{{name}}`, `{{amount}}`
+- Biweekly payment: `{{name}}`, `{{total_submissions}}`, `{{approved_count}}`, `{{payment_amount}}`, `{{rejected_count}}`
+
+Two changes:
+1. Add config key `flow.<name>.template_params = name,amount` listing the param names in order
+2. Query returns param values as extra columns starting from column 3, in the same order
+
+The worker zips config names + query values:
+`[{"name": "name", "value": "Ramu"}, {"name": "amount", "value": "50"}]`
+
+This is stored in `parameters` JSONB and passed to Wati when sending. Values that need calculation (like `total_submissions`, `approved_count`) are computed inside the SQL query itself — no Java logic needed per flow.
+
+Also fix: `WatiHttpClient.buildParameters()` currently uses positional numbers (`"1"`, `"2"`) — update to use the actual variable names from config.
+
+---
+
+### G6 — Two jobs could send the same message twice
+**Review feedback:** If two cron instances run at the same time (or if the server restarts mid-job), both will pick up the same `Pending` rows and send duplicate messages to the same person.
+
+**Fix:** Add a `Sending` state. Before calling the Wati API, the worker transitions the row from `Pending → Sending` inside a DB transaction. Any concurrent job sees `Sending` and skips that row — only one job actually sends.
+
+After the API call:
+- Success → `Sent`
+- Permanent failure → `PermanentFailure`
+- Transient failure → `Failed` (retried later)
+
+Safety net: if the server crashes after transitioning to `Sending` but before getting the API response, the row stays stuck in `Sending`. The error job has a recovery step: any row stuck in `Sending` for more than 1 hour gets reset back to `Pending` and retried.
+
+---
+
+### Fabricated References Fixed
+The original plan claimed to follow patterns from the existing codebase that don't actually exist:
+- `IntegrationSystemConfigCollection.getConfigsByPrefix()` — this method does not exist. Fix: use a `flow.names` config key listing flow names (e.g. `weekly_survey,biweekly_payment`). `WatiConfig.getFlowNames()` reads this key, splits on comma, returns the list.
+- `wati` enum value in `IntegrationSystem.SystemType` — never existed, must be **added fresh**
+- `scheduleWati()` in `IntegrationJobScheduler` — never existed, must be **added fresh** following the `scheduleGoonj()` pattern
+
+---
+
+### Lesser Issues Fixed
+- **Locale null handling:** If locale is null or empty, skip locale lookup and use the default template directly
+- **`Delivered` state dropped:** Unreachable in phase 1 without webhooks. Dropped from enum. `Sent` is the terminal success state.
+- **Retry state machine:** `Failed` rows are retried by the error job — they do not go back to `Pending`, they stay `Failed` until the error job picks them up
+- **`flow.<name>.enabled` check:** `WatiFlowWorker` skips a flow if this config key is `false`
+- **Phone format warning:** Log a warning if the phone number doesn't start with a digit or `+`
+
+---
+
+## How It Works — End to End
 
 ```
-wati/
-├── config/
-│   ├── WatiConfig.java                  # extend: add flow config accessors
-│   ├── WatiContextProvider.java         # keep as-is
-│   ├── WatiAvniSessionFactory.java      # keep as-is
-│   ├── WatiFlowConfig.java              # NEW: per-flow config wrapper
-│   └── WatiSendMsgErrorType.java        # keep (already cleaned up)
-├── domain/
-│   ├── WatiMessageRequest.java          # NEW: JPA entity for message queue
-│   └── WatiMessageStatus.java           # NEW: enum (Pending/Sent/Delivered/Failed/PermanentFailure)
-├── repository/
-│   ├── WatiMessageRequestRepository.java # NEW: JPA repository
-│   └── WatiHttpClient.java              # KEEP (from cleanup work) — direct Wati API
-├── service/
-│   ├── WatiMessageRequestService.java    # NEW: create/update message requests, cooldown check
-│   ├── WatiMessageSendService.java       # NEW: sends Pending requests via WatiHttpClient
-│   └── WatiUserMessageErrorService.java  # keep
-├── worker/
-│   ├── WatiFlowWorker.java              # NEW: iterates configured flows, fetches entities
-│   └── WatiUsersMessageWorker.java      # KEEP (now delegates to WatiMessageRequestService)
-├── job/
-│   └── AvniWatiMainJob.java             # KEEP, extend to orchestrate new workers
-└── dto/
-    └── WatiUserRequestDTO.java          # keep
-```
+5am daily cron fires → AvniWatiMainJob.execute()
+  │
+  ├── WatiFlowWorker.processAllFlows()
+  │     For each flow in flow.names config:
+  │       1. Run custom SQL query on Avni server (POST /executeQuery)
+  │          → returns rows: [phone, locale, entity_id, param1, param2, ...]
+  │       2. For each row:
+  │          a. Skip if flow is disabled
+  │          b. Warn if phone format looks wrong
+  │          c. Resolve template name (locale-specific or default)
+  │          d. Check cooldown — skip if this entity was messaged recently
+  │          e. Create a wati_message_request row with status=Pending
+  │
+  └── WatiMessageSendService.sendPending()
+        For each Pending row:
+          1. Transition Pending → Sending (prevents double-send)
+          2. Call Wati API: POST /api/v1/sendTemplateMessage
+          3. If success → Sending → Sent, store wati_message_id
+          4. If permanent failure (bad phone, blocked) → PermanentFailure + write ErrorRecord
+          5. If transient failure (Wati 5xx, timeout) → Failed, set next_retry_time
 
-**DB migration** (new file in `integration-data/src/main/resources/db/migration/`):
-- `V2_x__CreateWatiMessageRequestTable.sql`
+Next morning → AvniWatiErrorJob.execute()
+  ├── WatiMessageSendService.retryFailed()
+  │     Picks up Failed rows where next_retry_time has passed, retries sending
+  │     If attempt_count >= max_retries → PermanentFailure + write ErrorRecord
+  │
+  └── WatiMessageSendService.recoverStuck()
+        Resets any Sending rows stuck > 1 hour back to Pending
+```
 
 ---
 
-### 4.2 Data Model — New Table: `wati_message_request`
+## Data Model — New Table `wati_message_request`
+
+One row per message. Created when the flow worker finds a beneficiary to message. Updated as the message moves through its lifecycle.
 
 ```sql
 CREATE TABLE wati_message_request (
-    id                      BIGSERIAL PRIMARY KEY,
-    uuid                    UUID NOT NULL DEFAULT uuid_generate_v4(),
-    integration_system_id   BIGINT NOT NULL REFERENCES integration_system(id),
-    flow_name               VARCHAR(255) NOT NULL,      -- which flow config triggered this
-    entity_id               VARCHAR(500) NOT NULL,      -- Avni entity UUID
-    entity_type             VARCHAR(100) NOT NULL,      -- subject / encounter / program_enrolment / program_encounter
-    phone_number            VARCHAR(20)  NOT NULL,
-    template_name           VARCHAR(255) NOT NULL,
-    parameters              JSONB,                      -- template parameter values
-    locale                  VARCHAR(20),
-    status                  VARCHAR(50)  NOT NULL DEFAULT 'Pending',
-    attempt_count           INTEGER NOT NULL DEFAULT 0,
-    last_attempt_time       TIMESTAMP,
-    next_retry_time         TIMESTAMP,
-    wati_message_id         VARCHAR(500),               -- Wati's ID (for status check)
-    wati_status             VARCHAR(100),               -- delivery status from Wati
-    error_message           VARCHAR(2000),
-    created_date_time       TIMESTAMP NOT NULL DEFAULT NOW(),
-    is_voided               BOOLEAN NOT NULL DEFAULT FALSE,
-    version                 INTEGER NOT NULL DEFAULT 0
+    id                    BIGSERIAL PRIMARY KEY,
+    uuid                  UUID NOT NULL DEFAULT uuid_generate_v4(),
+    integration_system_id BIGINT NOT NULL REFERENCES integration_system(id),
+    flow_name             VARCHAR(255) NOT NULL,   -- e.g. "weekly_survey"
+    entity_id             VARCHAR(500) NOT NULL,   -- Avni entity UUID (encounter, subject, etc.)
+    entity_type           VARCHAR(100) NOT NULL,   -- "encounter" for phase 1; stream-agnostic for future
+    phone_number          VARCHAR(20)  NOT NULL,
+    template_name         VARCHAR(255) NOT NULL,   -- resolved at creation time (locale-specific or default)
+    parameters            JSONB,                   -- [{"name":"name","value":"Ramu"},{"name":"amount","value":"50"}]
+    locale                VARCHAR(20),             -- "te", "or", or null for default
+    status                VARCHAR(50)  NOT NULL DEFAULT 'Pending',
+    attempt_count         INTEGER NOT NULL DEFAULT 0,
+    last_attempt_time     TIMESTAMP,
+    next_retry_time       TIMESTAMP,               -- when to retry if Failed
+    wati_message_id       VARCHAR(500),            -- ID returned by Wati on successful send
+    wati_status           VARCHAR(100),            -- reserved for webhook phase (phase 2)
+    error_message         VARCHAR(2000),
+    created_date_time     TIMESTAMP NOT NULL DEFAULT NOW(),
+    is_voided             BOOLEAN NOT NULL DEFAULT FALSE,
+    version               INTEGER NOT NULL DEFAULT 0
 );
-
-CREATE INDEX idx_wati_msg_req_status        ON wati_message_request(status, integration_system_id);
-CREATE INDEX idx_wati_msg_req_entity        ON wati_message_request(entity_id, flow_name);
-CREATE INDEX idx_wati_msg_req_retry         ON wati_message_request(next_retry_time) WHERE status = 'Failed';
 ```
 
 **Status lifecycle:**
 ```
-Pending → Sent → Delivered  (terminal — success)
-Pending → Failed → Pending  (retry, attempt_count < max_retries)
-Pending → Failed → PermanentFailure  (terminal — max retries exceeded)
-Sent → Failed               (Wati confirmed non-delivery)
+Pending → Sending → Sent                  ← happy path
+Pending → Sending → Failed → (retry) → Sending → Sent
+Pending → Sending → Failed → PermanentFailure  ← max retries exceeded
+Pending → Sending → PermanentFailure           ← bad phone / blocked / HTTP 4xx
 ```
 
-**Cooldown check** — before creating a new request, query:
-```sql
-SELECT 1 FROM wati_message_request
-WHERE entity_id = :entityId AND flow_name = :flowName
-  AND status IN ('Pending','Sent','Delivered')
-  AND created_date_time > NOW() - INTERVAL ':cooldownDays days'
-LIMIT 1;
-```
-If row found → skip (already in cooldown window).
+**Cooldown check** — before creating a new Pending row, check if a recent row already exists for this entity + flow:
+- Active statuses checked: `Pending`, `Sending`, `Sent`
+- If a row exists within the last `cooldown_days` days → skip, do not create duplicate
 
 ---
 
-### 4.3 Configuration
+## Configuration
 
-**Global keys (per `integration_system_config` row, applies to the whole org):**
+### Global keys (one-time per org)
 
-| Key | Description | Example |
+| Key | What it does | Example |
 |-----|-------------|---------|
 | `avni_api_url` | Avni server base URL | `https://app.avniproject.org` |
-| `avni_user` | Avni integration user | `int@dil.org` |
-| `avni_password` | Avni password (secret) | `***` |
+| `avni_user` | Avni integration username | `int@dil.org` |
+| `avni_password` | Avni password | `***` |
 | `avni_auth_enabled` | Enable Avni auth | `true` |
 | `wati_api_url` | Wati API base URL | `https://live-mt-server.wati.io/12345` |
-| `wati_api_key` | Wati Bearer token (secret) | `eyJ...` |
+| `wati_api_key` | Wati Bearer token | `eyJ...` |
 | `int_env` | Environment tag | `prod` |
-| `main.scheduled.job.cron` | Main job schedule | `0 6 * * *` |
-| `error.scheduled.job.cron` | Retry job schedule | `0 7 * * *` |
+| `flow.names` | Comma-separated list of active flows | `weekly_survey,biweekly_payment` |
+| `main.scheduled.job.cron` | When to run the main job | `30 23 * * *` (5am IST if server is UTC) |
+| `error.scheduled.job.cron` | When to run the retry job | `0 1 * * *` (6:30am IST if server is UTC) |
 
-**Per-flow keys (prefix `flow.<name>.`):**
+### Per-flow keys (repeat for each flow)
 
-| Key | Description | Example |
+| Key | What it does | Example |
 |-----|-------------|---------|
-| `flow.<name>.enabled` | Enable/disable flow | `true` |
-| `flow.<name>.custom_query` | Query name in avni-server `custom_query` table | `dil_weekly_survey_scheduled_today` |
-| `flow.<name>.template_name` | Default Wati template name | `weekly_survey_reminder` |
-| `flow.<name>.template_name.<locale>` | Locale-specific template override | `weekly_survey_reminder_te` |
-| `flow.<name>.cooldown_days` | Min days between messages | `7` |
-| `flow.<name>.max_retries` | Max send attempts | `3` |
-| `flow.<name>.retry_interval_hours` | Hours between retries | `24` |
+| `flow.<name>.enabled` | Turn flow on/off without deleting config | `true` |
+| `flow.<name>.custom_query` | Name of the SQL query in Avni server | `dil_weekly_survey_scheduled_today` |
+| `flow.<name>.template_name` | Default (English) Wati template name | `<exact name from Wati dashboard>` |
+| `flow.<name>.template_name.te` | Telugu template name — can be completely different from English | `<exact name from Wati dashboard>` |
+| `flow.<name>.template_name.or` | Odia template name — can be completely different from English | `<exact name from Wati dashboard>` |
 
-**Trigger: `on_scheduled_date`** — all flows use this trigger type. Runs a named custom SQL query via `AvniQueryRepository.invokeCustomQuery()`. The query returns `phone_number`, `locale`, and `entity_id` directly — no concept config needed, the query encapsulates all field extraction logic.
+> **Note:** Template names are the exact names as registered in the Wati dashboard. Each locale's template name is stored as a separate config row and can be completely different — there is no naming convention required. Values to be filled in once Meta/Wati approves the templates. **TODO: Replace placeholders with actual approved template names before running setup SQL.**
+| `flow.<name>.template_params` | Named params in order, matching template variables | `name,amount` |
+| `flow.<name>.cooldown_days` | Min days between messages for same entity | `6` |
+| `flow.<name>.max_retries` | Max send attempts before giving up | `3` |
+| `flow.<name>.retry_interval_hours` | Hours to wait between retries | `24` |
+| `flow.<name>.failure_report_channel` | Where to log permanent failures | `error_record` |
 
-Cron set to desired send time. For 5am IST: `30 23 * * *` (UTC) or `0 5 * * *` (IST) — confirm server timezone.
+### How locale and template name are resolved
 
-**Locale-specific template resolution** (already implemented in `WatiConfig.getTemplateName()`, same logic applies):
-1. locale comes from query result (col 1)
-2. Try `flow.<name>.template_name.<locale>` (e.g., `flow.weekly_survey.template_name.te`)
-3. Fall back to `flow.<name>.template_name` (the default)
-
-Flow names are discovered dynamically from config keys using prefix `flow.` (same pattern as RWB's `flow.` prefix in `RwbConfig.getQueryToFlowIdMap()`).
+1. Query returns `locale` in col 1 (e.g. `"te"`)
+2. If locale is null/empty → use `flow.<name>.template_name` (default)
+3. If locale is set → try `flow.<name>.template_name.te` first; if not found, fall back to default
 
 ---
 
-### 4.4 Client Layer
+## Custom Query Contract
 
-**`WatiHttpClient`** (already built, update to fix response parsing):
+Every flow's SQL query must return columns in this exact order:
+
+| Column | Value |
+|--------|-------|
+| col 0 | phone number |
+| col 1 | locale (`"te"`, `"or"`, or null) |
+| col 2 | entity UUID |
+| col 3 | value for first template param (if any) |
+| col 4 | value for second template param (if any) |
+| col N | ... |
+
+The param names come from `flow.<name>.template_params` config. The worker zips names + values automatically.
+
+Aggregated values (like `total_submissions`, `approved_count`) are computed inside the SQL query with `COUNT`, `SUM`, `GROUP BY` — no Java processing needed.
+
+---
+
+## Wati API — How We Send Messages
+
 ```
 POST {wati_api_url}/api/v1/sendTemplateMessage?whatsappNumber={phone}
 Authorization: Bearer {wati_api_key}
-Body: { template_name, broadcast_name, parameters: [{name:"1", value:"..."}] }
-
-Response parsing (current code only checks HTTP status — needs fix):
-  HTTP 2xx + body.result == true  → Sent  (extract body.messageId → wati_message_id)
-  HTTP 2xx + body.result == false → PermanentFailure  (invalid phone / unapproved template)
-  HTTP 4xx                        → PermanentFailure  (bad request, auth failure)
-  HTTP 5xx / network timeout      → RuntimeError → retry
-```
-
----
-
-### 4.5 Persistence Layer
-
-**New — `WatiMessageRequest.java`** — JPA entity mapping to the `wati_message_request` table. One row = one message to send (or already sent/failed).
-
-**New — `WatiMessageRequestRepository.java`** — Spring Data JPA interface (3–5 lines, Spring generates all SQL):
-```java
-public interface WatiMessageRequestRepository extends JpaRepository<WatiMessageRequest, Long> {
-    // Used by send worker: fetch all Pending requests due for sending
-    List<WatiMessageRequest> findByStatusAndNextRetryTimeLessThanEqual(
-            WatiMessageStatus status, LocalDateTime now);
-
-    // Used by cooldown check: is there already a recent request for this entity+flow?
-    boolean existsByEntityIdAndFlowNameAndStatusInAndCreatedDateTimeAfter(
-            String entityId, String flowName,
-            List<WatiMessageStatus> statuses, LocalDateTime cutoff);
+Body:
+{
+  "template_name": "weekly_survey_reminder_te",
+  "broadcast_name": "weekly_survey_reminder_te",
+  "parameters": [
+    {"name": "name", "value": "Ramu"},
+    {"name": "amount", "value": "50"}
+  ]
 }
 ```
-Spring generates the SQL at startup from the method names — no manual query writing needed.
 
-**Reused from `integration-data` module:**
-- `ErrorRecord` + `ErrorTypeRepository` — for send/retry error tracking
-
----
-
-### 4.6 Worker Layer
-
-**`WatiFlowWorker`** (new):
-```
-Flow discovery — scan config keys for pattern flow.<name>.custom_query:
-  flowQueryMap = integrationSystemConfigCollection.getConfigsByPrefix("flow.")
-      .filter(key -> key.endsWith(".custom_query"))
-      .collect(flowName → queryName)
-  // e.g. { "weekly_survey" → "dil_weekly_survey_scheduled_today" }
-  // This avoids picking up flow.<name>.enabled, .cooldown_days etc. as flow names
-
-For each (flowName, queryName) in flowQueryMap:
-  1. WatiFlowConfig flowConfig = WatiConfig.getFlowConfig(flowName)
-  2. AvniQueryRepository.invokeCustomQuery(flowConfig.customQueryName)
-     → POST /executeQuery  (query filters scheduled_date = today, returns rows with phone + locale)
-  3. For each row:
-     a. phone = row[0], locale = row[1], entityId = row[2]  (query defines column order)
-     b. Check cooldown (prevents double-send if job restarts same day)
-     c. If not in cooldown → WatiMessageRequestService.createRequest(row, flowConfig)
-     (no IntegratingEntityStatus needed — query is stateless)
-```
-
-**`WatiMessageSendService`** (new):
-```
-sendPending():
-  Fetch all WatiMessageRequest where status=Pending AND next_retry_time <= NOW()
-  For each request:
-    1. WatiHttpClient.sendTemplateMessage(phone, templateName, params)
-    2. result = SendMessageResponse
-
-    If result.isSuccess():
-      → status=Sent, wati_message_id=result.messageId, last_attempt_time=NOW()
-
-    If result.isPermanentFailure():  (HTTP 4xx, or HTTP 200 + result:false)
-      → status=PermanentFailure, error_message=result.error
-      → WatiErrorService.recordError(request, PermanentFailure)
-      (no retry — invalid number or unapproved template won't succeed regardless)
-
-    If result.isTransientFailure():  (HTTP 5xx, network timeout)
-      → attempt_count++
-      → if attempt_count < max_retries:
-           status=Failed, next_retry_time=NOW() + retry_interval_hours
-        else:
-           status=PermanentFailure, WatiErrorService.recordError(request, MaxRetriesExceeded)
-```
-
-**Failure reasons and classification:**
-| Reason | Category | Retry |
-|--------|----------|-------|
-| Phone not on WhatsApp / wrong format | Permanent | No |
-| Template not approved by Meta | Permanent | No |
-| Wrong parameter count for template | Permanent | No |
-| User blocked business number | Permanent | No |
-| Wati HTTP 5xx / internal error | Transient | Yes |
-| Network timeout / connection refused | Transient | Yes |
-| Wati rate limit (429) | Transient | Yes, after delay |
-
-**Webhooks:** Wati can POST delivery status updates (Delivered, Read, Failed-after-delivery) to a configured URL. Not implemented in this phase — `wati_status` column is reserved for future webhook receiver. `Sent` is the terminal success state for now.
+**Response handling:**
+| Response | What it means | Action |
+|----------|--------------|--------|
+| HTTP 2xx + `result: true` | Message sent | Mark `Sent`, store `wati_message_id` |
+| HTTP 2xx + `result: false` | Permanent problem (bad phone, blocked) | Mark `PermanentFailure`, write ErrorRecord |
+| HTTP 4xx | Bad request / auth failure | Mark `PermanentFailure`, write ErrorRecord |
+| HTTP 5xx / timeout | Wati server issue | Mark `Failed`, schedule retry |
 
 ---
 
-### 4.7 Job Layer
+## Files — What Needs to Change
 
-**`AvniWatiMainJob`** (updated):
-```
-execute(WatiConfig config):
-  1. WatiContextProvider.set(config)
-  2. AvniHttpClient.setAvniSession(WatiAvniSessionFactory.createSession())
-  3. WatiFlowWorker.processAllFlows()         ← NEW: fetch entities, create message requests
-  4. WatiMessageSendWorker.sendPending()      ← NEW: send all Pending requests
-  5. healthCheckService.success("wati")
-  finally: clear session + context
-```
+### New files to create
 
-**`AvniWatiErrorJob`** (new or reuse pattern from RWB):
-```
-execute(WatiConfig config):
-  Re-run WatiMessageSendWorker for Failed requests whose next_retry_time has passed
-```
+| File | What it does |
+|------|-------------|
+| `WatiFlowConfig.java` | Holds config for one flow (query name, cooldown days, retries etc.) — ✅ already created, minor updates needed |
+| `WatiMessageRequest.java` | JPA entity — one row = one message — ✅ already created |
+| `WatiMessageStatus.java` | Enum: `Pending / Sending / Sent / Failed / PermanentFailure` — ✅ created, needs `Sending` added, `Delivered` removed |
+| `WatiMessageRequestRepository.java` | DB queries via Spring Data JPA — ✅ already created |
+| `WatiMessageRequestService.java` | Create requests, check cooldown, update status — ✅ already created |
+| `WatiMessageSendService.java` | Send pending messages, handle responses, retry logic — ✅ created, needs `Pending→Sending` transition (G6) |
+| `WatiFlowWorker.java` | Loop over flows, run queries, create requests — ✅ created, needs template params (G5) + enabled check (G1) |
+| `WatiErrorService.java` | Writes `ErrorRecord` when a message permanently fails (G2) — **new** |
+| `AvniWatiErrorJob.java` | Retry job — retries Failed messages, recovers stuck Sending rows — **new** |
+| `V2_4_6__CreateWatiMessageRequestTable.sql` | DB migration to create the table — ✅ already created |
 
-**`IntegrationJobScheduler`** — add `scheduleWati()` back (after cleanup):
-```java
-List<IntegrationSystem> watiSystems = integrationSystemRepository.findAllBySystemType(wati);
-for each system → schedule AvniWatiMainJob + AvniWatiErrorJob
-```
+### Files to modify
+
+| File | What changes |
+|------|-------------|
+| `WatiConfig.java` | Add `getFlowNames()` (reads `flow.names` key); finalize `getFlowConfig()` |
+| `WatiMessageSendService.java` | Add `Pending→Sending` transition (G6); add `recoverStuck()` method |
+| `WatiFlowWorker.java` | Read template params from cols 3..N (G5); check `enabled` flag (G1) |
+| `WatiHttpClient.java` | Fix `buildParameters()` to use named keys instead of `"1"`, `"2"` (G5) |
+| `AvniWatiMainJob.java` | ✅ already updated — orchestrates FlowWorker + SendService |
+| `IntegrationSystem.java` | Add `wati` value to `SystemType` enum (fresh add) |
+| `IntegrationJobScheduler.java` | Add `scheduleWati()` method (fresh add, following `scheduleGoonj()` pattern) |
+
+### Files to keep as-is
+
+`WatiContextProvider.java`, `WatiAvniSessionFactory.java`
 
 ---
 
-## 4. DIL Org Setup SQL
+## DIL Org Setup SQL
 
-This file is maintained at `wati/src/main/resources/dil_org_setup.sql`. Run against the integration service DB (`avni_int`).
-
-Replace `<DIL_ORG_NAME>` with the actual DIL org `db_user` value before running.
+Run against the integration service DB (`avni_int`). Replace all `<PLACEHOLDERS>` before running.
 
 ```sql
 -- ============================================================
--- DIL ORG SETUP
+-- Step 1: Create integration system entry for DIL
 -- ============================================================
--- Run against: avni_int (integration service database)
--- Replace <DIL_ORG_NAME> with the actual DIL org db_user
--- ============================================================
-
--- 1. Create integration system
-INSERT INTO public.integration_system (id, name, system_type, uuid, is_voided)
-VALUES (DEFAULT, '<DIL_ORG_NAME>', 'wati', uuid_generate_v4(), false);
+INSERT INTO public.integration_system (name, system_type, uuid, is_voided)
+VALUES ('<DIL_ORG_NAME>', 'wati', uuid_generate_v4(), false);
 
 -- ============================================================
--- Global config
+-- Step 2: Global config (Avni + Wati credentials, schedule)
 -- ============================================================
 INSERT INTO integration_system_config (integration_system_id, key, value, uuid)
 SELECT id, 'avni_api_url', 'https://app.avniproject.org', uuid_generate_v4()
@@ -339,46 +341,56 @@ INSERT INTO integration_system_config (integration_system_id, key, value, uuid)
 SELECT id, 'wati_api_key', '<WATI_API_KEY>', uuid_generate_v4()
 FROM integration_system WHERE name = '<DIL_ORG_NAME>';
 
--- 5am IST daily: use '30 23 * * *' if server is UTC, '0 5 * * *' if server is IST
--- Verify server timezone: run 'timedatectl' on the server before setting
+-- 5am IST: use '30 23 * * *' if server is UTC, '0 5 * * *' if server is IST
+-- Check server timezone first: run 'timedatectl' on server
 INSERT INTO integration_system_config (integration_system_id, key, value, uuid)
 SELECT id, 'main.scheduled.job.cron', '30 23 * * *', uuid_generate_v4()
 FROM integration_system WHERE name = '<DIL_ORG_NAME>';
 
+-- 6:30am IST (30 min after main job)
 INSERT INTO integration_system_config (integration_system_id, key, value, uuid)
-SELECT id, 'error.scheduled.job.cron', '<ERROR_CRON_EXPRESSION>', uuid_generate_v4()
+SELECT id, 'error.scheduled.job.cron', '0 1 * * *', uuid_generate_v4()
 FROM integration_system WHERE name = '<DIL_ORG_NAME>';
 
--- Must match avni.int.env property (e.g. 'prod', 'staging')
 INSERT INTO integration_system_config (integration_system_id, key, value, uuid)
 SELECT id, 'int_env', '<INT_ENV>', uuid_generate_v4()
 FROM integration_system WHERE name = '<DIL_ORG_NAME>';
 
+-- List of active flows
+INSERT INTO integration_system_config (integration_system_id, key, value, uuid)
+SELECT id, 'flow.names', 'weekly_survey,biweekly_payment', uuid_generate_v4()
+FROM integration_system WHERE name = '<DIL_ORG_NAME>';
+
 -- ============================================================
--- Flow 1: weekly_survey
--- Trigger: on_scheduled_date — runs daily at 5am IST (cron: 30 23 * * * UTC / 0 5 * * * IST)
--- Sends when encounter "Self-report Survey" is scheduled for today
--- Templates: weekly_survey_reminder (en), weekly_survey_reminder_te (te), weekly_survey_reminder_or (or)
+-- Step 3: Flow 1 — weekly_survey
+-- Sends daily reminder to fill in the weekly activity form
+-- Template: "Good morning {{name}}! ... INR {{amount}} will be processed..."
+-- Runs at 5am IST daily; sends when encounter is scheduled for today
 -- ============================================================
 INSERT INTO integration_system_config (integration_system_id, key, value, uuid)
 SELECT id, 'flow.weekly_survey.enabled', 'true', uuid_generate_v4()
 FROM integration_system WHERE name = '<DIL_ORG_NAME>';
 
--- Name of the custom_query registered in avni-server DB
 INSERT INTO integration_system_config (integration_system_id, key, value, uuid)
 SELECT id, 'flow.weekly_survey.custom_query', 'dil_weekly_survey_scheduled_today', uuid_generate_v4()
 FROM integration_system WHERE name = '<DIL_ORG_NAME>';
 
+-- Template names: use exact names from Wati dashboard (each locale can have a completely different name)
 INSERT INTO integration_system_config (integration_system_id, key, value, uuid)
-SELECT id, 'flow.weekly_survey.template_name', 'weekly_survey_reminder', uuid_generate_v4()
+SELECT id, 'flow.weekly_survey.template_name', '<WEEKLY_SURVEY_TEMPLATE_EN>', uuid_generate_v4()
 FROM integration_system WHERE name = '<DIL_ORG_NAME>';
 
 INSERT INTO integration_system_config (integration_system_id, key, value, uuid)
-SELECT id, 'flow.weekly_survey.template_name.te', 'weekly_survey_reminder_te', uuid_generate_v4()
+SELECT id, 'flow.weekly_survey.template_name.te', '<WEEKLY_SURVEY_TEMPLATE_TE>', uuid_generate_v4()
 FROM integration_system WHERE name = '<DIL_ORG_NAME>';
 
 INSERT INTO integration_system_config (integration_system_id, key, value, uuid)
-SELECT id, 'flow.weekly_survey.template_name.or', 'weekly_survey_reminder_or', uuid_generate_v4()
+SELECT id, 'flow.weekly_survey.template_name.or', '<WEEKLY_SURVEY_TEMPLATE_OR>', uuid_generate_v4()
+FROM integration_system WHERE name = '<DIL_ORG_NAME>';
+
+-- Template variables: {{name}}, {{amount}}
+INSERT INTO integration_system_config (integration_system_id, key, value, uuid)
+SELECT id, 'flow.weekly_survey.template_params', 'name,amount', uuid_generate_v4()
 FROM integration_system WHERE name = '<DIL_ORG_NAME>';
 
 INSERT INTO integration_system_config (integration_system_id, key, value, uuid)
@@ -393,38 +405,41 @@ INSERT INTO integration_system_config (integration_system_id, key, value, uuid)
 SELECT id, 'flow.weekly_survey.retry_interval_hours', '24', uuid_generate_v4()
 FROM integration_system WHERE name = '<DIL_ORG_NAME>';
 
+INSERT INTO integration_system_config (integration_system_id, key, value, uuid)
+SELECT id, 'flow.weekly_survey.failure_report_channel', 'error_record', uuid_generate_v4()
+FROM integration_system WHERE name = '<DIL_ORG_NAME>';
+
 -- ============================================================
--- Flow 2: biweekly_payment
--- Trigger: on_scheduled_date (custom query, schedule TBD)
--- Condition: send when ALL of the user's work encounters are approved or rejected
--- Schedule: TBD — depends on when approvals complete (e.g. end of day or next morning)
--- Cooldown 10 days: shorter than the 14-day cycle so next cycle can still trigger,
---   but long enough to block re-sending within the same cycle if job runs daily
--- Templates: bi-weekly_payment_summary_chlorine_refill (en),
---            bi-weekly_payment_summary_chlorine_refill_te (te),
---            bi-weekly_payment_summary_chlorine_refill_or (or)
--- TODO: confirm approval model in Avni (entity_approval_status table structure for DIL)
--- TODO: replace <CUSTOM_QUERY_NAME>, <CRON_EXPRESSION> before running
+-- Step 4: Flow 2 — biweekly_payment
+-- Sends 2-week summary of approved/rejected submissions + payment amount
+-- Template: "Hello {{name}}, total: {{total_submissions}}, approved: {{approved_count}}..."
+-- Schedule: TBD — run after approvals are complete
+-- TODO: confirm custom query name and cron expression before running
 -- ============================================================
 INSERT INTO integration_system_config (integration_system_id, key, value, uuid)
 SELECT id, 'flow.biweekly_payment.enabled', 'true', uuid_generate_v4()
 FROM integration_system WHERE name = '<DIL_ORG_NAME>';
 
--- Name of the custom_query registered in avni-server DB
 INSERT INTO integration_system_config (integration_system_id, key, value, uuid)
 SELECT id, 'flow.biweekly_payment.custom_query', '<CUSTOM_QUERY_NAME>', uuid_generate_v4()
 FROM integration_system WHERE name = '<DIL_ORG_NAME>';
 
+-- Template names: use exact names from Wati dashboard (each locale can have a completely different name)
 INSERT INTO integration_system_config (integration_system_id, key, value, uuid)
-SELECT id, 'flow.biweekly_payment.template_name', 'bi-weekly_payment_summary_chlorine_refill', uuid_generate_v4()
+SELECT id, 'flow.biweekly_payment.template_name', '<BIWEEKLY_PAYMENT_TEMPLATE_EN>', uuid_generate_v4()
 FROM integration_system WHERE name = '<DIL_ORG_NAME>';
 
 INSERT INTO integration_system_config (integration_system_id, key, value, uuid)
-SELECT id, 'flow.biweekly_payment.template_name.te', 'bi-weekly_payment_summary_chlorine_refill_te', uuid_generate_v4()
+SELECT id, 'flow.biweekly_payment.template_name.te', '<BIWEEKLY_PAYMENT_TEMPLATE_TE>', uuid_generate_v4()
 FROM integration_system WHERE name = '<DIL_ORG_NAME>';
 
 INSERT INTO integration_system_config (integration_system_id, key, value, uuid)
-SELECT id, 'flow.biweekly_payment.template_name.or', 'bi-weekly_payment_summary_chlorine_refill_or', uuid_generate_v4()
+SELECT id, 'flow.biweekly_payment.template_name.or', '<BIWEEKLY_PAYMENT_TEMPLATE_OR>', uuid_generate_v4()
+FROM integration_system WHERE name = '<DIL_ORG_NAME>';
+
+-- Template variables: {{name}}, {{total_submissions}}, {{approved_count}}, {{payment_amount}}, {{rejected_count}}
+INSERT INTO integration_system_config (integration_system_id, key, value, uuid)
+SELECT id, 'flow.biweekly_payment.template_params', 'name,total_submissions,approved_count,payment_amount,rejected_count', uuid_generate_v4()
 FROM integration_system WHERE name = '<DIL_ORG_NAME>';
 
 INSERT INTO integration_system_config (integration_system_id, key, value, uuid)
@@ -439,36 +454,29 @@ INSERT INTO integration_system_config (integration_system_id, key, value, uuid)
 SELECT id, 'flow.biweekly_payment.retry_interval_hours', '24', uuid_generate_v4()
 FROM integration_system WHERE name = '<DIL_ORG_NAME>';
 
+INSERT INTO integration_system_config (integration_system_id, key, value, uuid)
+SELECT id, 'flow.biweekly_payment.failure_report_channel', 'error_record', uuid_generate_v4()
+FROM integration_system WHERE name = '<DIL_ORG_NAME>';
 ```
 
-### Locale Template Resolution Flow
+---
 
-```
-WatiFlowWorker runs custom query → row[0]=phone, row[1]=locale ("te"), row[2]=entityId
-  → WatiConfig.getTemplateName("weekly_survey", "te")
-      → checks: flow.weekly_survey.template_name.te  → "weekly_survey_reminder_te"  ✓ use this
-      → if "or": flow.weekly_survey.template_name.or → "weekly_survey_reminder_or"
-      → if absent or "en": flow.weekly_survey.template_name → "weekly_survey_reminder" (fallback)
-  → stores resolved template_name in WatiMessageRequest.templateName
-WatiMessageSendService reads WatiMessageRequest.templateName → sends to Wati API
-```
+## Custom Query — weekly_survey (insert into Avni server DB)
 
-Wati templates are pre-registered in Wati dashboard per language. The integration only selects which template name to use — Wati handles the actual language rendering.
-
-### Custom Query for `weekly_survey` (insert into avni-server DB)
+Returns: phone (col 0), locale (col 1), entity_id (col 2), name (col 3), amount (col 4)
 
 ```sql
--- Run against the DIL org's Avni DB
--- Replace :org_id with the DIL organisation id
 INSERT INTO public.custom_query (uuid, name, query, organisation_id, is_voided, version,
                                  created_by_id, last_modified_by_id, created_date_time, last_modified_date_time)
 VALUES (
     uuid_generate_v4(),
     'dil_weekly_survey_scheduled_today',
     'SELECT
-         obs_phone.value_as_string   AS phone_number,
-         u.settings->>''language''   AS locale,
-         e.uuid                      AS entity_id
+         obs_phone.value_as_string        AS phone_number,
+         u.settings->>''language''        AS locale,
+         e.uuid                           AS entity_id,
+         i.first_name                     AS name,
+         ''50''                           AS amount
      FROM encounter e
               JOIN encounter_type et   ON et.id = e.encounter_type_id AND et.is_voided = false
               JOIN individual i        ON i.id = e.individual_id      AND i.is_voided = false
@@ -478,84 +486,56 @@ VALUES (
                   AND obs_phone.is_voided = false
                   AND obs_phone.concept_id = (
                       SELECT id FROM concept
-                      WHERE name = :phone_concept AND is_voided = false
+                      WHERE name = ''Mobile Number'' AND is_voided = false
                       LIMIT 1
                   )
-     WHERE et.name          = :encounter_type
-       AND e.organisation_id = :org_id
+     WHERE et.name           = ''Self-report Survey''
+       AND e.organisation_id = :orgId
        AND e.is_voided        = false
        AND e.encounter_date_time IS NULL
        AND DATE(e.earliest_visit_date_time) = CURRENT_DATE',
-    :org_id, false, 0, 1, 1, now(), now()
+    :orgId, false, 0, 1, 1, now(), now()
 );
 ```
 
-Column order in query result must be: `phone_number` (col 0), `locale` (col 1), `entity_id` (col 2) — the worker reads by position.
+---
+
+## Implementation Order
+
+Steps already done (code written, needs review adjustments):
+
+1. ✅ DB migration — `V2_4_6__CreateWatiMessageRequestTable.sql`
+2. ✅ `WatiMessageRequest.java` — JPA entity
+3. ✅ `WatiMessageStatus.java` — enum (needs `Sending` added, `Delivered` removed)
+4. ✅ `WatiMessageRequestRepository.java` — Spring Data JPA repo
+5. ✅ `WatiFlowConfig.java` — per-flow config wrapper
+6. ✅ `WatiMessageRequestService.java` — create/update requests, cooldown check
+7. ✅ `WatiFlowWorker.java` — needs G5 (template params) + G1 (enabled check) updates
+8. ✅ `WatiMessageSendService.java` — needs G6 (`Pending→Sending` transition) update
+9. ✅ `AvniWatiMainJob.java` — orchestrates flow worker + send service
+
+Still to do:
+
+10. `WatiMessageStatus.java` — add `Sending`, remove `Delivered`
+11. `WatiFlowWorker.java` — read cols 3..N as template params; check `enabled` flag
+12. `WatiMessageSendService.java` — add `Pending→Sending` transition; add `recoverStuck()`
+13. `WatiHttpClient.java` — fix `buildParameters()` to use named keys
+14. `WatiErrorService.java` — new class, writes `ErrorRecord` on `PermanentFailure`
+15. `AvniWatiErrorJob.java` — new class, retry job
+16. `IntegrationSystem.java` — add `wati` enum value
+17. `IntegrationJobScheduler.java` — add `scheduleWati()` method
+18. `WatiConfig.java` — finalize `getFlowNames()` using `flow.names` key
 
 ---
 
-## 5. Files to Create / Modify
+## How to Verify After Implementation
 
-### Create
-| File | Module | Purpose |
-|------|--------|---------|
-| `WatiFlowConfig.java` | `wati` | Per-flow config wrapper (reads flow.* keys) |
-| `WatiMessageRequest.java` | `wati` | JPA entity for message queue |
-| `WatiMessageStatus.java` | `wati` | Enum: Pending/Sent/Delivered/Failed/PermanentFailure |
-| `WatiSendResult.java` | `wati` | Result of a Wati API send call — replaces WatiSendMsgErrorType |
-| `WatiMessageRequestRepository.java` | `wati` | Spring Data JPA repo |
-| `WatiMessageRequestService.java` | `wati` | Create requests, cooldown check |
-| `WatiMessageSendService.java` | `wati` | Send pending, update status, handle retries |
-| `WatiFlowWorker.java` | `wati` | Iterate flows, fetch entities, create requests |
-| `V2_x__CreateWatiMessageRequestTable.sql` | `integration-data` | DB migration |
-
-### Modify
-| File | Change |
-|------|--------|
-| `WatiConfig.java` | Add flow discovery via `flow.*.custom_query` key pattern (not raw `flow.` prefix — that picks up all sub-keys); add `getWatiApiUrl/Key` (already done) and other flow getters |
-| `AvniWatiMainJob.java` | Orchestrate WatiFlowWorker + WatiMessageSendService |
-| `IntegrationJobScheduler.java` | Restore `scheduleWati()` (after cleanup) |
-| `IntegrationSystem.java` | Restore `wati` enum value (after cleanup) |
-| `settings.gradle` | Restore `include 'wati'` (after cleanup) |
-| `integrator/build.gradle` | Restore `project(':wati')` (after cleanup) |
-### Keep As-Is (already correct)
-| File | Status |
-|------|--------|
-| `WatiContextProvider.java` | No change needed |
-| `WatiAvniSessionFactory.java` | No change needed |
-| `WatiUserMessageErrorService.java` | No change needed |
-
-### Fix During Implementation
-| File | Fix needed |
-|------|-----------|
-| `WatiHttpClient.java` | Parse response body `result` field (not just HTTP status); extract `messageId`; distinguish permanent vs transient failures |
-| `WatiSendMsgErrorType.java` | Add `PermanentFailure` variant distinct from `RuntimeError` (for HTTP 200 + result:false case) |
-
----
-
-## 6. Implementation Order
-
-1. **Cleanup** — revert dil→wati rename, restore scheduler and enum (keep functional changes)
-2. **DB migration** — create `wati_message_request` table
-3. **Domain + Repository** — `WatiMessageRequest`, `WatiMessageStatus`, `WatiMessageRequestRepository`
-4. **Config** — `WatiFlowConfig`, extend `WatiConfig` with flow config accessors
-5. **WatiMessageRequestService** — create request, cooldown check
-6. **WatiFlowWorker** — iterate flows, call Avni custom query API, create requests
-7. **WatiMessageSendService** — send pending requests, retry logic
-8. **Update `AvniWatiMainJob`** — orchestrate all workers
-9. **WatiErrorJob** — retry failed messages
-10. **DB seed (DIL)** — run `wati/src/main/resources/dil_org_setup.sql` after substituting all placeholders
-
----
-
-## 7. Verification
-
-1. `./gradlew build` passes cleanly after cleanup
-2. Insert DIL `integration_system` + `integration_system_config` rows
-
+1. Run `./gradlew build` — must pass cleanly
+2. Run DB migration — `wati_message_request` table must be created
+3. Insert DIL config rows (run setup SQL above with real values)
 4. Trigger `AvniWatiMainJob` manually
-5. Verify `wati_message_request` rows created for actionable entities
-6. Verify `wati_message_request.status` transitions: Pending → Sent
-7. Verify Wati delivers message (check Wati dashboard)
-8. Verify retry: set a request to Failed, run error job, confirm attempt_count increments
-9. Verify cooldown: confirm duplicate requests are not created within cooldown window
+5. Check `wati_message_request` — rows should appear with status `Sent`
+6. Check Wati dashboard — messages should show as sent
+7. Manually set one row to `Failed`, trigger error job — `attempt_count` should increment
+8. Manually set two rows to `Pending` with same `entity_id` + `flow_name`, trigger job — only one message should send (cooldown check)
+9. Manually set one row to `Sending`, trigger error job — row should reset to `Pending` after 1 hour check
