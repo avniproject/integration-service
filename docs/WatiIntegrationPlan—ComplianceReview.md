@@ -70,6 +70,8 @@ The design brief asks for Events, Actions, Actors, Rules, and Templates to be di
   - `flow.<name>.rule` — a named rule identifier (even if the v1 implementation only supports "actionable-if-row-exists"). Design explicitly calls out "Categorise Actionable or Not" (lines 45, 62, 80) as a distinct step.
 - Templates already segregated via `flow.<name>.template_name[.<locale>]` — ✅ keep.
 
+(**Post discussion note**) Make it reusable with minor changes, and not configurable 
+
 ### G2 — Final-failure reporting channel (design line 16)
 
 `PermanentFailure` is just a DB state today. Design asks for configured reporting. Minimum: an `ErrorRecord` entry is already written — make that the documented contract, and add a config key `flow.<name>.failure_report_channel` with at least `error_record` as the only v1 value, so the axis exists for future extension (email, slack, etc.) without schema change.
