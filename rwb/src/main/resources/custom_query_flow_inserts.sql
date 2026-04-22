@@ -47,7 +47,7 @@ WHERE NOT EXISTS (
       AND u.organisation_id = :org_id
 ),
 old_sync AS (
-    SELECT user_id
+    SELECT DISTINCT user_id
     FROM sync_telemetry
     WHERE sync_status = ''complete''
       AND organisation_id = :org_id
@@ -204,35 +204,45 @@ AND NOT EXISTS (
       AND u.is_voided = false
       AND u.organisation_id = :org_id
 ),
-last_recording AS (
-    SELECT created_by_id AS user_id, MAX(encounter_date_time) AS last_recorded
-    FROM encounter
-    WHERE encounter_type_id IN (
-        SELECT id FROM encounter_type
-        WHERE name IN (''Work order daily Recording - Machine'', ''Work order daily Recording - Farmer'')
-          AND organisation_id = :org_id
-          AND is_voided = false
-    )
-    GROUP BY created_by_id
-),
-entities AS (
-    SELECT u.id AS user_id,
-           COUNT(*) FILTER (WHERE st.name IN (''Farmer'', ''Gram Panchayat'')) AS farmers_or_gp,
-           COUNT(*) FILTER (WHERE st.name = ''Excavating Machine'') AS machines
+work_orders AS (
+    SELECT i.id AS work_order_id, i.created_by_id AS user_id
     FROM individual i
              JOIN subject_type st ON st.id = i.subject_type_id
-             JOIN users u ON u.id = i.created_by_id
-    WHERE i.organisation_id = :org_id
+    WHERE st.name = ''Work Order''
+      AND i.organisation_id = :org_id
       AND i.is_voided = false
-    GROUP BY u.id
+),
+work_order_last_recording AS (
+    SELECT e.individual_id AS work_order_id, MAX(e.encounter_date_time) AS last_recorded
+    FROM encounter e
+             JOIN encounter_type et ON et.id = e.encounter_type_id
+    WHERE et.name IN (''Work order daily Recording - Machine'', ''Work order daily Recording - Farmer'')
+      AND et.organisation_id = :org_id
+      AND et.is_voided = false
+      AND e.is_voided = false
+    GROUP BY e.individual_id
+),
+work_order_endlines AS (
+    SELECT DISTINCT e.individual_id AS work_order_id
+    FROM encounter e
+             JOIN encounter_type et ON et.id = e.encounter_type_id
+    WHERE et.name = ''Work order endline''
+      AND et.organisation_id = :org_id
+      AND et.is_voided = false
+      AND e.is_voided = false
+),
+nudge_worthy_users AS (
+    SELECT DISTINCT wo.user_id
+    FROM work_orders wo
+             JOIN work_order_last_recording wlr ON wo.work_order_id = wlr.work_order_id
+             LEFT JOIN work_order_endlines woe ON wo.work_order_id = woe.work_order_id
+    WHERE woe.work_order_id IS NULL
+      AND wlr.last_recorded < now() - INTERVAL ''5 DAYS''
 )
 SELECT pu.user_id, pu.first_name
 FROM primary_users pu
-JOIN entities e ON pu.user_id = e.user_id
-JOIN last_recording lr ON pu.user_id = lr.user_id
-WHERE (e.farmers_or_gp > 0 AND e.machines > 0)
-  AND lr.last_recorded < now() - INTERVAL ''5 DAYS''
-  AND NOT EXISTS (
+JOIN nudge_worthy_users nwu ON pu.user_id = nwu.user_id
+WHERE NOT EXISTS (
     SELECT 1 FROM flow_request_queue frq
     JOIN message_receiver mr ON mr.id = frq.message_receiver_id
     WHERE mr.receiver_id = pu.user_id
