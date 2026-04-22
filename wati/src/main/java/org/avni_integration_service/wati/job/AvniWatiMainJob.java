@@ -6,7 +6,8 @@ import org.avni_integration_service.avni.client.AvniHttpClient;
 import org.avni_integration_service.wati.config.WatiAvniSessionFactory;
 import org.avni_integration_service.wati.config.WatiConfig;
 import org.avni_integration_service.wati.config.WatiContextProvider;
-import org.avni_integration_service.wati.worker.WatiUsersMessageWorker;
+import org.avni_integration_service.wati.service.WatiMessageSendService;
+import org.avni_integration_service.wati.worker.WatiFlowWorker;
 import org.avni_integration_service.util.HealthCheckService;
 import org.springframework.stereotype.Component;
 
@@ -23,17 +24,20 @@ public class AvniWatiMainJob {
     private final WatiAvniSessionFactory watiAvniSessionFactory;
     private final AvniHttpClient avniHttpClient;
     private final WatiContextProvider watiContextProvider;
-    private final WatiUsersMessageWorker watiUsersMessageWorker;
+    private final WatiFlowWorker watiFlowWorker;
+    private final WatiMessageSendService watiMessageSendService;
 
     public AvniWatiMainJob(Bugsnag bugsnag, HealthCheckService healthCheckService,
                            WatiAvniSessionFactory watiAvniSessionFactory, AvniHttpClient avniHttpClient,
-                           WatiContextProvider watiContextProvider, WatiUsersMessageWorker watiUsersMessageWorker) {
+                           WatiContextProvider watiContextProvider, WatiFlowWorker watiFlowWorker,
+                           WatiMessageSendService watiMessageSendService) {
         this.bugsnag = bugsnag;
         this.healthCheckService = healthCheckService;
         this.watiAvniSessionFactory = watiAvniSessionFactory;
         this.avniHttpClient = avniHttpClient;
         this.watiContextProvider = watiContextProvider;
-        this.watiUsersMessageWorker = watiUsersMessageWorker;
+        this.watiFlowWorker = watiFlowWorker;
+        this.watiMessageSendService = watiMessageSendService;
     }
 
     public void execute(WatiConfig watiConfig) {
@@ -43,7 +47,8 @@ public class AvniWatiMainJob {
             logger.info(format("Wati Main Job Started: %s", watiIntegrationSystemName));
             watiContextProvider.set(watiConfig);
             avniHttpClient.setAvniSession(watiAvniSessionFactory.createSession());
-            watiUsersMessageWorker.processUsers();
+            watiFlowWorker.processAllFlows();
+            watiMessageSendService.sendPending();
             healthCheckService.success(HEALTHCHECK_SLUG);
             logger.info(format("Wati Main Job Ended: %s", watiIntegrationSystemName));
         } catch (Exception e) {

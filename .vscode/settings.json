@@ -1,0 +1,11 @@
+{
+    "makefile.configureOnOpen": false,
+    "java.configuration.runtimes": [
+        {
+            "name": "JavaSE-17",
+            "path": "/Users/nupoorkhandelwal/Library/Java/JavaVirtualMachines/ms-17.0.16/Contents/Home",
+            "default": true
+        }
+    ],
+    "java.jdt.ls.java.home": "/Users/nupoorkhandelwal/Library/Java/JavaVirtualMachines/ms-17.0.16/Contents/Home"
+}

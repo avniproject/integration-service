@@ -6,6 +6,7 @@ import org.avni_integration_service.integration_data.domain.config.IntegrationSy
 import org.springframework.util.StringUtils;
 
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class WatiConfig {
     private final IntegrationSystemConfigCollection integrationSystemConfigCollection;
@@ -41,25 +42,38 @@ public class WatiConfig {
         return getStringConfigValue("int_env", null);
     }
 
-    /**
-     * Returns map of queryName → Wati templateName from config keys prefixed with "template."
-     * e.g. template.chlorine_refill_reminder=chlorine_refill_reminder
-     */
-    public Map<String, String> getQueryToTemplateNameMap() {
-        return integrationSystemConfigCollection.getConfigsByPrefix("template.");
+    public Map<String, String> getFlowToQueryMap() {
+        return integrationSystemConfigCollection.getConfigsByPrefix("flow.").entrySet().stream()
+                .filter(e -> e.getKey().endsWith(".custom_query"))
+                .collect(Collectors.toMap(
+                        e -> e.getKey().substring(0, e.getKey().length() - ".custom_query".length()),
+                        Map.Entry::getValue));
     }
 
-    /**
-     * Returns the Wati template name for a given query and user locale.
-     * Tries locale-specific key first (template.<queryName>.<locale>),
-     * falls back to default (template.<queryName>).
-     */
-    public String getTemplateName(String queryName, String locale) {
+    public WatiFlowConfig getFlowConfig(String flowName) {
+        String prefix = "flow." + flowName + ".";
+        return new WatiFlowConfig(
+                flowName,
+                integrationSystemConfigCollection.getConfigValue(prefix + "custom_query"),
+                Integer.parseInt(getStringConfigValue(prefix + "cooldown_days", "7")),
+                Integer.parseInt(getStringConfigValue(prefix + "max_retries", "3")),
+                Integer.parseInt(getStringConfigValue(prefix + "retry_interval_hours", "24")));
+    }
+
+    public String getTemplateName(String flowName, String locale) {
         if (StringUtils.hasLength(locale)) {
-            String localeTemplate = integrationSystemConfigCollection.getConfigValue("template." + queryName + "." + locale);
+            String localeTemplate = integrationSystemConfigCollection.getConfigValue("flow." + flowName + ".template_name." + locale);
             if (StringUtils.hasLength(localeTemplate)) return localeTemplate;
         }
-        return integrationSystemConfigCollection.getConfigValue("template." + queryName);
+        return integrationSystemConfigCollection.getConfigValue("flow." + flowName + ".template_name");
+    }
+
+    public String getWatiApiUrl() {
+        return getStringConfigValue("wati_api_url", null);
+    }
+
+    public String getWatiApiKey() {
+        return getStringConfigValue("wati_api_key", null);
     }
 
     public ContextIntegrationSystem getIntegrationSystem() {

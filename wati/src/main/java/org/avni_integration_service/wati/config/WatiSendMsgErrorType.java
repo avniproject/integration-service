@@ -22,7 +22,6 @@ public enum WatiSendMsgErrorType {
         return switch (mds) {
             case Sent -> Success;
             case NotSent -> BadConfiguration;
-            case NotSentNoPhoneNumberInAvni -> BadRequest;
             case PartiallySent, Failed, default -> RuntimeError;
         };
     }

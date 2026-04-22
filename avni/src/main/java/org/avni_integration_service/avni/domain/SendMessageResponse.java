@@ -4,10 +4,17 @@ package org.avni_integration_service.avni.domain;
 public class SendMessageResponse {
     MessageDeliveryStatus messageDeliveryStatus;
     String errorMessage;
+    String messageId;
 
     public SendMessageResponse(MessageDeliveryStatus messageDeliveryStatus, String errorMessage) {
         this.messageDeliveryStatus = messageDeliveryStatus;
         this.errorMessage = errorMessage;
+    }
+
+    public SendMessageResponse(MessageDeliveryStatus messageDeliveryStatus, String errorMessage, String messageId) {
+        this.messageDeliveryStatus = messageDeliveryStatus;
+        this.errorMessage = errorMessage;
+        this.messageId = messageId;
     }
 
     public MessageDeliveryStatus getMessageDeliveryStatus() {
@@ -24,5 +31,9 @@ public class SendMessageResponse {
 
     public void setErrorMessage(String errorMessage) {
         this.errorMessage = errorMessage;
+    }
+
+    public String getMessageId() {
+        return messageId;
     }
 }
