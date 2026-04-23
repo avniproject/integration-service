@@ -1,6 +1,6 @@
 CREATE TABLE wati_message_request (
     id                    SERIAL PRIMARY KEY,
-    uuid                  UUID NOT NULL DEFAULT uuid_generate_v4(),
+    uuid                  VARCHAR(255) NOT NULL,
     integration_system_id BIGINT NOT NULL REFERENCES integration_system (id),
     flow_name             VARCHAR(255) NOT NULL,
     entity_id             VARCHAR(500) NOT NULL,

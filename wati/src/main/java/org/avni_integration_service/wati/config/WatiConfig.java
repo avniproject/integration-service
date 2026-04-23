@@ -52,9 +52,16 @@ public class WatiConfig {
 
     public WatiFlowConfig getFlowConfig(String flowName) {
         String prefix = "flow." + flowName + ".";
+        boolean enabled = Boolean.parseBoolean(getStringConfigValue(prefix + "enabled", "true"));
+        String templateParamsStr = getStringConfigValue(prefix + "template_params", "");
+        String[] templateParams = StringUtils.hasLength(templateParamsStr) ? templateParamsStr.split(",") : new String[0];
+        String entityType = getStringConfigValue(prefix + "entity_type", "encounter");
         return new WatiFlowConfig(
                 flowName,
                 integrationSystemConfigCollection.getConfigValue(prefix + "custom_query"),
+                enabled,
+                templateParams,
+                entityType,
                 Integer.parseInt(getStringConfigValue(prefix + "cooldown_days", "7")),
                 Integer.parseInt(getStringConfigValue(prefix + "max_retries", "3")),
                 Integer.parseInt(getStringConfigValue(prefix + "retry_interval_hours", "24")));

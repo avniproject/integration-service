@@ -1,6 +1,7 @@
 package org.avni_integration_service.wati.domain;
 
 import org.avni_integration_service.integration_data.domain.framework.BaseIntegrationSpecificEntity;
+import org.hibernate.annotations.ColumnTransformer;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -25,6 +26,7 @@ public class WatiMessageRequest extends BaseIntegrationSpecificEntity {
     private String templateName;
 
     @Column(columnDefinition = "jsonb")
+    @ColumnTransformer(write = "?::jsonb")
     private String parameters;
 
     @Column

@@ -30,7 +30,8 @@ public class WatiMessageRequestService {
 
     public boolean isInCooldown(String entityId, String flowName, int cooldownDays) {
         List<WatiMessageStatus> activeStatuses = Arrays.asList(
-                WatiMessageStatus.Pending, WatiMessageStatus.Sent, WatiMessageStatus.Delivered);
+                WatiMessageStatus.Pending, WatiMessageStatus.Sending, WatiMessageStatus.Sent,
+                WatiMessageStatus.Failed);
         return watiMessageRequestRepository
                 .existsByEntityIdAndFlowNameAndStatusInAndCreatedDateTimeAfterAndIntegrationSystem_Id(
                         entityId, flowName, activeStatuses,
@@ -39,19 +40,40 @@ public class WatiMessageRequestService {
     }
 
     public WatiMessageRequest createRequest(String phoneNumber, String locale, String entityId,
-                                            String templateName, WatiFlowConfig flowConfig) {
+                                            String templateName, String parametersJson, WatiFlowConfig flowConfig) {
         IntegrationSystem integrationSystem = integrationSystemRepository.findEntity(
                 watiContextProvider.get().getIntegrationSystem().getId());
         WatiMessageRequest request = new WatiMessageRequest();
         request.setIntegrationSystem(integrationSystem);
         request.setFlowName(flowConfig.getFlowName());
         request.setEntityId(entityId);
-        request.setEntityType("encounter");
+        request.setEntityType(flowConfig.getEntityType());
         request.setPhoneNumber(phoneNumber);
         request.setTemplateName(templateName);
+        request.setParameters(parametersJson);
         request.setLocale(locale);
         request.setNextRetryTime(LocalDateTime.now());
         return watiMessageRequestRepository.save(request);
+    }
+
+    public WatiMessageRequest markSending(WatiMessageRequest request) {
+        request.setStatus(WatiMessageStatus.Sending);
+        request.setAttemptCount(request.getAttemptCount() + 1);
+        request.setLastAttemptTime(LocalDateTime.now());
+        return watiMessageRequestRepository.save(request);
+    }
+
+    public List<WatiMessageRequest> getStuckSendingRequests() {
+        return watiMessageRequestRepository.findByIntegrationSystem_IdAndStatusAndLastAttemptTimeBefore(
+                watiContextProvider.get().getIntegrationSystem().getId(),
+                WatiMessageStatus.Sending,
+                LocalDateTime.now().minusHours(1));
+    }
+
+    public void resetStuckTopending(WatiMessageRequest request) {
+        request.setStatus(WatiMessageStatus.Pending);
+        request.setNextRetryTime(LocalDateTime.now());
+        watiMessageRequestRepository.save(request);
     }
 
     public void markSent(WatiMessageRequest request, String watiMessageId) {
@@ -62,8 +84,6 @@ public class WatiMessageRequestService {
     }
 
     public void markFailed(WatiMessageRequest request, String errorMessage, int maxRetries, int retryIntervalHours) {
-        request.setAttemptCount(request.getAttemptCount() + 1);
-        request.setLastAttemptTime(LocalDateTime.now());
         request.setErrorMessage(errorMessage);
         if (request.getAttemptCount() >= maxRetries) {
             request.setStatus(WatiMessageStatus.PermanentFailure);
@@ -77,7 +97,6 @@ public class WatiMessageRequestService {
     public void markPermanentFailure(WatiMessageRequest request, String errorMessage) {
         request.setStatus(WatiMessageStatus.PermanentFailure);
         request.setErrorMessage(errorMessage);
-        request.setLastAttemptTime(LocalDateTime.now());
         watiMessageRequestRepository.save(request);
     }
 

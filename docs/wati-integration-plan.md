@@ -457,6 +457,14 @@ FROM integration_system WHERE name = '<DIL_ORG_NAME>';
 INSERT INTO integration_system_config (integration_system_id, key, value, uuid)
 SELECT id, 'flow.biweekly_payment.failure_report_channel', 'error_record', uuid_generate_v4()
 FROM integration_system WHERE name = '<DIL_ORG_NAME>';
+
+-- ============================================================
+-- Step 5: Error type for permanent message failures (G2)
+-- Required for WatiErrorService to write error_record rows
+-- ============================================================
+INSERT INTO error_type (name, follow_up_step, uuid, is_voided, integration_system_id)
+SELECT 'WatiMessagePermanentFailure', 'Terminal', uuid_generate_v4(), false, id
+FROM integration_system WHERE name = '<DIL_ORG_NAME>';
 ```
 
 ---

@@ -15,4 +15,7 @@ public interface WatiMessageRequestRepository extends JpaRepository<WatiMessageR
     boolean existsByEntityIdAndFlowNameAndStatusInAndCreatedDateTimeAfterAndIntegrationSystem_Id(
             String entityId, String flowName, List<WatiMessageStatus> statuses,
             LocalDateTime cutoff, Integer integrationSystemId);
+
+    List<WatiMessageRequest> findByIntegrationSystem_IdAndStatusAndLastAttemptTimeBefore(
+            Integer integrationSystemId, WatiMessageStatus status, LocalDateTime stuckBefore);
 }

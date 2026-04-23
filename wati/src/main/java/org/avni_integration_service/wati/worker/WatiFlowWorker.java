@@ -33,8 +33,12 @@ public class WatiFlowWorker {
         Map<String, String> flowToQueryMap = watiContextProvider.get().getFlowToQueryMap();
         logger.info(String.format("Processing %d flows", flowToQueryMap.size()));
         flowToQueryMap.forEach((flowName, queryName) -> {
-            logger.info(String.format("Processing flow '%s' with query '%s'", flowName, queryName));
             WatiFlowConfig flowConfig = watiContextProvider.get().getFlowConfig(flowName);
+            if (!flowConfig.isEnabled()) {
+                logger.info(String.format("Flow '%s' is disabled, skipping", flowName));
+                return;
+            }
+            logger.info(String.format("Processing flow '%s' with query '%s'", flowName, queryName));
             processFlow(flowConfig, queryName);
         });
     }
@@ -51,14 +55,36 @@ public class WatiFlowWorker {
         String locale = row.size() > 1 && row.get(1) != null ? row.get(1).toString() : null;
         String entityId = row.size() > 2 ? row.get(2).toString() : phoneNumber;
 
+        if (!phoneNumber.isEmpty() && !Character.isDigit(phoneNumber.charAt(0)) && !phoneNumber.startsWith("+")) {
+            logger.warn(String.format("Flow '%s': phone '%s' for entity %s has unexpected format",
+                    flowConfig.getFlowName(), phoneNumber, entityId));
+        }
+
         if (watiMessageRequestService.isInCooldown(entityId, flowConfig.getFlowName(), flowConfig.getCooldownDays())) {
             logger.info(String.format("Flow '%s': skipping entity %s — in cooldown", flowConfig.getFlowName(), entityId));
             return;
         }
 
         String templateName = watiContextProvider.get().getTemplateName(flowConfig.getFlowName(), locale);
-        watiMessageRequestService.createRequest(phoneNumber, locale, entityId, templateName, flowConfig);
+        String parametersJson = buildParametersJson(row, flowConfig.getTemplateParams());
+        watiMessageRequestService.createRequest(phoneNumber, locale, entityId, templateName, parametersJson, flowConfig);
         logger.info(String.format("Flow '%s': created request for entity %s phone %s template %s",
                 flowConfig.getFlowName(), entityId, phoneNumber, templateName));
+    }
+
+    private String buildParametersJson(List<Object> row, String[] paramNames) {
+        if (paramNames == null || paramNames.length == 0) return null;
+        StringBuilder json = new StringBuilder("[");
+        for (int i = 0; i < paramNames.length; i++) {
+            String value = (row.size() > 3 + i && row.get(3 + i) != null) ? row.get(3 + i).toString() : "";
+            if (i > 0) json.append(",");
+            json.append(String.format("{\"name\":\"%s\",\"value\":\"%s\"}", paramNames[i], escapeJson(value)));
+        }
+        json.append("]");
+        return json.toString();
+    }
+
+    private String escapeJson(String value) {
+        return value.replace("\\", "\\\\").replace("\"", "\\\"");
     }
 }

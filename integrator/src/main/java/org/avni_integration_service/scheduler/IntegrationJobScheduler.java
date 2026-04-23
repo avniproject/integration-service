@@ -16,6 +16,7 @@ import org.avni_integration_service.lahi.job.AvniLahiMainJob;
 import org.avni_integration_service.rwb.config.RwbConfig;
 import org.avni_integration_service.rwb.job.AvniRwbMainJob;
 import org.avni_integration_service.wati.config.WatiConfig;
+import org.avni_integration_service.wati.job.AvniWatiErrorJob;
 import org.avni_integration_service.wati.job.AvniWatiMainJob;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -46,6 +47,7 @@ public class IntegrationJobScheduler {
     private final AvniLahiFullErrorJob avniLahiFullErrorJob;
     private final AvniRwbMainJob avniRwbMainJob;
     private final AvniWatiMainJob avniWatiMainJob;
+    private final AvniWatiErrorJob avniWatiErrorJob;
     private final AvniAmritMainJob avniAmritMainJob;
     private final AvniAmritFullErrorJob avniAmritFullErrorJob;
     private final TaskScheduler taskScheduler;
@@ -73,6 +75,7 @@ public class IntegrationJobScheduler {
                                    AvniLahiMainJob avniLahiMainJob, AvniLahiFullErrorJob avniLahiFullErrorJob,
                                    AvniAmritMainJob avniAmritMainJob, AvniAmritFullErrorJob avniAmritFullErrorJob,
                                    AvniRwbMainJob avniRwbMainJob, AvniWatiMainJob avniWatiMainJob,
+                                   AvniWatiErrorJob avniWatiErrorJob,
                                    TaskScheduler taskScheduler,
                                    IntegrationSystemConfigRepository integrationSystemConfigRepository, IntegrationSystemRepository integrationSystemRepository) {
         this.avniGoonjMainJob = avniGoonjMainJob;
@@ -81,6 +84,7 @@ public class IntegrationJobScheduler {
         this.avniPowerFullErrorJob = avniPowerFullErrorJob;
         this.avniRwbMainJob = avniRwbMainJob;
         this.avniWatiMainJob = avniWatiMainJob;
+        this.avniWatiErrorJob = avniWatiErrorJob;
         this.avniLahiMainJob = avniLahiMainJob;
         this.avniLahiFullErrorJob = avniLahiFullErrorJob;
         this.avniAmritMainJob = avniAmritMainJob;
@@ -293,6 +297,7 @@ public class IntegrationJobScheduler {
             }
 
             String watiCron = integrationSystemConfigs.getMainScheduledJobCron();
+            String watiErrorCron = integrationSystemConfigs.getErrorScheduledJobCron();
 
             if (CronExpression.isValidExpression(watiCron)) {
                 taskScheduler.schedule(() -> avniWatiMainJob.execute(watiConfig), new CronTrigger(watiCron));
@@ -300,6 +305,14 @@ public class IntegrationJobScheduler {
                 anyScheduled = true;
             } else {
                 logger.info(String.format("Wati [%s]: Main job SKIPPED - invalid cron: %s", watiSystem.getName(), watiCron));
+            }
+
+            if (CronExpression.isValidExpression(watiErrorCron)) {
+                taskScheduler.schedule(() -> avniWatiErrorJob.execute(watiConfig), new CronTrigger(watiErrorCron));
+                logger.info(String.format("Wati [%s]: Error job SCHEDULED with cron: %s", watiSystem.getName(), watiErrorCron));
+                anyScheduled = true;
+            } else {
+                logger.info(String.format("Wati [%s]: Error job SKIPPED - invalid cron: %s", watiSystem.getName(), watiErrorCron));
             }
         }
         return anyScheduled;
