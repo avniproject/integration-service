@@ -50,7 +50,7 @@ public class WatiMessageRequestServiceTest {
 
         assertEquals(WatiMessageStatus.PermanentFailure, request.getStatus());
         assertEquals("phone not on WhatsApp", request.getErrorMessage());
-        assertNotNull(request.getLastAttemptTime());
+        // lastAttemptTime is set by markSending before this is called, not here
     }
 
     // --- markFailed retry logic ---
@@ -58,17 +58,19 @@ public class WatiMessageRequestServiceTest {
     @Test
     public void markFailed_setsFailedStatusWhenBelowMaxRetries() {
         WatiMessageRequest request = new WatiMessageRequest();
+        // attemptCount starts at 0; markSending increments it before markFailed is called
         service.markFailed(request, "Wati 500 error", 3, 24);
 
         assertEquals(WatiMessageStatus.Failed, request.getStatus());
-        assertEquals(1, request.getAttemptCount());
+        assertEquals(0, request.getAttemptCount()); // markFailed does not increment; markSending does
         assertNotNull(request.getNextRetryTime());
     }
 
     @Test
     public void markFailed_setsPermanentFailureWhenMaxRetriesReached() {
         WatiMessageRequest request = new WatiMessageRequest();
-        request.setAttemptCount(2);
+        // simulate 3 prior markSending calls having incremented count to maxRetries
+        request.setAttemptCount(3);
         service.markFailed(request, "Wati 500 error", 3, 24);
 
         assertEquals(WatiMessageStatus.PermanentFailure, request.getStatus());
