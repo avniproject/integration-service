@@ -356,11 +356,6 @@ INSERT INTO integration_system_config (integration_system_id, key, value, uuid)
 SELECT id, 'int_env', '<INT_ENV>', uuid_generate_v4()
 FROM integration_system WHERE name = '<DIL_ORG_NAME>';
 
--- List of active flows
-INSERT INTO integration_system_config (integration_system_id, key, value, uuid)
-SELECT id, 'flow.names', 'weekly_survey,biweekly_payment', uuid_generate_v4()
-FROM integration_system WHERE name = '<DIL_ORG_NAME>';
-
 -- ============================================================
 -- Step 3: Flow 1 — weekly_survey
 -- Sends daily reminder to fill in the weekly activity form
@@ -375,17 +370,16 @@ INSERT INTO integration_system_config (integration_system_id, key, value, uuid)
 SELECT id, 'flow.weekly_survey.custom_query', 'dil_weekly_survey_scheduled_today', uuid_generate_v4()
 FROM integration_system WHERE name = '<DIL_ORG_NAME>';
 
--- Template names: use exact names from Wati dashboard (each locale can have a completely different name)
 INSERT INTO integration_system_config (integration_system_id, key, value, uuid)
-SELECT id, 'flow.weekly_survey.template_name', '<WEEKLY_SURVEY_TEMPLATE_EN>', uuid_generate_v4()
+SELECT id, 'flow.weekly_survey.template_name', 'weekly_survey_reminder_v2', uuid_generate_v4()
 FROM integration_system WHERE name = '<DIL_ORG_NAME>';
 
 INSERT INTO integration_system_config (integration_system_id, key, value, uuid)
-SELECT id, 'flow.weekly_survey.template_name.te', '<WEEKLY_SURVEY_TEMPLATE_TE>', uuid_generate_v4()
+SELECT id, 'flow.weekly_survey.template_name.te', 'weekly_survey_reminder_v2_te', uuid_generate_v4()
 FROM integration_system WHERE name = '<DIL_ORG_NAME>';
 
 INSERT INTO integration_system_config (integration_system_id, key, value, uuid)
-SELECT id, 'flow.weekly_survey.template_name.or', '<WEEKLY_SURVEY_TEMPLATE_OR>', uuid_generate_v4()
+SELECT id, 'flow.weekly_survey.template_name.or', 'weekly_survey_reminder_v3_or', uuid_generate_v4()
 FROM integration_system WHERE name = '<DIL_ORG_NAME>';
 
 -- Template variables: {{name}}, {{amount}}
@@ -424,17 +418,16 @@ INSERT INTO integration_system_config (integration_system_id, key, value, uuid)
 SELECT id, 'flow.biweekly_payment.custom_query', '<CUSTOM_QUERY_NAME>', uuid_generate_v4()
 FROM integration_system WHERE name = '<DIL_ORG_NAME>';
 
--- Template names: use exact names from Wati dashboard (each locale can have a completely different name)
 INSERT INTO integration_system_config (integration_system_id, key, value, uuid)
-SELECT id, 'flow.biweekly_payment.template_name', '<BIWEEKLY_PAYMENT_TEMPLATE_EN>', uuid_generate_v4()
+SELECT id, 'flow.biweekly_payment.template_name', 'biweekly_payment_summary_chlorine_refill', uuid_generate_v4()
 FROM integration_system WHERE name = '<DIL_ORG_NAME>';
 
 INSERT INTO integration_system_config (integration_system_id, key, value, uuid)
-SELECT id, 'flow.biweekly_payment.template_name.te', '<BIWEEKLY_PAYMENT_TEMPLATE_TE>', uuid_generate_v4()
+SELECT id, 'flow.biweekly_payment.template_name.te', 'biweekly_payment_summary_chlorine_refill_te', uuid_generate_v4()
 FROM integration_system WHERE name = '<DIL_ORG_NAME>';
 
 INSERT INTO integration_system_config (integration_system_id, key, value, uuid)
-SELECT id, 'flow.biweekly_payment.template_name.or', '<BIWEEKLY_PAYMENT_TEMPLATE_OR>', uuid_generate_v4()
+SELECT id, 'flow.biweekly_payment.template_name.or', 'biweekly_payment_summary_chlorine_refill_or', uuid_generate_v4()
 FROM integration_system WHERE name = '<DIL_ORG_NAME>';
 
 -- Template variables: {{name}}, {{total_submissions}}, {{approved_count}}, {{payment_amount}}, {{rejected_count}}
@@ -459,7 +452,52 @@ SELECT id, 'flow.biweekly_payment.failure_report_channel', 'error_record', uuid_
 FROM integration_system WHERE name = '<DIL_ORG_NAME>';
 
 -- ============================================================
--- Step 5: Error type for permanent message failures (G2)
+-- Step 5: Flow 3 — weekly_survey_rnd
+-- Same as weekly_survey but for Pump Operator R&D group (no incentives)
+-- ============================================================
+INSERT INTO integration_system_config (integration_system_id, key, value, uuid)
+SELECT id, 'flow.weekly_survey_rnd.enabled', 'true', uuid_generate_v4()
+FROM integration_system WHERE name = '<DIL_ORG_NAME>';
+
+INSERT INTO integration_system_config (integration_system_id, key, value, uuid)
+SELECT id, 'flow.weekly_survey_rnd.custom_query', 'dil_weekly_survey_rnd_scheduled_today', uuid_generate_v4()
+FROM integration_system WHERE name = '<DIL_ORG_NAME>';
+
+INSERT INTO integration_system_config (integration_system_id, key, value, uuid)
+SELECT id, 'flow.weekly_survey_rnd.template_name', 'weekly_survey_reminder_control_wo_incentives_v2', uuid_generate_v4()
+FROM integration_system WHERE name = '<DIL_ORG_NAME>';
+
+INSERT INTO integration_system_config (integration_system_id, key, value, uuid)
+SELECT id, 'flow.weekly_survey_rnd.template_name.te', 'weekly_survey_reminder_control_wo_incentives_v2_te', uuid_generate_v4()
+FROM integration_system WHERE name = '<DIL_ORG_NAME>';
+
+INSERT INTO integration_system_config (integration_system_id, key, value, uuid)
+SELECT id, 'flow.weekly_survey_rnd.template_name.or', 'weekly_survey_reminder_control_wo_incentives_v2_or', uuid_generate_v4()
+FROM integration_system WHERE name = '<DIL_ORG_NAME>';
+
+-- No incentive amount — template only uses {{name}}
+INSERT INTO integration_system_config (integration_system_id, key, value, uuid)
+SELECT id, 'flow.weekly_survey_rnd.template_params', 'name', uuid_generate_v4()
+FROM integration_system WHERE name = '<DIL_ORG_NAME>';
+
+INSERT INTO integration_system_config (integration_system_id, key, value, uuid)
+SELECT id, 'flow.weekly_survey_rnd.cooldown_days', '6', uuid_generate_v4()
+FROM integration_system WHERE name = '<DIL_ORG_NAME>';
+
+INSERT INTO integration_system_config (integration_system_id, key, value, uuid)
+SELECT id, 'flow.weekly_survey_rnd.max_retries', '3', uuid_generate_v4()
+FROM integration_system WHERE name = '<DIL_ORG_NAME>';
+
+INSERT INTO integration_system_config (integration_system_id, key, value, uuid)
+SELECT id, 'flow.weekly_survey_rnd.retry_interval_hours', '24', uuid_generate_v4()
+FROM integration_system WHERE name = '<DIL_ORG_NAME>';
+
+INSERT INTO integration_system_config (integration_system_id, key, value, uuid)
+SELECT id, 'flow.weekly_survey_rnd.failure_report_channel', 'error_record', uuid_generate_v4()
+FROM integration_system WHERE name = '<DIL_ORG_NAME>';
+
+-- ============================================================
+-- Step 6: Error type for permanent message failures (G2)
 -- Required for WatiErrorService to write error_record rows
 -- ============================================================
 INSERT INTO error_type (name, follow_up_step, uuid, is_voided, integration_system_id)
@@ -480,28 +518,144 @@ VALUES (
     uuid_generate_v4(),
     'dil_weekly_survey_scheduled_today',
     'SELECT
-         obs_phone.value_as_string        AS phone_number,
+         u.phone_number                   AS phone_number,
          u.settings->>''language''        AS locale,
          e.uuid                           AS entity_id,
-         i.first_name                     AS name,
+         u.name                           AS name,
          ''50''                           AS amount
      FROM encounter e
-              JOIN encounter_type et   ON et.id = e.encounter_type_id AND et.is_voided = false
-              JOIN individual i        ON i.id = e.individual_id      AND i.is_voided = false
-              JOIN users u             ON u.id = i.created_by_id      AND u.is_voided = false
-              JOIN observation obs_phone
-                   ON obs_phone.encounter_id = e.id
-                  AND obs_phone.is_voided = false
-                  AND obs_phone.concept_id = (
-                      SELECT id FROM concept
-                      WHERE name = ''Mobile Number'' AND is_voided = false
-                      LIMIT 1
-                  )
-     WHERE et.name           = ''Self-report Survey''
-       AND e.organisation_id = :orgId
-       AND e.is_voided        = false
-       AND e.encounter_date_time IS NULL
+              JOIN encounter_type et ON et.id = e.encounter_type_id AND et.is_voided = false
+              JOIN users u           ON u.id = e.created_by_id       AND u.is_voided = false
+              JOIN user_group ug     ON u.id = ug.user_id            AND ug.is_voided = false
+              JOIN groups g          ON g.id = ug.group_id           AND g.is_voided = false
+     WHERE et.name                  = ''Self-report Survey''
+       AND e.organisation_id        = :orgId
+       AND e.is_voided               = false
+       AND g.name                   = ''Pump Operator''
+       AND u.disabled_in_cognito    = false
+       AND e.encounter_date_time    IS NULL
        AND DATE(e.earliest_visit_date_time) = CURRENT_DATE',
+    :orgId, false, 0, 1, 1, now(), now()
+);
+```
+
+## Custom Query — weekly_survey_rnd (insert into Avni server DB)
+
+Identical to `weekly_survey` but targets the `Pump Operator R&D` group (no incentive amount).
+Returns: phone (col 0), locale (col 1), entity_id (col 2), name (col 3)
+
+```sql
+INSERT INTO public.custom_query (uuid, name, query, organisation_id, is_voided, version,
+                                 created_by_id, last_modified_by_id, created_date_time, last_modified_date_time)
+VALUES (
+    uuid_generate_v4(),
+    'dil_weekly_survey_rnd_scheduled_today',
+    'SELECT
+         u.phone_number                   AS phone_number,
+         u.settings->>''language''        AS locale,
+         e.uuid                           AS entity_id,
+         u.name                           AS name
+     FROM encounter e
+              JOIN encounter_type et ON et.id = e.encounter_type_id AND et.is_voided = false
+              JOIN users u           ON u.id = e.created_by_id       AND u.is_voided = false
+              JOIN user_group ug     ON u.id = ug.user_id            AND ug.is_voided = false
+              JOIN groups g          ON g.id = ug.group_id           AND g.is_voided = false
+     WHERE et.name                  = ''Self-report Survey''
+       AND e.organisation_id        = :orgId
+       AND e.is_voided               = false
+       AND g.name                   = ''Pump Operator R&D''
+       AND u.disabled_in_cognito    = false
+       AND e.encounter_date_time    IS NULL
+       AND DATE(e.earliest_visit_date_time) = CURRENT_DATE',
+    :orgId, false, 0, 1, 1, now(), now()
+);
+```
+
+---
+
+## Custom Query — biweekly_payment (insert into Avni server DB)
+
+Returns: phone (col 0), locale (col 1), entity_id (col 2), name (col 3), total_submissions (col 4), approved_count (col 5), payment_amount (col 6), rejected_count (col 7)
+
+Date range is computed dynamically:
+- Runs on 13th → period_start = 28th of previous month
+- Runs on 28th → period_start = 13th of current month
+
+Payment rate is looked up from `payment_rates` CTE by locale. To change a rate for a state, update only the VALUES in that CTE — no structural change needed. `COALESCE` falls back to 500 for any unknown/null locale.
+
+```sql
+INSERT INTO public.custom_query (uuid, name, query, organisation_id, is_voided, version,
+                                 created_by_id, last_modified_by_id, created_date_time, last_modified_date_time)
+VALUES (
+    uuid_generate_v4(),
+    'dil_biweekly_payment_summary',
+    'WITH period AS (
+    SELECT
+        CASE
+            WHEN EXTRACT(DAY FROM CURRENT_DATE) = 13
+                THEN (DATE_TRUNC(''month'', CURRENT_DATE) - INTERVAL ''1 month'')::date + 27
+            ELSE DATE_TRUNC(''month'', CURRENT_DATE)::date + 12
+        END::timestamp AS period_start
+),
+payment_rates AS (
+    -- Rate per approved submission by locale (state). Update values here when rates change.
+    -- te = Andhra Pradesh, or = Odisha
+    SELECT locale, rate FROM (VALUES
+        (''te'', 500),
+        (''or'', 500)
+    ) AS r(locale, rate)
+),
+eligible_users AS (
+    SELECT DISTINCT u.id AS user_id, u.phone_number, u.name, u.settings ->> ''language'' AS locale
+    FROM users u
+        JOIN user_group ug ON u.id = ug.user_id AND ug.is_voided = false
+        JOIN groups g      ON g.id = ug.group_id AND g.is_voided = false
+    WHERE g.name               = ''Pump Operator''
+      AND u.is_voided           = false
+      AND u.disabled_in_cognito = false
+      AND u.organisation_id     = :orgId
+),
+latest_approval_per_encounter AS (
+    SELECT DISTINCT ON (eas.entity_id)
+        eas.entity_id AS encounter_id,
+        ast.status    AS status
+    FROM entity_approval_status eas
+        JOIN approval_status ast ON ast.id = eas.approval_status_id
+    WHERE eas.is_voided   = false
+      AND eas.entity_type = ''Encounter''
+    ORDER BY eas.entity_id, eas.created_date_time DESC
+),
+encounter_stats AS (
+    SELECT
+        e.created_by_id                                         AS user_id,
+        COUNT(e.id)                                             AS total_submissions,
+        COUNT(CASE WHEN lae.status = ''Approved'' THEN 1 END)   AS approved_count,
+        COUNT(CASE WHEN lae.status = ''Rejected'' THEN 1 END)   AS rejected_count
+    FROM encounter e
+        JOIN encounter_type et ON et.id = e.encounter_type_id AND et.is_voided = false
+        LEFT JOIN latest_approval_per_encounter lae ON lae.encounter_id = e.id
+        CROSS JOIN period p
+    WHERE et.name              = ''Self-report Survey''
+      AND e.organisation_id    = :orgId
+      AND e.is_voided           = false
+      AND e.encounter_date_time IS NOT NULL
+      AND e.encounter_date_time >= p.period_start
+      AND e.encounter_date_time <  CURRENT_DATE::timestamp + INTERVAL ''1 day''
+    GROUP BY e.created_by_id
+)
+SELECT
+    eu.phone_number                                            AS phone_number,
+    eu.locale                                                  AS locale,
+    eu.user_id::TEXT                                           AS entity_id,
+    eu.name                                                    AS name,
+    es.total_submissions::TEXT                                 AS total_submissions,
+    es.approved_count::TEXT                                    AS approved_count,
+    (es.approved_count * COALESCE(pr.rate, 500))::TEXT         AS payment_amount,
+    es.rejected_count::TEXT                                    AS rejected_count
+FROM encounter_stats es
+    JOIN eligible_users eu     ON eu.user_id = es.user_id
+    LEFT JOIN payment_rates pr ON pr.locale  = eu.locale
+WHERE EXTRACT(DAY FROM CURRENT_DATE) IN (13, 28)',
     :orgId, false, 0, 1, 1, now(), now()
 );
 ```
