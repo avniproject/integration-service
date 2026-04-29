@@ -168,7 +168,7 @@ WHERE NOT EXISTS (
       AND u.organisation_id = :org_id
 ),
 old_sync AS (
-    SELECT user_id
+    SELECT DISTINCT user_id
     FROM sync_telemetry
     WHERE sync_status = ''complete''
       AND organisation_id = :org_id
