@@ -199,25 +199,27 @@ INSERT INTO public.custom_query (uuid, name, query, organisation_id, is_voided, 
 VALUES (
     uuid_generate_v4(),
     'dil_weekly_survey_scheduled_today',
-    'SELECT
-         u.phone_number                   AS phone_number,
-         u.settings->>''language''        AS locale,
-         e.uuid                           AS entity_id,
-         u.name                           AS name,
-         ''50''                           AS amount
+    'SELECT DISTINCT
+         u.phone_number                       AS phone_number,
+         u.settings->>''language''            AS locale,
+         e.uuid                               AS entity_id,
+         u.name                               AS name,
+         ''500''                              AS amount
      FROM encounter e
-              JOIN encounter_type et ON et.id = e.encounter_type_id AND et.is_voided = false
-              JOIN users u           ON u.id = e.created_by_id       AND u.is_voided = false
-              JOIN user_group ug     ON u.id = ug.user_id            AND ug.is_voided = false
-              JOIN groups g          ON g.id = ug.group_id           AND g.is_voided = false
+              JOIN encounter_type et          ON et.id = e.encounter_type_id           AND et.is_voided = false
+              JOIN individual i               ON i.id = e.individual_id                AND i.is_voided = false
+              JOIN catchment_address_mapping cam ON cam.addresslevel_id = i.address_id
+              JOIN users u                    ON u.catchment_id = cam.catchment_id      AND u.is_voided = false
+              JOIN user_group ug              ON u.id = ug.user_id                      AND ug.is_voided = false
+              JOIN groups g                   ON g.id = ug.group_id                     AND g.is_voided = false
      WHERE et.name                  = ''Self-report Survey''
-       AND e.organisation_id        = :orgId
+       AND e.organisation_id        = :org_id
        AND e.is_voided               = false
        AND g.name                   = ''Pump Operator''
        AND u.disabled_in_cognito    = false
        AND e.encounter_date_time    IS NULL
-       AND DATE(e.earliest_visit_date_time) = CURRENT_DATE',
-    :orgId, false, 0, 1, 1, now(), now()
+       AND (e.earliest_visit_date_time AT TIME ZONE ''Asia/Kolkata'')::date = (CURRENT_TIMESTAMP AT TIME ZONE ''Asia/Kolkata'')::date',
+    :org_id, false, 0, 1, 1, now(), now()
 );
 
 -- Custom Query 2: weekly_survey_rnd — daily reminder for Pump Operator R&D (no incentives)
@@ -226,24 +228,26 @@ INSERT INTO public.custom_query (uuid, name, query, organisation_id, is_voided, 
 VALUES (
     uuid_generate_v4(),
     'dil_weekly_survey_rnd_scheduled_today',
-    'SELECT
-         u.phone_number                   AS phone_number,
-         u.settings->>''language''        AS locale,
-         e.uuid                           AS entity_id,
-         u.name                           AS name
+    'SELECT DISTINCT
+         u.phone_number                       AS phone_number,
+         u.settings->>''language''            AS locale,
+         e.uuid                               AS entity_id,
+         u.name                               AS name
      FROM encounter e
-              JOIN encounter_type et ON et.id = e.encounter_type_id AND et.is_voided = false
-              JOIN users u           ON u.id = e.created_by_id       AND u.is_voided = false
-              JOIN user_group ug     ON u.id = ug.user_id            AND ug.is_voided = false
-              JOIN groups g          ON g.id = ug.group_id           AND g.is_voided = false
+              JOIN encounter_type et          ON et.id = e.encounter_type_id           AND et.is_voided = false
+              JOIN individual i               ON i.id = e.individual_id                AND i.is_voided = false
+              JOIN catchment_address_mapping cam ON cam.addresslevel_id = i.address_id
+              JOIN users u                    ON u.catchment_id = cam.catchment_id      AND u.is_voided = false
+              JOIN user_group ug              ON u.id = ug.user_id                      AND ug.is_voided = false
+              JOIN groups g                   ON g.id = ug.group_id                     AND g.is_voided = false
      WHERE et.name                  = ''Self-report Survey''
-       AND e.organisation_id        = :orgId
+       AND e.organisation_id        = :org_id
        AND e.is_voided               = false
        AND g.name                   = ''Pump Operator R&D''
        AND u.disabled_in_cognito    = false
        AND e.encounter_date_time    IS NULL
-       AND DATE(e.earliest_visit_date_time) = CURRENT_DATE',
-    :orgId, false, 0, 1, 1, now(), now()
+       AND (e.earliest_visit_date_time AT TIME ZONE ''Asia/Kolkata'')::date = (CURRENT_TIMESTAMP AT TIME ZONE ''Asia/Kolkata'')::date',
+    :org_id, false, 0, 1, 1, now(), now()
 );
 
 -- Custom Query 3: biweekly_payment — runs on 13th and 28th only
@@ -258,9 +262,9 @@ VALUES (
     'WITH period AS (
     SELECT
         CASE
-            WHEN EXTRACT(DAY FROM CURRENT_DATE) = 13
-                THEN (DATE_TRUNC(''month'', CURRENT_DATE) - INTERVAL ''1 month'')::date + 27
-            ELSE DATE_TRUNC(''month'', CURRENT_DATE)::date + 12
+            WHEN EXTRACT(DAY FROM (CURRENT_TIMESTAMP AT TIME ZONE ''Asia/Kolkata'')::date) = 13
+                THEN (DATE_TRUNC(''month'', (CURRENT_TIMESTAMP AT TIME ZONE ''Asia/Kolkata'')::date) - INTERVAL ''1 month'')::date + 27
+            ELSE DATE_TRUNC(''month'', (CURRENT_TIMESTAMP AT TIME ZONE ''Asia/Kolkata'')::date)::date + 12
         END::timestamp AS period_start
 ),
 payment_rates AS (
@@ -278,7 +282,7 @@ eligible_users AS (
     WHERE g.name               = ''Pump Operator''
       AND u.is_voided           = false
       AND u.disabled_in_cognito = false
-      AND u.organisation_id     = :orgId
+      AND u.organisation_id     = :org_id
 ),
 latest_approval_per_encounter AS (
     SELECT DISTINCT ON (eas.entity_id)
@@ -292,7 +296,10 @@ latest_approval_per_encounter AS (
 ),
 encounter_stats AS (
     SELECT
-        e.created_by_id                                         AS user_id,
+        CASE WHEN e.last_modified_by_id IN (SELECT eu2.user_id FROM eligible_users eu2)
+             THEN e.last_modified_by_id
+             ELSE e.created_by_id
+        END                                                     AS user_id,
         COUNT(e.id)                                             AS total_submissions,
         COUNT(CASE WHEN lae.status = ''Approved'' THEN 1 END)   AS approved_count,
         COUNT(CASE WHEN lae.status = ''Rejected'' THEN 1 END)   AS rejected_count
@@ -301,12 +308,15 @@ encounter_stats AS (
         LEFT JOIN latest_approval_per_encounter lae ON lae.encounter_id = e.id
         CROSS JOIN period p
     WHERE et.name              = ''Self-report Survey''
-      AND e.organisation_id    = :orgId
+      AND e.organisation_id    = :org_id
       AND e.is_voided           = false
       AND e.encounter_date_time IS NOT NULL
       AND e.encounter_date_time >= p.period_start
-      AND e.encounter_date_time <  CURRENT_DATE::timestamp + INTERVAL ''1 day''
-    GROUP BY e.created_by_id
+      AND e.encounter_date_time <  ((CURRENT_TIMESTAMP AT TIME ZONE ''Asia/Kolkata'')::date + INTERVAL ''1 day'') AT TIME ZONE ''Asia/Kolkata''
+    GROUP BY CASE WHEN e.last_modified_by_id IN (SELECT eu2.user_id FROM eligible_users eu2)
+                  THEN e.last_modified_by_id
+                  ELSE e.created_by_id
+             END
 )
 SELECT
     eu.phone_number                                            AS phone_number,
@@ -320,8 +330,8 @@ SELECT
 FROM encounter_stats es
     JOIN eligible_users eu     ON eu.user_id = es.user_id
     LEFT JOIN payment_rates pr ON pr.locale  = eu.locale
-WHERE EXTRACT(DAY FROM CURRENT_DATE) IN (13, 28)',
-    :orgId, false, 0, 1, 1, now(), now()
+WHERE EXTRACT(DAY FROM (CURRENT_TIMESTAMP AT TIME ZONE ''Asia/Kolkata'')::date) IN (13, 28)',
+    :org_id, false, 0, 1, 1, now(), now()
 );
 
 
