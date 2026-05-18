@@ -140,6 +140,17 @@ docker compose restart proxy
 
 ## AMI Snapshot Creation
 
+AMI snapshots are the **authoritative backup** for instance-local config that is intentionally not committed to git. The following live on `~/bahmni-docker` on the EC2 box and are *not* pushed to `JanSwasthyaSahyog/bahmni-docker`:
+
+- `.env` — live values including DB passwords and API keys
+- `certs/` — Let's Encrypt private keys
+- `jdbc-override/` — DB connection overrides with credentials
+- `setup-bahmni.sh` — host-specific bootstrap script
+- `docker-compose.override.yml`, `docker-compose.logging.yml`, `docker-compose.no-loki.yml` — local compose layers
+- Any local modifications to `jss-config/` beyond the upstream `JanSwasthyaSahyog/jss-config` repo
+
+Reason: these files contain secrets that shouldn't live in a shared GitHub repo, and an AMI captures the full runtime state (volumes, installed certs, swap, image versions) in one step. **Take a fresh snapshot before any major change to the box.**
+
 ```bash
 # Create snapshot before major changes
 aws ec2 create-image --instance-id i-0e128ab9da4c8d30f \
