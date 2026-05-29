@@ -1,14 +1,18 @@
 package org.avni_integration_service.wati.config;
 
+import org.apache.log4j.Logger;
 import org.avni_integration_service.integration_data.context.ContextIntegrationSystem;
 import org.avni_integration_service.integration_data.domain.IntegrationSystem;
 import org.avni_integration_service.integration_data.domain.config.IntegrationSystemConfigCollection;
 import org.springframework.util.StringUtils;
 
+import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 public class WatiConfig {
+    private static final Logger logger = Logger.getLogger(WatiConfig.class);
+
     private final IntegrationSystemConfigCollection integrationSystemConfigCollection;
     private final ContextIntegrationSystem integrationSystem;
 
@@ -20,6 +24,17 @@ public class WatiConfig {
     private String getStringConfigValue(String key, String defaultValue) {
         String configValue = integrationSystemConfigCollection.getConfigValue(key);
         return StringUtils.hasLength(configValue) ? configValue : defaultValue;
+    }
+
+    private int getIntConfigValue(String key, int defaultValue) {
+        String value = getStringConfigValue(key, null);
+        if (!StringUtils.hasLength(value)) return defaultValue;
+        try {
+            return Integer.parseInt(value.trim());
+        } catch (NumberFormatException e) {
+            logger.warn(String.format("Invalid integer config '%s'='%s', using default %d", key, value, defaultValue));
+            return defaultValue;
+        }
     }
 
     public String getApiUrl() {
@@ -54,7 +69,12 @@ public class WatiConfig {
         String prefix = "flow." + flowName + ".";
         boolean enabled = Boolean.parseBoolean(getStringConfigValue(prefix + "enabled", "true"));
         String templateParamsStr = getStringConfigValue(prefix + "template_params", "");
-        String[] templateParams = StringUtils.hasLength(templateParamsStr) ? templateParamsStr.split(",") : new String[0];
+        String[] templateParams = StringUtils.hasLength(templateParamsStr)
+                ? Arrays.stream(templateParamsStr.split(","))
+                        .map(String::trim)
+                        .filter(s -> !s.isEmpty())
+                        .toArray(String[]::new)
+                : new String[0];
         String entityType = getStringConfigValue(prefix + "entity_type", "encounter");
         return new WatiFlowConfig(
                 flowName,
@@ -62,9 +82,9 @@ public class WatiConfig {
                 enabled,
                 templateParams,
                 entityType,
-                Integer.parseInt(getStringConfigValue(prefix + "cooldown_days", "7")),
-                Integer.parseInt(getStringConfigValue(prefix + "max_retries", "3")),
-                Integer.parseInt(getStringConfigValue(prefix + "retry_interval_hours", "24")));
+                getIntConfigValue(prefix + "cooldown_days", 7),
+                getIntConfigValue(prefix + "max_retries", 3),
+                getIntConfigValue(prefix + "retry_interval_hours", 24));
     }
 
     public String getTemplateName(String flowName, String locale) {

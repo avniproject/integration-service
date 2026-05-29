@@ -72,6 +72,11 @@ public class WatiMessageRequestService {
 
     public void resetStuckTopending(WatiMessageRequest request) {
         request.setStatus(WatiMessageStatus.Pending);
+        // markSending already incremented attemptCount; a crash before the response means the send
+        // never completed, so roll the attempt back rather than burning a retry on the recovery.
+        if (request.getAttemptCount() > 0) {
+            request.setAttemptCount(request.getAttemptCount() - 1);
+        }
         request.setNextRetryTime(LocalDateTime.now());
         watiMessageRequestRepository.save(request);
     }

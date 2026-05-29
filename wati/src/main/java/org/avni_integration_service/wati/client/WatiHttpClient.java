@@ -63,8 +63,21 @@ public class WatiHttpClient {
             if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
                 Object result = response.getBody().get("result");
                 if (Boolean.TRUE.equals(result)) {
-                    logger.info(String.format("Wati message sent to %s, broadcastName: %s", phoneNumber, broadcastName));
-                    return new SendMessageResponse(MessageDeliveryStatus.Sent, null, broadcastName);
+                    // The bulk endpoint's envelope-level result only means the broadcast was accepted;
+                    // per-recipient validity is in the receivers[] array. Field names per Wati docs
+                    // (https://docs.wati.io/reference/post_api-v1-sendtemplatemessages) — confirmed
+                    // against the live response during integration testing.
+                    Map<String, Object> receiverResult = firstReceiver(response.getBody());
+                    if (receiverResult != null && Boolean.FALSE.equals(receiverResult.get("isValidWhatsAppNumber"))) {
+                        String error = String.format("Invalid WhatsApp number for %s: %s",
+                                phoneNumber, receiverResult.get("errors"));
+                        logger.warn("Wati rejected recipient: " + error);
+                        return new SendMessageResponse(MessageDeliveryStatus.NotSent, error);
+                    }
+                    String messageId = receiverMessageId(receiverResult, broadcastName);
+                    logger.info(String.format("Wati message sent to %s, messageId: %s (broadcast: %s)",
+                            phoneNumber, messageId, broadcastName));
+                    return new SendMessageResponse(MessageDeliveryStatus.Sent, null, messageId);
                 }
                 String error = String.valueOf(response.getBody().get("info"));
                 logger.warn(String.format("Wati API result=false for phone %s: %s", phoneNumber, error));
@@ -81,6 +94,29 @@ public class WatiHttpClient {
         }
     }
 
+
+    @SuppressWarnings("unchecked")
+    private Map<String, Object> firstReceiver(Map body) {
+        Object receivers = body.get("receivers");
+        if (receivers instanceof List) {
+            List<?> list = (List<?>) receivers;
+            if (!list.isEmpty() && list.get(0) instanceof Map) {
+                return (Map<String, Object>) list.get(0);
+            }
+        }
+        return null;
+    }
+
+    // Prefer Wati's real per-recipient id (used to correlate delivery webhooks); fall back to the
+    // broadcast name only when the response does not carry one.
+    private String receiverMessageId(Map<String, Object> receiver, String fallback) {
+        if (receiver != null) {
+            Object id = receiver.get("localMessageId");
+            if (id == null) id = receiver.get("id");
+            if (id != null) return String.valueOf(id);
+        }
+        return fallback;
+    }
 
     private List<Map<String, String>> parseParameters(String parametersJson) {
         if (!StringUtils.hasLength(parametersJson)) return new ArrayList<>();

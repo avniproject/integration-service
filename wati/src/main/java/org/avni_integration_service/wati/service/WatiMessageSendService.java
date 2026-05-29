@@ -35,13 +35,13 @@ public class WatiMessageSendService {
     public void sendPending() {
         List<WatiMessageRequest> pending = watiMessageRequestService.getPendingRequests();
         logger.info(String.format("Sending %d pending message requests", pending.size()));
-        pending.forEach(this::send);
+        pending.forEach(this::sendSafely);
     }
 
     public void retryFailed() {
         List<WatiMessageRequest> failed = watiMessageRequestService.getFailedRequestsDueForRetry();
         logger.info(String.format("Retrying %d failed message requests", failed.size()));
-        failed.forEach(this::send);
+        failed.forEach(this::sendSafely);
     }
 
     public void recoverStuck() {
@@ -50,10 +50,21 @@ public class WatiMessageSendService {
         stuck.forEach(r -> watiMessageRequestService.resetStuckTopending(r));
     }
 
+    // Isolate each send so a single failure (including an optimistic-lock conflict in markSending
+    // when two job runs overlap) skips that one row instead of aborting the whole batch.
+    private void sendSafely(WatiMessageRequest request) {
+        try {
+            send(request);
+        } catch (Exception e) {
+            logger.error(String.format("Skipping request %s after unrecoverable error: %s",
+                    request.getId(), e.getMessage()), e);
+        }
+    }
+
     private void send(WatiMessageRequest request) {
         WatiFlowConfig flowConfig = watiContextProvider.get().getFlowConfig(request.getFlowName());
-        request = watiMessageRequestService.markSending(request);
         try {
+            request = watiMessageRequestService.markSending(request);
             SendMessageResponse response = watiHttpClient.sendTemplateMessage(
                     request.getPhoneNumber(), request.getTemplateName(), request.getParameters());
             handleResponse(request, response, flowConfig);

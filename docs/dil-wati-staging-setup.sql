@@ -183,10 +183,17 @@ INSERT INTO integration_system_config (integration_system_id, key, value, uuid)
 SELECT id, 'flow.weekly_survey_rnd.failure_report_channel', 'error_record', uuid_generate_v4()
 FROM integration_system WHERE name = 'pumpOperatorUat';
 
--- Step 6: Error type for permanent message failures
+-- Step 6: Error type for permanent message failures (required by WatiErrorService; without it,
+-- permanent failures are silently dropped). Idempotent so re-running provisioning is safe.
 INSERT INTO error_type (name, follow_up_step, uuid, is_voided, integration_system_id)
-SELECT 'WatiMessagePermanentFailure', 'Terminal', uuid_generate_v4(), false, id
-FROM integration_system WHERE name = 'pumpOperatorUat';
+SELECT 'WatiMessagePermanentFailure', 'Terminal', uuid_generate_v4(), false, s.id
+FROM integration_system s
+WHERE s.name = 'pumpOperatorUat'
+  AND NOT EXISTS (
+        SELECT 1 FROM error_type et
+        WHERE et.integration_system_id = s.id
+          AND et.name = 'WatiMessagePermanentFailure'
+  );
 
 
 -- ============================================================
