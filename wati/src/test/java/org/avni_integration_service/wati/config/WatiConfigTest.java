@@ -33,9 +33,18 @@ public class WatiConfigTest {
     public void templateName_usesLocaleSpecificWhenAvailable() {
         WatiConfig config = configWith(
                 "flow.weekly_survey.template_name", "weekly_en",
-                "flow.weekly_survey.template_name.te", "weekly_te"
+                "flow.weekly_survey.template_name.te_IN", "weekly_te"
         );
-        assertEquals("weekly_te", config.getTemplateName("weekly_survey", "te"));
+        assertEquals("weekly_te", config.getTemplateName("weekly_survey", "te_IN"));
+    }
+
+    @Test
+    public void templateName_usesLocaleSpecificForOdiaWhenAvailable() {
+        WatiConfig config = configWith(
+                "flow.weekly_survey.template_name", "weekly_en",
+                "flow.weekly_survey.template_name.od_IN", "weekly_or"
+        );
+        assertEquals("weekly_or", config.getTemplateName("weekly_survey", "od_IN"));
     }
 
     @Test
@@ -43,7 +52,7 @@ public class WatiConfigTest {
         WatiConfig config = configWith(
                 "flow.weekly_survey.template_name", "weekly_en"
         );
-        assertEquals("weekly_en", config.getTemplateName("weekly_survey", "te"));
+        assertEquals("weekly_en", config.getTemplateName("weekly_survey", "te_IN"));
     }
 
     @Test

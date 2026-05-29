@@ -74,11 +74,11 @@ SELECT id, 'flow.weekly_survey.template_name', 'weekly_survey_reminder_v2', uuid
 FROM integration_system WHERE name = 'pumpOperatorUat';
 
 INSERT INTO integration_system_config (integration_system_id, key, value, uuid)
-SELECT id, 'flow.weekly_survey.template_name.te', 'weekly_survey_reminder_v2_te', uuid_generate_v4()
+SELECT id, 'flow.weekly_survey.template_name.te_IN', 'weekly_survey_reminder_v2_te', uuid_generate_v4()
 FROM integration_system WHERE name = 'pumpOperatorUat';
 
 INSERT INTO integration_system_config (integration_system_id, key, value, uuid)
-SELECT id, 'flow.weekly_survey.template_name.or', 'weekly_survey_reminder_v3_or', uuid_generate_v4()
+SELECT id, 'flow.weekly_survey.template_name.od_IN', 'weekly_survey_reminder_v3_or', uuid_generate_v4()
 FROM integration_system WHERE name = 'pumpOperatorUat';
 
 INSERT INTO integration_system_config (integration_system_id, key, value, uuid)
@@ -115,11 +115,11 @@ SELECT id, 'flow.biweekly_payment.template_name', 'biweekly_payment_summary_chlo
 FROM integration_system WHERE name = 'pumpOperatorUat';
 
 INSERT INTO integration_system_config (integration_system_id, key, value, uuid)
-SELECT id, 'flow.biweekly_payment.template_name.te', 'biweekly_payment_summary_chlorine_refill_te', uuid_generate_v4()
+SELECT id, 'flow.biweekly_payment.template_name.te_IN', 'biweekly_payment_summary_chlorine_refill_te', uuid_generate_v4()
 FROM integration_system WHERE name = 'pumpOperatorUat';
 
 INSERT INTO integration_system_config (integration_system_id, key, value, uuid)
-SELECT id, 'flow.biweekly_payment.template_name.or', 'biweekly_payment_summary_chlorine_refill_or', uuid_generate_v4()
+SELECT id, 'flow.biweekly_payment.template_name.od_IN', 'biweekly_payment_summary_chlorine_refill_or', uuid_generate_v4()
 FROM integration_system WHERE name = 'pumpOperatorUat';
 
 INSERT INTO integration_system_config (integration_system_id, key, value, uuid)
@@ -156,11 +156,11 @@ SELECT id, 'flow.weekly_survey_rnd.template_name', 'weekly_survey_reminder_contr
 FROM integration_system WHERE name = 'pumpOperatorUat';
 
 INSERT INTO integration_system_config (integration_system_id, key, value, uuid)
-SELECT id, 'flow.weekly_survey_rnd.template_name.te', 'weekly_survey_reminder_control_wo_incentives_v2_te', uuid_generate_v4()
+SELECT id, 'flow.weekly_survey_rnd.template_name.te_IN', 'weekly_survey_reminder_control_wo_incentives_v2_te', uuid_generate_v4()
 FROM integration_system WHERE name = 'pumpOperatorUat';
 
 INSERT INTO integration_system_config (integration_system_id, key, value, uuid)
-SELECT id, 'flow.weekly_survey_rnd.template_name.or', 'weekly_survey_reminder_control_wo_incentives_v2_or', uuid_generate_v4()
+SELECT id, 'flow.weekly_survey_rnd.template_name.od_IN', 'weekly_survey_reminder_control_wo_incentives_v2_or', uuid_generate_v4()
 FROM integration_system WHERE name = 'pumpOperatorUat';
 
 INSERT INTO integration_system_config (integration_system_id, key, value, uuid)
@@ -201,7 +201,7 @@ VALUES (
     'dil_weekly_survey_scheduled_today',
     'SELECT DISTINCT
          u.phone_number                       AS phone_number,
-         u.settings->>''language''            AS locale,
+         u.settings->>''locale''              AS locale,
          e.uuid                               AS entity_id,
          u.name                               AS name,
          ''500''                              AS amount
@@ -230,7 +230,7 @@ VALUES (
     'dil_weekly_survey_rnd_scheduled_today',
     'SELECT DISTINCT
          u.phone_number                       AS phone_number,
-         u.settings->>''language''            AS locale,
+         u.settings->>''locale''              AS locale,
          e.uuid                               AS entity_id,
          u.name                               AS name
      FROM encounter e
@@ -268,14 +268,14 @@ VALUES (
         END::timestamp AS period_start
 ),
 payment_rates AS (
-    -- te = Andhra Pradesh, or = Odisha
+    -- te_IN = Andhra Pradesh, od_IN = Odisha
     SELECT locale, rate FROM (VALUES
-        (''te'', 500),
-        (''or'', 500)
+        (''te_IN'', 500),
+        (''od_IN'', 500)
     ) AS r(locale, rate)
 ),
 eligible_users AS (
-    SELECT DISTINCT u.id AS user_id, u.phone_number, u.name, u.settings ->> ''language'' AS locale
+    SELECT DISTINCT u.id AS user_id, u.phone_number, u.name, u.settings ->> ''locale'' AS locale
     FROM users u
         JOIN user_group ug ON u.id = ug.user_id AND ug.is_voided = false
         JOIN groups g      ON g.id = ug.group_id AND g.is_voided = false
