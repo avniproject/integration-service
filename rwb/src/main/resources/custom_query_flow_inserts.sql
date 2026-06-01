@@ -13,19 +13,18 @@ VALUES
       AND u.disabled_in_cognito = false
       AND u.is_voided = false
       AND u.organisation_id = :org_id
-),
-synced_users AS (
-    SELECT DISTINCT user_id
-    FROM sync_telemetry
-    WHERE sync_status = ''complete''
-      AND organisation_id = :org_id
 )
 SELECT pu.user_id, pu.first_name
 FROM primary_users pu
-JOIN synced_users su ON pu.user_id = su.user_id
-WHERE NOT EXISTS (
-    SELECT 1 FROM flow_request_queue frq
-    JOIN message_receiver mr ON mr.id = frq.message_receiver_id
+WHERE EXISTS (
+    SELECT 1 FROM sync_telemetry st
+    WHERE st.user_id = pu.user_id
+      AND st.sync_status = ''complete''
+      AND st.organisation_id = :org_id
+)
+AND NOT EXISTS (
+    SELECT 1 FROM message_receiver mr
+    JOIN flow_request_queue frq ON frq.message_receiver_id = mr.id
     WHERE mr.receiver_id = pu.user_id
       AND mr.receiver_type = ''User''
       AND frq.flow_id = :flow_id
@@ -214,22 +213,26 @@ work_orders AS (
 ),
 work_order_last_recording AS (
     SELECT e.individual_id AS work_order_id, MAX(e.encounter_date_time) AS last_recorded
-    FROM encounter e
+    FROM work_orders wo
+             JOIN encounter e ON e.individual_id = wo.work_order_id
              JOIN encounter_type et ON et.id = e.encounter_type_id
     WHERE et.name IN (''Work order daily Recording - Machine'', ''Work order daily Recording - Farmer'')
       AND et.organisation_id = :org_id
       AND et.is_voided = false
       AND e.is_voided = false
+      AND e.organisation_id = :org_id
     GROUP BY e.individual_id
 ),
 work_order_endlines AS (
     SELECT DISTINCT e.individual_id AS work_order_id
-    FROM encounter e
+    FROM work_orders wo
+             JOIN encounter e ON e.individual_id = wo.work_order_id
              JOIN encounter_type et ON et.id = e.encounter_type_id
     WHERE et.name = ''Work order endline''
       AND et.organisation_id = :org_id
       AND et.is_voided = false
       AND e.is_voided = false
+      AND e.organisation_id = :org_id
 ),
 nudge_worthy_users AS (
     SELECT DISTINCT wo.user_id
@@ -297,6 +300,7 @@ wo_endline AS (
         SELECT id FROM encounter_type
         WHERE name = ''Work order endline'' AND organisation_id = :org_id AND is_voided = false
     )
+    AND organisation_id = :org_id
 )
 SELECT pu.user_id, pu.first_name
 FROM primary_users pu
