@@ -8,6 +8,10 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "wati_message_request")
+@AssociationOverride(name = "integrationSystem",
+        joinColumns = @JoinColumn(name = "integration_system_id", nullable = false))
+@AttributeOverride(name = "isVoided",
+        column = @Column(name = "is_voided", nullable = false))
 public class WatiMessageRequest extends BaseIntegrationSpecificEntity {
 
     @Column(nullable = false)

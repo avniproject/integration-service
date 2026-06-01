@@ -7,13 +7,15 @@ import org.avni_integration_service.integration_data.repository.IntegrationSyste
 import org.avni_integration_service.wati.config.WatiContextProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
+@ExtendWith(MockitoExtension.class)
 public class WatiMessageRequestServiceTest {
 
     @Mock private WatiMessageRequestRepository repository;
@@ -24,9 +26,22 @@ public class WatiMessageRequestServiceTest {
 
     @BeforeEach
     public void setUp() {
-        MockitoAnnotations.openMocks(this);
         service = new WatiMessageRequestService(repository, integrationSystemRepository, contextProvider);
-        when(repository.save(any())).thenAnswer(i -> i.getArgument(0));
+        when(repository.save(any(WatiMessageRequest.class))).thenAnswer(i -> i.getArgument(0));
+    }
+
+    // --- markSending ---
+
+    @Test
+    public void markSending_incrementsAttemptCountAndSetsStatus() {
+        WatiMessageRequest request = new WatiMessageRequest();
+        assertEquals(0, request.getAttemptCount());
+
+        service.markSending(request);
+
+        assertEquals(WatiMessageStatus.Sending, request.getStatus());
+        assertEquals(1, request.getAttemptCount());
+        assertNotNull(request.getLastAttemptTime());
     }
 
     // --- markSent ---

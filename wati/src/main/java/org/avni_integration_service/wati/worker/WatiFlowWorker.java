@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @Component
 public class WatiFlowWorker {
@@ -51,10 +52,12 @@ public class WatiFlowWorker {
         CustomQueryResponse response = avniQueryRepository.invokeCustomQuery(
                 new CustomQueryRequest(queryName, flowConfig.getFlowName()));
         logger.info(String.format("Flow '%s': query returned %d rows", flowConfig.getFlowName(), response.getTotal()));
+        Set<String> cooldownEntityIds = watiMessageRequestService.getCooldownEntityIds(
+                flowConfig.getFlowName(), flowConfig.getCooldownDays());
         // Isolate each row so one malformed row (e.g. a null column) cannot abort the whole flow.
         response.getData().forEach(row -> {
             try {
-                processRow(row, flowConfig);
+                processRow(row, flowConfig, cooldownEntityIds);
             } catch (Exception e) {
                 logger.error(String.format("Flow '%s': skipping row after error: %s",
                         flowConfig.getFlowName(), e.getMessage()), e);
@@ -62,7 +65,7 @@ public class WatiFlowWorker {
         });
     }
 
-    private void processRow(List<Object> row, WatiFlowConfig flowConfig) {
+    private void processRow(List<Object> row, WatiFlowConfig flowConfig, Set<String> cooldownEntityIds) {
         if (row.isEmpty() || row.get(0) == null) {
             logger.warn(String.format("Flow '%s': skipping row with no phone number", flowConfig.getFlowName()));
             return;
@@ -82,7 +85,7 @@ public class WatiFlowWorker {
                     flowConfig.getFlowName(), phoneNumber, entityId));
         }
 
-        if (watiMessageRequestService.isInCooldown(entityId, flowConfig.getFlowName(), flowConfig.getCooldownDays())) {
+        if (cooldownEntityIds.contains(entityId)) {
             logger.info(String.format("Flow '%s': skipping entity %s — in cooldown", flowConfig.getFlowName(), entityId));
             return;
         }

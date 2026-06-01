@@ -9,16 +9,24 @@ import org.avni_integration_service.wati.domain.WatiMessageStatus;
 import org.avni_integration_service.wati.repository.WatiMessageRequestRepository;
 import org.springframework.stereotype.Service;
 
+import org.springframework.data.domain.PageRequest;
+
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class WatiMessageRequestService {
 
+    private static final int SEND_BATCH_SIZE = 500;
+
     private final WatiMessageRequestRepository watiMessageRequestRepository;
     private final IntegrationSystemRepository integrationSystemRepository;
     private final WatiContextProvider watiContextProvider;
+
+    // C1: cached per job run to avoid one DB round-trip per row in createRequest
+    private IntegrationSystem cachedIntegrationSystem;
 
     public WatiMessageRequestService(WatiMessageRequestRepository watiMessageRequestRepository,
                                      IntegrationSystemRepository integrationSystemRepository,
@@ -26,6 +34,14 @@ public class WatiMessageRequestService {
         this.watiMessageRequestRepository = watiMessageRequestRepository;
         this.integrationSystemRepository = integrationSystemRepository;
         this.watiContextProvider = watiContextProvider;
+    }
+
+    private IntegrationSystem getIntegrationSystem() {
+        int currentId = watiContextProvider.get().getIntegrationSystem().getId();
+        if (cachedIntegrationSystem == null || cachedIntegrationSystem.getId() != currentId) {
+            cachedIntegrationSystem = integrationSystemRepository.findEntity(currentId);
+        }
+        return cachedIntegrationSystem;
     }
 
     public boolean isInCooldown(String entityId, String flowName, int cooldownDays) {
@@ -39,12 +55,20 @@ public class WatiMessageRequestService {
                         watiContextProvider.get().getIntegrationSystem().getId());
     }
 
+    public Set<String> getCooldownEntityIds(String flowName, int cooldownDays) {
+        List<WatiMessageStatus> activeStatuses = Arrays.asList(
+                WatiMessageStatus.Pending, WatiMessageStatus.Sending,
+                WatiMessageStatus.Sent, WatiMessageStatus.Failed);
+        return watiMessageRequestRepository.findEntityIdsInCooldown(
+                flowName, activeStatuses,
+                LocalDateTime.now().minusDays(cooldownDays),
+                watiContextProvider.get().getIntegrationSystem().getId());
+    }
+
     public WatiMessageRequest createRequest(String phoneNumber, String locale, String entityId,
                                             String templateName, String parametersJson, WatiFlowConfig flowConfig) {
-        IntegrationSystem integrationSystem = integrationSystemRepository.findEntity(
-                watiContextProvider.get().getIntegrationSystem().getId());
         WatiMessageRequest request = new WatiMessageRequest();
-        request.setIntegrationSystem(integrationSystem);
+        request.setIntegrationSystem(getIntegrationSystem());
         request.setFlowName(flowConfig.getFlowName());
         request.setEntityId(entityId);
         request.setEntityType(flowConfig.getEntityType());
@@ -90,6 +114,7 @@ public class WatiMessageRequestService {
 
     public void markFailed(WatiMessageRequest request, String errorMessage, int maxRetries, int retryIntervalHours) {
         request.setErrorMessage(errorMessage);
+        // attemptCount is pre-incremented in markSending, so >= gives exactly maxRetries *total* attempts.
         if (request.getAttemptCount() >= maxRetries) {
             request.setStatus(WatiMessageStatus.PermanentFailure);
         } else {
@@ -108,12 +133,14 @@ public class WatiMessageRequestService {
     public List<WatiMessageRequest> getPendingRequests() {
         return watiMessageRequestRepository.findByIntegrationSystem_IdAndStatusAndNextRetryTimeLessThanEqual(
                 watiContextProvider.get().getIntegrationSystem().getId(),
-                WatiMessageStatus.Pending, LocalDateTime.now());
+                WatiMessageStatus.Pending, LocalDateTime.now(),
+                PageRequest.of(0, SEND_BATCH_SIZE));
     }
 
     public List<WatiMessageRequest> getFailedRequestsDueForRetry() {
         return watiMessageRequestRepository.findByIntegrationSystem_IdAndStatusAndNextRetryTimeLessThanEqual(
                 watiContextProvider.get().getIntegrationSystem().getId(),
-                WatiMessageStatus.Failed, LocalDateTime.now());
+                WatiMessageStatus.Failed, LocalDateTime.now(),
+                PageRequest.of(0, SEND_BATCH_SIZE));
     }
 }

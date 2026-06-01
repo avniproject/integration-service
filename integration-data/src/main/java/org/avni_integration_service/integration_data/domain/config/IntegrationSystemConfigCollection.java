@@ -4,7 +4,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.apache.log4j.Logger;
+
 public class IntegrationSystemConfigCollection {
+    private static final Logger logger = Logger.getLogger(IntegrationSystemConfigCollection.class);
     private final List<IntegrationSystemConfig> integrationSystemConfigs;
 
     private static final String MAIN_SCHEDULED_JOB_CRON = "main.scheduled.job.cron";
@@ -37,6 +40,10 @@ public class IntegrationSystemConfigCollection {
                 .filter(x -> x.getKey().startsWith(prefix))
                 .collect(Collectors.toMap(
                         x -> x.getKey().substring(prefix.length()),
-                        IntegrationSystemConfig::getValue));
+                        IntegrationSystemConfig::getValue,
+                        (existing, replacement) -> {
+                            logger.warn("Duplicate config key after stripping prefix '" + prefix + "' — keeping last value");
+                            return replacement;
+                        }));
     }
 }

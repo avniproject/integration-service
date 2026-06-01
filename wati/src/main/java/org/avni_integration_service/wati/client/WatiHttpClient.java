@@ -1,8 +1,8 @@
 package org.avni_integration_service.wati.client;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.log4j.Logger;
+import org.avni_integration_service.util.ObjectJsonMapper;
 import org.avni_integration_service.avni.domain.MessageDeliveryStatus;
 import org.avni_integration_service.avni.domain.SendMessageResponse;
 import org.avni_integration_service.wati.config.WatiContextProvider;
@@ -29,7 +29,6 @@ public class WatiHttpClient {
 
     private final WatiContextProvider watiContextProvider;
     private final RestTemplate restTemplate;
-    private final ObjectMapper objectMapper = new ObjectMapper();
 
     public WatiHttpClient(WatiContextProvider watiContextProvider) {
         this.watiContextProvider = watiContextProvider;
@@ -121,7 +120,7 @@ public class WatiHttpClient {
     private List<Map<String, String>> parseParameters(String parametersJson) {
         if (!StringUtils.hasLength(parametersJson)) return new ArrayList<>();
         try {
-            return objectMapper.readValue(parametersJson, new TypeReference<List<Map<String, String>>>() {});
+            return ObjectJsonMapper.readValue(parametersJson, new TypeReference<List<Map<String, String>>>() {});
         } catch (Exception e) {
             logger.warn("Failed to parse parameters JSON: " + parametersJson);
             return new ArrayList<>();
