@@ -242,7 +242,7 @@ VALUES (
      WHERE et.name                  = ''Self-report Survey''
        AND e.organisation_id        = :org_id
        AND e.is_voided               = false
-       AND g.name                   = ''Pump Operator''
+       AND g.name                   IN (''Pump Operator Odisha'', ''Pump Operator Andhra Pradesh'')
        AND u.disabled_in_cognito    = false
        AND e.encounter_date_time    IS NULL
        AND (e.earliest_visit_date_time AT TIME ZONE ''Asia/Kolkata'')::date = (CURRENT_TIMESTAMP AT TIME ZONE ''Asia/Kolkata'')::date',
@@ -270,7 +270,7 @@ VALUES (
      WHERE et.name                  = ''Self-report Survey''
        AND e.organisation_id        = :org_id
        AND e.is_voided               = false
-       AND g.name                   = ''Pump Operator R&D''
+       AND g.name                   = ''Pump Operator Control''
        AND u.disabled_in_cognito    = false
        AND e.encounter_date_time    IS NULL
        AND (e.earliest_visit_date_time AT TIME ZONE ''Asia/Kolkata'')::date = (CURRENT_TIMESTAMP AT TIME ZONE ''Asia/Kolkata'')::date',
@@ -319,7 +319,7 @@ eligible_users AS (
     FROM users u
         JOIN user_group ug ON u.id = ug.user_id AND ug.is_voided = false
         JOIN groups g      ON g.id = ug.group_id AND g.is_voided = false
-    WHERE g.name               = ''Pump Operator''
+    WHERE g.name               IN (''Pump Operator Odisha'', ''Pump Operator Andhra Pradesh'')
       AND u.is_voided           = false
       AND u.disabled_in_cognito = false
       AND u.organisation_id     = :org_id
@@ -433,7 +433,7 @@ FROM encounter e
 WHERE et.name                  = 'Self-report Survey'
   AND e.organisation_id        = :org_id
   AND e.is_voided               = false
-  AND g.name                   = 'Pump Operator'
+  AND g.name                   IN ('Pump Operator Odisha', 'Pump Operator Andhra Pradesh')
   AND u.disabled_in_cognito    = false
   AND e.encounter_date_time    IS NULL
   AND (e.earliest_visit_date_time AT TIME ZONE 'Asia/Kolkata')::date = (CURRENT_TIMESTAMP AT TIME ZONE 'Asia/Kolkata')::date
@@ -477,7 +477,7 @@ eligible_users AS (
     FROM users u
         JOIN user_group ug ON u.id = ug.user_id AND ug.is_voided = false
         JOIN groups g      ON g.id = ug.group_id AND g.is_voided = false
-    WHERE g.name               = 'Pump Operator'
+    WHERE g.name               IN ('Pump Operator Odisha', 'Pump Operator Andhra Pradesh')
       AND u.is_voided           = false
       AND u.disabled_in_cognito = false
       AND u.organisation_id     = :org_id
@@ -536,8 +536,40 @@ WHERE name            = 'dil_biweekly_payment_summary'
   AND organisation_id = (SELECT id FROM organisation WHERE name = 'Pump Operator DIL');
 
 
--- Verify the updates took effect
-SELECT name, LEFT(query, 120) AS query_preview
+-- Update 3: weekly_survey_rnd — rename group from 'Pump Operator R&D' to 'Pump Operator Control'
+UPDATE public.custom_query
+SET query = $Q$
+SELECT DISTINCT
+     u.phone_number                       AS phone_number,
+     u.settings->>'locale'                AS locale,
+     e.uuid                               AS entity_id,
+     u.name                               AS name
+ FROM encounter e
+          JOIN encounter_type et          ON et.id = e.encounter_type_id           AND et.is_voided = false
+          JOIN individual i               ON i.id = e.individual_id                AND i.is_voided = false
+          JOIN catchment_address_mapping cam ON cam.addresslevel_id = i.address_id
+          JOIN users u                    ON u.catchment_id = cam.catchment_id      AND u.is_voided = false
+          JOIN user_group ug              ON u.id = ug.user_id                      AND ug.is_voided = false
+          JOIN groups g                   ON g.id = ug.group_id                     AND g.is_voided = false
+ WHERE et.name                  = 'Self-report Survey'
+   AND e.organisation_id        = :org_id
+   AND e.is_voided               = false
+   AND g.name                   = 'Pump Operator Control'
+   AND u.disabled_in_cognito    = false
+   AND e.encounter_date_time    IS NULL
+   AND (e.earliest_visit_date_time AT TIME ZONE 'Asia/Kolkata')::date = (CURRENT_TIMESTAMP AT TIME ZONE 'Asia/Kolkata')::date
+$Q$
+WHERE name            = 'dil_weekly_survey_rnd_scheduled_today'
+  AND organisation_id = (SELECT id FROM organisation WHERE name = 'Pump Operator DIL');
+
+
+-- Verify all three updates took effect
+SELECT name,
+       query LIKE '%Pump Operator Odisha%' OR query LIKE '%Pump Operator Control%' AS group_name_updated
 FROM custom_query
-WHERE name IN ('dil_weekly_survey_scheduled_today', 'dil_biweekly_payment_summary')
+WHERE name IN (
+  'dil_weekly_survey_scheduled_today',
+  'dil_weekly_survey_rnd_scheduled_today',
+  'dil_biweekly_payment_summary'
+)
   AND organisation_id = (SELECT id FROM organisation WHERE name = 'Pump Operator DIL');
