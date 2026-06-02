@@ -27,7 +27,7 @@ public class WatiMessageRequestServiceTest {
     @BeforeEach
     public void setUp() {
         service = new WatiMessageRequestService(repository, integrationSystemRepository, contextProvider);
-        when(repository.save(any(WatiMessageRequest.class))).thenAnswer(i -> i.getArgument(0));
+        lenient().when(repository.save(any(WatiMessageRequest.class))).thenAnswer(i -> (WatiMessageRequest) i.getArgument(0));
     }
 
     // --- markSending ---
