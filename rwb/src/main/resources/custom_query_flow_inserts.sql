@@ -1,3 +1,37 @@
+-- =============================================================================
+-- RWB Custom Queries — Performance Fix (2026-06-15)
+-- =============================================================================
+-- PROBLEM: All queries were causing health check flapping (576 state changes
+-- in 24h) due to Avni server HTTP 500 "Query took more time to return the
+-- result" timeouts across multiple orgs.
+--
+-- ROOT CAUSES FIXED:
+--
+-- 1. NOT EXISTS join order (all queries)
+--    Old: NOT EXISTS (SELECT 1 FROM flow_request_queue frq
+--                     JOIN message_receiver mr ON mr.id = frq.message_receiver_id
+--                     WHERE mr.receiver_id = pu.user_id ...)
+--    Problem: starts from flow_request_queue (large shared table, no useful
+--             index for this query shape) — full table scan per user.
+--    Fix:     NOT EXISTS (SELECT 1 FROM message_receiver mr
+--                         JOIN flow_request_queue frq ON frq.message_receiver_id = mr.id
+--                         WHERE mr.receiver_id = pu.user_id ...)
+--             Drives from message_receiver.receiver_id (indexed) instead.
+--
+-- 2. Missing organisation_id filters on encounter / individual (queries 2, 6, 7)
+--    encounter and individual are large shared multi-org tables. Without
+--    organisation_id = :org_id they scan all orgs.
+--
+-- 3. Nudge to register WO: old_sync CTE did SELECT DISTINCT FROM sync_telemetry
+--    (full scan) even though only existence was needed. Replaced with EXISTS.
+--    Also replaced NOT IN (wo_users subquery) with NOT EXISTS per user.
+--
+-- 4. Certificate delivery: wo_counts + wo_endline_counts CTEs scanned entire
+--    encounter / individual tables for the org then did COUNT comparisons.
+--    For high-volume orgs this exceeded the 3-second server timeout.
+--    Replaced with per-user EXISTS / NOT EXISTS (short-circuits on first match).
+-- =============================================================================
+
 INSERT INTO public.custom_query (id, uuid, name, query, organisation_id, is_voided, version, created_by_id,
                                  last_modified_by_id, created_date_time, last_modified_date_time)
 VALUES
@@ -44,29 +78,27 @@ AND NOT EXISTS (
       AND u.disabled_in_cognito = false
       AND u.is_voided = false
       AND u.organisation_id = :org_id
-),
-old_sync AS (
-    SELECT DISTINCT user_id
-    FROM sync_telemetry
-    WHERE sync_status = ''complete''
-      AND organisation_id = :org_id
-      AND created_date_time < now() - INTERVAL ''2 DAYS''
-),
-wo_users AS (
-    SELECT DISTINCT created_by_id AS user_id
-    FROM individual
-    WHERE subject_type_id = (
-        SELECT id FROM subject_type
-        WHERE name = ''Work Order'' AND organisation_id = :org_id AND is_voided = false
-    )
 )
 SELECT pu.user_id, pu.first_name
 FROM primary_users pu
-JOIN old_sync os ON pu.user_id = os.user_id
-WHERE pu.user_id NOT IN (SELECT user_id FROM wo_users)
-  AND NOT EXISTS (
-    SELECT 1 FROM flow_request_queue frq
-    JOIN message_receiver mr ON mr.id = frq.message_receiver_id
+WHERE EXISTS (
+    SELECT 1 FROM sync_telemetry st
+    WHERE st.user_id = pu.user_id
+      AND st.sync_status = ''complete''
+      AND st.organisation_id = :org_id
+      AND st.created_date_time < now() - INTERVAL ''2 DAYS''
+)
+AND NOT EXISTS (
+    SELECT 1 FROM individual i
+    JOIN subject_type st ON st.id = i.subject_type_id
+    WHERE i.created_by_id = pu.user_id
+      AND st.name = ''Work Order''
+      AND i.organisation_id = :org_id
+      AND i.is_voided = false
+)
+AND NOT EXISTS (
+    SELECT 1 FROM message_receiver mr
+    JOIN flow_request_queue frq ON frq.message_receiver_id = mr.id
     WHERE mr.receiver_id = pu.user_id
       AND mr.receiver_type = ''User''
       AND frq.flow_id = :flow_id
@@ -87,24 +119,23 @@ WHERE pu.user_id NOT IN (SELECT user_id FROM wo_users)
       AND u.disabled_in_cognito = false
       AND u.is_voided = false
       AND u.organisation_id = :org_id
-),
-no_sync_users AS (
-    SELECT pu.user_id
-    FROM primary_users pu
-    WHERE pu.user_id NOT IN (
-        SELECT user_id FROM sync_telemetry WHERE sync_status = ''complete'' AND organisation_id = :org_id
-    )
 )
 SELECT pu.user_id, pu.first_name
 FROM primary_users pu
-JOIN no_sync_users ns ON pu.user_id = ns.user_id
-WHERE pu.user_id IN (
-    SELECT id FROM users
-    WHERE last_activated_date_time < now() - INTERVAL ''2 DAYS''
+WHERE NOT EXISTS (
+    SELECT 1 FROM sync_telemetry st
+    WHERE st.user_id = pu.user_id
+      AND st.sync_status = ''complete''
+      AND st.organisation_id = :org_id
+)
+AND EXISTS (
+    SELECT 1 FROM users u
+    WHERE u.id = pu.user_id
+      AND u.last_activated_date_time < now() - INTERVAL ''2 DAYS''
 )
 AND NOT EXISTS (
-    SELECT 1 FROM flow_request_queue frq
-    JOIN message_receiver mr ON mr.id = frq.message_receiver_id
+    SELECT 1 FROM message_receiver mr
+    JOIN flow_request_queue frq ON frq.message_receiver_id = mr.id
     WHERE mr.receiver_id = pu.user_id
       AND mr.receiver_type = ''User''
       AND frq.flow_id = :flow_id
@@ -138,8 +169,8 @@ SELECT pu.user_id, pu.first_name
 FROM primary_users pu
 JOIN wo_users wo ON pu.user_id = wo.user_id
 WHERE NOT EXISTS (
-    SELECT 1 FROM flow_request_queue frq
-    JOIN message_receiver mr ON mr.id = frq.message_receiver_id
+    SELECT 1 FROM message_receiver mr
+    JOIN flow_request_queue frq ON frq.message_receiver_id = mr.id
     WHERE mr.receiver_id = pu.user_id
       AND mr.receiver_type = ''User''
       AND frq.flow_id = :flow_id
@@ -178,11 +209,9 @@ JOIN entities e ON pu.user_id = e.user_id
 WHERE (e.farmers > 0 OR e.gps > 0)
   AND e.machines > 0
   
-  --  NEW CHECK: ensure message not already sent
 AND NOT EXISTS (
-    SELECT 1
-    FROM flow_request_queue frq
-    JOIN message_receiver mr ON mr.id = frq.message_receiver_id
+    SELECT 1 FROM message_receiver mr
+    JOIN flow_request_queue frq ON frq.message_receiver_id = mr.id
     WHERE mr.receiver_id = pu.user_id
       AND mr.receiver_type = ''User''
       AND frq.flow_id = :flow_id
@@ -246,8 +275,8 @@ SELECT pu.user_id, pu.first_name
 FROM primary_users pu
 JOIN nudge_worthy_users nwu ON pu.user_id = nwu.user_id
 WHERE NOT EXISTS (
-    SELECT 1 FROM flow_request_queue frq
-    JOIN message_receiver mr ON mr.id = frq.message_receiver_id
+    SELECT 1 FROM message_receiver mr
+    JOIN flow_request_queue frq ON frq.message_receiver_id = mr.id
     WHERE mr.receiver_id = pu.user_id
       AND mr.receiver_type = ''User''
       AND frq.flow_id = :flow_id
@@ -312,8 +341,8 @@ WHERE ec.farmers > 0 AND ec.machines > 0
   AND (ec.gps = 0 OR ec.gps = COALESCE(el.gp_endlines, 0))
   AND pu.user_id NOT IN (SELECT user_id FROM wo_endline)
   AND NOT EXISTS (
-    SELECT 1 FROM flow_request_queue frq
-    JOIN message_receiver mr ON mr.id = frq.message_receiver_id
+    SELECT 1 FROM message_receiver mr
+    JOIN flow_request_queue frq ON frq.message_receiver_id = mr.id
     WHERE mr.receiver_id = pu.user_id
       AND mr.receiver_type = ''User''
       AND frq.flow_id = :flow_id
@@ -334,38 +363,38 @@ WHERE ec.farmers > 0 AND ec.machines > 0
       AND u.disabled_in_cognito = false
       AND u.is_voided = false
       AND u.organisation_id = :org_id
-),
-wo_counts AS (
-    SELECT i.created_by_id AS user_id,
-           COUNT(DISTINCT i.id) AS work_orders
-    FROM individual i
-             JOIN subject_type st ON st.id = i.subject_type_id
-    WHERE st.name = ''Work Order''
-      AND i.organisation_id = :org_id
-      AND i.is_voided = false
-      AND i.created_by_id IN (SELECT user_id FROM primary_users)
-    GROUP BY i.created_by_id
-),
-wo_endline_counts AS (
-    SELECT e.created_by_id AS user_id,
-           COUNT(DISTINCT e.individual_id) AS wo_endlines
-    FROM encounter e
-             JOIN encounter_type et ON et.id = e.encounter_type_id
-    WHERE et.name = ''Work order endline''
-      AND e.organisation_id = :org_id
-      AND e.is_voided = false
-      AND e.created_by_id IN (SELECT user_id FROM primary_users)
-    GROUP BY e.created_by_id
 )
 SELECT pu.user_id, pu.first_name
 FROM primary_users pu
-JOIN wo_counts wc ON pu.user_id = wc.user_id
-JOIN wo_endline_counts wec ON pu.user_id = wec.user_id
-WHERE wc.work_orders > 0
-  AND wc.work_orders = wec.wo_endlines
-  AND NOT EXISTS (
-    SELECT 1 FROM flow_request_queue frq
-    JOIN message_receiver mr ON mr.id = frq.message_receiver_id
+WHERE EXISTS (
+    SELECT 1 FROM individual i
+    JOIN subject_type st ON st.id = i.subject_type_id
+    WHERE i.created_by_id = pu.user_id
+      AND st.name = ''Work Order''
+      AND i.organisation_id = :org_id
+      AND i.is_voided = false
+)
+AND NOT EXISTS (
+    SELECT 1 FROM individual i
+    JOIN subject_type st ON st.id = i.subject_type_id
+    WHERE i.created_by_id = pu.user_id
+      AND st.name = ''Work Order''
+      AND i.organisation_id = :org_id
+      AND i.is_voided = false
+    AND NOT EXISTS (
+        SELECT 1 FROM encounter_type et
+        JOIN encounter e ON e.encounter_type_id = et.id
+        WHERE e.individual_id = i.id
+          AND et.name = ''Work order endline''
+          AND et.organisation_id = :org_id
+          AND et.is_voided = false
+          AND e.organisation_id = :org_id
+          AND e.is_voided = false
+    )
+)
+AND NOT EXISTS (
+    SELECT 1 FROM message_receiver mr
+    JOIN flow_request_queue frq ON frq.message_receiver_id = mr.id
     WHERE mr.receiver_id = pu.user_id
       AND mr.receiver_type = ''User''
       AND frq.flow_id = :flow_id
