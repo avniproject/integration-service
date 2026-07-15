@@ -12,6 +12,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -61,6 +62,10 @@ public class AvniHttpClient {
                 return restTemplate.exchange(uri, method, getRequestEntity(json), returnType);
             }
             throw e;
+        } catch (HttpClientErrorException.Unauthorized e) {
+            // avni-server returns 401 for expired tokens; re-authenticate and retry once
+            this.clearAuthInformation();
+            return restTemplate.exchange(uri, method, getRequestEntity(json), returnType);
         }
     }
 
@@ -90,6 +95,9 @@ public class AvniHttpClient {
                 return restTemplate.exchange(builder.build().toUri(), HttpMethod.PUT, new HttpEntity<>(requestBody, authHeaders()), returnType);
             }
             throw e;
+        } catch (HttpClientErrorException.Unauthorized e) {
+            clearAuthInformation();
+            return restTemplate.exchange(builder.build().toUri(), HttpMethod.PUT, new HttpEntity<>(requestBody, authHeaders()), returnType);
         }
     }
 
