@@ -47,7 +47,7 @@ public class AvniHttpClient {
             builder.queryParam(entry.getKey(), entry.getValue());
         }
 
-        URI uri = builder.build().toUri();
+        URI uri = builder.build().encode().toUri();
         return getResponseEntity(returnType, uri, HttpMethod.GET, null);
     }
 
