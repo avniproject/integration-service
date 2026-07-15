@@ -24,11 +24,12 @@ public class ConnectionFactory {
 
     public Connection getOpenMRSDbConnection() {
         try {
-            String driver = "com.mysql.jdbc.Driver";
-            String url = "jdbc:mysql://localhost:" + bahmniConfig.getOpenMrsMySqlPort() + "/";
+            String driver = "com.mysql.cj.jdbc.Driver";
+            // allowPublicKeyRetrieval is required for caching_sha2_password auth (MySQL 8 default) over non-SSL connections
+            String url = "jdbc:mysql://localhost:" + bahmniConfig.getOpenMrsMySqlPort() + "/" + bahmniConfig.getOpenMrsMySqlDatabase() + "?useSSL=false&allowPublicKeyRetrieval=true";
 
             Class.forName(driver);
-            Connection connection = DriverManager.getConnection(url + bahmniConfig.getOpenMrsMySqlDatabase(), bahmniConfig.getOpenMrsMySqlUser(), bahmniConfig.getOpenMrsMySqlPassword());
+            Connection connection = DriverManager.getConnection(url, bahmniConfig.getOpenMrsMySqlUser(), bahmniConfig.getOpenMrsMySqlPassword());
             return new TxConfigurableConnection(connection, txRollback);
         } catch (Exception e) {
             throw new RuntimeException(e);

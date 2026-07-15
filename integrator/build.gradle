@@ -54,7 +54,7 @@ dependencies {
     implementation 'software.amazon.awssdk:cognitoidentity'
     implementation 'com.bugsnag:bugsnag-spring:3.+'
 
-    runtimeOnly group: 'mysql', name: 'mysql-connector-java', version: '5.1.6'
+    runtimeOnly group: 'com.mysql', name: 'mysql-connector-j', version: '8.0.33'
 
     implementation platform('com.amazonaws:aws-java-sdk-bom:1.11.939')
     implementation 'com.amazonaws:aws-java-sdk-cognitoidp'
