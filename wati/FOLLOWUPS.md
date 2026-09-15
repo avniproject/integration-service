@@ -24,7 +24,7 @@ Each item lists the location and a concrete fix. Checkboxes are unchecked.
   On a DB seeded the way prod is seeded, force a permanent failure (Wati `result:false`) and confirm a
   row appears in `error_record` with type `WatiMessagePermanentFailure`.
   *Open architectural question:* a wati `integration_system` is provisioned per-org via
-  `docs/dil-wati-staging-setup.sql` (it carries secrets), yet prod was described as "migrations only".
+  `docs/dil/dil-wati-staging-setup.sql` (it carries secrets), yet prod was described as "migrations only".
   `V2_4_8` backfills any wati system that exists when it runs; systems created later rely on setup
   Step 6. Decide the canonical provisioning path so the error type is guaranteed for every wati org.
 

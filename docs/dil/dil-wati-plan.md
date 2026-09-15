@@ -302,7 +302,7 @@ No code changes needed — both fixes are DB-only and take effect on the next jo
 
 ## 11. Setup SQL
 
-See `docs/dil-wati-staging-setup.sql` for full setup SQL.
+See `docs/dil/dil-wati-staging-setup.sql` for full setup SQL.
 
 - **Section A:** Run on integration-service DB — creates integration system + all config rows
 - **Section B:** Run on Avni prod DB — inserts the three custom queries (fresh install)
