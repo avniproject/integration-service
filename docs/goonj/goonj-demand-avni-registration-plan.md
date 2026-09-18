@@ -399,3 +399,102 @@ step 4.
 15. **Check the first real Demands complete the full round trip** — created in Avni, pushed,
     Demand Code back, status updates flowing. Watch the error records for address failures in
     particular, since that's the known risk.
+
+---
+
+## 12. Rough estimates (Avni side only)
+
+**Scope and health warning.** These cover only the Avni-side work — the form/config and the
+integration service. **Goonj's Salesforce work is not estimated here** and sits on the critical
+path; nothing goes live without it. Figures are in person-days and are deliberately rough sizing
+based on comparable work already in this codebase, meant for planning conversations, not commitments.
+
+### Avni form & config
+
+| Task | Est. | Notes |
+|---|---|---|
+| Demand form — all fields, spreadsheet rows 4–25 | 1 | ~20 fields; the slower part is creating coded concepts with long answer lists (Kit Type, Target Community, Disaster Type) |
+| Line-items section — rows 27–34, incl. Kit Sub-types | 0.5 | Repeating group with conditional sub-type lists |
+| Field validations | 0.5 | Date ordering, quantity > 0, conditional "Other", mandatory sub-type |
+| "Verified by Data POC" checkbox, role-restricted, captures verifier name | 0.25 | |
+| Edit form rule keyed on Approved status | 0.25 | |
+| Warning shown during the editable window | 0.25 | |
+| Role gating for registration | 0.25 | Also the rollout switch |
+| **Subtotal** | **~3** | |
+
+**Separate, and deliberately not given a number: confirming the Avni location hierarchy covers the
+partner locations.** This is data work rather than form building, and it scales with how many
+locations turn out to be missing — it could be nil if they're all present, or substantial if they
+aren't. Size it once the partner accounts are confirmed (open question 4). Left out of the totals
+below rather than guessed at, because guessing it low is how it gets missed.
+
+### Integration service
+
+Assumes the code is written with AI assistance, so these are **review-and-iterate** times rather
+than typing times.
+
+| Task | Est. | Notes |
+|---|---|---|
+| Avni-side watcher (item 1) + push gate (item 2) | 0.5 | Both follow the existing `DistributionWorker` pattern closely |
+| Field converter, Avni → Salesforce (item 3) | 1 | Generating it is quick; the time goes on checking each field against Salesforce's actual contract |
+| Line-item conversion (item 3a) | 0.5 | Patterns exist in Dispatch and Distribution |
+| Address mapping (item 3b) | 1 | **Unchanged** — the cost here is unknowns and data, not code |
+| Call to the Salesforce endpoint (item 4) | 0.25 | |
+| ID write-back (item 5) | 0.5 | Small, but no existing example and the failure modes need thinking through |
+| Identifier precedence (item 6), sync bookmark + migration (item 7) | 0.5 | |
+| Error types, mappings and retry handling | 0.5 | Mostly config and DB rows |
+| Mapping metadata rows — fields and coded answers | 0.5 | Blocked until the picklists are final |
+| Unit tests | 0.5 | |
+| **Subtotal** | **~5.5** | |
+
+**Why this isn't lower.** Code generation is the part that compresses; two things don't. First,
+**review** — this codebase has subtleties that are cheap to get wrong and expensive to find later,
+such as the two sync directions needing separate progress markers, and the exact upsert semantics
+the duplicate-protection depends on. Second, and bigger: **integration work's time sink is the
+feedback loop with external systems, not writing code.** Discovering that Salesforce's payload
+isn't shaped the way the contract implied, or that an address won't resolve, takes the same
+wall-clock time regardless of how fast the code was produced. The existing Goonj sync is the
+evidence — its largest error category is thousands of address failures, which no amount of coding
+speed would have prevented.
+
+### QA, UAT and go-live
+
+| Task | Est. | Notes |
+|---|---|---|
+| Test-scenario execution — end-to-end subset of Section 10 | 2 | Roughly half the 20 scenarios are covered by unit tests already counted in the integration estimate; this line is only the end-to-end ones that need a real Salesforce org |
+| Regression on the existing Salesforce → Avni path | 0.5 | Must not break |
+| Bug-fix buffer from QA | 1 | Contingency, not planned work |
+| UAT support with Goonj / partner teams | 1 | Effort; elapsed time will be longer |
+| UAT feedback — changes and re-testing | 2 | **Least predictable line here** |
+| Go-live: coordinated deploy, open registration, monitoring | 1 | Excludes the 1–2 day soak, which is waiting, not work |
+| Post-go-live support for the first real Demands | 1 | |
+| **Subtotal** | **~8.5** | |
+
+### Totals
+
+| | Person-days |
+|---|---|
+| Avni form & config | ~3 |
+| Integration service | ~5.5 |
+| QA, UAT and go-live | ~8.5 |
+| **Total** | **~17** |
+| *Plus: Avni location hierarchy work* | *not sized — see above* |
+
+**Elapsed time will be well over 17 days.** Form and integration work can run in parallel
+(Section 8), which compresses the build further, but three things stretch the calendar and are
+outside our control: waiting on Goonj's Salesforce endpoint before end-to-end testing can start,
+the 1–2 day soak before go-live, and however long UAT feedback takes to come back. **On this
+total, the Salesforce dependency — not our build — is what determines the delivery date.**
+
+**The build is now the small part.** Form and integration together are ~8.5 days against ~8.5 for
+QA, UAT and go-live. Squeezing the build further won't move the delivery date; the schedule is set
+by Goonj's endpoint and the UAT cycle.
+
+**Three things that would move these numbers:**
+
+- **Picklists not final before build starts** — causes rework in both the form and the mapping
+  metadata. Cheapest risk to eliminate; it's open question 3.
+- **Missing partner locations in the Avni hierarchy** — unsized above, and it would surface as
+  failures during testing rather than up front.
+- **UAT feedback** — 3 days is a placeholder. Scope changes coming out of UAT are the most common
+  reason estimates like this move.
