@@ -1,69 +1,111 @@
 # Demand registration from Avni — summary
 
-**In one line:** Avni creates the Demand, the integration service pushes it to Salesforce once,
-Salesforce gives it a code and owns it from then on.
+**In one line:** A Data POC creates the Demand in Avni, edits keep syncing to Salesforce until it's
+assigned to a Processing Center, and from that point Salesforce owns it.
 
-## Why we're doing this
+For now: **Data POC only, Avni webapp only** — field teams come later. A Data POC creates only for
+their own account/geography, but can view all.
 
-Salesforce licences are expiring for some Goonj partner teams. Today a Demand can only be created
-in Salesforce, so those teams would lose the ability to raise one at all. This lets them start a
-Demand in Avni instead.
+## The journey, at a glance
 
-Partners who keep their Salesforce licences carry on exactly as today — nothing about that flow
-changes.
-
-## How it works
+Legend: **[EXISTS]** = works today. **[NEW]** = Goonj must build. **[PENDING]** = approach not
+decided.
 
 ```
-  Avni                                  Salesforce
-  ┌──────────┐  1. verified → push     ┌──────────┐
-  │  Demand  │ ──────────────────────► │  Demand  │
-  │ created  │                         │ created, │
-  │ in Avni  │ ◄────────────────────── │   code   │
-  └──────────┘  2. ID + Code back      │ assigned │
-        ▲                              └──────────┘
-        │   3. status updates later          │
-        └────────────────────────────────────┘
+  0. Dispatch Address must already be in Avni        [Approach settled: it will be its
+     before a Data POC can pick one for a Demand       own Avni subject, same linking
+              │                                         pattern as Demand.
+              │                                         PENDING — what location to give
+              │                                         each one. Avni requires a real,
+              │                                         resolvable location to create
+              │                                         any subject at all — so if a
+              │                                         dispatch address doesn't map to
+              │                                         one already in Avni, we need a
+              │                                         way to add it, and it's unclear
+              │                                         if Avni even has an API for that.]
+              ▼
+  1. Data POC fills in and submits the Demand form
+              │        (Avni webapp)
+              ▼
+       integration service asks Avni: "anything new or edited?"
+       [EXISTS — Avni's own API, already used for other record types]
+              │
+              ▼
+  2. Sent to Salesforce for the first time
+              │
+              │  ──►  calls Salesforce's "receive a Demand" API
+              │       [NEW — Goonj has to build this; doesn't exist today]
+              ▼
+  3. Salesforce creates the record, checks for duplicates,
+     generates the Demand Code
+              │
+              │  ◄──  replies with the Demand Code + a Salesforce reference number
+              ▼
+       integration service saves the reply onto the Avni record
+       [EXISTS — the same "create or update" call Demand's own sync into
+        Avni already uses]
+              ▼
+  4. Demand Code appears in Avni
+              │
+              ▼
+  5. Data POC can keep editing the Demand in Avni
+              │
+              │  ──►  same "receive a Demand" API, called again on every edit —
+              │       Salesforce matches it to the same Demand, never creates a
+              │       second one [NEW API, same one as step 2]
+              │
+              │       (this keeps happening until the Demand is assigned)
+              ▼
+  6. Goonj's team (MMT) assigns the Demand
+     to a Processing Center, in Salesforce
+              │
+              ▼
+  7. Editing is locked everywhere, all at once:
+       - Avni's form refuses further edits                    [NEW]
+       - the integration service stops calling Salesforce     [NEW]
+       - Salesforce's own API also refuses a late call         [NEW — same API as step 2,
+                                                                  refusing instead of accepting]
+              │
+              ▼
+  8. Goonj's Sanjha team validates the Demand,
+     entirely inside Salesforce
+              │
+              ▼
+       integration service asks Salesforce: "any status changes?"
+       [EXISTS — the same API that's live and working today]
+              │
+              ▼
+  9. Status updates (Assigned → Validated → Post-Validated)
+     flow back down and show up on the Avni dashboard automatically
 ```
 
-1. A field team fills in the Demand form in Avni.
-2. The Data POC ticks "Verified" — that's what triggers the send to Salesforce.
-3. Salesforce creates the record and generates the Demand Code.
-4. Salesforce's ID comes back and is saved onto the Avni record. *(Whether this happens in the
-   same exchange or on the next sync is still to be confirmed with Goonj — it decides whether the
-   Demand Code appears after one cycle or two.)*
-5. From then on Salesforce owns it. Status changes (Approved, DA, DV, DPV) flow down into Avni
-   automatically, using the sync that already exists today.
+## Three things worth knowing
 
-## Five things worth knowing
+- **Salesforce's new endpoint must be an "upsert"**, keyed on the Avni record's ID — makes repeat
+  pushes safe, prevents duplicate codes.
+- **Duplicate checking happens in Salesforce**, not Avni.
+- **Dispatch Address will be its own Avni subject** — but what location to give it isn't settled.
+  Avni needs a real, resolvable location to create any subject; if a dispatch address doesn't
+  already map to one, we need a way to create it, and it's unclear whether Avni even has an API
+  for that (step 0).
 
-- **The Demand Code always comes from Salesforce.** Avni can't generate it — it needs a per-account
-  counter only Salesforce maintains. Users won't see a code immediately; it appears once the round
-  trip completes. Field teams need telling, or it looks like a bug.
-- **The push happens once.** After Salesforce's ID is saved onto the Avni record, we never push
-  that Demand again. Corrections are made in Salesforce from that point.
-- **Salesforce's new endpoint must be an "upsert"** — keyed on the Avni record's own ID. That is
-  what stops a network retry creating two Demands with two different codes.
-- **Editing locks when "Approved" reaches the phone**, per the requirement sheet. There's a window
-  before that where edits are allowed but won't reach Salesforce, so the form should warn during it.
-- **Duplicate checking happens in Salesforce**, not in Avni.
+## Who's building what
 
-## Who does what
+| Goonj's Salesforce team | The Avni team |
+|---|---|
+| Build the new "receive a Demand" endpoint (step 2) — this doesn't exist today | Build the Demand form, including Dispatch Address selection (step 1) |
+| Make it recognise repeat edits as the same Demand, not new ones (steps 3, 5) | Build the "keep editing until assigned" sync (steps 4–5) |
+| Generate the Demand Code (step 3), and run duplicate checking | Build the three-layer lock that fires the moment a Demand is assigned (step 7) |
+| Confirm the missing picklists — Disaster Type, Target Community, Kit Type sub-types | Handle errors so a failed send retries instead of getting lost |
+| Make Salesforce reject a late edit after assignment, as a backstop (step 7) | Decide, with Goonj, how Dispatch Address gets into Avni (step 0) |
+| Weigh in on how Dispatch Address should sync | Keep the account/geography access rules working |
+| Deploy their endpoint first, before we deploy anything | Deploy second, after Salesforce; open registration last |
 
-**Goonj / Salesforce team**
-
-- Build the upsert endpoint that accepts a Demand — this doesn't exist today
-- Generate the Demand Code on it, and run duplicate checking
-- Confirm the final picklists — Disaster Type, Target Community, and which Kit Types have sub-types
-
-**Avni side**
-
-- Build the Demand form: fields, line items, validations, verification checkbox, edit rule, role gating
-- Build the integration: watch Avni, push to Salesforce, save the ID back, handle errors
+Nothing works end to end until Goonj's endpoint exists — agree on this first.
 
 ## Order of work
 
-1. **Agree** — answer the five open questions below
+1. **Agree** — answer the open questions below
 2. **Build** — Goonj's endpoint, our form, our integration code; these can run in parallel
 3. **Test** — against a stub first, then a real Salesforce staging org, then end to end
 4. **Deploy** — Salesforce first, integration second, wait 1–2 days, open registration last
@@ -73,33 +115,36 @@ changes.
 
 | # | Question | Owner | Why it matters |
 |---|---|---|---|
-| 1 | **Who is building the Salesforce upsert endpoint, and by when?** | Goonj / SF | 🚩 **Blocker.** It doesn't exist today and nothing goes live without it. Longest lead time, so start here |
-| 2 | **Does Salesforce return the Demand Code in the response to our push, or only on a later sync?** | Goonj / SF | Decides whether the user sees their Demand Code after one sync cycle or two. Needs settling before we build the converter |
-| 3 | **What are the final picklists?** Disaster Type has no options listed at all; Target Community is partial and marked TBD; and only 3 of the 14 Kit Types (CFW, Marriage Kits, Vaapsi) have sub-types documented — do the others have any? | Goonj | 🚩 **Blocker.** Both the Avni form and the field mapping depend on these. Building before they're fixed means doing it twice |
-| 4 | **Which user groups get access to Demand registration, and what can each of them do — create, edit, void?** | Both | Registration is off for every group by default, so we need the specific list and the permissions per group before anything can be switched on |
+| 1 | **Who is building the Salesforce upsert endpoint, and by when?** | Goonj / SF | 🚩 Blocker — doesn't exist yet, longest lead time |
+| 2 | **Does Salesforce return the Demand Code in the response, or only on a later sync?** | Goonj / SF | Decides if the code shows after one sync or two |
+| 3 | **What are the final picklists?** Disaster Type has no options; Target Community is partial; only 3 of 14 Kit Types (CFW, Marriage Kits, Vaapsi) have documented sub-types | Goonj | 🚩 Blocker — form and field mapping both depend on these |
+| 4 | **Who can void a Demand, and when?** Duplicates can be voided; deletion is barred once assigned | Both | Unclear if this is a Data POC action, Goonj-internal, or both |
+| 5 | **What location does each Dispatch Address subject get, and can Avni even create a new location if one doesn't already exist?** | Goonj / SF | 🚩 Blocker for the "full sync" path — Avni requires a resolvable location to create any subject at all (step 0) |
+| 6 | As raised in the notes: *"Do we build an Integration workflow for Dispatch Address sync as well, Or if this doesnt change regularly, we can just do a bulk upload like we do for Locations?"* | Goonj / SF | Either way, question 5 above has to be answered first |
 
-**Already settled:** Salesforce will return the Demand ID on every call, including when it
-recognises a Demand it already has. The Avni side uses it to update the record that already
-exists — setting the ID on an Avni-created Demand, updating in place for ones already linked —
-never creating a new one.
+**Already settled:**
+- Salesforce returns the Demand ID on every call, even repeats — Avni uses it to update the
+  existing record, never creates a new one.
+- Edit lock triggers on **assignment to a Processing Center**, not approval — enforced at three
+  layers: Avni's form, this service, Salesforce's endpoint.
 
 ## Rough estimate
 
-Avni-side effort only — **Goonj's Salesforce work is not included**, and that sits on the critical
-path.
+Avni-side effort only — Goonj's Salesforce work isn't included, and sits on the critical path.
 
 | Work | Person-days |
 |---|---|
 | Avni form & config | ~3 |
-| Integration service | ~5.5 |
-| QA, UAT and go-live | ~8.5 |
-| **Total** | **~17** |
+| Integration service | ~5 |
+| QA, UAT and go-live | ~5 |
+| **Total** | **~13** |
 
-Development depends on when the Salesforce endpoint is available, and when the forms and other
-details are clear enough to be picked up.
+Excludes the 2–3 days already spent on solutioning. End-to-end cost: **~15–16 days**.
+
+**Treat ~13 as optimistic, not expected** — assumes the cheap Dispatch Address path (bulk upload;
+full sync adds 1–1.5 days) and a smooth UAT. QA/UAT depends on three external teams coordinating
+(Goonj's SF team, Sanjha, MMT), which good specs alone won't speed up. Full reasoning: tech doc.
 
 ## Where the detail lives
 
-`goonj-demand-avni-registration-tech.md` — the engineering reference, for whoever is actually
-building this: every rule with its reasoning, all 20 test scenarios, the field-by-field build
-list, and the estimates in depth. Most people won't need it — this page covers what's happening.
+Interested in the tech detail? See `goonj-demand-avni-registration-tech.md`.
