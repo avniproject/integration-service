@@ -12,17 +12,13 @@ Legend: **[EXISTS]** = works today. **[NEW]** = Goonj must build. **[PENDING]** 
 decided.
 
 ```
-  0. Dispatch Address must already be in Avni        [Approach settled: it will be its
-     before a Data POC can pick one for a Demand       own Avni subject, same linking
-              │                                         pattern as Demand.
-              │                                         PENDING — what location to give
-              │                                         each one. Avni requires a real,
-              │                                         resolvable location to create
-              │                                         any subject at all — so if a
-              │                                         dispatch address doesn't map to
-              │                                         one already in Avni, we need a
-              │                                         way to add it, and it's unclear
-              │                                         if Avni even has an API for that.]
+  0. Dispatch Address must already be in Avni        [NEW — its own Avni subject, same
+     before a Data POC can pick one for a Demand       linking pattern as Demand. Location
+              │                                         = the District of choice, an
+              │                                         existing entry in Avni's own
+              │                                         hierarchy — no new location ever
+              │                                         needs to be created. Still open:
+              │                                         how it syncs in (question 4).]
               ▼
   1. Data POC fills in and submits the Demand form
               │        (Avni webapp)
@@ -32,20 +28,18 @@ decided.
               │
               ▼
   2. Sent to Salesforce for the first time
-              │
+              │       (carries the Avni source ID, which
+              │        SF must store mandatorily)
               │  ──►  calls Salesforce's "receive a Demand" API
               │       [NEW — Goonj has to build this; doesn't exist today]
               ▼
   3. Salesforce creates the record, checks for duplicates,
      generates the Demand Code
               │
-              │  ◄──  replies with the Demand Code + a Salesforce reference number
               ▼
-       integration service saves the reply onto the Avni record
-       [EXISTS — the same "create or update" call Demand's own sync into
-        Avni already uses]
-              ▼
-  4. Demand Code appears in Avni
+  4. Demand Code appears in Avni — via the pull sync that already
+     exists today, on its own schedule, matching by Avni source ID
+     if present, else Salesforce's own Demand ID
               │
               ▼
   5. Data POC can keep editing the Demand in Avni
@@ -84,17 +78,15 @@ decided.
 - **Salesforce's new endpoint must be an "upsert"**, keyed on the Avni record's ID — makes repeat
   pushes safe, prevents duplicate codes.
 - **Duplicate checking happens in Salesforce**, not Avni.
-- **Dispatch Address will be its own Avni subject** — but what location to give it isn't settled.
-  Avni needs a real, resolvable location to create any subject; if a dispatch address doesn't
-  already map to one, we need a way to create it, and it's unclear whether Avni even has an API
-  for that (step 0).
+- **Dispatch Address will be its own Avni subject**, located by the District of choice — an
+  existing Avni location, so no location-creation question to solve (step 0).
 
 ## Who's building what
 
 | Goonj's Salesforce team | The Avni team |
 |---|---|
-| Build the new "receive a Demand" endpoint (step 2) — this doesn't exist today | Build the Demand form, including Dispatch Address selection (step 1) |
-| Make it recognise repeat edits as the same Demand, not new ones (steps 3, 5) | Build the "keep editing until assigned" sync (steps 4–5) |
+| Build the new "receive a Demand" endpoint (step 2) — this doesn't exist today | Create the Dispatch Address subject type, then build the Demand form on top of it, including the Dispatch Address selection (step 1) |
+| Make it recognise repeat edits as the same Demand, not new ones (steps 3, 5) | Update the existing pull sync to match on the Avni source ID first (step 4); build the "keep editing until assigned" sync (step 5) |
 | Generate the Demand Code (step 3), and run duplicate checking | Build the three-layer lock that fires the moment a Demand is assigned (step 7) |
 | Confirm the missing picklists — Disaster Type, Target Community, Kit Type sub-types | Handle errors so a failed send retries instead of getting lost |
 | Make Salesforce reject a late edit after assignment, as a backstop (step 7) | Decide, with Goonj, how Dispatch Address gets into Avni (step 0) |
@@ -116,34 +108,31 @@ Nothing works end to end until Goonj's endpoint exists — agree on this first.
 | # | Question | Owner | Why it matters |
 |---|---|---|---|
 | 1 | **Who is building the Salesforce upsert endpoint, and by when?** | Goonj / SF | 🚩 Blocker — doesn't exist yet, longest lead time |
-| 2 | **Does Salesforce return the Demand Code in the response, or only on a later sync?** | Goonj / SF | Decides if the code shows after one sync or two |
-| 3 | **What are the final picklists?** Disaster Type has no options; Target Community is partial; only 3 of 14 Kit Types (CFW, Marriage Kits, Vaapsi) have documented sub-types | Goonj | 🚩 Blocker — form and field mapping both depend on these |
-| 4 | **Who can void a Demand, and when?** Duplicates can be voided; deletion is barred once assigned | Both | Unclear if this is a Data POC action, Goonj-internal, or both |
-| 5 | **What location does each Dispatch Address subject get, and can Avni even create a new location if one doesn't already exist?** | Goonj / SF | 🚩 Blocker for the "full sync" path — Avni requires a resolvable location to create any subject at all (step 0) |
-| 6 | As raised in the notes: *"Do we build an Integration workflow for Dispatch Address sync as well, Or if this doesnt change regularly, we can just do a bulk upload like we do for Locations?"* | Goonj / SF | Either way, question 5 above has to be answered first |
+| 2 | **What are the final picklists?** Disaster Type has no options; Target Community is partial; only 3 of 14 Kit Types (CFW, Marriage Kits, Vaapsi) have documented sub-types | Goonj | 🚩 Blocker — form and field mapping both depend on these |
+| 3 | **Who can void a Demand, and when?** Duplicates can be voided; deletion is barred once assigned | Both | Unclear if this is a Data POC action, Goonj-internal, or both |
+| 4 | As raised in the notes: *"Do we build an Integration workflow for Dispatch Address sync as well, Or if this doesnt change regularly, we can just do a bulk upload like we do for Locations?"* | Goonj / SF | Decides the sync build; no longer blocked on the location question |
 
 **Already settled:**
-- Salesforce returns the Demand ID on every call, even repeats — Avni uses it to update the
-  existing record, never creates a new one.
+- The push's response is never depended on. What links an Avni-originated Demand to its Salesforce
+  record is Salesforce storing the Avni source ID it was sent — the existing pull sync finds it
+  later, matching by that same ID, never creating a duplicate.
 - Edit lock triggers on **assignment to a Processing Center**, not approval — enforced at three
   layers: Avni's form, this service, Salesforce's endpoint.
+- Dispatch Address's location is the **District of choice** — an existing Avni location. No new
+  location ever needs to be created, so the earlier location-creation blocker no longer applies.
 
 ## Rough estimate
 
-Avni-side effort only — Goonj's Salesforce work isn't included, and sits on the critical path.
-
 | Work | Person-days |
 |---|---|
-| Avni form & config | ~3 |
-| Integration service | ~5 |
-| QA, UAT and go-live | ~5 |
-| **Total** | **~13** |
-
-Excludes the 2–3 days already spent on solutioning. End-to-end cost: **~15–16 days**.
-
-**Treat ~13 as optimistic, not expected** — assumes the cheap Dispatch Address path (bulk upload;
-full sync adds 1–1.5 days) and a smooth UAT. QA/UAT depends on three external teams coordinating
-(Goonj's SF team, Sanjha, MMT), which good specs alone won't speed up. Full reasoning: tech doc.
+| Analysis and solutioning | ~1 |
+| Avni form & config — Demand | ~1 |
+| Avni form & config — Dispatch Address | ~1 |
+| Integration service — Demand | ~2 |
+| Integration service — Dispatch Address | ~2 |
+| UAT | ~2 |
+| Deployment | ~1 |
+| **Total** | **~10** |
 
 ## Where the detail lives
 

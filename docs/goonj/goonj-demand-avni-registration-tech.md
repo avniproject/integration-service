@@ -76,42 +76,49 @@ geography, but can **view** every account and geography.
   ┌────────────┐                                ┌────────────┐
   │  Demand    │  not linked yet, and           │  record    │
   │  created   │  submitted → send to SF ─────► │  created,  │
-  │  in Avni   │                                │  Demand    │
-  │  by Data   │  ID + Demand Code come back,   │  Code      │
-  │  POC       │ ◄── saved onto same record ─── │  assigned  │
+  │  in Avni   │  (carries the Avni source ID,  │  Demand    │
+  │  by Data   │   which SF must store          │  Code      │
+  │  POC       │   mandatorily on its record)   │  assigned  │
   └────────────┘                                └────────────┘
         ▲    │                                         │
         │    └──── edits keep syncing up ─────────────►│
-        │            until the Demand is assigned      │
-        │       status changes flow down always        │
-        └──── (Assigned, DV, DPV) ◄──────────────────────┘
-                (reuses the sync that already exists today)
+        │            (same push, until assigned)       │
+        │                                               │
+        └── Demand Code, then later status ◄────────────┘
+            (Assigned, DV, DPV) — all via the
+            pull sync that already exists today,
+            completely unchanged, matching by
+            the Avni source ID if present, else
+            Salesforce's own Demand ID
 ```
 
 A Data POC fills in the Demand form on the Avni webapp. There's no separate approval step — the
 Data POC is the only person involved, so a second "verified" tick by the same person would just be
 them confirming their own work. **Submitting the completed form is what triggers the first send**
-to Salesforce. Salesforce creates the record, generates the Demand Code, and hands back its own ID
-for that record. We save that ID onto the Avni record.
+to Salesforce, carrying the Avni record's own source ID. Salesforce creates the record, generates
+the Demand Code, and is required to store that Avni source ID against its own record — that's what
+makes the eventual match-up work.
 
-That first exchange isn't the end of the Avni-to-Salesforce direction, though. The Data POC can
-keep editing the Demand afterward, and **those edits keep syncing up to Salesforce** — not just
-once — for as long as the Demand hasn't been assigned to a Processing Center. Salesforce's upsert
+**This service never waits for or depends on that push's response to contain anything.** The
+Demand Code, and everything else about this Demand, arrives back in Avni through the ordinary
+Salesforce-to-Avni pull sync — the one that already exists today, unchanged in mechanism. It simply
+picks this Demand up on its next scheduled run, exactly the way it already picks up every
+Salesforce-originated Demand. The one new piece of logic sits in how that pull decides which Avni
+record to update: by the Avni source ID, if the incoming record carries one, otherwise by
+Salesforce's own Demand ID — the same fallback this codebase already uses for records that have
+never touched Avni.
+
+That first push isn't the end of the Avni-to-Salesforce direction, though. The Data POC can keep
+editing the Demand afterward, and **those edits keep syncing up to Salesforce** — not just once —
+for as long as the Demand hasn't been assigned to a Processing Center. Salesforce's upsert
 behaviour is what makes this safe: every edit just updates the same linked record.
 
 The moment a Demand is **assigned**, that stops. From then on the Demand belongs entirely to
 Salesforce, and status changes — Assigned, Demand Validation, Demand Post-Validation — flow back
-down into the same Avni record, using the sync that already exists today. This lock is enforced at
-three separate points, not just one: Avni's own form stops allowing edits; this service stops
-invoking the upsert call for that Demand at all; and Salesforce's endpoint should also reject an
-upsert for an already-assigned Demand, purely as a backstop for the lag between the two. More on
-this below.
-
-Sending the Demand, getting the ID back, and saving it are meant to happen as one exchange. That's
-not confirmed yet, though — it's possible Salesforce only returns the ID on a later sync instead
-of in its immediate response, which would mean the Demand Code takes an extra cycle to show up.
-That's one of the open questions further down, and it's worth settling before anyone starts
-building the piece of code that talks to Salesforce.
+down into the same Avni record, using that same existing pull. This lock is enforced at three
+separate points, not just one: Avni's own form stops allowing edits; this service stops invoking
+the upsert call for that Demand at all; and Salesforce's endpoint should also reject an upsert for
+an already-assigned Demand, purely as a backstop for the lag between the two. More on this below.
 
 ---
 
@@ -151,7 +158,7 @@ being edited in two different places at the same time?
 | Editing in Avni is allowed right up until assignment | Not "until approval" — the precise trigger is assignment to a Processing Center. Edits made before that point do reach Salesforce; see the lock section below for what happens at assignment itself. |
 | Duplicate-Demand checking happens in Salesforce | Not in Avni. |
 | Registration starts switched off for everyone | Turned on only for the specific groups that need it — same switch controls when the feature goes live. Only Data POCs get it for now, on the webapp; field teams are a later pilot. |
-| Identify a Demand by its Avni ID if we have one, else by the Salesforce Demand ID | Avni-originated Demands always have the former; Salesforce-originated ones only have the latter. |
+| When the existing pull sync writes a Demand into Avni, it matches by the Avni source ID if the Salesforce record carries one, else by the Salesforce Demand ID | This is pull-side logic, not push-side — the push always carries the Avni source ID by definition. Avni-originated Demands have a source ID to match on; Salesforce-originated ones only ever have the Demand ID, exactly as today. |
 
 Coordinating the actual deployment across Salesforce, this service, and Avni is also part of what
 we've agreed, but that's a rollout question rather than a sync-behaviour one — it has its own
@@ -234,38 +241,45 @@ Demand is locked because the status tells it so, not because of anything a Data 
 | A field converter | Avni fields → Salesforce fields, including the account and initiative values the Demand Code needs | Distribution's converter does almost exactly this |
 | A line-item converter | The form's repeating second section — material type, kit type, quantity, sub-types | Both Dispatch and Distribution already handle repeating line items |
 | A Dispatch Address converter | Shapes the Avni address the way Salesforce expects | The reverse direction (reading an address out of Salesforce) already exists |
-| The call to Salesforce | Sends the converted data to the new endpoint, on every push | Calling pattern exists; the endpoint itself doesn't — Goonj's Salesforce team has to build it |
-| ID write-back | Saves Salesforce's ID onto the Avni record on the first push, linking it | Genuinely new — no existing example in this codebase |
+| The call to Salesforce | Sends the converted data to the new endpoint, on every push, always carrying the Avni source ID | Calling pattern exists; the endpoint itself doesn't — Goonj's Salesforce team has to build it |
 | The assignment stop | Once a Demand syncs down as assigned, stop invoking the upsert for it | New logic — the counterpart to the push gate |
-| Identifier precedence | Avni ID if present, else the Salesforce Demand ID | New logic |
+| Identifier precedence in the existing pull | The existing Salesforce-to-Avni pull worker (`Demand.java` / `DemandEventWorker`) always keys the Avni `externalId` on Salesforce's own Demand ID today. It needs updating to check for and prefer an Avni source ID first, falling back to the Demand ID only when none is present | This is a change to *existing* pull-side code, not new push-side logic — small, but it's the piece that actually links an Avni-originated Demand to the same record once the pull picks it up |
 | A separate progress marker | This direction needs its own "where did I leave off," independent of the existing pull | Small, low-risk addition |
-| Dispatch Address subject type | A new Avni subject type — First Name = Dispatch Address Name, an "Address" concept typed as **Location**, an Account Name concept, and Salesforce's Dispatch Address ID as the externalId link | Follows the same linking pattern as Demand itself; on the Demand form it's referenced via a Single Select, filtered by the Account chosen — the Location typing lives on the Dispatch Address subject's own Address field, not on the Demand form directly |
+| Dispatch Address subject type | A new Avni subject type — First Name = Dispatch Address Name, District (an "Address" concept typed as **Location**, set to an existing District), an Account concept, and Salesforce's Dispatch Address ID as the externalId link — **this SF ID is what gets sent in the Demand creation request**, not just a linking detail | Follows the same linking pattern as Demand itself; on the Demand form it's referenced via a Single Select, filtered by the Account chosen. Using an existing District (not a new location) means this never hits the address-resolution failures that already affect Demand/Dispatch/Inventory |
 
 The Salesforce endpoint is the biggest external dependency — nothing here can be proven working
-until it exists, so that conversation with Goonj should start early. On our side, the ID
-write-back matters most: miss it, and at best we harmlessly re-check a Demand every cycle; at
-worst, the next status update from Salesforce has nothing to match against and creates a duplicate
-record in Avni.
+until it exists, so that conversation with Goonj should start early. On our side, the identifier
+precedence change in the existing pull worker matters most: miss it, and the pull keeps keying
+every Demand on Salesforce's own ID as it always has, so an Avni-originated Demand's status updates
+never match back to the record the Data POC actually created — creating a duplicate in Avni instead
+of updating the original.
 
 **The approach for Dispatch Address is settled: it's its own Avni subject**, linked to Salesforce
 the same way Demand is. Every Account (office) has an address associated with it, and the Demand
 creator picks one from this subject list when raising a Demand — so Avni needs that list before
-the form can work at all. Whether it arrives via a proper ongoing integration workflow (like Demand
-itself) or a periodic bulk upload — the way Locations are handled today, on the assumption dispatch
-addresses don't change often — is one open question below.
+the form can work at all. Two options for getting it there:
 
-**What's not settled, and matters more: what location each Dispatch Address subject actually
-gets.** Every existing entity in this codebase (Demand, Dispatch, Inventory) requires a resolvable
-State and District to create a subject at all — `GoonjEntity.getAddressMap()` throws a
+- **Integration with Salesforce, using Salesforce's own API.** Expected to be a small, infrequent
+  load — dispatch addresses don't change often, so this isn't a continuous sync in the way Demand's
+  own push is; more an occasional catch-up.
+- **Bulk upload into Avni, the way Locations are onboarded today** — sourced from a database export
+  rather than a live API call, and critically, that export has to include each record's Salesforce
+  ID from the start, so every Dispatch Address is already linked and nothing needs backfilling.
+
+Which of these two Goonj prefers is one open question below.
+
+**The location question is settled too: each Dispatch Address subject gets the District of choice**
+— an existing entry in Avni's own location hierarchy, not a new one that has to be created. This
+matters because every existing entity in this codebase (Demand, Dispatch, Inventory) requires a
+resolvable State and District to create a subject at all — `GoonjEntity.getAddressMap()` throws a
 `RuntimeException` before ever calling Avni's API if either is blank, and Avni's own server can
-separately reject the subject if that State/District combination isn't in its location hierarchy
-(this is the `AddressNotFoundError` already flagged as the largest error category in the existing
-Goonj sync). If a dispatch address's real-world location doesn't already exist in Avni, someone
-needs to add it — and **it's unclear whether Avni exposes an API to create a new location under a
-given location type at all.** Nothing in this codebase's `avni` client module does this today; every
-existing entity only ever references a location that already exists, never creates one. This needs
-checking against Avni's own platform team or documentation, not something answerable from this
-repo.
+separately reject the subject if that combination isn't in its location hierarchy (this is the
+`AddressNotFoundError` already flagged as the largest error category in the existing Goonj sync).
+Using an existing District sidesteps both failure modes entirely — there's no location-creation
+question to answer, because nothing new is ever being created. (Nothing in this codebase's `avni`
+client module creates locations today either way — every existing entity only ever references one
+that already exists — so this decision also means we're not relying on a capability that may not
+exist.)
 
 ---
 
@@ -277,8 +291,8 @@ to be built. Nothing in between.
 | Direction | API | Status | Notes |
 |---|---|---|---|
 | Avni → this service | `GET /api/subjects` | **Existing** — Avni's own platform API | Already how the watcher pattern works for Distribution, Activity, and Dispatch Receipt. `AvniSubjectRepository.getSubjects()` in this codebase. |
-| This service → Avni | `POST /api/subject` | **Existing** — Avni's own platform API | Used to write the Demand into Avni in the first place; `AvniSubjectRepository.create()`. Also how Salesforce's ID and Demand Code get saved back onto the record. |
-| This service → Avni | `PUT /api/subject/{id}` | **Existing, but not currently expected to be used here** | `AvniSubjectRepository.update()`. In this codebase today it's used exactly once — by `DispatchEventWorker`, to remove a single line item after an upstream deletion — not by Distribution or Activity, and not as a general-purpose update. The ID write-back for Demand is expected to use the same `create()`/POST path above, since that's already an upsert. |
+| This service → Avni | `POST /api/subject` | **Existing** — Avni's own platform API | Used by the existing pull sync to write or update a Demand in Avni — `AvniSubjectRepository.create()`. This is the same call, on the same existing pull cycle, that brings the Demand Code back in; nothing new is added here except which identifier it matches on (see the rules above). |
+| This service → Avni | `PUT /api/subject/{id}` | **Existing, but not expected to be used here** | `AvniSubjectRepository.update()`. In this codebase today it's used exactly once — by `DispatchEventWorker`, to remove a single line item after an upstream deletion — not a general-purpose update, and not needed for this feature. |
 
 There is **no PATCH method anywhere in this codebase** — `AvniHttpClient` only implements GET,
 POST, PUT, and DELETE. Worth stating plainly since it's easy to assume a partial-update verb
@@ -286,7 +300,7 @@ exists somewhere given how often "upsert" comes up in this plan; it doesn't, and
 one.
 | Salesforce → this service | `DemandService/getDemands` | **Existing** — already live today | The current pull-direction endpoint. Keeps working exactly as-is for status updates flowing down (Assigned, DV, DPV) — nothing changes here. `DemandRepository.GET_DEMANDS_PATH` in this codebase. |
 | This service → Salesforce | *(no endpoint yet)* | **New — Goonj's Salesforce team has to build this** | The single biggest piece of new work in this whole feature. Needs to accept a Demand, behave as an upsert keyed on the Avni record's ID, and (ideally) reject an update for an already-assigned Demand. Other push-direction entities in this codebase call resource paths like `/web/distribution` and `/web/media` — a Demand endpoint would likely follow that same naming convention, but the exact path and payload shape is Goonj's call. |
-| This service → Salesforce | *(depends on the Dispatch Address decision)* | **New, if a full sync is chosen** | If Dispatch Address gets its own ongoing sync rather than a bulk upload, that needs a new Salesforce endpoint too — most likely another `DemandService/getDemands`-style read endpoint. If a bulk upload is chosen instead, **no new API is needed at all** — it becomes a periodic file import, the same mechanism Locations already use. |
+| This service → Salesforce | *(depends on the Dispatch Address decision)* | **New, if the Salesforce-integration option is chosen** | If Dispatch Address is onboarded via Salesforce's own API rather than a bulk upload, that needs a new Salesforce endpoint too — most likely another `DemandService/getDemands`-style read endpoint, though expected to be a small, infrequent load rather than a continuous sync. If a bulk upload is chosen instead, **no new API is needed at all** — it's a periodic database-sourced file import, already carrying each record's Salesforce ID, the same mechanism Locations already use. |
 
 On our side, none of this needs a new *Avni* API — the Avni platform already exposes everything
 this feature needs. What's missing is entirely on Salesforce's side, plus the new code in this
@@ -311,15 +325,15 @@ keeping them distinct below.
 - Decide whether a repeat update that Salesforce chooses to ignore should still tell us anything.
 - Make sure Salesforce's own endpoint rejects an upsert for an already-assigned Demand — the
   backstop layer of the assignment lock.
-- Confirm what location each Dispatch Address subject should get, and whether Avni can even
-  create a new location if the real one doesn't already exist — 🚩 blocks the full-sync path.
 - Weigh in on how Dispatch Address should sync — full integration, or bulk upload.
 - Deploy their endpoint first, before we deploy anything.
 
 **On the Avni side, the form work involves:**
 
-- Building the Demand form itself, with all its fields, including the Dispatch Address Single
-  Select filtered by the chosen Account.
+- Creating the Dispatch Address subject type itself — the prerequisite before the Demand form can
+  reference it at all.
+- Building the Demand form, with all its fields, including the Dispatch Address Single Select
+  filtered by the chosen Account.
 - Building the line-items section, including the kit sub-types.
 - Field validations — dates in the right order, quantities that make sense, fields that only
   appear conditionally.
@@ -337,7 +351,9 @@ keeping them distinct below.
 - The Dispatch Address subject type, and however it gets its data from Salesforce.
 - The two converters — one for the Demand's own fields, one for its line items — plus the Dispatch
   Address conversion.
-- The call to Salesforce, on every push, and writing its ID back on the first one.
+- The call to Salesforce, on every push.
+- Updating the existing pull worker to match by Avni source ID first, falling back to Salesforce's
+  own Demand ID.
 - Stopping the upsert entirely once a Demand syncs down as assigned.
 - Deciding which identifier to use, and keeping a separate progress marker for this direction.
 - Error handling, so a failed push gets retried rather than silently disappearing.
@@ -356,10 +372,6 @@ so the form shouldn't be left until last just because it feels like the smaller 
 goes live without it, and it has the longest lead time of anything here, so it's worth raising
 first.
 
-**Does Salesforce hand back the Demand Code in its immediate response, or only on a later sync?**
-This decides whether a user sees their code after one cycle or two, and it needs settling before
-the field converter gets built.
-
 **What are the final picklists?** Disaster type currently has no options listed at all. Target
 community is only partially filled in. And of the fourteen kit types in the form, only three —
 CFW, Marriage Kits, and Vaapsi — have documented sub-types; it's unclear whether the rest have any
@@ -370,30 +382,22 @@ done twice.
 bars deleting one once it's assigned — it's not yet clear whether that's a Data POC action, an
 MMT/Sanjha-team action, or both, and whether it differs before and after assignment.
 
-**What location does each Dispatch Address subject get, and can Avni even create a new location if
-one doesn't already exist?** 🚩 This is the blocker for the "full sync" path specifically. Avni
-requires a resolvable location to create any subject at all (confirmed by this codebase's existing
-pattern — see above); nothing here creates new Avni locations today, only references existing ones.
-Being confirmed with someone on the Avni platform team.
-
 **As originally raised in the notes:** *"Dispatch Address - Do we build an Integration workflow for
 Dispatch Address sync as well, Or if this doesnt change regularly, we can just do a bulk upload like
-we do for Locations?"* Either way, the location question above has to be answered first.
+we do for Locations?"* No longer blocked on a location question — see below.
 
 ### Already settled
 
-**Salesforce will return the Demand ID on every call**, including when it recognises a Demand it
-already has. On our side, that ID is used to update whichever record already exists — setting it
-on a Demand that started in Avni, or updating one that's already linked — never to create a second
-record from the response.
+**The push's response is never depended on for anything.** This service doesn't wait for or parse
+Salesforce's immediate reply to the push for a Demand ID or Code — it only needs the push to
+succeed (or fail and be retried). What actually links an Avni-originated Demand to its Salesforce
+record is Salesforce mandatorily storing the Avni source ID it was sent, and the existing pull sync
+later finding that Demand and matching it back by that same source ID.
 
-It's worth understanding why this particular answer matters so much: if a repeat call from us ever
-came back successful but without a usable ID, our side would have no way of knowing anything went
-wrong. It would record the push as successful and move on, meaning that Demand would never be
-retried, never show up as an error, and never get flagged for anyone to notice. It would simply
-sit in Avni without a Demand Code, and Salesforce's own copy would eventually sync down separately
-as a second, unrelated-looking record. Guaranteeing the ID comes back every time is what rules
-that scenario out entirely.
+This is a real simplification over an earlier draft of this plan, which assumed the round trip
+depended on Salesforce's push response carrying a usable ID, and that a response without one would
+be a silent failure mode worth designing around. It isn't one: the pull sync doesn't care what the
+push responded with, only what Salesforce ends up storing.
 
 **The edit lock keys off assignment to a Processing Center, not approval generically or the Demand
 Code appearing** — enforced at three layers (Avni's form, this service, and Salesforce's own
@@ -405,6 +409,12 @@ This replaces an earlier assumption in this plan that the push was a one-time cr
 **Who gets access, and to what.** Data POCs only, for now, on the Avni webapp — field teams are a
 later pilot, not this phase. A Data POC can create a Demand only for their own account and
 geography, but can view every account and geography.
+
+**Each Dispatch Address subject's location is the District of choice** — an existing entry in
+Avni's location hierarchy, never a new one. This removes the location-creation question entirely:
+there's no need to check whether Avni can create a new location, because nothing new is being
+created, and the address-resolution failures already affecting Demand/Dispatch/Inventory don't
+apply here.
 
 **There is no separate approval or "verified" step.** A Data POC is the only person involved, so a
 second tick by the same person to confirm their own work adds nothing. Submitting the completed
@@ -420,11 +430,11 @@ considered done.
 | # | Scenario | Setup | Action | Expected result |
 |---|---|---|---|---|
 | 1 | A new Avni Demand successfully reaches Salesforce | A Data POC fills in the Demand form on the Avni webapp | They submit it, and the sync cycle runs | A matching Demand appears in Salesforce with every field correctly mapped |
-| 2 | The Demand Code comes back to Avni | The Demand from #1 now exists in Salesforce with a code | The next sync cycle runs | The same Avni Demand — not a new one — now shows the Demand Code and its Salesforce link |
+| 2 | The Demand Code comes back to Avni | The Demand from #1 now exists in Salesforce with a code, carrying the Avni source ID it was sent | The existing pull sync runs on its normal schedule | The same Avni Demand — not a new one — now shows the Demand Code, matched back by its Avni source ID |
 | 3 | A status change doesn't create a duplicate | The Demand from #1–2 is already linked | Salesforce moves its status to Approved | The existing Avni record updates in place; the total number of Demands in Avni doesn't increase |
 | 4 | A draft Demand isn't sent anywhere | A Data POC has started the Demand form but not yet completed and submitted it | A sync cycle runs | Nothing is sent to Salesforce; the Demand simply stays in draft in Avni |
 | 5 | A linked Demand is never pushed again | A Demand already has a Salesforce link | Sync cycles run repeatedly | The push never fires again for that Demand — no repeat calls to Salesforce at all |
-| 6 | A failed write-back recovers cleanly | The push to Salesforce succeeds, but saving the ID back onto Avni fails | The next cycle pushes the same Demand again | Salesforce recognises it and updates the existing record — no second Demand, no second code |
+| 6 | The pull correctly avoids a duplicate | A Demand pushed from Avni now exists in Salesforce, carrying the Avni source ID | The existing pull sync picks it up | It matches by the Avni source ID and updates the original Avni record — it must not fall back to Salesforce's own Demand ID and create a second one |
 | 7 | Resubmitting after a dropped connection is safe | A user submits, loses connection before confirmation, and submits again | Both attempts reach Salesforce | Exactly one Demand and one Demand Code exist in Salesforce |
 | 8 | Editing before submission works as expected | A Demand is still being drafted in Avni | A Data POC edits a field and then submits it | The version sent to Salesforce is the edited one, not the original |
 | 9 | Edits before assignment keep syncing up | A Demand is already linked and unassigned | A Data POC edits a field, then a sync cycle runs | The edited version reaches Salesforce and updates the same linked record — no duplicate |
@@ -433,7 +443,7 @@ considered done.
 | 11 | Duplicate detection happens on Salesforce's side | An existing Salesforce Demand already matches on account, initiative, material, and date | A near-identical Demand is pushed from Avni | Salesforce applies its own duplicate handling; Avni performs no check of its own |
 | 12 | Someone without permission can't register a Demand | A user's role hasn't been enabled for Demand registration | The user opens Avni | There's no option to register a Demand at all |
 | 13 | A Salesforce outage doesn't lose the Demand | Salesforce's endpoint returns an error or times out | A push is attempted | The Demand isn't lost — it's recorded as a retryable error, using the same handling already used elsewhere, and gets retried on a later cycle |
-| 14 | The right identifier is used in each direction | One Demand started in Avni (has an Avni ID, no Salesforce ID yet); another started in Salesforce (only has a Salesforce ID) | Requests are built for each | The Avni-originated one uses its Avni ID; the Salesforce-originated one uses its Salesforce ID |
+| 14 | The pull sync uses the right identifier for each Demand | One Demand started in Avni and carries an Avni source ID on its Salesforce record; another started in Salesforce and has never had one | The pull sync processes both | The Avni-originated one is matched and updated by its Avni source ID; the Salesforce-originated one falls back to being matched by Salesforce's own Demand ID, exactly as it does today |
 | 15 | Demands created directly in Salesforce still work exactly as before | A Demand is created in Salesforce with no Avni involvement | A sync cycle runs | It appears in Avni exactly as it does today — nothing about the existing path regresses |
 | 16 | Partners who keep their Salesforce access are unaffected | A partner still has Salesforce access | They create a Demand there as usual | Nothing changes for them |
 | 17 | An unmapped value fails clearly | A picklist value chosen in Avni has no equivalent set up in Salesforce | A Demand is submitted using it | It fails with a clear "no mapping found" message rather than silently sending the wrong value |
@@ -490,59 +500,44 @@ commitment — they're sized against comparable work already sitting in this cod
 
 | Work | Person-days |
 |---|---|
-| Form and configuration | ~3 |
-| Integration code | ~5 |
-| QA, UAT and go-live | ~5 |
-| **Total** | **~13** |
+| Analysis and solutioning | ~1 |
+| Avni form & config — Demand | ~1 |
+| Avni form & config — Dispatch Address | ~1 |
+| Integration service — Demand | ~2 |
+| Integration service — Dispatch Address | ~2 |
+| UAT | ~2 |
+| Deployment | ~1 |
+| **Total** | **~10** |
 
-This doesn't include the 2–3 days already spent on solutioning — the discussion that produced this
-plan. That's real effort too, but it's a different kind (design, not build-and-test), already
-spent, and shouldn't be folded into a forward-looking estimate as if it hasn't happened yet. If
-what matters is total cost of this feature start to finish, it's roughly **2–3 already spent, plus
-~13 to go** — call it ~15–16 days end to end, not ~13.
+Split by entity rather than by kind of work, since Dispatch Address turned out to be substantial
+enough on its own to track separately — a new subject type, its own field mapping, and its own
+sync decision, alongside the Demand work itself.
 
-**Form and configuration.** The form itself is the largest piece, mostly because of the longer
-picklists — kit type, target community, disaster type. The line-items section, validations, the
-edit rule, and the access scoping are each smaller pieces on top — and there's one less piece than
-originally scoped, since there's no separate approval step to build. Ordinary Avni admin work —
-creating users, roles, or locations — isn't part of this estimate; Goonj's own tech team handles
-that directly.
+**Analysis and solutioning (~1)** covers what's left to close out after this plan — settling the
+open questions with Goonj, confirming the sync method for Dispatch Address, and any remaining design
+decisions before implementation starts. The bulk of solutioning is already behind this plan, not
+ahead of it.
 
-**Integration code is back down to ~5.** An earlier pass added 0.5–1 here for the Dispatch Address
-subject type, but on reflection that only holds if Goonj chooses a full ongoing sync for it — and
-under the cheaper option (a bulk upload, the way Locations work today), setting that up is a
-one-time admin/config action, not integration-service code, so it doesn't belong in this bucket at
-all. **That's still a real fork, not a resolved one:** if Dispatch Address does end up needing a
-proper sync — its own watcher, its own field mapping, its own progress marker, mirroring how Demand
-itself works — add 1–1.5 days back here. Question 5 decides which case applies. Beyond that, the
-plan being this well specified going in (the rules, the lock behaviour, the exact API shapes) is a
-legitimate reason this number can be lean — most of the normal back-and-forth of "wait, what should
-happen here?" has already happened, in this conversation, rather than needing to happen during
-implementation.
+**Avni form & config** is split Demand (~1) and Dispatch Address (~1). Demand's form is the larger
+build in absolute terms — all its fields, the line-items section, the edit rule, access scoping —
+but Dispatch Address's own form/config work (its subject type definition, the District-of-choice
+location, the Single Select on the Demand form filtered by Account) is real enough to warrant its
+own day rather than being absorbed into Demand's number.
 
-**A second, separate risk sits underneath both branches: the location question isn't costed here at
-all.** If Avni turns out to have no API for creating a new location, someone has to add missing
-locations by hand before a dispatch address can be created as a subject — that's not integration
-code, it's an ongoing operational step, and it could affect the bulk-upload path just as much as the
-full-sync one. This needs an answer before either branch of the ~5 vs ~6–6.5 fork above can be
-trusted.
+**Integration service** is likewise split Demand (~2) and Dispatch Address (~2). Demand's piece
+covers the watcher, the field and line-item converters, the call to Salesforce, the identifier-
+precedence change in the existing pull worker, and the assignment-triggered stop. Dispatch
+Address's piece covers however it gets its data from
+Salesforce — the specific size still depends on the onboarding option chosen (see below), but the
+location question that used to make this unpredictable is resolved (District of choice, an existing
+Avni location — no location-creation risk to price in).
 
-**QA, UAT, and go-live stays at ~5 — I'm not comfortable taking this lower, and want to say why
-rather than just do it.** The previous pass already compressed this from 8.5 by shrinking the
-bug-fix contingency buffer and the UAT-feedback line, the two lines that exist specifically to
-absorb what we don't yet know. Squeezing them again means betting on zero problems during UAT.
-
-The reason this doesn't compress the way the build side does: it depends on **three teams outside
-our control synchronising** — Goonj's Salesforce team's endpoint, the Sanjha team's validation, and
-MMT's assignment step — none of which get faster just because our own design is well specified.
-Good specification reduces *our* rework risk; it does nothing for coordination risk across three
-separate teams and systems. If this number needs to come down, the honest way to do it is to narrow
-what ships in the first release (fewer test scenarios, a smaller pilot group), not to assume UAT
-goes cleanly.
+**UAT (~2) and Deployment (~1)** are tighter than earlier passes assumed, on the view that a well
+specified plan reduces rework risk substantially — most of the "wait, what should happen here?"
+churn has already happened in this conversation, not left for implementation or testing to surface.
+Worth keeping in mind that UAT still depends on three teams outside our control synchronising
+(Goonj's Salesforce team, Sanjha, MMT) — if that coordination doesn't go smoothly, UAT is the line
+most likely to need more room, not the build lines.
 
 Development itself depends on when Salesforce's endpoint becomes available, and when the form and
 other details are settled enough to actually start building.
-
-**Not yet included above:** the account/geography access scoping — it came up after this estimate
-was sized, and mostly lands in the form/config bucket rather than integration code, but hasn't been
-sized on its own.
