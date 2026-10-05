@@ -3,27 +3,43 @@
 **Decision: fix user sync settings only. Do not touch subject values.**
 
 Script: [`fix_goonj_account_name_spaces.sql`](../../fix_goonj_account_name_spaces.sql)
-Concept: `Account  name` (two spaces), uuid `2978117c-a297-4171-99c6-23c3522ca0f8`
+Concept uuid: `2978117c-a297-4171-99c6-23c3522ca0f8`
+
+## Background
+
+The card from Maha asked us to remove extra spaces from Goonj account names — 92 subject
+records with padded values, and 302 padded values across user sync settings. The obvious
+reading was: strip the spaces everywhere, on subjects via `/bulkSubjectMigration` and on user
+settings via SQL.
+
+Maha's review comments pushed back on that, asking whether padded names coming from
+Salesforce (Demand, Dispatch) were actually correct and shouldn't be touched.
+
+Digging into it confirmed that concern, and changed the approach:
+
+- **91 of 95 padded subject values come from Salesforce** and are rewritten on every sync, so
+  cleaning them in Avni doesn't hold.
+- Worse, cleaning them would have *caused* breakage: the padded value returns on the next SF
+  update while user settings keep the clean value, silently cutting subjects off from users.
+- Spaces only matter when the two sides **disagree**. Plenty of padded values match padded
+  subjects and work fine today — a blanket trim would have broken those.
+
+So the work is no longer "remove extra spaces". It is **make user sync settings match what
+the subjects actually hold, so sync works.** That may mean removing a space, and in some
+cases leaving one in place.
 
 ## The problem
 
 Sync matches a user's `syncConcept` values against the subject's `sync_concept_N_value` by
-**exact string comparison**. Spaces only break things when the two sides disagree.
+**exact string comparison**.
 
 | Subject | User setting | State |
 |---|---|---|
 | `HDFC Bank ` | `HDFC Bank ` | matches — leave alone |
 | `Axis Bank` | `Axis Bank  ` | **broken — we fix this** |
-| `ICICI Bank ` | `ICICI Bank` | broken, but subject is SF-owned — fix is to *add* a space. Out of scope. |
 | `Orphan Bank  ` | *(none)* | cosmetic |
 
-"Strip all spaces" is wrong: a padded user value matching a padded subject is correct.
-
 ## Why subject values aren't fixed
-
-91 of 95 padded subject values come from Salesforce and are rewritten on every sync. Clean
-them in Avni and the next SF update reverts them — while user settings hold the clean value,
-silently cutting the subject off from the user.
 
 | Check | Evidence |
 |---|---|
@@ -47,8 +63,8 @@ Section 1 fetches candidates and classifies them:
 Section 2 applies it: value-by-value mapping, not a blanket trim. Preserves other keys,
 dedupes, skips null settings, backs up inside the transaction.
 
-Tested end-to-end on fixtures covering all three verdicts, duplicate-producing trims, null
-settings and the reverse case: `UPDATE 2` of 5 users, no entries lost.
+Tested end-to-end on fixtures covering all three verdicts, duplicate-producing trims and null
+settings: `UPDATE 2` of 5 users, no entries lost.
 
 ## Running it
 
@@ -57,17 +73,4 @@ settings and the reverse case: `UPDATE 2` of 5 users, no entries lost.
 2. **Production** — same order, outside field hours (sync_settings changes force a full re-sync).
 3. **After a sync cycle** — re-run Section 1. New rows mean SF is still emitting padded names.
 
-## Don'ts
-
-- **Never rename the `Account  name` concept.** Two spaces, hardcoded in
-  [ActivityConstants:13](../../goonj/src/main/java/org/avni_integration_service/goonj/domain/ActivityConstants.java#L13)
-  and [DistributionConstants:15](../../goonj/src/main/java/org/avni_integration_service/goonj/domain/DistributionConstants.java#L15).
-  Renaming silently breaks Activity/Distribution sync to Salesforce.
-- Don't blanket-trim user settings — it breaks the pairs that currently work.
-
-## Open
-
-- **Reverse direction** (Section 3c): user clean, subject padded. Fix is to *add* the space.
-  Needs per-case review; raise with Goonj if counts are material.
-- **Prevention**: Goonj cleans `AccountName` *and* `FromWhichAccount` at source, or we trim at
-  ingestion in `populateObservations()`. The latter ships without Goonj. Not in scope.
+Don't blanket-trim user settings — it breaks the pairs that currently work.

@@ -1,18 +1,19 @@
 -- =====================================================================
 -- Goonj: Account Name extra spaces
--- Concept "Account  name" (TWO spaces), 2978117c-a297-4171-99c6-23c3522ca0f8
+-- Concept uuid 2978117c-a297-4171-99c6-23c3522ca0f8
 --
--- DECISION: fix user sync_settings only. Do NOT touch subject values --
--- 91 of 95 are written from Salesforce on every sync, so an Avni-side
--- clean is reverted on the next SF update while user settings keep the
--- clean value, silently cutting the subject off from the user.
---
--- DO NOT RENAME THE CONCEPT. The double space is hardcoded in
--- ActivityConstants.java:13 and DistributionConstants.java:15 and looked
--- up by name -- renaming silently breaks Activity/Distribution -> SF.
+-- Card asked to strip extra spaces from account names. Investigation
+-- (and Maha's review comments) showed that is the wrong fix: 91 of 95
+-- padded subject values are written from Salesforce on every sync, so an
+-- Avni-side clean is reverted on the next SF update while user settings
+-- keep the clean value -- silently cutting the subject off from the user.
 --
 -- Sync matches sync_concept_N_value by exact string compare, so a padded
--- user value matching a padded subject is CORRECT. Never blanket-trim.
+-- user value matching a padded subject is CORRECT and works today.
+-- Never blanket-trim.
+--
+-- SCOPE: make user sync_settings match what the subjects actually hold.
+--        Subject values are not touched.
 --
 -- Rationale and code evidence: docs/goonj/account-name-spaces-plan.md
 --
@@ -192,42 +193,15 @@ JOIN public.users u ON u.id = b.user_id
 WHERE jsonb_array_length(b.old_sync_settings->'subjectTypeSyncSettings')
    <> jsonb_array_length(u.sync_settings->'subjectTypeSyncSettings');
 
--- 3c. OUT OF SCOPE, for awareness: reverse direction. User value clean,
--- subject padded, so those subjects never reach the user. Subject side is
--- SF-owned, so the fix is to ADD the space. Per-case decision.
-WITH subj AS (
-    SELECT val, sum(cnt) AS cnt FROM (
-        SELECT sync_concept_1_value AS val, count(*) AS cnt FROM public.individual
-        WHERE sync_concept_1_value IS NOT NULL AND is_voided = false GROUP BY 1
-        UNION ALL
-        SELECT sync_concept_2_value, count(*) FROM public.individual
-        WHERE sync_concept_2_value IS NOT NULL AND is_voided = false GROUP BY 1
-    ) x GROUP BY val
-),
-usr AS (
-    SELECT u.username, k.slot, v.value AS val
-    FROM public.users u
-    CROSS JOIN LATERAL jsonb_array_elements(
-        CASE WHEN jsonb_typeof(u.sync_settings->'subjectTypeSyncSettings')='array'
-             THEN u.sync_settings->'subjectTypeSyncSettings' ELSE '[]'::jsonb END) AS s(sts)
-    CROSS JOIN LATERAL (VALUES ('syncConcept1Values'),('syncConcept2Values')) AS k(slot)
-    CROSS JOIN LATERAL jsonb_array_elements_text(
-        CASE WHEN jsonb_typeof(s.sts->k.slot)='array' THEN s.sts->k.slot ELSE '[]'::jsonb END) AS v(value)
-    WHERE u.is_voided = false
-)
-SELECT u.username,
-       u.slot                AS sync_concept_slot,
-       '['||u.val||']'       AS user_setting_clean,
-       '['||s.val||']'       AS subject_value_padded,
-       s.cnt                 AS subjects_not_reaching_user
-FROM usr u
-JOIN subj s
-  ON regexp_replace(btrim(s.val),'\s+',' ','g') = regexp_replace(btrim(u.val),'\s+',' ','g')
- AND s.val <> u.val
-WHERE u.val = regexp_replace(btrim(u.val),'\s+',' ','g')   -- user side clean
-  AND s.val <> regexp_replace(btrim(s.val),'\s+',' ','g')  -- subject side padded
-  AND NOT EXISTS (SELECT 1 FROM subj e WHERE e.val = u.val)
-ORDER BY s.cnt DESC, u.username;
+-- 3c. What changed, per user.
+SELECT b.username,
+       b.old_sync_settings->'subjectTypeSyncSettings' AS before,
+       u.sync_settings->'subjectTypeSyncSettings'     AS after
+FROM public.bkp_users_sync_settings_acctname b
+JOIN public.users u ON u.id = b.user_id
+WHERE b.old_sync_settings IS DISTINCT FROM u.sync_settings
+ORDER BY b.username;
+
 
 -- =====================================================================
 -- RUNBOOK
@@ -236,6 +210,5 @@ ORDER BY s.cnt DESC, u.username;
 --      -> log in as an affected user, force sync, confirm subjects appear.
 --   2. Production: same order, outside field hours.
 --   3. After one Goonj sync cycle: re-run Section 1. New rows mean SF is
---      still emitting padded names -- raise ingestion trim / SF cleanup
---      as a separate change.
+--      still emitting padded names.
 -- =====================================================================
