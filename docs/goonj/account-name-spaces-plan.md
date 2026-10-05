@@ -7,6 +7,8 @@ Concept uuid: `2978117c-a297-4171-99c6-23c3522ca0f8`
 
 ## Background
 
+Card: [Goonj-Data-Tech/work#42](https://github.com/Goonj-Data-Tech/work/issues/42)
+
 The card from Maha asked us to remove extra spaces from Goonj account names — 92 subject
 records with padded values, and 302 padded values across user sync settings. The obvious
 reading was: strip the spaces everywhere, on subjects via `/bulkSubjectMigration` and on user
