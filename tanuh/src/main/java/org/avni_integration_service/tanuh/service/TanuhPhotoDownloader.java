@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URI;
+import java.nio.file.Files;
 import java.time.Duration;
 
 @Component
@@ -45,7 +46,8 @@ public class TanuhPhotoDownloader {
     public File download(String s3Url) {
         URI signedUrl = URI.create(avniMediaRepository.getSignedDownloadUrl(s3Url));
         return restTemplate.execute(signedUrl, HttpMethod.GET, null, response -> {
-            File file = File.createTempFile("tanuh-photo-", null, directory);
+            // Owner-only (0600): these are patients' mouth photos.
+            File file = Files.createTempFile(directory.toPath(), "tanuh-photo-", null).toFile();
             try (InputStream body = response.getBody(); OutputStream out = new FileOutputStream(file)) {
                 body.transferTo(out);
                 return file;

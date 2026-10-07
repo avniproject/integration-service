@@ -22,7 +22,9 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.URI;
 import java.nio.file.Files;
+import java.nio.file.attribute.PosixFilePermission;
 import java.time.Duration;
+import java.util.EnumSet;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
@@ -92,6 +94,17 @@ public class TanuhPhotoDownloaderTest {
         ArgumentCaptor<URI> uri = ArgumentCaptor.forClass(URI.class);
         verify(restTemplate).execute(uri.capture(), eq(HttpMethod.GET), isNull(), any(ResponseExtractor.class));
         assertEquals(SIGNED, uri.getValue().toString(), "the signed link must be sent as it is, %2F not re-encoded");
+    }
+
+    @Test
+    public void theDownloadedPhotoIsReadableOnlyByTheServiceUser() throws Exception {
+        when(avniMediaRepository.getSignedDownloadUrl(STORED)).thenReturn(SIGNED);
+        respondWith(new TrackingStream(new byte[]{1, 2, 3}));
+
+        File file = new TanuhPhotoDownloader(avniMediaRepository, restTemplate, directory).download(STORED);
+
+        assertEquals(EnumSet.of(PosixFilePermission.OWNER_READ, PosixFilePermission.OWNER_WRITE),
+                Files.getPosixFilePermissions(file.toPath()));
     }
 
     @Test
