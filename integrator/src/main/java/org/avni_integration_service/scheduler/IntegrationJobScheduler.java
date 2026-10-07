@@ -15,6 +15,9 @@ import org.avni_integration_service.lahi.job.AvniLahiFullErrorJob;
 import org.avni_integration_service.lahi.job.AvniLahiMainJob;
 import org.avni_integration_service.rwb.config.RwbConfig;
 import org.avni_integration_service.rwb.job.AvniRwbMainJob;
+import org.avni_integration_service.tanuh.config.TanuhConfig;
+import org.avni_integration_service.tanuh.job.AvniTanuhErrorJob;
+import org.avni_integration_service.tanuh.job.AvniTanuhMainJob;
 import org.avni_integration_service.wati.config.WatiConfig;
 import org.avni_integration_service.wati.job.AvniWatiErrorJob;
 import org.avni_integration_service.wati.job.AvniWatiMainJob;
@@ -48,6 +51,8 @@ public class IntegrationJobScheduler {
     private final AvniRwbMainJob avniRwbMainJob;
     private final AvniWatiMainJob avniWatiMainJob;
     private final AvniWatiErrorJob avniWatiErrorJob;
+    private final AvniTanuhMainJob avniTanuhMainJob;
+    private final AvniTanuhErrorJob avniTanuhErrorJob;
     private final AvniAmritMainJob avniAmritMainJob;
     private final AvniAmritFullErrorJob avniAmritFullErrorJob;
     private final TaskScheduler taskScheduler;
@@ -76,6 +81,7 @@ public class IntegrationJobScheduler {
                                    AvniAmritMainJob avniAmritMainJob, AvniAmritFullErrorJob avniAmritFullErrorJob,
                                    AvniRwbMainJob avniRwbMainJob, AvniWatiMainJob avniWatiMainJob,
                                    AvniWatiErrorJob avniWatiErrorJob,
+                                   AvniTanuhMainJob avniTanuhMainJob, AvniTanuhErrorJob avniTanuhErrorJob,
                                    TaskScheduler taskScheduler,
                                    IntegrationSystemConfigRepository integrationSystemConfigRepository, IntegrationSystemRepository integrationSystemRepository) {
         this.avniGoonjMainJob = avniGoonjMainJob;
@@ -85,6 +91,8 @@ public class IntegrationJobScheduler {
         this.avniRwbMainJob = avniRwbMainJob;
         this.avniWatiMainJob = avniWatiMainJob;
         this.avniWatiErrorJob = avniWatiErrorJob;
+        this.avniTanuhMainJob = avniTanuhMainJob;
+        this.avniTanuhErrorJob = avniTanuhErrorJob;
         this.avniLahiMainJob = avniLahiMainJob;
         this.avniLahiFullErrorJob = avniLahiFullErrorJob;
         this.avniAmritMainJob = avniAmritMainJob;
@@ -104,6 +112,7 @@ public class IntegrationJobScheduler {
         if (scheduleLahi()) activeModules.add("Lahi"); else skippedModules.add("Lahi");
         if (scheduleRwb()) activeModules.add("RWB"); else skippedModules.add("RWB");
         if (scheduleWati()) activeModules.add("Wati"); else skippedModules.add("Wati");
+        if (scheduleTanuh()) activeModules.add("Tanuh"); else skippedModules.add("Tanuh");
         if (scheduleAmrit()) activeModules.add("Amrit"); else skippedModules.add("Amrit");
         if (scheduleGoonj()) activeModules.add("Goonj"); else skippedModules.add("Goonj");
 
@@ -318,12 +327,55 @@ public class IntegrationJobScheduler {
         return anyScheduled;
     }
 
+    private boolean scheduleTanuh() {
+        logger.info("--- Tanuh Module ---");
+        List<IntegrationSystem> tanuhSystems = integrationSystemRepository.findAllBySystemType(IntegrationSystem.IntegrationSystemType.tanuh);
+        if (tanuhSystems.isEmpty()) {
+            logger.info("Tanuh: No integration systems found in DB");
+            return false;
+        }
+
+        boolean anyScheduled = false;
+        for (IntegrationSystem tanuhSystem : tanuhSystems) {
+            IntegrationSystemConfigCollection integrationSystemConfigs = integrationSystemConfigRepository.getInstanceConfiguration(tanuhSystem);
+            TanuhConfig tanuhConfig = new TanuhConfig(integrationSystemConfigs, tanuhSystem);
+
+            if (!isTanuhEnvironmentValid(tanuhConfig)) {
+                continue;
+            }
+
+            String tanuhCron = integrationSystemConfigs.getMainScheduledJobCron();
+            String tanuhErrorCron = integrationSystemConfigs.getErrorScheduledJobCron();
+
+            if (CronExpression.isValidExpression(tanuhCron)) {
+                taskScheduler.schedule(() -> avniTanuhMainJob.execute(tanuhConfig), new CronTrigger(tanuhCron));
+                logger.info(String.format("Tanuh [%s]: Main job SCHEDULED with cron: %s", tanuhSystem.getName(), tanuhCron));
+                anyScheduled = true;
+            } else {
+                logger.info(String.format("Tanuh [%s]: Main job SKIPPED - invalid cron: %s", tanuhSystem.getName(), tanuhCron));
+            }
+
+            if (CronExpression.isValidExpression(tanuhErrorCron)) {
+                taskScheduler.schedule(() -> avniTanuhErrorJob.execute(tanuhConfig), new CronTrigger(tanuhErrorCron));
+                logger.info(String.format("Tanuh [%s]: Error job SCHEDULED with cron: %s", tanuhSystem.getName(), tanuhErrorCron));
+                anyScheduled = true;
+            } else {
+                logger.info(String.format("Tanuh [%s]: Error job SKIPPED - invalid cron: %s", tanuhSystem.getName(), tanuhErrorCron));
+            }
+        }
+        return anyScheduled;
+    }
+
     private boolean isRwbEnvironmentValid(RwbConfig rwbConfig) {
         return validateEnvironment(rwbConfig.getIntegrationSystem().getName(), rwbConfig.getEnvironment());
     }
 
     private boolean isWatiEnvironmentValid(WatiConfig watiConfig) {
         return validateEnvironment(watiConfig.getIntegrationSystem().getName(), watiConfig.getEnvironment());
+    }
+
+    private boolean isTanuhEnvironmentValid(TanuhConfig tanuhConfig) {
+        return validateEnvironment(tanuhConfig.getIntegrationSystem().getName(), tanuhConfig.getEnvironment());
     }
 
     private boolean isGoonjEnvironmentValid(GoonjConfig goonjConfig) {
