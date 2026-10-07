@@ -21,7 +21,7 @@ public class IntegrationSystem extends BaseEntity {
     }
 
     public enum IntegrationSystemType {
-        Goonj, power, lahi, Amrit, bahmni, rwb, wati
+        Goonj, power, lahi, Amrit, bahmni, rwb, wati, tanuh
     }
 
     public String getName() {

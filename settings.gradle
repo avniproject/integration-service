@@ -13,4 +13,5 @@ include 'glific'
 include 'integration-common'
 include 'rwb'
 include 'wati'
+include 'tanuh'
 

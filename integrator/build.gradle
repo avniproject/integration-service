@@ -43,6 +43,7 @@ dependencies {
     implementation project(':lahi')
     implementation project(':rwb')
     implementation project(':wati')
+    implementation project(':tanuh')
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-data-rest'
@@ -85,6 +86,7 @@ sourceSets {
             srcDir '../lahi/src/main/resources'
             srcDir '../rwb/src/main/resources'
             srcDir '../wati/src/main/resources'
+            srcDir '../tanuh/src/main/resources'
         }
     }
     test {
