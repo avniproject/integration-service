@@ -35,6 +35,9 @@ dependencies {
 
 test {
     useJUnitPlatform()
+    // Avni dates are read and written in the JVM's zone with a Z (FormatAndParseUtil). A non-UTC zone makes the
+    // cursor tests mean something on CI machines, which run in UTC.
+    systemProperty 'user.timezone', 'Asia/Kolkata'
 }
 sourceCompatibility = JavaVersion.VERSION_17
 targetCompatibility = JavaVersion.VERSION_17

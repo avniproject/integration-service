@@ -11,8 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
-import java.time.ZoneOffset;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -74,17 +72,16 @@ public class AvniEncounterRepository extends BaseAvniRepository {
     }
 
     public static final int MAX_PAGE_SIZE = 1000;
-    // FormatAndParseUtil.toISODateTimeString labels the JVM's local time as UTC, and shares one SimpleDateFormat
-    // across threads, so this read formats its cursor itself.
-    private static final DateTimeFormatter UTC_CURSOR = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").withZone(ZoneOffset.UTC);
 
     // Sends no "now": the server then reads up to 10 seconds ago, leaving room for transactions still committing.
+    // The cursor is formatted like every Avni date in this service: the JVM's wall-clock with a Z, which sends back
+    // a getLastModifiedDate() value exactly as the server gave it.
     public GeneralEncountersResponse getGeneralEncounters(@NonNull Date lastModifiedDateTime, @NonNull String encounterType, int pageSize) {
         if (pageSize < 1 || pageSize > MAX_PAGE_SIZE)
             throw new IllegalArgumentException(String.format("Page size must be from 1 to %d, was %d", MAX_PAGE_SIZE, pageSize));
         Map<String, String> queryParams = Map.of(
                 "encounterType", encounterType,
-                "lastModifiedDateTime", UTC_CURSOR.format(lastModifiedDateTime.toInstant()),
+                "lastModifiedDateTime", FormatAndParseUtil.toISODateTimeString(lastModifiedDateTime),
                 "size", String.valueOf(pageSize));
         ResponseEntity<GeneralEncountersResponse> responseEntity = avniHttpClient.get("/api/encounters", queryParams, GeneralEncountersResponse.class);
         return responseEntity.getBody();

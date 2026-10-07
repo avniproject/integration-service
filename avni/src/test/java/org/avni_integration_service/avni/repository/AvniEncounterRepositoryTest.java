@@ -11,7 +11,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
 
-import java.time.Instant;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -52,25 +52,28 @@ public class AvniEncounterRepositoryTest {
     public void getGeneralEncountersWithAPageSizeSendsTypeCursorAndSizeButNoNow() {
         when(avniHttpClient.get(eq("/api/encounters"), anyMap(), eq(GeneralEncountersResponse.class)))
                 .thenReturn(ResponseEntity.ok(new GeneralEncountersResponse()));
-        Date since = new Date(0);
 
-        repository.getGeneralEncounters(since, "Oral Screening", 1000);
+        // A cursor seeded in UTC wall-clock and read back from integrating_entity_status (#132).
+        repository.getGeneralEncounters(Timestamp.valueOf("2026-10-15 00:00:00"), "Oral Screening", 1000);
 
         ArgumentCaptor<Map<String, String>> params = ArgumentCaptor.forClass(Map.class);
         verify(avniHttpClient).get(eq("/api/encounters"), params.capture(), eq(GeneralEncountersResponse.class));
         assertEquals(Map.of(
                 "encounterType", "Oral Screening",
-                "lastModifiedDateTime", "1970-01-01T00:00:00.000Z",
+                "lastModifiedDateTime", "2026-10-15T00:00:00.000Z",
                 "size", "1000"), params.getValue());
     }
 
     @Test
     @SuppressWarnings("unchecked")
-    public void getGeneralEncountersWithAPageSizeSendsTheCursorAsTheUtcInstantWhateverTheServersTimezone() {
+    public void getGeneralEncountersSendsBackAnEncountersLastModifiedTimeExactlyAsTheServerGaveIt() {
         when(avniHttpClient.get(eq("/api/encounters"), anyMap(), eq(GeneralEncountersResponse.class)))
                 .thenReturn(ResponseEntity.ok(new GeneralEncountersResponse()));
+        GeneralEncounter screening = new GeneralEncounter();
+        screening.set("audit", Map.of("Last modified at", "2026-10-07T08:45:12.345Z"));
 
-        repository.getGeneralEncounters(Date.from(Instant.parse("2026-10-07T08:45:12.345Z")), "Oral Screening", 100);
+        // #131 saves the cursor as the last screening's getLastModifiedDate().
+        repository.getGeneralEncounters(screening.getLastModifiedDate(), "Oral Screening", 100);
 
         ArgumentCaptor<Map<String, String>> params = ArgumentCaptor.forClass(Map.class);
         verify(avniHttpClient).get(eq("/api/encounters"), params.capture(), eq(GeneralEncountersResponse.class));
