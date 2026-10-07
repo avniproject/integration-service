@@ -9,9 +9,13 @@ import org.avni_integration_service.integration_data.domain.error.ErrorRecord;
 import org.avni_integration_service.integration_data.domain.error.ErrorTypeFollowUpStep;
 import org.avni_integration_service.integration_data.repository.ErrorRecordRepository;
 import org.avni_integration_service.tanuh.config.TanuhContextProvider;
+import org.avni_integration_service.tanuh.domain.TanuhConcepts;
 import org.avni_integration_service.tanuh.service.TanuhErrorService;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
+
+import java.util.Date;
+import java.util.List;
 
 // Retries every screening waiting in an error record, as the screening is now, until it is scored or no longer needs
 // scoring. The main job leaves a screening alone while its record is open, so this is the only path that scores it.
@@ -37,8 +41,11 @@ public class TanuhScreeningRetryWorker implements ErrorRecordWorker {
 
     // True when no retry in the run failed. A failed retry keeps its record, with a fresh log, for the next run.
     public boolean processWaiting() {
+        List<ErrorRecord> waiting = errorRecordRepository.getProcessableErrorRecords();
+        if (waiting.isEmpty()) return true;
+        confirmAvniAnswers();
         boolean noneFailed = true;
-        for (ErrorRecord errorRecord : errorRecordRepository.getProcessableErrorRecords()) {
+        for (ErrorRecord errorRecord : waiting) {
             if (errorRecord.hasThisAsLastErrorTypeFollowUpStep(ErrorTypeFollowUpStep.Terminal)) continue;
             noneFailed &= retry(errorRecord);
         }
@@ -48,7 +55,9 @@ public class TanuhScreeningRetryWorker implements ErrorRecordWorker {
     @Override
     public void processError(String entityUuid) {
         ErrorRecord errorRecord = errorRecordRepository.findByAvniEntityTypeAndEntityId(AvniEntityType.GeneralEncounter, entityUuid);
-        if (errorRecord != null && !retry(errorRecord))
+        if (errorRecord == null) return;
+        confirmAvniAnswers();
+        if (!retry(errorRecord))
             throw new IllegalStateException(String.format("Screening %s is still waiting: its retry failed", entityUuid));
     }
 
@@ -58,6 +67,8 @@ public class TanuhScreeningRetryWorker implements ErrorRecordWorker {
         try {
             screening = avniEncounterRepository.getGeneralEncounter(uuid);
         } catch (HttpClientErrorException.NotFound e) {
+            // Trusted only because the run's first call succeeded, so the address and the sign-in are good.
+            logger.warn(String.format("Screening %s is not on the server any more", uuid));
             return settle(errorRecord, "no longer on the server");
         } catch (RuntimeException e) {
             logger.error(String.format("Screening %s could not be read for its retry", uuid), e);
@@ -75,6 +86,13 @@ public class TanuhScreeningRetryWorker implements ErrorRecordWorker {
             // The error service has refreshed the record's log.
             case FAILED -> false;
         };
+    }
+
+    // Sign-in happens on the run's first call, and the client passes a 404 through unchanged. A wrong address, or a
+    // proxy answering 404, would otherwise read as "screening gone" and drop every waiting record behind a green
+    // check. This call lists nothing and must succeed before any record is touched; its failure fails the run.
+    private void confirmAvniAnswers() {
+        avniEncounterRepository.getGeneralEncounters(new Date(), TanuhConcepts.ORAL_SCREENING, 1);
     }
 
     private boolean settle(ErrorRecord errorRecord, String why) {

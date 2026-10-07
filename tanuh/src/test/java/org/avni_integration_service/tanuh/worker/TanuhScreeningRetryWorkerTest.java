@@ -31,6 +31,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.util.ReflectionTestUtils;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 
 import java.io.File;
@@ -270,6 +271,46 @@ public class TanuhScreeningRetryWorkerTest {
 
         verify(errors).errorOccurred(eq("s1"), eq(TanuhErrorService.SCREENING_PROCESSING_FAILED), startsWith("BadGateway"));
         verify(errorRecords, never()).delete(any(ErrorRecord.class));
+    }
+
+    private static HttpClientErrorException notFound() {
+        return HttpClientErrorException.create(HttpStatus.NOT_FOUND, "Not Found", HttpHeaders.EMPTY, null, null);
+    }
+
+    // Review finding: sign-in happens on a run's first call, and a 404 there (a wrong address, a proxy) read as
+    // "screening gone", so every waiting record was dropped behind a green check.
+    @Test
+    public void aWrongAddressOrFailedSignInFailsTheRunBeforeAnyRecordIsTouched() {
+        screening("s1", "No");
+        waitingAre(waiting("s1", ErrorTypeFollowUpStep.Process), waiting("gone", ErrorTypeFollowUpStep.Process));
+        encounters.failListsWith = notFound();
+        encounters.failReadsWith = notFound();
+
+        assertThrows(HttpClientErrorException.NotFound.class, () -> retryWorker.processWaiting());
+
+        verify(errorRecords, never()).delete(any(ErrorRecord.class));
+        verifyNoInteractions(errors, model);
+    }
+
+    @Test
+    public void processErrorAlsoFailsBeforeTouchingTheRecordWhenTheAddressOrSignInFails() {
+        when(errorRecords.findByAvniEntityTypeAndEntityId(AvniEntityType.GeneralEncounter, "s1")).thenReturn(waiting("s1", ErrorTypeFollowUpStep.Process));
+        encounters.failListsWith = notFound();
+        encounters.failReadsWith = notFound();
+
+        assertThrows(HttpClientErrorException.NotFound.class, () -> retryWorker.processError("s1"));
+
+        verify(errorRecords, never()).delete(any(ErrorRecord.class));
+    }
+
+    // A run with nothing waiting makes no call to Avni, as before.
+    @Test
+    public void nothingWaitingMakesNoAvniCall() {
+        waitingAre();
+
+        assertTrue(retryWorker.processWaiting());
+
+        assertEquals(0, encounters.listCalls);
     }
 
     @Test

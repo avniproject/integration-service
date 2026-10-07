@@ -23,6 +23,7 @@ class FakeAvniEncounterRepository extends AvniEncounterRepository {
     int listCalls;
     Integer failOnListCall;
     RuntimeException failReadsWith;
+    RuntimeException failListsWith;
     private final String jobUser;
     private long clockMillis;
 
@@ -78,6 +79,7 @@ class FakeAvniEncounterRepository extends AvniEncounterRepository {
 
     private GeneralEncountersResponse list(Date lastModifiedDateTime, Date now, String encounterType, int pageSize, int pageNumber) {
         listCalls++;
+        if (failListsWith != null) throw failListsWith;
         if (failOnListCall != null && listCalls == failOnListCall) {
             failOnListCall = null;
             throw new RuntimeException("connection reset");
