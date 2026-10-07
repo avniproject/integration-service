@@ -9,7 +9,7 @@ Each Tanuh organisation has two jobs on the integration service.
 - **The main job**, every 15 minutes, reads the Oral Screenings that are new or edited since its last run. It sends each one that has photos to the high-risk model, which for now is a stand-in. It then picks the case's review group and writes five hidden values back onto the screening: the model's result, status, version and run time, and the review group. A screening with no photo is marked "Not scored" without a model call.
 - **The retry job**, five minutes after each main run, tries again every screening that is waiting after a failure.
 
-While the model is down, no new case reaches the physician. Cases wait and none is lost. The stand-in never scores on an organisation set up as production.
+While the model is down, no new case with photos reaches the physician. Cases without a photo still arrive, marked "Not scored", so the physician's list can look normal; the red retry check is the sign. Cases with photos wait and none is lost. The stand-in never scores on an organisation set up as production.
 
 ## 2. Setting an organisation up
 
@@ -18,8 +18,9 @@ UAT goes first, on the staging integration service (int-staging). Production fol
 1. Check the implementation team's configuration is live on the organisation: the six hidden questions, the job user in the Integration group only, and the visit type named exactly "Oral Screening".
 2. Create the organisation's two health checks (section 4).
 3. Copy the organisation's script, `docs/tanuh-uat-setup.sql` or `docs/tanuh-production-setup.sql`, to a folder outside this repository. Put the job user's name and password into the copy, run the copy on that service's database just before the restart, then delete the copy. Never type the password into the file in the repository: one commit would publish it. The first run reads screenings changed after that moment. Running the script again changes nothing.
+   - If review booking has already stopped on the organisation, start from the moment it stopped instead: the script's `TIMESTAMP` option, in UTC. On production this happens when the configuration promotion carries UAT's Oral Screening form after UAT's booking stop. A screening referred between then and the restart booked no review, and a start at the restart would never read it, so it would never reach the physician. Ask the implementation team when the promotion landed.
 4. Restart the integration service. For production, see section 3.
-5. After the first run with a new screening, confirm it was scored (section 8). If the visit type has any other name on that organisation, the job reads nothing and its check stays green, so this is the only sign.
+5. After the first run with a new screening, confirm it was scored (section 8). If the visit type has any other name on that organisation, the job reads nothing and its check stays green, so this is the only sign. Then confirm that a scored screening in any group other than Closed appears in the physician's pending list. If none does, the webapp is not reading the values the job writes, and no case reaches the physician.
 
 ## 3. Deploying to production
 
@@ -98,7 +99,7 @@ A retry check that stays red while new screenings are being scored usually means
 
 1. Run the query in section 8 a few hours apart. A screening still listed with the same reason while others clear is one the retries cannot fix. Its message says why.
 2. If the cause can be fixed, such as a missing permission, fix it. The next retry run scores the screening and the check turns green.
-3. If it cannot be fixed, the case has to reach the physician by hand, because a screening without the model's values never appears in the physician's list. Tell Tanuh's team which screening it is.
+3. If it cannot be fixed, the case has to reach the physician by hand, because a screening without the model's values never appears in the physician's list. Tell Tanuh's team which screening it is. The physician opens it at `/case/<screening uuid>` on the physician webapp (https://uat-tanuh.avniproject.org on UAT, https://tanuh.avniproject.org on production) and records the review there.
 4. Then stop retrying it. On the service's error records page, switch on "processing disabled" for its record, or run the query below. The retry job skips it from its next run and the check turns green. While the record exists, the main job keeps leaving the screening alone, even after a worker edits it. Switching the setting off puts it back in the retries.
 
    ```sql

@@ -9,6 +9,8 @@
 --   2. Create the organisation's two health checks first (docs/tanuh-runbook.md, "Health checks").
 --   3. Run this just before the restart that switches Tanuh on. The first run reads screenings
 --      changed after this moment, in UTC whatever the session's time zone.
+--   4. If review booking has already stopped on UAT, start from the moment it stopped instead (Step 3).
+--      A screening referred in between booked no review and would otherwise never reach the physician.
 --
 -- Every insert is guarded, so running it again changes nothing.
 -- ============================================================
@@ -46,7 +48,8 @@ WHERE s.name = 'tanuh_uat'
 
 -- Step 3: where the first run starts reading. The service reads this column as UTC wall-clock, so it is
 -- seeded with timezone('UTC', now()); a plain now() in an Indian-time session would start 5.5 hours late.
--- To start from a set go-live time instead, replace the expression with TIMESTAMP '<yyyy-mm-dd hh:mi:ss>' in UTC.
+-- To start from an earlier moment, such as when review booking stopped (see the header), replace the expression
+-- with TIMESTAMP '<yyyy-mm-dd hh:mi:ss>' in UTC.
 INSERT INTO integrating_entity_status (entity_type, read_upto_date_time, integration_system_id, uuid)
 SELECT 'TanuhOralScreening', timezone('UTC', now())::timestamp(3), s.id, uuid_generate_v4()
 FROM integration_system s
