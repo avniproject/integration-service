@@ -195,6 +195,35 @@ public class ProcessScreeningTest {
         verifyNoInteractions(model, errors);
     }
 
+    // A worker's edit synced while the job scored the copy it listed must not be overwritten with a stale result.
+    @Test
+    public void aScreeningChangedWhileBeingScoredIsNotWritten() throws Exception {
+        GeneralEncounter s = screeningWithPhotos("s1", "No");
+        when(model.score(any(), anyList())).thenAnswer(invocation -> {
+            encounters.workerEdits("s1");
+            return new ModelResult(ModelResult.Result.HIGH_RISK, "stub", RUN_TIME);
+        });
+
+        assertEquals(ScreeningOutcome.CHANGED, worker.processScreening(s, true));
+
+        assertTrue(encounters.patchedUuids.isEmpty());
+        verifyNoInteractions(errors);
+    }
+
+    @Test
+    public void aScreeningChangedBeforeItIsMarkedNotScoredIsNotWritten() {
+        GeneralEncounter s = encounters.add("s1", Map.of("Able to Open Mouth?", "No"));
+        when(subjects.getSubjectOrThrow(anyString())).thenAnswer(invocation -> {
+            encounters.workerEdits("s1");
+            return patient(false);
+        });
+
+        assertEquals(ScreeningOutcome.CHANGED, worker.processScreening(s, true));
+
+        assertTrue(encounters.patchedUuids.isEmpty());
+        verifyNoInteractions(model, errors);
+    }
+
     // Writing the same values again changes nothing on the server, so the worker would stay the last editor.
     @Test
     public void noPhotoAlreadyMarkedNotScoredIsSkippedWithoutAWrite() {

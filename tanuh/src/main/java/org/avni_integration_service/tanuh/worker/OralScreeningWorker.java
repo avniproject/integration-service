@@ -124,6 +124,7 @@ public class OralScreeningWorker {
     // checkOpenErrorRecord is false only for the retry job (#132), which owns the screenings that have one.
     public ScreeningOutcome processScreening(GeneralEncounter s, boolean checkOpenErrorRecord) {
         String uuid = s.getUuid();
+        Date listedAt = s.getLastModifiedDate();
         try {
             if (!TanuhConcepts.ORAL_SCREENING.equals(s.getEncounterType()) || !s.isCompleted() || Boolean.TRUE.equals(s.getVoided()))
                 return skipped(uuid, "not a completed, live Oral Screening");
@@ -138,12 +139,14 @@ public class OralScreeningWorker {
                 // The server ignores a write that changes nothing, so the worker would stay the last editor and
                 // every run would read and write it again.
                 if (alreadyMarkedNotScored(s)) return skipped(uuid, "already marked not scored");
+                if (changedSince(uuid, listedAt)) return changed(uuid);
                 avniEncounterRepository.patch(uuid, notScored());
                 logger.info(String.format("Screening %s has no photo: marked not scored", uuid));
                 return ScreeningOutcome.WRITTEN;
             }
             ModelResult result = score(s, inputs);
             ReviewCategory category = routingPolicy.route(result.result(), inputs.getWorkerOpinion(), () -> sampler.draw(uuid));
+            if (changedSince(uuid, listedAt)) return changed(uuid);
             avniEncounterRepository.patch(uuid, scored(result, category));
             logger.info(String.format("Screening %s scored %s, group %s", uuid, result.result().getAnswer(), category.getAnswer()));
             return ScreeningOutcome.WRITTEN;
@@ -172,6 +175,17 @@ public class OralScreeningWorker {
         values.put(TanuhConcepts.MODEL_VERSION, null);
         values.put(TanuhConcepts.MODEL_RUN_TIME, null);
         return values;
+    }
+
+    // A PATCH merges onto the visit as it is now. If a worker's edit synced after the listing, the values computed
+    // from the listed copy would be written over it, and the job's own write would then hide the edit for good.
+    private boolean changedSince(String uuid, Date listedAt) {
+        return !listedAt.equals(avniEncounterRepository.getGeneralEncounter(uuid).getLastModifiedDate());
+    }
+
+    private static ScreeningOutcome changed(String uuid) {
+        logger.info(String.format("Screening %s changed while it was being scored: nothing written, the newer version is read next", uuid));
+        return ScreeningOutcome.CHANGED;
     }
 
     private static boolean alreadyMarkedNotScored(GeneralEncounter s) {

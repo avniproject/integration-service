@@ -69,11 +69,14 @@ public class ProcessNewTest {
 
     static class CountingModel implements HighRiskModelClient {
         final Map<String, Integer> calls = new HashMap<>();
+        final Map<String, Runnable> duringNextCall = new HashMap<>();
         ModelResult.Result answer = ModelResult.Result.LOW_RISK;
 
         @Override
         public ModelResult score(GeneralEncounter screening, List<File> photos) {
             calls.merge(screening.getUuid(), 1, Integer::sum);
+            Runnable during = duringNextCall.remove(screening.getUuid());
+            if (during != null) during.run();
             return new ModelResult(answer, "stub", Instant.parse("2026-10-07T09:15:00.123Z"));
         }
     }
@@ -188,6 +191,27 @@ public class ProcessNewTest {
 
         assertEquals(1, model.calls.get("bare"));
         assertEquals("Scored", encounters.screenings.get("bare").getObservation("High risk model status"));
+    }
+
+    // Review finding: an edit synced while the job scored the copy it listed was overwritten, then skipped as the job's own.
+    @Test
+    public void anEditLandingWhileAScreeningIsScoredIsScoredOnTheNextRun() {
+        addScreenings(1);
+        model.answer = ModelResult.Result.NOT_SUSPICIOUS;
+        model.duringNextCall.put("s01", () -> {
+            Map<String, Object> row = new HashMap<>();
+            row.put("Oral Image", "minio://avni-user-media/t/s01.jpg");
+            row.put("Suspicious Lesion?", "Yes");
+            encounters.screenings.get("s01").addObservation("Take photos of all lesions and 1 photo without lesion", List.of(row));
+            encounters.workerEdits("s01");
+        });
+
+        worker.processNew();
+        worker.processNew();
+
+        assertEquals(2, model.calls.get("s01"));
+        assertEquals("FLW override", encounters.screenings.get("s01").getObservation("Review category"));
+        assertEquals(List.of("s01"), encounters.patchedUuids);
     }
 
     // Live on 7 Oct: a worker edit left a screening with no photo re-written on every run while it stayed the newest change.

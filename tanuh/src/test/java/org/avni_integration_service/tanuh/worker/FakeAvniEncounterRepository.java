@@ -70,6 +70,11 @@ class FakeAvniEncounterRepository extends AvniEncounterRepository {
     }
 
     @Override
+    public GeneralEncounter getGeneralEncounter(String uuid) {
+        return screenings.get(uuid);
+    }
+
+    @Override
     public GeneralEncounter patch(String uuid, Map<String, Object> observations) {
         patchedUuids.add(uuid);
         patchBodies.add(new HashMap<>(observations));
