@@ -31,7 +31,7 @@ int-prod is deployed through CircleCI's production approval step: `PRODUCTION_ap
 Each organisation has two checks on healthchecks.io, named after its integration system: `tanuh_uat` and `tanuh_uat-error` for UAT, `tanuh_prod` and `tanuh_prod-error` for production. Production's checks are its own.
 
 - Set the period to 15 minutes and the grace to 10 minutes.
-- Create them before the first run. A ping to a check that does not exist is dropped without a trace.
+- Create them before the first run. A ping to a check that does not exist is lost, and the service only logs "Health check ping failed".
 - A hung run shows only as a late ping. The service's connection to Avni has no working timeout, so one stuck call stops that organisation's job until the service is restarted.
 
 ## 5. Reading a red check
