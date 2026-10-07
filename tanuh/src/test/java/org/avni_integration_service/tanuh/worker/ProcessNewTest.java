@@ -190,6 +190,22 @@ public class ProcessNewTest {
         assertEquals("Scored", encounters.screenings.get("bare").getObservation("High risk model status"));
     }
 
+    // Live on 7 Oct: a worker edit left a screening with no photo re-written on every run while it stayed the newest change.
+    @Test
+    public void aNotScoredScreeningEditedWithoutPhotosIsNotWrittenAgainOnLaterRuns() {
+        encounters.add("bare", Map.of("Able to Open Mouth?", "No"));
+        worker.processNew();
+        encounters.screenings.get("bare").addObservation("Referral is required due to limited mouth opening", "No");
+        encounters.workerEdits("bare");
+
+        worker.processNew();
+        worker.processNew();
+        worker.processNew();
+
+        assertEquals(List.of("bare"), encounters.patchedUuids);
+        assertEquals("Not scored", encounters.screenings.get("bare").getObservation("Review category"));
+    }
+
     @Test
     public void anOpenErrorRecordIsNotSentEvenWhenTheWorkerEditedItLast() {
         addScreenings(3);

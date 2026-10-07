@@ -31,6 +31,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @Component
 public class OralScreeningWorker {
@@ -134,6 +135,9 @@ public class OralScreeningWorker {
                 return skipped(uuid, "patient deleted");
             OralScreeningInputs inputs = OralScreeningInputs.from(s);
             if (!inputs.hasPhotos()) {
+                // The server ignores a write that changes nothing, so the worker would stay the last editor and
+                // every run would read and write it again.
+                if (alreadyMarkedNotScored(s)) return skipped(uuid, "already marked not scored");
                 avniEncounterRepository.patch(uuid, notScored());
                 logger.info(String.format("Screening %s has no photo: marked not scored", uuid));
                 return ScreeningOutcome.WRITTEN;
@@ -168,6 +172,10 @@ public class OralScreeningWorker {
         values.put(TanuhConcepts.MODEL_VERSION, null);
         values.put(TanuhConcepts.MODEL_RUN_TIME, null);
         return values;
+    }
+
+    private static boolean alreadyMarkedNotScored(GeneralEncounter s) {
+        return notScored().entrySet().stream().allMatch(value -> Objects.equals(value.getValue(), s.getObservation(value.getKey())));
     }
 
     private static Map<String, Object> scored(ModelResult result, ReviewCategory category) {

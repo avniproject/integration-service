@@ -8,7 +8,8 @@ import org.avni_integration_service.util.FormatAndParseUtil;
 import java.util.*;
 
 // Avni's visit list and PATCH, in memory: rows changed strictly after "from", oldest first by (time, uuid); a PATCH
-// merges the values sent (a null removes one) and marks the visit last changed by the job user.
+// merges the values sent (a null removes one) and marks the visit last changed by the job user. As on avni-server 18.1,
+// a PATCH that changes nothing leaves "last modified" as it was.
 class FakeAvniEncounterRepository extends AvniEncounterRepository {
     static final String WORKER = "worker@tanuh_uat_local";
 
@@ -73,11 +74,14 @@ class FakeAvniEncounterRepository extends AvniEncounterRepository {
         patchedUuids.add(uuid);
         patchBodies.add(new HashMap<>(observations));
         GeneralEncounter s = screenings.get(uuid);
-        observations.forEach((key, value) -> {
-            if (value == null) s.getObservations().remove(key);
-            else s.addObservation(key, value);
-        });
-        touch(s, jobUser);
+        boolean changed = false;
+        for (Map.Entry<String, Object> value : observations.entrySet()) {
+            if (Objects.equals(s.getObservation(value.getKey()), value.getValue())) continue;
+            changed = true;
+            if (value.getValue() == null) s.getObservations().remove(value.getKey());
+            else s.addObservation(value.getKey(), value.getValue());
+        }
+        if (changed) touch(s, jobUser);
         return s;
     }
 }

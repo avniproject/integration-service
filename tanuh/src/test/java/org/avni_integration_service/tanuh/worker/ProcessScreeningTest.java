@@ -195,6 +195,21 @@ public class ProcessScreeningTest {
         verifyNoInteractions(model, errors);
     }
 
+    // Writing the same values again changes nothing on the server, so the worker would stay the last editor.
+    @Test
+    public void noPhotoAlreadyMarkedNotScoredIsSkippedWithoutAWrite() {
+        Map<String, Object> observations = new HashMap<>();
+        observations.put("Able to Open Mouth?", "No");
+        observations.put("High risk model status", "Not scored");
+        observations.put("Review category", "Not scored");
+        GeneralEncounter s = encounters.add("s1", observations);
+
+        assertEquals(ScreeningOutcome.SKIPPED, worker.processScreening(s, true));
+
+        assertTrue(encounters.patchedUuids.isEmpty());
+        verifyNoInteractions(model, errors);
+    }
+
     @Test
     public void aModelFailureWritesNothingAndWaitsForARetry() throws Exception {
         GeneralEncounter s = screeningWithPhotos("s1", "No");
