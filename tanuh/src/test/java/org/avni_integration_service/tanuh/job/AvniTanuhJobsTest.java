@@ -8,6 +8,7 @@ import org.avni_integration_service.integration_data.domain.config.IntegrationSy
 import org.avni_integration_service.tanuh.config.TanuhAvniSessionFactory;
 import org.avni_integration_service.tanuh.config.TanuhConfig;
 import org.avni_integration_service.tanuh.config.TanuhContextProvider;
+import org.avni_integration_service.tanuh.worker.OralScreeningWorker;
 import org.avni_integration_service.util.HealthCheckService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -35,6 +36,8 @@ public class AvniTanuhJobsTest {
     private TanuhAvniSessionFactory sessionFactory;
     @Mock
     private AvniHttpClient avniHttpClient;
+    @Mock
+    private OralScreeningWorker worker;
     private final TanuhContextProvider contextProvider = new TanuhContextProvider();
 
     private TanuhConfig config(String name) {
@@ -67,12 +70,18 @@ public class AvniTanuhJobsTest {
 
     @Test
     public void mainJobRunsInItsOrganisationsContextAndPingsItsOwnCheck() {
-        AvniTanuhMainJob job = new AvniTanuhMainJob(bugsnag, healthCheckService, sessionFactory, avniHttpClient, contextProvider);
+        AvniTanuhMainJob job = new AvniTanuhMainJob(bugsnag, healthCheckService, sessionFactory, avniHttpClient, contextProvider, worker);
         List<String> seen = recordContextsWhenPinged("tanuh_uat_local");
+        List<String> seenByWorker = new ArrayList<>();
+        doAnswer(invocation -> {
+            seenByWorker.add(IntegrationContext.get().getName());
+            return null;
+        }).when(worker).processNew();
 
         job.execute(config("Tanuh_UAT_Local"));
 
         assertEquals(List.of("Tanuh_UAT_Local", "Tanuh_UAT_Local"), seen);
+        assertEquals(List.of("Tanuh_UAT_Local"), seenByWorker);
         verify(avniHttpClient).setAvniSession(any());
         verify(healthCheckService, never()).failure(anyString());
         assertContextsCleared();
@@ -80,7 +89,7 @@ public class AvniTanuhJobsTest {
 
     @Test
     public void mainJobPingsFailureReportsAndClearsWhenTheRunFails() {
-        AvniTanuhMainJob job = new AvniTanuhMainJob(bugsnag, healthCheckService, sessionFactory, avniHttpClient, contextProvider);
+        AvniTanuhMainJob job = new AvniTanuhMainJob(bugsnag, healthCheckService, sessionFactory, avniHttpClient, contextProvider, worker);
         RuntimeException failure = new RuntimeException("sign-in refused");
         when(sessionFactory.createSession()).thenThrow(failure);
 
@@ -94,13 +103,27 @@ public class AvniTanuhJobsTest {
 
     @Test
     public void mainJobClearsItsContextsWhenWorkAfterSetupFails() {
-        AvniTanuhMainJob job = new AvniTanuhMainJob(bugsnag, healthCheckService, sessionFactory, avniHttpClient, contextProvider);
+        AvniTanuhMainJob job = new AvniTanuhMainJob(bugsnag, healthCheckService, sessionFactory, avniHttpClient, contextProvider, worker);
         RuntimeException failure = new RuntimeException("scoring failed");
         doThrow(failure).when(healthCheckService).success("tanuh_uat_local");
 
         job.execute(config("Tanuh_UAT_Local"));
 
         verify(healthCheckService).failure("tanuh_uat_local");
+        verify(bugsnag).notify(failure);
+        assertContextsCleared();
+    }
+
+    @Test
+    public void mainJobPingsFailureWhenTheWorkerThrows() {
+        AvniTanuhMainJob job = new AvniTanuhMainJob(bugsnag, healthCheckService, sessionFactory, avniHttpClient, contextProvider, worker);
+        IllegalStateException failure = new IllegalStateException("No TanuhOralScreening cursor row for this organisation. Run its setup script.");
+        doThrow(failure).when(worker).processNew();
+
+        job.execute(config("Tanuh_UAT_Local"));
+
+        verify(healthCheckService).failure("tanuh_uat_local");
+        verify(healthCheckService, never()).success(anyString());
         verify(bugsnag).notify(failure);
         assertContextsCleared();
     }

@@ -7,6 +7,7 @@ import org.avni_integration_service.integration_data.context.IntegrationContext;
 import org.avni_integration_service.tanuh.config.TanuhAvniSessionFactory;
 import org.avni_integration_service.tanuh.config.TanuhConfig;
 import org.avni_integration_service.tanuh.config.TanuhContextProvider;
+import org.avni_integration_service.tanuh.worker.OralScreeningWorker;
 import org.avni_integration_service.util.HealthCheckService;
 import org.springframework.stereotype.Component;
 
@@ -21,15 +22,17 @@ public class AvniTanuhMainJob {
     private final TanuhAvniSessionFactory tanuhAvniSessionFactory;
     private final AvniHttpClient avniHttpClient;
     private final TanuhContextProvider tanuhContextProvider;
+    private final OralScreeningWorker oralScreeningWorker;
 
     public AvniTanuhMainJob(Bugsnag bugsnag, HealthCheckService healthCheckService,
                             TanuhAvniSessionFactory tanuhAvniSessionFactory, AvniHttpClient avniHttpClient,
-                            TanuhContextProvider tanuhContextProvider) {
+                            TanuhContextProvider tanuhContextProvider, OralScreeningWorker oralScreeningWorker) {
         this.bugsnag = bugsnag;
         this.healthCheckService = healthCheckService;
         this.tanuhAvniSessionFactory = tanuhAvniSessionFactory;
         this.avniHttpClient = avniHttpClient;
         this.tanuhContextProvider = tanuhContextProvider;
+        this.oralScreeningWorker = oralScreeningWorker;
     }
 
     public void execute(TanuhConfig tanuhConfig) {
@@ -39,7 +42,7 @@ public class AvniTanuhMainJob {
             tanuhContextProvider.set(tanuhConfig);
             avniHttpClient.setAvniSession(tanuhAvniSessionFactory.createSession());
             IntegrationContext.set(tanuhConfig.getIntegrationSystem());
-            // New screenings are scored here from integration-service#131 on.
+            oralScreeningWorker.processNew();
             healthCheckService.success(tanuhConfig.getMainJobHealthCheckSlug());
             logger.info(format("Tanuh Main Job Ended: %s", name));
         } catch (Exception e) {
