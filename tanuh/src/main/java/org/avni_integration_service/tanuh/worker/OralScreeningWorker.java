@@ -5,6 +5,7 @@ import org.avni_integration_service.avni.domain.GeneralEncounter;
 import org.avni_integration_service.avni.repository.AvniEncounterRepository;
 import org.avni_integration_service.avni.repository.AvniSubjectRepository;
 import org.avni_integration_service.integration_data.domain.AvniEntityType;
+import org.avni_integration_service.integration_data.domain.IntegratingEntityStatus;
 import org.avni_integration_service.integration_data.repository.ErrorRecordRepository;
 import org.avni_integration_service.integration_data.repository.IntegratingEntityStatusRepository;
 import org.avni_integration_service.tanuh.config.TanuhContextProvider;
@@ -25,13 +26,16 @@ import java.io.File;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Component
 public class OralScreeningWorker {
+    public static final String CURSOR_ENTITY_TYPE = "TanuhOralScreening";
     static final int PAGE_SIZE = 1000;
+    private static final long OVERLAP_MILLIS = 5_000;
     private static final Logger logger = Logger.getLogger(OralScreeningWorker.class);
     // The run time is a true instant, so it is written in UTC.
     private static final DateTimeFormatter RUN_TIME = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").withZone(ZoneOffset.UTC);
@@ -76,6 +80,31 @@ public class OralScreeningWorker {
         this.integratingEntityStatusRepository = integratingEntityStatusRepository;
         this.tanuhContextProvider = tanuhContextProvider;
         this.pageSize = pageSize;
+    }
+
+    // Oldest first from the organisation's cursor. The server's lower bound is exclusive, so each read starts five
+    // seconds back; the eligibility checks make the re-read harmless. totalElements is a page's own count, never a total.
+    public void processNew() {
+        IntegratingEntityStatus status = integratingEntityStatusRepository.find(CURSOR_ENTITY_TYPE);
+        if (status == null || status.getReadUptoDateTime() == null)
+            throw new IllegalStateException(String.format("No %s cursor row for this organisation. Run its setup script.", CURSOR_ENTITY_TYPE));
+        Date from = new Date(status.getReadUptoDateTime().getTime() - OVERLAP_MILLIS);
+        while (true) {
+            GeneralEncounter[] page = avniEncounterRepository.getGeneralEncounters(from, TanuhConcepts.ORAL_SCREENING, pageSize).getContent();
+            Date last = null;
+            for (GeneralEncounter screening : page) {
+                // The row's time as listed, read before the job's own write can change it.
+                last = screening.getLastModifiedDate();
+                processScreening(screening, true);
+                if (last.getTime() > status.getReadUptoDateTime().getTime()) {
+                    status.setReadUptoDateTime(last);
+                    integratingEntityStatusRepository.save(status);
+                }
+            }
+            if (page.length < pageSize) return;
+            Date next = new Date(last.getTime() - OVERLAP_MILLIS);
+            from = next.after(from) ? next : last;
+        }
     }
 
     // checkOpenErrorRecord is false only for the retry job (#132), which owns the screenings that have one.
