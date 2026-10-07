@@ -247,6 +247,35 @@ public class ProcessNewTest {
             assertTrue(savedCursors.get(i).after(savedCursors.get(i - 1)), "cursor moved back at save " + i);
     }
 
+    // A cursor in the future reads nothing, run after run, with the health check green. It must fail instead.
+    @Test
+    public void aCursorFarInTheFutureFailsTheRunBeforeReading() {
+        addScreenings(2);
+        cursor.setReadUptoDateTime(FormatAndParseUtil.fromAvniDateTime("2202-10-07T09:32:11.791Z"));
+
+        IllegalStateException e = assertThrows(IllegalStateException.class, () -> worker.processNew());
+
+        assertTrue(e.getMessage().contains("future"), e.getMessage());
+        assertEquals(0, encounters.listCalls);
+        assertTrue(model.calls.isEmpty());
+    }
+
+    @Test
+    public void aScreeningDatedFarInTheFutureFailsTheRunAndLeavesTheCursor() {
+        addScreenings(3);
+        Map<String, Object> audit = new HashMap<>();
+        audit.put("Last modified at", "2202-10-07T09:32:11.791Z");
+        audit.put("Last modified by", FakeAvniEncounterRepository.WORKER);
+        encounters.screenings.get("s03").set("audit", audit);
+        String s02Time = FormatAndParseUtil.toISODateTimeString(encounters.screenings.get("s02").getLastModifiedDate());
+
+        IllegalStateException e = assertThrows(IllegalStateException.class, () -> worker.processNew());
+
+        assertTrue(e.getMessage().contains("s03") && e.getMessage().contains("future"), e.getMessage());
+        assertNull(model.calls.get("s03"));
+        assertEquals(s02Time, FormatAndParseUtil.toISODateTimeString(cursor.getReadUptoDateTime()));
+    }
+
     @Test
     public void aMissingCursorRowFailsTheRun() {
         when(statuses.find("TanuhOralScreening")).thenReturn(null);

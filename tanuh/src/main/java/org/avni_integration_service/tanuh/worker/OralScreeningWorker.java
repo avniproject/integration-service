@@ -19,6 +19,7 @@ import org.avni_integration_service.tanuh.service.RoutingPolicy;
 import org.avni_integration_service.tanuh.service.Sampler;
 import org.avni_integration_service.tanuh.service.TanuhErrorService;
 import org.avni_integration_service.tanuh.service.TanuhPhotoDownloader;
+import org.avni_integration_service.util.FormatAndParseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -36,6 +37,8 @@ public class OralScreeningWorker {
     public static final String CURSOR_ENTITY_TYPE = "TanuhOralScreening";
     static final int PAGE_SIZE = 1000;
     private static final long OVERLAP_MILLIS = 5_000;
+    // Avni's times are read as the JVM's wall-clock, which can run up to 14 hours ahead of the true instant.
+    private static final long MAX_AHEAD_MILLIS = 24L * 60 * 60 * 1000;
     private static final Logger logger = Logger.getLogger(OralScreeningWorker.class);
     // The run time is a true instant, so it is written in UTC.
     private static final DateTimeFormatter RUN_TIME = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").withZone(ZoneOffset.UTC);
@@ -88,6 +91,9 @@ public class OralScreeningWorker {
         IntegratingEntityStatus status = integratingEntityStatusRepository.find(CURSOR_ENTITY_TYPE);
         if (status == null || status.getReadUptoDateTime() == null)
             throw new IllegalStateException(String.format("No %s cursor row for this organisation. Run its setup script.", CURSOR_ENTITY_TYPE));
+        if (isFarAhead(status.getReadUptoDateTime()))
+            throw new IllegalStateException(String.format("The %s cursor is in the future (%s), so no screening would ever be read. Reset it to the last good time.",
+                    CURSOR_ENTITY_TYPE, FormatAndParseUtil.toISODateTimeString(status.getReadUptoDateTime())));
         Date from = new Date(status.getReadUptoDateTime().getTime() - OVERLAP_MILLIS);
         while (true) {
             GeneralEncounter[] page = avniEncounterRepository.getGeneralEncounters(from, TanuhConcepts.ORAL_SCREENING, pageSize).getContent();
@@ -95,6 +101,9 @@ public class OralScreeningWorker {
             for (GeneralEncounter screening : page) {
                 // The row's time as listed, read before the job's own write can change it.
                 last = screening.getLastModifiedDate();
+                if (isFarAhead(last))
+                    throw new IllegalStateException(String.format("Screening %s was last changed in the future (%s); the cursor stays where it is.",
+                            screening.getUuid(), FormatAndParseUtil.toISODateTimeString(last)));
                 processScreening(screening, true);
                 if (last.getTime() > status.getReadUptoDateTime().getTime()) {
                     status.setReadUptoDateTime(last);
@@ -105,6 +114,10 @@ public class OralScreeningWorker {
             Date next = new Date(last.getTime() - OVERLAP_MILLIS);
             from = next.after(from) ? next : last;
         }
+    }
+
+    private static boolean isFarAhead(Date date) {
+        return date.getTime() > System.currentTimeMillis() + MAX_AHEAD_MILLIS;
     }
 
     // checkOpenErrorRecord is false only for the retry job (#132), which owns the screenings that have one.
