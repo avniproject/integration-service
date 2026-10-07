@@ -45,6 +45,14 @@ public class AvniEncounterRepository extends BaseAvniRepository {
         return responseEntity.getBody();
     }
 
+    // Sends only these observations, keyed by concept name. A null value removes that observation.
+    public GeneralEncounter patch(String uuid, Map<String, Object> observations) {
+        Map<String, Object> body = new HashMap<>();
+        body.put("observations", observations);
+        ResponseEntity<GeneralEncounter> responseEntity = avniHttpClient.patch(String.format("/api/encounter/%s", uuid), body, GeneralEncounter.class);
+        return responseEntity.getBody();
+    }
+
     public GeneralEncountersResponse getGeneralEncounters(@NonNull Date lastModifiedDateTime) {
         Map<String, String> queryParams = Map.of(
                 "lastModifiedDateTime", FormatAndParseUtil.toISODateTimeString(lastModifiedDateTime),

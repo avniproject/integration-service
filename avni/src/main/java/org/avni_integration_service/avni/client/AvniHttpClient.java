@@ -93,6 +93,13 @@ public class AvniHttpClient {
         return getResponseEntity(returnType, builder.build().toUri(), HttpMethod.PUT, json);
     }
 
+    public <T, U> ResponseEntity<U> patch(String url, T requestBody, Class<U> returnType) {
+        logger.info(String.format("PATCH: %s", url));
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(getAvniSession().apiUrl(url));
+        String json = ObjectJsonMapper.writeValueAsString(requestBody);
+        return getResponseEntity(returnType, builder.build().toUri(), HttpMethod.PATCH, json);
+    }
+
     public ResponseEntity<String> putMedia(String url,String foldername,String filename,MediaType contentType){
         try {
             HttpHeaders headers = new HttpHeaders();
