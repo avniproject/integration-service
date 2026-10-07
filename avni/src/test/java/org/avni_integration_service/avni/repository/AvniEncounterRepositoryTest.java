@@ -3,7 +3,6 @@ package org.avni_integration_service.avni.repository;
 import org.avni_integration_service.avni.client.AvniHttpClient;
 import org.avni_integration_service.avni.domain.GeneralEncounter;
 import org.avni_integration_service.avni.domain.GeneralEncountersResponse;
-import org.avni_integration_service.util.FormatAndParseUtil;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -12,6 +11,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
 
+import java.time.Instant;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -60,8 +60,21 @@ public class AvniEncounterRepositoryTest {
         verify(avniHttpClient).get(eq("/api/encounters"), params.capture(), eq(GeneralEncountersResponse.class));
         assertEquals(Map.of(
                 "encounterType", "Oral Screening",
-                "lastModifiedDateTime", FormatAndParseUtil.toISODateTimeString(since),
+                "lastModifiedDateTime", "1970-01-01T00:00:00.000Z",
                 "size", "1000"), params.getValue());
+    }
+
+    @Test
+    @SuppressWarnings("unchecked")
+    public void getGeneralEncountersWithAPageSizeSendsTheCursorAsTheUtcInstantWhateverTheServersTimezone() {
+        when(avniHttpClient.get(eq("/api/encounters"), anyMap(), eq(GeneralEncountersResponse.class)))
+                .thenReturn(ResponseEntity.ok(new GeneralEncountersResponse()));
+
+        repository.getGeneralEncounters(Date.from(Instant.parse("2026-10-07T08:45:12.345Z")), "Oral Screening", 100);
+
+        ArgumentCaptor<Map<String, String>> params = ArgumentCaptor.forClass(Map.class);
+        verify(avniHttpClient).get(eq("/api/encounters"), params.capture(), eq(GeneralEncountersResponse.class));
+        assertEquals("2026-10-07T08:45:12.345Z", params.getValue().get("lastModifiedDateTime"));
     }
 
     @Test
