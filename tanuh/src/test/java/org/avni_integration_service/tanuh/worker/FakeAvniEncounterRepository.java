@@ -4,6 +4,9 @@ import org.avni_integration_service.avni.domain.GeneralEncounter;
 import org.avni_integration_service.avni.domain.GeneralEncountersResponse;
 import org.avni_integration_service.avni.repository.AvniEncounterRepository;
 import org.avni_integration_service.util.FormatAndParseUtil;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.*;
 
@@ -19,6 +22,7 @@ class FakeAvniEncounterRepository extends AvniEncounterRepository {
     final List<Map<String, Object>> patchBodies = new ArrayList<>();
     int listCalls;
     Integer failOnListCall;
+    RuntimeException failReadsWith;
     private final String jobUser;
     private long clockMillis;
 
@@ -93,7 +97,10 @@ class FakeAvniEncounterRepository extends AvniEncounterRepository {
 
     @Override
     public GeneralEncounter getGeneralEncounter(String uuid) {
-        return screenings.get(uuid);
+        if (failReadsWith != null) throw failReadsWith;
+        GeneralEncounter s = screenings.get(uuid);
+        if (s == null) throw HttpClientErrorException.create(HttpStatus.NOT_FOUND, "Not Found", HttpHeaders.EMPTY, null, null);
+        return s;
     }
 
     @Override
