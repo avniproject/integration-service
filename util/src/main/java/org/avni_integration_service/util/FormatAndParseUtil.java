@@ -9,25 +9,27 @@ import java.util.Date;
 import java.util.Objects;
 
 public class FormatAndParseUtil {
-    private static final SimpleDateFormat humanReadableFormat = new SimpleDateFormat("dd-MM-yyyy");;
-    private static final SimpleDateFormat isoDateWithTimezone = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZZ");
-    private static final SimpleDateFormat isoDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-    private static final DateFormat isoDateTimeFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
+    // SimpleDateFormat is not thread-safe, and jobs run on a shared scheduler pool: one shared instance returned
+    // wrong dates when two organisations' jobs parsed at the same moment. Each thread gets its own, same patterns.
+    private static final ThreadLocal<SimpleDateFormat> humanReadableFormat = ThreadLocal.withInitial(() -> new SimpleDateFormat("dd-MM-yyyy"));
+    private static final ThreadLocal<SimpleDateFormat> isoDateWithTimezone = ThreadLocal.withInitial(() -> new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZZ"));
+    private static final ThreadLocal<SimpleDateFormat> isoDateFormat = ThreadLocal.withInitial(() -> new SimpleDateFormat("yyyy-MM-dd"));
+    private static final ThreadLocal<DateFormat> isoDateTimeFormat = ThreadLocal.withInitial(() -> new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS"));
 
     public static String escapedForSql(String s) {
         return s.replaceAll("'", "''");
     }
 
     public static String toISODateStringWithTimezone(Date date) {
-        return isoDateWithTimezone.format(date);
+        return isoDateWithTimezone.get().format(date);
     }
 
     public static String toISODateTimeString(Date date) {
-        return String.format("%s%s", isoDateTimeFormat.format(date), "Z");
+        return String.format("%s%s", isoDateTimeFormat.get().format(date), "Z");
     }
 
     public static String toISODateString(Date date) {
-        return isoDateFormat.format(date);
+        return isoDateFormat.get().format(date);
     }
 
     public static String now() {
@@ -36,7 +38,7 @@ public class FormatAndParseUtil {
 
     public static Date fromIsoDate(String dateString) {
         try {
-            return isoDateFormat.parse(dateString);
+            return isoDateFormat.get().parse(dateString);
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
@@ -44,18 +46,18 @@ public class FormatAndParseUtil {
 
     public static Date fromIsoDateString(String date) {
         try {
-            return isoDateTimeFormat.parse(date);
+            return isoDateTimeFormat.get().parse(date);
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
     }
 
     public static String toHumanReadableFormat(Date date) {
-        return humanReadableFormat.format(date);
+        return humanReadableFormat.get().format(date);
     }
 
     public static Date parseIsoDateTimeFormat(String dateString) throws ParseException {
-        return isoDateTimeFormat.parse(dateString);
+        return isoDateTimeFormat.get().parse(dateString);
     }
 
     public static Date fromAvniDate(String dateString) {
