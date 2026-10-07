@@ -106,6 +106,13 @@ public class AvniSubjectRepository extends BaseAvniRepository {
         }
     }
 
+    // Unlike getSubject, every 4xx and 5xx is thrown: a refused read must not look like a missing patient.
+    // A deleted patient comes back with "Voided": true.
+    public Subject getSubjectOrThrow(String uuid) {
+        ResponseEntity<Subject> responseEntity = avniHttpClient.get(String.format("/api/subject/%s", uuid), Subject.class);
+        return responseEntity.getBody();
+    }
+
     public Subject create(Subject subject) {
         ResponseEntity<Subject> responseEntity = avniHttpClient.post(String.format("/api/subject?version=%s", subjectApiVersion(subject)), subject, Subject.class);
         return responseEntity.getBody();

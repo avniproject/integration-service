@@ -6,6 +6,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
+import java.util.Map;
+
 @Component
 public class AvniMediaRepository {
 
@@ -17,6 +19,12 @@ public class AvniMediaRepository {
 
     public String generateUploadUrl(String fileName){
         ResponseEntity<String> responseEntity = avniHttpClient.get(String.format("/media/uploadUrl/%s", fileName), String.class);
+        return responseEntity.getBody();
+    }
+
+    // The link lasts two minutes. The server signs only links into the organisation's own bucket.
+    public String getSignedDownloadUrl(String s3Url) {
+        ResponseEntity<String> responseEntity = avniHttpClient.get("/media/signedUrl", Map.of("url", s3Url), String.class);
         return responseEntity.getBody();
     }
 

@@ -71,6 +71,20 @@ public class AvniEncounterRepository extends BaseAvniRepository {
         return responseEntity.getBody();
     }
 
+    public static final int MAX_PAGE_SIZE = 1000;
+
+    // Sends no "now": the server then reads up to 10 seconds ago, leaving room for transactions still committing.
+    public GeneralEncountersResponse getGeneralEncounters(@NonNull Date lastModifiedDateTime, @NonNull String encounterType, int pageSize) {
+        if (pageSize < 1 || pageSize > MAX_PAGE_SIZE)
+            throw new IllegalArgumentException(String.format("Page size must be from 1 to %d, was %d", MAX_PAGE_SIZE, pageSize));
+        Map<String, String> queryParams = Map.of(
+                "encounterType", encounterType,
+                "lastModifiedDateTime", FormatAndParseUtil.toISODateTimeString(lastModifiedDateTime),
+                "size", String.valueOf(pageSize));
+        ResponseEntity<GeneralEncountersResponse> responseEntity = avniHttpClient.get("/api/encounters", queryParams, GeneralEncountersResponse.class);
+        return responseEntity.getBody();
+    }
+
     public GeneralEncounter getGeneralEncounter(String id) {
         ResponseEntity<GeneralEncounter> responseEntity = avniHttpClient.get(String.format("/api/encounter/%s", id), GeneralEncounter.class);
         return responseEntity.getBody();
