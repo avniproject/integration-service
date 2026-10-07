@@ -29,9 +29,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 @Component
 public class OralScreeningWorker {
@@ -87,7 +89,8 @@ public class OralScreeningWorker {
     }
 
     // Oldest first from the organisation's cursor. The server's lower bound is exclusive, so each read starts five
-    // seconds back; the eligibility checks make the re-read harmless. totalElements is a page's own count, never a total.
+    // seconds back. A version already handled in this run is not processed again; one from an earlier run meets the
+    // eligibility checks. totalElements is a page's own count, never a total.
     public void processNew() {
         IntegratingEntityStatus status = integratingEntityStatusRepository.find(CURSOR_ENTITY_TYPE);
         if (status == null || status.getReadUptoDateTime() == null)
@@ -96,25 +99,66 @@ public class OralScreeningWorker {
             throw new IllegalStateException(String.format("The %s cursor is in the future (%s), so no screening would ever be read. Reset it to the last good time.",
                     CURSOR_ENTITY_TYPE, FormatAndParseUtil.toISODateTimeString(status.getReadUptoDateTime())));
         Date from = new Date(status.getReadUptoDateTime().getTime() - OVERLAP_MILLIS);
+        Set<String> seen = new HashSet<>();
         while (true) {
             GeneralEncounter[] page = avniEncounterRepository.getGeneralEncounters(from, TanuhConcepts.ORAL_SCREENING, pageSize).getContent();
             Date last = null;
-            for (GeneralEncounter screening : page) {
-                // The row's time as listed, read before the job's own write can change it.
-                last = screening.getLastModifiedDate();
-                if (isFarAhead(last))
-                    throw new IllegalStateException(String.format("Screening %s was last changed in the future (%s); the cursor stays where it is.",
-                            screening.getUuid(), FormatAndParseUtil.toISODateTimeString(last)));
-                processScreening(screening, true);
-                if (last.getTime() > status.getReadUptoDateTime().getTime()) {
-                    status.setReadUptoDateTime(last);
-                    integratingEntityStatusRepository.save(status);
-                }
-            }
+            for (GeneralEncounter screening : page) last = process(screening, seen, status);
             if (page.length < pageSize) return;
             Date next = new Date(last.getTime() - OVERLAP_MILLIS);
-            from = next.after(from) ? next : last;
+            if (next.after(from)) {
+                from = next;
+                continue;
+            }
+            // The whole full page lies within five seconds of "from", so time alone cannot move on: the rest of the
+            // last row's millisecond would never be listed. One bulk statement gives thousands of rows the same one.
+            processMillisecond(last, seen, status);
+            from = last;
         }
+    }
+
+    // Reads one millisecond on its own, by offset pages. A write, or a newer version synced meanwhile, moves a row out
+    // of the window and shifts the rest back, so a page is read again while it still holds a row not seen; passes
+    // repeat until one finds nothing new.
+    private void processMillisecond(Date at, Set<String> seen, IntegratingEntityStatus status) {
+        Date after = new Date(at.getTime() - 1);
+        Date before = new Date(at.getTime() + 1);
+        boolean foundInPass;
+        do {
+            foundInPass = false;
+            int pageNumber = 0;
+            while (true) {
+                GeneralEncounter[] page = avniEncounterRepository.getGeneralEncounters(after, before, TanuhConcepts.ORAL_SCREENING, pageSize, pageNumber).getContent();
+                boolean found = false;
+                for (GeneralEncounter screening : page) {
+                    if (seen.contains(versionOf(screening))) continue;
+                    process(screening, seen, status);
+                    found = true;
+                }
+                foundInPass |= found;
+                if (found) continue;
+                if (page.length < pageSize) break;
+                pageNumber++;
+            }
+        } while (foundInPass);
+    }
+
+    // Returns the row's time as listed, read before the job's own write can change it.
+    private Date process(GeneralEncounter screening, Set<String> seen, IntegratingEntityStatus status) {
+        Date listedAt = screening.getLastModifiedDate();
+        if (isFarAhead(listedAt))
+            throw new IllegalStateException(String.format("Screening %s was last changed in the future (%s); the cursor stays where it is.",
+                    screening.getUuid(), FormatAndParseUtil.toISODateTimeString(listedAt)));
+        if (seen.add(versionOf(screening))) processScreening(screening, true);
+        if (listedAt.getTime() > status.getReadUptoDateTime().getTime()) {
+            status.setReadUptoDateTime(listedAt);
+            integratingEntityStatusRepository.save(status);
+        }
+        return listedAt;
+    }
+
+    private static String versionOf(GeneralEncounter screening) {
+        return screening.getUuid() + "@" + screening.getLastModifiedDate().getTime();
     }
 
     private static boolean isFarAhead(Date date) {

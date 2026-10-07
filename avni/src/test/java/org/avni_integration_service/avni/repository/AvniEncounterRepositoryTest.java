@@ -85,4 +85,33 @@ public class AvniEncounterRepositoryTest {
         assertThrows(IllegalArgumentException.class, () -> repository.getGeneralEncounters(new Date(), "Oral Screening", 1001));
         assertThrows(IllegalArgumentException.class, () -> repository.getGeneralEncounters(new Date(), "Oral Screening", 0));
     }
+
+    // #131 reads one millisecond on its own, by offset, when a full page cannot move past it.
+    @Test
+    @SuppressWarnings("unchecked")
+    public void getGeneralEncountersInAWindowSendsBothTimesThePageAndItsSize() {
+        when(avniHttpClient.get(eq("/api/encounters"), anyMap(), eq(GeneralEncountersResponse.class)))
+                .thenReturn(ResponseEntity.ok(new GeneralEncountersResponse()));
+        GeneralEncounter screening = new GeneralEncounter();
+        screening.set("audit", Map.of("Last modified at", "2026-10-07T08:45:12.345Z"));
+        Date at = screening.getLastModifiedDate();
+
+        repository.getGeneralEncounters(new Date(at.getTime() - 1), new Date(at.getTime() + 1), "Oral Screening", 1000, 2);
+
+        ArgumentCaptor<Map<String, String>> params = ArgumentCaptor.forClass(Map.class);
+        verify(avniHttpClient).get(eq("/api/encounters"), params.capture(), eq(GeneralEncountersResponse.class));
+        assertEquals(Map.of(
+                "encounterType", "Oral Screening",
+                "lastModifiedDateTime", "2026-10-07T08:45:12.344Z",
+                "now", "2026-10-07T08:45:12.346Z",
+                "size", "1000",
+                "page", "2"), params.getValue());
+    }
+
+    @Test
+    public void getGeneralEncountersInAWindowRefusesABadPageSizeOrNumber() {
+        assertThrows(IllegalArgumentException.class, () -> repository.getGeneralEncounters(new Date(0), new Date(), "Oral Screening", 1001, 0));
+        assertThrows(IllegalArgumentException.class, () -> repository.getGeneralEncounters(new Date(0), new Date(), "Oral Screening", 0, 0));
+        assertThrows(IllegalArgumentException.class, () -> repository.getGeneralEncounters(new Date(0), new Date(), "Oral Screening", 10, -1));
+    }
 }

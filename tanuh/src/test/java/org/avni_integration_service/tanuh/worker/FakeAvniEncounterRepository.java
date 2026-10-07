@@ -7,7 +7,8 @@ import org.avni_integration_service.util.FormatAndParseUtil;
 
 import java.util.*;
 
-// Avni's visit list and PATCH, in memory: rows changed strictly after "from", oldest first by (time, uuid); a PATCH
+// Avni's visit list and PATCH, in memory: rows changed strictly after "from" (and strictly before "now" when one is
+// given, read by 0-based offset pages), oldest first by (time, uuid), as the server orders by (time, id); a PATCH
 // merges the values sent (a null removes one) and marks the visit last changed by the job user. As on avni-server 18.1,
 // a PATCH that changes nothing leaves "last modified" as it was.
 class FakeAvniEncounterRepository extends AvniEncounterRepository {
@@ -41,6 +42,16 @@ class FakeAvniEncounterRepository extends AvniEncounterRepository {
 
     void touch(GeneralEncounter s, String user) {
         clockMillis += 1000;
+        stamp(s, user);
+    }
+
+    // One millisecond for all of them, as a single SQL statement setting last_modified_date_time = now() gives.
+    void stampTogether(Collection<String> uuids) {
+        clockMillis += 1000;
+        uuids.forEach(uuid -> stamp(screenings.get(uuid), WORKER));
+    }
+
+    private void stamp(GeneralEncounter s, String user) {
         Map<String, Object> audit = new HashMap<>();
         audit.put("Last modified at", FormatAndParseUtil.toISODateTimeString(new Date(clockMillis)));
         audit.put("Last modified by", user);
@@ -53,6 +64,15 @@ class FakeAvniEncounterRepository extends AvniEncounterRepository {
 
     @Override
     public GeneralEncountersResponse getGeneralEncounters(Date lastModifiedDateTime, String encounterType, int pageSize) {
+        return list(lastModifiedDateTime, null, encounterType, pageSize, 0);
+    }
+
+    @Override
+    public GeneralEncountersResponse getGeneralEncounters(Date lastModifiedDateTime, Date now, String encounterType, int pageSize, int pageNumber) {
+        return list(lastModifiedDateTime, now, encounterType, pageSize, pageNumber);
+    }
+
+    private GeneralEncountersResponse list(Date lastModifiedDateTime, Date now, String encounterType, int pageSize, int pageNumber) {
         listCalls++;
         if (failOnListCall != null && listCalls == failOnListCall) {
             failOnListCall = null;
@@ -61,7 +81,9 @@ class FakeAvniEncounterRepository extends AvniEncounterRepository {
         List<GeneralEncounter> rows = screenings.values().stream()
                 .filter(s -> encounterType.equals(s.getEncounterType()))
                 .filter(s -> s.getLastModifiedDate().after(lastModifiedDateTime))
+                .filter(s -> now == null || s.getLastModifiedDate().before(now))
                 .sorted(Comparator.comparing(GeneralEncounter::getLastModifiedDate).thenComparing(GeneralEncounter::getUuid))
+                .skip((long) pageNumber * pageSize)
                 .limit(pageSize)
                 .toList();
         GeneralEncountersResponse response = new GeneralEncountersResponse();

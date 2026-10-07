@@ -87,6 +87,23 @@ public class AvniEncounterRepository extends BaseAvniRepository {
         return responseEntity.getBody();
     }
 
+    // One page of a fixed window: changed strictly after lastModifiedDateTime and strictly before now, ordered by time
+    // and then the server's row id. Pages count from 0. Both times use the same convention as the cursor above.
+    public GeneralEncountersResponse getGeneralEncounters(@NonNull Date lastModifiedDateTime, @NonNull Date now, @NonNull String encounterType, int pageSize, int pageNumber) {
+        if (pageSize < 1 || pageSize > MAX_PAGE_SIZE)
+            throw new IllegalArgumentException(String.format("Page size must be from 1 to %d, was %d", MAX_PAGE_SIZE, pageSize));
+        if (pageNumber < 0)
+            throw new IllegalArgumentException(String.format("Page number must be 0 or more, was %d", pageNumber));
+        Map<String, String> queryParams = Map.of(
+                "encounterType", encounterType,
+                "lastModifiedDateTime", FormatAndParseUtil.toISODateTimeString(lastModifiedDateTime),
+                "now", FormatAndParseUtil.toISODateTimeString(now),
+                "size", String.valueOf(pageSize),
+                "page", String.valueOf(pageNumber));
+        ResponseEntity<GeneralEncountersResponse> responseEntity = avniHttpClient.get("/api/encounters", queryParams, GeneralEncountersResponse.class);
+        return responseEntity.getBody();
+    }
+
     public GeneralEncounter getGeneralEncounter(String id) {
         ResponseEntity<GeneralEncounter> responseEntity = avniHttpClient.get(String.format("/api/encounter/%s", id), GeneralEncounter.class);
         return responseEntity.getBody();

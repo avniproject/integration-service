@@ -193,6 +193,40 @@ public class ProcessNewTest {
         assertEquals("Scored", encounters.screenings.get("bare").getObservation("High risk model status"));
     }
 
+    // Review finding: a full page that could not move past "from" jumped to its last row's time, and the server's
+    // exclusive lower bound then hid every other row in that millisecond.
+    @Test
+    public void skippedScreeningsFillingPagesInOneMillisecondDoNotHideTheRestOfIt() {
+        List<String> all = new ArrayList<>();
+        for (int i = 1; i <= 25; i++) {
+            String uuid = String.format("a%02d", i);
+            encounters.add(uuid, photos(uuid)).setVoided(true);
+            all.add(uuid);
+        }
+        for (String uuid : List.of("b1", "b2", "b3")) {
+            encounters.add(uuid, photos(uuid));
+            all.add(uuid);
+        }
+        encounters.stampTogether(all);
+
+        worker.processNew();
+
+        assertEquals(Map.of("b1", 1, "b2", 1, "b3", 1), model.calls);
+    }
+
+    @Test
+    public void thirtyFiveScreeningsInOneMillisecondAreEachSentOnce() {
+        addScreenings(35);
+        encounters.stampTogether(new ArrayList<>(encounters.screenings.keySet()));
+
+        worker.processNew();
+        worker.processNew();
+        worker.processNew();
+
+        assertEachSentOnce(35);
+        assertEquals(35, encounters.patchedUuids.size());
+    }
+
     // Review finding: an edit synced while the job scored the copy it listed was overwritten, then skipped as the job's own.
     @Test
     public void anEditLandingWhileAScreeningIsScoredIsScoredOnTheNextRun() {
