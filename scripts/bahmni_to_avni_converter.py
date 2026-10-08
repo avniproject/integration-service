@@ -178,7 +178,7 @@ def create_form_json(concept_sets_df, concept_uuid_map, avni_concepts):
     avni_form = {
         "name": prefixed_form_name,
         "uuid": main_form_row["uuid"],
-        "formType": "ProgramEnrolment",
+        "formType": "IndividualEncounter",
         "formElementGroups": form_element_groups,
         "decisionRule": "",
         "visitScheduleRule": "",
@@ -204,14 +204,23 @@ def main():
     print(f"  - Loaded {len(concepts_df)} rows from concepts.csv")
     print(f"  - Loaded {len(concept_sets_df)} rows from concept_sets.csv")
     
-    # Create concepts.json
-    print("\n[Step 2] Creating concepts.json with prefix...")
+    # Create/update concepts.json (accumulates across all forms)
+    print("\n[Step 2] Updating concepts.json with prefix...")
     avni_concepts, concept_uuid_map = create_concepts_json(concepts_df)
-    
+
     concepts_path = f"{OUTPUT_DIR}/concepts.json"
+    existing_concepts = []
+    if os.path.exists(concepts_path):
+        with open(concepts_path, "r") as f:
+            existing_concepts = json.load(f)
+
+    existing_uuids = {c["uuid"] for c in existing_concepts}
+    new_concepts = [c for c in avni_concepts if c["uuid"] not in existing_uuids]
+    merged_concepts = existing_concepts + new_concepts
+
     with open(concepts_path, "w") as f:
-        json.dump(avni_concepts, f, indent=2)
-    print(f"  - Created {concepts_path} with {len(avni_concepts)} concepts")
+        json.dump(merged_concepts, f, indent=2)
+    print(f"  - {len(new_concepts)} new concepts added, {len(existing_concepts)} already existed → {len(merged_concepts)} total in {concepts_path}")
     
     # Create form JSON
     print("\n[Step 3] Creating form JSON with prefix...")

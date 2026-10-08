@@ -1,0 +1,228 @@
+{
+  "name": "Bahmni - RNTCP Form",
+  "uuid": "2f6a0932-1fc0-4edb-bbfd-ac57d40b4cfd",
+  "formType": "Encounter",
+  "formElementGroups": [
+    {
+      "uuid": "e9a3e313-ed9e-4402-bdab-5fa50dea1c77",
+      "name": "Bahmni - RNTCP Form, Failure",
+      "displayOrder": 1.0,
+      "formElements": [
+        {
+          "name": "Bahmni - RNTCP Form, Failure",
+          "uuid": "87b2053d-fc1a-4aee-8139-8418cb246e34",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - RNTCP Form, Failure",
+            "uuid": "e72d2ee3-0cfb-4cd0-bcc2-0b4d432c7aee",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "aaa59282-6238-4f6c-83cc-420e4f9002ce",
+      "name": "Bahmni - RNTCP Form, re-treatment case S-at 4th month",
+      "displayOrder": 2.0,
+      "formElements": [
+        {
+          "name": "Bahmni - RNTCP Form, re-treatment case S-at 4th month",
+          "uuid": "25378db7-0a48-442c-9702-661a8e7b34b9",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - RNTCP Form, re-treatment case S-at 4th month",
+            "uuid": "0620f1e0-db54-44e8-b0e9-e4cac60f56ee",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "42b6dc01-8709-48a6-a0be-9d1ac9d37b5f",
+      "name": "Bahmni - RNTCP Form, Contact for known MDR TB case",
+      "displayOrder": 3.0,
+      "formElements": [
+        {
+          "name": "Bahmni - RNTCP Form, Contact for known MDR TB case",
+          "uuid": "1e41e945-53a6-4a7e-abbe-976e76083e5a",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - RNTCP Form, Contact for known MDR TB case",
+            "uuid": "ea8bb46b-1157-411b-8107-5076c27269a1",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "14882ad7-9e73-4d12-805d-49c9ef9c4684",
+      "name": "Bahmni - RNTCP Form, S+at diagnosis.re-reatment case",
+      "displayOrder": 4.0,
+      "formElements": [
+        {
+          "name": "Bahmni - RNTCP Form, S+at diagnosis.re-reatment case",
+          "uuid": "c9902331-c0f8-4c61-93b7-55676c0571be",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - RNTCP Form, S+at diagnosis.re-reatment case",
+            "uuid": "21c1d633-91f3-4811-ab43-608d87d227b3",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "a8ddeb58-4b55-4928-9cd4-7f58ffd764bd",
+      "name": "Bahmni - RNTCP Form, Any follow up S+",
+      "displayOrder": 5.0,
+      "formElements": [
+        {
+          "name": "Bahmni - RNTCP Form, Any follow up S+",
+          "uuid": "15a33303-bd35-44bd-8b35-2c3f4430becd",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - RNTCP Form, Any follow up S+",
+            "uuid": "ebd574ae-283d-4853-9a91-013080406138",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "aaf18df3-c4aa-4857-8852-3bb93a568357",
+      "name": "Bahmni - RNTCP Form, S-at diagnosis.re-reatment case",
+      "displayOrder": 6.0,
+      "formElements": [
+        {
+          "name": "Bahmni - RNTCP Form, S-at diagnosis.re-reatment case",
+          "uuid": "74c860f0-b8ed-42c8-ae9e-d91c65cbfec1",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - RNTCP Form, S-at diagnosis.re-reatment case",
+            "uuid": "af5f109b-5955-4454-b48c-d702dfff7ec0",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "2c5e26c4-0ac3-4789-bc17-00764559a699",
+      "name": "Bahmni - RNTCP Form, HIV TB Case",
+      "displayOrder": 7.0,
+      "formElements": [
+        {
+          "name": "Bahmni - RNTCP Form, HIV TB Case",
+          "uuid": "1e2470b8-e5b3-4a45-824a-6006de371935",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - RNTCP Form, HIV TB Case",
+            "uuid": "04141077-b03a-4c31-b886-89901a14325a",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "4610c3ae-ab20-44c9-a3d9-c7bfdf93056a",
+      "name": "Bahmni - RNTCP, Testing centre",
+      "displayOrder": 8.0,
+      "formElements": [
+        {
+          "name": "Bahmni - RNTCP, Testing centre",
+          "uuid": "203761b7-6a61-4e1a-a67d-e500d6adf469",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - RNTCP, Testing centre",
+            "uuid": "8311d63b-d498-49b1-b2a8-666c9a9159e8",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

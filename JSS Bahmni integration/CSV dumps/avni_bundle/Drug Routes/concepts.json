@@ -1,0 +1,92 @@
+[
+  {
+    "name": "Bahmni - Inhalation",
+    "uuid": "7ce74f9e-6c1d-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Intradermal",
+    "uuid": "5fd47601-603e-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Intramuscular",
+    "uuid": "8c6afc15-2dfc-11e4-894f-60175255b68f",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Intraosseous",
+    "uuid": "5fd8f56b-603e-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Intraperitoneal",
+    "uuid": "5fd742cb-603e-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Intrathecal",
+    "uuid": "5fd81cd1-603e-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Intravenous",
+    "uuid": "8c6bd389-2dfc-11e4-894f-60175255b68f",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Nasal",
+    "uuid": "7ce6d9d5-6c1d-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Nasogastric",
+    "uuid": "8c780b20-2dfc-11e4-894f-60175255b68f",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Oral",
+    "uuid": "8c6c9317-2dfc-11e4-894f-60175255b68f",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Per Rectum",
+    "uuid": "8c7039f6-2dfc-11e4-894f-60175255b68f",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Per Vaginal",
+    "uuid": "8c6d9d6b-2dfc-11e4-894f-60175255b68f",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Sub Cutaneous",
+    "uuid": "8c6ef87e-2dfc-11e4-894f-60175255b68f",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Sub Lingual",
+    "uuid": "8c7541d0-2dfc-11e4-894f-60175255b68f",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Topical",
+    "uuid": "7ce66451-6c1d-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  }
+]

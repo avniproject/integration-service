@@ -1,0 +1,34 @@
+{
+  "name": "Bahmni - Medication",
+  "uuid": "c7d8e9f0-a1b2-4c3d-8e4f-5a6b7c8d9e0f",
+  "formType": "Encounter",
+  "encounterType": "Bahmni - Medication",
+  "formElementGroups": [
+    {
+      "uuid": "f28fc987-5a80-4f78-aed3-783ba0464e7f",
+      "name": "Bahmni - Medication Details",
+      "displayOrder": 1.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Medications",
+          "uuid": "5a250c36-d4aa-4d30-bb94-2031917979a8",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Medications",
+            "uuid": "b8c3d4e5-f6a7-4b8c-9d0e-1f2a3b4c5d6e",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ]
+    }
+  ]
+}

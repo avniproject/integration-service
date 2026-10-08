@@ -1,0 +1,446 @@
+{
+  "name": "Bahmni - CDST Forms",
+  "uuid": "9e81acc5-7cfc-4ed1-ac50-50a80a165be9",
+  "formType": "Encounter",
+  "formElementGroups": [
+    {
+      "uuid": "c1ba01d4-e61a-4ead-b213-7ff55ecf8d84",
+      "name": "Bahmni - RMRCT Form",
+      "displayOrder": 1.0,
+      "formElements": [
+        {
+          "name": "Bahmni - RMRCT, Microbiology test requirement, Test",
+          "uuid": "5322328f-7c48-4f2e-bdc6-7157f25716f0",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - RMRCT, Microbiology test requirement, Test",
+            "uuid": "e027a45a-c12c-4a76-ae99-969d87923850",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - RMRCT, Microbiology test requirement, Type of Sample",
+          "uuid": "84939ca7-fc55-4911-8c39-d118ee631ade",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - RMRCT, Microbiology test requirement, Type of Sample",
+            "uuid": "e85a614d-5802-4c84-8b39-1f812cc59822",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 2.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - RMRCT, Previsiosly treated with TB",
+          "uuid": "10a5456a-1496-4e63-b360-fdfd8b8553d2",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - RMRCT, Previsiosly treated with TB",
+            "uuid": "d34c9088-3e82-4719-b0be-4f69b53f1ce3",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 3.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - RMRCT, Standardized History, Symptoms",
+          "uuid": "4baa052f-6fff-4bd0-bdac-73e8452ac68b",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - RMRCT, Standardized History, Symptoms",
+            "uuid": "8eb637ec-fc76-42a6-88be-04d525128223",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 4.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - RMRCT, Standardized History, How long have you been sick ?",
+          "uuid": "d43a5fc9-7b20-448a-a6e2-5d7215640be3",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - RMRCT, Standardized History, How long have you been sick ?",
+            "uuid": "d08f1907-e05a-4265-9b04-104c301d0bcf",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 5.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - RMRCT, Standardized History, Did you have other symptoms of lung diseases prior to this episode",
+          "uuid": "4332029d-e1d4-4a47-8853-fd32a7c35ab5",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - RMRCT, Standardized History, Did you have other symptoms of lung diseases prior to this episode",
+            "uuid": "0b4b5b96-e39e-4fa2-a756-cd21f90b6278",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 6.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - RMRCT, Standardized History, Did you have X-ray Examination Prior to this episode ?",
+          "uuid": "4184ac86-48dd-4d6c-bebb-74fed7a8f086",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - RMRCT, Standardized History, Did you have X-ray Examination Prior to this episode ?",
+            "uuid": "1fb446a7-d7e8-4c1b-804a-738c9c758a80",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 7.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - RMRCT, Standardized History, Did you ever take tuberculosis drugs for more than one month ?",
+          "uuid": "92e537f7-ac73-4830-b32f-42700cdf82b8",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - RMRCT, Standardized History, Did you ever take tuberculosis drugs for more than one month ?",
+            "uuid": "4dbbd8fd-f5af-4277-9d38-3f553d0d270b",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 8.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - RMRCT, Standardized History, Did you have Sputum examinations prior to this episode ?",
+          "uuid": "02e8d3dc-959c-43b8-aa1b-bac41319d01e",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - RMRCT, Standardized History, Did you have Sputum examinations prior to this episode ?",
+            "uuid": "d4bf297b-a96b-4eb6-9d9e-819b31417ebd",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 9.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - RMRCT, If treatment taken, Where was the patient treated ?",
+          "uuid": "3094c7ed-37f8-4ea4-bfe6-d13642045fc2",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - RMRCT, If treatment taken, Where was the patient treated ?",
+            "uuid": "42359294-d28d-4d45-99fa-4afcabd0de3b",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 10.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - RMRCT, If treatment taken, When was the patient treated ?",
+          "uuid": "1454f879-5b3f-40b1-a5d7-cd45b7063af8",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - RMRCT, If treatment taken, When was the patient treated ?",
+            "uuid": "3be024d0-3277-4b3d-b2b6-18f8742cab44",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 11.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - RMRCT, If treatment taken, How many times was the patient treated ?",
+          "uuid": "f0a1c736-84fc-4bb2-8d2b-23f9c4729629",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - RMRCT, If treatment taken, How many times was the patient treated ?",
+            "uuid": "2ada487d-07c0-406c-8c49-55cae97a7fea",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 12.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - RMRCT, If treatment taken, If Dots taken : Category",
+          "uuid": "82a9e22d-76c0-47ed-843b-9aabf39fae00",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - RMRCT, If treatment taken, If Dots taken : Category",
+            "uuid": "cb450a0c-ea36-48b6-9ba5-23598c8ba35d",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 13.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - CDST Form, Drugs used in his treatment",
+          "uuid": "2e10a11b-3ab1-404c-8005-faad0dfef9ff",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - CDST Form, Drugs used in his treatment",
+            "uuid": "71a65c2b-ccfe-462c-9e12-d2e1766671e7",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 14.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "1606812a-395f-4796-93f2-e729c8fea3a2",
+      "name": "Bahmni - RNTCP Form",
+      "displayOrder": 2.0,
+      "formElements": [
+        {
+          "name": "Bahmni - RNTCP Form, Failure",
+          "uuid": "70e693d7-1c9c-442a-989c-92f8b849ed9b",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - RNTCP Form, Failure",
+            "uuid": "e72d2ee3-0cfb-4cd0-bcc2-0b4d432c7aee",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - RNTCP Form, re-treatment case S-at 4th month",
+          "uuid": "69b63669-a5c2-44c3-bc4e-5ef0656bba40",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - RNTCP Form, re-treatment case S-at 4th month",
+            "uuid": "0620f1e0-db54-44e8-b0e9-e4cac60f56ee",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 2.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - RNTCP Form, Contact for known MDR TB case",
+          "uuid": "aa88fd01-4a9c-4199-b334-a88fd4391ea1",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - RNTCP Form, Contact for known MDR TB case",
+            "uuid": "ea8bb46b-1157-411b-8107-5076c27269a1",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 3.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - RNTCP Form, S+at diagnosis.re-reatment case",
+          "uuid": "33d2dc2f-7914-4af5-9205-2ffa4e5117d0",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - RNTCP Form, S+at diagnosis.re-reatment case",
+            "uuid": "21c1d633-91f3-4811-ab43-608d87d227b3",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 4.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - RNTCP Form, Any follow up S+",
+          "uuid": "41466b18-98da-4213-ad38-438ff492f49b",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - RNTCP Form, Any follow up S+",
+            "uuid": "ebd574ae-283d-4853-9a91-013080406138",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 5.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - RNTCP Form, S-at diagnosis.re-reatment case",
+          "uuid": "36a3cbca-798d-4974-95c6-fb69fb662065",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - RNTCP Form, S-at diagnosis.re-reatment case",
+            "uuid": "af5f109b-5955-4454-b48c-d702dfff7ec0",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 6.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - RNTCP Form, HIV TB Case",
+          "uuid": "95377034-0dd0-4b31-bdb8-e5f74c20252a",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - RNTCP Form, HIV TB Case",
+            "uuid": "04141077-b03a-4c31-b886-89901a14325a",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 7.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - RNTCP, Testing centre",
+          "uuid": "2db52cdb-19a2-4274-873b-c68258a550a6",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - RNTCP, Testing centre",
+            "uuid": "8311d63b-d498-49b1-b2a8-666c9a9159e8",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 8.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

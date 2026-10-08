@@ -1,0 +1,66 @@
+{
+  "name": "Bahmni - Referral Form, Summary",
+  "uuid": "e9dfe9e7-a346-4bd3-9cd7-5fb268514a2d",
+  "formType": "Encounter",
+  "formElementGroups": [
+    {
+      "uuid": "1c266d8a-c64f-4623-928e-a6d34eea00d3",
+      "name": "Bahmni - Summary, Advice",
+      "displayOrder": 1.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Summary, Advice",
+          "uuid": "4ac7afb6-6ba4-46b3-85c9-5956776eb7a0",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Summary, Advice",
+            "uuid": "51ad1c27-1f44-4cd5-9dfe-43849a6d70e0",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "3cb15c3d-14ba-4f91-a997-e8d5ff664cfa",
+      "name": "Bahmni - Summary, Summary Notes",
+      "displayOrder": 2.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Summary, Summary Notes",
+          "uuid": "18c1ec7b-b24c-4878-b581-aa91960de8a9",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Summary, Summary Notes",
+            "uuid": "6753dde5-3576-49f8-9e4f-908d4829f953",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

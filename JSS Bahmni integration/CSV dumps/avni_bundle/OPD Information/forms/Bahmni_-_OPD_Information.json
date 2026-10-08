@@ -1,0 +1,39 @@
+{
+  "name": "Bahmni - OPD Information",
+  "uuid": "a478d1b7-8083-4d9f-9efd-354f258e9a20",
+  "formType": "Encounter",
+  "formElementGroups": [
+    {
+      "uuid": "721a391a-410b-49a8-a4b6-be7b2210ef8e",
+      "name": "Bahmni - OPD Comments",
+      "displayOrder": 1.0,
+      "formElements": [
+        {
+          "name": "Bahmni - OPD Comments",
+          "uuid": "663d6bc6-f025-4665-8794-ec23414fd774",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - OPD Comments",
+            "uuid": "75756249-9f44-485a-ae63-ac9c80f7195a",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

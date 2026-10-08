@@ -1,0 +1,92 @@
+[
+  {
+    "name": "Bahmni - Ampule",
+    "uuid": "e8a052c3-3511-475a-a915-1ee31bc2554a",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Capsule(s)",
+    "uuid": "53854ae7-1c1f-45d8-90fd-5a53ce463ba7",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Drop",
+    "uuid": "8c436dc6-2dfc-11e4-894f-60175255b68f",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - IU",
+    "uuid": "5eefd932-603e-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Puff(s)",
+    "uuid": "2fada812-9efe-40a3-9759-9c2e1e472b5f",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Tablespoon",
+    "uuid": "8c426692-2dfc-11e4-894f-60175255b68f",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Tablet(s)",
+    "uuid": "e2b80de6-a30b-4ec3-869a-a22265717a71",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Teaspoon",
+    "uuid": "8c38c908-2dfc-11e4-894f-60175255b68f",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Unit(s)",
+    "uuid": "5ef053b6-603e-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Vial",
+    "uuid": "a076df71-8a1e-451c-bf70-ae2ae6afe80f",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - gram",
+    "uuid": "6c38e7db-97d8-46b0-a828-f30c7e9b91b7",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - kg",
+    "uuid": "b355f913-b493-47e8-8a21-3088d80ce2f7",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - mg",
+    "uuid": "8c4572fa-2dfc-11e4-894f-60175255b68f",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ml",
+    "uuid": "8c4469ab-2dfc-11e4-894f-60175255b68f",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ml (syrup)",
+    "uuid": "cb3a525b-8e00-40f2-b159-8835f657d212",
+    "dataType": "Text",
+    "active": true
+  }
+]

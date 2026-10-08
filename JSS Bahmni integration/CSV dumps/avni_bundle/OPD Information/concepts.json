@@ -1,0 +1,164 @@
+[
+  {
+    "name": "Bahmni - OPD Comments",
+    "uuid": "75756249-9f44-485a-ae63-ac9c80f7195a",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Appointed",
+        "uuid": "7929697a-7c8e-44cd-b939-c12e06d324d5",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - New Registration (Line)",
+        "uuid": "9c173c62-6871-4111-adf5-89ba3b20e62f",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Old Registration (Line)",
+        "uuid": "1e352c52-4b04-41f3-ac01-a2e6709c3331",
+        "order": 3
+      },
+      {
+        "name": "Bahmni - Village Programme Including Survey",
+        "uuid": "0eba1c31-42db-4f05-9bac-9bc9e0e3589f",
+        "order": 4
+      },
+      {
+        "name": "Bahmni - Staff & Student",
+        "uuid": "b4f67644-54b9-4033-8ea7-1b1b67234aaa",
+        "order": 5
+      },
+      {
+        "name": "Bahmni - Staff Relative/Known",
+        "uuid": "171bf8c5-d398-4158-8308-6c13d74ddffb",
+        "order": 6
+      },
+      {
+        "name": "Bahmni - Sick Patients Unappointed",
+        "uuid": "002b0897-0822-49e2-9807-8eec3402b689",
+        "order": 7
+      },
+      {
+        "name": "Bahmni - ANC Unappointed",
+        "uuid": "52fee2af-5f11-48aa-8e2b-ee5ba7f8c5fc",
+        "order": 8
+      },
+      {
+        "name": "Bahmni - Only for Dental",
+        "uuid": "c66e883a-1888-4b80-8660-9b0fd749c52d",
+        "order": 9
+      },
+      {
+        "name": "Bahmni - Only for Eye",
+        "uuid": "ec269643-5cac-40a9-913d-31bac47e71b8",
+        "order": 10
+      },
+      {
+        "name": "Bahmni - Cancer Unappointed",
+        "uuid": "0f56b2c7-ede2-4a16-90ab-4e27dd082224",
+        "order": 11
+      },
+      {
+        "name": "Bahmni - For Showing Report",
+        "uuid": "874adf70-d655-4c55-acd4-73f7b0462f7f",
+        "order": 12
+      },
+      {
+        "name": "Bahmni - Doctors Recomndation",
+        "uuid": "e9b8df59-4a55-43f4-9478-e02287fa55ab",
+        "order": 13
+      },
+      {
+        "name": "Bahmni - Other Unappointed",
+        "uuid": "43c4d546-3067-4377-bd86-7ef4c11a74a4",
+        "order": 14
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Appointed",
+    "uuid": "7929697a-7c8e-44cd-b939-c12e06d324d5",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - New Registration (Line)",
+    "uuid": "9c173c62-6871-4111-adf5-89ba3b20e62f",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Old Registration (Line)",
+    "uuid": "1e352c52-4b04-41f3-ac01-a2e6709c3331",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Village Programme Including Survey",
+    "uuid": "0eba1c31-42db-4f05-9bac-9bc9e0e3589f",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Staff & Student",
+    "uuid": "b4f67644-54b9-4033-8ea7-1b1b67234aaa",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Staff Relative/Known",
+    "uuid": "171bf8c5-d398-4158-8308-6c13d74ddffb",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Sick Patients Unappointed",
+    "uuid": "002b0897-0822-49e2-9807-8eec3402b689",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ANC Unappointed",
+    "uuid": "52fee2af-5f11-48aa-8e2b-ee5ba7f8c5fc",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Only for Dental",
+    "uuid": "c66e883a-1888-4b80-8660-9b0fd749c52d",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Only for Eye",
+    "uuid": "ec269643-5cac-40a9-913d-31bac47e71b8",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cancer Unappointed",
+    "uuid": "0f56b2c7-ede2-4a16-90ab-4e27dd082224",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - For Showing Report",
+    "uuid": "874adf70-d655-4c55-acd4-73f7b0462f7f",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Doctors Recomndation",
+    "uuid": "e9b8df59-4a55-43f4-9478-e02287fa55ab",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Other Unappointed",
+    "uuid": "43c4d546-3067-4377-bd86-7ef4c11a74a4",
+    "dataType": "NA",
+    "active": true
+  }
+]

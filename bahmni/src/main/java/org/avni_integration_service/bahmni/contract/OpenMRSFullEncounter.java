@@ -143,6 +143,8 @@ public class OpenMRSFullEncounter {
         return drugOrderList.stream().filter(stringObjectMap -> defaultEncounter.isNotVoided((String) stringObjectMap.get("uuid")) && stringObjectMap.get("doseUnits") != null).map(stringObjectMap -> {
             Map<String, Object> drug = (Map<String, Object>) stringObjectMap.get("drug");
             Map<String, Object> doseUnits = (Map<String, Object>) stringObjectMap.get("doseUnits");
+            Map<String, Object> frequency = (Map<String, Object>) stringObjectMap.get("frequency");
+            Map<String, Object> durationUnits = (Map<String, Object>) stringObjectMap.get("durationUnits");
 
             String dose = stringObjectMap.get("dose") == null ? "" : doseFormat.format(stringObjectMap.get("dose"));
             int duration = (int) stringObjectMap.get("duration");
@@ -150,10 +152,12 @@ public class OpenMRSFullEncounter {
             String scheduledDate = (String) stringObjectMap.get("scheduledDate");
             Date date = FormatAndParseUtil.fromIsoDateString(scheduledDate);
             String humanReadableDate = FormatAndParseUtil.toHumanReadableFormat(date);
+            String frequencyDisplay = frequency != null ? (String) frequency.get("display") : "";
+            String durationUnitsDisplay = durationUnits != null ? (String) durationUnits.get("display") : "days";
 
             return asNeeded ?
-                    String.format("%s %s - as needed - starting %s", drug.get("display"), doseUnits.get("display"), humanReadableDate) :
-                    String.format("%s %s - %s for %d days - starting %s", drug.get("display"), doseUnits.get("display"), dose, duration, humanReadableDate);
+                    String.format("%s %s %s - as needed - starting %s", drug.get("display"), dose, doseUnits.get("display"), humanReadableDate) :
+                    String.format("%s %s %s, %s - %d %s - starting %s", drug.get("display"), dose, doseUnits.get("display"), frequencyDisplay, duration, durationUnitsDisplay, humanReadableDate);
         }).collect(Collectors.toList());
     }
 

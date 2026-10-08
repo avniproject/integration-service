@@ -1,0 +1,92 @@
+[
+  {
+    "name": "Bahmni - Bahmni Diagnosis Revised",
+    "uuid": "e59e70b3-e349-11e3-983a-91270dcbd3bf",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Bahmni Diagnosis Status",
+    "uuid": "e59d191a-e349-11e3-983a-91270dcbd3bf",
+    "dataType": "Coded",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Bahmni Initial Diagnosis",
+    "uuid": "e59dca36-e349-11e3-983a-91270dcbd3bf",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Coded Diagnosis",
+    "uuid": "5610ce73-9bc6-11e3-927e-8840ab96f0f1",
+    "dataType": "Coded",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Diagnosis Certainty",
+    "uuid": "5610f903-9bc6-11e3-927e-8840ab96f0f1",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Presumed",
+        "uuid": "56112724-9bc6-11e3-927e-8840ab96f0f1",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Confirmed",
+        "uuid": "56114854-9bc6-11e3-927e-8840ab96f0f1",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Diagnosis order",
+    "uuid": "56117844-9bc6-11e3-927e-8840ab96f0f1",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Secondary",
+        "uuid": "5611a4b4-9bc6-11e3-927e-8840ab96f0f1",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Primary",
+        "uuid": "5611cf91-9bc6-11e3-927e-8840ab96f0f1",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Non-coded Diagnosis",
+    "uuid": "5610932b-9bc6-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Presumed",
+    "uuid": "56112724-9bc6-11e3-927e-8840ab96f0f1",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Confirmed",
+    "uuid": "56114854-9bc6-11e3-927e-8840ab96f0f1",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Secondary",
+    "uuid": "5611a4b4-9bc6-11e3-927e-8840ab96f0f1",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Primary",
+    "uuid": "5611cf91-9bc6-11e3-927e-8840ab96f0f1",
+    "dataType": "NA",
+    "active": true
+  }
+]

@@ -1,0 +1,147 @@
+{
+  "name": "Bahmni - Obstetrics, P/A (per abdomen)",
+  "uuid": "f5b15161-b540-4ad7-87c6-1babac176ced",
+  "formType": "Encounter",
+  "formElementGroups": [
+    {
+      "uuid": "baf5292d-4e64-43ff-a109-8b8fa727a4fd",
+      "name": "Bahmni - Obstetrics, Fundal Height",
+      "displayOrder": 1.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Obstetrics, Fundal Height",
+          "uuid": "766b34c5-993f-4ca4-a34f-560b14021fda",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Obstetrics, Fundal Height",
+            "uuid": "c93b8c2d-bfc7-4268-881b-b8de7459a5f5",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "e57b52a6-7b51-4518-b826-7335bfdee5fa",
+      "name": "Bahmni - Obstetrics, P/A Presenting Part",
+      "displayOrder": 2.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Obstetrics, P/A Presenting Part",
+          "uuid": "0ab18062-4d89-45f6-b5f5-34c03afdf7ae",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Obstetrics, P/A Presenting Part",
+            "uuid": "40b224c7-e6ed-40f4-9169-42d9e3d1939b",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "f4e3eb11-e87d-40cf-9bea-f838e27e25cb",
+      "name": "Bahmni - Obstetrics, Fetal Heart Sound",
+      "displayOrder": 3.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Obstetrics, Fetal Heart Sound",
+          "uuid": "86db71a6-88e3-4d2e-85a9-299685125d33",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Obstetrics, Fetal Heart Sound",
+            "uuid": "f49178c3-09ae-4b55-818a-cc6c1a6666e4",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "720ac6bd-ca28-4daf-8c2d-3dfeffabf673",
+      "name": "Bahmni - Obstetrics, Amount of Liquor",
+      "displayOrder": 4.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Obstetrics, Amount of Liquor",
+          "uuid": "8884e41f-d58b-4366-8399-cb691c1de159",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Obstetrics, Amount of Liquor",
+            "uuid": "a5131d07-de50-4601-a50e-79ec2937a0eb",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "aa21ad7f-9b66-4244-93a4-333b2f66bbc4",
+      "name": "Bahmni - Obstetrics, Contractions",
+      "displayOrder": 5.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Obstetrics, Contractions",
+          "uuid": "8ef613d4-ab8b-4435-9cd5-7df3e939ed3e",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Obstetrics, Contractions",
+            "uuid": "a793e6a4-5fcb-43c8-98d4-36cce2cfb85f",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

@@ -6,7 +6,8 @@
       "Bash(JAVA_HOME=/Users/nupoorkhandelwal/Library/Java/JavaVirtualMachines/ms-17.0.16/Contents/Home timeout 120 ./gradlew:*)",
       "Bash(git add:*)",
       "Read(//Users/nupoorkhandelwal/**)",
-      "Bash(xargs:*)"
+      "Bash(xargs:*)",
+      "WebSearch"
     ]
   }
 }

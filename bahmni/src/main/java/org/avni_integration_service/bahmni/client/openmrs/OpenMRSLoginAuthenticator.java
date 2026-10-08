@@ -75,8 +75,20 @@ public class OpenMRSLoginAuthenticator implements Authenticator {
             OpenMRSAuthenticationResponse openMRSResponse = objectMapper.readValue(responseText, OpenMRSAuthenticationResponse.class);
             confirmAuthenticated(openMRSResponse);
 
+            String sessionId = openMRSResponse.getSessionId();
+            if (sessionId == null) {
+                // Newer Bahmni versions return the session ID in Set-Cookie header rather than JSON body
+                for (org.apache.http.Header cookie : response.getHeaders("Set-Cookie")) {
+                    String value = cookie.getValue();
+                    if (value.startsWith(SESSION_ID_KEY + "=")) {
+                        sessionId = value.split(";")[0].substring((SESSION_ID_KEY + "=").length());
+                        break;
+                    }
+                }
+            }
+            logger.info(String.format("Session ID resolved: %s", sessionId != null ? "present" : "null"));
             ClientCookies clientCookies = new ClientCookies();
-            clientCookies.put(SESSION_ID_KEY, openMRSResponse.getSessionId());
+            clientCookies.put(SESSION_ID_KEY, sessionId);
 
             previousSuccessfulRequest = new HttpRequestDetails(uri, clientCookies, new HttpHeaders());
             return previousSuccessfulRequest;

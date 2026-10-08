@@ -1,0 +1,56 @@
+[
+  {
+    "name": "Bahmni - Diastolic",
+    "uuid": "f47a1e8d-e349-11e3-983a-91270dcbd3bf",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Diastolic Abnormal",
+    "uuid": "f47ad166-e349-11e3-983a-91270dcbd3bf",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Posture",
+    "uuid": "a5eab450-ed85-43a6-b81d-566b9619df06",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Sitting",
+        "uuid": "5001b7a6-7924-478c-8405-3cd04bd9008f",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Supine",
+        "uuid": "a537acaa-b2bb-4c68-bcc9-1663514f4fd3",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Systolic",
+    "uuid": "f477ebbe-e349-11e3-983a-91270dcbd3bf",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Systolic Abnormal",
+    "uuid": "f4789f53-e349-11e3-983a-91270dcbd3bf",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Sitting",
+    "uuid": "5001b7a6-7924-478c-8405-3cd04bd9008f",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Supine",
+    "uuid": "a537acaa-b2bb-4c68-bcc9-1663514f4fd3",
+    "dataType": "NA",
+    "active": true
+  }
+]

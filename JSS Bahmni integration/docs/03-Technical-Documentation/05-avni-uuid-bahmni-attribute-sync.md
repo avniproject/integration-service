@@ -144,4 +144,90 @@ The end-to-end test for this feature is:
 
 ---
 
-*Last updated: 2026-04-27*
+---
+
+## Phase 3: Code Changes
+
+These are the Java changes required to implement the simplified Avni → Bahmni sync (patient creation + UUID write only, no encounter sync).
+
+---
+
+### 1. `ConstantKey.java`
+`bahmni/src/main/java/org/avni_integration_service/bahmni/ConstantKey.java`
+
+Add a new enum value:
+
+```java
+AvniSubjectUuidBahmniAttributeTypeUuid
+```
+
+Currently missing from the enum — the constant is already seeded in the DB (migration `V2_4_29`) but the Java enum does not declare it yet, so it cannot be read via `constants.getValue(ConstantKey.AvniSubjectUuidBahmniAttributeTypeUuid.name())`.
+
+---
+
+### 2. `OpenMRSPersonRepository.java`
+`bahmni/src/main/java/org/avni_integration_service/bahmni/repository/openmrs/OpenMRSPersonRepository.java`
+
+Currently only has `createPerson()`. Add two methods:
+
+**`getPersonAttributes(String personUuid)`**
+- GET `/openmrs/ws/rest/v1/person/{personUuid}/attribute?v=default`
+- Returns the list of existing person attributes so the caller can check if the UUID attribute already exists before writing
+- Needed to avoid creating duplicate attributes on repeated syncs
+
+**`setPersonAttribute(String personUuid, String attributeTypeUuid, String value)`**
+- POST `/openmrs/ws/rest/v1/person/{personUuid}/attribute`
+- Payload: `{ "attributeType": "<attributeTypeUuid>", "value": "<value>" }`
+- Used for both create (new attribute) and update (existing attribute — OpenMRS upserts on POST to this endpoint)
+
+---
+
+### 3. `PatientService.java`
+`bahmni/src/main/java/org/avni_integration_service/bahmni/service/PatientService.java`
+
+Currently has no UUID-write logic. Add two methods:
+
+**`writeAvniSubjectUuidToBahmni(Subject subject, OpenMRSPatient patient, Constants constants)`**
+- Reads `AvniSubjectUuidBahmniAttributeTypeUuid` from constants
+- Calls `openMRSPersonRepository.getPersonAttributes(patient.getUuid())` to check for an existing attribute
+- Calls `openMRSPersonRepository.setPersonAttribute(personUuid, attributeTypeUuid, subject.getUuid())` to create or update
+
+**`createPatientOnly(Subject subject, SubjectToPatientMetaData metaData, Constants constants)`**
+- Replaces the old `createPatientAndSubject()` for JSS (which created patient + encounter)
+- Calls the existing private `createPatient(subject, metaData, constants)` — no change to that method
+- Calls `getPatient(newPatient.getUuid())` to fetch the full patient object
+- Calls `writeAvniSubjectUuidToBahmni(subject, fullPatient, constants)`
+- Calls `avniBahmniErrorService.successfullyProcessed(subject)`
+
+---
+
+### 4. `SubjectWorker.processSubject()`
+`bahmni/src/main/java/org/avni_integration_service/bahmni/worker/avni/SubjectWorker.java`
+
+**Current logic (lines 106–127):** calls `findSubject()` which returns `Pair<OpenMRSPatient, OpenMRSFullEncounter>`, then routes into 4 branches (updateSubject / createSubject / createPatientAndSubject / SubjectIdChangedException catch).
+
+**Replace with:**
+
+```java
+OpenMRSPatient patient = patientService.findPatient(subject, constants, metaData);
+if (patient == null) {
+    patientService.createPatientOnly(subject, metaData, constants);
+} else {
+    patientService.writeAvniSubjectUuidToBahmni(subject, patient, constants);
+}
+```
+
+**Also remove these now-unused imports:**
+- `OpenMRSFullEncounter`
+- `Pair` (from javatuples)
+- `PatientEncounterEventWorker` (was only needed for the SubjectIdChangedException catch)
+
+---
+
+### 5. Workers not scheduled for JSS Ganiyari
+
+`EnrolmentWorker`, `GeneralEncounterWorker`, and `ProgramEncounterWorker` are not needed. No code deletion required — they simply will not be wired into the scheduled job for the JSS org.
+
+---
+
+*Last updated: 2026-04-29*

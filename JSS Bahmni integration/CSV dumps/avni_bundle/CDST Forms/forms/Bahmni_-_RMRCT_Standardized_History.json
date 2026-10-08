@@ -1,0 +1,174 @@
+{
+  "name": "Bahmni - RMRCT, Standardized History",
+  "uuid": "21808d2a-15a8-4def-a968-d31f657dcb92",
+  "formType": "Encounter",
+  "formElementGroups": [
+    {
+      "uuid": "034ac24b-56fc-4143-8409-54da5d0c15ad",
+      "name": "Bahmni - RMRCT, Standardized History, Symptoms",
+      "displayOrder": 1.0,
+      "formElements": [
+        {
+          "name": "Bahmni - RMRCT, Standardized History, Symptoms",
+          "uuid": "808b3945-85f8-4dc6-a013-83fc76a3e5b3",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - RMRCT, Standardized History, Symptoms",
+            "uuid": "8eb637ec-fc76-42a6-88be-04d525128223",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "8af87877-479d-4376-87e5-612d16429d69",
+      "name": "Bahmni - RMRCT, Standardized History, How long have you been sick ?",
+      "displayOrder": 2.0,
+      "formElements": [
+        {
+          "name": "Bahmni - RMRCT, Standardized History, How long have you been sick ?",
+          "uuid": "e1ee4f43-896e-4f0f-bbb5-9c3253923ef0",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - RMRCT, Standardized History, How long have you been sick ?",
+            "uuid": "d08f1907-e05a-4265-9b04-104c301d0bcf",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "d8400f24-5627-447a-9a3a-138c9e9ff020",
+      "name": "Bahmni - RMRCT, Standardized History, Did you have other symptoms of lung diseases prior to this episode",
+      "displayOrder": 3.0,
+      "formElements": [
+        {
+          "name": "Bahmni - RMRCT, Standardized History, Did you have other symptoms of lung diseases prior to this episode",
+          "uuid": "7222d4b2-f5aa-4e48-bba8-628338967193",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - RMRCT, Standardized History, Did you have other symptoms of lung diseases prior to this episode",
+            "uuid": "0b4b5b96-e39e-4fa2-a756-cd21f90b6278",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "96534046-5c70-44bd-adf6-b6489fe754e8",
+      "name": "Bahmni - RMRCT, Standardized History, Did you have X-ray Examination Prior to this episode ?",
+      "displayOrder": 4.0,
+      "formElements": [
+        {
+          "name": "Bahmni - RMRCT, Standardized History, Did you have X-ray Examination Prior to this episode ?",
+          "uuid": "51dc44da-4322-49a3-8b6b-7b35d5725bd6",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - RMRCT, Standardized History, Did you have X-ray Examination Prior to this episode ?",
+            "uuid": "1fb446a7-d7e8-4c1b-804a-738c9c758a80",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "163eade9-bfad-4252-9c56-b3bb4fb9de1e",
+      "name": "Bahmni - RMRCT, Standardized History, Did you ever take tuberculosis drugs for more than one month ?",
+      "displayOrder": 5.0,
+      "formElements": [
+        {
+          "name": "Bahmni - RMRCT, Standardized History, Did you ever take tuberculosis drugs for more than one month ?",
+          "uuid": "e0d6ec1b-ca05-4c9f-8986-466c4242737d",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - RMRCT, Standardized History, Did you ever take tuberculosis drugs for more than one month ?",
+            "uuid": "4dbbd8fd-f5af-4277-9d38-3f553d0d270b",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "c4b6e146-410d-41cf-9038-5767d0bb2367",
+      "name": "Bahmni - RMRCT, Standardized History, Did you have Sputum examinations prior to this episode ?",
+      "displayOrder": 6.0,
+      "formElements": [
+        {
+          "name": "Bahmni - RMRCT, Standardized History, Did you have Sputum examinations prior to this episode ?",
+          "uuid": "157ab3a9-515a-4614-a761-f02909606a03",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - RMRCT, Standardized History, Did you have Sputum examinations prior to this episode ?",
+            "uuid": "d4bf297b-a96b-4eb6-9d9e-819b31417ebd",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

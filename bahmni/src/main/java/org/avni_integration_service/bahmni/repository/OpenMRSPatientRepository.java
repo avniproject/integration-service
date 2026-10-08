@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.net.URI;
+import java.util.List;
 
 @Component
 public class OpenMRSPatientRepository extends BaseOpenMRSRepository {
@@ -30,6 +31,15 @@ public class OpenMRSPatientRepository extends BaseOpenMRSRepository {
         });
         // story-todo do full run after changing it
         return pickAndExpectOne(searchResults.removeDuplicates(), identifier);
+    }
+
+    public List<OpenMRSPatient> getPatientsByIdentifierPrefix(String identifierPrefix) {
+        String patientJSON = openMRSWebClient.get(URI.create(String.format(
+                "%s?identifier=%s&v=full", getResourcePath("patient"), identifierPrefix)));
+        SearchResults<OpenMRSPatient> searchResults = ObjectJsonMapper.readValue(patientJSON, new TypeReference<SearchResults<OpenMRSPatient>>() {
+        });
+        List<OpenMRSPatient> results = searchResults.getResults();
+        return results == null ? List.of() : results;
     }
 
     public OpenMRSPatient createPatient(OpenMRSSavePatient openMRSSavePatient) {

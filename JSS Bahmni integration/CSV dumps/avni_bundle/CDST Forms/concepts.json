@@ -1,0 +1,753 @@
+[
+  {
+    "name": "Bahmni - CDST Form, Drugs used in his treatment",
+    "uuid": "71a65c2b-ccfe-462c-9e12-d2e1766671e7",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Drugs used in his treatment, INH",
+        "uuid": "5ed3b3c8-b4ac-485b-98b4-366f118c3fb0",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Drugs used in his treatment, EMB",
+        "uuid": "61238d82-1112-42ee-9689-2c8939e8b2a8",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Drugs used in his treatment, SM",
+        "uuid": "fd59db16-d456-4610-a51e-8e8fd8526dad",
+        "order": 3
+      },
+      {
+        "name": "Bahmni - Drugs used in his treatment, Ethionamide",
+        "uuid": "d4d7a6ab-089b-4139-b97e-c8c61d562362",
+        "order": 4
+      },
+      {
+        "name": "Bahmni - Drugs used in his treatment, Ciproflox",
+        "uuid": "b974e98d-dc3d-463c-8ef9-cf6a01160e51",
+        "order": 5
+      },
+      {
+        "name": "Bahmni - Drugs used in his treatment, Levoflox",
+        "uuid": "6751bc59-f329-4403-aea1-4564d4f1e05a",
+        "order": 6
+      },
+      {
+        "name": "Bahmni - Drugs used in his treatment, Cycloserine",
+        "uuid": "f7674c3c-76ea-4539-8e98-a63a2ceb7020",
+        "order": 7
+      },
+      {
+        "name": "Bahmni - Drugs used in his treatment, Unknown",
+        "uuid": "fb650667-8d39-43c9-8c46-624558438089",
+        "order": 8
+      },
+      {
+        "name": "Bahmni - Drugs used in his treatment, KAN",
+        "uuid": "554b5c33-4f65-4915-82e8-3050dcfbc960",
+        "order": 9
+      },
+      {
+        "name": "Bahmni - Drugs used in his treatment, Oflox",
+        "uuid": "fa03fe3e-519f-438b-b6f5-d7a529c0e154",
+        "order": 10
+      },
+      {
+        "name": "Bahmni - Drugs used in his treatment, PAS",
+        "uuid": "ae949ef6-cc70-4224-afdf-857348641568",
+        "order": 11
+      },
+      {
+        "name": "Bahmni - Drugs used in his treatment, Moxiflox / Gatiflox",
+        "uuid": "fc20a8d7-f5f3-4a82-b9d7-af2d28eae8ff",
+        "order": 12
+      },
+      {
+        "name": "Bahmni - Drugs used in his treatment, Others (specify)",
+        "uuid": "93fa93db-906d-49f3-a0f3-61c730b27b05",
+        "order": 13
+      },
+      {
+        "name": "Bahmni - Drugs used in his treatment, AMK",
+        "uuid": "06613010-3335-4e78-97ce-6fc480ba1a90",
+        "order": 14
+      },
+      {
+        "name": "Bahmni - Drugs used in his treatment, RIF",
+        "uuid": "771ebf42-2c1a-4fab-8e04-23c11358fd42",
+        "order": 15
+      },
+      {
+        "name": "Bahmni - Drugs used in his treatment, PZA",
+        "uuid": "64d21786-2f73-43f3-bc47-97041bc37ed3",
+        "order": 16
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - RMRCT, If treatment taken, How many times was the patient treated ?",
+    "uuid": "2ada487d-07c0-406c-8c49-55cae97a7fea",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Once",
+        "uuid": "063a9658-a0c8-4ca5-8fd8-282f113119d3",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Twice",
+        "uuid": "1c1fffb7-f335-478f-bb68-8dccbbf6347e",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Thrice",
+        "uuid": "8283c690-ed5d-4873-a1ff-cd490ec363ea",
+        "order": 3
+      },
+      {
+        "name": "Bahmni - 4 times",
+        "uuid": "b0a9420c-84e7-408b-b415-6703dd31a388",
+        "order": 4
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - RMRCT, If treatment taken, If Dots taken : Category",
+    "uuid": "cb450a0c-ea36-48b6-9ba5-23598c8ba35d",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - One",
+        "uuid": "a759d58e-a9b4-4ff0-88eb-563df0ee4ec7",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Two",
+        "uuid": "52d07e18-49fa-4b76-bd61-a882a8256acb",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Unknown",
+        "uuid": "ad01878c-340a-4db4-995c-ef6835e9214c",
+        "order": 3
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - RMRCT, If treatment taken, When was the patient treated ?",
+    "uuid": "3be024d0-3277-4b3d-b2b6-18f8742cab44",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - RMRCT, If treatment taken, Where was the patient treated ?",
+    "uuid": "42359294-d28d-4d45-99fa-4afcabd0de3b",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - RMRCT, Microbiology test requirement, Test",
+    "uuid": "e027a45a-c12c-4a76-ae99-969d87923850",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Cartridge based nucleic acid amplification testing",
+        "uuid": "d80b53e7-a5ed-4cd0-a8da-598ec21b9e5a",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Test, LJ",
+        "uuid": "deea9659-4f74-495f-9e53-965f1e14eddd",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Test, LPA",
+        "uuid": "65a8dd94-e191-45ee-ac01-d22d394d47c1",
+        "order": 3
+      },
+      {
+        "name": "Bahmni - All",
+        "uuid": "9fdd9a5f-1155-479a-9bed-8f27255f4c33",
+        "order": 4
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - RMRCT, Microbiology test requirement, Type of Sample",
+    "uuid": "e85a614d-5802-4c84-8b39-1f812cc59822",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Sputum",
+        "uuid": "1fffe2ad-8c3d-4c8a-90f8-50dc4332565e",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Pus",
+        "uuid": "ec37701c-9e58-4d72-ac64-0447f4cad944",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Pericardial Fluid",
+        "uuid": "e0d23831-a2ea-4b16-aa01-a4a975952064",
+        "order": 3
+      },
+      {
+        "name": "Bahmni - Microbiology test requirement, Type of Sample, Other",
+        "uuid": "012c0cfa-f566-4591-9a41-71a09fdf78a2",
+        "order": 4
+      },
+      {
+        "name": "Bahmni - Sample Pleural Fluid",
+        "uuid": "d7774dde-3577-4059-9e8d-9d1860dc4a44",
+        "order": 5
+      },
+      {
+        "name": "Bahmni - CSF",
+        "uuid": "649b941c-3800-4b74-b91a-9f7234229c9b",
+        "order": 6
+      },
+      {
+        "name": "Bahmni - Tuberculosis sample type - Lymphnode Aspirate",
+        "uuid": "4dc7d9b3-b913-4d59-a0da-ca1886dff651",
+        "order": 7
+      },
+      {
+        "name": "Bahmni - Tuberculosis sample type - Tissue",
+        "uuid": "6f2dcc0e-fc14-4039-ab6e-ed07a746c57d",
+        "order": 8
+      },
+      {
+        "name": "Bahmni - BAL",
+        "uuid": "7c5222ea-7845-465b-87fc-d805bf97929c",
+        "order": 9
+      },
+      {
+        "name": "Bahmni - GAL",
+        "uuid": "aef021de-da26-4e5f-8952-db1c5be66990",
+        "order": 10
+      },
+      {
+        "name": "Bahmni - Knee Joint Fluid",
+        "uuid": "9ff4a600-bcc5-45e2-876e-27bcfe24dd1d",
+        "order": 11
+      },
+      {
+        "name": "Bahmni - Peritoneal Fluid",
+        "uuid": "4867b7b1-5237-4a97-8f67-97951fa36b49",
+        "order": 12
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - RMRCT, Previsiosly treated with TB",
+    "uuid": "d34c9088-3e82-4719-b0be-4f69b53f1ce3",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Yes",
+        "uuid": "11a7fd99-73a2-4b5c-87e1-b9505b4b899f",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - False No",
+        "uuid": "eb4d2cbc-8798-4073-83d6-9eb1934231ca",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - RMRCT, Standardized History, Did you ever take tuberculosis drugs for more than one month ?",
+    "uuid": "4dbbd8fd-f5af-4277-9d38-3f553d0d270b",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Yes",
+        "uuid": "11a7fd99-73a2-4b5c-87e1-b9505b4b899f",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - False No",
+        "uuid": "eb4d2cbc-8798-4073-83d6-9eb1934231ca",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - RMRCT, Standardized History, Did you have Sputum examinations prior to this episode ?",
+    "uuid": "d4bf297b-a96b-4eb6-9d9e-819b31417ebd",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Yes",
+        "uuid": "11a7fd99-73a2-4b5c-87e1-b9505b4b899f",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - False No",
+        "uuid": "eb4d2cbc-8798-4073-83d6-9eb1934231ca",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - RMRCT, Standardized History, Did you have X-ray Examination Prior to this episode ?",
+    "uuid": "1fb446a7-d7e8-4c1b-804a-738c9c758a80",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Yes",
+        "uuid": "11a7fd99-73a2-4b5c-87e1-b9505b4b899f",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - False No",
+        "uuid": "eb4d2cbc-8798-4073-83d6-9eb1934231ca",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - RMRCT, Standardized History, Did you have other symptoms of lung diseases prior to this episode",
+    "uuid": "0b4b5b96-e39e-4fa2-a756-cd21f90b6278",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Yes",
+        "uuid": "11a7fd99-73a2-4b5c-87e1-b9505b4b899f",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - False No",
+        "uuid": "eb4d2cbc-8798-4073-83d6-9eb1934231ca",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - RMRCT, Standardized History, How long have you been sick ?",
+    "uuid": "d08f1907-e05a-4265-9b04-104c301d0bcf",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - RMRCT, Standardized History, Symptoms",
+    "uuid": "8eb637ec-fc76-42a6-88be-04d525128223",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - RNTCP Form, Any follow up S+",
+    "uuid": "ebd574ae-283d-4853-9a91-013080406138",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Yes",
+        "uuid": "11a7fd99-73a2-4b5c-87e1-b9505b4b899f",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - False No",
+        "uuid": "eb4d2cbc-8798-4073-83d6-9eb1934231ca",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - RNTCP Form, Contact for known MDR TB case",
+    "uuid": "ea8bb46b-1157-411b-8107-5076c27269a1",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Yes",
+        "uuid": "11a7fd99-73a2-4b5c-87e1-b9505b4b899f",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - False No",
+        "uuid": "eb4d2cbc-8798-4073-83d6-9eb1934231ca",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - RNTCP Form, Failure",
+    "uuid": "e72d2ee3-0cfb-4cd0-bcc2-0b4d432c7aee",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Yes",
+        "uuid": "11a7fd99-73a2-4b5c-87e1-b9505b4b899f",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - False No",
+        "uuid": "eb4d2cbc-8798-4073-83d6-9eb1934231ca",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - RNTCP Form, HIV TB Case",
+    "uuid": "04141077-b03a-4c31-b886-89901a14325a",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Yes",
+        "uuid": "11a7fd99-73a2-4b5c-87e1-b9505b4b899f",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - False No",
+        "uuid": "eb4d2cbc-8798-4073-83d6-9eb1934231ca",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - RNTCP Form, S+at diagnosis.re-reatment case",
+    "uuid": "21c1d633-91f3-4811-ab43-608d87d227b3",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Yes",
+        "uuid": "11a7fd99-73a2-4b5c-87e1-b9505b4b899f",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - False No",
+        "uuid": "eb4d2cbc-8798-4073-83d6-9eb1934231ca",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - RNTCP Form, S-at diagnosis.re-reatment case",
+    "uuid": "af5f109b-5955-4454-b48c-d702dfff7ec0",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Yes",
+        "uuid": "11a7fd99-73a2-4b5c-87e1-b9505b4b899f",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - False No",
+        "uuid": "eb4d2cbc-8798-4073-83d6-9eb1934231ca",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - RNTCP Form, re-treatment case S-at 4th month",
+    "uuid": "0620f1e0-db54-44e8-b0e9-e4cac60f56ee",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Yes",
+        "uuid": "11a7fd99-73a2-4b5c-87e1-b9505b4b899f",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - False No",
+        "uuid": "eb4d2cbc-8798-4073-83d6-9eb1934231ca",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - RNTCP, Testing centre",
+    "uuid": "8311d63b-d498-49b1-b2a8-666c9a9159e8",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - District Hospital Bilaspur",
+        "uuid": "32bdd451-3e14-4c44-9291-fccee9ae64d6",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - IRL Raipur",
+        "uuid": "384c9863-4292-4dfe-a21b-c42f30aa299c",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Cartridge based nucleic acid amplification testing",
+    "uuid": "d80b53e7-a5ed-4cd0-a8da-598ec21b9e5a",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Test, LJ",
+    "uuid": "deea9659-4f74-495f-9e53-965f1e14eddd",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Test, LPA",
+    "uuid": "65a8dd94-e191-45ee-ac01-d22d394d47c1",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - All",
+    "uuid": "9fdd9a5f-1155-479a-9bed-8f27255f4c33",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Sputum",
+    "uuid": "1fffe2ad-8c3d-4c8a-90f8-50dc4332565e",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Pus",
+    "uuid": "ec37701c-9e58-4d72-ac64-0447f4cad944",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Pericardial Fluid",
+    "uuid": "e0d23831-a2ea-4b16-aa01-a4a975952064",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Microbiology test requirement, Type of Sample, Other",
+    "uuid": "012c0cfa-f566-4591-9a41-71a09fdf78a2",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Sample Pleural Fluid",
+    "uuid": "d7774dde-3577-4059-9e8d-9d1860dc4a44",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - CSF",
+    "uuid": "649b941c-3800-4b74-b91a-9f7234229c9b",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Tuberculosis sample type - Lymphnode Aspirate",
+    "uuid": "4dc7d9b3-b913-4d59-a0da-ca1886dff651",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Tuberculosis sample type - Tissue",
+    "uuid": "6f2dcc0e-fc14-4039-ab6e-ed07a746c57d",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - BAL",
+    "uuid": "7c5222ea-7845-465b-87fc-d805bf97929c",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - GAL",
+    "uuid": "aef021de-da26-4e5f-8952-db1c5be66990",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Knee Joint Fluid",
+    "uuid": "9ff4a600-bcc5-45e2-876e-27bcfe24dd1d",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Peritoneal Fluid",
+    "uuid": "4867b7b1-5237-4a97-8f67-97951fa36b49",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Yes",
+    "uuid": "11a7fd99-73a2-4b5c-87e1-b9505b4b899f",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - False No",
+    "uuid": "eb4d2cbc-8798-4073-83d6-9eb1934231ca",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Once",
+    "uuid": "063a9658-a0c8-4ca5-8fd8-282f113119d3",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Twice",
+    "uuid": "1c1fffb7-f335-478f-bb68-8dccbbf6347e",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Thrice",
+    "uuid": "8283c690-ed5d-4873-a1ff-cd490ec363ea",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - 4 times",
+    "uuid": "b0a9420c-84e7-408b-b415-6703dd31a388",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - One",
+    "uuid": "a759d58e-a9b4-4ff0-88eb-563df0ee4ec7",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Two",
+    "uuid": "52d07e18-49fa-4b76-bd61-a882a8256acb",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Unknown",
+    "uuid": "ad01878c-340a-4db4-995c-ef6835e9214c",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Drugs used in his treatment, INH",
+    "uuid": "5ed3b3c8-b4ac-485b-98b4-366f118c3fb0",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Drugs used in his treatment, EMB",
+    "uuid": "61238d82-1112-42ee-9689-2c8939e8b2a8",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Drugs used in his treatment, SM",
+    "uuid": "fd59db16-d456-4610-a51e-8e8fd8526dad",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Drugs used in his treatment, Ethionamide",
+    "uuid": "d4d7a6ab-089b-4139-b97e-c8c61d562362",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Drugs used in his treatment, Ciproflox",
+    "uuid": "b974e98d-dc3d-463c-8ef9-cf6a01160e51",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Drugs used in his treatment, Levoflox",
+    "uuid": "6751bc59-f329-4403-aea1-4564d4f1e05a",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Drugs used in his treatment, Cycloserine",
+    "uuid": "f7674c3c-76ea-4539-8e98-a63a2ceb7020",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Drugs used in his treatment, Unknown",
+    "uuid": "fb650667-8d39-43c9-8c46-624558438089",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Drugs used in his treatment, KAN",
+    "uuid": "554b5c33-4f65-4915-82e8-3050dcfbc960",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Drugs used in his treatment, Oflox",
+    "uuid": "fa03fe3e-519f-438b-b6f5-d7a529c0e154",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Drugs used in his treatment, PAS",
+    "uuid": "ae949ef6-cc70-4224-afdf-857348641568",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Drugs used in his treatment, Moxiflox / Gatiflox",
+    "uuid": "fc20a8d7-f5f3-4a82-b9d7-af2d28eae8ff",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Drugs used in his treatment, Others (specify)",
+    "uuid": "93fa93db-906d-49f3-a0f3-61c730b27b05",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Drugs used in his treatment, AMK",
+    "uuid": "06613010-3335-4e78-97ce-6fc480ba1a90",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Drugs used in his treatment, RIF",
+    "uuid": "771ebf42-2c1a-4fab-8e04-23c11358fd42",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Drugs used in his treatment, PZA",
+    "uuid": "64d21786-2f73-43f3-bc47-97041bc37ed3",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - District Hospital Bilaspur",
+    "uuid": "32bdd451-3e14-4c44-9291-fccee9ae64d6",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - IRL Raipur",
+    "uuid": "384c9863-4292-4dfe-a21b-c42f30aa299c",
+    "dataType": "NA",
+    "active": true
+  }
+]

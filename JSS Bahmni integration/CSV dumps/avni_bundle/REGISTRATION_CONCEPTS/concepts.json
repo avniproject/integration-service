@@ -1,0 +1,14 @@
+[
+  {
+    "name": "Bahmni - COMMENTS",
+    "uuid": "b4a3ebc0-c79a-11e2-b284-107d46e7b2c5",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - REGISTRATION FEES",
+    "uuid": "b4afc27e-c79a-11e2-b284-107d46e7b2c5",
+    "dataType": "Numeric",
+    "active": true
+  }
+]

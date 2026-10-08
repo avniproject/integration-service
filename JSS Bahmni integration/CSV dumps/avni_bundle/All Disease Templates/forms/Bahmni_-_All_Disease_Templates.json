@@ -1,0 +1,5084 @@
+{
+  "name": "Bahmni - All Disease Templates",
+  "uuid": "5ed15453-603e-11e4-a1f2-ba526e30a5ad",
+  "formType": "Encounter",
+  "formElementGroups": [
+    {
+      "uuid": "01015f34-d72c-457f-918c-80441764efc4",
+      "name": "Bahmni - General Patient Template",
+      "displayOrder": 1.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Chief Complaint",
+          "uuid": "35163547-8c04-4741-9da9-cec0cbe6fe7d",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Chief Complaint",
+            "uuid": "f5c660ce-e349-11e3-983a-91270dcbd3bf",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Chief Complaint Duration",
+          "uuid": "5dea8725-2070-4633-a2dd-84645d1869a1",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Chief Complaint Duration",
+            "uuid": "f5c72985-e349-11e3-983a-91270dcbd3bf",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 2.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Non-Coded Chief Complaint",
+          "uuid": "910a7ea0-d354-4a29-8c8c-bde62270027d",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Non-Coded Chief Complaint",
+            "uuid": "f6b34229-e349-11e3-983a-91270dcbd3bf",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 3.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Chief Complaint Notes",
+          "uuid": "b48ddad1-ffec-4f6e-bfa8-a1431fa01b28",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Chief Complaint Notes",
+            "uuid": "f5e49d5e-e349-11e3-983a-91270dcbd3bf",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 4.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - History",
+          "uuid": "9cf0ebb1-8158-4040-a0d3-01025d353e69",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - History",
+            "uuid": "ef4bf23f-b3ea-4bd3-a3bc-8ff9feb47732",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 5.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Examination",
+          "uuid": "647729af-e953-4f12-864f-2ac497bcad26",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Examination",
+            "uuid": "73c392e7-9296-46f1-8a65-43e4f8e60422",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 6.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Taking Medications",
+          "uuid": "ba30f2f2-3dd9-4289-b8dc-7336b30fa82e",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Taking Medications",
+            "uuid": "ee488036-cfa0-455a-87aa-033f5e5117cf",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 7.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Change in symptoms",
+          "uuid": "d32a3f83-ab6b-499f-a6ce-de508a4f7a3a",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Change in symptoms",
+            "uuid": "04b61778-0695-409e-bfb6-6b81112958f3",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 8.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - OPD Summary, Treatment Plan",
+          "uuid": "79b18b2e-9a75-45df-8e6a-c14f2ffe75d8",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - OPD Summary, Treatment Plan",
+            "uuid": "ccc5486d-f5a1-4345-a91d-990053feef77",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 9.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Image",
+          "uuid": "2df79549-b521-490e-ab1e-a891f4c2b101",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Image",
+            "uuid": "233e3ccb-c16c-40fe-8ecb-320c8b1b13af",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 10.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Video Link",
+          "uuid": "becafad8-ebb8-4fc1-92e7-149457b503d6",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Video Link",
+            "uuid": "bc1f927e-a3eb-4fca-8a9c-9da6f346e587",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 11.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Lab Investigation Notes",
+          "uuid": "44ced5c1-49ea-4938-a2b9-5416e48ea996",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Lab Investigation Notes",
+            "uuid": "f70f2a72-e349-11e3-983a-91270dcbd3bf",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 12.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Radiology Notes",
+          "uuid": "e4f5150f-0c2c-4f1b-b1ad-91ce120be855",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Radiology Notes",
+            "uuid": "f71000b3-e349-11e3-983a-91270dcbd3bf",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 13.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - ECG Report Notes",
+          "uuid": "554d778d-bab9-4900-b370-2c489cae6371",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - ECG Report Notes",
+            "uuid": "3414d609-8cae-4957-b896-127b6fd015d6",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 14.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Spirometry Report Notes",
+          "uuid": "d4703aa7-49c5-4b11-8d77-096a27362b46",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Spirometry Report Notes",
+            "uuid": "54c024fb-fc7c-4bac-a291-80aa20960814",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 15.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "0f7fd6a3-cc3a-4dde-b066-276ec6d25a61",
+      "name": "Bahmni - Obstetrics and Gynaecology Templates",
+      "displayOrder": 2.0,
+      "formElements": [
+        {
+          "name": "Bahmni - M/C Days",
+          "uuid": "b1eab565-3461-4739-a6a7-35f639bfbc1b",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - M/C Days",
+            "uuid": "e3634323-8618-4bb1-85b7-f88b1789c33e",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - M/C Interval",
+          "uuid": "0281e7db-a053-45f9-bb40-37c8d77d3ea4",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - M/C Interval",
+            "uuid": "5e043518-af1b-49c7-9c6d-24938e0cd739",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 2.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - M/C Amount",
+          "uuid": "d4465b85-9302-425f-9b27-76813dc57e95",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - M/C Amount",
+            "uuid": "d24b46bb-e94f-4c50-8351-258b532c49dd",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 3.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - LMP",
+          "uuid": "b509eecf-4860-493d-9051-78daf7ea226a",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - LMP",
+            "uuid": "6f4e51a3-04db-46ea-b917-ce8ec781d571",
+            "dataType": "Date",
+            "active": true
+          },
+          "displayOrder": 4.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Gravida",
+          "uuid": "ec9ff2eb-1c18-4be5-96ac-800c11da1fe3",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Gravida",
+            "uuid": "7ff56956-a2f1-419a-81c3-62073fb12e5c",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 5.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Parity",
+          "uuid": "12a7dbb4-4226-49ed-ad71-ecdf29cea442",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Parity",
+            "uuid": "e7bdbbf3-cb38-47ff-93f7-3316d2285df8",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 6.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Live Births",
+          "uuid": "16cd5159-bc71-41cf-ad15-4294755cf56f",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Live Births",
+            "uuid": "38e8e111-fe2a-4d21-aea5-5b6c1b22d293",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 7.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Abortion",
+          "uuid": "27ca51d1-4961-47cc-ae52-25abcb4608b5",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Abortion",
+            "uuid": "0fe8289b-6dde-46ef-97cb-d7895894481c",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 8.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Bad Obs History",
+          "uuid": "9cea1d4d-b48a-47fa-8417-0c3ef7337f27",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Bad Obs History",
+            "uuid": "eed5bc8b-9362-4ecc-8958-80b93f484ce7",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 9.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Obstetrics, Menstrual Cycle Days",
+          "uuid": "bf687ef7-d6d0-4e24-b212-8a64ac5314f7",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Obstetrics, Menstrual Cycle Days",
+            "uuid": "13aaf744-b6ec-42a7-97ab-cef2aa3d34e5",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 10.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Obstetrics, Menstrual Cycle Interval",
+          "uuid": "2cb89719-6d8f-4853-a135-7a9a78b4a525",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Obstetrics, Menstrual Cycle Interval",
+            "uuid": "c24d3714-3967-4607-94b1-50077c5a5ab6",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 11.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Obstetrics, Menstrual Cycle Amount",
+          "uuid": "2ff6ffba-fd0c-47dd-9f53-b580c543bea4",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Obstetrics, Menstrual Cycle Amount",
+            "uuid": "60b7add9-970a-4d75-9c97-cd549e2c7366",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 12.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Obstetrics, Last Menstrual Period",
+          "uuid": "36944be5-4779-48b6-b67c-3f667dda9849",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Obstetrics, Last Menstrual Period",
+            "uuid": "acb55bfa-ed48-4140-a742-2f0c13e32e5f",
+            "dataType": "Date",
+            "active": true
+          },
+          "displayOrder": 13.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Estimated Date of Delivery",
+          "uuid": "c9716eb6-d5dd-49d5-be4f-0b9a662b1826",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Estimated Date of Delivery",
+            "uuid": "166f0d4c-e448-4c5b-810a-9850b4317422",
+            "dataType": "Date",
+            "active": true
+          },
+          "displayOrder": 14.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Obstetrics, Gravida",
+          "uuid": "554e6368-eb5c-47dd-8fbc-7f436d9f2985",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Obstetrics, Gravida",
+            "uuid": "6280aa16-76ac-4e0a-8045-85abe688cfdd",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 15.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Obstetrics, Parity",
+          "uuid": "440b4cd3-d242-4831-882a-22a194567be4",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Obstetrics, Parity",
+            "uuid": "37df8c11-addd-432d-84c8-8f5b1c518c3a",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 16.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Obstetrics, Live Births",
+          "uuid": "27a8838b-cc39-43dc-840a-d7896b64cc00",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Obstetrics, Live Births",
+            "uuid": "7e9edda3-c27d-4e50-b4ef-e252825c65ed",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 17.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Obstetrics, Abortion",
+          "uuid": "f3475421-1efd-4d59-8e1e-fe13c3bd7e70",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Obstetrics, Abortion",
+            "uuid": "958eaa7b-2a24-4010-ac4f-ad7d76ede2fb",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 18.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Obstetrics, Bad Obstetrical History",
+          "uuid": "5c2e8ef2-77c8-4698-989c-f0e33023a23d",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Obstetrics, Bad Obstetrical History",
+            "uuid": "819a76d3-0665-448e-a714-7c13e8382963",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 19.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Obstetrics, Tetanus Vaccination Taken",
+          "uuid": "6c1688f9-62ca-43c5-afc5-8b47b39cb5a4",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Obstetrics, Tetanus Vaccination Taken",
+            "uuid": "ec357676-86a8-4d6c-b602-d6a5903be760",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 20.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Obstetrics, Fundal Height",
+          "uuid": "2b413ab7-0e70-42d7-88ff-39667aeee56d",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Obstetrics, Fundal Height",
+            "uuid": "c93b8c2d-bfc7-4268-881b-b8de7459a5f5",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 21.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Obstetrics, P/A Presenting Part",
+          "uuid": "859e2ab4-6220-43b4-9ddb-f7cf0f9482fe",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Obstetrics, P/A Presenting Part",
+            "uuid": "40b224c7-e6ed-40f4-9169-42d9e3d1939b",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 22.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Obstetrics, Fetal Heart Sound",
+          "uuid": "550aeea8-af2e-4913-b3d2-ad58f37c40c0",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Obstetrics, Fetal Heart Sound",
+            "uuid": "f49178c3-09ae-4b55-818a-cc6c1a6666e4",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 23.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Obstetrics, Amount of Liquor",
+          "uuid": "1fe6ed1d-6de9-4594-8d61-ce9c561adcc8",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Obstetrics, Amount of Liquor",
+            "uuid": "a5131d07-de50-4601-a50e-79ec2937a0eb",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 24.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Obstetrics, Contractions",
+          "uuid": "bd8b9e93-d547-414f-af37-1101037bc645",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Obstetrics, Contractions",
+            "uuid": "a793e6a4-5fcb-43c8-98d4-36cce2cfb85f",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 25.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Obstetrics, P/V Presenting Part",
+          "uuid": "4da52fd0-9156-4ad2-94ec-d888957fbff6",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Obstetrics, P/V Presenting Part",
+            "uuid": "56153f28-609b-4c45-93b7-41602b7e19aa",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 26.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - OS",
+          "uuid": "9a806cb4-8614-41b7-b7a8-8d16e07fe586",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - OS",
+            "uuid": "f3f9520c-bf6b-4d30-a55e-39ed955d1139",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 27.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Obstetrics, Membrane",
+          "uuid": "6901a596-8b53-4bd3-ae75-274f9de8e35d",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Obstetrics, Membrane",
+            "uuid": "38c6efdf-c7fd-4178-b0b2-2e2db7fbc59e",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 28.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Obstetrics, Liquor",
+          "uuid": "59b60207-5505-4476-8025-fae062c094d3",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Obstetrics, Liquor",
+            "uuid": "2b872945-7ee4-4b02-afb9-f7c618ebb908",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 29.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Obstetrics, Effacement of Cervix",
+          "uuid": "c0162696-df25-4886-8be2-64d477c30dc2",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Obstetrics, Effacement of Cervix",
+            "uuid": "623b0bbf-cee7-4044-a247-889d240fac2e",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 30.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Obstetrics, Cervical Dilation",
+          "uuid": "676310a1-3fe9-492c-ae00-be7aad3f2f0c",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Obstetrics, Cervical Dilation",
+            "uuid": "8c4811bb-c7fa-4e07-9cb3-aca532363610",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 31.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Obstetrics, Ultrasound Findings",
+          "uuid": "aa445dbf-3c98-43a7-aa8e-677f1079944e",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Obstetrics, Ultrasound Findings",
+            "uuid": "b0b5d5cd-e770-49be-9b09-3f5ae95d1c49",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 32.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Gynaecology, Menstrual Cycle",
+          "uuid": "89f690f7-f5da-4c39-8f11-8ac554bd906c",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Gynaecology, Menstrual Cycle",
+            "uuid": "24aec368-a150-4a29-bb27-3d29e0a6da37",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 33.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Gynaecology, Menstrual Cycle Days",
+          "uuid": "6ad3d354-5e2d-4f7d-84d3-254c21e83308",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Gynaecology, Menstrual Cycle Days",
+            "uuid": "73e878a0-8a5c-4f8c-96e5-fb4cec0c2884",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 34.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Gynaecology, Menstrual Cycle Interval",
+          "uuid": "30368fb5-b0f0-4cdc-b166-cc44596738cc",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Gynaecology, Menstrual Cycle Interval",
+            "uuid": "67ab6a50-6b03-4036-9c8b-2a926891cb52",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 35.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Gynaecology, Menstrual Cycle Amount",
+          "uuid": "d7f0f852-190f-4bbd-87c8-0da2634d25b3",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Gynaecology, Menstrual Cycle Amount",
+            "uuid": "7892cc4a-9380-4a55-b267-776f38e5575d",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 36.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Gynaecology, Last Menstrual Period",
+          "uuid": "9a4c0a91-d72a-4e06-ab88-ca73b8500243",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Gynaecology, Last Menstrual Period",
+            "uuid": "961bad4c-b63d-4c02-845f-8ad4517626d6",
+            "dataType": "Date",
+            "active": true
+          },
+          "displayOrder": 37.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Gynaecology, Gravida",
+          "uuid": "0d967dc5-6435-40ba-b88d-d71d4f3dc6a6",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Gynaecology, Gravida",
+            "uuid": "f0797314-2e93-4255-aae8-897173cbdf3b",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 38.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Gynaecology, Parity",
+          "uuid": "266cfe0b-5751-4506-9e62-28c4cc23a2f5",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Gynaecology, Parity",
+            "uuid": "535d7e05-8fe0-4cd3-91a2-cf2b23897dda",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 39.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Gynaecology, Live Births",
+          "uuid": "9566c75b-7bde-4e87-93dd-379071274547",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Gynaecology, Live Births",
+            "uuid": "ceee5819-0a47-4289-aedc-51882271a0c0",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 40.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Gynaecology, Abortion",
+          "uuid": "594e9f00-2c6c-4d70-a618-8d16edab723d",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Gynaecology, Abortion",
+            "uuid": "02bfa250-56e1-4c18-95f6-4bff10a911a4",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 41.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Gynaecology, Bad Obstetrical History",
+          "uuid": "266ce263-7373-4c45-a5c5-6c0fb0e70f41",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Gynaecology, Bad Obstetrical History",
+            "uuid": "c23cbb24-e9a3-4ea6-829d-190c07178a5a",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 42.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Gynaecology, Tubal Ligation",
+          "uuid": "888886a9-1c3e-4807-816e-efa3813f1878",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Gynaecology, Tubal Ligation",
+            "uuid": "4160095c-6984-4a0f-b70f-f93b760d69df",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 43.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Gynaecology, Cervix Size",
+          "uuid": "52db0205-95e4-4c66-a2cd-1c31292218df",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Gynaecology, Cervix Size",
+            "uuid": "032209cb-40e1-4d1a-8038-7dcb91bef37a",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 44.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Gynaecology, VIA Test",
+          "uuid": "04011d84-279b-43b6-8155-358bdd0da811",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Gynaecology, VIA Test",
+            "uuid": "7a182a84-1640-4de6-ab01-87ce15b4ca96",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 45.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Gynaecology, Uterus Size",
+          "uuid": "b02bb957-f57f-4ad2-9b1b-c1af846ce716",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Gynaecology, Uterus Size",
+            "uuid": "6a8d5974-42a4-4c04-a179-a654801e4d79",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 46.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Gynaecology, Uterus Form",
+          "uuid": "e56c334d-cce8-4af4-8631-46c4ebdbf203",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Gynaecology, Uterus Form",
+            "uuid": "db240703-aff1-4ded-9ddd-59b8dc132bc3",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 47.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Gynaecology, Uterus Position",
+          "uuid": "bdc6c46b-7b6b-42a9-8707-f6876873bc13",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Gynaecology, Uterus Position",
+            "uuid": "724f61ef-4c0d-40f2-b1d2-fb9df920bc11",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 48.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Gynaecology, Uterus Mobility",
+          "uuid": "c1a407e5-5c77-46ca-975a-c583e36aebf3",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Gynaecology, Uterus Mobility",
+            "uuid": "69a53e27-97ca-4c8a-8ab3-440940783127",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 49.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Gynaecology, Bleeding",
+          "uuid": "22b07c55-3fd2-4af6-a8ba-77db5aefb689",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Gynaecology, Bleeding",
+            "uuid": "9ecbe6e8-8b14-4bf2-9cd3-185564a3ab6b",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 50.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Gynaecology, P/V Uterus Enlarged Size",
+          "uuid": "e88f74d2-c36e-4912-a0d8-0f5861e86bfe",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Gynaecology, P/V Uterus Enlarged Size",
+            "uuid": "b51905b4-1570-4a47-952f-dc0eda89e273",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 51.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Gynaecology, P/R (per rectal)",
+          "uuid": "90e9cb00-bad8-48f4-8fe9-bd32d409633b",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Gynaecology, P/R (per rectal)",
+            "uuid": "d78dc79f-9925-413b-8f9c-083f26b9a219",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 52.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "aeb25351-64ed-42cf-b77c-492b6bf2f937",
+      "name": "Bahmni - Diabetes Templates",
+      "displayOrder": 3.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Diabetes, Diagnosed Date",
+          "uuid": "743b6386-4584-4aef-8df7-c2e25f662a5d",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Diabetes, Diagnosed Date",
+            "uuid": "1c413fb2-801a-4e84-8fee-8f7d79f0312b",
+            "dataType": "Date",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Diabetes, Treatment Stopped Date",
+          "uuid": "153a4a66-e342-4e28-8e6a-4940850a5971",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Diabetes, Treatment Stopped Date",
+            "uuid": "93cee5e7-b8f6-4ea5-a3e6-b94b6a9c6f30",
+            "dataType": "Date",
+            "active": true
+          },
+          "displayOrder": 2.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Diabetes, Complications",
+          "uuid": "a0cd39b0-a43e-47d8-bcdb-dbdb0c67b890",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Diabetes, Complications",
+            "uuid": "5ec8dd19-2446-4edf-818b-5faffec63427",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 3.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Diabetes, Complaint",
+          "uuid": "fe4d397d-5ca4-4db2-b461-8cbc3251f098",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Diabetes, Complaint",
+            "uuid": "01badc59-8cd7-4c6e-846b-e1a923c223ee",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 4.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Diabetes, Peripheral Pulses",
+          "uuid": "3d2b0645-9337-4b23-9d9f-02ca86f15468",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Diabetes, Peripheral Pulses",
+            "uuid": "db466f75-584e-47ef-96a6-ccde4482a1db",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 5.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Diabetes, Sensory Charting Assessment",
+          "uuid": "a0a2a757-cd9c-4597-a55e-df8f0fc77455",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Diabetes, Sensory Charting Assessment",
+            "uuid": "2b40efca-8d5d-4690-a37f-ff4d4ada5102",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 6.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Diabetes, Skin fold Thickness",
+          "uuid": "afdeb979-ea17-42d2-b59b-afd7eb688bd0",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Diabetes, Skin fold Thickness",
+            "uuid": "a408441f-d028-4a61-9a3b-2ffa1a607e5e",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 7.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Diabetes, Foot Exam",
+          "uuid": "74a932ac-ccd6-466e-ad83-76850bab25c6",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Diabetes, Foot Exam",
+            "uuid": "5508a7b2-f583-473d-8cf9-f7fc25101ee8",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 8.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Diabetes, Eye Exam",
+          "uuid": "eb7d44df-d73e-439b-abf7-bf4d0f33a043",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Diabetes, Eye Exam",
+            "uuid": "77f81858-101d-4726-abe6-b279d81cdbb6",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 9.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Diabetes, Other Complaints",
+          "uuid": "0ffd96f0-4902-4654-ab4a-390a282fc660",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Diabetes, Other Complaints",
+            "uuid": "1b924377-b2a4-454e-88d6-124c939c46b4",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 10.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Diabetes, Other Complications",
+          "uuid": "6b40a2ad-1a36-43e8-8846-228fe42988e7",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Diabetes, Other Complications",
+            "uuid": "a1cb3d0c-cecd-4589-9e3c-d0836bc93194",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 11.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Diabetes, Electrocardiography",
+          "uuid": "27e94f8b-89e0-45eb-8856-8f854e44cbeb",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Diabetes, Electrocardiography",
+            "uuid": "e1aafdd6-29fb-4b1d-b78c-8b1768b98efd",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 12.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Diabetes, X-Ray",
+          "uuid": "2123cad4-31e7-418a-8aae-c37e568d815b",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Diabetes, X-Ray",
+            "uuid": "f2884e7d-0173-4b6c-8108-a4d80b37e713",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 13.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Diabetes, Doing Well",
+          "uuid": "17713a7a-c339-447c-b4fb-d5b45384d8db",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Diabetes, Doing Well",
+            "uuid": "d45c4c86-415c-48cd-a0a7-afc5715945b7",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 14.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Diabetes, Sugar Assessment",
+          "uuid": "2961f2b2-10c2-4ecf-9ccd-3b518b24f63b",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Diabetes, Sugar Assessment",
+            "uuid": "32ce1525-ec10-4cdd-92fb-be87725207e9",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 15.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Diabetes, Current Status",
+          "uuid": "2f722e29-00ac-4a94-8bf3-9fe4b2f189ff",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Diabetes, Current Status",
+            "uuid": "0fec0af6-5563-44f6-89ac-01b1ad84e1ff",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 16.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Diabetes, Treatment Outcome",
+          "uuid": "3bf8f4ea-3dc8-45c6-beed-25e3d27f8bf6",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Diabetes, Treatment Outcome",
+            "uuid": "153de4fa-bb4f-4cb0-ad37-132def8d022e",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 17.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Diabetes, Insulin taken properly",
+          "uuid": "1b0c1841-aa9e-4d0c-9b6f-c9cf7224b6ae",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Diabetes, Insulin taken properly",
+            "uuid": "72015920-1f12-403b-af24-7ce3f8cd9c69",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 18.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Waist Circumference",
+          "uuid": "0723c846-f37d-4ee2-ba47-64f2f8802950",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Waist Circumference",
+            "uuid": "2df116f1-8512-4649-84f3-c71bee3c8752",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 19.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Hip Circumference",
+          "uuid": "1ae28fba-6515-4474-9692-7ecfc24bf497",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Hip Circumference",
+            "uuid": "46bc85cb-fb6d-48be-8aa3-4e3d80b46413",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 20.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Waist/Hip Ratio",
+          "uuid": "4c57da0f-377f-414d-bde1-62fa55358d8f",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Waist/Hip Ratio",
+            "uuid": "7f31a763-940c-4b31-8453-bc2f5401d842",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 21.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Diabetes, Counselling Done",
+          "uuid": "b39a55ef-df17-43b3-99b0-5845c5663bf3",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Diabetes, Counselling Done",
+            "uuid": "6cfc9c80-a054-4124-a3cb-5d330f3af19f",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 22.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "5fc51c71-32cd-4508-8cd4-2beb686a425b",
+      "name": "Bahmni - Surgeries and Procedures",
+      "displayOrder": 4.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Operative Note, Type of Surgery (Procedure based)",
+          "uuid": "70a3731f-f8f9-45f4-8645-ee1a91ea2673",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Operative Note, Type of Surgery (Procedure based)",
+            "uuid": "612beaa6-5894-429c-89ae-ab3a691229fd",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Operative Note, Type of Surgery (Time based)",
+          "uuid": "8459a0bd-1ff4-417c-8524-46d4e9dc5b30",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Operative Note, Type of Surgery (Time based)",
+            "uuid": "791f0de4-5626-49f7-be06-830162ba1b3d",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 2.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Date of Surgery",
+          "uuid": "1a8723ff-8425-4ba5-ad6a-744a0d10d300",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Date of Surgery",
+            "uuid": "6b1d2496-058f-429a-8e92-5860d9430ac8",
+            "dataType": "Date",
+            "active": true
+          },
+          "displayOrder": 3.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Surgical Indication",
+          "uuid": "a3a33348-4508-419b-8abd-f55aa159cc38",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Surgical Indication",
+            "uuid": "bf834492-b024-438f-97a5-bf46700a1c59",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 4.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Surgical Procedure",
+          "uuid": "34b4d42d-04a8-420a-b35b-d7a0b0a459af",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Surgical Procedure",
+            "uuid": "bce164a9-d6eb-4d9c-b7e4-023efb63654d",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 5.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Surgical Procedure Non Coded",
+          "uuid": "d7872b7a-86a2-4ecf-943a-5d0f04d4e0ca",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Surgical Procedure Non Coded",
+            "uuid": "6cd20bee-37d2-4f43-b8d4-bc23f99feac4",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 6.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Coded Operating Surgeon",
+          "uuid": "86551789-ef6c-4619-8f2c-22a6b5c7c0ab",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Coded Operating Surgeon",
+            "uuid": "5283755c-056a-464a-949b-674c1a4dbe02",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 7.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Other Operating Surgeon",
+          "uuid": "72a0823c-9ae4-4b14-8f51-8d1e7b9da98c",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Other Operating Surgeon",
+            "uuid": "cd9ee906-0fa6-4df1-b213-f0bfdd3777ae",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 8.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Coded Operating Assistant Surgeon",
+          "uuid": "55b05229-2b01-416a-ae8f-4a169146a864",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Coded Operating Assistant Surgeon",
+            "uuid": "fb970bef-dacd-4995-860a-61c5ff4f2e4d",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 9.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Coded Operation Anesthetist",
+          "uuid": "e836b031-556c-4a13-a606-a6872af55c07",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Coded Operation Anesthetist",
+            "uuid": "cc539654-1e3e-4d16-86aa-c4e37ee54f2c",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 10.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Scrub Nurse",
+          "uuid": "fe7cf826-d9f0-49d2-aed1-d107c431a0d1",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Scrub Nurse",
+            "uuid": "72e3d97c-e110-4cc5-878e-51d7eda31703",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 11.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Anesthesia Administered",
+          "uuid": "2716f867-6647-4f61-b8c6-5942e9bd0813",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Anesthesia Administered",
+            "uuid": "cb7c8b06-8b6d-495d-a89c-04855ca8f7a1",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 12.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Incision",
+          "uuid": "053adb9a-589b-4290-9ea9-a3f54f100788",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Incision",
+            "uuid": "813e8e9d-5d64-4909-a739-a8080d830aaa",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 13.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Operation Findings",
+          "uuid": "3e39b18e-7799-47e3-9258-4cfb4662be74",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Operation Findings",
+            "uuid": "53ecc3b9-163c-4d4e-a8a8-ca04d7050733",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 14.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Operative Drains",
+          "uuid": "8c49efab-9f5f-4777-8e72-78a94ab707d0",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Operative Drains",
+            "uuid": "19d001f8-4fb5-436c-ac0e-8b28b1bfa1a6",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 15.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Operative Complications",
+          "uuid": "de587568-69a6-44bb-8f6f-74b128bca872",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Operative Complications",
+            "uuid": "bae6c221-7743-4ca9-986c-76ec1441a5fd",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 16.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Blood loss during operation",
+          "uuid": "12b5b6ac-ec68-4af1-b6fd-fc8a08f318df",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Blood loss during operation",
+            "uuid": "2f939fdb-baa6-4418-a784-283c055f0082",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 17.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Operation Duration",
+          "uuid": "73435f95-f751-4e68-a931-ac0e0e936c88",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Operation Duration",
+            "uuid": "e5500aa2-27b9-48c9-84c8-11b3a07e5933",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 18.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Other Operation Notes",
+          "uuid": "cfdf771b-54af-402c-adbd-7786a03b418a",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Other Operation Notes",
+            "uuid": "5de8b547-dbf4-42d6-ba26-756dbf66880a",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 19.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Cytopathology Number",
+          "uuid": "09bfc7b6-ca11-411f-a7d1-a86728324f35",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Cytopathology Number",
+            "uuid": "64ace475-8cca-4586-9f9f-baead547d96a",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 20.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Histopathology Number",
+          "uuid": "16fe6404-1cc4-4a8b-a782-5d5ca13f9955",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Histopathology Number",
+            "uuid": "dc5997f4-43c5-4199-866a-bc965b48407a",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 21.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Intra operation specimens and results",
+          "uuid": "88e951d5-563a-4223-ba74-2f1aa49ef610",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Intra operation specimens and results",
+            "uuid": "16935c69-4976-4eba-a270-4a5fc48c88d9",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 22.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Surgical Speciality",
+          "uuid": "635b070b-8495-4a03-b61b-95d3470af3c9",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Surgical Speciality",
+            "uuid": "9cde20f8-7c7b-454c-9c3b-0fb93a59297e",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 23.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "27783320-b31d-42c8-9836-c1708089a6a7",
+      "name": "Bahmni - Breast Cancer Templates",
+      "displayOrder": 5.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Cancer, Family History",
+          "uuid": "5cd1f435-83f5-4dd7-b3ab-5b63acc2617f",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Cancer, Family History",
+            "uuid": "5394c157-7a26-4158-8392-436794ab0a97",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - If Present,details",
+          "uuid": "5d73a01f-7b1b-4470-ac31-5028174fe55c",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - If Present,details",
+            "uuid": "1a3d860f-8a5f-421b-856a-fe222f636568",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 2.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Breast Cancer, Breast Side",
+          "uuid": "19292f5b-880b-4de9-95d5-d8bc1a511741",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Breast Cancer, Breast Side",
+            "uuid": "97ea04a1-e688-4115-aab7-d339c8849af5",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 3.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Breast Cancer, Breast Site",
+          "uuid": "fa210672-b583-49cb-99fc-8c550afdb1a2",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Breast Cancer, Breast Site",
+            "uuid": "f266e7ba-0fab-4bc7-9df3-6f74e2ff8459",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 4.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Breast Cancer, Breast Size",
+          "uuid": "9b020c14-5304-4e43-bcb7-6dadaa6f05e0",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Breast Cancer, Breast Size",
+            "uuid": "c90a4967-c17c-4957-8140-5ed2400fcfa6",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 5.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Breast Cancer, Breast Mobility",
+          "uuid": "47f9542b-c0ea-4ba7-8ffe-ed0001614d71",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Breast Cancer, Breast Mobility",
+            "uuid": "63552fb2-831d-40b9-9e7b-28e26034406f",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 6.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Breast Cancer, Skin Involvement",
+          "uuid": "4e23fff5-dffb-42d3-a95b-b6f00e7a39d9",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Breast Cancer, Skin Involvement",
+            "uuid": "0cd4957a-e7ba-4d67-a5eb-5b0298ccb194",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 7.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Breast Cancer, Lymph Nodes Side",
+          "uuid": "0e0252e7-d07f-4c75-959b-f157b4791061",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Breast Cancer, Lymph Nodes Side",
+            "uuid": "051bde7e-b289-41f2-8450-bafe540b03ea",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 8.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Breast Cancer, Axillary",
+          "uuid": "32252a12-92da-479c-a15d-f09fbbaef7b2",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Breast Cancer, Axillary",
+            "uuid": "f2e60be3-448f-4d98-b5f3-e479ad5e872d",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 9.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Breast Cancer, Supra Clavicular",
+          "uuid": "1cc1b399-4e1f-4e59-9e9e-8adc9860340b",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Breast Cancer, Supra Clavicular",
+            "uuid": "610ed496-51a4-4b0a-81de-b8488766cb5c",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 10.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Breast Cancer, Infra Clavicular",
+          "uuid": "967e219d-7293-49f8-a8ae-c287a982c842",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Breast Cancer, Infra Clavicular",
+            "uuid": "93f35ec3-6392-4adb-b809-badcdbc41be5",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 11.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Breast Cancer, Pathologic Diagnosis",
+          "uuid": "57ebadff-a113-4724-8217-78fa3f5806e8",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Breast Cancer, Pathologic Diagnosis",
+            "uuid": "8c531c4c-2bf1-4de8-94be-b73892ef7550",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 12.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Breast Cancer, Pathology Report Date",
+          "uuid": "be495188-cda1-4a82-ad30-0ca949198136",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Breast Cancer, Pathology Report Date",
+            "uuid": "01c62752-5e97-46ac-a41a-337326c2cf99",
+            "dataType": "Date",
+            "active": true
+          },
+          "displayOrder": 13.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - ER/PR",
+          "uuid": "57eab314-9838-478f-821f-d883e1d5134b",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - ER/PR",
+            "uuid": "13ca383f-a5da-4035-ad0d-afee26af5059",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 14.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Her2New",
+          "uuid": "82bf2491-9322-4c76-aeac-3421d54f377e",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Her2New",
+            "uuid": "48d5bf45-b976-4cc8-9d57-e4422151ea7c",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 15.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Breast Cancer, Imaging Assessment & Findings",
+          "uuid": "ec31932b-58ce-45e9-88ae-d6b59f0f0925",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Breast Cancer, Imaging Assessment & Findings",
+            "uuid": "6dc49cb8-9e79-4ed9-b801-0bb49a964d89",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 16.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Breast Cancer, Other Imaging Study Date",
+          "uuid": "46f32ccf-60ab-4709-9176-0791bf17f0e5",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Breast Cancer, Other Imaging Study Date",
+            "uuid": "13888c11-c295-441a-865e-af97f6e05ebc",
+            "dataType": "Date",
+            "active": true
+          },
+          "displayOrder": 17.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Breast Cancer, Imaging Type",
+          "uuid": "23d5b68d-ee63-4715-ac64-1fd35b013430",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Breast Cancer, Imaging Type",
+            "uuid": "27eb4700-b818-47ed-8443-530fe848c804",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 18.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Breast Cancer, Treatment Group",
+          "uuid": "f99d6054-b8ed-4b58-bb93-2fc8e86d0b27",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Breast Cancer, Treatment Group",
+            "uuid": "aeb979a9-8b43-4d5d-a694-dda42bfadf12",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 19.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Breast Cancer, Tumor Stage",
+          "uuid": "cef8c646-e332-4164-aa12-f5e186b293cd",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Breast Cancer, Tumor Stage",
+            "uuid": "8673600b-3277-4246-a6cc-e859db4a9171",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 20.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Breast Cancer, Lymph Node Stage",
+          "uuid": "f196bf26-18ff-48f2-9fec-f826b6f0b601",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Breast Cancer, Lymph Node Stage",
+            "uuid": "7e77edcc-c837-4ff5-97d4-1b87d6157ef7",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 21.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Breast Cancer, Metastatic Stage",
+          "uuid": "439f5ceb-df21-43d6-a523-13be49339df1",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Breast Cancer, Metastatic Stage",
+            "uuid": "1f934828-299e-47fe-9342-b44ebf9c5a86",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 22.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Breast Cancer, Clinical Stage",
+          "uuid": "08599f9b-aec1-452c-9cb7-5b8b233183db",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Breast Cancer, Clinical Stage",
+            "uuid": "670f3a0c-fc0c-4103-add8-98632f453ed5",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 23.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Breast Cancer, Treatment Plan, Plan Summary",
+          "uuid": "e178613d-b58b-4814-bbad-cf9fe2d143e1",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Breast Cancer, Treatment Plan, Plan Summary",
+            "uuid": "2400d1fc-1b2c-4390-9dcc-95c1a92b1c06",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 24.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Breast Cancer, Treatment Intent",
+          "uuid": "5827c45c-68a9-4434-8786-399f7971cfed",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Breast Cancer, Treatment Intent",
+            "uuid": "09ab7b19-b039-4368-a5ce-ca689fd0ba3f",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 25.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Date of Diagnosed",
+          "uuid": "0d6f9a36-e0ef-4872-ade4-9da7015ffba0",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Date of Diagnosed",
+            "uuid": "905576e0-213c-433d-9b2f-ce54b15ba049",
+            "dataType": "Date",
+            "active": true
+          },
+          "displayOrder": 26.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Cance, Surgery",
+          "uuid": "ec27497f-d29a-420b-a8c5-5409ce5badb5",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Cance, Surgery",
+            "uuid": "e51655f7-988e-403f-b630-f75bbbaac8a1",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 27.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Cancer, Regimen Type",
+          "uuid": "7ac297cc-8845-4e30-b0b6-977ec2072db7",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Cancer, Regimen Type",
+            "uuid": "4ab79d3d-4d52-4d9e-84d7-c32c953abdd7",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 28.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Radiotherapy",
+          "uuid": "f7f4ef6f-8b08-43ce-b9ad-48fa2816329f",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Radiotherapy",
+            "uuid": "d2344819-b4f1-4bb6-a80d-bf22deaaea73",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 29.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tamoxifen 20mg OD",
+          "uuid": "c863c056-6147-4a62-9a1a-922d4d9aa321",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tamoxifen 20mg OD",
+            "uuid": "9cfa2158-35fc-497d-b0ea-76369476a1c6",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 30.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Aromatase Inhibitors",
+          "uuid": "d38a0c72-68e1-44ad-9fef-e27b4e2d50d6",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Aromatase Inhibitors",
+            "uuid": "811e9902-c8be-4446-92d4-748c1a34888f",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 31.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Cancer, Follow up",
+          "uuid": "b04cb2e9-2f0f-4a81-8b12-656ce9603d0d",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Cancer, Follow up",
+            "uuid": "48dd2a87-1353-4be7-a35a-3d09d3620ebd",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 32.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Cancer, Compliance",
+          "uuid": "7655d64a-d270-4e7f-829e-fb6d19c13179",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Cancer, Compliance",
+            "uuid": "a1d55e06-888c-4756-bed0-34637db15162",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 33.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Final Outcome",
+          "uuid": "f3be64ef-28c0-423b-bcde-c43849bf45cf",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Final Outcome",
+            "uuid": "d9248c1a-100d-4e98-8930-e2b8a004f03c",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 34.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Breast Cancer, Treatment",
+          "uuid": "e0f07e58-25da-4dc9-b251-4e10772aa0ae",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Breast Cancer, Treatment",
+            "uuid": "7f0b5182-a48b-49b1-b3f2-f5e8975da494",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 35.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Breast Cancer, Regimen Type",
+          "uuid": "07e1096f-e0e3-457d-a457-ac7b37873af4",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Breast Cancer, Regimen Type",
+            "uuid": "ddd9eecb-7296-4d68-b783-ff549ed18a45",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 36.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Breast Cancer, Regimen Timing",
+          "uuid": "7ac296ba-ea4e-4bbe-8c14-3cb413d1ee33",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Breast Cancer, Regimen Timing",
+            "uuid": "01740be6-1479-4f97-af00-a75f1bb80d6e",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 37.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Breast Cancer, Chemotherapy Cycle number",
+          "uuid": "a8068b9e-df41-486f-b6b7-5f02b7b78419",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Breast Cancer, Chemotherapy Cycle number",
+            "uuid": "20084958-f61f-4ad0-ab1d-96a3ed688cbc",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 38.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Breast Cancer, Planned changes to standard regimen",
+          "uuid": "bff475fd-278f-4ee4-a821-02fc674a1776",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Breast Cancer, Planned changes to standard regimen",
+            "uuid": "f1bb756e-63de-4e68-8aaf-869f011366ff",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 39.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Breast Cancer, Surgery Type",
+          "uuid": "3e9780b5-0488-4391-a849-ada08f4f1cb6",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Breast Cancer, Surgery Type",
+            "uuid": "d08b9c03-a11c-4e88-9401-60f699c4ad09",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 40.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "167bad59-bb3c-4da1-8362-20c5b61e3aa7",
+      "name": "Bahmni - Tuberculosis Templates",
+      "displayOrder": 6.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Tuberculosis, Symptoms",
+          "uuid": "4ac2e12b-db3e-4d74-b51c-98aee9cc836d",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Symptoms",
+            "uuid": "f7ce11f3-7a86-452c-8258-d02d82f1bbdc",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Symptoms Duration",
+          "uuid": "94634226-9954-463a-bf7c-7b75f4e4bd88",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Symptoms Duration",
+            "uuid": "93c2d29f-ab88-48fe-838d-afd7edeaa669",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 2.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Symptoms  duration",
+          "uuid": "857e953a-bc7c-45d9-b7eb-46aee35d6870",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Symptoms  duration",
+            "uuid": "010d0ce2-0f81-44e0-b269-67ee08a0b03b",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 3.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Other Symptoms",
+          "uuid": "75c01b38-7777-45b6-adea-47ee765f948a",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Other Symptoms",
+            "uuid": "c44adf7c-7458-403f-bfac-098f11bdc793",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 4.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, History of TB Contact",
+          "uuid": "3e31a2dc-9197-4db3-af8d-42d0b30a4d3f",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, History of TB Contact",
+            "uuid": "5aa292d9-a671-4688-b1b6-2613fa91321f",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 5.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Family member died of TB",
+          "uuid": "284482f4-85f6-4b7f-9b2d-e51ee8a10d26",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Family member died of TB",
+            "uuid": "d03b0c1a-25db-481c-92ba-08fd648f7154",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 6.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Duration since last treatment",
+          "uuid": "3cf64881-38b1-4628-ba6b-7e388205c19d",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Duration since last treatment",
+            "uuid": "22189dda-25f5-4fdb-8330-242301a6e7e3",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 7.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Duration of last treatment",
+          "uuid": "38fac7bd-a347-478e-aee9-565e248daaa3",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Duration of last treatment",
+            "uuid": "7b1cd7e7-df73-4cb8-8f7c-e48fa6a15719",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 8.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Past Treatment Facility",
+          "uuid": "87f8b0ab-25a3-4e86-b5d3-40c141a7cb4e",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Past Treatment Facility",
+            "uuid": "626e8f31-a84d-4449-81a3-26d9d7a56be1",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 9.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Past Treatment Details",
+          "uuid": "403abc5c-2658-4085-a1f6-4c80055be6ae",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Past Treatment Details",
+            "uuid": "c1a10c41-f89d-462a-9840-c4710fce8c19",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 10.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Type",
+          "uuid": "1b2ce8f1-4c56-4ae4-9153-f037ebdf4f7c",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Type",
+            "uuid": "8dd447d9-74e0-477b-a787-a957ea76eeb1",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 11.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Patient Category",
+          "uuid": "ff69e080-59e5-47ad-bdf4-2fc8c4d5bbbc",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Patient Category",
+            "uuid": "0dbc4bec-f30b-4f94-b179-fa5f7b5977a3",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 12.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Extrapulmonary Site",
+          "uuid": "baf24ef8-f613-404d-9455-da3374ecd205",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Extrapulmonary Site",
+            "uuid": "c4eeffc6-3f29-41ce-9cc1-0199ad22e785",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 13.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Lymph Node Size",
+          "uuid": "5ad2d804-13df-4151-af47-246377346c10",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Lymph Node Size",
+            "uuid": "f635e3a6-d00c-425e-9df5-2e1648317907",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 14.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Lymph Node Pain",
+          "uuid": "c50fc111-8899-45cb-854c-a69c7374ee7b",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Lymph Node Pain",
+            "uuid": "6c47b044-1498-41dc-992e-15ff68680120",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 15.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Lymph Node Discharge, Sinus, Ulcer",
+          "uuid": "ac24e527-8a8b-426c-9fd1-3feefcaeb68f",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Lymph Node Discharge, Sinus, Ulcer",
+            "uuid": "95bf8e7d-d3e5-45f1-b04b-a7c20597885f",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 16.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Pleural TB Respiratory Rate",
+          "uuid": "9544dbbd-5d45-4351-8773-dcff013feb73",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Pleural TB Respiratory Rate",
+            "uuid": "16500a25-007d-4bcd-ae9b-7ba2a22e318e",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 17.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, X-Ray Extent",
+          "uuid": "85c21307-56cb-4837-9413-1bf6fe7c07f2",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, X-Ray Extent",
+            "uuid": "251ad4cf-b227-4629-836d-4d73aa08ce64",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 18.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, X-Ray Cavity",
+          "uuid": "8312d967-b818-4131-aba7-e3a6a36280d0",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, X-Ray Cavity",
+            "uuid": "5af5a754-8253-4802-a93a-b66cf46426cc",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 19.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Basis of Diagnosis",
+          "uuid": "85b6236a-f970-49f6-86f6-fd9810c3696f",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Basis of Diagnosis",
+            "uuid": "15a61c3f-697f-4379-ae18-b42800459fd9",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 20.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Comorbidity",
+          "uuid": "530f4e48-f9d8-4347-ae00-d3fc9aca50ad",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Comorbidity",
+            "uuid": "be51b9fb-3c07-472a-8c1b-363516d1924f",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 21.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Treatment Plan",
+          "uuid": "e6b3f4d0-8a30-42ed-b639-b05ee5f329ec",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Treatment Plan",
+            "uuid": "b95e59df-4480-47fd-bd2c-3874be9b44f7",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 22.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Next Followup Visit",
+          "uuid": "062098e8-22f2-42ad-9977-d5f787e6871b",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Next Followup Visit",
+            "uuid": "5e9dc715-2edb-4da8-a178-68437eb82be8",
+            "dataType": "Date",
+            "active": true
+          },
+          "displayOrder": 23.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Plan for next visit",
+          "uuid": "b951d9b8-b783-445c-914a-4867d467f369",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Plan for next visit",
+            "uuid": "57d26401-4543-4e61-b950-2380b74e88ef",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 24.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Number of Adult Family Members with Symptoms",
+          "uuid": "c54ffc4e-a582-4995-b59a-b47c2aa4300b",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Number of Adult Family Members with Symptoms",
+            "uuid": "3efcf173-e995-489d-9230-202cd58a5581",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 25.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Number of Under 5 Years Children in the Family",
+          "uuid": "3a290b5e-008d-4588-9fe2-d84da3694f2b",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Number of Under 5 Years Children in the Family",
+            "uuid": "e44ff6b6-c832-47b3-a3b7-f21d3121fa6b",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 26.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Need of Admission",
+          "uuid": "5b2135d6-9148-4021-a991-bdbf50533c7f",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Need of Admission",
+            "uuid": "42732cbb-9778-42e7-b2e3-1fcf07667eec",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 27.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Indication for Admission",
+          "uuid": "70ec5970-6123-4186-9fdd-00c4579ba198",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Indication for Admission",
+            "uuid": "5a029d95-d2b5-4159-825a-0801b10df837",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 28.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Followup Visit",
+          "uuid": "b6c9c40e-6d39-4440-a05f-7e017e334437",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Followup Visit",
+            "uuid": "d40524e7-f3fc-4c73-aa6d-041778df0365",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 29.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Family Screened",
+          "uuid": "c4c1c6a9-794d-49c3-ae48-cfa167da6033",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Family Screened",
+            "uuid": "4d441991-6937-4c68-b9e0-c734cc9ba000",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 30.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Weight Gain",
+          "uuid": "600e1823-9ed2-4abc-9454-c1051327d9df",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Weight Gain",
+            "uuid": "bf66a4db-d071-4a24-9199-84d01b797069",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 31.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Sensitivity Report Status",
+          "uuid": "c1826e0f-e361-4aee-99f5-0d0144b28764",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Sensitivity Report Status",
+            "uuid": "fdb4b3e9-f9e0-4e5c-960b-4358617dc6eb",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 32.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, New Comorbidty Identified",
+          "uuid": "9f9fce14-4fe4-4fc3-994a-425600b61d15",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, New Comorbidty Identified",
+            "uuid": "b7200a10-227c-4a62-9897-50161f436868",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 33.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Fever",
+          "uuid": "4975e505-87ec-47cf-93ae-51ab081656e1",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Fever",
+            "uuid": "8dea87ad-4f88-4588-a31c-81e020184176",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 34.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Cough",
+          "uuid": "d6f083a3-c571-4c30-87f7-d7e0ddb9828e",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Cough",
+            "uuid": "c3287cb6-a31e-4bea-a66e-d0f4eb03f835",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 35.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Anorexia",
+          "uuid": "817e2c9f-97d9-41b2-9642-08e5a38d53bb",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Anorexia",
+            "uuid": "2063af20-1889-4b3c-9e25-69306d31bee0",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 36.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Chest Pain",
+          "uuid": "cb983488-bce0-4dae-bffd-283c6f8a775a",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Chest Pain",
+            "uuid": "47889032-1be4-472d-bbbe-2c5b1a2d6b55",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 37.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Breathlessness",
+          "uuid": "18904872-c33c-4de7-bc01-7861f5454a40",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Breathlessness",
+            "uuid": "9074466f-c881-4cb7-90c5-ad633b6b5399",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 38.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis Followup, Lymph Node Size",
+          "uuid": "b2d7cc0e-66eb-426f-905a-2561ae137b1b",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis Followup, Lymph Node Size",
+            "uuid": "38383511-f2fa-4649-bc1b-49b1a70d2055",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 39.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Examination",
+          "uuid": "1693d99e-0a04-44ba-870a-4e5c47c2a932",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Examination",
+            "uuid": "c2ace02b-ee52-40be-8c2d-48448f0824ad",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 40.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Treatment Compliance",
+          "uuid": "e7914452-0b79-4853-a0cb-2f7297eb8675",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Treatment Compliance",
+            "uuid": "985fecf6-767e-4159-b7eb-bd5300dfac82",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 41.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Adverse Effects",
+          "uuid": "9f70a672-ea42-4fe6-91e0-2eb1dcb06079",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Adverse Effects",
+            "uuid": "96a300a6-6f5c-492d-bc97-880eff80b4fe",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 42.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Treatment for adverse effects",
+          "uuid": "36c34b6e-abd6-453b-b59b-b55f1d2cdb85",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Treatment for adverse effects",
+            "uuid": "1ef517e7-3ca1-42e6-a4ba-dd8e9c827d94",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 43.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Visit Impression",
+          "uuid": "c7471b83-79da-4804-9365-9e26cd28808e",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Visit Impression",
+            "uuid": "9b7fc621-d104-499f-8082-19ea5d2c83d4",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 44.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Output of Treatment",
+          "uuid": "29b87a1b-3782-44d7-825d-1733f02ac2a8",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Output of Treatment",
+            "uuid": "88b0d34e-5b06-486c-a854-f3a3e2d887f8",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 45.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Sputum Sample Collection Date",
+          "uuid": "7f45a0e7-047f-4b64-bb6f-9106aeafbaa1",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Sputum Sample Collection Date",
+            "uuid": "30d79960-1bc4-4440-b760-ae3f0c753e14",
+            "dataType": "Date",
+            "active": true
+          },
+          "displayOrder": 46.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, AFB (Zn Stain)",
+          "uuid": "79e32aa8-278c-4ec4-b44a-543151f7d439",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, AFB (Zn Stain)",
+            "uuid": "57623499-3e8b-4dbe-abef-16ade10554f4",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 47.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Sample Type",
+          "uuid": "5eded934-b57a-4f34-8717-e1de1e8ae5b9",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Sample Type",
+            "uuid": "4ff61aca-f427-4b47-957b-67de7a0bf112",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 48.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Sample",
+          "uuid": "63419be7-c588-42eb-8162-a43c41845f6d",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Sample",
+            "uuid": "5ac3d93a-ad0a-4303-9166-d3d3bbbc2c12",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 49.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Testing Centre",
+          "uuid": "bab96882-0e02-4a0d-ae01-292e267320a2",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Testing Centre",
+            "uuid": "3abb5f4a-0907-4b53-a8a5-d750fd5f9aed",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 50.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Test Type",
+          "uuid": "10da0e85-96fb-4ccc-84bc-b5e0c1d8f074",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Test Type",
+            "uuid": "88e9ed2a-3065-4671-8d6e-3363ace8647d",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 51.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Culture Report",
+          "uuid": "3de08ec9-e149-4ee5-bf09-dac5966e2de1",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Culture Report",
+            "uuid": "abab0194-d9de-4ff4-bfb1-a4c695ec077a",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 52.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis,CBNAAT Test Result",
+          "uuid": "d4140fdd-31d0-41a3-8fd5-9cb143011c40",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis,CBNAAT Test Result",
+            "uuid": "2c1768ea-ae95-431a-b027-e6839201a2dc",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 53.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Rifampicin",
+          "uuid": "bb53d52b-ad76-4a57-a4cb-839fe8b02658",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Rifampicin",
+            "uuid": "0864b12e-3ee1-4187-a5f5-df9221c5d1d2",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 54.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Isoniazid",
+          "uuid": "93c264e6-9d3b-40cc-b6cd-9586274acf50",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Isoniazid",
+            "uuid": "872be094-847a-42c6-970e-a1b370485ab3",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 55.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Ethambutol",
+          "uuid": "67c178c4-142b-4032-9ecf-961489a91b63",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Ethambutol",
+            "uuid": "36c4d85b-6f71-4b21-b7c2-7535087b8893",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 56.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Streptomycin",
+          "uuid": "4fb9e7d8-d849-47a6-9ddc-e51c0941a63c",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Streptomycin",
+            "uuid": "3d0ab263-a61c-4c9d-bd43-557e5da5008c",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 57.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Kanamycin",
+          "uuid": "cb0f588b-e1e4-4c89-9f39-d111e5d87f2a",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Kanamycin",
+            "uuid": "d8270a6a-2ab9-4796-a34f-2cadd5bfaa8f",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 58.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Ethionamide",
+          "uuid": "da924a14-004f-4577-a907-99c43d01c8dd",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Ethionamide",
+            "uuid": "9a9b4434-67aa-40bd-a4f1-a3f234067385",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 59.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, PAS",
+          "uuid": "a147c32c-a28c-401c-9876-ef64f31f440a",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, PAS",
+            "uuid": "19f3e9df-e942-4be7-af47-6264008f135a",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 60.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Ofloxacin",
+          "uuid": "e9603866-1472-4063-8e98-dd0ab1b4acff",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Ofloxacin",
+            "uuid": "0968ed1b-64bd-4e66-b41b-6182676b12b8",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 61.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Test Report Date",
+          "uuid": "a01c4a8a-e4e2-42ae-8c8c-f60a456e07e3",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Test Report Date",
+            "uuid": "f878775c-42c6-4679-8b1d-e61a0776b2ed",
+            "dataType": "Date",
+            "active": true
+          },
+          "displayOrder": 62.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Family Member Name",
+          "uuid": "e1ccbafc-3475-45df-a6d7-1a9904a8db9d",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Family Member Name",
+            "uuid": "da8892bf-f917-4807-b9bf-294ab3aef528",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 63.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Family Member Age",
+          "uuid": "ee530413-cbd0-4422-80e1-26790f828ff1",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Family Member Age",
+            "uuid": "b61d32dd-626d-4dae-99c1-cc697f6d3320",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 64.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Family Member Gender",
+          "uuid": "a92ee22b-298b-4236-8a84-b4f8c651f4f8",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Family Member Gender",
+            "uuid": "88b1f5a7-9b40-481d-a4cd-055677347ab0",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 65.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Family Member Relation",
+          "uuid": "7a4947fc-54c2-49f2-9f17-5825808f984f",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Family Member Relation",
+            "uuid": "81b8d6e6-401e-404d-9bea-8706b5c382be",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 66.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Family Member Symptoms",
+          "uuid": "3a890b04-5fbe-42d3-9e48-ad47c06d6c8e",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Family Member Symptoms",
+            "uuid": "de1543bb-29cc-41c6-9d3d-9df6c59e3975",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 67.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Family Member Past History of Tuberculosis",
+          "uuid": "0f897d70-32e3-446d-bb3a-e7cd9db5430a",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Family Member Past History of Tuberculosis",
+            "uuid": "6670327d-a390-413a-8c33-1e2aee50fe17",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 68.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Family Member Comorbidity",
+          "uuid": "a038924f-f2ba-4aad-b815-9fb328dd4a9d",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Family Member Comorbidity",
+            "uuid": "c26b0561-b20e-4a0d-be92-94b2c08f938d",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 69.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Family Member Referred",
+          "uuid": "6bcdab9d-69e5-4396-b1c4-290949c1657e",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Family Member Referred",
+            "uuid": "40328e6a-8ebe-40b0-b20b-ad6f54415fa4",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 70.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Family Member Treatment Plan",
+          "uuid": "4c1a6f09-f2d3-4622-8e41-846e8fa08ce0",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Family Member Treatment Plan",
+            "uuid": "4bd395cd-f6af-4aff-9bdd-b3a6bab36738",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 71.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Under 5 Year Name",
+          "uuid": "566bd6e0-5e69-44e8-8af2-d9c263b30bfe",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Under 5 Year Name",
+            "uuid": "f18dd6e8-c0d2-483d-ae54-c3a82c82d539",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 72.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Under 5 Year Tuberculosis Symptoms",
+          "uuid": "0ac7d37e-dc11-479a-a1d9-39d0bee3a0ae",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Under 5 Year Tuberculosis Symptoms",
+            "uuid": "3f0f871c-58f0-43f4-92b1-60d9e2f8431c",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 73.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Under 5 Year Mantoux Test Date",
+          "uuid": "2632dd3b-fbe5-43e5-be86-d149448ceae1",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Under 5 Year Mantoux Test Date",
+            "uuid": "1be02c54-62ed-48f8-a6d1-c4b8e5bc7f7e",
+            "dataType": "Date",
+            "active": true
+          },
+          "displayOrder": 74.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Under 5 Year Mantoux Reading Date",
+          "uuid": "b41281ee-2c32-4b7b-a06e-970166be8157",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Under 5 Year Mantoux Reading Date",
+            "uuid": "b1824450-758f-4e60-b927-ff778ec0de74",
+            "dataType": "Date",
+            "active": true
+          },
+          "displayOrder": 75.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Under 5 Year Mantoux Test Result",
+          "uuid": "9601f869-009b-4702-986a-b9bd7b59d28d",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Under 5 Year Mantoux Test Result",
+            "uuid": "c59d337e-12a2-4ef7-8fb1-b14949656cd7",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 76.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Under 5 Year Size of Induration",
+          "uuid": "7f0475bc-cada-40f1-bf55-1650936d66b6",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Under 5 Year Size of Induration",
+            "uuid": "2cbf323e-bc4f-4163-8602-190e5e65b892",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 77.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Under 5 Year Referred",
+          "uuid": "0f211653-1989-461f-9971-4d57bde3f4bb",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Under 5 Year Referred",
+            "uuid": "15c9e728-b341-4da4-8cf0-a8d018e0af55",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 78.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Days of tablets remaining",
+          "uuid": "123eb7e1-6cb9-4b8a-a613-e59de6c18309",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Days of tablets remaining",
+            "uuid": "d13f7ca3-81db-42e7-9259-2da640b273c9",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 79.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Sputum sample collected",
+          "uuid": "5cab08a2-ccff-412c-8544-5a582b1c7acf",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Sputum sample collected",
+            "uuid": "ebb6763d-61f6-4b07-9ea9-2e98257cfb7c",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 80.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Tuberculosis, Symptoms present now",
+          "uuid": "aa934afe-f5a9-4331-b97c-42e2d000a7d3",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tuberculosis, Symptoms present now",
+            "uuid": "beb3644d-4552-4be7-987b-a90f9c338282",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 81.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "75418beb-fad4-42bd-8c80-a4aeb3edcee1",
+      "name": "Bahmni - Cardiology templates",
+      "displayOrder": 7.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Cardiology Notes",
+          "uuid": "c8462e5d-a050-44f8-ae3e-49efda795dee",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Cardiology Notes",
+            "uuid": "a67d1d06-f878-4b05-9062-688b41a52012",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Cardiology, Date of Surgery",
+          "uuid": "3664ccad-dc7b-4380-9082-e8c4326104e9",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Cardiology, Date of Surgery",
+            "uuid": "68a08bdd-3545-49f7-889f-c32beb65c4db",
+            "dataType": "Date",
+            "active": true
+          },
+          "displayOrder": 2.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Cardiology, Surgery",
+          "uuid": "7b46e45c-9369-4667-960d-fc05b2e68186",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Cardiology, Surgery",
+            "uuid": "31171ee5-6b1d-494f-9d3e-f9e6b2826163",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 3.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Cardiology, Type of Surgery",
+          "uuid": "bfea6dbd-40d8-43f0-9cb7-38622da0743c",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Cardiology, Type of Surgery",
+            "uuid": "7ea5f04c-fb3d-4a5d-994d-d5e4fef06f50",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 4.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Cardiology, Which Surgery",
+          "uuid": "f7d4ca9d-46c8-4159-bb15-5db177ffc39e",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Cardiology, Which Surgery",
+            "uuid": "c0befdb3-8927-408d-a602-60f9c96ee515",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 5.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Cardiology, Surgery Center",
+          "uuid": "5ca8f1e6-6041-438c-8879-8b85a030c913",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Cardiology, Surgery Center",
+            "uuid": "04a4207a-4948-41c5-b062-eaa049b610ce",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 6.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - IVSDd",
+          "uuid": "fc80d876-c7aa-4d7d-856c-a15c5f518817",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - IVSDd",
+            "uuid": "9ca1acc5-f61b-4cc3-9b08-580ff3be3dfa",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 7.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - LVIDd",
+          "uuid": "cb7f3460-c5a6-4ce4-b551-9c3ee1fe526c",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - LVIDd",
+            "uuid": "56fb8dd4-8529-42b9-9a33-7bc029646427",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 8.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - LVPWd",
+          "uuid": "be1a71df-549f-48b7-9240-050a6f64bdcd",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - LVPWd",
+            "uuid": "9fa9ac61-5e44-42d0-87c4-e95b837fe19d",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 9.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - LVIDS",
+          "uuid": "203d4283-4b4e-46db-adad-2ea08687885c",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - LVIDS",
+            "uuid": "b993bedb-bc0b-4de7-b9d2-d1eb3566be54",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 10.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Ejection Fraction",
+          "uuid": "247676d7-73d2-411a-9a77-fea0b5ec0a40",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Ejection Fraction",
+            "uuid": "91e97519-a0cb-4a86-883e-9167bc441ac7",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 11.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - echo Right Ventricular Systolic Pressure",
+          "uuid": "f1fd0fb1-1745-40c4-8716-1a49f9614122",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - echo Right Ventricular Systolic Pressure",
+            "uuid": "3229d32f-ace8-4885-afd3-6e7a07a2de84",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 12.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Mitral Valve (Peak Gradient)",
+          "uuid": "33a421f5-5251-4223-a10d-56d399f2bb20",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Mitral Valve (Peak Gradient)",
+            "uuid": "e53db6e7-c381-4ba9-bade-de404e9ccec7",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 13.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Aortic Valve (Peak Gradient)",
+          "uuid": "46c35948-5bf4-481b-8bed-00cc1ba6de15",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Aortic Valve (Peak Gradient)",
+            "uuid": "a3188649-3f55-44d0-b5c4-480fa06472e4",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 14.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Colour Flow, Moderately Reduced",
+          "uuid": "a12ad99f-d03f-4d88-be0b-7d8975416907",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Colour Flow, Moderately Reduced",
+            "uuid": "cbaf7831-4446-4064-b899-96c44b7e205f",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 15.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Colour Flow, Aortic Insufficiency",
+          "uuid": "cd1671f5-3a2a-4c2e-84b0-cdbac236fe20",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Colour Flow, Aortic Insufficiency",
+            "uuid": "c863935b-9b8b-497b-9400-a3103008f976",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 16.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - echo Left Ventricular Function",
+          "uuid": "dfd7e44f-dfd2-461c-b152-1a3c6848fc3b",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - echo Left Ventricular Function",
+            "uuid": "bc7835f3-5e22-47b8-993d-e36d02b3064b",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 17.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Left Ventricular Function",
+          "uuid": "ac553ee0-f296-4f54-b4bf-75c4aa8c55bb",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Left Ventricular Function",
+            "uuid": "f0e856f4-2162-440e-8574-8115f171c4e3",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 18.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Ao",
+          "uuid": "9b854f4a-7d3c-4553-a7b2-e35f8e1214b1",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Ao",
+            "uuid": "a7296d10-2472-4a78-aa7e-f617506e13ca",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 19.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Echo LA",
+          "uuid": "d7af40cb-985e-43a2-801d-68b1fadf5e1c",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Echo LA",
+            "uuid": "2392cca1-0e6f-49c2-9570-203cdfd2ab5c",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 20.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Valvular Abnormality, Mitral Stenosis",
+          "uuid": "9191792f-d522-43a6-9cfc-16191bb44811",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Valvular Abnormality, Mitral Stenosis",
+            "uuid": "00a4e42b-8d48-42f8-87ea-1f77ad9f0240",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 21.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Valvular Abnormality, Mitral Regurgitation",
+          "uuid": "bb1bcaa2-673c-423d-9ca6-b4949500ae2b",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Valvular Abnormality, Mitral Regurgitation",
+            "uuid": "876833b6-e03b-49ac-b2d6-7e593cd0a751",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 22.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Valvular Abnormality, Aortic Stenosis",
+          "uuid": "96c31660-eb97-4958-ae3b-c505605243f2",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Valvular Abnormality, Aortic Stenosis",
+            "uuid": "d42226eb-d37b-48b3-bd0e-8b10d0559a0c",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 23.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Valvular Abnormality, Aortic Insufficiency",
+          "uuid": "25b836bc-64ae-4b13-9ca1-f64be57f612a",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Valvular Abnormality, Aortic Insufficiency",
+            "uuid": "0a83c405-f90f-4a10-a863-b5d1352b9b92",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 24.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Valvular Abnormality, Tricuspid Regurgitation",
+          "uuid": "256dc353-2142-4008-852d-a49bcf4670cf",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Valvular Abnormality, Tricuspid Regurgitation",
+            "uuid": "7cd8ab74-89c2-448a-badc-149ad5895c93",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 25.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Valvular Abnormality, PR",
+          "uuid": "3ad53086-3f65-4468-b8c1-74d4716d272b",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Valvular Abnormality, PR",
+            "uuid": "780f4630-30e5-4def-ba1c-2e9eb81ceb65",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 26.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Valvular Abnormality,PS",
+          "uuid": "e88aab21-6081-40ab-8312-7dad6247e7c8",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Valvular Abnormality,PS",
+            "uuid": "8ba8e62e-474b-4ae3-9485-f5afd4d2aa9f",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 27.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Echo, Pericardial Effusion",
+          "uuid": "948d0f58-c94c-40d5-9264-5727cb3b07e3",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Echo, Pericardial Effusion",
+            "uuid": "ea5814e9-d7ec-4d64-83e0-b383b39a9e02",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 28.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Extracardiac Findings",
+          "uuid": "99596ec1-21ce-43db-b153-a9a97a108b4f",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Extracardiac Findings",
+            "uuid": "d84232a8-4b73-4e24-82d4-18d17c86e592",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 29.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Echo Conclusion",
+          "uuid": "eaddcc01-8e25-4236-98de-5be159b8472e",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Echo Conclusion",
+            "uuid": "f5327455-5616-49ad-af6f-85cd45884715",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 30.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Echo Recommendation",
+          "uuid": "c955189f-66af-4e57-b4f0-9c1495c4b1f3",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Echo Recommendation",
+            "uuid": "467088a8-ef9f-410b-b1a7-8bd343f3076e",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 31.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

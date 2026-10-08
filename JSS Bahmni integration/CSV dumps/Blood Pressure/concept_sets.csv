@@ -1,0 +1,4 @@
+"uuid","name","description","class","shortname","child.1","child.2","child.3","child.4","reference-term-source","reference-term-code","reference-term-relationship"
+"f47713d2-e349-11e3-983a-91270dcbd3bf","Systolic Data",,"Concept Details","Systolic","Systolic","Systolic Abnormal","","",,,
+"f479522f-e349-11e3-983a-91270dcbd3bf","Diastolic Data",,"Concept Details","Diastolic","Diastolic","Diastolic Abnormal","","",,,
+"f4762e56-e349-11e3-983a-91270dcbd3bf","Blood Pressure",,"ConvSet","Blood Pressure","Systolic Data","Diastolic Data","Posture","",,,

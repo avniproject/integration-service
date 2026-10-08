@@ -1,0 +1,50 @@
+[
+  {
+    "name": "Bahmni - After meals",
+    "uuid": "8dba4835-2dfc-11e4-894f-60175255b68f",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - As directed",
+    "uuid": "8dbd859f-2dfc-11e4-894f-60175255b68f",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - At bedtime",
+    "uuid": "8dbc13de-2dfc-11e4-894f-60175255b68f",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Before meals",
+    "uuid": "8db93cf6-2dfc-11e4-894f-60175255b68f",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Empty stomach",
+    "uuid": "8db9c15d-2dfc-11e4-894f-60175255b68f",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Immediately",
+    "uuid": "8dbcc47c-2dfc-11e4-894f-60175255b68f",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - In the evening",
+    "uuid": "8dbb7c36-2dfc-11e4-894f-60175255b68f",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - In the morning",
+    "uuid": "8dbaeb29-2dfc-11e4-894f-60175255b68f",
+    "dataType": "Text",
+    "active": true
+  }
+]

@@ -1,0 +1,147 @@
+{
+  "name": "Bahmni - RMRCT, If treatment taken",
+  "uuid": "44d1882c-19c2-4377-b4cd-7a32100a1169",
+  "formType": "Encounter",
+  "formElementGroups": [
+    {
+      "uuid": "d9060f40-f25b-4119-b2d3-dd06cd746f4f",
+      "name": "Bahmni - RMRCT, If treatment taken, Where was the patient treated ?",
+      "displayOrder": 1.0,
+      "formElements": [
+        {
+          "name": "Bahmni - RMRCT, If treatment taken, Where was the patient treated ?",
+          "uuid": "bf5304d5-aae2-40ad-a22d-e99210b6f3f2",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - RMRCT, If treatment taken, Where was the patient treated ?",
+            "uuid": "42359294-d28d-4d45-99fa-4afcabd0de3b",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "04d49b22-08b0-4457-9251-9ce87a402347",
+      "name": "Bahmni - RMRCT, If treatment taken, When was the patient treated ?",
+      "displayOrder": 2.0,
+      "formElements": [
+        {
+          "name": "Bahmni - RMRCT, If treatment taken, When was the patient treated ?",
+          "uuid": "775c8511-41ec-48d1-bfc0-e82ca110cdcf",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - RMRCT, If treatment taken, When was the patient treated ?",
+            "uuid": "3be024d0-3277-4b3d-b2b6-18f8742cab44",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "7f3d3d7c-adbc-480b-82e1-68cf82fe7851",
+      "name": "Bahmni - RMRCT, If treatment taken, How many times was the patient treated ?",
+      "displayOrder": 3.0,
+      "formElements": [
+        {
+          "name": "Bahmni - RMRCT, If treatment taken, How many times was the patient treated ?",
+          "uuid": "dc619f0b-7d18-4873-8124-dfe96d89cf17",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - RMRCT, If treatment taken, How many times was the patient treated ?",
+            "uuid": "2ada487d-07c0-406c-8c49-55cae97a7fea",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "f79b2800-a900-422e-87b0-899f8ca6a58a",
+      "name": "Bahmni - RMRCT, If treatment taken, If Dots taken : Category",
+      "displayOrder": 4.0,
+      "formElements": [
+        {
+          "name": "Bahmni - RMRCT, If treatment taken, If Dots taken : Category",
+          "uuid": "d2e23de0-154a-4a1a-9eaf-0160d47ee317",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - RMRCT, If treatment taken, If Dots taken : Category",
+            "uuid": "cb450a0c-ea36-48b6-9ba5-23598c8ba35d",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "dc428033-724e-463e-a12c-f9d99496c54a",
+      "name": "Bahmni - CDST Form, Drugs used in his treatment",
+      "displayOrder": 5.0,
+      "formElements": [
+        {
+          "name": "Bahmni - CDST Form, Drugs used in his treatment",
+          "uuid": "bc81d230-5f95-4493-903b-9009402fd4b8",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - CDST Form, Drugs used in his treatment",
+            "uuid": "71a65c2b-ccfe-462c-9e12-d2e1766671e7",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

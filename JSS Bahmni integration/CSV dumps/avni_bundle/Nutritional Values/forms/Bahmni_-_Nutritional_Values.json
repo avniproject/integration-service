@@ -1,0 +1,66 @@
+{
+  "name": "Bahmni - Nutritional Values",
+  "uuid": "3ccfba5b-82b6-43c3-939b-449f228b66d1",
+  "formType": "Encounter",
+  "formElementGroups": [
+    {
+      "uuid": "c51c8cd6-9a29-4e67-b6f8-4f66fd137800",
+      "name": "Bahmni - Height",
+      "displayOrder": 1.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Height",
+          "uuid": "3d1614f5-c2e0-4ba8-ab53-0f1e19638640",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Height",
+            "uuid": "5090AAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "14018cc7-62e6-4c0e-988f-ce52614975c7",
+      "name": "Bahmni - Weight",
+      "displayOrder": 2.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Weight",
+          "uuid": "93a3b5df-2b3f-4971-bd52-6f5c994e6cbe",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Weight",
+            "uuid": "5089AAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

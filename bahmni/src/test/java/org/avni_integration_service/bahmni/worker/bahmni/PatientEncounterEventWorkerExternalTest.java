@@ -10,8 +10,12 @@ import org.avni_integration_service.bahmni.BaseExternalTest;
 import org.avni_integration_service.bahmni.BaseSpringTest;
 import org.avni_integration_service.bahmni.SubjectToPatientMetaData;
 import org.avni_integration_service.bahmni.client.BahmniAvniSessionFactory;
+import org.avni_integration_service.bahmni.contract.OpenMRSPatient;
 import org.avni_integration_service.bahmni.repository.BahmniEncounter;
 import org.avni_integration_service.bahmni.repository.BahmniSplitEncounter;
+import org.avni_integration_service.bahmni.repository.OpenMRSEncounterRepository;
+import org.avni_integration_service.bahmni.repository.OpenMRSPatientRepository;
+import org.avni_integration_service.bahmni.contract.OpenMRSFullEncounter;
 import org.avni_integration_service.bahmni.service.AvniEncounterService;
 import org.avni_integration_service.bahmni.service.BahmniEncounterService;
 import org.avni_integration_service.bahmni.service.MappingMetaDataService;
@@ -59,6 +63,10 @@ public class PatientEncounterEventWorkerExternalTest extends BaseExternalTest {
     private AvniSubjectRepository avniSubjectRepository;
     @Autowired
     private PatientService patientService;
+    @Autowired
+    private OpenMRSPatientRepository openMRSPatientRepository;
+    @Autowired
+    private OpenMRSEncounterRepository openMRSEncounterRepository;
 
     @BeforeEach
     public void beforeEach() {
@@ -206,6 +214,109 @@ public class PatientEncounterEventWorkerExternalTest extends BaseExternalTest {
         System.out.println("        → (Manual verification required)");
 
         System.out.println("\n========== VERIFICATION COMPLETE - CHECK AVNI ==========\n");
+    }
+
+    /**
+     * Sync a Bahmni lab result (All_Tests_and_Panels) to Avni.
+     *
+     * The ConvSet UUID e4edc5a4-e349-11e3-983a-91270dcbd3bf is mapped to
+     * "Bahmni - All_Tests_and_Panels" encounter type via V2_4_30 migration.
+     *
+     * To use: supply a Bahmni patient UUID that has an LAB_RESULT encounter,
+     * or supply an encounter UUID directly via encounterEvent().
+     */
+    @Test
+    @org.junit.jupiter.api.Tag("external")
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public void processAllTestsAndPanels() {
+        System.out.println("\n========== All Tests and Panels Sync — GAN279731 (Laxmi Prajapati) ==========");
+        System.out.println("(Patient already synced — avni_subject_uuid is set on GAN279731)");
+
+        // Known LAB_RESULT encounter UUIDs for GAN279731 (Laxmi Prajapati) in JSS Bahmni prerelease
+        // (fetching all encounters by type times out due to large v=full payload)
+        List<String> labEncounterUuids = List.of(
+            "feb81977-5ca5-466b-a513-90cc7162606f",  // 12 obs (Haemoglobin, ALK Phosphate, etc.)
+            "85a27fa5-4bab-4ac2-8252-3983180007d0"   // 1 obs (ESR)
+        );
+
+        System.out.println("STEP 1: Syncing " + labEncounterUuids.size() + " known LAB_RESULT encounters to Avni...");
+        for (String encounterUuid : labEncounterUuids) {
+            System.out.println("  - syncing encounter: " + encounterUuid);
+            patientEncounterEventWorker.process(encounterEvent(encounterUuid));
+        }
+
+        System.out.println("\n→ Check Avni for 'Bahmni - All_Tests_and_Panels' encounters on GAN279731");
+        System.out.println("========== Done ==========\n");
+    }
+
+    @Test
+    @org.junit.jupiter.api.Tag("external")
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public void processMedication() {
+        System.out.println("\n========== Medication Sync — GAN279731 (Laxmi Prajapati) ==========");
+
+        // Consultation encounter with 3 drug orders:
+        // - Amoxycillin & Potassium Clavulanate 625mg, 1 Tablet(s), 7 days
+        // - Multivitamin Multimineral, 1 Capsule(s), 10 days
+        // - Calcium + Vit D 500mg, 1 Tablet(s), 10 days
+        patientEncounterEventWorker.process(encounterEvent("44a99da4-8bbc-4955-b068-3277aa5eafc2"));
+
+        System.out.println("→ Check Avni for 'Bahmni - Medication' encounter on GAN279731");
+        System.out.println("========== Done ==========\n");
+    }
+
+    /**
+     * Sync all encounters for the 5 pre-linked patients (GAN279731–GAN279735).
+     * Each patient's Bahmni consultations are fetched and processed through the worker,
+     * which automatically splits each consultation into one Avni encounter per mapped form.
+     * After running: check Avni for each patient — they should have "Bahmni - *" encounters
+     * for every form type present in their Bahmni data.
+     */
+    @Test
+    @org.junit.jupiter.api.Tag("external")
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public void syncAllMappedPatients() {
+        List<String> patientIdentifiers = List.of(
+                "GAN279731", "GAN279732", "GAN279733", "GAN279734", "GAN279735"
+        );
+
+        System.out.println("\n========== Sync All Mapped Patients ==========");
+        int totalEncounters = 0;
+        int totalSuccess = 0;
+        int totalFailed = 0;
+
+        for (String identifier : patientIdentifiers) {
+            System.out.println("\n--- Patient: " + identifier + " ---");
+
+            OpenMRSPatient patient = openMRSPatientRepository.getPatientByIdentifier(identifier);
+            if (patient == null) {
+                System.out.println("  SKIP — patient not found in Bahmni");
+                continue;
+            }
+            String patientUuid = patient.getUuid();
+            System.out.println("  Bahmni UUID: " + patientUuid);
+
+            List<OpenMRSFullEncounter> encounters = openMRSEncounterRepository.getEncountersByPatient(patientUuid);
+            System.out.println("  Encounters found: " + encounters.size());
+
+            for (OpenMRSFullEncounter encounter : encounters) {
+                totalEncounters++;
+                try {
+                    patientEncounterEventWorker.process(encounterEvent(encounter.getUuid()));
+                    totalSuccess++;
+                } catch (Exception e) {
+                    totalFailed++;
+                    System.out.println("  FAILED [" + encounter.getUuid() + "]: " + e.getMessage());
+                }
+            }
+        }
+
+        System.out.println("\n========== Summary ==========");
+        System.out.println("Total encounters processed : " + totalEncounters);
+        System.out.println("Success                    : " + totalSuccess);
+        System.out.println("Failed                     : " + totalFailed);
+        System.out.println("-> Check Avni for each patient's 'Bahmni - *' encounters");
+        System.out.println("========== Done ==========\n");
     }
 
     /**

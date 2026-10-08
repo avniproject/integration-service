@@ -1,0 +1,193 @@
+{
+  "name": "Bahmni - Diabetes Counselling Template",
+  "uuid": "a2f98a25-a075-47a7-b628-857b06b8d9e1",
+  "formType": "Encounter",
+  "formElementGroups": [
+    {
+      "uuid": "cdfac014-da92-47f0-ad50-d7bb57f72b9b",
+      "name": "Bahmni - Diabetes, History",
+      "displayOrder": 1.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Diabetes, Diagnosed Date",
+          "uuid": "a207ec67-556c-4c47-9bca-87f9d24bf067",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Diabetes, Diagnosed Date",
+            "uuid": "1c413fb2-801a-4e84-8fee-8f7d79f0312b",
+            "dataType": "Date",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Diabetes, Treatment Stopped Date",
+          "uuid": "4278be62-bb19-48d1-86b6-0e026aa16109",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Diabetes, Treatment Stopped Date",
+            "uuid": "93cee5e7-b8f6-4ea5-a3e6-b94b6a9c6f30",
+            "dataType": "Date",
+            "active": true
+          },
+          "displayOrder": 2.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "f0314cfa-01f1-4f33-9a56-8d3d4699e759",
+      "name": "Bahmni - Diabetes, Insulin taken properly",
+      "displayOrder": 2.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Diabetes, Insulin taken properly",
+          "uuid": "f0b58e3d-faba-47dc-97c8-90b1d4df5598",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Diabetes, Insulin taken properly",
+            "uuid": "72015920-1f12-403b-af24-7ce3f8cd9c69",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "2a66c061-6832-405d-a89e-cbb99f7d4c54",
+      "name": "Bahmni - Waist Circumference",
+      "displayOrder": 3.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Waist Circumference",
+          "uuid": "51fb65c3-62ac-483d-af66-940358d4ffea",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Waist Circumference",
+            "uuid": "2df116f1-8512-4649-84f3-c71bee3c8752",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "d49cb9c2-c7c9-473d-b3f0-714091603b08",
+      "name": "Bahmni - Hip Circumference",
+      "displayOrder": 4.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Hip Circumference",
+          "uuid": "05596662-b85a-46e9-96fa-c6b76260ee2c",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Hip Circumference",
+            "uuid": "46bc85cb-fb6d-48be-8aa3-4e3d80b46413",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "036859ca-e089-468c-95f3-9221e4ecaf21",
+      "name": "Bahmni - Waist/Hip Ratio",
+      "displayOrder": 5.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Waist/Hip Ratio",
+          "uuid": "085efe4c-deb3-4e3e-bfe4-3cb851a32754",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Waist/Hip Ratio",
+            "uuid": "7f31a763-940c-4b31-8453-bc2f5401d842",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "b0218ae7-c31f-43a7-b54d-15b81a6c215e",
+      "name": "Bahmni - Diabetes, Counselling Done",
+      "displayOrder": 6.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Diabetes, Counselling Done",
+          "uuid": "4551c708-b2f2-4db5-8490-7a12b1dd5a82",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Diabetes, Counselling Done",
+            "uuid": "6cfc9c80-a054-4124-a3cb-5d330f3af19f",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

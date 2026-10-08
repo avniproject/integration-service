@@ -70,6 +70,10 @@ public class AvniEncounterService extends BaseAvniEncounterService {
 
     public void create(BahmniSplitEncounter splitEncounter, BahmniEncounterToAvniEncounterMetaData metaData, GeneralEncounter avniPatient) {
         if (splitEncounter.isVoided()) return;
+        if (splitEncounter.getObservations().isEmpty()) {
+            logger.info(String.format("Skipping empty split encounter for form %s, Bahmni encounter %s", splitEncounter.getFormConceptSetUuid(), splitEncounter.getOpenMRSEncounterUuid()));
+            return;
+        }
 
         GeneralEncounter encounter = openMRSEncounterMapper.mapToAvniEncounter(splitEncounter, metaData, avniPatient);
         avniEncounterRepository.create(encounter);

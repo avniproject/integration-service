@@ -1,0 +1,6841 @@
+[
+  {
+    "name": "Bahmni - Abortion",
+    "uuid": "0fe8289b-6dde-46ef-97cb-d7895894481c",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Anesthesia Administered",
+    "uuid": "cb7c8b06-8b6d-495d-a89c-04855ca8f7a1",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - General Anesthesia",
+        "uuid": "8ca92a2c-4a53-44eb-8ef5-3dfdc1878ec3",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Spinal Anesthesia",
+        "uuid": "0df2d374-7b5d-435c-a240-96fff013f96d",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Epidural Anesthesia",
+        "uuid": "c21b24f4-69df-459e-8994-2840ac4b4176",
+        "order": 3
+      },
+      {
+        "name": "Bahmni - Local Anesthesia",
+        "uuid": "7ad1304a-eefa-437c-a483-20ede719ddd7",
+        "order": 4
+      },
+      {
+        "name": "Bahmni - Ketamine",
+        "uuid": "df88d7b3-f679-411b-bbc4-5195c9cbae22",
+        "order": 5
+      },
+      {
+        "name": "Bahmni - Saddle Block Anesthesia",
+        "uuid": "a9db5128-2bf1-4a49-9c5f-3e56271c8088",
+        "order": 6
+      },
+      {
+        "name": "Bahmni - Other Anesthesia",
+        "uuid": "2a10c14e-3a5d-41a6-9fba-d8376e1170f6",
+        "order": 7
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Ao",
+    "uuid": "a7296d10-2472-4a78-aa7e-f617506e13ca",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Aortic Valve (Peak Gradient)",
+    "uuid": "a3188649-3f55-44d0-b5c4-480fa06472e4",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Aromatase Inhibitors",
+    "uuid": "811e9902-c8be-4446-92d4-748c1a34888f",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Aromatase Inhibitors, Given",
+        "uuid": "be8961ee-7856-436c-8196-ee49ea9859a7",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Aromatase Inhibitors, Not Given",
+        "uuid": "5ebdda67-4c7c-4899-b2a7-60e9804b069e",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Bad Obs History",
+    "uuid": "eed5bc8b-9362-4ecc-8958-80b93f484ce7",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Bad Obs History - Yes",
+        "uuid": "137a9b91-bc7e-48ce-9631-ce9b4678579f",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Bad Obs History - No",
+        "uuid": "bcf14a25-befb-40e8-8bfb-95edc5c848ba",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Blood loss during operation",
+    "uuid": "2f939fdb-baa6-4418-a784-283c055f0082",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Breast Cancer, Axillary",
+    "uuid": "f2e60be3-448f-4d98-b5f3-e479ad5e872d",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Discrete",
+        "uuid": "bbedbc30-f91c-4934-a520-90a7f5796340",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Matted",
+        "uuid": "ebe7d945-2af9-4d28-af4f-4a3cc6d404a6",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Fixed",
+        "uuid": "e55c616d-9d92-47ea-a9a4-1e794209ea3e",
+        "order": 3
+      },
+      {
+        "name": "Bahmni - None",
+        "uuid": "a6c9e9d4-02cf-4354-9193-1a35b5704751",
+        "order": 4
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Breast Cancer, Breast Mobility",
+    "uuid": "63552fb2-831d-40b9-9e7b-28e26034406f",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Fixed",
+        "uuid": "e55c616d-9d92-47ea-a9a4-1e794209ea3e",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Mobile",
+        "uuid": "7ae5a84f-497e-4769-9adc-c62e705a7866",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Breast Cancer, Breast Side",
+    "uuid": "97ea04a1-e688-4115-aab7-d339c8849af5",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Right Side",
+        "uuid": "557a3b57-2d8e-4c7d-97d6-82eafbbdc2d1",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Left Side",
+        "uuid": "f9b13034-fe54-4abd-bc09-8e77c59aaaae",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Breast Cancer, Breast Site",
+    "uuid": "f266e7ba-0fab-4bc7-9df3-6f74e2ff8459",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Breast Cancer, Breast Size",
+    "uuid": "c90a4967-c17c-4957-8140-5ed2400fcfa6",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Breast Cancer, Chemotherapy Cycle number",
+    "uuid": "20084958-f61f-4ad0-ab1d-96a3ed688cbc",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Breast Cancer, Clinical Stage",
+    "uuid": "670f3a0c-fc0c-4103-add8-98632f453ed5",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Breast Cancer, I",
+        "uuid": "052b368d-8b20-4105-9045-a8e1f2646c0d",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Breast Cancer, IIa",
+        "uuid": "f92d9897-b774-4f54-ada1-a712bafca939",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Breast Cancer, IIb",
+        "uuid": "a96dee1d-d549-48eb-a1a0-87d0ae69f5d8",
+        "order": 3
+      },
+      {
+        "name": "Bahmni - Breast Cancer, IIIa",
+        "uuid": "f9c730f7-1523-4970-806a-0e8ef6f187a7",
+        "order": 4
+      },
+      {
+        "name": "Bahmni - Breast Cancer, IIIb",
+        "uuid": "9db5ed6c-2a12-44f1-b7dd-02a95840e041",
+        "order": 5
+      },
+      {
+        "name": "Bahmni - Breast Cancer, IIIc",
+        "uuid": "346ce820-cb1c-4b70-86bc-326875be0516",
+        "order": 6
+      },
+      {
+        "name": "Bahmni - Breast Cancer, IV",
+        "uuid": "df6af46b-e6d5-4f9a-9db7-448932223902",
+        "order": 7
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Breast Cancer, Imaging Assessment & Findings",
+    "uuid": "6dc49cb8-9e79-4ed9-b801-0bb49a964d89",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Breast Cancer, Imaging Type",
+    "uuid": "27eb4700-b818-47ed-8443-530fe848c804",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - CT Scan Of Chest/Abdomen/Pelvis",
+        "uuid": "b52be973-313c-4b24-b023-db0df4e7287b",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Abdominal/Pelvic Ultrasound",
+        "uuid": "6f7221c2-62eb-4792-8255-e7edfd37637e",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Chest X-Ray",
+        "uuid": "8b68e5d8-0a13-4c3a-8c8f-3eda30580913",
+        "order": 3
+      },
+      {
+        "name": "Bahmni - Other Answer",
+        "uuid": "bea99fbe-0137-4d91-9b37-4acb2febbd7c",
+        "order": 4
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Breast Cancer, Infra Clavicular",
+    "uuid": "93f35ec3-6392-4adb-b809-badcdbc41be5",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Discrete",
+        "uuid": "bbedbc30-f91c-4934-a520-90a7f5796340",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Matted",
+        "uuid": "ebe7d945-2af9-4d28-af4f-4a3cc6d404a6",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Fixed",
+        "uuid": "e55c616d-9d92-47ea-a9a4-1e794209ea3e",
+        "order": 3
+      },
+      {
+        "name": "Bahmni - None",
+        "uuid": "a6c9e9d4-02cf-4354-9193-1a35b5704751",
+        "order": 4
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Breast Cancer, Lymph Node Stage",
+    "uuid": "7e77edcc-c837-4ff5-97d4-1b87d6157ef7",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - N0 Lymph Node Stage",
+        "uuid": "4f014e2b-8a95-4dea-b8f5-b9d11a4b22e6",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - NX Lymph Node Stage",
+        "uuid": "9df9f19c-7c04-4a62-8f68-96ec94958781",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - N1 Lymph Node Stage",
+        "uuid": "f5044eb5-86ef-4384-beb4-cb63ab718984",
+        "order": 3
+      },
+      {
+        "name": "Bahmni - N2 Lymph Node Stage",
+        "uuid": "7004514f-9a9b-4c2e-8b77-6f824dc539a2",
+        "order": 4
+      },
+      {
+        "name": "Bahmni - N3 Lymph Node Stage",
+        "uuid": "fe6592b5-fee5-4629-862f-789b6f8e5982",
+        "order": 5
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Breast Cancer, Lymph Nodes Side",
+    "uuid": "051bde7e-b289-41f2-8450-bafe540b03ea",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Left Side",
+        "uuid": "f9b13034-fe54-4abd-bc09-8e77c59aaaae",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Right Side",
+        "uuid": "557a3b57-2d8e-4c7d-97d6-82eafbbdc2d1",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Breast Cancer, Metastatic Stage",
+    "uuid": "1f934828-299e-47fe-9342-b44ebf9c5a86",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - M0 Metastatic Stage",
+        "uuid": "293bb24d-c270-4971-b3aa-f1547a4cda84",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - M1 Metastatic Stage",
+        "uuid": "d66e72fc-fbff-4d65-a324-29d22af035d5",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - MX Metastatic Stage",
+        "uuid": "576b29e4-5132-4144-9f32-eaf521fd4faa",
+        "order": 3
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Breast Cancer, Other Imaging Study Date",
+    "uuid": "13888c11-c295-441a-865e-af97f6e05ebc",
+    "dataType": "Date",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Breast Cancer, Pathologic Diagnosis",
+    "uuid": "8c531c4c-2bf1-4de8-94be-b73892ef7550",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - 1.Other Invasive Carcinoma (Specify)",
+        "uuid": "7ebb7471-775d-4813-87e1-400ba08d86fb",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Invasive Lobular Carcinoma",
+        "uuid": "194f7a79-0aca-433c-b7d2-94b52fcf7e91",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Invasive Ductal Carcinoma",
+        "uuid": "2dc3f745-bc37-42b8-87a4-1f070d9d02d8",
+        "order": 3
+      },
+      {
+        "name": "Bahmni - Other Answer",
+        "uuid": "bea99fbe-0137-4d91-9b37-4acb2febbd7c",
+        "order": 4
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Breast Cancer, Pathology Report Date",
+    "uuid": "01c62752-5e97-46ac-a41a-337326c2cf99",
+    "dataType": "Date",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Breast Cancer, Planned changes to standard regimen",
+    "uuid": "f1bb756e-63de-4e68-8aaf-869f011366ff",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Breast Cancer, Regimen Timing",
+    "uuid": "01740be6-1479-4f97-af00-a75f1bb80d6e",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Palliative",
+        "uuid": "98a8d451-d52e-40e8-90e1-ff1dbbb1cb84",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Adjuvant",
+        "uuid": "da164ab7-b53b-4f9a-aa79-cd09959c12e8",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Neoadjuvant",
+        "uuid": "d5667fb2-a4d1-4239-8996-115a447b67b0",
+        "order": 3
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Breast Cancer, Regimen Type",
+    "uuid": "ddd9eecb-7296-4d68-b783-ff549ed18a45",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Cyclophosphamide + Doxorubicin + Fluorouracil",
+        "uuid": "0ab10fb3-342f-4809-a1d5-085ab91a8210",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Cyclophosphamide Methotrexate Fluorouracil",
+        "uuid": "ee5e7b60-c4ab-41ca-868a-4e4153134497",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Doxorubicin + Cyclophosphamide",
+        "uuid": "0f49fb99-91a4-4f31-9c43-a9953cf1bc45",
+        "order": 3
+      },
+      {
+        "name": "Bahmni - Paclitaxel",
+        "uuid": "3c2866d9-bbe8-4a1a-8a2e-ab47581b3ac1",
+        "order": 4
+      },
+      {
+        "name": "Bahmni - Tamoxifen",
+        "uuid": "4133ec25-a376-4959-82b0-c6cdb2053228",
+        "order": 5
+      },
+      {
+        "name": "Bahmni - Other Answer",
+        "uuid": "bea99fbe-0137-4d91-9b37-4acb2febbd7c",
+        "order": 6
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Breast Cancer, Skin Involvement",
+    "uuid": "0cd4957a-e7ba-4d67-a5eb-5b0298ccb194",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - None",
+        "uuid": "a6c9e9d4-02cf-4354-9193-1a35b5704751",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Peau dorange",
+        "uuid": "87cb3f98-b487-441b-8c93-12cd06f2c7ea",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Ulcer",
+        "uuid": "64f8a8f3-10dd-44da-bf85-f794bf9edea8",
+        "order": 3
+      },
+      {
+        "name": "Bahmni - Fungation",
+        "uuid": "bd3a4b21-0506-46f5-8526-947a4e85ab52",
+        "order": 4
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Breast Cancer, Supra Clavicular",
+    "uuid": "610ed496-51a4-4b0a-81de-b8488766cb5c",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Discrete",
+        "uuid": "bbedbc30-f91c-4934-a520-90a7f5796340",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Matted",
+        "uuid": "ebe7d945-2af9-4d28-af4f-4a3cc6d404a6",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Fixed",
+        "uuid": "e55c616d-9d92-47ea-a9a4-1e794209ea3e",
+        "order": 3
+      },
+      {
+        "name": "Bahmni - None",
+        "uuid": "a6c9e9d4-02cf-4354-9193-1a35b5704751",
+        "order": 4
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Breast Cancer, Surgery Type",
+    "uuid": "d08b9c03-a11c-4e88-9401-60f699c4ad09",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Other Answer",
+        "uuid": "bea99fbe-0137-4d91-9b37-4acb2febbd7c",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - 1.MRM with Axillary Lymph Node Dissection",
+        "uuid": "ba025b70-4b02-47a6-b803-f42ae3a9d368",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Breast Cancer, Treatment",
+    "uuid": "7f0b5182-a48b-49b1-b3f2-f5e8975da494",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Radiation Therapy",
+        "uuid": "a3ebcacb-d196-44dc-a059-2894d94cf1c3",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Surgery",
+        "uuid": "613610e8-9352-4571-8992-e68e43483e7a",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Chemotherapy",
+        "uuid": "a239163f-1f44-483b-9517-326930bc18d6",
+        "order": 3
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Breast Cancer, Treatment Group",
+    "uuid": "aeb979a9-8b43-4d5d-a694-dda42bfadf12",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Metastatic",
+        "uuid": "df59ac4d-da2b-4214-9196-fcd823474374",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Locally Advanced",
+        "uuid": "1a1f1a00-a9a1-4316-8c86-3308613e38ce",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Early",
+        "uuid": "be96db09-f2a8-413e-8fa0-4e457e8c4c38",
+        "order": 3
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Breast Cancer, Treatment Intent",
+    "uuid": "09ab7b19-b039-4368-a5ce-ca689fd0ba3f",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Palliation Only",
+        "uuid": "214d001b-7f69-469e-8d92-87d68730c0cf",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Curative",
+        "uuid": "3d309d73-0ffa-4722-8d83-bb14a3d5b966",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Breast Cancer, Treatment Plan, Plan Summary",
+    "uuid": "2400d1fc-1b2c-4390-9dcc-95c1a92b1c06",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Breast Cancer, Tumor Stage",
+    "uuid": "8673600b-3277-4246-a6cc-e859db4a9171",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - T0 Tumor Stage",
+        "uuid": "93c0ab31-3db8-4f4f-895f-aa822e50b4bb",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - TX Tumor Stage",
+        "uuid": "b81b8a42-fbfd-4533-81dc-4932c415174d",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Tis Tumor Stage",
+        "uuid": "19a0225c-9bc6-42a0-bcb6-2fd15766720b",
+        "order": 3
+      },
+      {
+        "name": "Bahmni - T1 Tumor Stage",
+        "uuid": "93de276f-dff9-4cc5-9fef-52e566df3556",
+        "order": 4
+      },
+      {
+        "name": "Bahmni - T2 Tumor Stage",
+        "uuid": "9f7b3e6b-e939-4b5c-9b9d-d7a39d6e13a7",
+        "order": 5
+      },
+      {
+        "name": "Bahmni - T3 Tumor Stage",
+        "uuid": "688bf44a-a51b-436b-81c1-5ad5863c41c9",
+        "order": 6
+      },
+      {
+        "name": "Bahmni - T4 Tumor Stage",
+        "uuid": "9c4abebc-3b0b-49e2-a97c-b6643364dce7",
+        "order": 7
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Cance, Surgery",
+    "uuid": "e51655f7-988e-403f-b630-f75bbbaac8a1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cancer, Compliance",
+    "uuid": "a1d55e06-888c-4756-bed0-34637db15162",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Compliance, Compliant",
+        "uuid": "4968357b-c14b-4bdd-8462-16eeeabab452",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Compliance, Non Compliant",
+        "uuid": "6f2fdd8c-87fd-41d0-848e-0b3885e48cd8",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Cancer, Family History",
+    "uuid": "5394c157-7a26-4158-8392-436794ab0a97",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Present",
+        "uuid": "e64b01d4-c949-4e2c-9da0-5a6bb82cc4d0",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Absent",
+        "uuid": "77f8d579-304a-48c3-826c-d67e3f1aa70f",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Cancer, Follow up",
+    "uuid": "48dd2a87-1353-4be7-a35a-3d09d3620ebd",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cancer, Regimen Type",
+    "uuid": "4ab79d3d-4d52-4d9e-84d7-c32c953abdd7",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Cyclophosphamide + Doxorubicin + Fluorouracil",
+        "uuid": "0ab10fb3-342f-4809-a1d5-085ab91a8210",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Cyclophosphamide Methotrexate Fluorouracil",
+        "uuid": "ee5e7b60-c4ab-41ca-868a-4e4153134497",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Doxorubicin + Cyclophosphamide",
+        "uuid": "0f49fb99-91a4-4f31-9c43-a9953cf1bc45",
+        "order": 3
+      },
+      {
+        "name": "Bahmni - Paclitaxel",
+        "uuid": "3c2866d9-bbe8-4a1a-8a2e-ab47581b3ac1",
+        "order": 4
+      },
+      {
+        "name": "Bahmni - Tamoxifen",
+        "uuid": "4133ec25-a376-4959-82b0-c6cdb2053228",
+        "order": 5
+      },
+      {
+        "name": "Bahmni - Other Answer",
+        "uuid": "bea99fbe-0137-4d91-9b37-4acb2febbd7c",
+        "order": 6
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Cardiology Notes",
+    "uuid": "a67d1d06-f878-4b05-9062-688b41a52012",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cardiology, Date of Surgery",
+    "uuid": "68a08bdd-3545-49f7-889f-c32beb65c4db",
+    "dataType": "Date",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cardiology, Surgery",
+    "uuid": "31171ee5-6b1d-494f-9d3e-f9e6b2826163",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Surgery, Done",
+        "uuid": "25c7bbee-83b9-48e8-a8dd-8294f2e10ac9",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Surgery, Not Done",
+        "uuid": "494f7786-461d-4005-ade4-a435882ad065",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Cardiology, Surgery Center",
+    "uuid": "04a4207a-4948-41c5-b062-eaa049b610ce",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Surgery Center, AIIMS Delhi",
+        "uuid": "516124cc-9cd6-46c9-9ec6-fdf500fee78e",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Surgery Center, NHMMI Raipur",
+        "uuid": "e391c009-8950-43a6-aab1-68337da01e99",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Surgery Center, Others",
+        "uuid": "993dcffe-c215-4d03-be07-fba2593662b1",
+        "order": 3
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Cardiology, Type of Surgery",
+    "uuid": "7ea5f04c-fb3d-4a5d-994d-d5e4fef06f50",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Type of Surgery, PTMC",
+        "uuid": "a37c70db-5adb-4318-b4a8-cdca05fa22dd",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Type of Surgery, Open Heart Surgery",
+        "uuid": "26aa5163-e376-40b0-afc5-119232de8ffe",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Cardiology, Which Surgery",
+    "uuid": "c0befdb3-8927-408d-a602-60f9c96ee515",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Change in symptoms",
+    "uuid": "04b61778-0695-409e-bfb6-6b81112958f3",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Improved",
+        "uuid": "9ebe6e3c-dd8f-4366-afff-fd817ad8d078",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Same",
+        "uuid": "81e07c58-ae1a-401d-a3cb-949ec688f100",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Worsened",
+        "uuid": "169aac7f-9579-47e0-a492-200f3676beca",
+        "order": 3
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Chief Complaint",
+    "uuid": "f5c660ce-e349-11e3-983a-91270dcbd3bf",
+    "dataType": "Coded",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Chief Complaint Duration",
+    "uuid": "f5c72985-e349-11e3-983a-91270dcbd3bf",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Chief Complaint Notes",
+    "uuid": "f5e49d5e-e349-11e3-983a-91270dcbd3bf",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Coded Operating Assistant Surgeon",
+    "uuid": "fb970bef-dacd-4995-860a-61c5ff4f2e4d",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Dr. Raman Kataria",
+        "uuid": "69eef8ce-f179-4160-8761-c433e50f9757",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Dr. Rahalkar",
+        "uuid": "9fefd5b9-6a8f-45b9-bbaa-c9e9e8efb438",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Dr. Rachna Jain",
+        "uuid": "18f59bf3-1694-4686-94d7-5a9bc90928c0",
+        "order": 3
+      },
+      {
+        "name": "Bahmni - Dr. Dev Sao",
+        "uuid": "4de55346-55f5-48c6-8f27-55792359e984",
+        "order": 4
+      },
+      {
+        "name": "Bahmni - Dr.Dipankan Jana",
+        "uuid": "c8f0df76-1713-469a-92d9-9aa6ab958c95",
+        "order": 5
+      },
+      {
+        "name": "Bahmni - Dr.Pranav",
+        "uuid": "14cd0207-32db-4f1d-8223-acbfdc5a4553",
+        "order": 6
+      },
+      {
+        "name": "Bahmni - Dr. VK Dixit",
+        "uuid": "52f11b46-f43a-4e87-87dc-fc22e6228ed5",
+        "order": 7
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Coded Operating Surgeon",
+    "uuid": "5283755c-056a-464a-949b-674c1a4dbe02",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Dr. Raman Kataria",
+        "uuid": "69eef8ce-f179-4160-8761-c433e50f9757",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Dr. Rachna Jain",
+        "uuid": "18f59bf3-1694-4686-94d7-5a9bc90928c0",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Dr. Rahalkar",
+        "uuid": "9fefd5b9-6a8f-45b9-bbaa-c9e9e8efb438",
+        "order": 3
+      },
+      {
+        "name": "Bahmni - Dr. Dev Sao",
+        "uuid": "4de55346-55f5-48c6-8f27-55792359e984",
+        "order": 4
+      },
+      {
+        "name": "Bahmni - Dr.Dipankan Jana",
+        "uuid": "c8f0df76-1713-469a-92d9-9aa6ab958c95",
+        "order": 5
+      },
+      {
+        "name": "Bahmni - Dr. VK Dixit",
+        "uuid": "52f11b46-f43a-4e87-87dc-fc22e6228ed5",
+        "order": 6
+      },
+      {
+        "name": "Bahmni - Dr. Deepak Chandra Bandhani",
+        "uuid": "60d9b216-b58a-4b63-8abe-5a4aef3ae43a",
+        "order": 7
+      },
+      {
+        "name": "Bahmni - Dr. Rounak Kalwani",
+        "uuid": "b7c82992-448b-4508-9785-772fe590bef7",
+        "order": 8
+      },
+      {
+        "name": "Bahmni - Dr. Vikas Sharma",
+        "uuid": "64fb24b4-c4ce-47ee-b535-7bae668a008f",
+        "order": 9
+      },
+      {
+        "name": "Bahmni - Dr. NK Trivedi",
+        "uuid": "dc1fc82c-62b7-4294-9976-3174d3a39776",
+        "order": 10
+      },
+      {
+        "name": "Bahmni - Dr. Ravi Mahobia",
+        "uuid": "67665bea-53b0-4c65-aed1-a34bbe434763",
+        "order": 11
+      },
+      {
+        "name": "Bahmni - Dr. Rounak Milton",
+        "uuid": "0775bfbe-1321-4e0d-b35e-453ea2361578",
+        "order": 12
+      },
+      {
+        "name": "Bahmni - Dr. Simon Rousevelt",
+        "uuid": "ba2d950e-6a58-42e1-8ff7-9a936959dce9",
+        "order": 13
+      },
+      {
+        "name": "Bahmni - Dr. Vignesh Ramesh",
+        "uuid": "27100268-fd7c-49fd-b440-3704d58d578a",
+        "order": 14
+      },
+      {
+        "name": "Bahmni - Dr. Sharon V",
+        "uuid": "b80210ea-4a2a-4eb5-8866-4804c90a3599",
+        "order": 15
+      },
+      {
+        "name": "Bahmni - Dr. Killol Borad",
+        "uuid": "0a1b7e6c-a4c9-4a10-a547-ba28b30c4537",
+        "order": 16
+      },
+      {
+        "name": "Bahmni - Dr. Radhika Pillay",
+        "uuid": "39455417-a1bc-458e-b969-1ce433f71509",
+        "order": 17
+      },
+      {
+        "name": "Bahmni - Dr. Chinmaya Mishra",
+        "uuid": "8a033586-ebca-4e05-acc3-6d7a2f0ac665",
+        "order": 18
+      },
+      {
+        "name": "Bahmni - Dr. Ravindra Sahu",
+        "uuid": "e1a05c68-e573-4b59-a0a8-69cf348baf24",
+        "order": 19
+      },
+      {
+        "name": "Bahmni - Other Answer",
+        "uuid": "bea99fbe-0137-4d91-9b37-4acb2febbd7c",
+        "order": 20
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Coded Operation Anesthetist",
+    "uuid": "cc539654-1e3e-4d16-86aa-c4e37ee54f2c",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Dr. Jyoti Aggarwal",
+        "uuid": "446dba85-d34d-4ba2-a5da-1ca881073ca3",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Dr. Shilpa Khana",
+        "uuid": "d6958804-c866-4dc7-827d-a369ab98d154",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Colour Flow, Aortic Insufficiency",
+    "uuid": "c863935b-9b8b-497b-9400-a3103008f976",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Absent",
+        "uuid": "77f8d579-304a-48c3-826c-d67e3f1aa70f",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Mild",
+        "uuid": "f5cd1985-d1af-4bc6-a172-2d26ea9d2db5",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Moderate",
+        "uuid": "ccc6ea29-9ac6-4e93-88e9-d6262564c3cd",
+        "order": 3
+      },
+      {
+        "name": "Bahmni - Severe",
+        "uuid": "cfd3984a-dff8-41f8-8898-ba51fb5de2f8",
+        "order": 4
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Colour Flow, Moderately Reduced",
+    "uuid": "cbaf7831-4446-4064-b899-96c44b7e205f",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Absent",
+        "uuid": "77f8d579-304a-48c3-826c-d67e3f1aa70f",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Mild",
+        "uuid": "f5cd1985-d1af-4bc6-a172-2d26ea9d2db5",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Moderate",
+        "uuid": "ccc6ea29-9ac6-4e93-88e9-d6262564c3cd",
+        "order": 3
+      },
+      {
+        "name": "Bahmni - Severe",
+        "uuid": "cfd3984a-dff8-41f8-8898-ba51fb5de2f8",
+        "order": 4
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Cytopathology Number",
+    "uuid": "64ace475-8cca-4586-9f9f-baead547d96a",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Date of Diagnosed",
+    "uuid": "905576e0-213c-433d-9b2f-ce54b15ba049",
+    "dataType": "Date",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Date of Surgery",
+    "uuid": "6b1d2496-058f-429a-8e92-5860d9430ac8",
+    "dataType": "Date",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Diabetes, Complaint",
+    "uuid": "01badc59-8cd7-4c6e-846b-e1a923c223ee",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Weakness",
+        "uuid": "fc5a1852-3383-4824-8d0e-51d20d9f7bc1",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Tingling",
+        "uuid": "4e294e8c-ed86-11e3-8f57-746bba63c2a3",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Breathlessness",
+        "uuid": "18e65a93-ed86-11e3-8f57-746bba63c2a3",
+        "order": 3
+      },
+      {
+        "name": "Bahmni - Fever",
+        "uuid": "5d432407-e34d-11e3-983a-91270dcbd3bf",
+        "order": 4
+      },
+      {
+        "name": "Bahmni - Excessive Urine",
+        "uuid": "59201706-fe05-4451-9da6-c173267d7291",
+        "order": 5
+      },
+      {
+        "name": "Bahmni - Excessive Appetite",
+        "uuid": "c13a89df-37e1-4333-8b1f-f527ac408443",
+        "order": 6
+      },
+      {
+        "name": "Bahmni - Thirsty Feeling",
+        "uuid": "aad0e01b-6094-4fbd-ad52-27f4183ffe19",
+        "order": 7
+      },
+      {
+        "name": "Bahmni - Loss of sensation",
+        "uuid": "3cce8878-66c5-46b1-9084-d6bfc912f4e3",
+        "order": 8
+      },
+      {
+        "name": "Bahmni - Sweating",
+        "uuid": "80197de2-6aa9-47cd-9c57-ca5de6dbc3bf",
+        "order": 9
+      },
+      {
+        "name": "Bahmni - Dizziness",
+        "uuid": "a64a9305-cdee-4833-bb27-a89585b1f588",
+        "order": 10
+      },
+      {
+        "name": "Bahmni - Unconsciousness",
+        "uuid": "9860475e-623a-4c4e-95a0-7fd468844431",
+        "order": 11
+      },
+      {
+        "name": "Bahmni - Nocturia",
+        "uuid": "68b47bd2-e34d-11e3-983a-91270dcbd3bf",
+        "order": 12
+      },
+      {
+        "name": "Bahmni - Obesity And Weight Gain",
+        "uuid": "740dbbb7-75a6-4179-bd97-91d5f01d0e87",
+        "order": 13
+      },
+      {
+        "name": "Bahmni - Weight loss",
+        "uuid": "2a13f92e-4cb9-491a-a017-9230ecb2b6b1",
+        "order": 14
+      },
+      {
+        "name": "Bahmni - Ulcer",
+        "uuid": "64f8a8f3-10dd-44da-bf85-f794bf9edea8",
+        "order": 15
+      },
+      {
+        "name": "Bahmni - Cough",
+        "uuid": "5939d92c-e34d-11e3-983a-91270dcbd3bf",
+        "order": 16
+      },
+      {
+        "name": "Bahmni - Diabetes, Itchy skin lesion",
+        "uuid": "a87fb923-c5d6-4acf-a42b-48bb10533053",
+        "order": 17
+      },
+      {
+        "name": "Bahmni - Giddiness",
+        "uuid": "1fb6a0c4-ed86-11e3-8f57-746bba63c2a3",
+        "order": 18
+      },
+      {
+        "name": "Bahmni - Blurring of Vision",
+        "uuid": "6cb6592e-6483-42bc-a0cb-1b86cb05bf7f",
+        "order": 19
+      },
+      {
+        "name": "Bahmni - White Discharge",
+        "uuid": "41d9001b-ed86-11e3-8f57-746bba63c2a3",
+        "order": 20
+      },
+      {
+        "name": "Bahmni - Diabetes, Erectile Dysfunction",
+        "uuid": "20b15708-0bc5-4005-8886-9b7457cebd81",
+        "order": 21
+      },
+      {
+        "name": "Bahmni - None",
+        "uuid": "a6c9e9d4-02cf-4354-9193-1a35b5704751",
+        "order": 22
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Diabetes, Complications",
+    "uuid": "5ec8dd19-2446-4edf-818b-5faffec63427",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Diabetes Complication, Brain",
+        "uuid": "44026594-658c-446f-a42b-66492fd8408d",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Diabetic Foot",
+        "uuid": "10fef182-42d3-4a2d-8aec-fcccd6e854cd",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Diabetes Complication, CRF",
+        "uuid": "f69b1c67-3271-4d6d-a4de-9e5d3bc6da69",
+        "order": 3
+      },
+      {
+        "name": "Bahmni - Diabetes Complication, Heart",
+        "uuid": "32687510-5fd7-42f4-913a-4711a6250b01",
+        "order": 4
+      },
+      {
+        "name": "Bahmni - Diabetes Complication, Nephropathy",
+        "uuid": "51c08e63-4455-4cb4-a3f8-60aa062ef5a1",
+        "order": 5
+      },
+      {
+        "name": "Bahmni - Diabetes Complication, Neuropathy",
+        "uuid": "a78168b1-9b54-45aa-87be-3e955f22c42c",
+        "order": 6
+      },
+      {
+        "name": "Bahmni - Diabetes Complication, Retinopathy",
+        "uuid": "af7254c6-7ace-4e4e-aa16-c015cd9597cc",
+        "order": 7
+      },
+      {
+        "name": "Bahmni - Diabetes Complication, Skin",
+        "uuid": "f6c89bec-21fc-4535-b4ab-fb83f05c6eae",
+        "order": 8
+      },
+      {
+        "name": "Bahmni - Diabetes Complication, Other complications",
+        "uuid": "89df58c7-8535-474c-bfe4-0bb970be8e71",
+        "order": 9
+      },
+      {
+        "name": "Bahmni - Diabetes Complication, None",
+        "uuid": "155bdbaa-b551-4734-8b90-4e4e5302517d",
+        "order": 10
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Diabetes, Counselling Done",
+    "uuid": "6cfc9c80-a054-4124-a3cb-5d330f3af19f",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Diabetes, Current Status",
+    "uuid": "0fec0af6-5563-44f6-89ac-01b1ad84e1ff",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Treatment Status, Continuing Treatment Without Complications",
+        "uuid": "d22bef55-25a8-4a39-b2fa-829284c689d8",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Treatment Status, Continuing Treatment With Complications",
+        "uuid": "3d9764a4-1898-4a40-9cd2-c654f8f52984",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Treatment Status, Unknown",
+        "uuid": "59c57026-813e-4056-a1ad-90f93e463973",
+        "order": 3
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Diabetes, Diagnosed Date",
+    "uuid": "1c413fb2-801a-4e84-8fee-8f7d79f0312b",
+    "dataType": "Date",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Diabetes, Doing Well",
+    "uuid": "d45c4c86-415c-48cd-a0a7-afc5715945b7",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Diabetes, Electrocardiography",
+    "uuid": "e1aafdd6-29fb-4b1d-b78c-8b1768b98efd",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Diabetes, Eye Exam",
+    "uuid": "77f81858-101d-4726-abe6-b279d81cdbb6",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Background Diabetic Retinopathy",
+        "uuid": "baf97c55-454f-4c14-bcc3-059cdd26c720",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - PreProliferative Diabetic Retinopathy",
+        "uuid": "7ef5a585-49d5-4641-9f1e-a3c93a62b471",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Proliferative Diabetic Retinopathy",
+        "uuid": "a8f968e9-a584-4bff-b5a2-df5d82e76cf7",
+        "order": 3
+      },
+      {
+        "name": "Bahmni - Normal",
+        "uuid": "e4355857-c460-41bf-af24-a5318062e6d6",
+        "order": 4
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Diabetes, Foot Exam",
+    "uuid": "5508a7b2-f583-473d-8cf9-f7fc25101ee8",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Diabetes, Foot Normal",
+        "uuid": "d4ba9647-bc87-4698-b357-9c26a2aa2486",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Neuropathy",
+        "uuid": "f5310242-25db-492d-a93f-473b5d2602de",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - PVD",
+        "uuid": "a3d1e582-dec1-4921-bf13-10f23e37d4e8",
+        "order": 3
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Diabetes, Insulin taken properly",
+    "uuid": "72015920-1f12-403b-af24-7ce3f8cd9c69",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Diabetes, Other Complaints",
+    "uuid": "1b924377-b2a4-454e-88d6-124c939c46b4",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Diabetes, Other Complications",
+    "uuid": "a1cb3d0c-cecd-4589-9e3c-d0836bc93194",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Diabetes, Peripheral Pulses",
+    "uuid": "db466f75-584e-47ef-96a6-ccde4482a1db",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Diabetes, Abnormal",
+        "uuid": "da46b45c-aa7b-4858-975f-7827cd831108",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Diabetes, Normal",
+        "uuid": "b1ddb87d-8930-43ef-a1cc-1430cea57005",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Diabetes, Sensory Charting Assessment",
+    "uuid": "2b40efca-8d5d-4690-a37f-ff4d4ada5102",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Diabetes, Abnormal",
+        "uuid": "da46b45c-aa7b-4858-975f-7827cd831108",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Diabetes, Normal",
+        "uuid": "b1ddb87d-8930-43ef-a1cc-1430cea57005",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Diabetes, Skin fold Thickness",
+    "uuid": "a408441f-d028-4a61-9a3b-2ffa1a607e5e",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Diabetes, Abnormal",
+        "uuid": "da46b45c-aa7b-4858-975f-7827cd831108",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Diabetes, Normal",
+        "uuid": "b1ddb87d-8930-43ef-a1cc-1430cea57005",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Diabetes, Sugar Assessment",
+    "uuid": "32ce1525-ec10-4cdd-92fb-be87725207e9",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Treatment Status, Partially Controlled",
+        "uuid": "0c14b456-9b4a-41d2-9f7a-6d01dccdd81b",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Treatment Outcome, Uncontrolled",
+        "uuid": "fd8fae6e-b44b-4e63-9ac5-6e8c9704d42b",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Treatment Outcome, Well Controlled",
+        "uuid": "80af308c-d7bd-4cdd-9ab7-49e86b5cf37d",
+        "order": 3
+      },
+      {
+        "name": "Bahmni - Treatment Outcome, Worsened",
+        "uuid": "1f759075-75e1-48b2-bbb5-5f016d299590",
+        "order": 4
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Diabetes, Treatment Outcome",
+    "uuid": "153de4fa-bb4f-4cb0-ad37-132def8d022e",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Continuing and Uncontrolled",
+        "uuid": "b007b63a-d02c-40d9-af69-04a403bc9b35",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Continuing and Controlled",
+        "uuid": "d9f64578-188b-4518-9ab7-cac8af9d6cf8",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Controlled and Defaulted",
+        "uuid": "9b747b96-f46b-474e-a875-48b35c78b5ea",
+        "order": 3
+      },
+      {
+        "name": "Bahmni - Uncontrolled and Defaulted",
+        "uuid": "3c7058cb-7b6e-4c67-bd70-28e55a20ee9c",
+        "order": 4
+      },
+      {
+        "name": "Bahmni - Death during treatment",
+        "uuid": "5406f7ca-fee9-4b34-8575-e9e148ca3075",
+        "order": 5
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Diabetes, Treatment Stopped Date",
+    "uuid": "93cee5e7-b8f6-4ea5-a3e6-b94b6a9c6f30",
+    "dataType": "Date",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Diabetes, X-Ray",
+    "uuid": "f2884e7d-0173-4b6c-8108-a4d80b37e713",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ECG Report Notes",
+    "uuid": "3414d609-8cae-4957-b896-127b6fd015d6",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ER/PR",
+    "uuid": "13ca383f-a5da-4035-ad0d-afee26af5059",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Positive",
+        "uuid": "051e8515-aff5-4fc7-81f9-d99d64c2ca15",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Negative",
+        "uuid": "9d8ff348-cc4a-489f-85b5-00cf04814cdd",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Echo Conclusion",
+    "uuid": "f5327455-5616-49ad-af6f-85cd45884715",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Echo LA",
+    "uuid": "2392cca1-0e6f-49c2-9570-203cdfd2ab5c",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Echo Recommendation",
+    "uuid": "467088a8-ef9f-410b-b1a7-8bd343f3076e",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Echo, Pericardial Effusion",
+    "uuid": "ea5814e9-d7ec-4d64-83e0-b383b39a9e02",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Present",
+        "uuid": "e64b01d4-c949-4e2c-9da0-5a6bb82cc4d0",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Absent",
+        "uuid": "77f8d579-304a-48c3-826c-d67e3f1aa70f",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Echo Minimum",
+        "uuid": "a9b44226-b735-4741-87fd-03195a3e842b",
+        "order": 3
+      },
+      {
+        "name": "Bahmni - Mild",
+        "uuid": "f5cd1985-d1af-4bc6-a172-2d26ea9d2db5",
+        "order": 4
+      },
+      {
+        "name": "Bahmni - Moderate",
+        "uuid": "ccc6ea29-9ac6-4e93-88e9-d6262564c3cd",
+        "order": 5
+      },
+      {
+        "name": "Bahmni - Severe",
+        "uuid": "cfd3984a-dff8-41f8-8898-ba51fb5de2f8",
+        "order": 6
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Ejection Fraction",
+    "uuid": "91e97519-a0cb-4a86-883e-9167bc441ac7",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Estimated Date of Delivery",
+    "uuid": "166f0d4c-e448-4c5b-810a-9850b4317422",
+    "dataType": "Date",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Examination",
+    "uuid": "73c392e7-9296-46f1-8a65-43e4f8e60422",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Extracardiac Findings",
+    "uuid": "d84232a8-4b73-4e24-82d4-18d17c86e592",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Final Outcome",
+    "uuid": "d9248c1a-100d-4e98-8930-e2b8a004f03c",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Final Outcome, Disease Free",
+        "uuid": "bc3aa13f-d29b-48ae-8eb0-296bae781543",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Final Outcome, Transfer Out",
+        "uuid": "d26faf07-222e-46a6-b09d-fa19f8cf82f7",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Cervical Cancer, Treatment not Started",
+        "uuid": "21f9d3f9-d1ca-44a4-b36c-394d481c4fa0",
+        "order": 3
+      },
+      {
+        "name": "Bahmni - Final Outcome, Default",
+        "uuid": "8ffbf871-4fab-437a-8b77-46fc0a1cf43c",
+        "order": 4
+      },
+      {
+        "name": "Bahmni - Cervical Cancer, Loss to Follow up",
+        "uuid": "8f5bc0a8-d74f-4679-af1d-b414b1ee151c",
+        "order": 5
+      },
+      {
+        "name": "Bahmni - Final Outcome, Death",
+        "uuid": "c2b927be-075b-45e3-bd54-26e218386b6a",
+        "order": 6
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Gravida",
+    "uuid": "7ff56956-a2f1-419a-81c3-62073fb12e5c",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Gynaecology, Abortion",
+    "uuid": "02bfa250-56e1-4c18-95f6-4bff10a911a4",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Gynaecology, Bad Obstetrical History",
+    "uuid": "c23cbb24-e9a3-4ea6-829d-190c07178a5a",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Gynaecology, Bleeding",
+    "uuid": "9ecbe6e8-8b14-4bf2-9cd3-185564a3ab6b",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Present",
+        "uuid": "e64b01d4-c949-4e2c-9da0-5a6bb82cc4d0",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Absent",
+        "uuid": "77f8d579-304a-48c3-826c-d67e3f1aa70f",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Gynaecology, Cervix Size",
+    "uuid": "032209cb-40e1-4d1a-8038-7dcb91bef37a",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Normal",
+        "uuid": "e4355857-c460-41bf-af24-a5318062e6d6",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Growth",
+        "uuid": "d9fa3f46-cd5e-4a3a-a7d3-2d96bf3e4df0",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Erosion",
+        "uuid": "7dc0761d-8575-4183-a691-7170350cf581",
+        "order": 3
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Gynaecology, Gravida",
+    "uuid": "f0797314-2e93-4255-aae8-897173cbdf3b",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Gynaecology, Last Menstrual Period",
+    "uuid": "961bad4c-b63d-4c02-845f-8ad4517626d6",
+    "dataType": "Date",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Gynaecology, Live Births",
+    "uuid": "ceee5819-0a47-4289-aedc-51882271a0c0",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Gynaecology, Menstrual Cycle",
+    "uuid": "24aec368-a150-4a29-bb27-3d29e0a6da37",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Regular",
+        "uuid": "35cd1121-6ff9-417b-bf8e-4e376292e073",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Irregular",
+        "uuid": "c37f3504-dd60-45a0-8f4a-02250068446a",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Gynaecology, Menstrual Cycle Amount",
+    "uuid": "7892cc4a-9380-4a55-b267-776f38e5575d",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Scanty",
+        "uuid": "9df6d380-90ec-44f1-a9ad-e8a0755a25ac",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Average",
+        "uuid": "71cbbd00-7334-439b-bbde-c5199dbe6a96",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Heavy",
+        "uuid": "d614cc06-bb4c-4fc2-8c2d-ec49561ca542",
+        "order": 3
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Gynaecology, Menstrual Cycle Days",
+    "uuid": "73e878a0-8a5c-4f8c-96e5-fb4cec0c2884",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - 2-3 Days",
+        "uuid": "47d9df4c-7000-4eb1-ba86-66ea40568998",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - 4-5 Days",
+        "uuid": "885e166e-36a7-40e7-a80c-47c030556c91",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - 8-9 Days",
+        "uuid": "cac77168-fbd6-4177-bd1e-5ce92d80eeec",
+        "order": 3
+      },
+      {
+        "name": "Bahmni - Lactational Amenorrhea",
+        "uuid": "c10981b9-399d-42a4-b812-61bc99bdcf49",
+        "order": 4
+      },
+      {
+        "name": "Bahmni - Post Menopausal",
+        "uuid": "de820cca-5645-4b4c-86ca-99e3742d3849",
+        "order": 5
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Gynaecology, Menstrual Cycle Interval",
+    "uuid": "67ab6a50-6b03-4036-9c8b-2a926891cb52",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Less than 26 Days",
+        "uuid": "66695b0e-3a84-416e-bce4-8f952dab3186",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - 26-30 Days",
+        "uuid": "c4327ac9-a88e-4750-a6fa-009e13e92490",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - More than 35 Days",
+        "uuid": "dd9142cd-9f6d-495c-892e-08e48ddeeeb4",
+        "order": 3
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Gynaecology, P/R (per rectal)",
+    "uuid": "d78dc79f-9925-413b-8f9c-083f26b9a219",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Gynaecology, P/V Uterus Enlarged Size",
+    "uuid": "b51905b4-1570-4a47-952f-dc0eda89e273",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Gynaecology, Parity",
+    "uuid": "535d7e05-8fe0-4cd3-91a2-cf2b23897dda",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Gynaecology, Tubal Ligation",
+    "uuid": "4160095c-6984-4a0f-b70f-f93b760d69df",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Done",
+        "uuid": "977fcc18-966a-407b-a2f9-f42cf8db4e35",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Not Done",
+        "uuid": "5e7b4c98-2b64-41e4-a366-6f2217ac6ec6",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Gynaecology, Uterus Form",
+    "uuid": "db240703-aff1-4ded-9ddd-59b8dc132bc3",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Soft",
+        "uuid": "8dbd130d-fa58-46c8-b848-a1eb3b5e39d6",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Firm",
+        "uuid": "76905223-fcc8-4d15-9694-74d3b9e4c545",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Gynaecology, Uterus Mobility",
+    "uuid": "69a53e27-97ca-4c8a-8ab3-440940783127",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Mobile",
+        "uuid": "7ae5a84f-497e-4769-9adc-c62e705a7866",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Restricted Mobile",
+        "uuid": "e15548d5-cca3-423d-ab5b-7c397322e506",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Gynaecology, Uterus Position",
+    "uuid": "724f61ef-4c0d-40f2-b1d2-fb9df920bc11",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Anteverted",
+        "uuid": "3e8ce776-f3c2-44a5-9a94-5fdbb4db64a5",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Retroverted",
+        "uuid": "09897910-b85e-4137-adb2-604c51b8cbda",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Gynaecology, Uterus Size",
+    "uuid": "6a8d5974-42a4-4c04-a179-a654801e4d79",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Normal",
+        "uuid": "e4355857-c460-41bf-af24-a5318062e6d6",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Enlarged",
+        "uuid": "2fd669e4-b483-4f23-ab96-7280bb81417d",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Gynaecology, VIA Test",
+    "uuid": "7a182a84-1640-4de6-ab01-87ce15b4ca96",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - VIA Test (+ve)",
+        "uuid": "07858e3a-2463-4e4a-8029-44d60d58426b",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - VIA Test (-ve)",
+        "uuid": "7711975b-91f7-4a2d-8520-0108089b1c57",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Her2New",
+    "uuid": "48d5bf45-b976-4cc8-9d57-e4422151ea7c",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Positive",
+        "uuid": "051e8515-aff5-4fc7-81f9-d99d64c2ca15",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Negative",
+        "uuid": "9d8ff348-cc4a-489f-85b5-00cf04814cdd",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Hip Circumference",
+    "uuid": "46bc85cb-fb6d-48be-8aa3-4e3d80b46413",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Histopathology Number",
+    "uuid": "dc5997f4-43c5-4199-866a-bc965b48407a",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - History",
+    "uuid": "ef4bf23f-b3ea-4bd3-a3bc-8ff9feb47732",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - IVSDd",
+    "uuid": "9ca1acc5-f61b-4cc3-9b08-580ff3be3dfa",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - If Present,details",
+    "uuid": "1a3d860f-8a5f-421b-856a-fe222f636568",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Image",
+    "uuid": "233e3ccb-c16c-40fe-8ecb-320c8b1b13af",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Incision",
+    "uuid": "813e8e9d-5d64-4909-a739-a8080d830aaa",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Intra operation specimens and results",
+    "uuid": "16935c69-4976-4eba-a270-4a5fc48c88d9",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - LMP",
+    "uuid": "6f4e51a3-04db-46ea-b917-ce8ec781d571",
+    "dataType": "Date",
+    "active": true
+  },
+  {
+    "name": "Bahmni - LVIDS",
+    "uuid": "b993bedb-bc0b-4de7-b9d2-d1eb3566be54",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - LVIDd",
+    "uuid": "56fb8dd4-8529-42b9-9a33-7bc029646427",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - LVPWd",
+    "uuid": "9fa9ac61-5e44-42d0-87c4-e95b837fe19d",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Lab Investigation Notes",
+    "uuid": "f70f2a72-e349-11e3-983a-91270dcbd3bf",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Left Ventricular Function",
+    "uuid": "f0e856f4-2162-440e-8574-8115f171c4e3",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Diabetes, Foot Normal",
+        "uuid": "d4ba9647-bc87-4698-b357-9c26a2aa2486",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Mildly Reduced",
+        "uuid": "8ed84651-3686-45a3-ad75-d133e2f9636b",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - 2D Exam, Moderately Reduced",
+        "uuid": "7cebb4c3-fe0b-4e0f-b86c-2d25d23f3e8c",
+        "order": 3
+      },
+      {
+        "name": "Bahmni - Severely Reduced",
+        "uuid": "a33a33aa-4387-4cd1-910f-b796838d384a",
+        "order": 4
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Live Births",
+    "uuid": "38e8e111-fe2a-4d21-aea5-5b6c1b22d293",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - M/C Amount",
+    "uuid": "d24b46bb-e94f-4c50-8351-258b532c49dd",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Scanty",
+        "uuid": "9df6d380-90ec-44f1-a9ad-e8a0755a25ac",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Average",
+        "uuid": "71cbbd00-7334-439b-bbde-c5199dbe6a96",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Heavy",
+        "uuid": "d614cc06-bb4c-4fc2-8c2d-ec49561ca542",
+        "order": 3
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - M/C Days",
+    "uuid": "e3634323-8618-4bb1-85b7-f88b1789c33e",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - 2-3 Days",
+        "uuid": "47d9df4c-7000-4eb1-ba86-66ea40568998",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - 4-5 Days",
+        "uuid": "885e166e-36a7-40e7-a80c-47c030556c91",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - 8-9 Days",
+        "uuid": "cac77168-fbd6-4177-bd1e-5ce92d80eeec",
+        "order": 3
+      },
+      {
+        "name": "Bahmni - Lactational Amenorrhea",
+        "uuid": "c10981b9-399d-42a4-b812-61bc99bdcf49",
+        "order": 4
+      },
+      {
+        "name": "Bahmni - Post Menopausal",
+        "uuid": "de820cca-5645-4b4c-86ca-99e3742d3849",
+        "order": 5
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - M/C Interval",
+    "uuid": "5e043518-af1b-49c7-9c6d-24938e0cd739",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Less than 26 Days",
+        "uuid": "66695b0e-3a84-416e-bce4-8f952dab3186",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - 26-30 Days",
+        "uuid": "c4327ac9-a88e-4750-a6fa-009e13e92490",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - More than 35 Days",
+        "uuid": "dd9142cd-9f6d-495c-892e-08e48ddeeeb4",
+        "order": 3
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Mitral Valve (Peak Gradient)",
+    "uuid": "e53db6e7-c381-4ba9-bade-de404e9ccec7",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Non-Coded Chief Complaint",
+    "uuid": "f6b34229-e349-11e3-983a-91270dcbd3bf",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - OPD Summary, Treatment Plan",
+    "uuid": "ccc5486d-f5a1-4345-a91d-990053feef77",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - OS",
+    "uuid": "f3f9520c-bf6b-4d30-a55e-39ed955d1139",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Closed",
+        "uuid": "9351adeb-c002-4eb2-a6a2-17df3a93240c",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Open",
+        "uuid": "131a785c-7f87-49c4-8609-c917c76deceb",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Obstetrics, Abortion",
+    "uuid": "958eaa7b-2a24-4010-ac4f-ad7d76ede2fb",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Obstetrics, Amount of Liquor",
+    "uuid": "a5131d07-de50-4601-a50e-79ec2937a0eb",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Normal",
+        "uuid": "e4355857-c460-41bf-af24-a5318062e6d6",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Increased",
+        "uuid": "7729041b-1ed1-4ac2-8c4e-160836b7874a",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Decreased",
+        "uuid": "960dbf02-b420-427d-872b-95cff532364d",
+        "order": 3
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Obstetrics, Bad Obstetrical History",
+    "uuid": "819a76d3-0665-448e-a714-7c13e8382963",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Obstetrics, Cervical Dilation",
+    "uuid": "8c4811bb-c7fa-4e07-9cb3-aca532363610",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Obstetrics, Contractions",
+    "uuid": "a793e6a4-5fcb-43c8-98d4-36cce2cfb85f",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Mild",
+        "uuid": "f5cd1985-d1af-4bc6-a172-2d26ea9d2db5",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Moderate",
+        "uuid": "ccc6ea29-9ac6-4e93-88e9-d6262564c3cd",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Severe",
+        "uuid": "cfd3984a-dff8-41f8-8898-ba51fb5de2f8",
+        "order": 3
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Obstetrics, Effacement of Cervix",
+    "uuid": "623b0bbf-cee7-4044-a247-889d240fac2e",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Obstetrics, Fetal Heart Sound",
+    "uuid": "f49178c3-09ae-4b55-818a-cc6c1a6666e4",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - FHS Present",
+        "uuid": "efb6b45b-ec52-4ecc-a165-401aa17836b1",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - FHS Absent",
+        "uuid": "649ef176-d40f-49f2-ac88-185f7720e3a1",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Movement Present",
+        "uuid": "2c8d9bd0-dbe6-4034-acb2-9fc81bd71423",
+        "order": 3
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Obstetrics, Fundal Height",
+    "uuid": "c93b8c2d-bfc7-4268-881b-b8de7459a5f5",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Obstetrics, Gravida",
+    "uuid": "6280aa16-76ac-4e0a-8045-85abe688cfdd",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Obstetrics, Last Menstrual Period",
+    "uuid": "acb55bfa-ed48-4140-a742-2f0c13e32e5f",
+    "dataType": "Date",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Obstetrics, Liquor",
+    "uuid": "2b872945-7ee4-4b02-afb9-f7c618ebb908",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Clear",
+        "uuid": "faf00444-a45c-4660-8cd8-3b8160c83b61",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Meconium",
+        "uuid": "93e0d0e1-4fd8-4e02-89e2-bf5649399f23",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Obstetrics, Live Births",
+    "uuid": "7e9edda3-c27d-4e50-b4ef-e252825c65ed",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Obstetrics, Membrane",
+    "uuid": "38c6efdf-c7fd-4178-b0b2-2e2db7fbc59e",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Present",
+        "uuid": "e64b01d4-c949-4e2c-9da0-5a6bb82cc4d0",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Absent",
+        "uuid": "77f8d579-304a-48c3-826c-d67e3f1aa70f",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Obstetrics, Menstrual Cycle Amount",
+    "uuid": "60b7add9-970a-4d75-9c97-cd549e2c7366",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Scanty",
+        "uuid": "9df6d380-90ec-44f1-a9ad-e8a0755a25ac",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Average",
+        "uuid": "71cbbd00-7334-439b-bbde-c5199dbe6a96",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Heavy",
+        "uuid": "d614cc06-bb4c-4fc2-8c2d-ec49561ca542",
+        "order": 3
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Obstetrics, Menstrual Cycle Days",
+    "uuid": "13aaf744-b6ec-42a7-97ab-cef2aa3d34e5",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - 2-3 Days",
+        "uuid": "47d9df4c-7000-4eb1-ba86-66ea40568998",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - 4-5 Days",
+        "uuid": "885e166e-36a7-40e7-a80c-47c030556c91",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - 8-9 Days",
+        "uuid": "cac77168-fbd6-4177-bd1e-5ce92d80eeec",
+        "order": 3
+      },
+      {
+        "name": "Bahmni - Lactational Amenorrhea",
+        "uuid": "c10981b9-399d-42a4-b812-61bc99bdcf49",
+        "order": 4
+      },
+      {
+        "name": "Bahmni - Post Menopausal",
+        "uuid": "de820cca-5645-4b4c-86ca-99e3742d3849",
+        "order": 5
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Obstetrics, Menstrual Cycle Interval",
+    "uuid": "c24d3714-3967-4607-94b1-50077c5a5ab6",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Less than 26 Days",
+        "uuid": "66695b0e-3a84-416e-bce4-8f952dab3186",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - 26-30 Days",
+        "uuid": "c4327ac9-a88e-4750-a6fa-009e13e92490",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - More than 35 Days",
+        "uuid": "dd9142cd-9f6d-495c-892e-08e48ddeeeb4",
+        "order": 3
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Obstetrics, P/A Presenting Part",
+    "uuid": "40b224c7-e6ed-40f4-9169-42d9e3d1939b",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Cephalic Presentation",
+        "uuid": "3b2fedbe-bb87-498e-abaa-09eb00ad4f74",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Breech Presentation",
+        "uuid": "d4963326-1b24-4f78-959d-d4266927f977",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Transverse Presentation",
+        "uuid": "95c89ccc-da70-44cc-9b7d-98b02bb98dde",
+        "order": 3
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Obstetrics, P/V Presenting Part",
+    "uuid": "56153f28-609b-4c45-93b7-41602b7e19aa",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Head Presentation",
+        "uuid": "123c296a-0c8c-4511-83f4-5e228e6ca040",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Breech Presentation",
+        "uuid": "d4963326-1b24-4f78-959d-d4266927f977",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Hand Presentation",
+        "uuid": "e984e25c-206c-41b8-ba1a-ac3f45df1bb3",
+        "order": 3
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Obstetrics, Parity",
+    "uuid": "37df8c11-addd-432d-84c8-8f5b1c518c3a",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Obstetrics, Tetanus Vaccination Taken",
+    "uuid": "ec357676-86a8-4d6c-b602-d6a5903be760",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Obstetrics, Ultrasound Findings",
+    "uuid": "b0b5d5cd-e770-49be-9b09-3f5ae95d1c49",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Operation Duration",
+    "uuid": "e5500aa2-27b9-48c9-84c8-11b3a07e5933",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Operation Findings",
+    "uuid": "53ecc3b9-163c-4d4e-a8a8-ca04d7050733",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Operative Complications",
+    "uuid": "bae6c221-7743-4ca9-986c-76ec1441a5fd",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Operative Drains",
+    "uuid": "19d001f8-4fb5-436c-ac0e-8b28b1bfa1a6",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Operative Note, Type of Surgery (Procedure based)",
+    "uuid": "612beaa6-5894-429c-89ae-ab3a691229fd",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Type of surgery, Major",
+        "uuid": "1c736b4c-d7ae-48cc-8779-f5e16ed0db4a",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Type of surgery, Minor",
+        "uuid": "8393ab5a-cdce-4443-b76e-1caa53042b0e",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Type of surgery, Intermediate",
+        "uuid": "8be37f9c-4a26-4029-9605-055384fe6efb",
+        "order": 3
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Operative Note, Type of Surgery (Time based)",
+    "uuid": "791f0de4-5626-49f7-be06-830162ba1b3d",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Type of surgery, Emergency",
+        "uuid": "63178766-1aa1-4c66-97da-544d83036063",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Type of surgery, Elective",
+        "uuid": "8710827f-95e8-4c58-a914-0220df03fa9d",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Other Operating Surgeon",
+    "uuid": "cd9ee906-0fa6-4df1-b213-f0bfdd3777ae",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Other Operation Notes",
+    "uuid": "5de8b547-dbf4-42d6-ba26-756dbf66880a",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Parity",
+    "uuid": "e7bdbbf3-cb38-47ff-93f7-3316d2285df8",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Radiology Notes",
+    "uuid": "f71000b3-e349-11e3-983a-91270dcbd3bf",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Radiotherapy",
+    "uuid": "d2344819-b4f1-4bb6-a80d-bf22deaaea73",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Radiotherapy, Bilaspur",
+        "uuid": "8d08e125-ab54-4a41-83b8-4d2b4791b36a",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Radiotherapy, Raipur",
+        "uuid": "35d707b2-30c4-45b0-920b-afb743be5ef5",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Radiotherapy, Others",
+        "uuid": "77434e86-076a-40c9-9463-c2c7711097b6",
+        "order": 3
+      },
+      {
+        "name": "Bahmni - Radiotherapy, None",
+        "uuid": "a9c5a9cf-3f6b-426a-bc1e-12e05644655e",
+        "order": 4
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Scrub Nurse",
+    "uuid": "72e3d97c-e110-4cc5-878e-51d7eda31703",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Spirometry Report Notes",
+    "uuid": "54c024fb-fc7c-4bac-a291-80aa20960814",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Surgical Indication",
+    "uuid": "bf834492-b024-438f-97a5-bf46700a1c59",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Surgical Procedure",
+    "uuid": "bce164a9-d6eb-4d9c-b7e4-023efb63654d",
+    "dataType": "Coded",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Surgical Procedure Non Coded",
+    "uuid": "6cd20bee-37d2-4f43-b8d4-bc23f99feac4",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Surgical Speciality",
+    "uuid": "9cde20f8-7c7b-454c-9c3b-0fb93a59297e",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Urology",
+        "uuid": "6f12abd1-d83e-43a4-a05a-8b2ed3c401ea",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Oncology",
+        "uuid": "2e3a7492-b393-4efa-aa0f-7ea0cc959950",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Neurology",
+        "uuid": "b230d91c-9a73-48d5-84ba-8d5aa3aa6b7f",
+        "order": 3
+      },
+      {
+        "name": "Bahmni - Orthopaedic",
+        "uuid": "18c70348-e575-4f13-8dd5-b36926e07990",
+        "order": 4
+      },
+      {
+        "name": "Bahmni - Plastic",
+        "uuid": "347c06a7-d7db-44ed-b873-df24ac39f0ea",
+        "order": 5
+      },
+      {
+        "name": "Bahmni - Obstetrics and Gynaecology",
+        "uuid": "646afb14-1c7b-45ee-987a-44ffc1b3b526",
+        "order": 6
+      },
+      {
+        "name": "Bahmni - Pediatric",
+        "uuid": "2fe9011b-097a-4fb3-a4d7-a479b2f8034e",
+        "order": 7
+      },
+      {
+        "name": "Bahmni - ENT",
+        "uuid": "8c8145d5-14fa-4062-b2dd-f0354b287337",
+        "order": 8
+      },
+      {
+        "name": "Bahmni - Surgical specialties, General",
+        "uuid": "a712befe-11d7-4892-a93b-7694ea2a29b8",
+        "order": 9
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Taking Medications",
+    "uuid": "ee488036-cfa0-455a-87aa-033f5e5117cf",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Medication Taking - Yes",
+        "uuid": "693d783e-8a86-486e-af9d-6c8be61c38a8",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Medication Taking - No",
+        "uuid": "525611e3-4f35-478d-9fa4-4493e7388512",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Tamoxifen 20mg OD",
+    "uuid": "9cfa2158-35fc-497d-b0ea-76369476a1c6",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - 3 Years",
+        "uuid": "8916aefb-93b2-48de-864f-b2783599921f",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - 5 Years",
+        "uuid": "518aef64-23c3-46fd-8155-7aec7dffb058",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Aromatase Inhibitors, Not Given",
+        "uuid": "5ebdda67-4c7c-4899-b2a7-60e9804b069e",
+        "order": 3
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Tuberculosis Followup, Lymph Node Size",
+    "uuid": "38383511-f2fa-4649-bc1b-49b1a70d2055",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Increased",
+        "uuid": "7729041b-1ed1-4ac2-8c4e-160836b7874a",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Decreased",
+        "uuid": "960dbf02-b420-427d-872b-95cff532364d",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Relieved Completely",
+        "uuid": "19a9fdc2-c635-4484-b437-d94f9ae30d92",
+        "order": 3
+      },
+      {
+        "name": "Bahmni - Same as previous",
+        "uuid": "870fccb0-db80-4633-8698-c863ecb102e8",
+        "order": 4
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Tuberculosis, AFB (Zn Stain)",
+    "uuid": "57623499-3e8b-4dbe-abef-16ade10554f4",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Negative",
+        "uuid": "9d8ff348-cc4a-489f-85b5-00cf04814cdd",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Scanty",
+        "uuid": "9df6d380-90ec-44f1-a9ad-e8a0755a25ac",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - 1+",
+        "uuid": "8cfe4739-8765-49e4-ba4e-51b046e42d75",
+        "order": 3
+      },
+      {
+        "name": "Bahmni - 2+",
+        "uuid": "207e199d-0e61-462c-bcf1-ddb6a985e9eb",
+        "order": 4
+      },
+      {
+        "name": "Bahmni - 3+",
+        "uuid": "0b1d1849-ce4a-454e-8c73-0e95c3dd0c93",
+        "order": 5
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Adverse Effects",
+    "uuid": "96a300a6-6f5c-492d-bc97-880eff80b4fe",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Joint / Bone  Pain",
+        "uuid": "d398fd62-9a7d-4586-818a-5b175e4d80d8",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Skin Rash",
+        "uuid": "3fc92c02-ed86-11e3-8f57-746bba63c2a3",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Dyspepsia",
+        "uuid": "943e8b18-e34b-11e3-983a-91270dcbd3bf",
+        "order": 3
+      },
+      {
+        "name": "Bahmni - Abdominal pain",
+        "uuid": "56b61ea7-a50b-4884-b286-63d45c6c1267",
+        "order": 4
+      },
+      {
+        "name": "Bahmni - Icterus",
+        "uuid": "1ed5e18f-d9dd-4a78-9ce7-4e456bab308f",
+        "order": 5
+      },
+      {
+        "name": "Bahmni - Jaundice",
+        "uuid": "0167fafe-e34c-11e3-983a-91270dcbd3bf",
+        "order": 6
+      },
+      {
+        "name": "Bahmni - Hepatitis",
+        "uuid": "96e62e93-2f16-4e90-8b50-5097169d512b",
+        "order": 7
+      },
+      {
+        "name": "Bahmni - Neuropathy",
+        "uuid": "f5310242-25db-492d-a93f-473b5d2602de",
+        "order": 8
+      },
+      {
+        "name": "Bahmni - Deafness",
+        "uuid": "d2224bfa-2d67-41f1-a1b5-38558cff3d27",
+        "order": 9
+      },
+      {
+        "name": "Bahmni - Visual Impairement",
+        "uuid": "fd061c4e-ebe8-4f60-b29d-9a05ebac3fcf",
+        "order": 10
+      },
+      {
+        "name": "Bahmni - Tingling",
+        "uuid": "4e294e8c-ed86-11e3-8f57-746bba63c2a3",
+        "order": 11
+      },
+      {
+        "name": "Bahmni - Numbness",
+        "uuid": "b88d9e50-9295-464c-a639-4a3befa35138",
+        "order": 12
+      },
+      {
+        "name": "Bahmni - Dizziness",
+        "uuid": "a64a9305-cdee-4833-bb27-a89585b1f588",
+        "order": 13
+      },
+      {
+        "name": "Bahmni - Drowsiness",
+        "uuid": "2b88b7b7-ff18-47d1-bc01-abedf4495220",
+        "order": 14
+      },
+      {
+        "name": "Bahmni - None",
+        "uuid": "a6c9e9d4-02cf-4354-9193-1a35b5704751",
+        "order": 15
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Anorexia",
+    "uuid": "2063af20-1889-4b3c-9e25-69306d31bee0",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Increased",
+        "uuid": "7729041b-1ed1-4ac2-8c4e-160836b7874a",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Same as previous",
+        "uuid": "870fccb0-db80-4633-8698-c863ecb102e8",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Decreased",
+        "uuid": "960dbf02-b420-427d-872b-95cff532364d",
+        "order": 3
+      },
+      {
+        "name": "Bahmni - Relieved Completely",
+        "uuid": "19a9fdc2-c635-4484-b437-d94f9ae30d92",
+        "order": 4
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Basis of Diagnosis",
+    "uuid": "15a61c3f-697f-4379-ae18-b42800459fd9",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Sputum Microscopy",
+        "uuid": "0b5f454b-58dd-4e6c-9c12-ffa6e3e00c11",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Clinical Exam",
+        "uuid": "f71546a6-0026-4761-950d-74d2543488ef",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - X-Ray Findings",
+        "uuid": "6911545f-217d-4db9-9160-356b74613093",
+        "order": 3
+      },
+      {
+        "name": "Bahmni - Sputum Culture",
+        "uuid": "fc0258e9-c1c8-478d-9a5e-87eab06bf991",
+        "order": 4
+      },
+      {
+        "name": "Bahmni - Histopathology",
+        "uuid": "4ce1e44f-71c1-46e8-94fc-33f699b992d7",
+        "order": 5
+      },
+      {
+        "name": "Bahmni - Cytochemistry",
+        "uuid": "8723bd51-8750-414c-a50c-5c61356e3243",
+        "order": 6
+      },
+      {
+        "name": "Bahmni - CBNAAT",
+        "uuid": "26320ecc-2ef1-4d3a-a5d2-28b34ba679ca",
+        "order": 7
+      },
+      {
+        "name": "Bahmni - Basis of Diagnosis, History of TB Contact",
+        "uuid": "662ab429-48d1-4666-9dd8-61b09c6cc7ad",
+        "order": 8
+      },
+      {
+        "name": "Bahmni - Basis of Diagnosis,Fluid Analysis",
+        "uuid": "9b7f087d-eabf-4e3c-a025-daa9c31afc41",
+        "order": 9
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Breathlessness",
+    "uuid": "9074466f-c881-4cb7-90c5-ad633b6b5399",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Increased",
+        "uuid": "7729041b-1ed1-4ac2-8c4e-160836b7874a",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Same as previous",
+        "uuid": "870fccb0-db80-4633-8698-c863ecb102e8",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Decreased",
+        "uuid": "960dbf02-b420-427d-872b-95cff532364d",
+        "order": 3
+      },
+      {
+        "name": "Bahmni - Relieved Completely",
+        "uuid": "19a9fdc2-c635-4484-b437-d94f9ae30d92",
+        "order": 4
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Chest Pain",
+    "uuid": "47889032-1be4-472d-bbbe-2c5b1a2d6b55",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Increased",
+        "uuid": "7729041b-1ed1-4ac2-8c4e-160836b7874a",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Same as previous",
+        "uuid": "870fccb0-db80-4633-8698-c863ecb102e8",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Decreased",
+        "uuid": "960dbf02-b420-427d-872b-95cff532364d",
+        "order": 3
+      },
+      {
+        "name": "Bahmni - Relieved Completely",
+        "uuid": "19a9fdc2-c635-4484-b437-d94f9ae30d92",
+        "order": 4
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Comorbidity",
+    "uuid": "be51b9fb-3c07-472a-8c1b-363516d1924f",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Diabetes",
+        "uuid": "316cc0fc-636d-44e0-939b-4c9a131c0203",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Liver Disease",
+        "uuid": "f8022eb3-6d2e-4a27-b224-7b0bdfee5f84",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - HIV",
+        "uuid": "05195c83-066a-4a45-a08f-90ff5ee1f3ad",
+        "order": 3
+      },
+      {
+        "name": "Bahmni - Renal Disease",
+        "uuid": "1c6e9487-b059-4b7b-a0b3-03a0f12752ae",
+        "order": 4
+      },
+      {
+        "name": "Bahmni - RHD",
+        "uuid": "95e1d551-c8d0-4b76-bc1f-0308dd8c5031",
+        "order": 5
+      },
+      {
+        "name": "Bahmni - Asthma",
+        "uuid": "5affef02-c2dc-4925-8cf5-69848051471a",
+        "order": 6
+      },
+      {
+        "name": "Bahmni - Severe Undernutrition",
+        "uuid": "c0fb27ed-885c-4896-81e6-8e1c4bdc7879",
+        "order": 7
+      },
+      {
+        "name": "Bahmni - Other Answer",
+        "uuid": "bea99fbe-0137-4d91-9b37-4acb2febbd7c",
+        "order": 8
+      },
+      {
+        "name": "Bahmni - Comorbidity,Anemia",
+        "uuid": "a01a8051-89db-4265-9335-79cd551cd1dd",
+        "order": 9
+      },
+      {
+        "name": "Bahmni - Comorbidity,Sickle Cell Disease",
+        "uuid": "6645a052-f1ff-49b5-8320-349d583314d9",
+        "order": 10
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Cough",
+    "uuid": "c3287cb6-a31e-4bea-a66e-d0f4eb03f835",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Increased",
+        "uuid": "7729041b-1ed1-4ac2-8c4e-160836b7874a",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Same as previous",
+        "uuid": "870fccb0-db80-4633-8698-c863ecb102e8",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Decreased",
+        "uuid": "960dbf02-b420-427d-872b-95cff532364d",
+        "order": 3
+      },
+      {
+        "name": "Bahmni - Relieved Completely",
+        "uuid": "19a9fdc2-c635-4484-b437-d94f9ae30d92",
+        "order": 4
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Culture Report",
+    "uuid": "abab0194-d9de-4ff4-bfb1-a4c695ec077a",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - No Growth",
+        "uuid": "3b4fc4f2-a9e1-4685-9a9a-3904d5a95677",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Growth",
+        "uuid": "d9fa3f46-cd5e-4a3a-a7d3-2d96bf3e4df0",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Contamination",
+        "uuid": "03cf83ed-383d-4e5d-b68a-8542462baca7",
+        "order": 3
+      },
+      {
+        "name": "Bahmni - Invalid Sample",
+        "uuid": "0f9becbd-5ad8-4a2a-a8fa-97d627d1a151",
+        "order": 4
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Days of tablets remaining",
+    "uuid": "d13f7ca3-81db-42e7-9259-2da640b273c9",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Duration of last treatment",
+    "uuid": "7b1cd7e7-df73-4cb8-8f7c-e48fa6a15719",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Duration since last treatment",
+    "uuid": "22189dda-25f5-4fdb-8330-242301a6e7e3",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Ethambutol",
+    "uuid": "36c4d85b-6f71-4b21-b7c2-7535087b8893",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Resistant",
+        "uuid": "84b6df52-244c-45f8-a71a-4948f33384e7",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Sensitive",
+        "uuid": "37ecc488-42e3-487c-9dd9-dfa0d0d261b3",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Ethionamide",
+    "uuid": "9a9b4434-67aa-40bd-a4f1-a3f234067385",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Resistant",
+        "uuid": "84b6df52-244c-45f8-a71a-4948f33384e7",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Sensitive",
+        "uuid": "37ecc488-42e3-487c-9dd9-dfa0d0d261b3",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Examination",
+    "uuid": "c2ace02b-ee52-40be-8c2d-48448f0824ad",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Icterus",
+        "uuid": "1ed5e18f-d9dd-4a78-9ce7-4e456bab308f",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Lymph Nodes",
+        "uuid": "796d77b6-1607-47a9-b595-b6bc131db81c",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Extrapulmonary Site",
+    "uuid": "c4eeffc6-3f29-41ce-9cc1-0199ad22e785",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Pleural",
+        "uuid": "4d708dac-8813-4fba-82aa-fdb3d80d10ee",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Lymph Node",
+        "uuid": "34868bec-e6ab-4d07-a412-3f2dc84cab5c",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Intestinal",
+        "uuid": "4de863fc-3bb6-4292-95e2-88d598d42e67",
+        "order": 3
+      },
+      {
+        "name": "Bahmni - Peritoneal",
+        "uuid": "2353e058-462e-464b-8351-08a36bf8c575",
+        "order": 4
+      },
+      {
+        "name": "Bahmni - Skeletal",
+        "uuid": "7a04f6b1-719b-4fa2-a7d7-3d5e231e2402",
+        "order": 5
+      },
+      {
+        "name": "Bahmni - Articular",
+        "uuid": "7fa1430e-8b86-4b37-94c6-43fe339a573d",
+        "order": 6
+      },
+      {
+        "name": "Bahmni - Meningeal",
+        "uuid": "a2e16d51-281e-4a47-a94a-033bd26e6670",
+        "order": 7
+      },
+      {
+        "name": "Bahmni - Renal",
+        "uuid": "3d826b21-8b82-40cc-b656-e6be5478aabb",
+        "order": 8
+      },
+      {
+        "name": "Bahmni - Genital",
+        "uuid": "39c69047-4c1f-46ff-af44-4ef88185aeef",
+        "order": 9
+      },
+      {
+        "name": "Bahmni - Cutaneous",
+        "uuid": "011ccc5b-c318-49ca-ab3c-a16c2cd5d980",
+        "order": 10
+      },
+      {
+        "name": "Bahmni - Pericardial",
+        "uuid": "331edbe1-4908-4e28-90e4-3993e909c4e0",
+        "order": 11
+      },
+      {
+        "name": "Bahmni - Other Answer",
+        "uuid": "bea99fbe-0137-4d91-9b37-4acb2febbd7c",
+        "order": 12
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Family Member Age",
+    "uuid": "b61d32dd-626d-4dae-99c1-cc697f6d3320",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Family Member Comorbidity",
+    "uuid": "c26b0561-b20e-4a0d-be92-94b2c08f938d",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Diabetes",
+        "uuid": "316cc0fc-636d-44e0-939b-4c9a131c0203",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - HIV",
+        "uuid": "05195c83-066a-4a45-a08f-90ff5ee1f3ad",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Liver Disease",
+        "uuid": "f8022eb3-6d2e-4a27-b224-7b0bdfee5f84",
+        "order": 3
+      },
+      {
+        "name": "Bahmni - Renal Disease",
+        "uuid": "1c6e9487-b059-4b7b-a0b3-03a0f12752ae",
+        "order": 4
+      },
+      {
+        "name": "Bahmni - Asthma",
+        "uuid": "5affef02-c2dc-4925-8cf5-69848051471a",
+        "order": 5
+      },
+      {
+        "name": "Bahmni - RHD",
+        "uuid": "95e1d551-c8d0-4b76-bc1f-0308dd8c5031",
+        "order": 6
+      },
+      {
+        "name": "Bahmni - Other Answer",
+        "uuid": "bea99fbe-0137-4d91-9b37-4acb2febbd7c",
+        "order": 7
+      },
+      {
+        "name": "Bahmni - None",
+        "uuid": "a6c9e9d4-02cf-4354-9193-1a35b5704751",
+        "order": 8
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Family Member Gender",
+    "uuid": "88b1f5a7-9b40-481d-a4cd-055677347ab0",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Female",
+        "uuid": "6d37521f-8f17-43c8-9c4d-5b161d7c5261",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Male",
+        "uuid": "e12d9dc1-0dda-4d34-8793-e925228ab61e",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Family Member Name",
+    "uuid": "da8892bf-f917-4807-b9bf-294ab3aef528",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Family Member Past History of Tuberculosis",
+    "uuid": "6670327d-a390-413a-8c33-1e2aee50fe17",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Family Member Referred",
+    "uuid": "40328e6a-8ebe-40b0-b20b-ad6f54415fa4",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Family Member Relation",
+    "uuid": "81b8d6e6-401e-404d-9bea-8706b5c382be",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Family Member Symptoms",
+    "uuid": "de1543bb-29cc-41c6-9d3d-9df6c59e3975",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Family Member Treatment Plan",
+    "uuid": "4bd395cd-f6af-4aff-9bdd-b3a6bab36738",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Treatment",
+        "uuid": "32b451f6-9436-4f5d-a9c8-b2fa0e0a7027",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - No Treatment",
+        "uuid": "e482ebfb-9f5c-4338-93c3-a8a2c556dd65",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Prophylaxis",
+        "uuid": "3295913f-c18e-4082-af52-0c98e26576f6",
+        "order": 3
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Family Screened",
+    "uuid": "4d441991-6937-4c68-b9e0-c734cc9ba000",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Yes",
+        "uuid": "11a7fd99-73a2-4b5c-87e1-b9505b4b899f",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - False No",
+        "uuid": "eb4d2cbc-8798-4073-83d6-9eb1934231ca",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Not Applicable",
+        "uuid": "40233dfc-e44f-4cb2-b4c7-738112b828ae",
+        "order": 3
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Family member died of TB",
+    "uuid": "d03b0c1a-25db-481c-92ba-08fd648f7154",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Fever",
+    "uuid": "8dea87ad-4f88-4588-a31c-81e020184176",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Increased",
+        "uuid": "7729041b-1ed1-4ac2-8c4e-160836b7874a",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Same as previous",
+        "uuid": "870fccb0-db80-4633-8698-c863ecb102e8",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Decreased",
+        "uuid": "960dbf02-b420-427d-872b-95cff532364d",
+        "order": 3
+      },
+      {
+        "name": "Bahmni - Relieved Completely",
+        "uuid": "19a9fdc2-c635-4484-b437-d94f9ae30d92",
+        "order": 4
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Followup Visit",
+    "uuid": "d40524e7-f3fc-4c73-aa6d-041778df0365",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Day 15",
+        "uuid": "62908d24-ed73-460b-bfdd-b5fddbce8142",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - 1 Month",
+        "uuid": "b6dc2eaa-884a-443a-934d-3148c75fb2a0",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - 2 Month",
+        "uuid": "ab68df15-7fd1-4f06-9d43-5d912eab4a7e",
+        "order": 3
+      },
+      {
+        "name": "Bahmni - 3 Month",
+        "uuid": "12c73368-ae7d-475c-a3ab-abf6f1de9193",
+        "order": 4
+      },
+      {
+        "name": "Bahmni - 4 Month",
+        "uuid": "3a846add-9c71-452f-8743-465ed4d17ad4",
+        "order": 5
+      },
+      {
+        "name": "Bahmni - 5 Month",
+        "uuid": "62067bef-db57-4c54-aa77-54ebb4dd7d5e",
+        "order": 6
+      },
+      {
+        "name": "Bahmni - 6 Month",
+        "uuid": "e7029332-8b05-4a22-bcd5-975d49211852",
+        "order": 7
+      },
+      {
+        "name": "Bahmni - 7 Month",
+        "uuid": "ec334a97-7a62-4799-9e12-a28bd82b6f72",
+        "order": 8
+      },
+      {
+        "name": "Bahmni - 8 Month",
+        "uuid": "d07d6239-3c80-45f0-8f98-3ee7d7cb469e",
+        "order": 9
+      },
+      {
+        "name": "Bahmni - 9 Month",
+        "uuid": "0ee1905e-9d28-45d5-9cfa-e6a5b0e2f86d",
+        "order": 10
+      },
+      {
+        "name": "Bahmni - 10 Month",
+        "uuid": "64348ede-0886-4532-b7f8-33f68b36e9c9",
+        "order": 11
+      },
+      {
+        "name": "Bahmni - 11 Month",
+        "uuid": "ac1fd3e2-8595-42a1-8c19-34a3cc4ca50c",
+        "order": 12
+      },
+      {
+        "name": "Bahmni - 12 Month",
+        "uuid": "faef1600-56a9-4fc8-a968-257487538951",
+        "order": 13
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Tuberculosis, History of TB Contact",
+    "uuid": "5aa292d9-a671-4688-b1b6-2613fa91321f",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Negative",
+        "uuid": "9d8ff348-cc4a-489f-85b5-00cf04814cdd",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Positive Family History",
+        "uuid": "c40e5e72-bf87-4fdb-80ef-0112b6c025c3",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Positive TB Contact outside family",
+        "uuid": "649aaee3-c7e9-40f6-95c4-8af19225a309",
+        "order": 3
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Indication for Admission",
+    "uuid": "5a029d95-d2b5-4159-825a-0801b10df837",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Isoniazid",
+    "uuid": "872be094-847a-42c6-970e-a1b370485ab3",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Resistant",
+        "uuid": "84b6df52-244c-45f8-a71a-4948f33384e7",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Sensitive",
+        "uuid": "37ecc488-42e3-487c-9dd9-dfa0d0d261b3",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Kanamycin",
+    "uuid": "d8270a6a-2ab9-4796-a34f-2cadd5bfaa8f",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Resistant",
+        "uuid": "84b6df52-244c-45f8-a71a-4948f33384e7",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Sensitive",
+        "uuid": "37ecc488-42e3-487c-9dd9-dfa0d0d261b3",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Lymph Node Discharge, Sinus, Ulcer",
+    "uuid": "95bf8e7d-d3e5-45f1-b04b-a7c20597885f",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Lymph Node Pain",
+    "uuid": "6c47b044-1498-41dc-992e-15ff68680120",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Lymph Node Size",
+    "uuid": "f635e3a6-d00c-425e-9df5-2e1648317907",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Need of Admission",
+    "uuid": "42732cbb-9778-42e7-b2e3-1fcf07667eec",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Tuberculosis, New Comorbidty Identified",
+    "uuid": "b7200a10-227c-4a62-9897-50161f436868",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Yes",
+        "uuid": "11a7fd99-73a2-4b5c-87e1-b9505b4b899f",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - False No",
+        "uuid": "eb4d2cbc-8798-4073-83d6-9eb1934231ca",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Next Followup Visit",
+    "uuid": "5e9dc715-2edb-4da8-a178-68437eb82be8",
+    "dataType": "Date",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Number of Adult Family Members with Symptoms",
+    "uuid": "3efcf173-e995-489d-9230-202cd58a5581",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Number of Under 5 Years Children in the Family",
+    "uuid": "e44ff6b6-c832-47b3-a3b7-f21d3121fa6b",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Ofloxacin",
+    "uuid": "0968ed1b-64bd-4e66-b41b-6182676b12b8",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Resistant",
+        "uuid": "84b6df52-244c-45f8-a71a-4948f33384e7",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Sensitive",
+        "uuid": "37ecc488-42e3-487c-9dd9-dfa0d0d261b3",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Other Symptoms",
+    "uuid": "c44adf7c-7458-403f-bfac-098f11bdc793",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Output of Treatment",
+    "uuid": "88b0d34e-5b06-486c-a854-f3a3e2d887f8",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - On Treatment",
+        "uuid": "164b8d63-1e37-49e8-97b7-d6b990342695",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Cured",
+        "uuid": "ea84a0fc-224c-455a-be2d-de78367eaa7d",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Complete",
+        "uuid": "683c8e0c-d920-4d59-9bb0-7e4d380023a0",
+        "order": 3
+      },
+      {
+        "name": "Bahmni - Default",
+        "uuid": "033901e1-468e-4e63-bc9e-22096b4fe92e",
+        "order": 4
+      },
+      {
+        "name": "Bahmni - Failure of Treatment",
+        "uuid": "80b85712-136d-4936-b81b-dc972108e4e6",
+        "order": 5
+      },
+      {
+        "name": "Bahmni - Death during treatment",
+        "uuid": "5406f7ca-fee9-4b34-8575-e9e148ca3075",
+        "order": 6
+      },
+      {
+        "name": "Bahmni - Transferred Out",
+        "uuid": "ecadbdaa-3a11-40bd-81a9-8a2cf068e1ee",
+        "order": 7
+      },
+      {
+        "name": "Bahmni - Break in Treatment",
+        "uuid": "d5df6073-ae3e-4bda-97f8-4802a332006b",
+        "order": 8
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Tuberculosis, PAS",
+    "uuid": "19f3e9df-e942-4be7-af47-6264008f135a",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Resistant",
+        "uuid": "84b6df52-244c-45f8-a71a-4948f33384e7",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Sensitive",
+        "uuid": "37ecc488-42e3-487c-9dd9-dfa0d0d261b3",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Past Treatment Details",
+    "uuid": "c1a10c41-f89d-462a-9840-c4710fce8c19",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Past Treatment Facility",
+    "uuid": "626e8f31-a84d-4449-81a3-26d9d7a56be1",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Private",
+        "uuid": "7535fdc9-7429-4392-9ad2-c319a8f008c3",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Government",
+        "uuid": "d0c48d18-0a6a-11e3-939c-8c50edb4be99",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Patient Category",
+    "uuid": "0dbc4bec-f30b-4f94-b179-fa5f7b5977a3",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - New Patient",
+        "uuid": "d19cfd06-5bca-49e5-87d2-ad3e9dc4c6ae",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Treatment after default",
+        "uuid": "bc6a27c5-0c1b-4151-b820-e6a7c2bab3b1",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Treatment after relapse",
+        "uuid": "e1b5d50b-bdc5-4cec-81c7-7048641af6af",
+        "order": 3
+      },
+      {
+        "name": "Bahmni - Treatment after failure",
+        "uuid": "7f560d74-4c65-44f6-a50e-7f64d6d9eccf",
+        "order": 4
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Plan for next visit",
+    "uuid": "57d26401-4543-4e61-b950-2380b74e88ef",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Pleural TB Respiratory Rate",
+    "uuid": "16500a25-007d-4bcd-ae9b-7ba2a22e318e",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Rifampicin",
+    "uuid": "0864b12e-3ee1-4187-a5f5-df9221c5d1d2",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Resistant",
+        "uuid": "84b6df52-244c-45f8-a71a-4948f33384e7",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Sensitive",
+        "uuid": "37ecc488-42e3-487c-9dd9-dfa0d0d261b3",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Sample",
+    "uuid": "5ac3d93a-ad0a-4303-9166-d3d3bbbc2c12",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Sputum",
+        "uuid": "1fffe2ad-8c3d-4c8a-90f8-50dc4332565e",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Pus",
+        "uuid": "ec37701c-9e58-4d72-ac64-0447f4cad944",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Sample Pleural Fluid",
+        "uuid": "d7774dde-3577-4059-9e8d-9d1860dc4a44",
+        "order": 3
+      },
+      {
+        "name": "Bahmni - CSF",
+        "uuid": "649b941c-3800-4b74-b91a-9f7234229c9b",
+        "order": 4
+      },
+      {
+        "name": "Bahmni - Tuberculosis sample type - Lymphnode Aspirate",
+        "uuid": "4dc7d9b3-b913-4d59-a0da-ca1886dff651",
+        "order": 5
+      },
+      {
+        "name": "Bahmni - Tuberculosis sample type - Tissue",
+        "uuid": "6f2dcc0e-fc14-4039-ab6e-ed07a746c57d",
+        "order": 6
+      },
+      {
+        "name": "Bahmni - BAL",
+        "uuid": "7c5222ea-7845-465b-87fc-d805bf97929c",
+        "order": 7
+      },
+      {
+        "name": "Bahmni - GAL",
+        "uuid": "aef021de-da26-4e5f-8952-db1c5be66990",
+        "order": 8
+      },
+      {
+        "name": "Bahmni - Knee Joint Fluid",
+        "uuid": "9ff4a600-bcc5-45e2-876e-27bcfe24dd1d",
+        "order": 9
+      },
+      {
+        "name": "Bahmni - Peritoneal Fluid",
+        "uuid": "4867b7b1-5237-4a97-8f67-97951fa36b49",
+        "order": 10
+      },
+      {
+        "name": "Bahmni - Pericardial Fluid",
+        "uuid": "e0d23831-a2ea-4b16-aa01-a4a975952064",
+        "order": 11
+      },
+      {
+        "name": "Bahmni - Tuberculosis, Urine",
+        "uuid": "baba0037-cfa0-4c77-be02-fe0cd2fe2029",
+        "order": 12
+      },
+      {
+        "name": "Bahmni - Tuberculosis, Others",
+        "uuid": "90c9f2aa-ffd5-4198-9f8e-2dfc427e75ad",
+        "order": 13
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Sample Type",
+    "uuid": "4ff61aca-f427-4b47-957b-67de7a0bf112",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Initial",
+        "uuid": "0ef7e57f-e9aa-4810-a016-e395bae843b4",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Followup",
+        "uuid": "f7b3cdc6-42ed-4dd5-b344-5eb8d6862712",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Sensitivity Report Status",
+    "uuid": "fdb4b3e9-f9e0-4e5c-960b-4358617dc6eb",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Tuberculosis, Available & Normal",
+        "uuid": "a7110487-4eee-4921-86c0-e3598578ea29",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Tuberculosis, Available & Abnormal",
+        "uuid": "2fc52cec-fc4b-4f6c-acd8-2733a6f939f1",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Tuberculosis, Awaited",
+        "uuid": "d8f04bc9-a10e-471d-906e-91715345c570",
+        "order": 3
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Sputum Sample Collection Date",
+    "uuid": "30d79960-1bc4-4440-b760-ae3f0c753e14",
+    "dataType": "Date",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Sputum sample collected",
+    "uuid": "ebb6763d-61f6-4b07-9ea9-2e98257cfb7c",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Streptomycin",
+    "uuid": "3d0ab263-a61c-4c9d-bd43-557e5da5008c",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Resistant",
+        "uuid": "84b6df52-244c-45f8-a71a-4948f33384e7",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Sensitive",
+        "uuid": "37ecc488-42e3-487c-9dd9-dfa0d0d261b3",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Symptoms",
+    "uuid": "f7ce11f3-7a86-452c-8258-d02d82f1bbdc",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Fever",
+        "uuid": "5d432407-e34d-11e3-983a-91270dcbd3bf",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Weight loss",
+        "uuid": "2a13f92e-4cb9-491a-a017-9230ecb2b6b1",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Anorexia",
+        "uuid": "55dca0e7-e34d-11e3-983a-91270dcbd3bf",
+        "order": 3
+      },
+      {
+        "name": "Bahmni - Cough with expectoration",
+        "uuid": "6f098cb3-2816-402b-b8a9-e1b5446a771b",
+        "order": 4
+      },
+      {
+        "name": "Bahmni - Cough without expectoration",
+        "uuid": "2618324a-dc87-4d95-854e-83fd015e3f19",
+        "order": 5
+      },
+      {
+        "name": "Bahmni - Breathlessness",
+        "uuid": "18e65a93-ed86-11e3-8f57-746bba63c2a3",
+        "order": 6
+      },
+      {
+        "name": "Bahmni - Night Sweats",
+        "uuid": "7bbaf5b8-722c-44af-b246-0e5534f7ff73",
+        "order": 7
+      },
+      {
+        "name": "Bahmni - Lymph Node Enlarged",
+        "uuid": "693fb56c-a83b-4818-8724-e1367ca5041a",
+        "order": 8
+      },
+      {
+        "name": "Bahmni - Chest Pain",
+        "uuid": "57cfff64-e34d-11e3-983a-91270dcbd3bf",
+        "order": 9
+      },
+      {
+        "name": "Bahmni - Other Answer",
+        "uuid": "bea99fbe-0137-4d91-9b37-4acb2febbd7c",
+        "order": 10
+      },
+      {
+        "name": "Bahmni - No fresh complaint",
+        "uuid": "91826e6c-d344-4387-88c6-54a9868c1a62",
+        "order": 11
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Symptoms  duration",
+    "uuid": "010d0ce2-0f81-44e0-b269-67ee08a0b03b",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Symptoms Duration",
+    "uuid": "93c2d29f-ab88-48fe-838d-afd7edeaa669",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Symptoms present now",
+    "uuid": "beb3644d-4552-4be7-987b-a90f9c338282",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Fever",
+        "uuid": "5d432407-e34d-11e3-983a-91270dcbd3bf",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Decreased appetite",
+        "uuid": "1c45f82a-ed86-11e3-8f57-746bba63c2a3",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Cough",
+        "uuid": "5939d92c-e34d-11e3-983a-91270dcbd3bf",
+        "order": 3
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Test Report Date",
+    "uuid": "f878775c-42c6-4679-8b1d-e61a0776b2ed",
+    "dataType": "Date",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Test Type",
+    "uuid": "88e9ed2a-3065-4671-8d6e-3363ace8647d",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Cartridge based nucleic acid amplification testing",
+        "uuid": "d80b53e7-a5ed-4cd0-a8da-598ec21b9e5a",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Culture and Drug Sensitivity Test",
+        "uuid": "0b31b1e1-64aa-4bee-bfa5-d38acccad57d",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Testing Centre",
+    "uuid": "3abb5f4a-0907-4b53-a8a5-d750fd5f9aed",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - District Hospital Bilaspur",
+        "uuid": "32bdd451-3e14-4c44-9291-fccee9ae64d6",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - RMRCT Jabalpur",
+        "uuid": "fbb4e7f9-851c-4510-85c3-a94411afef95",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - IRL Raipur",
+        "uuid": "384c9863-4292-4dfe-a21b-c42f30aa299c",
+        "order": 3
+      },
+      {
+        "name": "Bahmni - Hinduja Hospital Mumbai",
+        "uuid": "26c71f2e-8e51-4e74-a912-f4f3c84fdba7",
+        "order": 4
+      },
+      {
+        "name": "Bahmni - JSS Ganiyari",
+        "uuid": "95527830-26cf-4b0d-aa13-95302e3705af",
+        "order": 5
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Treatment Compliance",
+    "uuid": "985fecf6-767e-4159-b7eb-bd5300dfac82",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Treatment Plan",
+    "uuid": "b95e59df-4480-47fd-bd2c-3874be9b44f7",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - 2HRZE + 4HR",
+        "uuid": "514ca5ba-3756-4a96-8407-84628ac95848",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - 3HRZE + 6HRE",
+        "uuid": "936333c5-91da-4498-8660-ff0808456236",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - 9H",
+        "uuid": "f6dba1bb-33da-433a-b085-774fe8497307",
+        "order": 3
+      },
+      {
+        "name": "Bahmni - 12RZFqE",
+        "uuid": "496e01bc-a1a7-48a0-b9a2-3c9f3d84a7dd",
+        "order": 4
+      },
+      {
+        "name": "Bahmni - MDR Treatment",
+        "uuid": "2b838bd9-dfdf-482d-8a80-efd6c531990c",
+        "order": 5
+      },
+      {
+        "name": "Bahmni - Tuberculosis, Other Treatment Plan",
+        "uuid": "ddbfe78a-e215-4f44-ba1b-e5698f71ca21",
+        "order": 6
+      },
+      {
+        "name": "Bahmni - 3HRZE + 9HRE",
+        "uuid": "59abcc2a-45f8-4718-a841-2a423bbbc5c0",
+        "order": 7
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Treatment for adverse effects",
+    "uuid": "1ef517e7-3ca1-42e6-a4ba-dd8e9c827d94",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Type",
+    "uuid": "8dd447d9-74e0-477b-a787-a957ea76eeb1",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Pulmonary",
+        "uuid": "fd6ed8c8-36c2-4ba0-95a4-c1a073a6a6c0",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Extrapulmonary",
+        "uuid": "882a5387-f92e-42ba-9105-83bb601ef303",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Pulmonary + Extrapulmonary",
+        "uuid": "52d479f3-8588-445d-9501-40c57afe6567",
+        "order": 3
+      },
+      {
+        "name": "Bahmni - Disseminated",
+        "uuid": "3485211c-63a3-4c18-8afc-756666338951",
+        "order": 4
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Under 5 Year Mantoux Reading Date",
+    "uuid": "b1824450-758f-4e60-b927-ff778ec0de74",
+    "dataType": "Date",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Under 5 Year Mantoux Test Date",
+    "uuid": "1be02c54-62ed-48f8-a6d1-c4b8e5bc7f7e",
+    "dataType": "Date",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Under 5 Year Mantoux Test Result",
+    "uuid": "c59d337e-12a2-4ef7-8fb1-b14949656cd7",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Negative",
+        "uuid": "9d8ff348-cc4a-489f-85b5-00cf04814cdd",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Positive",
+        "uuid": "051e8515-aff5-4fc7-81f9-d99d64c2ca15",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Under 5 Year Name",
+    "uuid": "f18dd6e8-c0d2-483d-ae54-c3a82c82d539",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Under 5 Year Referred",
+    "uuid": "15c9e728-b341-4da4-8cf0-a8d018e0af55",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Under 5 Year Size of Induration",
+    "uuid": "2cbf323e-bc4f-4163-8602-190e5e65b892",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Under 5 Year Tuberculosis Symptoms",
+    "uuid": "3f0f871c-58f0-43f4-92b1-60d9e2f8431c",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Visit Impression",
+    "uuid": "9b7fc621-d104-499f-8082-19ea5d2c83d4",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Improving",
+        "uuid": "f240cb02-7937-4530-96bb-fe3c0cb8292a",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Same",
+        "uuid": "81e07c58-ae1a-401d-a3cb-949ec688f100",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Worsening",
+        "uuid": "54c9865e-b43b-4c0c-92da-33a387024c0c",
+        "order": 3
+      },
+      {
+        "name": "Bahmni - Needs further evaluation",
+        "uuid": "829d9abe-cd57-4fed-882f-76f71a725c83",
+        "order": 4
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Weight Gain",
+    "uuid": "bf66a4db-d071-4a24-9199-84d01b797069",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Increased",
+        "uuid": "7729041b-1ed1-4ac2-8c4e-160836b7874a",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Same as previous",
+        "uuid": "870fccb0-db80-4633-8698-c863ecb102e8",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Decreased",
+        "uuid": "960dbf02-b420-427d-872b-95cff532364d",
+        "order": 3
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Tuberculosis, X-Ray Cavity",
+    "uuid": "5af5a754-8253-4802-a93a-b66cf46426cc",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Non-cavitary",
+        "uuid": "6cfd793f-6db6-428e-80ad-2971f2a6161c",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Cavitary",
+        "uuid": "071027f5-7d64-472a-926b-2b2514a156a3",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Tuberculosis, X-Ray Extent",
+    "uuid": "251ad4cf-b227-4629-836d-4d73aa08ce64",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Extensive",
+        "uuid": "a8eca9b8-6c3c-4fa5-a5d4-a16bde7b0e3f",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Limited",
+        "uuid": "31e04f31-41fd-4e37-80a7-66c69fc0aefa",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Tuberculosis,CBNAAT Test Result",
+    "uuid": "2c1768ea-ae95-431a-b027-e6839201a2dc",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - MTB Detected",
+        "uuid": "fa551a39-9e5f-4c40-838e-38a646f109b7",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - MTB Not Detected",
+        "uuid": "de4bf1ae-fdf2-4f37-a577-c137d21ffa1e",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Indeterminate",
+        "uuid": "86b51fab-2caa-4a39-ac05-560a9d4e3088",
+        "order": 3
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Valvular Abnormality, Aortic Insufficiency",
+    "uuid": "0a83c405-f90f-4a10-a863-b5d1352b9b92",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Mild",
+        "uuid": "f5cd1985-d1af-4bc6-a172-2d26ea9d2db5",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Moderate",
+        "uuid": "ccc6ea29-9ac6-4e93-88e9-d6262564c3cd",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Severe",
+        "uuid": "cfd3984a-dff8-41f8-8898-ba51fb5de2f8",
+        "order": 3
+      },
+      {
+        "name": "Bahmni - Trivial",
+        "uuid": "a98475b7-2450-402c-bd36-d88856fb0a16",
+        "order": 4
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Valvular Abnormality, Aortic Stenosis",
+    "uuid": "d42226eb-d37b-48b3-bd0e-8b10d0559a0c",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Mild",
+        "uuid": "f5cd1985-d1af-4bc6-a172-2d26ea9d2db5",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Moderate",
+        "uuid": "ccc6ea29-9ac6-4e93-88e9-d6262564c3cd",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Severe",
+        "uuid": "cfd3984a-dff8-41f8-8898-ba51fb5de2f8",
+        "order": 3
+      },
+      {
+        "name": "Bahmni - Trivial",
+        "uuid": "a98475b7-2450-402c-bd36-d88856fb0a16",
+        "order": 4
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Valvular Abnormality, Mitral Regurgitation",
+    "uuid": "876833b6-e03b-49ac-b2d6-7e593cd0a751",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Mild",
+        "uuid": "f5cd1985-d1af-4bc6-a172-2d26ea9d2db5",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Moderate",
+        "uuid": "ccc6ea29-9ac6-4e93-88e9-d6262564c3cd",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Severe",
+        "uuid": "cfd3984a-dff8-41f8-8898-ba51fb5de2f8",
+        "order": 3
+      },
+      {
+        "name": "Bahmni - Trivial",
+        "uuid": "a98475b7-2450-402c-bd36-d88856fb0a16",
+        "order": 4
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Valvular Abnormality, Mitral Stenosis",
+    "uuid": "00a4e42b-8d48-42f8-87ea-1f77ad9f0240",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Mild",
+        "uuid": "f5cd1985-d1af-4bc6-a172-2d26ea9d2db5",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Moderate",
+        "uuid": "ccc6ea29-9ac6-4e93-88e9-d6262564c3cd",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Severe",
+        "uuid": "cfd3984a-dff8-41f8-8898-ba51fb5de2f8",
+        "order": 3
+      },
+      {
+        "name": "Bahmni - Trivial",
+        "uuid": "a98475b7-2450-402c-bd36-d88856fb0a16",
+        "order": 4
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Valvular Abnormality, PR",
+    "uuid": "780f4630-30e5-4def-ba1c-2e9eb81ceb65",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Mild",
+        "uuid": "f5cd1985-d1af-4bc6-a172-2d26ea9d2db5",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Moderate",
+        "uuid": "ccc6ea29-9ac6-4e93-88e9-d6262564c3cd",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Severe",
+        "uuid": "cfd3984a-dff8-41f8-8898-ba51fb5de2f8",
+        "order": 3
+      },
+      {
+        "name": "Bahmni - Trivial",
+        "uuid": "a98475b7-2450-402c-bd36-d88856fb0a16",
+        "order": 4
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Valvular Abnormality, Tricuspid Regurgitation",
+    "uuid": "7cd8ab74-89c2-448a-badc-149ad5895c93",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Mild",
+        "uuid": "f5cd1985-d1af-4bc6-a172-2d26ea9d2db5",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Moderate",
+        "uuid": "ccc6ea29-9ac6-4e93-88e9-d6262564c3cd",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Severe",
+        "uuid": "cfd3984a-dff8-41f8-8898-ba51fb5de2f8",
+        "order": 3
+      },
+      {
+        "name": "Bahmni - Trivial",
+        "uuid": "a98475b7-2450-402c-bd36-d88856fb0a16",
+        "order": 4
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Valvular Abnormality,PS",
+    "uuid": "8ba8e62e-474b-4ae3-9485-f5afd4d2aa9f",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Mild",
+        "uuid": "f5cd1985-d1af-4bc6-a172-2d26ea9d2db5",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Moderate",
+        "uuid": "ccc6ea29-9ac6-4e93-88e9-d6262564c3cd",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Severe",
+        "uuid": "cfd3984a-dff8-41f8-8898-ba51fb5de2f8",
+        "order": 3
+      },
+      {
+        "name": "Bahmni - Trivial",
+        "uuid": "a98475b7-2450-402c-bd36-d88856fb0a16",
+        "order": 4
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Video Link",
+    "uuid": "bc1f927e-a3eb-4fca-8a9c-9da6f346e587",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Waist Circumference",
+    "uuid": "2df116f1-8512-4649-84f3-c71bee3c8752",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Waist/Hip Ratio",
+    "uuid": "7f31a763-940c-4b31-8453-bc2f5401d842",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - echo Left Ventricular Function",
+    "uuid": "bc7835f3-5e22-47b8-993d-e36d02b3064b",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - echo Right Ventricular Systolic Pressure",
+    "uuid": "3229d32f-ace8-4885-afd3-6e7a07a2de84",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Medication Taking - Yes",
+    "uuid": "693d783e-8a86-486e-af9d-6c8be61c38a8",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Medication Taking - No",
+    "uuid": "525611e3-4f35-478d-9fa4-4493e7388512",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Improved",
+    "uuid": "9ebe6e3c-dd8f-4366-afff-fd817ad8d078",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Same",
+    "uuid": "81e07c58-ae1a-401d-a3cb-949ec688f100",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Worsened",
+    "uuid": "169aac7f-9579-47e0-a492-200f3676beca",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - 2-3 Days",
+    "uuid": "47d9df4c-7000-4eb1-ba86-66ea40568998",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - 4-5 Days",
+    "uuid": "885e166e-36a7-40e7-a80c-47c030556c91",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - 8-9 Days",
+    "uuid": "cac77168-fbd6-4177-bd1e-5ce92d80eeec",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Lactational Amenorrhea",
+    "uuid": "c10981b9-399d-42a4-b812-61bc99bdcf49",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Post Menopausal",
+    "uuid": "de820cca-5645-4b4c-86ca-99e3742d3849",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Less than 26 Days",
+    "uuid": "66695b0e-3a84-416e-bce4-8f952dab3186",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - 26-30 Days",
+    "uuid": "c4327ac9-a88e-4750-a6fa-009e13e92490",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - More than 35 Days",
+    "uuid": "dd9142cd-9f6d-495c-892e-08e48ddeeeb4",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Scanty",
+    "uuid": "9df6d380-90ec-44f1-a9ad-e8a0755a25ac",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Average",
+    "uuid": "71cbbd00-7334-439b-bbde-c5199dbe6a96",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Heavy",
+    "uuid": "d614cc06-bb4c-4fc2-8c2d-ec49561ca542",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Bad Obs History - Yes",
+    "uuid": "137a9b91-bc7e-48ce-9631-ce9b4678579f",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Bad Obs History - No",
+    "uuid": "bcf14a25-befb-40e8-8bfb-95edc5c848ba",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cephalic Presentation",
+    "uuid": "3b2fedbe-bb87-498e-abaa-09eb00ad4f74",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Breech Presentation",
+    "uuid": "d4963326-1b24-4f78-959d-d4266927f977",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Transverse Presentation",
+    "uuid": "95c89ccc-da70-44cc-9b7d-98b02bb98dde",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - FHS Present",
+    "uuid": "efb6b45b-ec52-4ecc-a165-401aa17836b1",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - FHS Absent",
+    "uuid": "649ef176-d40f-49f2-ac88-185f7720e3a1",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Movement Present",
+    "uuid": "2c8d9bd0-dbe6-4034-acb2-9fc81bd71423",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Normal",
+    "uuid": "e4355857-c460-41bf-af24-a5318062e6d6",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Increased",
+    "uuid": "7729041b-1ed1-4ac2-8c4e-160836b7874a",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Decreased",
+    "uuid": "960dbf02-b420-427d-872b-95cff532364d",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Mild",
+    "uuid": "f5cd1985-d1af-4bc6-a172-2d26ea9d2db5",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Moderate",
+    "uuid": "ccc6ea29-9ac6-4e93-88e9-d6262564c3cd",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Severe",
+    "uuid": "cfd3984a-dff8-41f8-8898-ba51fb5de2f8",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Head Presentation",
+    "uuid": "123c296a-0c8c-4511-83f4-5e228e6ca040",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Hand Presentation",
+    "uuid": "e984e25c-206c-41b8-ba1a-ac3f45df1bb3",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Closed",
+    "uuid": "9351adeb-c002-4eb2-a6a2-17df3a93240c",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Open",
+    "uuid": "131a785c-7f87-49c4-8609-c917c76deceb",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Present",
+    "uuid": "e64b01d4-c949-4e2c-9da0-5a6bb82cc4d0",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Absent",
+    "uuid": "77f8d579-304a-48c3-826c-d67e3f1aa70f",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Clear",
+    "uuid": "faf00444-a45c-4660-8cd8-3b8160c83b61",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Meconium",
+    "uuid": "93e0d0e1-4fd8-4e02-89e2-bf5649399f23",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Regular",
+    "uuid": "35cd1121-6ff9-417b-bf8e-4e376292e073",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Irregular",
+    "uuid": "c37f3504-dd60-45a0-8f4a-02250068446a",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Done",
+    "uuid": "977fcc18-966a-407b-a2f9-f42cf8db4e35",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Not Done",
+    "uuid": "5e7b4c98-2b64-41e4-a366-6f2217ac6ec6",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Growth",
+    "uuid": "d9fa3f46-cd5e-4a3a-a7d3-2d96bf3e4df0",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Erosion",
+    "uuid": "7dc0761d-8575-4183-a691-7170350cf581",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - VIA Test (+ve)",
+    "uuid": "07858e3a-2463-4e4a-8029-44d60d58426b",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - VIA Test (-ve)",
+    "uuid": "7711975b-91f7-4a2d-8520-0108089b1c57",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Enlarged",
+    "uuid": "2fd669e4-b483-4f23-ab96-7280bb81417d",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Soft",
+    "uuid": "8dbd130d-fa58-46c8-b848-a1eb3b5e39d6",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Firm",
+    "uuid": "76905223-fcc8-4d15-9694-74d3b9e4c545",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Anteverted",
+    "uuid": "3e8ce776-f3c2-44a5-9a94-5fdbb4db64a5",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Retroverted",
+    "uuid": "09897910-b85e-4137-adb2-604c51b8cbda",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Mobile",
+    "uuid": "7ae5a84f-497e-4769-9adc-c62e705a7866",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Restricted Mobile",
+    "uuid": "e15548d5-cca3-423d-ab5b-7c397322e506",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Diabetes Complication, Brain",
+    "uuid": "44026594-658c-446f-a42b-66492fd8408d",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Diabetic Foot",
+    "uuid": "10fef182-42d3-4a2d-8aec-fcccd6e854cd",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Diabetes Complication, CRF",
+    "uuid": "f69b1c67-3271-4d6d-a4de-9e5d3bc6da69",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Diabetes Complication, Heart",
+    "uuid": "32687510-5fd7-42f4-913a-4711a6250b01",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Diabetes Complication, Nephropathy",
+    "uuid": "51c08e63-4455-4cb4-a3f8-60aa062ef5a1",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Diabetes Complication, Neuropathy",
+    "uuid": "a78168b1-9b54-45aa-87be-3e955f22c42c",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Diabetes Complication, Retinopathy",
+    "uuid": "af7254c6-7ace-4e4e-aa16-c015cd9597cc",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Diabetes Complication, Skin",
+    "uuid": "f6c89bec-21fc-4535-b4ab-fb83f05c6eae",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Diabetes Complication, Other complications",
+    "uuid": "89df58c7-8535-474c-bfe4-0bb970be8e71",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Diabetes Complication, None",
+    "uuid": "155bdbaa-b551-4734-8b90-4e4e5302517d",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Weakness",
+    "uuid": "fc5a1852-3383-4824-8d0e-51d20d9f7bc1",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Tingling",
+    "uuid": "4e294e8c-ed86-11e3-8f57-746bba63c2a3",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Breathlessness",
+    "uuid": "18e65a93-ed86-11e3-8f57-746bba63c2a3",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Fever",
+    "uuid": "5d432407-e34d-11e3-983a-91270dcbd3bf",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Excessive Urine",
+    "uuid": "59201706-fe05-4451-9da6-c173267d7291",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Excessive Appetite",
+    "uuid": "c13a89df-37e1-4333-8b1f-f527ac408443",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Thirsty Feeling",
+    "uuid": "aad0e01b-6094-4fbd-ad52-27f4183ffe19",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Loss of sensation",
+    "uuid": "3cce8878-66c5-46b1-9084-d6bfc912f4e3",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Sweating",
+    "uuid": "80197de2-6aa9-47cd-9c57-ca5de6dbc3bf",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Dizziness",
+    "uuid": "a64a9305-cdee-4833-bb27-a89585b1f588",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Unconsciousness",
+    "uuid": "9860475e-623a-4c4e-95a0-7fd468844431",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Nocturia",
+    "uuid": "68b47bd2-e34d-11e3-983a-91270dcbd3bf",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Obesity And Weight Gain",
+    "uuid": "740dbbb7-75a6-4179-bd97-91d5f01d0e87",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Weight loss",
+    "uuid": "2a13f92e-4cb9-491a-a017-9230ecb2b6b1",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Ulcer",
+    "uuid": "64f8a8f3-10dd-44da-bf85-f794bf9edea8",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cough",
+    "uuid": "5939d92c-e34d-11e3-983a-91270dcbd3bf",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Diabetes, Itchy skin lesion",
+    "uuid": "a87fb923-c5d6-4acf-a42b-48bb10533053",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Giddiness",
+    "uuid": "1fb6a0c4-ed86-11e3-8f57-746bba63c2a3",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Blurring of Vision",
+    "uuid": "6cb6592e-6483-42bc-a0cb-1b86cb05bf7f",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - White Discharge",
+    "uuid": "41d9001b-ed86-11e3-8f57-746bba63c2a3",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Diabetes, Erectile Dysfunction",
+    "uuid": "20b15708-0bc5-4005-8886-9b7457cebd81",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - None",
+    "uuid": "a6c9e9d4-02cf-4354-9193-1a35b5704751",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Diabetes, Abnormal",
+    "uuid": "da46b45c-aa7b-4858-975f-7827cd831108",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Diabetes, Normal",
+    "uuid": "b1ddb87d-8930-43ef-a1cc-1430cea57005",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Diabetes, Foot Normal",
+    "uuid": "d4ba9647-bc87-4698-b357-9c26a2aa2486",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Neuropathy",
+    "uuid": "f5310242-25db-492d-a93f-473b5d2602de",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - PVD",
+    "uuid": "a3d1e582-dec1-4921-bf13-10f23e37d4e8",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Background Diabetic Retinopathy",
+    "uuid": "baf97c55-454f-4c14-bcc3-059cdd26c720",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - PreProliferative Diabetic Retinopathy",
+    "uuid": "7ef5a585-49d5-4641-9f1e-a3c93a62b471",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Proliferative Diabetic Retinopathy",
+    "uuid": "a8f968e9-a584-4bff-b5a2-df5d82e76cf7",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Treatment Status, Partially Controlled",
+    "uuid": "0c14b456-9b4a-41d2-9f7a-6d01dccdd81b",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Treatment Outcome, Uncontrolled",
+    "uuid": "fd8fae6e-b44b-4e63-9ac5-6e8c9704d42b",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Treatment Outcome, Well Controlled",
+    "uuid": "80af308c-d7bd-4cdd-9ab7-49e86b5cf37d",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Treatment Outcome, Worsened",
+    "uuid": "1f759075-75e1-48b2-bbb5-5f016d299590",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Treatment Status, Continuing Treatment Without Complications",
+    "uuid": "d22bef55-25a8-4a39-b2fa-829284c689d8",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Treatment Status, Continuing Treatment With Complications",
+    "uuid": "3d9764a4-1898-4a40-9cd2-c654f8f52984",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Treatment Status, Unknown",
+    "uuid": "59c57026-813e-4056-a1ad-90f93e463973",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Continuing and Uncontrolled",
+    "uuid": "b007b63a-d02c-40d9-af69-04a403bc9b35",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Continuing and Controlled",
+    "uuid": "d9f64578-188b-4518-9ab7-cac8af9d6cf8",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Controlled and Defaulted",
+    "uuid": "9b747b96-f46b-474e-a875-48b35c78b5ea",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Uncontrolled and Defaulted",
+    "uuid": "3c7058cb-7b6e-4c67-bd70-28e55a20ee9c",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Death during treatment",
+    "uuid": "5406f7ca-fee9-4b34-8575-e9e148ca3075",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Type of surgery, Major",
+    "uuid": "1c736b4c-d7ae-48cc-8779-f5e16ed0db4a",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Type of surgery, Minor",
+    "uuid": "8393ab5a-cdce-4443-b76e-1caa53042b0e",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Type of surgery, Intermediate",
+    "uuid": "8be37f9c-4a26-4029-9605-055384fe6efb",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Type of surgery, Emergency",
+    "uuid": "63178766-1aa1-4c66-97da-544d83036063",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Type of surgery, Elective",
+    "uuid": "8710827f-95e8-4c58-a914-0220df03fa9d",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Dr. Raman Kataria",
+    "uuid": "69eef8ce-f179-4160-8761-c433e50f9757",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Dr. Rachna Jain",
+    "uuid": "18f59bf3-1694-4686-94d7-5a9bc90928c0",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Dr. Rahalkar",
+    "uuid": "9fefd5b9-6a8f-45b9-bbaa-c9e9e8efb438",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Dr. Dev Sao",
+    "uuid": "4de55346-55f5-48c6-8f27-55792359e984",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Dr.Dipankan Jana",
+    "uuid": "c8f0df76-1713-469a-92d9-9aa6ab958c95",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Dr. VK Dixit",
+    "uuid": "52f11b46-f43a-4e87-87dc-fc22e6228ed5",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Dr. Deepak Chandra Bandhani",
+    "uuid": "60d9b216-b58a-4b63-8abe-5a4aef3ae43a",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Dr. Rounak Kalwani",
+    "uuid": "b7c82992-448b-4508-9785-772fe590bef7",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Dr. Vikas Sharma",
+    "uuid": "64fb24b4-c4ce-47ee-b535-7bae668a008f",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Dr. NK Trivedi",
+    "uuid": "dc1fc82c-62b7-4294-9976-3174d3a39776",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Dr. Ravi Mahobia",
+    "uuid": "67665bea-53b0-4c65-aed1-a34bbe434763",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Dr. Rounak Milton",
+    "uuid": "0775bfbe-1321-4e0d-b35e-453ea2361578",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Dr. Simon Rousevelt",
+    "uuid": "ba2d950e-6a58-42e1-8ff7-9a936959dce9",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Dr. Vignesh Ramesh",
+    "uuid": "27100268-fd7c-49fd-b440-3704d58d578a",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Dr. Sharon V",
+    "uuid": "b80210ea-4a2a-4eb5-8866-4804c90a3599",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Dr. Killol Borad",
+    "uuid": "0a1b7e6c-a4c9-4a10-a547-ba28b30c4537",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Dr. Radhika Pillay",
+    "uuid": "39455417-a1bc-458e-b969-1ce433f71509",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Dr. Chinmaya Mishra",
+    "uuid": "8a033586-ebca-4e05-acc3-6d7a2f0ac665",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Dr. Ravindra Sahu",
+    "uuid": "e1a05c68-e573-4b59-a0a8-69cf348baf24",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Other Answer",
+    "uuid": "bea99fbe-0137-4d91-9b37-4acb2febbd7c",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Dr.Pranav",
+    "uuid": "14cd0207-32db-4f1d-8223-acbfdc5a4553",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Dr. Jyoti Aggarwal",
+    "uuid": "446dba85-d34d-4ba2-a5da-1ca881073ca3",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Dr. Shilpa Khana",
+    "uuid": "d6958804-c866-4dc7-827d-a369ab98d154",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - General Anesthesia",
+    "uuid": "8ca92a2c-4a53-44eb-8ef5-3dfdc1878ec3",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Spinal Anesthesia",
+    "uuid": "0df2d374-7b5d-435c-a240-96fff013f96d",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Epidural Anesthesia",
+    "uuid": "c21b24f4-69df-459e-8994-2840ac4b4176",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Local Anesthesia",
+    "uuid": "7ad1304a-eefa-437c-a483-20ede719ddd7",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Ketamine",
+    "uuid": "df88d7b3-f679-411b-bbc4-5195c9cbae22",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Saddle Block Anesthesia",
+    "uuid": "a9db5128-2bf1-4a49-9c5f-3e56271c8088",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Other Anesthesia",
+    "uuid": "2a10c14e-3a5d-41a6-9fba-d8376e1170f6",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Urology",
+    "uuid": "6f12abd1-d83e-43a4-a05a-8b2ed3c401ea",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Oncology",
+    "uuid": "2e3a7492-b393-4efa-aa0f-7ea0cc959950",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Neurology",
+    "uuid": "b230d91c-9a73-48d5-84ba-8d5aa3aa6b7f",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Orthopaedic",
+    "uuid": "18c70348-e575-4f13-8dd5-b36926e07990",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Plastic",
+    "uuid": "347c06a7-d7db-44ed-b873-df24ac39f0ea",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Obstetrics and Gynaecology",
+    "uuid": "646afb14-1c7b-45ee-987a-44ffc1b3b526",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Pediatric",
+    "uuid": "2fe9011b-097a-4fb3-a4d7-a479b2f8034e",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ENT",
+    "uuid": "8c8145d5-14fa-4062-b2dd-f0354b287337",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Surgical specialties, General",
+    "uuid": "a712befe-11d7-4892-a93b-7694ea2a29b8",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Right Side",
+    "uuid": "557a3b57-2d8e-4c7d-97d6-82eafbbdc2d1",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Left Side",
+    "uuid": "f9b13034-fe54-4abd-bc09-8e77c59aaaae",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Fixed",
+    "uuid": "e55c616d-9d92-47ea-a9a4-1e794209ea3e",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Peau dorange",
+    "uuid": "87cb3f98-b487-441b-8c93-12cd06f2c7ea",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Fungation",
+    "uuid": "bd3a4b21-0506-46f5-8526-947a4e85ab52",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Discrete",
+    "uuid": "bbedbc30-f91c-4934-a520-90a7f5796340",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Matted",
+    "uuid": "ebe7d945-2af9-4d28-af4f-4a3cc6d404a6",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - 1.Other Invasive Carcinoma (Specify)",
+    "uuid": "7ebb7471-775d-4813-87e1-400ba08d86fb",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Invasive Lobular Carcinoma",
+    "uuid": "194f7a79-0aca-433c-b7d2-94b52fcf7e91",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Invasive Ductal Carcinoma",
+    "uuid": "2dc3f745-bc37-42b8-87a4-1f070d9d02d8",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Positive",
+    "uuid": "051e8515-aff5-4fc7-81f9-d99d64c2ca15",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Negative",
+    "uuid": "9d8ff348-cc4a-489f-85b5-00cf04814cdd",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - CT Scan Of Chest/Abdomen/Pelvis",
+    "uuid": "b52be973-313c-4b24-b023-db0df4e7287b",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Abdominal/Pelvic Ultrasound",
+    "uuid": "6f7221c2-62eb-4792-8255-e7edfd37637e",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Chest X-Ray",
+    "uuid": "8b68e5d8-0a13-4c3a-8c8f-3eda30580913",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Metastatic",
+    "uuid": "df59ac4d-da2b-4214-9196-fcd823474374",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Locally Advanced",
+    "uuid": "1a1f1a00-a9a1-4316-8c86-3308613e38ce",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Early",
+    "uuid": "be96db09-f2a8-413e-8fa0-4e457e8c4c38",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - T0 Tumor Stage",
+    "uuid": "93c0ab31-3db8-4f4f-895f-aa822e50b4bb",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - TX Tumor Stage",
+    "uuid": "b81b8a42-fbfd-4533-81dc-4932c415174d",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Tis Tumor Stage",
+    "uuid": "19a0225c-9bc6-42a0-bcb6-2fd15766720b",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - T1 Tumor Stage",
+    "uuid": "93de276f-dff9-4cc5-9fef-52e566df3556",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - T2 Tumor Stage",
+    "uuid": "9f7b3e6b-e939-4b5c-9b9d-d7a39d6e13a7",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - T3 Tumor Stage",
+    "uuid": "688bf44a-a51b-436b-81c1-5ad5863c41c9",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - T4 Tumor Stage",
+    "uuid": "9c4abebc-3b0b-49e2-a97c-b6643364dce7",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - N0 Lymph Node Stage",
+    "uuid": "4f014e2b-8a95-4dea-b8f5-b9d11a4b22e6",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - NX Lymph Node Stage",
+    "uuid": "9df9f19c-7c04-4a62-8f68-96ec94958781",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - N1 Lymph Node Stage",
+    "uuid": "f5044eb5-86ef-4384-beb4-cb63ab718984",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - N2 Lymph Node Stage",
+    "uuid": "7004514f-9a9b-4c2e-8b77-6f824dc539a2",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - N3 Lymph Node Stage",
+    "uuid": "fe6592b5-fee5-4629-862f-789b6f8e5982",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - M0 Metastatic Stage",
+    "uuid": "293bb24d-c270-4971-b3aa-f1547a4cda84",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - M1 Metastatic Stage",
+    "uuid": "d66e72fc-fbff-4d65-a324-29d22af035d5",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - MX Metastatic Stage",
+    "uuid": "576b29e4-5132-4144-9f32-eaf521fd4faa",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Breast Cancer, I",
+    "uuid": "052b368d-8b20-4105-9045-a8e1f2646c0d",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Breast Cancer, IIa",
+    "uuid": "f92d9897-b774-4f54-ada1-a712bafca939",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Breast Cancer, IIb",
+    "uuid": "a96dee1d-d549-48eb-a1a0-87d0ae69f5d8",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Breast Cancer, IIIa",
+    "uuid": "f9c730f7-1523-4970-806a-0e8ef6f187a7",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Breast Cancer, IIIb",
+    "uuid": "9db5ed6c-2a12-44f1-b7dd-02a95840e041",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Breast Cancer, IIIc",
+    "uuid": "346ce820-cb1c-4b70-86bc-326875be0516",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Breast Cancer, IV",
+    "uuid": "df6af46b-e6d5-4f9a-9db7-448932223902",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Palliation Only",
+    "uuid": "214d001b-7f69-469e-8d92-87d68730c0cf",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Curative",
+    "uuid": "3d309d73-0ffa-4722-8d83-bb14a3d5b966",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cyclophosphamide + Doxorubicin + Fluorouracil",
+    "uuid": "0ab10fb3-342f-4809-a1d5-085ab91a8210",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cyclophosphamide Methotrexate Fluorouracil",
+    "uuid": "ee5e7b60-c4ab-41ca-868a-4e4153134497",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Doxorubicin + Cyclophosphamide",
+    "uuid": "0f49fb99-91a4-4f31-9c43-a9953cf1bc45",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Paclitaxel",
+    "uuid": "3c2866d9-bbe8-4a1a-8a2e-ab47581b3ac1",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Tamoxifen",
+    "uuid": "4133ec25-a376-4959-82b0-c6cdb2053228",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Radiotherapy, Bilaspur",
+    "uuid": "8d08e125-ab54-4a41-83b8-4d2b4791b36a",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Radiotherapy, Raipur",
+    "uuid": "35d707b2-30c4-45b0-920b-afb743be5ef5",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Radiotherapy, Others",
+    "uuid": "77434e86-076a-40c9-9463-c2c7711097b6",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Radiotherapy, None",
+    "uuid": "a9c5a9cf-3f6b-426a-bc1e-12e05644655e",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - 3 Years",
+    "uuid": "8916aefb-93b2-48de-864f-b2783599921f",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - 5 Years",
+    "uuid": "518aef64-23c3-46fd-8155-7aec7dffb058",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Aromatase Inhibitors, Not Given",
+    "uuid": "5ebdda67-4c7c-4899-b2a7-60e9804b069e",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Aromatase Inhibitors, Given",
+    "uuid": "be8961ee-7856-436c-8196-ee49ea9859a7",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Compliance, Compliant",
+    "uuid": "4968357b-c14b-4bdd-8462-16eeeabab452",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Compliance, Non Compliant",
+    "uuid": "6f2fdd8c-87fd-41d0-848e-0b3885e48cd8",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Final Outcome, Disease Free",
+    "uuid": "bc3aa13f-d29b-48ae-8eb0-296bae781543",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Final Outcome, Transfer Out",
+    "uuid": "d26faf07-222e-46a6-b09d-fa19f8cf82f7",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cervical Cancer, Treatment not Started",
+    "uuid": "21f9d3f9-d1ca-44a4-b36c-394d481c4fa0",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Final Outcome, Default",
+    "uuid": "8ffbf871-4fab-437a-8b77-46fc0a1cf43c",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cervical Cancer, Loss to Follow up",
+    "uuid": "8f5bc0a8-d74f-4679-af1d-b414b1ee151c",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Final Outcome, Death",
+    "uuid": "c2b927be-075b-45e3-bd54-26e218386b6a",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Radiation Therapy",
+    "uuid": "a3ebcacb-d196-44dc-a059-2894d94cf1c3",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Surgery",
+    "uuid": "613610e8-9352-4571-8992-e68e43483e7a",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Chemotherapy",
+    "uuid": "a239163f-1f44-483b-9517-326930bc18d6",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Palliative",
+    "uuid": "98a8d451-d52e-40e8-90e1-ff1dbbb1cb84",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Adjuvant",
+    "uuid": "da164ab7-b53b-4f9a-aa79-cd09959c12e8",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Neoadjuvant",
+    "uuid": "d5667fb2-a4d1-4239-8996-115a447b67b0",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - 1.MRM with Axillary Lymph Node Dissection",
+    "uuid": "ba025b70-4b02-47a6-b803-f42ae3a9d368",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - False No",
+    "uuid": "eb4d2cbc-8798-4073-83d6-9eb1934231ca",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Anorexia",
+    "uuid": "55dca0e7-e34d-11e3-983a-91270dcbd3bf",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cough with expectoration",
+    "uuid": "6f098cb3-2816-402b-b8a9-e1b5446a771b",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cough without expectoration",
+    "uuid": "2618324a-dc87-4d95-854e-83fd015e3f19",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Night Sweats",
+    "uuid": "7bbaf5b8-722c-44af-b246-0e5534f7ff73",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Lymph Node Enlarged",
+    "uuid": "693fb56c-a83b-4818-8724-e1367ca5041a",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Chest Pain",
+    "uuid": "57cfff64-e34d-11e3-983a-91270dcbd3bf",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - No fresh complaint",
+    "uuid": "91826e6c-d344-4387-88c6-54a9868c1a62",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Positive Family History",
+    "uuid": "c40e5e72-bf87-4fdb-80ef-0112b6c025c3",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Positive TB Contact outside family",
+    "uuid": "649aaee3-c7e9-40f6-95c4-8af19225a309",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Private",
+    "uuid": "7535fdc9-7429-4392-9ad2-c319a8f008c3",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Government",
+    "uuid": "d0c48d18-0a6a-11e3-939c-8c50edb4be99",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Pulmonary",
+    "uuid": "fd6ed8c8-36c2-4ba0-95a4-c1a073a6a6c0",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Extrapulmonary",
+    "uuid": "882a5387-f92e-42ba-9105-83bb601ef303",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Pulmonary + Extrapulmonary",
+    "uuid": "52d479f3-8588-445d-9501-40c57afe6567",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Disseminated",
+    "uuid": "3485211c-63a3-4c18-8afc-756666338951",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - New Patient",
+    "uuid": "d19cfd06-5bca-49e5-87d2-ad3e9dc4c6ae",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Treatment after default",
+    "uuid": "bc6a27c5-0c1b-4151-b820-e6a7c2bab3b1",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Treatment after relapse",
+    "uuid": "e1b5d50b-bdc5-4cec-81c7-7048641af6af",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Treatment after failure",
+    "uuid": "7f560d74-4c65-44f6-a50e-7f64d6d9eccf",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Pleural",
+    "uuid": "4d708dac-8813-4fba-82aa-fdb3d80d10ee",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Lymph Node",
+    "uuid": "34868bec-e6ab-4d07-a412-3f2dc84cab5c",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Intestinal",
+    "uuid": "4de863fc-3bb6-4292-95e2-88d598d42e67",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Peritoneal",
+    "uuid": "2353e058-462e-464b-8351-08a36bf8c575",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Skeletal",
+    "uuid": "7a04f6b1-719b-4fa2-a7d7-3d5e231e2402",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Articular",
+    "uuid": "7fa1430e-8b86-4b37-94c6-43fe339a573d",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Meningeal",
+    "uuid": "a2e16d51-281e-4a47-a94a-033bd26e6670",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Renal",
+    "uuid": "3d826b21-8b82-40cc-b656-e6be5478aabb",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Genital",
+    "uuid": "39c69047-4c1f-46ff-af44-4ef88185aeef",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cutaneous",
+    "uuid": "011ccc5b-c318-49ca-ab3c-a16c2cd5d980",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Pericardial",
+    "uuid": "331edbe1-4908-4e28-90e4-3993e909c4e0",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Extensive",
+    "uuid": "a8eca9b8-6c3c-4fa5-a5d4-a16bde7b0e3f",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Limited",
+    "uuid": "31e04f31-41fd-4e37-80a7-66c69fc0aefa",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Non-cavitary",
+    "uuid": "6cfd793f-6db6-428e-80ad-2971f2a6161c",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cavitary",
+    "uuid": "071027f5-7d64-472a-926b-2b2514a156a3",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Sputum Microscopy",
+    "uuid": "0b5f454b-58dd-4e6c-9c12-ffa6e3e00c11",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Clinical Exam",
+    "uuid": "f71546a6-0026-4761-950d-74d2543488ef",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - X-Ray Findings",
+    "uuid": "6911545f-217d-4db9-9160-356b74613093",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Sputum Culture",
+    "uuid": "fc0258e9-c1c8-478d-9a5e-87eab06bf991",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Histopathology",
+    "uuid": "4ce1e44f-71c1-46e8-94fc-33f699b992d7",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cytochemistry",
+    "uuid": "8723bd51-8750-414c-a50c-5c61356e3243",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - CBNAAT",
+    "uuid": "26320ecc-2ef1-4d3a-a5d2-28b34ba679ca",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Basis of Diagnosis, History of TB Contact",
+    "uuid": "662ab429-48d1-4666-9dd8-61b09c6cc7ad",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Basis of Diagnosis,Fluid Analysis",
+    "uuid": "9b7f087d-eabf-4e3c-a025-daa9c31afc41",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Diabetes",
+    "uuid": "316cc0fc-636d-44e0-939b-4c9a131c0203",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Liver Disease",
+    "uuid": "f8022eb3-6d2e-4a27-b224-7b0bdfee5f84",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - HIV",
+    "uuid": "05195c83-066a-4a45-a08f-90ff5ee1f3ad",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Renal Disease",
+    "uuid": "1c6e9487-b059-4b7b-a0b3-03a0f12752ae",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - RHD",
+    "uuid": "95e1d551-c8d0-4b76-bc1f-0308dd8c5031",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Asthma",
+    "uuid": "5affef02-c2dc-4925-8cf5-69848051471a",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Severe Undernutrition",
+    "uuid": "c0fb27ed-885c-4896-81e6-8e1c4bdc7879",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Comorbidity,Anemia",
+    "uuid": "a01a8051-89db-4265-9335-79cd551cd1dd",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Comorbidity,Sickle Cell Disease",
+    "uuid": "6645a052-f1ff-49b5-8320-349d583314d9",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - 2HRZE + 4HR",
+    "uuid": "514ca5ba-3756-4a96-8407-84628ac95848",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - 3HRZE + 6HRE",
+    "uuid": "936333c5-91da-4498-8660-ff0808456236",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - 9H",
+    "uuid": "f6dba1bb-33da-433a-b085-774fe8497307",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - 12RZFqE",
+    "uuid": "496e01bc-a1a7-48a0-b9a2-3c9f3d84a7dd",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - MDR Treatment",
+    "uuid": "2b838bd9-dfdf-482d-8a80-efd6c531990c",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Other Treatment Plan",
+    "uuid": "ddbfe78a-e215-4f44-ba1b-e5698f71ca21",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - 3HRZE + 9HRE",
+    "uuid": "59abcc2a-45f8-4718-a841-2a423bbbc5c0",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Day 15",
+    "uuid": "62908d24-ed73-460b-bfdd-b5fddbce8142",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - 1 Month",
+    "uuid": "b6dc2eaa-884a-443a-934d-3148c75fb2a0",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - 2 Month",
+    "uuid": "ab68df15-7fd1-4f06-9d43-5d912eab4a7e",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - 3 Month",
+    "uuid": "12c73368-ae7d-475c-a3ab-abf6f1de9193",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - 4 Month",
+    "uuid": "3a846add-9c71-452f-8743-465ed4d17ad4",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - 5 Month",
+    "uuid": "62067bef-db57-4c54-aa77-54ebb4dd7d5e",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - 6 Month",
+    "uuid": "e7029332-8b05-4a22-bcd5-975d49211852",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - 7 Month",
+    "uuid": "ec334a97-7a62-4799-9e12-a28bd82b6f72",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - 8 Month",
+    "uuid": "d07d6239-3c80-45f0-8f98-3ee7d7cb469e",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - 9 Month",
+    "uuid": "0ee1905e-9d28-45d5-9cfa-e6a5b0e2f86d",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - 10 Month",
+    "uuid": "64348ede-0886-4532-b7f8-33f68b36e9c9",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - 11 Month",
+    "uuid": "ac1fd3e2-8595-42a1-8c19-34a3cc4ca50c",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - 12 Month",
+    "uuid": "faef1600-56a9-4fc8-a968-257487538951",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Yes",
+    "uuid": "11a7fd99-73a2-4b5c-87e1-b9505b4b899f",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Not Applicable",
+    "uuid": "40233dfc-e44f-4cb2-b4c7-738112b828ae",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Same as previous",
+    "uuid": "870fccb0-db80-4633-8698-c863ecb102e8",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Available & Normal",
+    "uuid": "a7110487-4eee-4921-86c0-e3598578ea29",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Available & Abnormal",
+    "uuid": "2fc52cec-fc4b-4f6c-acd8-2733a6f939f1",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Awaited",
+    "uuid": "d8f04bc9-a10e-471d-906e-91715345c570",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Relieved Completely",
+    "uuid": "19a9fdc2-c635-4484-b437-d94f9ae30d92",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Icterus",
+    "uuid": "1ed5e18f-d9dd-4a78-9ce7-4e456bab308f",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Lymph Nodes",
+    "uuid": "796d77b6-1607-47a9-b595-b6bc131db81c",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Joint / Bone  Pain",
+    "uuid": "d398fd62-9a7d-4586-818a-5b175e4d80d8",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Skin Rash",
+    "uuid": "3fc92c02-ed86-11e3-8f57-746bba63c2a3",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Dyspepsia",
+    "uuid": "943e8b18-e34b-11e3-983a-91270dcbd3bf",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Abdominal pain",
+    "uuid": "56b61ea7-a50b-4884-b286-63d45c6c1267",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Jaundice",
+    "uuid": "0167fafe-e34c-11e3-983a-91270dcbd3bf",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Hepatitis",
+    "uuid": "96e62e93-2f16-4e90-8b50-5097169d512b",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Deafness",
+    "uuid": "d2224bfa-2d67-41f1-a1b5-38558cff3d27",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Visual Impairement",
+    "uuid": "fd061c4e-ebe8-4f60-b29d-9a05ebac3fcf",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Numbness",
+    "uuid": "b88d9e50-9295-464c-a639-4a3befa35138",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Drowsiness",
+    "uuid": "2b88b7b7-ff18-47d1-bc01-abedf4495220",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Improving",
+    "uuid": "f240cb02-7937-4530-96bb-fe3c0cb8292a",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Worsening",
+    "uuid": "54c9865e-b43b-4c0c-92da-33a387024c0c",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Needs further evaluation",
+    "uuid": "829d9abe-cd57-4fed-882f-76f71a725c83",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - On Treatment",
+    "uuid": "164b8d63-1e37-49e8-97b7-d6b990342695",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cured",
+    "uuid": "ea84a0fc-224c-455a-be2d-de78367eaa7d",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Complete",
+    "uuid": "683c8e0c-d920-4d59-9bb0-7e4d380023a0",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Default",
+    "uuid": "033901e1-468e-4e63-bc9e-22096b4fe92e",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Failure of Treatment",
+    "uuid": "80b85712-136d-4936-b81b-dc972108e4e6",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Transferred Out",
+    "uuid": "ecadbdaa-3a11-40bd-81a9-8a2cf068e1ee",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Break in Treatment",
+    "uuid": "d5df6073-ae3e-4bda-97f8-4802a332006b",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - 1+",
+    "uuid": "8cfe4739-8765-49e4-ba4e-51b046e42d75",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - 2+",
+    "uuid": "207e199d-0e61-462c-bcf1-ddb6a985e9eb",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - 3+",
+    "uuid": "0b1d1849-ce4a-454e-8c73-0e95c3dd0c93",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Initial",
+    "uuid": "0ef7e57f-e9aa-4810-a016-e395bae843b4",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Followup",
+    "uuid": "f7b3cdc6-42ed-4dd5-b344-5eb8d6862712",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Sputum",
+    "uuid": "1fffe2ad-8c3d-4c8a-90f8-50dc4332565e",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Pus",
+    "uuid": "ec37701c-9e58-4d72-ac64-0447f4cad944",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Sample Pleural Fluid",
+    "uuid": "d7774dde-3577-4059-9e8d-9d1860dc4a44",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - CSF",
+    "uuid": "649b941c-3800-4b74-b91a-9f7234229c9b",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Tuberculosis sample type - Lymphnode Aspirate",
+    "uuid": "4dc7d9b3-b913-4d59-a0da-ca1886dff651",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Tuberculosis sample type - Tissue",
+    "uuid": "6f2dcc0e-fc14-4039-ab6e-ed07a746c57d",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - BAL",
+    "uuid": "7c5222ea-7845-465b-87fc-d805bf97929c",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - GAL",
+    "uuid": "aef021de-da26-4e5f-8952-db1c5be66990",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Knee Joint Fluid",
+    "uuid": "9ff4a600-bcc5-45e2-876e-27bcfe24dd1d",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Peritoneal Fluid",
+    "uuid": "4867b7b1-5237-4a97-8f67-97951fa36b49",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Pericardial Fluid",
+    "uuid": "e0d23831-a2ea-4b16-aa01-a4a975952064",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Urine",
+    "uuid": "baba0037-cfa0-4c77-be02-fe0cd2fe2029",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Tuberculosis, Others",
+    "uuid": "90c9f2aa-ffd5-4198-9f8e-2dfc427e75ad",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - District Hospital Bilaspur",
+    "uuid": "32bdd451-3e14-4c44-9291-fccee9ae64d6",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - RMRCT Jabalpur",
+    "uuid": "fbb4e7f9-851c-4510-85c3-a94411afef95",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - IRL Raipur",
+    "uuid": "384c9863-4292-4dfe-a21b-c42f30aa299c",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Hinduja Hospital Mumbai",
+    "uuid": "26c71f2e-8e51-4e74-a912-f4f3c84fdba7",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - JSS Ganiyari",
+    "uuid": "95527830-26cf-4b0d-aa13-95302e3705af",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cartridge based nucleic acid amplification testing",
+    "uuid": "d80b53e7-a5ed-4cd0-a8da-598ec21b9e5a",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Culture and Drug Sensitivity Test",
+    "uuid": "0b31b1e1-64aa-4bee-bfa5-d38acccad57d",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - No Growth",
+    "uuid": "3b4fc4f2-a9e1-4685-9a9a-3904d5a95677",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Contamination",
+    "uuid": "03cf83ed-383d-4e5d-b68a-8542462baca7",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Invalid Sample",
+    "uuid": "0f9becbd-5ad8-4a2a-a8fa-97d627d1a151",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - MTB Detected",
+    "uuid": "fa551a39-9e5f-4c40-838e-38a646f109b7",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - MTB Not Detected",
+    "uuid": "de4bf1ae-fdf2-4f37-a577-c137d21ffa1e",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Indeterminate",
+    "uuid": "86b51fab-2caa-4a39-ac05-560a9d4e3088",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Resistant",
+    "uuid": "84b6df52-244c-45f8-a71a-4948f33384e7",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Sensitive",
+    "uuid": "37ecc488-42e3-487c-9dd9-dfa0d0d261b3",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Female",
+    "uuid": "6d37521f-8f17-43c8-9c4d-5b161d7c5261",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Male",
+    "uuid": "e12d9dc1-0dda-4d34-8793-e925228ab61e",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Treatment",
+    "uuid": "32b451f6-9436-4f5d-a9c8-b2fa0e0a7027",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - No Treatment",
+    "uuid": "e482ebfb-9f5c-4338-93c3-a8a2c556dd65",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Prophylaxis",
+    "uuid": "3295913f-c18e-4082-af52-0c98e26576f6",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Decreased appetite",
+    "uuid": "1c45f82a-ed86-11e3-8f57-746bba63c2a3",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Surgery, Done",
+    "uuid": "25c7bbee-83b9-48e8-a8dd-8294f2e10ac9",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Surgery, Not Done",
+    "uuid": "494f7786-461d-4005-ade4-a435882ad065",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Type of Surgery, PTMC",
+    "uuid": "a37c70db-5adb-4318-b4a8-cdca05fa22dd",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Type of Surgery, Open Heart Surgery",
+    "uuid": "26aa5163-e376-40b0-afc5-119232de8ffe",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Surgery Center, AIIMS Delhi",
+    "uuid": "516124cc-9cd6-46c9-9ec6-fdf500fee78e",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Surgery Center, NHMMI Raipur",
+    "uuid": "e391c009-8950-43a6-aab1-68337da01e99",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Surgery Center, Others",
+    "uuid": "993dcffe-c215-4d03-be07-fba2593662b1",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Mildly Reduced",
+    "uuid": "8ed84651-3686-45a3-ad75-d133e2f9636b",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - 2D Exam, Moderately Reduced",
+    "uuid": "7cebb4c3-fe0b-4e0f-b86c-2d25d23f3e8c",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Severely Reduced",
+    "uuid": "a33a33aa-4387-4cd1-910f-b796838d384a",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Trivial",
+    "uuid": "a98475b7-2450-402c-bd36-d88856fb0a16",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Echo Minimum",
+    "uuid": "a9b44226-b735-4741-87fd-03195a3e842b",
+    "dataType": "NA",
+    "active": true
+  }
+]

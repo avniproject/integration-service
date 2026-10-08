@@ -1,0 +1,174 @@
+{
+  "name": "Bahmni - Obstetrics, P/V (per vaginal)",
+  "uuid": "abe3dd57-0fd1-453b-80dc-9bf3ddd1ee29",
+  "formType": "Encounter",
+  "formElementGroups": [
+    {
+      "uuid": "6e103de1-40a4-4415-87ab-c52158936957",
+      "name": "Bahmni - Obstetrics, P/V Presenting Part",
+      "displayOrder": 1.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Obstetrics, P/V Presenting Part",
+          "uuid": "a1d24d06-c0ef-47bf-81d8-f32f6641b10f",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Obstetrics, P/V Presenting Part",
+            "uuid": "56153f28-609b-4c45-93b7-41602b7e19aa",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "dffff19e-863f-4270-b680-6377684f3dae",
+      "name": "Bahmni - OS",
+      "displayOrder": 2.0,
+      "formElements": [
+        {
+          "name": "Bahmni - OS",
+          "uuid": "93534909-cc6b-4def-82c5-acbf7f5c19ce",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - OS",
+            "uuid": "f3f9520c-bf6b-4d30-a55e-39ed955d1139",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "98284567-a565-4a83-bd37-bb8df69b6773",
+      "name": "Bahmni - Obstetrics, Membrane",
+      "displayOrder": 3.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Obstetrics, Membrane",
+          "uuid": "f8b9f4cf-abdb-4811-bc95-bb875ecc9214",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Obstetrics, Membrane",
+            "uuid": "38c6efdf-c7fd-4178-b0b2-2e2db7fbc59e",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "a80aa698-fb33-43bb-a005-84eed66aa48b",
+      "name": "Bahmni - Obstetrics, Liquor",
+      "displayOrder": 4.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Obstetrics, Liquor",
+          "uuid": "d1cfc8ad-5241-4432-a642-495b461b856e",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Obstetrics, Liquor",
+            "uuid": "2b872945-7ee4-4b02-afb9-f7c618ebb908",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "c11f41d5-4e16-4604-8f31-cbd00f7cb27c",
+      "name": "Bahmni - Obstetrics, Effacement of Cervix",
+      "displayOrder": 5.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Obstetrics, Effacement of Cervix",
+          "uuid": "6fec8a9f-bf52-41dc-b8d3-385097c86f21",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Obstetrics, Effacement of Cervix",
+            "uuid": "623b0bbf-cee7-4044-a247-889d240fac2e",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "f0196dbb-1d9a-4426-9063-5904207c7e1d",
+      "name": "Bahmni - Obstetrics, Cervical Dilation",
+      "displayOrder": 6.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Obstetrics, Cervical Dilation",
+          "uuid": "66e8d2e8-ceed-45c3-899e-48e6215f887f",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Obstetrics, Cervical Dilation",
+            "uuid": "8c4811bb-c7fa-4e07-9cb3-aca532363610",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

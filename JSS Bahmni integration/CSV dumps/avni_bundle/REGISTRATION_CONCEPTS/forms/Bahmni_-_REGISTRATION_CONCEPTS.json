@@ -1,0 +1,66 @@
+{
+  "name": "Bahmni - REGISTRATION_CONCEPTS",
+  "uuid": "b4bb1246-c79a-11e2-b284-107d46e7b2c5",
+  "formType": "Encounter",
+  "formElementGroups": [
+    {
+      "uuid": "dac2d4fa-349c-4e31-a135-418b90bf6fe5",
+      "name": "Bahmni - REGISTRATION FEES",
+      "displayOrder": 1.0,
+      "formElements": [
+        {
+          "name": "Bahmni - REGISTRATION FEES",
+          "uuid": "03bc6b6c-6931-4c6a-8d4a-91ae54723498",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - REGISTRATION FEES",
+            "uuid": "b4afc27e-c79a-11e2-b284-107d46e7b2c5",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "e23e6b29-7e05-4796-b23a-cf8f608c63de",
+      "name": "Bahmni - COMMENTS",
+      "displayOrder": 2.0,
+      "formElements": [
+        {
+          "name": "Bahmni - COMMENTS",
+          "uuid": "d0e40250-a1f7-4a36-8705-3c6f62f7233c",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - COMMENTS",
+            "uuid": "b4a3ebc0-c79a-11e2-b284-107d46e7b2c5",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

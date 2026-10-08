@@ -1,0 +1,417 @@
+{
+  "name": "Bahmni - Dosing Units",
+  "uuid": "8c2a4a3a-2dfc-11e4-894f-60175255b68f",
+  "formType": "Encounter",
+  "formElementGroups": [
+    {
+      "uuid": "124f8c50-5ffa-4d33-bf3d-d271eb72a1b7",
+      "name": "Bahmni - Tablet(s)",
+      "displayOrder": 1.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Tablet(s)",
+          "uuid": "f8d47a84-1c1c-4da5-9ab8-579eadd9a6fa",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tablet(s)",
+            "uuid": "e2b80de6-a30b-4ec3-869a-a22265717a71",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "4b4da490-f2f7-4409-837e-a375a0afd8c3",
+      "name": "Bahmni - Capsule(s)",
+      "displayOrder": 2.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Capsule(s)",
+          "uuid": "8f1b3276-f298-431f-baae-8bd795f5e01d",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Capsule(s)",
+            "uuid": "53854ae7-1c1f-45d8-90fd-5a53ce463ba7",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "e2fd71e3-deb6-4f75-87ef-838018b30033",
+      "name": "Bahmni - ml",
+      "displayOrder": 3.0,
+      "formElements": [
+        {
+          "name": "Bahmni - ml",
+          "uuid": "14f30737-b3f5-49be-9562-b482c483c062",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - ml",
+            "uuid": "8c4469ab-2dfc-11e4-894f-60175255b68f",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "37fcbeae-ea93-46c9-bbfb-57f559b6e3a3",
+      "name": "Bahmni - mg",
+      "displayOrder": 4.0,
+      "formElements": [
+        {
+          "name": "Bahmni - mg",
+          "uuid": "18c019c7-8321-4f05-ae6e-fbd01849cd7c",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - mg",
+            "uuid": "8c4572fa-2dfc-11e4-894f-60175255b68f",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "33b95968-51aa-459d-b213-992274028bb1",
+      "name": "Bahmni - IU",
+      "displayOrder": 5.0,
+      "formElements": [
+        {
+          "name": "Bahmni - IU",
+          "uuid": "f6b1f989-58ee-4173-8951-2c6093b2f436",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - IU",
+            "uuid": "5eefd932-603e-11e4-a1f2-ba526e30a5ad",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "6efabc3b-69d9-4d6f-93f2-02163a630b29",
+      "name": "Bahmni - Drop",
+      "displayOrder": 6.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Drop",
+          "uuid": "5a896c5f-1972-4600-b811-0a6462392e9d",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Drop",
+            "uuid": "8c436dc6-2dfc-11e4-894f-60175255b68f",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "9059cbf2-d25e-4ff7-998d-17ba7b26a002",
+      "name": "Bahmni - Tablespoon",
+      "displayOrder": 7.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Tablespoon",
+          "uuid": "c413fd0e-b171-4a61-a54c-86bdf0b23e91",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tablespoon",
+            "uuid": "8c426692-2dfc-11e4-894f-60175255b68f",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "0295bfaf-513f-4222-a05f-a2ccb2e04dcc",
+      "name": "Bahmni - Teaspoon",
+      "displayOrder": 8.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Teaspoon",
+          "uuid": "8f69e30a-fa9e-4595-b004-0beb91db2a46",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Teaspoon",
+            "uuid": "8c38c908-2dfc-11e4-894f-60175255b68f",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "ee841a02-0d20-4518-ab28-cbfcd31757d5",
+      "name": "Bahmni - Unit(s)",
+      "displayOrder": 9.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Unit(s)",
+          "uuid": "09852000-8d3a-47e6-80fe-49d9029d6436",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Unit(s)",
+            "uuid": "5ef053b6-603e-11e4-a1f2-ba526e30a5ad",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "4cfa367a-3ae8-4ace-84c3-38c8a3b645c2",
+      "name": "Bahmni - Puff(s)",
+      "displayOrder": 10.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Puff(s)",
+          "uuid": "a6ad9f2f-1e32-4de5-8a97-40d65556dc30",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Puff(s)",
+            "uuid": "2fada812-9efe-40a3-9759-9c2e1e472b5f",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "6d6c5672-7589-436b-8db3-0945409e9cf2",
+      "name": "Bahmni - gram",
+      "displayOrder": 11.0,
+      "formElements": [
+        {
+          "name": "Bahmni - gram",
+          "uuid": "916857be-a59a-4017-8bf1-299a0b10ca08",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - gram",
+            "uuid": "6c38e7db-97d8-46b0-a828-f30c7e9b91b7",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "154b1ed5-55ef-4902-ba10-d459bde6a8d5",
+      "name": "Bahmni - Vial",
+      "displayOrder": 12.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Vial",
+          "uuid": "795a4c38-480a-4bf9-99db-b66200dd2aba",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Vial",
+            "uuid": "a076df71-8a1e-451c-bf70-ae2ae6afe80f",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "e969f960-d712-4b6e-876c-deb0b8428f3c",
+      "name": "Bahmni - Ampule",
+      "displayOrder": 13.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Ampule",
+          "uuid": "25efbcaa-11c1-466f-87c7-9f7548f9db88",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Ampule",
+            "uuid": "e8a052c3-3511-475a-a915-1ee31bc2554a",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "19eb69bb-ad87-42b8-be5b-5c50e25b3f27",
+      "name": "Bahmni - ml (syrup)",
+      "displayOrder": 14.0,
+      "formElements": [
+        {
+          "name": "Bahmni - ml (syrup)",
+          "uuid": "ae84ff37-064f-45a5-ac04-b13d2d29aea6",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - ml (syrup)",
+            "uuid": "cb3a525b-8e00-40f2-b159-8835f657d212",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "379e87d3-39da-4148-b042-ec6d46f1d2ab",
+      "name": "Bahmni - kg",
+      "displayOrder": 15.0,
+      "formElements": [
+        {
+          "name": "Bahmni - kg",
+          "uuid": "2d3b3fcc-f9f5-4b1e-9865-d66a79754ece",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - kg",
+            "uuid": "b355f913-b493-47e8-8a21-3088d80ce2f7",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

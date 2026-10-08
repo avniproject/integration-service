@@ -1,0 +1,12 @@
+"uuid","name","description","class","shortname","datatype","units","High Normal","Low Normal","Allow Decimal","locale","synonym.1","answer.1","answer.2","answer.3","reference-term-source","reference-term-code","reference-term-relationship","reference-term-source","reference-term-code","reference-term-relationship"
+"5610932b-9bc6-11e3-927e-8840ab96f0f1","Non-coded Diagnosis",,"Question","Non-coded Diagnosis","Text",,,,,,"","","","","org.openmrs.module.emrapi","Non-Coded Diagnosis","SAME-AS",,,
+"5610ce73-9bc6-11e3-927e-8840ab96f0f1","Coded Diagnosis",,"Question","Coded Diagnosis","Coded",,,,,,"","","","","org.openmrs.module.emrapi","Coded Diagnosis","SAME-AS",,,
+"56112724-9bc6-11e3-927e-8840ab96f0f1","Presumed",,"Misc","Presumed","N/A",,,,,,"","","","","org.openmrs.module.emrapi","Presumed","SAME-AS",,,
+"56114854-9bc6-11e3-927e-8840ab96f0f1","Confirmed",,"Misc","Confirmed","N/A",,,,,,"","","","","org.openmrs.module.emrapi","Confirmed","SAME-AS",,,
+"5610f903-9bc6-11e3-927e-8840ab96f0f1","Diagnosis Certainty",,"Question","Diagnosis Certainty","Coded",,,,,,"","Presumed","Confirmed","","org.openmrs.module.emrapi","Diagnosis Certainty","SAME-AS",,,
+"5611a4b4-9bc6-11e3-927e-8840ab96f0f1","Secondary",,"Misc","Secondary","N/A",,,,,,"","","","","org.openmrs.module.emrapi","Secondary","SAME-AS",,,
+"5611cf91-9bc6-11e3-927e-8840ab96f0f1","Primary",,"Misc","Primary","N/A",,,,,,"","","","","org.openmrs.module.emrapi","Primary","SAME-AS",,,
+"56117844-9bc6-11e3-927e-8840ab96f0f1","Diagnosis order",,"Question","Diagnosis order","Coded",,,,,,"","Secondary","Primary","","org.openmrs.module.emrapi","Diagnosis Order","SAME-AS",,,
+"e59dca36-e349-11e3-983a-91270dcbd3bf","Bahmni Initial Diagnosis",,"Misc","Bahmni Initial Diagnosis","Text",,,,,,"","","","",,,,,,
+"e59e70b3-e349-11e3-983a-91270dcbd3bf","Bahmni Diagnosis Revised",,"Misc","Bahmni Diagnosis Revised","Boolean",,,,,,"","","","",,,,,,
+"e59d191a-e349-11e3-983a-91270dcbd3bf","Bahmni Diagnosis Status",,"Misc","Bahmni Diagnosis Status","Coded",,,,,,"","","","",,,,,,

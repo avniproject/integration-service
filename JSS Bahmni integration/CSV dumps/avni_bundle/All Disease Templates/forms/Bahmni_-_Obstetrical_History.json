@@ -1,0 +1,147 @@
+{
+  "name": "Bahmni - Obstetrical History",
+  "uuid": "83047c86-f44f-4ec6-8fe9-1758f6733ca3",
+  "formType": "Encounter",
+  "formElementGroups": [
+    {
+      "uuid": "6ce691bc-4426-4bf2-9575-168c66ece157",
+      "name": "Bahmni - Gravida",
+      "displayOrder": 1.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Gravida",
+          "uuid": "e76c58da-355c-4861-af84-1689728349b9",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Gravida",
+            "uuid": "7ff56956-a2f1-419a-81c3-62073fb12e5c",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "f93168cb-1da0-4ef8-a37b-de94efbb8fc5",
+      "name": "Bahmni - Parity",
+      "displayOrder": 2.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Parity",
+          "uuid": "01402e8c-396e-4d46-b94d-8dcf6344a8d9",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Parity",
+            "uuid": "e7bdbbf3-cb38-47ff-93f7-3316d2285df8",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "fca523e5-9500-468a-a565-97c7d1a1482f",
+      "name": "Bahmni - Live Births",
+      "displayOrder": 3.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Live Births",
+          "uuid": "cedbeffc-dc22-46e6-b327-9569ff7e257d",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Live Births",
+            "uuid": "38e8e111-fe2a-4d21-aea5-5b6c1b22d293",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "d0ebd383-4264-4ac2-8811-8ac4725833c3",
+      "name": "Bahmni - Abortion",
+      "displayOrder": 4.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Abortion",
+          "uuid": "342c6eb0-845a-40df-8911-98773e2c5844",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Abortion",
+            "uuid": "0fe8289b-6dde-46ef-97cb-d7895894481c",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "3758b848-9c29-4713-ae19-2cd17d5bc8f2",
+      "name": "Bahmni - Bad Obs History",
+      "displayOrder": 5.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Bad Obs History",
+          "uuid": "ef733a37-e4b4-4fa3-bfaf-189ee9c13f84",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Bad Obs History",
+            "uuid": "eed5bc8b-9362-4ecc-8958-80b93f484ce7",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

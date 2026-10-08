@@ -103,6 +103,9 @@ public class SubjectWorker implements ErrorRecordWorker {
         ;
         removeIgnoredObservations(subject);
 
+        // Fetch the patient first so we have a reference even if SubjectIdChangedException is thrown
+        OpenMRSPatient patientForAttributeWrite = patientService.findPatient(subject, constants, metaData);
+
         try {
             Pair<OpenMRSPatient, OpenMRSFullEncounter> patientEncounter = patientService.findSubject(subject, constants, metaData);
             var patient = patientEncounter.getValue0();
@@ -124,6 +127,10 @@ public class SubjectWorker implements ErrorRecordWorker {
             logger.debug(String.format("Saving entity status for subject %s", subject.getLastModifiedDate()));
         } catch (PatientEncounterEventWorker.SubjectIdChangedException e) {
             avniBahmniErrorService.errorOccurred(subject.getUuid(), BahmniErrorType.SubjectIdChanged, AvniEntityType.Subject);
+            // Still write the Avni UUID even on encounter inconsistency — the person link is independent of encounter state
+            if (patientForAttributeWrite != null) {
+                patientService.writeAvniUuidToPatient(subject, patientForAttributeWrite, constants);
+            }
         }
 
         updateSyncStatus(subject, updateSyncStatus);

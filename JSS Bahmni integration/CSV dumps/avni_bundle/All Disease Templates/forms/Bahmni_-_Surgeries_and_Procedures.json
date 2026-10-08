@@ -1,0 +1,457 @@
+{
+  "name": "Bahmni - Surgeries and Procedures",
+  "uuid": "cff9ac4b-4d0b-464d-b758-679dd98d7672",
+  "formType": "Encounter",
+  "formElementGroups": [
+    {
+      "uuid": "1638a0b5-e2ca-47f5-8102-f9eb31abb5f2",
+      "name": "Bahmni - Operation Notes Template",
+      "displayOrder": 1.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Operative Note, Type of Surgery (Procedure based)",
+          "uuid": "dce25f88-4906-44c4-841e-ae47e640898a",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Operative Note, Type of Surgery (Procedure based)",
+            "uuid": "612beaa6-5894-429c-89ae-ab3a691229fd",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Operative Note, Type of Surgery (Time based)",
+          "uuid": "c5f6368b-ca95-4504-ac0a-65b05bc94545",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Operative Note, Type of Surgery (Time based)",
+            "uuid": "791f0de4-5626-49f7-be06-830162ba1b3d",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 2.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Date of Surgery",
+          "uuid": "da4c6561-1f94-4517-bf55-fa9d9c207528",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Date of Surgery",
+            "uuid": "6b1d2496-058f-429a-8e92-5860d9430ac8",
+            "dataType": "Date",
+            "active": true
+          },
+          "displayOrder": 3.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Surgical Indication",
+          "uuid": "e873f363-4815-4e08-b474-181e8fe18385",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Surgical Indication",
+            "uuid": "bf834492-b024-438f-97a5-bf46700a1c59",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 4.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Surgical Procedure",
+          "uuid": "55eeb059-cb33-4f0b-a99d-6d3b5240d098",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Surgical Procedure",
+            "uuid": "bce164a9-d6eb-4d9c-b7e4-023efb63654d",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 5.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Surgical Procedure Non Coded",
+          "uuid": "18076c0a-b59a-47b0-991c-57a7e3178af0",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Surgical Procedure Non Coded",
+            "uuid": "6cd20bee-37d2-4f43-b8d4-bc23f99feac4",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 6.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Coded Operating Surgeon",
+          "uuid": "22347bb2-9efb-498f-8636-58a02d5f3f93",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Coded Operating Surgeon",
+            "uuid": "5283755c-056a-464a-949b-674c1a4dbe02",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 7.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Other Operating Surgeon",
+          "uuid": "68517679-220f-4032-9fba-d9be8cb3ff45",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Other Operating Surgeon",
+            "uuid": "cd9ee906-0fa6-4df1-b213-f0bfdd3777ae",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 8.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Coded Operating Assistant Surgeon",
+          "uuid": "db8292a7-5505-4558-85dd-c54f5f6d06c2",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Coded Operating Assistant Surgeon",
+            "uuid": "fb970bef-dacd-4995-860a-61c5ff4f2e4d",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 9.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Coded Operation Anesthetist",
+          "uuid": "76927038-e247-400d-850d-a4381e3b65a7",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Coded Operation Anesthetist",
+            "uuid": "cc539654-1e3e-4d16-86aa-c4e37ee54f2c",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 10.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Scrub Nurse",
+          "uuid": "804741fd-2ba3-4448-961a-80f8cc034441",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Scrub Nurse",
+            "uuid": "72e3d97c-e110-4cc5-878e-51d7eda31703",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 11.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Anesthesia Administered",
+          "uuid": "f87d7f83-ac81-4f32-a017-00dcea522541",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Anesthesia Administered",
+            "uuid": "cb7c8b06-8b6d-495d-a89c-04855ca8f7a1",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 12.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Incision",
+          "uuid": "c185ade0-cc0f-47cc-9d2f-a94b486e0ae5",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Incision",
+            "uuid": "813e8e9d-5d64-4909-a739-a8080d830aaa",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 13.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Operation Findings",
+          "uuid": "9a4d9117-c9da-47c3-8a9e-ed106bc63ae2",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Operation Findings",
+            "uuid": "53ecc3b9-163c-4d4e-a8a8-ca04d7050733",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 14.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Operative Drains",
+          "uuid": "97eb7359-d51f-4d0e-b2eb-bff0e79075e7",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Operative Drains",
+            "uuid": "19d001f8-4fb5-436c-ac0e-8b28b1bfa1a6",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 15.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Operative Complications",
+          "uuid": "e74430dc-7627-42c5-a772-6a9a0efa7a73",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Operative Complications",
+            "uuid": "bae6c221-7743-4ca9-986c-76ec1441a5fd",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 16.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Blood loss during operation",
+          "uuid": "7d8c2931-58f2-4fd4-9ad0-0901eda28598",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Blood loss during operation",
+            "uuid": "2f939fdb-baa6-4418-a784-283c055f0082",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 17.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Operation Duration",
+          "uuid": "6480a5dc-70da-4642-8a76-5bcea23083f8",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Operation Duration",
+            "uuid": "e5500aa2-27b9-48c9-84c8-11b3a07e5933",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 18.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Other Operation Notes",
+          "uuid": "24e5b30d-0db6-45d0-9ea9-5b2b5ca4005c",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Other Operation Notes",
+            "uuid": "5de8b547-dbf4-42d6-ba26-756dbf66880a",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 19.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Cytopathology Number",
+          "uuid": "f0ec1a24-d295-4304-853a-14709165f676",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Cytopathology Number",
+            "uuid": "64ace475-8cca-4586-9f9f-baead547d96a",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 20.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Histopathology Number",
+          "uuid": "fc285f24-194e-4464-9495-e749004f9cdd",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Histopathology Number",
+            "uuid": "dc5997f4-43c5-4199-866a-bc965b48407a",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 21.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Intra operation specimens and results",
+          "uuid": "07568449-7c57-4c4f-8cf4-9edd2d11df13",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Intra operation specimens and results",
+            "uuid": "16935c69-4976-4eba-a270-4a5fc48c88d9",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 22.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Surgical Speciality",
+          "uuid": "2dd924cb-6edf-4a50-8df3-a7428e13d25e",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Surgical Speciality",
+            "uuid": "9cde20f8-7c7b-454c-9c3b-0fb93a59297e",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 23.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

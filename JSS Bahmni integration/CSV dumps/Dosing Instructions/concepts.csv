@@ -1,0 +1,9 @@
+"uuid","name","description","class","shortname","datatype","units","High Normal","Low Normal","Allow Decimal","locale","synonym.1","answer.1","reference-term-source","reference-term-code","reference-term-relationship"
+"8db93cf6-2dfc-11e4-894f-60175255b68f","Before meals",,"Misc","ac","N/A",,,,,,"","",,,
+"8db9c15d-2dfc-11e4-894f-60175255b68f","Empty stomach",,"Misc","","N/A",,,,,,"","",,,
+"8dba4835-2dfc-11e4-894f-60175255b68f","After meals",,"Misc","pc","N/A",,,,,,"","",,,
+"8dbaeb29-2dfc-11e4-894f-60175255b68f","In the morning",,"Misc","cm","N/A",,,,,,"","",,,
+"8dbb7c36-2dfc-11e4-894f-60175255b68f","In the evening",,"Misc","","N/A",,,,,,"","",,,
+"8dbc13de-2dfc-11e4-894f-60175255b68f","At bedtime",,"Misc","hs","N/A",,,,,,"","",,,
+"8dbcc47c-2dfc-11e4-894f-60175255b68f","Immediately",,"Misc","STAT","N/A",,,,,,"","",,,
+"8dbd859f-2dfc-11e4-894f-60175255b68f","As directed",,"Misc","","N/A",,,,,,"","",,,

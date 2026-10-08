@@ -1,0 +1,66 @@
+{
+  "name": "Bahmni - RMRCT, Microbiology test requirement",
+  "uuid": "1996d54e-f05f-413f-8af0-b867bc391c9e",
+  "formType": "Encounter",
+  "formElementGroups": [
+    {
+      "uuid": "f2de7d0e-d78f-421e-8923-c8da2dfcc3eb",
+      "name": "Bahmni - RMRCT, Microbiology test requirement, Test",
+      "displayOrder": 1.0,
+      "formElements": [
+        {
+          "name": "Bahmni - RMRCT, Microbiology test requirement, Test",
+          "uuid": "f73310b7-0fff-4676-be6d-838609b3b67f",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - RMRCT, Microbiology test requirement, Test",
+            "uuid": "e027a45a-c12c-4a76-ae99-969d87923850",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "1d09f0cd-8f82-4368-925e-bcb81716bbfe",
+      "name": "Bahmni - RMRCT, Microbiology test requirement, Type of Sample",
+      "displayOrder": 2.0,
+      "formElements": [
+        {
+          "name": "Bahmni - RMRCT, Microbiology test requirement, Type of Sample",
+          "uuid": "6559cc34-ed8a-485a-ac4a-5c44afd582b6",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - RMRCT, Microbiology test requirement, Type of Sample",
+            "uuid": "e85a614d-5802-4c84-8b39-1f812cc59822",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

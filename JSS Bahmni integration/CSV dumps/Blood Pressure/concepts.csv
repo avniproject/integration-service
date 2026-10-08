@@ -1,0 +1,8 @@
+"uuid","name","description","class","shortname","datatype","units","High Normal","Low Normal","Allow Decimal","locale","synonym.1","answer.1","answer.2","answer.3","reference-term-source","reference-term-code","reference-term-relationship"
+"f477ebbe-e349-11e3-983a-91270dcbd3bf","Systolic",,"Misc","Systolic","Numeric",,,,,,"","","","",,,
+"f4789f53-e349-11e3-983a-91270dcbd3bf","Systolic Abnormal",,"Abnormal","Systolic Abnormal","Boolean",,,,,,"","","","",,,
+"f47a1e8d-e349-11e3-983a-91270dcbd3bf","Diastolic",,"Misc","Diastolic","Numeric",,,,,,"","","","",,,
+"f47ad166-e349-11e3-983a-91270dcbd3bf","Diastolic Abnormal",,"Abnormal","Diastolic Abnormal","Boolean",,,,,,"","","","",,,
+"5001b7a6-7924-478c-8405-3cd04bd9008f","Sitting","Sitting","Misc","Sitting","N/A",,,,,,"","","","",,,
+"a537acaa-b2bb-4c68-bcc9-1663514f4fd3","Supine","Supine","Misc","Supine","N/A",,,,,,"","","","",,,
+"a5eab450-ed85-43a6-b81d-566b9619df06","Posture",,"Misc","Posture","Coded",,,,,,"","Sitting","Supine","",,,

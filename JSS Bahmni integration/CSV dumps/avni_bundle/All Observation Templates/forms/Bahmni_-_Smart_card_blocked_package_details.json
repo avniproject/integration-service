@@ -1,0 +1,120 @@
+{
+  "name": "Bahmni - Smart card, blocked package details",
+  "uuid": "819beadb-8071-43d7-9d60-78eedb9887f0",
+  "formType": "Encounter",
+  "formElementGroups": [
+    {
+      "uuid": "4cb30148-350f-4790-97de-41c51873e2e3",
+      "name": "Bahmni - Package",
+      "displayOrder": 1.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Package",
+          "uuid": "8cd343df-5140-4197-9ef0-78bdf5096197",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Package",
+            "uuid": "8f0435a6-3c2c-44ae-a404-6782891eb82b",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "022ac135-68e7-4b2b-a47b-595fdb9bd555",
+      "name": "Bahmni - Smart card, package amount",
+      "displayOrder": 2.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Smart card, package amount",
+          "uuid": "13a024ac-3787-4726-8a6e-b05eb26b3159",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Smart card, package amount",
+            "uuid": "8db9aa62-29ef-49c3-bb26-54c3a9acfc86",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "cb675d75-b174-46ff-a54a-c334dd0396bb",
+      "name": "Bahmni - Smart card, Length of stay",
+      "displayOrder": 3.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Smart card, Length of stay",
+          "uuid": "19827990-9cb7-49e8-9dc5-8cc8139af54d",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Smart card, Length of stay",
+            "uuid": "787d5e83-e4a4-477d-968d-07d0cd398774",
+            "dataType": "Numeric",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "fe153641-3bf6-47dd-b280-fa5d1f8c40db",
+      "name": "Bahmni - Smart card, amount to be transacted on",
+      "displayOrder": 4.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Smart card, amount to be transacted on",
+          "uuid": "8d55575a-2512-45b0-957f-3f518246dc76",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Smart card, amount to be transacted on",
+            "uuid": "152896fd-39f7-456b-a145-a21e276cbc05",
+            "dataType": "Date",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

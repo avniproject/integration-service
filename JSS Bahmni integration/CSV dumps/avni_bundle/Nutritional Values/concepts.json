@@ -1,0 +1,14 @@
+[
+  {
+    "name": "Bahmni - Height",
+    "uuid": "5090AAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Weight",
+    "uuid": "5089AAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+    "dataType": "Numeric",
+    "active": true
+  }
+]

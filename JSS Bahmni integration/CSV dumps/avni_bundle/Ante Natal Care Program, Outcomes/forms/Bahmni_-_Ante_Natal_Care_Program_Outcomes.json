@@ -1,0 +1,120 @@
+{
+  "name": "Bahmni - Ante Natal Care Program, Outcomes",
+  "uuid": "a9f50729-afa5-4654-9b49-0701963167e8",
+  "formType": "Encounter",
+  "formElementGroups": [
+    {
+      "uuid": "96733e8f-8873-48b4-a54a-dfc08a97e6ea",
+      "name": "Bahmni - Ante Natal Care, Spontaneous Abortion",
+      "displayOrder": 1.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Ante Natal Care, Spontaneous Abortion",
+          "uuid": "d8b0bea6-4154-4b85-a417-13edfb45cc53",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Ante Natal Care, Spontaneous Abortion",
+            "uuid": "735ba25f-e2fd-4e05-b362-3687ff0ffcfd",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "a0fd980c-8264-4a92-b159-344c4fc69c5b",
+      "name": "Bahmni - Ante Natal Care, Medical Termination of Pregnancy (MTP)",
+      "displayOrder": 2.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Ante Natal Care, Medical Termination of Pregnancy (MTP)",
+          "uuid": "ff5bbae1-3d2a-4567-90e3-23db68295200",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Ante Natal Care, Medical Termination of Pregnancy (MTP)",
+            "uuid": "28cebb91-36fe-47cb-bbfb-2d725a5857a4",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "8ea0f621-8723-40ef-9fe2-e19ae9284168",
+      "name": "Bahmni - Ante Natal Care, Live Birth",
+      "displayOrder": 3.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Ante Natal Care, Live Birth",
+          "uuid": "93e3ee40-e3ac-4db2-8519-bf111513962d",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Ante Natal Care, Live Birth",
+            "uuid": "653b303d-1a53-4608-ae92-e025a2c05643",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "260fb8ef-37d6-4e07-85e5-4a5fe0dbbab7",
+      "name": "Bahmni - Ante Natal Care, Still Birth",
+      "displayOrder": 4.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Ante Natal Care, Still Birth",
+          "uuid": "dd47a8a6-cef6-4beb-96c9-d890a893e7c1",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Ante Natal Care, Still Birth",
+            "uuid": "6b3c3164-bcbd-4670-b245-836324a0b37b",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

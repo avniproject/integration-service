@@ -1,0 +1,120 @@
+{
+  "name": "Bahmni - Menstrual History",
+  "uuid": "dfb5e5a4-d4b2-40f5-9c74-3ba953decf3a",
+  "formType": "Encounter",
+  "formElementGroups": [
+    {
+      "uuid": "ebf0e49d-a71b-4ea8-aeca-5505aaf51162",
+      "name": "Bahmni - M/C Days",
+      "displayOrder": 1.0,
+      "formElements": [
+        {
+          "name": "Bahmni - M/C Days",
+          "uuid": "2b4d2e2f-58f9-4507-9b9c-7151a844c86c",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - M/C Days",
+            "uuid": "e3634323-8618-4bb1-85b7-f88b1789c33e",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "023b615e-3e31-48ea-8c5c-f9a70601eec3",
+      "name": "Bahmni - M/C Interval",
+      "displayOrder": 2.0,
+      "formElements": [
+        {
+          "name": "Bahmni - M/C Interval",
+          "uuid": "00528074-fd4d-44e5-9d95-4f05949126ec",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - M/C Interval",
+            "uuid": "5e043518-af1b-49c7-9c6d-24938e0cd739",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "f467513d-0a78-4426-a7fa-9a9f79ce5ce5",
+      "name": "Bahmni - M/C Amount",
+      "displayOrder": 3.0,
+      "formElements": [
+        {
+          "name": "Bahmni - M/C Amount",
+          "uuid": "9cba8612-b84d-47d7-adaa-2d71cf176c33",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - M/C Amount",
+            "uuid": "d24b46bb-e94f-4c50-8351-258b532c49dd",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "42099436-cef6-4756-a4ce-1d5430760ad4",
+      "name": "Bahmni - LMP",
+      "displayOrder": 4.0,
+      "formElements": [
+        {
+          "name": "Bahmni - LMP",
+          "uuid": "a3446f42-9b02-46d7-be4b-e55f3befdd5b",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - LMP",
+            "uuid": "6f4e51a3-04db-46ea-b917-ce8ec781d571",
+            "dataType": "Date",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

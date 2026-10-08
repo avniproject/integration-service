@@ -23,10 +23,10 @@ Data flows from Avni to Bahmni. Workers poll the Avni API for records updated si
 
 | Entity Type | Worker Class | What It Does | Test Class |
 |---|---|---|---|
-| Subject | `SubjectWorker` | Polls Avni for updated subjects. Finds the matching Bahmni patient by identifier (prefix + Avni ID). If no patient exists, creates one. Creates or updates the intake encounter with subject observations. Also writes the Avni subject UUID to a Bahmni person attribute (used for the "View on Avni" deep link). | `SubjectWorkerExternalTest` (general run), `SubjectWorkerAvniUuidSyncExternalTest` (UUID attribute write specifically) |
-| Program Enrolment | `EnrolmentWorker` | Polls Avni for program enrolments (e.g. a woman enrolled in an ANC programme). Finds the matching Bahmni patient and creates or updates a Bahmni encounter to record the enrolment data. | `EnrolmentWorkerExternalTest` |
-| General Encounter | `GeneralEncounterWorker` | Polls Avni for general (non-programme) encounters. Maps Avni observations to a Bahmni encounter under the appropriate visit. | `ProgramEncounterWorkerExternalTest` (shared file covers both) |
-| Program Encounter | `ProgramEncounterWorker` | Polls Avni for programme-specific visits (e.g. ANC follow-up). Maps observations to a Bahmni encounter. | `ProgramEncounterWorkerExternalTest` |
+| Subject | `SubjectWorker` | Polls Avni for updated subjects. Finds the matching Bahmni patient by identifier (prefix + Avni ID). If no patient exists, creates one. Writes the Avni subject UUID to a Bahmni person attribute (used for the "View on Avni" deep link). **Encounter sync is not used for JSS Ganiyari.** | `SubjectWorkerExternalTest` (general run), `SubjectWorkerAvniUuidSyncExternalTest` (UUID attribute write specifically) |
+| Program Enrolment | `EnrolmentWorker` | Polls Avni for program enrolments (e.g. a woman enrolled in an ANC programme). Finds the matching Bahmni patient and creates or updates a Bahmni encounter to record the enrolment data. **Not required for JSS Ganiyari.** | `EnrolmentWorkerExternalTest` |
+| General Encounter | `GeneralEncounterWorker` | Polls Avni for general (non-programme) encounters. Maps Avni observations to a Bahmni encounter under the appropriate visit. **Not required for JSS Ganiyari.** | `ProgramEncounterWorkerExternalTest` (shared file covers both) |
+| Program Encounter | `ProgramEncounterWorker` | Polls Avni for programme-specific visits (e.g. ANC follow-up). Maps observations to a Bahmni encounter. **Not required for JSS Ganiyari.** | `ProgramEncounterWorkerExternalTest` |
 
 ### File Locations (Avni → Bahmni)
 

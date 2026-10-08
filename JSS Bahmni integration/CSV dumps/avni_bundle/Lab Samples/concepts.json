@@ -1,0 +1,2649 @@
+[
+  {
+    "name": "Bahmni - ACE",
+    "uuid": "77be045f-8387-4dfd-a53d-3393420f9d23",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - AFB Culture (BAL)",
+    "uuid": "34da85d3-f78e-4773-bc78-c79b45dafb5a",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - AFB Culture (GAL)",
+    "uuid": "fefebdd5-df10-4cc5-a3ad-96037714e1df",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - AFP",
+    "uuid": "e25124e7-56a2-41ef-b1e9-8fdb4e4500f8",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ALK. Phosphate",
+    "uuid": "0da29923-579b-4e86-8ca4-60622ef0a596",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - AMH",
+    "uuid": "860c4187-ad1f-47e0-a114-aced35e117a6",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ANA",
+    "uuid": "d7e94551-3e66-4258-a1c7-64694ac4c14e",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ANCA",
+    "uuid": "95f0d8a2-0cc0-4f11-bf41-54740cb6d127",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ANTI - dsDNA",
+    "uuid": "46ce765a-fc2d-4071-8d28-7f9b8ca15d9f",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - APTT (Control) (Blood)",
+    "uuid": "76b7d602-88d5-4889-8cf8-7de968ab5b6d",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - APTT (Control) (Serum)",
+    "uuid": "fe65478c-27d0-4966-bbb2-2fb84e3e61f6",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - APTT (Test) (Blood)",
+    "uuid": "3c1c26a0-03f1-4b82-a17d-a7068faf8715",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - APTT (Test) (Serum)",
+    "uuid": "3769b33a-785c-464c-aec5-34f235f8f2da",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Absolute Eosinphil Count",
+    "uuid": "ab137c0f-5a23-4314-ab8d-29b8ff91fbfb",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Absolute Lymphocyte Count",
+    "uuid": "c9e24db9-8bd7-4bd1-bc99-c43d3a9d7232",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Absolute Neutrophil Count",
+    "uuid": "b5132509-6641-40e9-be1a-5556aa34f26e",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Absolute Neutrophil Count to Absolute Lymphocyte Count Ratio",
+    "uuid": "ce74251e-e928-4591-b985-a8df95d3b772",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Adinosin diamarese (Asitic Fluid)",
+    "uuid": "d7b51be4-3fb8-4218-94bc-8f96a8de6ac9",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Adinosin diamarese (BAL)",
+    "uuid": "fe37da54-3dbd-4f5e-9a3e-cee60c0b7a5c",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Adinosin diamarese (CSF)",
+    "uuid": "81eb8915-f887-472d-bcd5-8758454cd3a5",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Adinosin diamarese (GAL)",
+    "uuid": "72898761-dfc3-49da-88ec-0fefd2682894",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Adinosin diamarese (Knee Joint Fluid)",
+    "uuid": "9a24b7b5-5b6c-42ac-bb4a-d3284860b70b",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Adinosin diamarese (Peritoneal Fluid)",
+    "uuid": "8919bf5e-41cd-4d2d-b284-f87654c56ab4",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Adinosin diamarese (Pleural Fluid)",
+    "uuid": "319382f7-4dde-4b9d-a4fc-de6339635f2a",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Albumin (Routine Urine)",
+    "uuid": "0161fffc-e2b0-4cfc-b78b-66c5d5edfe0d",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Nil",
+        "uuid": "d923b664-cf14-4e6f-98f8-b6cbad47e8ad",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Trace",
+        "uuid": "27bcc923-7fb5-4c65-ac5e-1cf9cf12bee4",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - 1+",
+        "uuid": "8cfe4739-8765-49e4-ba4e-51b046e42d75",
+        "order": 3
+      },
+      {
+        "name": "Bahmni - 2+",
+        "uuid": "207e199d-0e61-462c-bcf1-ddb6a985e9eb",
+        "order": 4
+      },
+      {
+        "name": "Bahmni - 3+",
+        "uuid": "0b1d1849-ce4a-454e-8c73-0e95c3dd0c93",
+        "order": 5
+      },
+      {
+        "name": "Bahmni - 4+",
+        "uuid": "257de2be-fe43-435f-9593-3298ec0dd2f5",
+        "order": 6
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Amylase",
+    "uuid": "c6c65e69-5b9f-4019-aef6-c5e4031b012c",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Anti Microsomal Antibody (AMA)",
+    "uuid": "5a76c4f3-2ff8-49b9-850a-45ea9b6049f6",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Anti Streptolysin Qualitative",
+    "uuid": "1dc78a93-612a-443f-8730-4bc2bf390c47",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Anti Streptolysin Turbidometry",
+    "uuid": "5ea2c600-971d-4dfe-92dc-7d6c325a9033",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - B HCG",
+    "uuid": "0f8f3aec-7943-423b-8714-300e7e79d343",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - BEecf (ABG)",
+    "uuid": "eedb4a43-e32c-4d08-b866-d43690b98ed9",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - BEecf (VBG)",
+    "uuid": "ee2d42e3-2e70-4a67-97d6-1711a7c1ea61",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Basophil",
+    "uuid": "39e457e5-6b0c-45eb-b4f3-71b0aab0bc57",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Bence Jones Protein",
+    "uuid": "e0f2056e-8de3-4ce7-8985-330760a70792",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Bend Cell",
+    "uuid": "d49a53da-3e08-4757-ba12-ff33f803e376",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Bicarbonate",
+    "uuid": "94089dbc-0451-402f-aa12-5d63d123d855",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Bleeding Time",
+    "uuid": "37c9d3ac-b55b-4456-98e2-12cfb56a10ac",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Blood Group (Relative)",
+    "uuid": "c1394d25-e721-435e-81ba-50307fde6214",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Blood Urea",
+    "uuid": "9248deae-c2c2-4148-9166-bb960932db6c",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - CA-125",
+    "uuid": "6c884708-a402-4d64-b956-a230ece38115",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - CA19-9",
+    "uuid": "50b1ffd5-6ab5-4242-806b-98268287e966",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - CBNAAT (Asitic Fluid)",
+    "uuid": "c1f0a91b-0d26-41fa-8b80-21a91fd9c493",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - CBNAAT (BAL)",
+    "uuid": "69a9cbab-2cbe-4aa6-abc4-11b1ee5741f6",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - CBNAAT (CSF)",
+    "uuid": "b356acad-f16f-41c0-b87f-c0150a25492c",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - CBNAAT (GAL)",
+    "uuid": "44d62620-ba99-4f01-b27c-5ffc9eaf3258",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - CBNAAT (Knee Joint Fluid)",
+    "uuid": "a8600d16-187b-4d90-9fd5-cfccf1990303",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - CBNAAT (Other Body Fluids)",
+    "uuid": "7b3ffeeb-ff60-49fb-86a2-fee5eb4fed1a",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - CBNAAT (Peritoneal Fluid)",
+    "uuid": "458fccf8-96db-4751-9ed7-bde34ef12339",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - CBNAAT (Pleural Fluid)",
+    "uuid": "8c60d0d8-ac02-4420-81a2-dde69041a076",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - CBNAAT (Sputum)",
+    "uuid": "8a3ad10a-fa86-40b4-9315-c7a1879f2e37",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - CBNAAT (Tissue)",
+    "uuid": "0e872f38-9170-49ad-9fe9-dfd8d7c27047",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - CBNAAT (Urine)",
+    "uuid": "42414056-9f50-4128-8057-54ad9631ba32",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - CBNAAT (Vaginal Fluid)",
+    "uuid": "cbfc0929-5ab1-4370-b309-cc277a99e2c9",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - CD4 Test",
+    "uuid": "88e77bea-1675-47cf-818d-657a1ceafc7b",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - CEA",
+    "uuid": "01256337-350c-458b-b6ae-c65828c1c868",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - COMPLEMENT (C3)",
+    "uuid": "95c25787-c715-478b-b728-318f4029722f",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - COVID 19 Antigen Test",
+    "uuid": "c1e56c17-e570-471c-81d8-fb5d1e8a6abe",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Positive",
+        "uuid": "051e8515-aff5-4fc7-81f9-d99d64c2ca15",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Negative",
+        "uuid": "9d8ff348-cc4a-489f-85b5-00cf04814cdd",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - COVID 19 Truenat",
+    "uuid": "b6aee81f-1bd6-4b03-be78-b8116be0c103",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Detected",
+        "uuid": "28f74d2c-72e7-4b7c-8fa0-8aa16c11d3da",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Not Detected",
+        "uuid": "c9572990-98bf-4c0d-a8c6-97c95b8ec0ff",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Invalid",
+        "uuid": "9034e57f-b13a-473e-9725-c65eb97fb39d",
+        "order": 3
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - CPK",
+    "uuid": "d3e0a024-c1a2-471d-8946-ae7f24c82330",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - CRP",
+    "uuid": "dd47c27e-903f-4f93-9df2-3fcf430e5bea",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Calcium (mmole/l)",
+    "uuid": "f8e9e091-b59f-4740-a84d-351632df6d64",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Calcium(mg/dl)",
+    "uuid": "e415c41c-2afe-4678-9762-840f89442e39",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cast",
+    "uuid": "a0354824-bcbf-454b-adde-1191e6cacf6a",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Ceruloplasmin",
+    "uuid": "b6e963a7-6982-42de-8795-33cc67ae8a50",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cholesterol",
+    "uuid": "76f1d0e0-7e2c-4530-bbe2-97de6fe3de7f",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Clotting Time",
+    "uuid": "44ab293a-f977-4fd2-976e-5c99f2ab5cd9",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Coccidians",
+    "uuid": "043adc1a-4f3b-497a-a67a-0baa2b2ea61f",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Color (w/o concentration)",
+    "uuid": "3a068df6-648d-45d9-9329-a7b88e8b6661",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Color (with concentration)",
+    "uuid": "427a5dac-81cc-4030-8465-b634c1f6ea78",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Colour",
+    "uuid": "882e5205-e8ed-464b-a324-15756e021f0d",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Coombs Test (Direct)",
+    "uuid": "11f0efa0-dca2-4b26-a105-c629922bd8bf",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Coombs Test (Indirect)",
+    "uuid": "dc2476f3-4011-4b1e-b0c9-59f34571de6c",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Creatinine",
+    "uuid": "531fb5a5-4881-453d-98ea-26f22671a170",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Creatinine Clearance",
+    "uuid": "b09bdbc1-b2ac-4f87-af81-f5a9b9a4561d",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Creatinine Kinase",
+    "uuid": "bbeea9ab-7245-453d-b927-1da33ed63e76",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cross Match",
+    "uuid": "8353645d-66bc-41de-a44e-40ea10c4a2db",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Crystal",
+    "uuid": "6d76feb1-6270-469f-a85a-bd78b2db6a2b",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Culture (Asitic Fluid)",
+    "uuid": "fc0e06bf-555c-4a5e-badf-1068ed6a4202",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Culture (Blood)",
+    "uuid": "adeb996e-2d45-41af-ab60-14a43f7fa178",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Culture (CSF)",
+    "uuid": "a2d06746-b7ba-4ec5-9f67-cb9af6009ea6",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Culture (Knee Joint Fluid)",
+    "uuid": "98b02322-9a33-408b-a8b2-727fe9351440",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Culture (Peritoneal Fluid)",
+    "uuid": "63ed26ff-7120-4641-af19-8ffffa0cb998",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Culture (Plural Fluid)",
+    "uuid": "9fe6fe33-5bc0-45c4-884a-c89ba2cbfcf8",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Culture (Semen)",
+    "uuid": "8932d79c-13d0-4d13-bc1a-a4309db1453f",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Culture (Sputum)",
+    "uuid": "672fbb93-33e0-4f9b-8136-dc4216a0059a",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Culture (Tissue)",
+    "uuid": "a55ac0bc-4059-4e92-9695-2b376f2ef80e",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cytology (Asitic Fluid)",
+    "uuid": "84df1da1-7404-4f2f-bcca-91af58f5a605",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cytology (BAL)",
+    "uuid": "7341bcf5-83d7-4dd3-a979-48b05aae4eaf",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cytology (CSF)",
+    "uuid": "d99d58af-44b3-4cc0-894e-708e93473387",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cytology (GAL)",
+    "uuid": "b16e1eec-bfed-4948-b79c-4ed2bb467cb8",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cytology (Knee Joint Fluid)",
+    "uuid": "55280960-8602-4e3e-9b7a-bafb524db381",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cytology (Peritoneal Fluid)",
+    "uuid": "84c5f4c9-5110-45ea-80d5-6eb43eecc663",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cytology (Plural Fluid)",
+    "uuid": "6f3aa3c9-4ad0-49cd-b366-48788665a8e2",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cytology (Vaginal Fluid)",
+    "uuid": "2e93e69f-1243-40a4-9277-9f41f6cb2edb",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cytopathology (Tissue)",
+    "uuid": "367850f7-4c27-43f9-82b6-d2848f9194d6",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Dengue (Elisa)",
+    "uuid": "575e6c9e-ef42-4187-8a9e-8b29b439831f",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Dengue (Rapid)",
+    "uuid": "99908968-c09e-44a6-b904-07772d527d2c",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Differential Count (Asitic Fluid)",
+    "uuid": "60e85874-c025-422b-a0ce-3f4864e106dc",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Differential Count (CSF)",
+    "uuid": "c286e784-c960-4940-894b-2bb158329304",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Differential Count (Knee Joint Fluid)",
+    "uuid": "ec7a86e1-6d29-45c7-a99e-12dae0dae9e2",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Differential Count (Peritoneal Fluid)",
+    "uuid": "d6502b9d-f39a-4212-bc77-755eecc2b35e",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Differential Count (Plural Fluid)",
+    "uuid": "606cc2d6-a7ca-46d0-86aa-0251ee2ce712",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Direct Bilirubin",
+    "uuid": "29150063-7810-4c9a-a441-ba7f756cc97f",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Direct Mount",
+    "uuid": "3a2e8a8c-45e1-4525-a413-b56eaaf0463a",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Double Marker",
+    "uuid": "1ae95243-3fbc-4af6-8873-d0cab61a2e33",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ESR",
+    "uuid": "5aafd0c1-2271-4cc4-a1dd-a00b9eabfba6",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Eosinophil",
+    "uuid": "f0af8e0a-df21-462b-87ea-5e01be43400f",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Epithelial Cell (BAL)",
+    "uuid": "9eb12712-97c0-44ca-99f4-2a0f709a4311",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Epithelial Cell (GAL)",
+    "uuid": "543a852b-bdca-4850-840c-f5af25ac576a",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Epithelial Cells",
+    "uuid": "a9383121-3cac-421c-833b-e8c5f43a69e0",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - FBS",
+    "uuid": "b6347c60-bdbf-4889-af19-b8d146a4eabe",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - FSH Test",
+    "uuid": "c57f22a1-2244-4fc4-adf1-e76940701a40",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - FT3",
+    "uuid": "fd1e4964-6c9e-45c5-97ac-c33be1c4914d",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - FT4",
+    "uuid": "e4666c9c-5d4a-460d-b0e1-8b7fa0c4aa7e",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Fasting Blood Sugar",
+    "uuid": "c4cdf38f-5f81-4c09-a3ab-9ef99c9c76d3",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Fat (Semi Quantitative)",
+    "uuid": "5271936e-e048-452c-a6db-5e1cbf145117",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Fat Droplets (w/o concentration)",
+    "uuid": "73507cae-acf7-4a8b-9a22-448f39382e17",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Fat Droplets (with concentration)",
+    "uuid": "6b230ebf-c357-422b-8b12-c16a329fbe76",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Ferittin",
+    "uuid": "af61b129-b064-467d-a6b9-298f3a799589",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Fine Needle Aspiration Cytology (FNAC)",
+    "uuid": "34fab4dc-4f2e-4da4-a1a6-41a13f8aa0f6",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Food Particles (w/o concentration)",
+    "uuid": "979960a9-8983-473a-af3b-2b1aa14a4288",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Food Particles (with concentration)",
+    "uuid": "567797fd-8664-4a76-8f08-f4bc4d1d23e4",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - G6PD",
+    "uuid": "f8088164-e0b9-4126-b3a1-f845987e1798",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - GGT",
+    "uuid": "88918596-aa00-4491-b17f-04239db33d37",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Gram Stain (Asitic Fluid)",
+    "uuid": "9857955f-bbfa-4599-ac89-f15be9f7bef6",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Gram Stain (BAL)",
+    "uuid": "7c7b4d68-0ddf-449e-b124-e7399dd9756b",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Gram Stain (Blood)",
+    "uuid": "405755df-37f8-4fbc-999e-d5e7a47ee7b2",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Gram Stain (CSF)",
+    "uuid": "d5d6f2bd-9801-4e20-837f-764e88baf039",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Gram Stain (GAL)",
+    "uuid": "e3db3b80-bca4-4918-838f-3124c8b5909b",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Gram Stain (Knee Joint Fluid)",
+    "uuid": "3627d99d-4944-4620-8945-809b021c3631",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Gram Stain (Peritoneal Fluid)",
+    "uuid": "4e78366d-1064-4b09-abfe-9a1b7b997410",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Gram Stain (Plural Fluid)",
+    "uuid": "c250d825-0af3-4f96-8943-1a08cf593c61",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Gram Stain (Semen)",
+    "uuid": "17aad368-07b1-4288-9afc-f31c6f95c86b",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Gram Stain (Slit Skin)",
+    "uuid": "11c7f11e-3f02-4b5b-8efc-685126624cb7",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Gram Stain (Sputum)",
+    "uuid": "3446a231-1302-495f-8d6a-ee93d50f53a5",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Gram Stain (Stool)",
+    "uuid": "ab30bb60-ffe9-4ce7-89df-05bd1161fa35",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Gram Stain (Tissue)",
+    "uuid": "a153d070-2bf0-48c5-9eb4-505aa5b63c82",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Gram Stain (Urine)",
+    "uuid": "f404724e-2d16-40dc-a674-b3f28652cdf9",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Gram Stain (Vaginal Fluid)",
+    "uuid": "001a8cbb-b9bd-4060-a3c5-13c3754e93f3",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - HCO3 (ABG)",
+    "uuid": "0e6440e4-caf1-4be3-b46a-95a204d36dd0",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - HCO3 (VBG)",
+    "uuid": "68d462d5-46e2-439c-943b-346dc251b237",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - HCV ELISA",
+    "uuid": "e288884d-b98e-4ef0-9805-50b80b2b145b",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - HCV ELISA (Relative)",
+    "uuid": "52e979b8-589c-47a7-b040-4738f936dea2",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Positive",
+        "uuid": "051e8515-aff5-4fc7-81f9-d99d64c2ca15",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Negative",
+        "uuid": "9d8ff348-cc4a-489f-85b5-00cf04814cdd",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - HCV Tridot",
+    "uuid": "f6972d4f-decd-4157-b940-b6f1097459b0",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - HCV Tridot (Relative)",
+    "uuid": "d44f3044-bb40-40b9-9644-b1e55812168c",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Positive",
+        "uuid": "051e8515-aff5-4fc7-81f9-d99d64c2ca15",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Negative",
+        "uuid": "9d8ff348-cc4a-489f-85b5-00cf04814cdd",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - HDL",
+    "uuid": "c4501873-a6d2-413f-bd88-32330efedf4f",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - HIV ELISA (Blood)",
+    "uuid": "f70cc674-afc7-4836-bc1b-a210312b8823",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - HIV ELISA (Relative)",
+    "uuid": "b1084cd6-034d-4b32-bc50-1b669b83fbd0",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Positive",
+        "uuid": "051e8515-aff5-4fc7-81f9-d99d64c2ca15",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Negative",
+        "uuid": "9d8ff348-cc4a-489f-85b5-00cf04814cdd",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - HIV ELISA (Serum)",
+    "uuid": "99f66abb-1bc4-43a4-b212-cffb642e725d",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - HIV Tridot",
+    "uuid": "2751b8cc-cd41-4b16-9321-f38b31b4c2e2",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - HIV Tridot (Relative)",
+    "uuid": "eb1f3129-cd0b-4932-8ba3-b4af7e51b394",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Positive",
+        "uuid": "051e8515-aff5-4fc7-81f9-d99d64c2ca15",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Negative",
+        "uuid": "9d8ff348-cc4a-489f-85b5-00cf04814cdd",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - HLA B27",
+    "uuid": "6cfacf94-e1fe-4199-8088-b58f4bf94a53",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - HPLC",
+    "uuid": "6f5ed6ed-453f-431a-a9e4-6ddac2b49576",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Haemoglobin",
+    "uuid": "6e12daa4-488f-4104-b8d8-b0a6f07d53ee",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Haemoglobin (Relative)",
+    "uuid": "d6be5efc-f2bd-4921-b1cf-0f2d551951a7",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Hanging Drop (Stool)",
+    "uuid": "671c9626-c65a-48fa-9521-b8dc9627ff10",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Hapaties B Viral load",
+    "uuid": "64ea5a0d-bf2e-4b93-9029-324b859f5c5c",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Hb Electrophoresis",
+    "uuid": "79b4cc56-84c6-49db-81e4-33b79e24bcbb",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Hb1AC",
+    "uuid": "ec3aac64-4994-4da0-827d-866e5c9137a6",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - HbsAg ELISA",
+    "uuid": "209b108f-bacb-45f5-b608-e8c5f6649375",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - HbsAg ELISA (Relative)",
+    "uuid": "f54a6473-8156-4ef9-96ce-ca24e687b991",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Positive",
+        "uuid": "051e8515-aff5-4fc7-81f9-d99d64c2ca15",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Negative",
+        "uuid": "9d8ff348-cc4a-489f-85b5-00cf04814cdd",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - HbsAg Rapid",
+    "uuid": "4d4e910c-d37a-4cbd-a8f9-1b618e57e8e3",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - HbsAg Rapid (Relative)",
+    "uuid": "005eb46c-4092-4a9c-85a0-af7c3e5691ca",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Positive",
+        "uuid": "051e8515-aff5-4fc7-81f9-d99d64c2ca15",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Negative",
+        "uuid": "9d8ff348-cc4a-489f-85b5-00cf04814cdd",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Hepatitis A (Elisa)",
+    "uuid": "78b68130-f425-4599-a075-141a5347b51f",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Hepatitis A (Rapid)",
+    "uuid": "4dcc6917-60f7-4c91-a7df-5222fe288327",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Hepatitis E (Elisa)",
+    "uuid": "9bdd96c4-c26b-4056-b9d5-f043e5f531e9",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Hepatitis E (Rapid)",
+    "uuid": "d446e371-ff7c-4424-88c6-9dd655bb8c2a",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Herpes simplex virus (HSV)",
+    "uuid": "47657b9b-b876-40c7-87f5-8a5b06f25b70",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Positive",
+        "uuid": "051e8515-aff5-4fc7-81f9-d99d64c2ca15",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Negative",
+        "uuid": "9d8ff348-cc4a-489f-85b5-00cf04814cdd",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Histopathology (Tissue)",
+    "uuid": "5aa46d5a-8b73-4cea-9402-345b85280b30",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Hydatid Serology",
+    "uuid": "642e5b4a-0b5c-4a25-b507-a96381ee1441",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Positive",
+        "uuid": "051e8515-aff5-4fc7-81f9-d99d64c2ca15",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Negative",
+        "uuid": "9d8ff348-cc4a-489f-85b5-00cf04814cdd",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Hypersegmented Polymorphs (HSP)",
+    "uuid": "0d3157b6-eff7-4cda-8a3f-09eb76589f22",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - INR Ratio (Blood)",
+    "uuid": "01a77532-15bb-429a-8e44-e1e38d17a6c5",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - INR Ratio (Serum)",
+    "uuid": "92bfb04d-a6f5-4dec-8946-de3c310e33a0",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - K (ABG)",
+    "uuid": "e25f5fb8-eab4-4d99-86b6-76ae2b25b189",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - K (VBG)",
+    "uuid": "87d2fad4-6ae3-485c-a2cf-badda5b59299",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - KOH mount (Vaginal mount)",
+    "uuid": "95d1a4da-6704-4e5d-a4b8-d73903f92a9c",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - LDH",
+    "uuid": "c3bbb672-6206-4a43-b9a1-f3c273891238",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - LDL",
+    "uuid": "7a250738-f74a-4556-b085-62d0037685f0",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - LE (Urine)",
+    "uuid": "8b99c883-dab4-4f89-910a-c991c27690d2",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - LH",
+    "uuid": "bbded5ca-d4cc-454a-8562-fe49b862647e",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - LJ (Asitic Fluid)",
+    "uuid": "2632646b-1884-4560-82fd-9a8239d1fe84",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - LJ (BAL)",
+    "uuid": "0a35d393-86f9-4477-892c-b045c575de86",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - LJ (CSF)",
+    "uuid": "3a63c199-d204-4112-bd72-68815e2ad7a1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - LJ (GAL)",
+    "uuid": "6b308664-028c-4386-af5f-b5da6798e141",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - LJ (Knee Joint Fluid)",
+    "uuid": "6e3d543f-d2e6-4156-b8e1-df9f8125d783",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - LJ (Other Body Fluids)",
+    "uuid": "a0eb3c27-f9cd-4547-88bb-f2cfae246f49",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - LJ (Peritoneal Fluid)",
+    "uuid": "c0eac7c0-8b01-48e1-bff1-0aaa51bdb91c",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - LJ (Pleural Fluid)",
+    "uuid": "61ad974a-6a39-4395-ab19-5e43452fe56d",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - LJ (Sputum)",
+    "uuid": "d05cd3cd-5bb0-450a-957c-2603070f4c96",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - LJ (Tissue)",
+    "uuid": "65885219-9c43-4f59-9c1f-42613359ca85",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - LJ (Urine)",
+    "uuid": "49442ec3-342f-45b8-8f86-9b38e65af447",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - LJ (Vaginal Fluid)",
+    "uuid": "b72647e1-32e3-47ab-ae80-06b6b19476bd",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - LPA (Asitic Fluid)",
+    "uuid": "2f50fa30-da62-40f6-9df1-feae5e58c5a8",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - LPA (BAL)",
+    "uuid": "31cd68da-5f83-4bd9-9ffb-adb927f273fa",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - LPA (CSF)",
+    "uuid": "c413c307-5abd-4232-b7fe-9c9f1d8bd1b5",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - LPA (GAL)",
+    "uuid": "ef651bfc-314a-4125-aadb-5288782694f2",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - LPA (Knee Joint Fluid)",
+    "uuid": "a72bff82-c241-455d-850b-8b55a796e77d",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - LPA (Other Body Fluids)",
+    "uuid": "2054c031-ea26-4f45-8f2a-0e398810abb4",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - LPA (Peritoneal Fluid)",
+    "uuid": "6ae30f87-0532-4fc8-b829-a6f3ec1c72ea",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - LPA (Pleural Fluid)",
+    "uuid": "c90abe73-9b82-41dd-b38c-9eaa36386d68",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - LPA (Sputum)",
+    "uuid": "2d929ad8-baa2-46e1-a6dd-08a6a690a00d",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - LPA (Tissue)",
+    "uuid": "135ad220-ec4e-41bc-82e0-85d48864426e",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - LPA (Urine)",
+    "uuid": "c350b93f-571f-497d-91f2-4431b3d20a1b",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - LPA (Vaginal Fluid)",
+    "uuid": "057f7b8c-c1db-45cf-b8be-18a182f76dcc",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Leptospira",
+    "uuid": "cae8ee22-4f3c-4312-b7ee-96aff4105b09",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Positive",
+        "uuid": "051e8515-aff5-4fc7-81f9-d99d64c2ca15",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Negative",
+        "uuid": "9d8ff348-cc4a-489f-85b5-00cf04814cdd",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Equivocal",
+        "uuid": "1af461ac-bbf0-4759-8d6d-bef9da2169b4",
+        "order": 3
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Liquification time",
+    "uuid": "6eadb659-ff3a-43ce-919b-090196395f18",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Lymphocyte",
+    "uuid": "c8c1f4ad-cab3-4d37-85d4-a994110c6a4d",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - MCH",
+    "uuid": "330d82fa-f0e7-4b30-a766-a63cf5604d5b",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - MCHC",
+    "uuid": "be63d7e2-7ce7-4a20-9c67-81d5f7c45f3e",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - MCV",
+    "uuid": "6f7dbbb3-8da0-4bcc-a969-02cd1f4c393a",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Magnesium",
+    "uuid": "a8984ee2-6358-40e3-bf3f-64d20c5655f7",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Malaria Parasite",
+    "uuid": "e0790c34-f7c5-4b11-b5f9-4526338aa30b",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Malaria Parasite (Relative)",
+    "uuid": "5453e423-13f3-491a-8f65-f89d46d9e22d",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Positive",
+        "uuid": "051e8515-aff5-4fc7-81f9-d99d64c2ca15",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Negative",
+        "uuid": "9d8ff348-cc4a-489f-85b5-00cf04814cdd",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Malaria Parasites (Rapid kit)",
+    "uuid": "c54d36b0-b489-4435-b7c1-ac094afde035",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Monocyte",
+    "uuid": "c79de28a-4785-484d-a5e1-00b7e75b3d80",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Montoux Test (Test)",
+    "uuid": "37382e4d-426b-4416-bf8f-d84dd07db50c",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Morphology",
+    "uuid": "3b99df0f-4287-4c48-9c4d-d36249273896",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Motility",
+    "uuid": "e5e94111-75bb-4e13-a438-0931dc443606",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Na (ABG)",
+    "uuid": "bfb11871-07a8-4b99-b0ed-1277afacc4cb",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Na (VBG)",
+    "uuid": "04c7dab5-b622-4d49-a1fc-29628babd559",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Nitrite",
+    "uuid": "d4cb0577-5615-4118-927a-78afa56fd0a5",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Normal Saline mount (Vaginal Fluid)",
+    "uuid": "01b04ee3-649e-4be7-ad3a-a18bae8f831e",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Nucleated RBC",
+    "uuid": "cc29a54e-d2d9-4090-b354-a426da79626a",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Others (Stool w/o concentration)",
+    "uuid": "f3e488b4-fef2-49db-8ab9-744559233f55",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Others (Stool with concentration)",
+    "uuid": "5630d7f2-1b46-4f12-9e75-8dc62cd1563f",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Others (Urine)",
+    "uuid": "7792898a-11b6-4f48-bc8c-bbbebd25bad8",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Ova/Parasite/Cyst",
+    "uuid": "970ea11f-3431-47c2-8293-74c0503e4c01",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - PCO2 (ABG)",
+    "uuid": "6276702d-7581-46a8-bd48-8fb456cc6029",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - PCO2 (VBG)",
+    "uuid": "8ce7a3fa-eba6-4c61-ad24-c3ae5e629432",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - PO2 (ABG)",
+    "uuid": "ce37aa82-cced-421f-8f58-b32372306d3e",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - PO2 (VBG)",
+    "uuid": "7d1c056b-a145-4f3c-a223-5523e5070b8a",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - PP2BS",
+    "uuid": "a8716daa-aa88-4ab9-9272-65cdbf76615f",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - PS for RBC Morphology",
+    "uuid": "17a706fb-074a-474f-bfb5-ba18dbdfc093",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - PS for mf by concentration",
+    "uuid": "ebf34157-c2b2-43ba-9675-24601eb95c49",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - PSA",
+    "uuid": "c95d1d6c-b13f-40ff-abd6-9463cb050c1a",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - PTH",
+    "uuid": "c78a72a4-747f-46c8-b319-4700ad836807",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Packed Cell Volume (PCV)",
+    "uuid": "d2b67e1e-ec20-49cf-b2d6-766ea9d3c8d3",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Parallel Urine Sugar (120 mins)",
+    "uuid": "46144473-7006-4b26-ab38-160a71eccf10",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Parallel Urine Sugar (30 mins)",
+    "uuid": "96dd7d97-6950-46ef-90a5-c25bf0c7fbcf",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Parallel Urine Sugar (60 mins)",
+    "uuid": "7bc28010-5220-43b4-bbb6-166ac6080e38",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Parallel Urine Sugar (90 mins)",
+    "uuid": "7e7a8c7e-ce50-41c9-99d8-d5a201cc26e3",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Parallel Urine Sugar (Fasting Blood)",
+    "uuid": "6c0532ff-eec8-4995-bed7-31732bf9ee02",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Parasite",
+    "uuid": "0767919a-964a-4a21-b5a0-ca343d3c3487",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Parasite (BAL)",
+    "uuid": "cd7e2a60-82db-4b44-bf65-f95fa568d7ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Parasite (GAL)",
+    "uuid": "ee38857b-5461-4c99-aefc-2547d3a6556e",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Patient Blood Group",
+    "uuid": "c61a3380-df42-4b2e-ba95-3767c55df7b9",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Pendy Reagent Test",
+    "uuid": "74ebd311-9f51-40ba-b14c-f5c4312398bd",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Phosphorous",
+    "uuid": "24610fc8-e01f-4606-9741-ee7f274aefae",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Platelet Count",
+    "uuid": "5acb5d37-ca4a-4b62-9f30-4eaca8f0e875",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Platelet to Absolute Lymphocyte Ratio",
+    "uuid": "88a40b7c-f01c-4982-aee1-3cfb52014cb9",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Polymorph",
+    "uuid": "a46d4e71-ea64-45e6-a9a0-4f29159db3dc",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Post Blood Sugar (120 mins)",
+    "uuid": "ea93a653-0966-4a4b-b521-b44f8ca7eb41",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Post Blood Sugar (30 mins)",
+    "uuid": "833768b9-6eb3-421b-a249-7d5028520254",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Post Blood Sugar (60 mins)",
+    "uuid": "267e0bae-da44-4446-925c-dff082ac4004",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Post Blood Sugar (90 mins)",
+    "uuid": "452a884a-8ec3-45dd-b641-72d84ef14ca9",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Potassium",
+    "uuid": "583186c6-d222-405f-a85b-49571a468fe0",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Pre Dinner Sugar",
+    "uuid": "0df7cd13-e66c-4725-bd74-b355a5701db4",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Prolactin",
+    "uuid": "11930209-af0f-4150-ba22-4584c1a3b896",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Protein (Asitic Fluid)",
+    "uuid": "0ec7d029-f2b6-46ea-819b-82690c27c762",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Protein (CSF)",
+    "uuid": "02acef4d-cbd4-42d7-8179-df8de48f2d7f",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Protein (Knee Joint Fluid)",
+    "uuid": "98b0c369-8773-4ea0-9e0c-87f97e3c6c95",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Protein (Peritoneal Fluid)",
+    "uuid": "3b0893a5-9177-487e-88e0-66276a0d8509",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Protein (Plural Fluid)",
+    "uuid": "8d7402f8-9bed-49ec-8f98-c13b34af9c13",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Prothrombin Time (Control) (Blood)",
+    "uuid": "797db006-b869-41b2-8721-031bf0948e36",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Prothrombin Time (Control) (Serum)",
+    "uuid": "3cfa4005-9e9f-460a-a89c-a326b4067e64",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Prothrombin Time (Test) (Blood)",
+    "uuid": "053d6b43-2248-4b9b-920a-8c40442aca68",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Prothrombin Time (Test) (Serum)",
+    "uuid": "4c2b161c-6b43-4dbc-9476-92c999d5cc4d",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Pus Cell (BAL)",
+    "uuid": "1835c8f1-1078-4c34-8b88-91474f51c059",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Pus Cell (GAL)",
+    "uuid": "77c8daea-abd6-49a5-b4e4-34a1f657ea77",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Pus Cells (Semen)",
+    "uuid": "09bbff8c-3363-4d68-b07b-27d7e5010ec4",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Pus Cells (Stool)",
+    "uuid": "4c745602-9c5b-46d2-b20f-ce80359840d1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Pus Cells (Urine)",
+    "uuid": "d34a4e78-312e-451c-8c3b-964605bded5e",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Quadruple Marker",
+    "uuid": "d336b957-c850-417e-8139-b006d630b5fa",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Quality",
+    "uuid": "3b115f3a-76a3-4473-873b-f766d34003f2",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - RA Factor - Qualitative",
+    "uuid": "735d420b-43f3-41ec-b181-eb02dfe06555",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - RA Factor - Turbidometry",
+    "uuid": "3e00c83f-2dcd-4ded-9cd8-a95ba3ed44b1",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - RBC (Semen)",
+    "uuid": "496077ee-7c92-4930-bd52-e874f101a2f2",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - RBC (Stool)",
+    "uuid": "d49e4dfb-ab1b-492d-a259-1a75af9f587f",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - RBC (Urine)",
+    "uuid": "83e667f0-6c06-466d-8616-1d633e81bdbf",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - RBC Count",
+    "uuid": "acc354e1-5d88-4c19-8c52-1e109be70bb4",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - RBS",
+    "uuid": "71624f7d-b8d2-4e4a-a59a-70c584ae0cc2",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - RPR qualitative",
+    "uuid": "fdcfa85a-9dd8-4227-b6c8-0f120d3c1896",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Red Blood Cell (BAL)",
+    "uuid": "43ea7351-d1b2-4801-ac96-b41462e3af8a",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Red Blood Cell (GAL)",
+    "uuid": "875e916e-69b8-4589-84f8-e3f4a546caa2",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Reducing substance",
+    "uuid": "49aeca99-33dc-498a-90b6-d81ca6f55173",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Renal Concentrating Ability",
+    "uuid": "068be79e-9b5f-4b3e-bb84-d34fb5f05d0a",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Result",
+    "uuid": "8dbfe708-7264-4f6d-8c81-7d237c741471",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Reticulocyte Count",
+    "uuid": "e2a02e4d-4d04-4006-89a9-3eddd70cd741",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Routine Microbiology Culture (BAL)",
+    "uuid": "28ddc483-6e47-437e-8e69-2f2e2e225191",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Routine Microbiology Culture (GAL)",
+    "uuid": "ee802115-4099-4c31-8fa6-302ce3076c92",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Routine Microbiology Culture (Stool)",
+    "uuid": "f025cc18-f922-412e-80d3-d6c00b54dac9",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Routine Microbiology Culture (Urine)",
+    "uuid": "3d04dc57-f8e7-4e18-adc6-e3dc477b3c58",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - S. ALT",
+    "uuid": "ea46f23a-dc9e-420c-8dc2-6f9e9ee33042",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - S. AST",
+    "uuid": "4e5f0817-6af2-4461-b7cd-769205ce2099",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - S. Albumin",
+    "uuid": "1b1f057c-0edb-44d5-9d53-5a191a503c2e",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - S. Protein",
+    "uuid": "10d22cde-4bed-4325-bcb2-94f660b6c432",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - S. Triglyceride",
+    "uuid": "71d8a6f9-b9a0-4ff1-9ea9-d93fe8fb36c3",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Scrapping for Fungus (Test)",
+    "uuid": "383eb084-b01e-41a6-b16a-1c38d08e9b3a",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Scrub Typhus",
+    "uuid": "a11d7984-7434-46e8-a885-962a5b80f95d",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Positive",
+        "uuid": "051e8515-aff5-4fc7-81f9-d99d64c2ca15",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Negative",
+        "uuid": "9d8ff348-cc4a-489f-85b5-00cf04814cdd",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - Equivocal",
+        "uuid": "1af461ac-bbf0-4759-8d6d-bef9da2169b4",
+        "order": 3
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - Serum  Cortisol",
+    "uuid": "9d5c6ba3-b45d-4618-b8fc-730d3c60051f",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Serum Electrophoresis",
+    "uuid": "d45cbf11-dbbc-425d-a438-82abb4144353",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Serum Lipase",
+    "uuid": "a930b5d5-4725-4de2-a26d-f575c207047d",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Sickling Test",
+    "uuid": "cacbc625-c734-404d-b123-882debb67fb0",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Sodium",
+    "uuid": "7f37ffb8-380d-4766-8b50-33c6a6a0cb8a",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Specific Gravity",
+    "uuid": "ff3ca2aa-104d-4c16-b923-d555cd100011",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Stool occult blood",
+    "uuid": "93ed8a69-6402-4e0f-ae6d-544c25f27a07",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Sugar (Asitic Fluid)",
+    "uuid": "00df5762-4436-4663-8f7d-043c8735dc7d",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Sugar (CSF)",
+    "uuid": "c809054f-d019-4389-90ff-61bec0dc1f4c",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Sugar (Knee Joint Fluid)",
+    "uuid": "70bd20d4-03ac-45b2-a405-2c42e6e2543d",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Sugar (Peritoneal Fluid)",
+    "uuid": "d184bf3e-bf33-42f9-b83e-7b3bdc9357f0",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Sugar (Plural Fluid)",
+    "uuid": "caf5a13e-fa76-4a34-9c49-1682071fc195",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Sugar (Routine Urin)",
+    "uuid": "478eddf6-92b2-435f-b86e-a31915dcb5cb",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Nil",
+        "uuid": "d923b664-cf14-4e6f-98f8-b6cbad47e8ad",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Trace",
+        "uuid": "27bcc923-7fb5-4c65-ac5e-1cf9cf12bee4",
+        "order": 2
+      },
+      {
+        "name": "Bahmni - 1+",
+        "uuid": "8cfe4739-8765-49e4-ba4e-51b046e42d75",
+        "order": 3
+      },
+      {
+        "name": "Bahmni - 2+",
+        "uuid": "207e199d-0e61-462c-bcf1-ddb6a985e9eb",
+        "order": 4
+      },
+      {
+        "name": "Bahmni - 3+",
+        "uuid": "0b1d1849-ce4a-454e-8c73-0e95c3dd0c93",
+        "order": 5
+      },
+      {
+        "name": "Bahmni - 4+",
+        "uuid": "257de2be-fe43-435f-9593-3298ec0dd2f5",
+        "order": 6
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - T3",
+    "uuid": "1c5b5187-fd8a-46eb-bbba-6841c3f6606a",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - T3 - JSS",
+    "uuid": "1b8e6a31-3a49-4f0d-bd75-412a7f8cc73c",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - T4",
+    "uuid": "0cb87d6c-46c4-4ae9-be31-08289cf598ec",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - T4 - JSS",
+    "uuid": "62f0e1e4-ef39-46a9-a53b-f2f5b348dcdb",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - TC/HDL Ratio",
+    "uuid": "dabfc579-dcf5-4a83-b459-deb7ee5705c3",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - TCO2 (ABG)",
+    "uuid": "f92cb698-dfd3-40ed-b74d-c83f0e741a9c",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - TCO2 (VBG)",
+    "uuid": "e48c501d-d9eb-4ef9-bea5-1231e11d3ae3",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - TORCH (IGG)",
+    "uuid": "6afe8383-7cd9-4d79-876c-b34da5570dd4",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - TORCH (IGM)",
+    "uuid": "46e9d25a-cee4-46e6-a6ce-e18cd387d179",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - TPHA",
+    "uuid": "7c2bc162-2356-4411-9285-12cf0710a563",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Positive",
+        "uuid": "051e8515-aff5-4fc7-81f9-d99d64c2ca15",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Negative",
+        "uuid": "9d8ff348-cc4a-489f-85b5-00cf04814cdd",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - TSH",
+    "uuid": "065b6211-f860-4523-95e1-1925b113c865",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - TSH - JSS",
+    "uuid": "78263195-732e-49c4-97cc-65a3ad3dcc57",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Thyroglobulin (TG)",
+    "uuid": "5af59442-f02d-4af1-a415-7f5fa8b460bb",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Total Bilirubin",
+    "uuid": "05922c23-d269-49a1-bb70-f673a92f0e5d",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Total Count",
+    "uuid": "abd3aafe-720b-421e-b108-832645f5aa58",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Total Leucocyte Count (Asitic Fluid)",
+    "uuid": "3aef166d-13d8-4ef9-bb79-2b78cb170227",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Total Leucocyte Count (Blood)",
+    "uuid": "a6f0294a-7fb9-4e3e-9ce1-2ed369f9808b",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Total Leucocyte Count (CSF)",
+    "uuid": "156b85bf-764d-4e84-ac5a-b29fa5e90e88",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Total Leucocyte Count (Knee Joint Fluid)",
+    "uuid": "d10fc922-3545-4fda-875b-9c0db180ffec",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Total Leucocyte Count (Peritoneal Fluid)",
+    "uuid": "ae44f4f6-71a5-44de-a61a-e918e7f38855",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Total Leucocyte Count (Plural Fluid)",
+    "uuid": "ea8a0372-f868-4ef0-bc52-665883877ad9",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Total Volume Urine (24 hour)",
+    "uuid": "9529b178-245c-4b91-b25c-03cf327c27a5",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Troponin - T",
+    "uuid": "ccbe2359-ce70-4c9d-b167-665641430a00",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Urea Nitrogen",
+    "uuid": "0378c8f7-51b1-4cda-a8ff-4648903e31a0",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Uric Acid",
+    "uuid": "3fb35932-5ae4-4d93-9d34-976576650183",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Urine AFB",
+    "uuid": "5c93133e-0cd9-416b-a3de-2b5e080c1f8d",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Urine Bile Pigment",
+    "uuid": "4b1a5dde-0d0a-4718-80f2-e661d42c2126",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Urine Bile Salt",
+    "uuid": "ba9b0e01-4d1b-4771-beb0-51543c57b8a5",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Urine Copper",
+    "uuid": "bfd6bfa4-720c-4024-95d4-852e3aa7040f",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Urine Creatinine",
+    "uuid": "4671220c-c794-4873-920d-e832152d8f9d",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Urine Ketone",
+    "uuid": "8799d5f7-225b-4769-a8d3-a07077da0296",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Urine Pregnancy Test",
+    "uuid": "0979615e-c4b8-473f-9852-cb612f839d48",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Urine Protein",
+    "uuid": "87c98215-8a15-4768-b4ca-73112bda5fe1",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Urine Protein Creatinine Ratio",
+    "uuid": "be9697db-2c53-4dce-bcbe-e6b26338ed58",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Urine VMA",
+    "uuid": "72e7e91a-0804-47e1-835a-e42db3a23b20",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Urine haemoglobin",
+    "uuid": "26fcc035-0307-4455-9e2c-1dcc840b2725",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - VDRL ELISA",
+    "uuid": "e97aabd7-4cef-42fa-9b28-37a04f0c3863",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - VDRL ELISA (Relative)",
+    "uuid": "65e48524-e193-47a1-b01a-e7dce4fa625b",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Positive",
+        "uuid": "051e8515-aff5-4fc7-81f9-d99d64c2ca15",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Negative",
+        "uuid": "9d8ff348-cc4a-489f-85b5-00cf04814cdd",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - VDRL Rapid",
+    "uuid": "00def8c0-515d-44fc-b4e2-d51136217089",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - VDRL Rapid (Relative)",
+    "uuid": "4abf9347-313e-42ad-aa44-549b32802155",
+    "dataType": "Coded",
+    "active": true,
+    "answers": [
+      {
+        "name": "Bahmni - Positive",
+        "uuid": "051e8515-aff5-4fc7-81f9-d99d64c2ca15",
+        "order": 1
+      },
+      {
+        "name": "Bahmni - Negative",
+        "uuid": "9d8ff348-cc4a-489f-85b5-00cf04814cdd",
+        "order": 2
+      }
+    ]
+  },
+  {
+    "name": "Bahmni - VLDL Cholesterol",
+    "uuid": "1bbdb6bd-d9ec-46d9-99b2-13b8a4b0d052",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Vaginal Trichomonas",
+    "uuid": "15af5b52-6b87-4ad9-982c-8de88c7ac035",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Viscoscity",
+    "uuid": "99b5b64d-5f82-46b3-9390-ac126a011b92",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Vitamin B-12",
+    "uuid": "131b302f-0d3d-4f34-96ba-30120bcbd6f5",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Volume (Semen)",
+    "uuid": "9d3daa73-eaa1-4f6c-808f-ec1ff0cbc949",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - WIDAL Qualitative",
+    "uuid": "a4312706-ae13-43ce-9e76-8b757c3d3d73",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Whiff test (Vaginal Fluid)",
+    "uuid": "f4e1e3c6-2d0c-42cc-b31b-110752b74478",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Yeast Cell",
+    "uuid": "76d29456-4a68-4cfa-a236-b8ec97e54ffb",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ZN Stain (Asitic Fluid)",
+    "uuid": "562da687-c0e7-44b2-827a-b63258cd5051",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ZN Stain (BAL)",
+    "uuid": "79d18870-6f68-4e99-a609-154ae0bba771",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ZN Stain (CSF)",
+    "uuid": "e40c8fb2-b485-401a-bb05-dd20cb5f0e2a",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ZN Stain (GAL)",
+    "uuid": "a8759cb1-e0dc-445b-89e5-4db7d001d8d8",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ZN Stain (Knee Joint Fluid)",
+    "uuid": "fb46ef60-5ecf-4d51-9e46-f6606473f4ab",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ZN Stain (Peritoneal Fluid)",
+    "uuid": "b5eab467-4a53-42df-8728-3b885751f341",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ZN Stain (Plural Fluid)",
+    "uuid": "db0c3a44-947b-42f4-bbb1-4cf7091d0ed0",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ZN Stain (Slit Skin)",
+    "uuid": "b1d9df7c-0814-4732-83af-613edca895c8",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ZN Stain (Sputum)",
+    "uuid": "fe90dc52-9df3-44a3-b951-50f795476e80",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ZN Stain (Stool)",
+    "uuid": "a1bad3a3-5136-4e1b-b240-b3a2e3d03939",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ZN Stain (Tissue)",
+    "uuid": "e58e3fe5-6168-4ad9-9791-d7019c9c108a",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ZN Stain (Urine)",
+    "uuid": "e64c3265-b93e-44ba-8758-2009e2687e7b",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Zn Stain (Vaginal Fluid)",
+    "uuid": "eac7eb5f-f905-4158-8b9f-d65f3471701b",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - bone marrow  test",
+    "uuid": "ce7300ea-c5a1-4387-851d-58c225168f45",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - iCa (ABG)",
+    "uuid": "3a776ee3-11c6-4eca-9dfa-e94f9ddc1a16",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - iCa (VBG)",
+    "uuid": "5b816cd1-c7ee-4fba-ad7f-5f18208e01b5",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - non- adrenaline",
+    "uuid": "b69194df-706a-457e-9a56-b42b5a8c577c",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - pH (ABG)",
+    "uuid": "578d5847-6647-4b5a-951e-d1c822089746",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - pH (Stool)",
+    "uuid": "b63bfdb6-2aaa-4850-8a15-5ba13cee3201",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - pH (Urine)",
+    "uuid": "2495b467-bdd3-436e-b828-529626394525",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - pH (VBG)",
+    "uuid": "ce8416e7-8e23-4107-a69f-8dad9e813b89",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - pH (Vaginal Fluid)",
+    "uuid": "fd0c8f58-fb17-4518-ac52-779fdeceb62a",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - sO2 (ABG)",
+    "uuid": "576539b8-a9ea-4a29-aec1-8c03cfc551f6",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - sO2% (VBG)",
+    "uuid": "3002374a-0d4d-483c-af79-88a3f4d14654",
+    "dataType": "Numeric",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Positive",
+    "uuid": "051e8515-aff5-4fc7-81f9-d99d64c2ca15",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Negative",
+    "uuid": "9d8ff348-cc4a-489f-85b5-00cf04814cdd",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Equivocal",
+    "uuid": "1af461ac-bbf0-4759-8d6d-bef9da2169b4",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Nil",
+    "uuid": "d923b664-cf14-4e6f-98f8-b6cbad47e8ad",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Trace",
+    "uuid": "27bcc923-7fb5-4c65-ac5e-1cf9cf12bee4",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - 1+",
+    "uuid": "8cfe4739-8765-49e4-ba4e-51b046e42d75",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - 2+",
+    "uuid": "207e199d-0e61-462c-bcf1-ddb6a985e9eb",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - 3+",
+    "uuid": "0b1d1849-ce4a-454e-8c73-0e95c3dd0c93",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - 4+",
+    "uuid": "257de2be-fe43-435f-9593-3298ec0dd2f5",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Detected",
+    "uuid": "28f74d2c-72e7-4b7c-8fa0-8aa16c11d3da",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Not Detected",
+    "uuid": "c9572990-98bf-4c0d-a8c6-97c95b8ec0ff",
+    "dataType": "NA",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Invalid",
+    "uuid": "9034e57f-b13a-473e-9725-c65eb97fb39d",
+    "dataType": "NA",
+    "active": true
+  }
+]

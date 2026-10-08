@@ -1,0 +1,93 @@
+{
+  "name": "Bahmni - OPD Followup Non attendance Record Template",
+  "uuid": "502f835d-a3ad-477e-9981-0a9fa10bd032",
+  "formType": "Encounter",
+  "formElementGroups": [
+    {
+      "uuid": "86fdf234-a084-44cf-a793-ac493d6c0d77",
+      "name": "Bahmni - OPD Followup Date",
+      "displayOrder": 1.0,
+      "formElements": [
+        {
+          "name": "Bahmni - OPD Followup Date",
+          "uuid": "c1449846-dbaa-435c-b20a-937acedbc6c4",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - OPD Followup Date",
+            "uuid": "64299992-eef7-401a-86b3-15191f443102",
+            "dataType": "Date",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "48c4f638-f7cf-4d06-85f1-8ce2e3ed91f4",
+      "name": "Bahmni - Reasons for not Coming",
+      "displayOrder": 2.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Reasons for not Coming",
+          "uuid": "fb0feda8-0225-44ad-94b6-21e7457ac930",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Reasons for not Coming",
+            "uuid": "f2038f95-b993-434b-9032-a3355b8e9434",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "7a5bc4a4-3b56-481d-a89c-e7491d0ef095",
+      "name": "Bahmni - Other OPD Followup Template",
+      "displayOrder": 3.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Other OPD Followup Template",
+          "uuid": "c6e5966c-827a-4292-ba54-adcd56a4ee11",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Other OPD Followup Template",
+            "uuid": "c8350526-61d0-4128-a95c-1a2b109e5588",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

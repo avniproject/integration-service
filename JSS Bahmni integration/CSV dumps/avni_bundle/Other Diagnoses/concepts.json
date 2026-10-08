@@ -1,0 +1,5366 @@
+[
+  {
+    "name": "Bahmni - AC polp",
+    "uuid": "2f7052a0-776e-4c6a-8ffb-1523ece90fb8",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ANC",
+    "uuid": "48979f39-a83b-414a-8a82-8f51bf7229ee",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ANC with Anaemia",
+    "uuid": "188f63f6-f3e7-4f6d-971d-1be81e90d0b5",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ANC with CPD",
+    "uuid": "b81d4c14-d47c-469a-8ab9-2923815bb955",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ANC with Cephalo Pelvic Disproportion",
+    "uuid": "aac0a278-3f2e-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ANC with Eclampsia",
+    "uuid": "c663aea2-163f-4ecb-97ca-37f6f252e0b2",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ANC with PET",
+    "uuid": "ad20144f-3f2e-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ANC with RH-",
+    "uuid": "bea8cd1c-d49c-4419-af01-d6e4f0cb927b",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ANC with Sickle cell disease",
+    "uuid": "9cbdacb4-95cf-43b7-a4a5-704a1c08d660",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ANC with UTI",
+    "uuid": "af1c41d4-3f2e-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ANC with abdominal pain",
+    "uuid": "a8d8040f-3f2e-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ANC with placenta previa",
+    "uuid": "b000d916-9ac0-4ca1-a946-afe728f84959",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ANC with twins",
+    "uuid": "ab7f2be9-5003-4697-af21-2e641e1a578d",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - APD with cord prolapse",
+    "uuid": "feca232c-c726-47da-a813-377abfba3af7",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - APD with gastric outlet obstruction",
+    "uuid": "eaaacd1e-f572-4c39-bc7a-8cdd4cfac112",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ARM Clavicle AP",
+    "uuid": "6a0ce36b-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ARM Elbow AP",
+    "uuid": "6dcada6a-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ARM Elbow Lateral",
+    "uuid": "6e2804de-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ARM Finger lateral",
+    "uuid": "72ff5eb9-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ARM Forearm AP",
+    "uuid": "6f41701e-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ARM Forearm Lateral",
+    "uuid": "6fc5e547-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ARM Hand AP",
+    "uuid": "72258f4d-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ARM Hand oblique",
+    "uuid": "729831ca-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ARM Humerus AP",
+    "uuid": "6ced2919-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ARM Humerus Lateral",
+    "uuid": "6d5ac441-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ARM RVF",
+    "uuid": "8a5312fb-2c52-409f-a3be-1ce251b49695",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ARM Scaphoid",
+    "uuid": "71aa0ab8-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ARM Scapula AP",
+    "uuid": "6b0420db-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ARM Scapula Lateral",
+    "uuid": "6b76c51f-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ARM Shoulder AP",
+    "uuid": "6bfc8538-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ARM Shoulder Axial",
+    "uuid": "6c7c8125-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ARM Wrist AP",
+    "uuid": "70c86c42-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ARM Wrist Lateral",
+    "uuid": "7128240d-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ARM Wrist PA",
+    "uuid": "704f6ebb-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Abdomen koch's",
+    "uuid": "0d9aba60-2d2d-4aba-8799-b8441e1f6250",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Abdominal Distention",
+    "uuid": "d84cccce-38fc-485c-890f-87e7fd3665ed",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Abdominal Malignency",
+    "uuid": "cc53a1b6-116a-4baa-9117-5a9e5adbb66a",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Abdominal Tuberculosis with intestinal obstruction",
+    "uuid": "c10cd673-8119-4253-bc37-31651c75fdb7",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Abdominal abscess",
+    "uuid": "ffb2d451-e804-4ead-bd01-02848378f1e8",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Abdominal fistula koch's",
+    "uuid": "2ec65dff-eeac-475e-9dbb-5f851ba5e75c",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Abdominal malignancy, suspected",
+    "uuid": "bfe17168-65d2-4673-980a-64c740437f17",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Abdominal swelling/Ovarian cyst",
+    "uuid": "2eccc338-b31e-45c5-b4cf-52a3bcc95ae5",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Abdominal wall abscess",
+    "uuid": "b4f5333c-b836-4cbe-94fa-60ea37940fcd",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Abdominal wall tumor",
+    "uuid": "e992070f-53cf-4581-b3ea-d29b0766a8a4",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Abdominal wall tumour (Extra peritonial)",
+    "uuid": "67013c68-66cb-45d5-a925-83b93c5b747b",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Abortion, Septic",
+    "uuid": "dd7cce0c-398e-4331-af43-f3c8d0df4c23",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Abruptio placenta",
+    "uuid": "42be1005-fd05-406d-ab45-49d9ec977083",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Abscess",
+    "uuid": "6739667d-0bb7-4961-9724-3a5d5f7c1c6a",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Abscess (Arm)",
+    "uuid": "7e253aa7-d43e-4503-835e-f4cfa1175ba0",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Abscess (High)",
+    "uuid": "553e9799-44ae-4ed4-9d80-6be09ced0eb4",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Abscess (Infection)",
+    "uuid": "c4b4a3e6-066c-429b-9181-0035e627204a",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Abscess (Lid)",
+    "uuid": "670e98b2-3340-44c0-bb45-93d499dfdf2c",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Abscess (cervical)",
+    "uuid": "6bc538c5-5bca-4b87-b094-25ab96356fe4",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Abscess (chestwall)",
+    "uuid": "c4a0fc4d-4a75-4317-a3b4-405f46f4dbe6",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Abscess (sole of foot)",
+    "uuid": "a67e236d-c196-495d-83d5-8cabaf0072d3",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Abscess (thigh)",
+    "uuid": "fd4cb039-e649-42dd-8cdb-e90c19334e15",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Abscess, thigh",
+    "uuid": "440fcb0b-2265-4ba2-bbcc-c20dca21b1e3",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Achalasia cardia",
+    "uuid": "9d0d8430-9758-4f31-9fa6-ebecf9ff716a",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Acid Peptic Disease",
+    "uuid": "fe56e104-3f2d-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Acne Conglobata",
+    "uuid": "00b2cd94-3f2e-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Acne Vulgaris",
+    "uuid": "02d83e10-3f2e-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Acute Respiratory Infection (ARI)",
+    "uuid": "0a4e9d41-3f2e-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Acute abdomen",
+    "uuid": "05474880-6619-4cb4-bbe0-e9f26b9acef5",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Acute abdomen with Peritonitis",
+    "uuid": "520482c6-e1ff-49fb-907c-dd9f5bdf788d",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Acute abdomen with suspected Appendicular Perforation",
+    "uuid": "987883a9-43db-4c75-b6a0-1ddf3a330987",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Acute abdomen with suspected twisted ovarian cyst",
+    "uuid": "73de2ca9-bf59-4ada-9e1b-a0586ce5156a",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Acute appendecitis",
+    "uuid": "a81bd4a5-c1a2-42b9-adc9-dfc41744647d",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Acute appendicitis perforation",
+    "uuid": "5b1e3c3b-7b4d-4b0a-a77c-37bbab811290",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Acute appendicular lump",
+    "uuid": "77a0b276-1724-48d5-b955-7aa8116179f5",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Acute cholecystitis",
+    "uuid": "859a91ec-3901-4c22-88d4-c0773a4e2d09",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Acute gastroenteritis",
+    "uuid": "05e5109f-3f2e-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Acute lymphoblastic leukemia (ALL)",
+    "uuid": "0774a836-3f2e-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Acute on chronic ectopic",
+    "uuid": "3c017ab6-deb1-4727-9569-7c4cfb28b001",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Acute recurrent tonsillitis with gangrene",
+    "uuid": "c5d08fe9-bd20-4b22-bfb9-5d15da9f197b",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Acute urinary vetention",
+    "uuid": "b2c7f75e-b6e2-4991-ad6d-244317696a6e",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Adenexal mass, right",
+    "uuid": "eddca1d3-7c04-41d4-8850-80959bc19988",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Adeno carcinoma cervix",
+    "uuid": "f7619026-3f12-458a-99b8-c5c9072a809f",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Adeno carcinoma colon",
+    "uuid": "45e46a17-3619-4bc7-ae18-1863d7a7cb2c",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Adeno carcinoma prostate",
+    "uuid": "afbc5dd7-9553-41a8-b9a2-0685869cf1f9",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Adenomycosis",
+    "uuid": "3f24c7f1-3f2e-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Adenomyosis",
+    "uuid": "c5ab8dc7-d7d3-45fa-b40a-1a4488b30d3f",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Adenomyosis uterus",
+    "uuid": "f79715c9-4344-46c9-99dd-a7d51e767378",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Adenomyosis with DUB",
+    "uuid": "7d47a9ee-3c51-4561-852a-d79262c38158",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Adenomyosis with fibroid",
+    "uuid": "2c8bdd7c-1627-4700-b070-1d69f4503d08",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Adhesive abstrusion",
+    "uuid": "90e83714-c55a-4cbd-aa25-c824b7872230",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Alcoholic neuropathy",
+    "uuid": "54ff2969-3f2e-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Amenorrhea",
+    "uuid": "9fba7e91-e34b-11e3-983a-91270dcbd3bf",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Amputation",
+    "uuid": "b10397c0-8b22-4dd4-89c5-49e7c4cdf8d0",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Amputation stump",
+    "uuid": "1d24a30e-1b70-4774-9562-ed3eb9f372f6",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Amputation, Below Knee, left",
+    "uuid": "d952e59f-749a-4733-98d3-4dbf2d5cf98e",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Amputation, Below Knee, right",
+    "uuid": "468f8e33-1047-498a-847f-657a5c92c275",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Amputation, above knee, left",
+    "uuid": "8df1a3f9-c749-4d34-9f57-3524b9abad9d",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Amputation, above knee, right",
+    "uuid": "5606ef5a-1a17-40df-9eef-ee1aae08af59",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Anaemia",
+    "uuid": "8c1ce491-3f2e-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Anaemia, Severe, Iron Deficiency",
+    "uuid": "8f409a10-3f2e-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Anaemia, moderate",
+    "uuid": "8da1e7ba-3f2e-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Anal Dilatation",
+    "uuid": "e16cb2b0-127f-4457-9257-f72150d61b94",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Anal calculus",
+    "uuid": "95fcea3e-ab9b-491e-bd46-5bbd07ddcbe8",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Anal dermoid",
+    "uuid": "970bff39-edca-4036-8824-d3db6843dce6",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Anal fissure",
+    "uuid": "47f973e9-a5cb-4063-b54b-4b851888a223",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Anal stenosis",
+    "uuid": "93871d00-e881-4bcf-b441-6b5aca7b20e2",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Anemia, Severe",
+    "uuid": "b4e80180-3f2e-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Anorectal malformation",
+    "uuid": "b83c9834-3f2e-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Anorectal malformation (RVF)",
+    "uuid": "1305812f-3d91-4f18-be73-2b228deae226",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Anorectal malformation with pouch colon",
+    "uuid": "05bc7024-2618-46ce-b269-dbb7b603a4a8",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Anorectal malformation with rectourethral fistula",
+    "uuid": "05781aac-118c-4989-a898-ab2812a24e0a",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Ante Natal Care (ANC)",
+    "uuid": "ba98503d-3f2e-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Anterior Wall Infarction",
+    "uuid": "bc9d3553-3f2e-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Anteroseptal wall MI, Old",
+    "uuid": "be53c11d-3f2e-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Antrochonal polyp",
+    "uuid": "143f0dd1-64b4-466e-8060-6d21723537fc",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Anxiety Disorder",
+    "uuid": "c22ec107-3f2e-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Anxiety neurosis",
+    "uuid": "c08776df-3f2e-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Aortic regurgitation",
+    "uuid": "c4e81d37-3f2e-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Appendecitis, recurrent",
+    "uuid": "36a42cf9-b4f9-4a3d-b608-b9a9b647bddc",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Appendicitis",
+    "uuid": "046d3536-e34c-11e3-983a-91270dcbd3bf",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Appendicitis, Acute",
+    "uuid": "c71825ed-3f2e-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Appendicitis, chronic",
+    "uuid": "c89434f4-3f2e-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Appendicular Abscess",
+    "uuid": "1c5c0750-f5b5-4145-875f-9f15d9fbd6df",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Appendicular Perforation Large retroperitonial abscess",
+    "uuid": "ff91ef89-4832-4ba0-85b4-d769ad5da4e8",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Appendicular Perforation, suspected",
+    "uuid": "1b59fb97-80f4-4a29-a7f5-06c0bd424cfe",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Appendicular abscess, suspected",
+    "uuid": "b71d7aa1-46cb-40f7-9bf1-c35618de9f59",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Appendicular lump",
+    "uuid": "c0932ae3-a369-4fd1-b2bc-0c98a9744011",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Appendicular perforation",
+    "uuid": "2a4430db-cefc-4202-95e0-60291f2b1132",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Artrial Septal Defect, Large",
+    "uuid": "e2643d8b-3f2e-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Ascites with Vague abdominal lump",
+    "uuid": "c91b530d-b387-4a04-94f5-9f1359e4aaad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Avascula Necrosis of Hip, Right",
+    "uuid": "e9ce3eb4-3f2e-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Avascular Necrosis of Hip, Left",
+    "uuid": "e7a02285-3f2e-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Axila abscess",
+    "uuid": "115f5707-31f3-4eef-8ab0-2da09803df17",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Axillary sinus",
+    "uuid": "11b68b9c-9bd4-47f1-80a9-d2b75de2f6cb",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Bartholian Cyst",
+    "uuid": "2a6e439f-7531-4df7-bf12-af4759342c83",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Basal cell carcinoma",
+    "uuid": "c62c0055-7823-4091-b844-3f0d6a7cebf8",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Below knee amputation, right",
+    "uuid": "8e01d934-8ffd-46af-80de-192fe782db37",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Benign prostate hypertrophy",
+    "uuid": "bb08381c-fd39-468e-95c6-fdbe234b7142",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Benign prostate hypertrophy &CRF",
+    "uuid": "b281ebe2-d5fb-4e33-8df5-2a0f2dd46bd5",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Benign prostate hypertrophy - Right",
+    "uuid": "aa45d9d7-f318-4175-87ae-f1982b576b3f",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Benign prostate hypertrophy, suspected",
+    "uuid": "65e6b658-93d0-4b32-96a3-1e5b2cde949a",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Benign prostatic hyperplasia",
+    "uuid": "f0cded88-3f2e-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Berger's disease",
+    "uuid": "5b045428-c50e-4ccb-b548-85c854f7bd32",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Bilateral FUJ obstruction",
+    "uuid": "cd99e168-08c6-406f-bca1-12456f4ed99f",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Bilateral hydrocele",
+    "uuid": "7fd34f6e-6a2b-48f4-aa55-005561870d47",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Bleeding Per vaginum",
+    "uuid": "15ce5974-ed86-11e3-8f57-746bba63c2a3",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Breast Excision",
+    "uuid": "426b4d71-2b54-46c8-9fef-ba4a9902256c",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Breast Fibroadenoma, left",
+    "uuid": "6636995a-ebec-4b04-afd5-2d18fe119576",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Breast Fibroadenoma, right",
+    "uuid": "fe9a3543-e3d8-4b4a-991f-4058ac972576",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Breast abscess",
+    "uuid": "942950a0-da5d-4f18-a458-9a6b85f27545",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Breast abscess fascitis, right",
+    "uuid": "2b297913-027c-45df-8bd6-1cb084e4fb51",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Breast abscess, left",
+    "uuid": "fcc2f1ba-f42f-43d8-a246-43a3390e374e",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Breast abscess, right",
+    "uuid": "d7807663-20db-4698-b699-b63495b6ff48",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Breast cancer, bilateral",
+    "uuid": "1c1a3ac4-26c7-4d7d-8c8f-f1fe518b9b16",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Breast lump",
+    "uuid": "9d865814-e34b-11e3-983a-91270dcbd3bf",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Breast nodule",
+    "uuid": "02546374-121f-4884-910a-2579fdd7e33b",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Breast sinus excision",
+    "uuid": "90ebe732-7601-4d1a-a248-b30ae12baf7c",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Broad ligament fibroid",
+    "uuid": "1677bfcb-f5af-4774-8668-8a1d11fba0bd",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Broad ligament tumor",
+    "uuid": "feaaf8c0-069f-443f-97e8-c753fea16ddb",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Broncheactasis",
+    "uuid": "f9e3747f-3f2e-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Bronchial cyst",
+    "uuid": "51ebd540-d53d-44fb-b31f-3ad0699d6265",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Bronchiectasis, post tuberculosis",
+    "uuid": "4ec058bf-3f2f-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Bronchitis Allergic",
+    "uuid": "520bf628-3f2f-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Bronchitis Allergic with eosinophilia",
+    "uuid": "53afb2b0-3f2f-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Buccal mucosa leukoplakia",
+    "uuid": "45f12d6f-dda7-4edf-b408-73072a6c7bf6",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Buerger's disease",
+    "uuid": "56f093ac-3f2f-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - CBD calculus",
+    "uuid": "150f1880-8ba4-4ee1-88c9-71ee07331eb0",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - CLW",
+    "uuid": "884f6244-2bb9-4e53-bf0d-93484b975bf7",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - CPD",
+    "uuid": "aab3bb4c-e2a6-419d-9e74-2b68ed1a7169",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - CSOM",
+    "uuid": "8fdb7a14-ea9d-45c7-9265-f1312e4c8890",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - CSOM, bilateral",
+    "uuid": "b5dd4344-65af-4670-9f5b-0048ec8aa8de",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - CSOM, left",
+    "uuid": "6cf5d9a3-7db8-40a4-8f51-2c6a20a5effa",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - CSOM, right",
+    "uuid": "38fb425b-c25b-4cee-9fa9-9c0953086c58",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - CTEV",
+    "uuid": "3852849f-8025-498c-94f5-9821f484746b",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cancer Breast",
+    "uuid": "687330e5-ccf9-4a05-8b6a-921e48b345df",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cancer Oral",
+    "uuid": "1db4e81f-87f8-42d9-b937-4a732f14781e",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cancer Rectum Anal Cancernal",
+    "uuid": "78f7f6e7-e8d9-43c3-a970-59b5533b3924",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cancer Stomach distal adenocarcinoma",
+    "uuid": "e96ce7f2-2973-4075-82a0-60baa4a66121",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cancer Testis",
+    "uuid": "efcb1503-596a-46e4-870e-7e7b202ad5da",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cancer Vulva",
+    "uuid": "e2ffbfc1-ae43-42f6-aeec-f7998345faea",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cancer ascending colon",
+    "uuid": "2e5dcc41-3a73-45a3-950a-cee10614c2cd",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cancer breast Left",
+    "uuid": "cb0de8bb-9aef-42e1-9d06-6809f6ceb21c",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cancer breast Right",
+    "uuid": "95f7c2c7-f456-462f-9476-77143f455d3e",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cancer breast, left",
+    "uuid": "57aeff83-f8e6-422b-a962-478dc6591244",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cancer breast, right",
+    "uuid": "a164f56d-2455-4bee-a036-4035d794ac0b",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cancer cervix",
+    "uuid": "6df5f5f8-e6d7-4575-82d2-7265b2318cb1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cancer cervix I",
+    "uuid": "b2b3d9bf-1e0a-49e2-a2a1-0a5103c9dd48",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cancer cervix II",
+    "uuid": "ccc408a9-dc47-4325-9cb7-6721399e66b1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cancer cervix IIA",
+    "uuid": "9dff03e0-bfc4-4c3e-b3c4-dac3690ffde4",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cancer cervix IIB",
+    "uuid": "45e75520-f669-413c-ba8e-dfe73e57b42f",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cancer cervix IIIA",
+    "uuid": "c2278771-9c0d-432d-9da5-bcdf1b781311",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cancer cervix IIIB",
+    "uuid": "60dc9603-0582-4af8-b298-ca82b8e2ab09",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cancer cervix IVA",
+    "uuid": "8d4c68a1-9c79-4cf4-b816-ed18e220763d",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cancer cervix IVB",
+    "uuid": "81cdbefe-c383-4a57-a9ab-6adee8aad4bc",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cancer colon",
+    "uuid": "fed66ff7-8975-48bb-8507-6693d2c07aa0",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cancer esophagus",
+    "uuid": "9fa12b39-fdab-4d04-b5e4-8cf743a62a50",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cancer ovary",
+    "uuid": "2eff1bfa-2129-48ad-ad78-b42f7f4a2381",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cancer penis",
+    "uuid": "a8c30505-58cc-4661-941a-05716b46da2b",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cancer peptic flexure colon",
+    "uuid": "010956a2-de4a-4cd8-ba85-1178ae798502",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cancer prostate",
+    "uuid": "a98a341c-8028-46b6-9e45-fdcaa2448910",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cancer prostate, suspected",
+    "uuid": "76ddbaac-7498-44a3-a033-0ef816439b70",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cancer rectal with perineal fistula",
+    "uuid": "13ffffca-080c-401e-9c05-67edaf4f567d",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cancer rectum",
+    "uuid": "4a243ca0-37e5-48d2-a782-42ede799e95c",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cancer rectum + rectosigmoid colon",
+    "uuid": "e9c6cbdb-7055-4c37-a12e-022742bc9fca",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cancer rectum in obstruction",
+    "uuid": "b19384d1-c8c8-43a2-ada7-f13801c17a3d",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cancer somach",
+    "uuid": "cd24ff36-6da5-4766-90cf-f23a3db002ae",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cancer stomach (GJA)",
+    "uuid": "7eb11093-9d2b-418c-8275-f390648dc9bf",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cancer stomach Gastric outlet obstruction",
+    "uuid": "8f3275d9-d8f9-475b-8b56-5b03422a066a",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cancer tongue",
+    "uuid": "f27d514a-6334-40d8-89d5-7a8cfa2af5a3",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cancer transvers colon",
+    "uuid": "49020466-6d7f-464d-9bfd-8392c1f5cd71",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cancer, oral cavity",
+    "uuid": "d5676821-1195-4fbe-a58d-7499b9dcd783",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cancer, oral cavity, buccal",
+    "uuid": "d2c35280-8a58-4bd5-9fb0-4ce69b20fc0e",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cancer, oral cavity, gingivo buccal",
+    "uuid": "2b6ac37d-f351-4b9b-b417-570a8196c92f",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Candidal Intertrigo",
+    "uuid": "5c095e99-3f2f-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Carcinoma breast, left",
+    "uuid": "5d7a8f3a-3f2f-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Carcinoma stomach",
+    "uuid": "9f22455e-3f2f-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cerebro vascular acident",
+    "uuid": "ce2a60d6-3f2f-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cervical Fibroid With Severe Anemia, Large",
+    "uuid": "85906de1-6bc4-43b0-a862-2eee3acddf01",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cervical Fibroid, Large",
+    "uuid": "81aeb6ad-86f4-4754-95e7-31b0c33bb956",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cervical Growth, Large",
+    "uuid": "cf91b898-5a00-49d9-a486-3da53ebe9d1d",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cervical Spondilitis",
+    "uuid": "d719df6e-3f2f-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cervical abscess",
+    "uuid": "8455bb75-517c-413b-8981-50fe441fb3d6",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cervical abscess, left",
+    "uuid": "cad1dabb-bd90-4a3c-8142-b65697c2564e",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cervical erosion",
+    "uuid": "d1a8db69-3f2f-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cervical fibroid",
+    "uuid": "586d538f-59f3-420f-8e9e-4cec2ecb5274",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cervical lymph node",
+    "uuid": "7aeb84b6-0c11-409c-81cd-5711f6547777",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cervical lymph node, right",
+    "uuid": "a7f4f129-6cf3-450c-9cca-0801dd164ccb",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cervical myelopathy",
+    "uuid": "d39502ba-3f2f-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cervical polyp",
+    "uuid": "d50bcf85-3f2f-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cervicitis, chronic",
+    "uuid": "d698324d-f9cf-4d0c-911a-230b7db5f951",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Choledochal cyst",
+    "uuid": "1e9a0f67-7104-443c-8b84-5c17bfb84a1e",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cholelithiasis",
+    "uuid": "a456eda5-8917-4a10-9427-4c44bf1e64ca",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cholelithothias with cholecystitis",
+    "uuid": "11539bcf-e58f-4f4a-bf48-76eb48f4c304",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Chronic Alcoholism",
+    "uuid": "dd0c98fd-3f2f-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Chronic Cervicitis",
+    "uuid": "de83e441-3f2f-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Chronic Du with Gastric outlet obstruction",
+    "uuid": "9527441e-2224-4320-9724-8eead1caed39",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Chronic Duodenal ulcer",
+    "uuid": "0d0b1a98-9331-4bb7-a0f4-fd4eeca8c840",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Chronic Liver Disease",
+    "uuid": "e0f917b5-3f2f-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Chronic Myeloid Leukaemia(CML)",
+    "uuid": "e2dd6509-3f2f-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Chronic PID",
+    "uuid": "a364fa51-671f-4acb-a78d-f0c93f34543a",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Chronic Pyloric sterosis",
+    "uuid": "e079806d-3075-4817-997d-acfa5bdb2cd6",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Chronic Renal Insufficiency",
+    "uuid": "e543e2be-3f2f-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Chronic Sialadenitis",
+    "uuid": "e6fd30cb-3f2f-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Chronic appendicitis with perforation",
+    "uuid": "e4a79d7a-7cec-44d4-9c20-b4f4738e3cfe",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Chronic appendicitis, suspected carcinoma",
+    "uuid": "1b62813e-bdd9-4940-a1dc-ed3c3b50b5e0",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Chronic cervicitis with PID",
+    "uuid": "e28f6f7b-6441-4b2d-8b70-5c45e3e5dccd",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Chronic osteomyelitis",
+    "uuid": "0ad03668-e34c-11e3-983a-91270dcbd3bf",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Chronic ruptured Uterus",
+    "uuid": "a0c454ea-3438-4e50-9c11-5b41721aef58",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cleft lip Right",
+    "uuid": "1957aef4-cbf7-457b-b0ba-fe53a5595fe1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cleft palate",
+    "uuid": "58414f49-e34d-11e3-983a-91270dcbd3bf",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cleft palate midline",
+    "uuid": "89a6c1fa-bbd0-41ad-9e21-d11234888aa7",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Colostomy",
+    "uuid": "a78c18e2-b19a-405d-a4ca-ad225f1fcf35",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Compression Fracture, L2",
+    "uuid": "eb094309-3f2f-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Compressive Myelopathy, L2",
+    "uuid": "eca284fd-3f2f-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Congenital Hernia + undersceded testis, right",
+    "uuid": "3e45b807-cc33-4d07-85d8-97bfebc87471",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Congenital Hernia, left",
+    "uuid": "d3b14884-094a-479b-9531-4b53ff0d41b1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Congenital Hydrocele, right",
+    "uuid": "45a6b5f7-6f8c-44e4-a689-16e487902d07",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Congenital hernia",
+    "uuid": "51c7cb2a-6ca7-4fbd-85bb-4a943c237997",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Congenital hernia omentocele, right",
+    "uuid": "67d93d71-1f2f-4ad3-b243-cf6d8fa10090",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Congenital hernia, Inguinal, right",
+    "uuid": "1d13571d-e8c9-49a9-b66c-bede75caf454",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Congenital hernia, right",
+    "uuid": "e3a47c0a-249f-46e4-8b30-4abed24338e3",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Congenital hydrocele, Left",
+    "uuid": "9297c3ed-5f26-46a7-9275-5adcd185f85b",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Congenital hydrocephalus",
+    "uuid": "14f63738-901a-4aea-a79c-75992fb2b73a",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Congenital hydrocephalus with shunt block",
+    "uuid": "7c1c7b71-2abf-4875-9153-f150c016a3a6",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Congestive Heart Failure (CHF)",
+    "uuid": "f10e448e-3f2f-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Contracted pelvis",
+    "uuid": "d88eb735-0eba-465a-b135-cbb619e00990",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cor Pulmonale",
+    "uuid": "f92420af-3f2f-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Coronary artery disease",
+    "uuid": "fd471869-3f2f-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Crohn's disease NOS",
+    "uuid": "fefcc9bd-3f2f-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - CtEV, bilateral",
+    "uuid": "f1df3354-8029-4e57-a514-1eef947a8da4",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cushing syndrome",
+    "uuid": "0217c091-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cyanotic heart disease, congenital",
+    "uuid": "0424e700-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cyst",
+    "uuid": "99cd56af-583c-4035-90f2-778fbf1030d5",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cystitis, Chronic",
+    "uuid": "06b3bdb0-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cystocele",
+    "uuid": "0888779d-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cystosarcoma phylloides",
+    "uuid": "e7d85b23-7fe6-4878-a53c-226cec2a4120",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Deep Vein Thrombosis",
+    "uuid": "0b3251ca-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Deformities, post Hansens",
+    "uuid": "0cdcf618-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Dental abscess",
+    "uuid": "919f2091-e34b-11e3-983a-91270dcbd3bf",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Dermatosis",
+    "uuid": "163baf3e-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Dermoid",
+    "uuid": "b41d56c0-6de8-4971-b380-7b4d19a59a95",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Dermoid (scalp)",
+    "uuid": "41c79e09-a49e-48ff-a729-97870ccaa1b8",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Dermoid Cyst",
+    "uuid": "87f405eb-3f18-4c7f-ad87-f2263d945206",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Dermoid, scalp",
+    "uuid": "00d62cb0-24ef-4546-9ed3-5f26e3f4cac0",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Descented testis",
+    "uuid": "31e974a8-4594-42dc-8f8c-c7543e2c1768",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Diabetes Mellitus, Type 1",
+    "uuid": "170c869e-1254-45d6-ad17-7a70159f0698",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Diabetes Mellitus, Type 2",
+    "uuid": "cca62be6-c229-4051-918d-8b3c1509c54d",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Diabetes Mellitus, Unspecified",
+    "uuid": "23d08539-3d03-4668-b10b-08828d61e134",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Diabetes, Gestational",
+    "uuid": "5fd01680-8c44-45ee-83cc-db7ea7aaa5f0",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Diabetes, Ketoacidosis",
+    "uuid": "454d055a-3347-4df4-89df-c25a831c7a8d",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Diarrhea",
+    "uuid": "32ef6e78-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Dilatation and curratage (D and C)",
+    "uuid": "41f1052f-ec13-4685-adaa-1d99bc734ea2",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Dilated cardiomyopathy",
+    "uuid": "34550177-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Distal Penil Hypospadias",
+    "uuid": "b2b5453b-af55-4656-a7c7-01bb4c155e02",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Distal hypospadias",
+    "uuid": "0f115294-fa2a-4b8b-b5a8-294a04ac781e",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Dog Bite",
+    "uuid": "f727c677-e34b-11e3-983a-91270dcbd3bf",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Down's syndrome",
+    "uuid": "39dfb161-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Drug rash",
+    "uuid": "3c90e09f-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Duodenal Atresia",
+    "uuid": "2f05d1f4-85b9-49cc-9892-1abd59e6abae",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Duodenal Perforation with peritonitis",
+    "uuid": "c6f15db7-85b5-4828-9c9c-731feb355580",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Duodenal perforation",
+    "uuid": "fa70237e-a665-4a96-a2f2-7ed525c241de",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Duodenal perforation, suspected",
+    "uuid": "aa23b5ea-b53a-430f-8001-f357f5ec6510",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Duodenal stenosis with malrotation",
+    "uuid": "3e58cfb5-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Dysesthesia, right calf",
+    "uuid": "41b38d52-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Dysfunctional Uterine Bleeding (DUB)",
+    "uuid": "439860e0-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Dysfunctional Uterine Bleeding with severe anemia",
+    "uuid": "800bd424-5b7a-4d85-84de-17d2fd0dd70c",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Dysfunctional Uterine Bleeding, Multipal fibroid",
+    "uuid": "277598e0-5b66-4147-89d2-0a509c41a4a7",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Dysmenorrhea",
+    "uuid": "458412e3-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - EA + Duodenal atresia",
+    "uuid": "8fb8a44b-1343-4a27-bd8d-a8b5d1173e71",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - EA + TEF",
+    "uuid": "b44f9a0a-67e7-478d-ba6a-47cf8ce7a9b7",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Early pregnancy",
+    "uuid": "699381c5-0f40-4e14-86dd-854d71e59bb9",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Eclampsia",
+    "uuid": "b008c36f-b53c-4890-bdf7-488bc9f61492",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Ectopic pregnancy",
+    "uuid": "771261fd-94e5-4e7a-b3c7-95cf0425e894",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Ectopic pregnancy, chronic",
+    "uuid": "fdf9144b-f74a-44a5-b2c4-0ff59d6eae2c",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Elbow - Left, 2 views (X-ray)",
+    "uuid": "4838addd-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Elbow - Right, 2 views (X-ray)",
+    "uuid": "4ab32770-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Emaciation, post tuberculosis",
+    "uuid": "4bb51ad7-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Emergency LSCS",
+    "uuid": "c8161fcf-42dd-4718-8cb7-52a21af1f889",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Emphysema, right",
+    "uuid": "9e6c15ca-47ca-44c5-84e8-5053a5cbf21a",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Empyema",
+    "uuid": "3fd48932-15c6-4211-b046-3bf75ab8e6e5",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Empyema thoracis",
+    "uuid": "d005fc34-ed8f-48e8-86c3-da25db9743c9",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Empyema, right",
+    "uuid": "00cfb457-63f4-4ecb-bc37-d2eb05544230",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Encephalocele",
+    "uuid": "0b283c4c-e34c-11e3-983a-91270dcbd3bf",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Endometrial hyperplasia",
+    "uuid": "7602bf65-3015-4e3d-b9a9-8c9d40859b0d",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Enteric fever",
+    "uuid": "518d46ad-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Epigastric hernia",
+    "uuid": "549641e0-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Epilepsy, GTCS",
+    "uuid": "58097cb9-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Epispadias",
+    "uuid": "061adc78-e34c-11e3-983a-91270dcbd3bf",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Epispadias incontinent",
+    "uuid": "c9b91a85-5c41-48f8-837f-0350e12b6d5a",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Erythema nodosum",
+    "uuid": "5bc71d23-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Esophageal atresia",
+    "uuid": "d21231f0-23e2-4542-9257-5493b24ef8f4",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Esophageal stricture",
+    "uuid": "09e6672e-5248-4dde-b7ef-021d546c673b",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Essential tremor",
+    "uuid": "5e6eab50-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Euthyroid Goitre",
+    "uuid": "6073197a-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Excision Fistulectomy",
+    "uuid": "303f7b78-f103-4736-8821-6c993e037a2f",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Excision biopsy",
+    "uuid": "e0051a32-8c46-46fb-8d00-0b3cb352263f",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Excision of dermoid cyst",
+    "uuid": "aa530e44-5060-4768-bc42-26f19086fb1e",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Excision of sebaceons cyst",
+    "uuid": "3a9f2dd0-fb7a-412d-843d-5d726b6419d2",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Exomphalas Major",
+    "uuid": "133d4db0-f386-472a-82f2-a1682f8ca960",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Exomphalos",
+    "uuid": "c938181a-1abe-4979-86fb-da57a039cd9e",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Extensive hepatic and nodal Metastasis",
+    "uuid": "fef10e69-66d4-4cd5-9bd3-79df4d3b1fcc",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Extra Pulmonary Tuberculosis",
+    "uuid": "6427a232-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Extra Pulmonary Tuberculosis, Hip Joint",
+    "uuid": "65e0e7df-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Extra Pulmonary Tuberculosis, Hip Joint, Left",
+    "uuid": "67ecae75-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Extra Pulmonary Tuberculosis, Hip Joint, Right",
+    "uuid": "6a5d4061-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Extra Pulmonary Tuberculosis, Laryngeal",
+    "uuid": "6c933350-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Extra Pulmonary Tuberculosis, pleural",
+    "uuid": "6e6c135d-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Extra Pulmonary Tuberculosis, urinary bladder",
+    "uuid": "7044f95f-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Extra Pumonary Tuberculosis, Intestinal",
+    "uuid": "723f9fbe-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Extrapulmonary Tuberculosis",
+    "uuid": "74358e30-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Extrophy bladder",
+    "uuid": "cec230bd-06f0-4d2a-910c-90c323bb1148",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Familial tremurs",
+    "uuid": "76d850ff-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Fascitis",
+    "uuid": "c499be64-fb7c-42c4-9bd5-6c12e5b006af",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Fetal distress",
+    "uuid": "30dc480b-d468-4751-af32-21080601f8f4",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Fibroadenoma breast",
+    "uuid": "1c81f375-0df4-4cb1-84f6-fbb1d8714716",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Fibroadenoma breast, left",
+    "uuid": "cc676142-1f80-4b14-8fac-405e1fdc2233",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Fibroadenoma breast, right",
+    "uuid": "54b35ee1-1c39-40c8-b05f-5d33537680b5",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Fibroid Uterus (Cervical)",
+    "uuid": "6bf7312f-38eb-4a30-b22b-bac318d3d9ff",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Fibroid uterus",
+    "uuid": "af8635af-0bb3-460c-ba81-3a733c682eb1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Fibroid uterus (Ant. wall) with Menorhage",
+    "uuid": "cfc57df5-75e2-4130-a86c-f37e986f26b4",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Fibroid uterus (broad lip)",
+    "uuid": "53ca322b-d973-4b31-916a-147bb02eb5eb",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Fibroid uterus with severe anemia",
+    "uuid": "87e84137-fdc7-44e0-9752-383db2813094",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Fibroid uterus, Large",
+    "uuid": "0876f79e-dacc-4aed-92e6-7de06ebdf5b2",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Fibrosis Lung, left",
+    "uuid": "7d0bdd96-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Fibrothorax",
+    "uuid": "7ec7318a-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Fibrous dysplasia",
+    "uuid": "801f1576-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Fissure in ano",
+    "uuid": "81f27e4c-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Fissure in ano, deep",
+    "uuid": "843a008c-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Fistula in ano",
+    "uuid": "863e487a-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Folliculitis",
+    "uuid": "87e6090c-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Forearm - Left, 2 views (X-ray)",
+    "uuid": "4ca04729-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Forearm - Right, 2 views (X-ray)",
+    "uuid": "4f4fe3d7-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Foreign Body",
+    "uuid": "152b29ee-bf5b-4a78-b2bb-b45ac98c903c",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Foreign body foot",
+    "uuid": "bf769897-a968-4c14-96bd-2ac10b8095ec",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Foreign body ganuloma",
+    "uuid": "14fe96bb-3e51-4ce5-ae83-53d62723b6f7",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Frozen shoulder",
+    "uuid": "0350f4d5-c40b-4de5-945c-bbd386209cea",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Frozen shoulder, left",
+    "uuid": "93a6757c-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Frozen shoulder, right",
+    "uuid": "9559e59d-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Fungal infection",
+    "uuid": "9820ebb2-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Gall bladder Calculas",
+    "uuid": "eb941146-3030-42c5-9c1e-0125ee6a074c",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Gangrene",
+    "uuid": "e8932849-e34b-11e3-983a-91270dcbd3bf",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Gastric outlet obstruction",
+    "uuid": "097b1204-5482-41c2-a45f-8e0d7d584857",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Gastric outlet obstruction (PUD)",
+    "uuid": "840ce566-b3c1-4646-acf3-c13bcae0c8cf",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Gastritis",
+    "uuid": "9ce8dc51-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Gastritis with Anxiety Neurosis",
+    "uuid": "9e78e815-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Gastritis with Moderate Anemia",
+    "uuid": "a071e328-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Gastroenteritis",
+    "uuid": "a24c9e5c-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Gastroesophageal reflux disorder",
+    "uuid": "a4233773-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Gastroscisics",
+    "uuid": "242c34e5-618d-433a-be84-4d3770f36077",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Gilbert Syndrom",
+    "uuid": "a8126cd3-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Gluteal absces, right",
+    "uuid": "8f3f5058-c58f-4b54-9e67-5215682338d9",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Gluteal abscess",
+    "uuid": "8efaa243-0142-453c-aef3-053425b89bf9",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Gluteal abscess, left",
+    "uuid": "d862995a-5fea-4121-8ad8-a48f1bd80e38",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Goiter, multi nodular",
+    "uuid": "ad459493-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Goitre euthyroid",
+    "uuid": "af229a19-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Goitre simple colloid, euthyroid",
+    "uuid": "b0d246bf-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Granuloma",
+    "uuid": "2f306d9e-3d05-431d-97de-3530b4c87570",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Granuloma, scalp",
+    "uuid": "25bac15f-17e3-4e48-be5e-8fa71d176c6a",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - HARM",
+    "uuid": "b65b98e9-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - HARM Male",
+    "uuid": "b7de5843-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Haemangioma",
+    "uuid": "c568ec68-ab29-4d07-a616-73de939f8ed9",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Haemmorhoids",
+    "uuid": "de6a0c4b-c22f-43f0-9685-d12dd9826722",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Hand - Right, 2 views (X-ray)",
+    "uuid": "48e86a65-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Hansen's disease",
+    "uuid": "b4e029db-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Hashimoto's thyroiditis",
+    "uuid": "b96201e3-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Head Injury",
+    "uuid": "c92badd4-8dcd-44e4-96dd-a25ac62898b8",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Heart block",
+    "uuid": "bd21fc65-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Hensen's disease",
+    "uuid": "c6209f32-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Hepatitis Alcoholic",
+    "uuid": "c7a11349-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Hepatitis Granular",
+    "uuid": "cb4ad1d3-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Hepatitis alcoholic with neuropathy",
+    "uuid": "c95896d7-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - High anorectal malformation",
+    "uuid": "f44b90e0-ee51-4b69-bdab-6e02ecb040bc",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - High anorectal malformation - FUC",
+    "uuid": "86502cd0-6a72-497e-ac85-8191d6f07a5b",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - High anorectal malformation - RUF",
+    "uuid": "7ef79b9f-b329-4caa-bf14-fb72286ceb6a",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Hirschsprung's disease",
+    "uuid": "d0bcbd00-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Hirschsprung's disease (FUC)",
+    "uuid": "436805d9-65d6-47d2-a27c-19224b06e9c8",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Hirschsprung's disease with urethral stricture",
+    "uuid": "b0b9eeb6-119e-44c7-a149-c9f17c406c48",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Hirschsprung's disease, colostomy",
+    "uuid": "2c5a4488-cc9f-4890-b88e-5caa067f8609",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Hirschsprung's disease, suspected",
+    "uuid": "406f2576-79e0-4a4f-8fe5-daa25e38c1d9",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Hodgkin's disease, suspected",
+    "uuid": "e68b378b-1c81-4a56-940e-794933d39a86",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Humerus - Left, 2 views (X-ray)",
+    "uuid": "4d316d5d-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Humerus - Right, 2 views (X-ray)",
+    "uuid": "50c403a8-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Hydatid cyst",
+    "uuid": "95dac1c9-af91-4fe0-9838-06b7e0731cf6",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Hydatid cyst liver",
+    "uuid": "891f010b-f5e8-4b28-a199-264bd1bdd7bd",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Hydrocele, Left",
+    "uuid": "71cf6002-d716-461b-bf66-e21b616bb4bb",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Hydrocele, bilateral",
+    "uuid": "04feb586-d1c8-4dcd-a77c-771549eb1650",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Hydrocele, right",
+    "uuid": "7f8d7f30-1caf-4d62-9f8e-4bcca49fa07e",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Hydrocephalus",
+    "uuid": "e5ecb4a7-4447-4145-86a2-25de0a32c44c",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Hydrocephalus, Congenital",
+    "uuid": "d4ed54c8-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Hydropneumothorax, Left",
+    "uuid": "9092624a-25b6-4441-b6c2-8208b9049546",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Hydropneumothorax, Right",
+    "uuid": "d1bc4bf7-b1d3-40de-b076-beb768605bd9",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Hyper thyroidism",
+    "uuid": "d6596b6b-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Hypertension with renal failure",
+    "uuid": "dcdd2668-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Hypertension, Systemic Arterial",
+    "uuid": "e1a88f9b-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Hypertension, secondary",
+    "uuid": "dfaf48cd-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Hypertensive nephropathy",
+    "uuid": "e3fb81ad-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Hypo thyroidism",
+    "uuid": "e82bc44b-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Hypospadias",
+    "uuid": "f60296df-e34b-11e3-983a-91270dcbd3bf",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Hypospadias proximal",
+    "uuid": "edb51b9b-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Hypospadias with UDT",
+    "uuid": "cdf7abd6-7756-414f-8cd3-e5e075234866",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Hypospadias with chordee and meatal stenosis",
+    "uuid": "ef39b406-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Hypospadias, distal",
+    "uuid": "447f34b7-2e15-43e5-b860-0e263eb8538c",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Hypospadias, extreme",
+    "uuid": "5fba77a5-33d0-4111-801f-a5b7f4332132",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Hypospadias, proximal",
+    "uuid": "ff226927-9bcf-4fc4-ac42-0633b9dba94d",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Hysterectomy",
+    "uuid": "4e979e7c-d8a8-47c3-8e71-6063c3ee5c50",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Hysterectomy for adenomyosis",
+    "uuid": "4eaacb22-5504-4ef4-9e48-05e991c4f349",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - IHD",
+    "uuid": "f32a6c3e-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Ileocecal adeno carcinoma",
+    "uuid": "6c248b1f-2a4d-44f5-8a2a-671f26cc9057",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Immunodeficiency syndrom",
+    "uuid": "f48d6116-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Incision and drainage",
+    "uuid": "fea85b8c-3f72-43dd-aaeb-031fb0dfb0fd",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Incisional Hernia, Large",
+    "uuid": "7e5463d2-6449-4dca-8759-67e961615bcf",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Incisional hernia",
+    "uuid": "b80f4db7-8590-4f6f-955a-6208fe228ddd",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Incomplete abortion",
+    "uuid": "6e4bf921-2e11-404e-bdc4-5ec540b3d08a",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Incontinent epispadias",
+    "uuid": "3c114277-1521-435d-8c53-6e298810fc03",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Infected Cyst",
+    "uuid": "fd4780c2-2962-421c-80fc-09eb033fea34",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Infected Finger",
+    "uuid": "2ba121fa-4c94-4426-8d03-04c198a26693",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Infected Hemicoletomy",
+    "uuid": "5efe6178-cc9e-40d4-b117-6b63579e34ed",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Infected Sebacious Cyst",
+    "uuid": "ded78350-c7dc-47e6-8dd9-038b989208d7",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Infected dermoid",
+    "uuid": "0ec7622d-0a8d-4491-93cd-dd105b538227",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Inferior wall ischemia",
+    "uuid": "f888f7ff-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Infertility, Primary",
+    "uuid": "fb4da88e-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Infertility, Secondary",
+    "uuid": "fcdb2f38-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Inguinal Hernia, obstructed",
+    "uuid": "dc4d1f21-24da-4a66-8602-92248021ad74",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Inguinal Hernia, obstructed, bilateral",
+    "uuid": "bdf1f96d-b29b-4bd0-a749-1b6a4a2ed125",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Inguinal Hernia, obstructed, left",
+    "uuid": "ff874811-e86c-4825-a899-346aef5528cc",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Inguinal Hernia, obstructed, right",
+    "uuid": "23ad5eb1-7a27-40d2-9f11-602680bed6a4",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Inguinal Hernia, right",
+    "uuid": "028ea77a-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Inguinal abscess, left",
+    "uuid": "dd6e0108-e872-4587-8a33-dc8543ba3393",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Inguinal abscess, right",
+    "uuid": "6df98622-9f8b-4081-b8d0-b406da0e4c75",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Inguinal hernia",
+    "uuid": "b0c62ea2-700f-4555-9842-4efcfd748460",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Inguinal hernia, bilateral",
+    "uuid": "ff107596-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Inguinal hernia, left",
+    "uuid": "00c8cac4-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Injection abcsess",
+    "uuid": "27dba9ea-15af-4273-b767-cec859938bcc",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Injury",
+    "uuid": "631125cb-e34d-11e3-983a-91270dcbd3bf",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Instestinal obstruction",
+    "uuid": "7380774f-069e-4980-8088-16978642519d",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Intersticial Lung Disease (ILD)",
+    "uuid": "05841295-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Interval appendicitis",
+    "uuid": "05d9ce2d-77e9-45a6-a6ae-827059390e38",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Intestinal Obstruction",
+    "uuid": "9a3fd4b3-127f-4a41-aa59-3599dac507db",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Intestinal obstructed, suspected",
+    "uuid": "2315fea4-70cf-40cd-a5ad-a53477a9ab1d",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Intramural Fibroid",
+    "uuid": "24e83dc1-93b9-41eb-b3d7-6ee5267aae18",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Intramural fibroid Uterus",
+    "uuid": "c1c5148c-770d-4217-82a2-a4bd2dc70630",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Irritable bowl syndrom",
+    "uuid": "0915c9c1-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Ischemic Heart Disease",
+    "uuid": "0ad2e8ca-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Ischemic Heart Disease with Congestive Heart Failure",
+    "uuid": "0cdf704d-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Jejunal atresia",
+    "uuid": "1dbe3c56-a587-42c6-a770-17ba4e43f7d2",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Keloid",
+    "uuid": "cdfbc76c-edeb-4169-9298-1c0a34b77995",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Keloid excusion",
+    "uuid": "b4b63914-5806-401b-a74e-ab9813b022b6",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Keloids",
+    "uuid": "1186fd27-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Klippel Trenaunay syndrome",
+    "uuid": "1301974c-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - LSCS placenta privia",
+    "uuid": "2d4bdc30-edb4-49bc-bea3-26d5007ce9e3",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - LSCS with CPD",
+    "uuid": "134e50e0-6beb-4cee-8fbc-5018b1f61b3f",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - LSCS with Fetal distress",
+    "uuid": "176226ba-088e-4d0a-b8f6-92f6461b4877",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - LSCS with NPOL",
+    "uuid": "3787a7d0-70a8-49ff-8391-f2b4730905c9",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - LSCS with contracted plvis",
+    "uuid": "b1c3c911-a085-4095-ae16-7da9a38ee3e2",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - LV dysfunction",
+    "uuid": "2e284a5c-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - LV dysfunction, Severe",
+    "uuid": "2fb939c8-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Labutoplasty",
+    "uuid": "728614ac-880f-465e-9c3a-c1b8a504bac5",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Lacerated wound",
+    "uuid": "b700a0eb-9863-45e9-a5a1-04e2db71bc95",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Lepromatous Leprosy",
+    "uuid": "179f118d-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Leprosy",
+    "uuid": "192dc62d-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Leprosy BB",
+    "uuid": "1a81ce9d-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Leprosy BT",
+    "uuid": "1c0e226d-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Leprosy BT(MB)",
+    "uuid": "1d8d4fc7-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Leprosy with ENL",
+    "uuid": "1f174b25-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Lipoma",
+    "uuid": "23d2e94c-da2f-4d1e-b0b5-837cdac49420",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Lipoma, abdominal, parietal",
+    "uuid": "237cb842-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Liver metastases",
+    "uuid": "253cdff2-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Low Anorectal Malformation (LARM)",
+    "uuid": "ed42cb32-1fef-44a7-a69b-7f6c3dc0a905",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Lower Segment Caesarean Section",
+    "uuid": "62419200-1632-4bb2-8ea5-fdf886f93c37",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Ludwig's angina",
+    "uuid": "9e074837-85ce-497d-8b5e-0d9f544cb58a",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Lumbar MMC",
+    "uuid": "d368c2d1-73e4-420f-b0eb-3338303ed2b4",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Lumbosacral mmc",
+    "uuid": "4d3d1eab-80ea-4218-9fa0-7e130c738038",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Lung Fibrosis, post tuberculosis",
+    "uuid": "27dd1fa1-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Lung Hydatid cyst, right",
+    "uuid": "7bbde9b3-b09e-4c1b-a270-1143bb4e6bc3",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Lung PNET, Left",
+    "uuid": "29dcf281-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Lung PNET, Right",
+    "uuid": "2b8d1179-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Lung hydatid cyst",
+    "uuid": "2cc2e118-6b2e-4d6e-b47d-235e88b70a20",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Lung hydatid cyst, left",
+    "uuid": "c27c1e7b-bc08-4358-9a45-51485ad8ca24",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Lymph Node Biopsy",
+    "uuid": "8b16c83d-4f4e-40c5-8da9-a27d42f54065",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - MMC Ruptured",
+    "uuid": "25d63776-49ae-406b-9c0c-34ff9e37a1a7",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - MPOL",
+    "uuid": "d2b92346-03d9-4e73-b05d-407e6ba03a50",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - MTP with TL",
+    "uuid": "df63e2b1-6133-42a9-8099-6c7e839ab548",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Maduramycosis",
+    "uuid": "354c02a9-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Malaria",
+    "uuid": "374b14b2-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Malignant Melanoma",
+    "uuid": "39a0adfd-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Malignant ovarian tumour, bilateral",
+    "uuid": "4162314c-d156-4eb3-b511-ce1f89f98c3c",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Malignant ovarian tumour, left",
+    "uuid": "5b488cf0-3ee7-4f0e-b5aa-099592a5cc17",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Malignant ovarian tumour, right",
+    "uuid": "6461120c-affb-464b-9aa4-c6afb80aeed6",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Malignant ovarian tumour, suspected",
+    "uuid": "c59e571e-d754-49e7-900f-251903f96005",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Malunion, left tibia",
+    "uuid": "3b6f0f0b-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Meatal stenosis",
+    "uuid": "3ef1f257-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Medura foot",
+    "uuid": "068678b7-8d53-491d-9528-fbbac287ada8",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Melanoma",
+    "uuid": "3e3476cc-85b4-48b7-8a80-d1604f77a06a",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Melanoma, suspected",
+    "uuid": "2344f800-41c3-4f83-9d9e-e4c62ae2ce81",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Melignant melona, suspected",
+    "uuid": "4d77ec97-95c8-4d2d-b5a9-b5a934039bb2",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Menorrhagia",
+    "uuid": "44988473-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Mesentric cyst",
+    "uuid": "ace2f3e0-4aef-4338-9165-b25a8ee4e814",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Mid penile hypospadias",
+    "uuid": "a1d873cb-167a-4b89-96f6-530808401d47",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Miliary Tuberculosis",
+    "uuid": "48bb3248-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Mitral regurgitation",
+    "uuid": "4a6fe4a3-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Molluscum contagiosum",
+    "uuid": "4ddf4c72-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Multipara",
+    "uuid": "a3bd55d6-84d8-420b-8d24-13b90c18006c",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Multiple corns, left foot",
+    "uuid": "51498af1-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Multiple fibroid uterus",
+    "uuid": "d6066f48-e59d-4cbb-9e99-3d6c77d292fb",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Musculoskeletal disorder",
+    "uuid": "5480fde4-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Myalgia",
+    "uuid": "563a43b3-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Myesthenia gravis",
+    "uuid": "592a41bf-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Myositis",
+    "uuid": "5cf7fd98-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Necrotising fascitis, Left lower leg",
+    "uuid": "5eecd6b7-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Necrotizing fascitis",
+    "uuid": "c266f30d-1113-4e64-9b1d-55bebc592aa1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Nephrolithotomy",
+    "uuid": "503406d7-781f-4c20-8ae4-8dbf312e5f17",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Nephrolithotomy, left",
+    "uuid": "7054d7e0-a128-41d2-b6eb-1eef8bac0b47",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Nephrolithotomy, right",
+    "uuid": "8e6a220b-6bad-4eff-afb4-9dab4ef24640",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Nephrotic syndrome, steroid dependent",
+    "uuid": "64410104-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Neurocysticercosis",
+    "uuid": "66b37007-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Neurofibroma",
+    "uuid": "ed9679ad-cc5e-4cd9-937b-752c86cf871c",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Neurogenic bladder",
+    "uuid": "68143e26-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Neuropathic ulcer left foot, plantar",
+    "uuid": "69a20018-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Non healing ulcer, left foot",
+    "uuid": "6c4e9ca8-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Non progreessive obstructed labour (NPOL)",
+    "uuid": "51c44ae7-ad2e-4829-a0fa-54bf3660087a",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Obstructive hydrocephalus",
+    "uuid": "06994380-01a3-4dcb-8430-94cef6164a29",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Obstructive uropathy",
+    "uuid": "b61e2df3-9251-47cd-8701-cc0f5aae37fc",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Occipital Encephelocele",
+    "uuid": "683a6269-8465-4264-a078-abeacc88d612",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Oesophages atresia",
+    "uuid": "e543ba87-1359-4285-ab3c-0c0f858f67d4",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Oral lichen planus",
+    "uuid": "93172bb8-4e44-4cb4-a89e-34ef2899374e",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Osteoarthritis, both knee",
+    "uuid": "787e401a-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Osteoarthritis, early",
+    "uuid": "7a28e13c-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Osteoarthritis, left knee",
+    "uuid": "7ba9c859-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Osteoarthritis, right knee",
+    "uuid": "7d613c18-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Osteomyelitis",
+    "uuid": "a094ed99-584c-4e01-8c76-ca716ca08174",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Osteomyositis",
+    "uuid": "9a051070-dee5-431e-b257-17b989058c60",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Osteosarcoma",
+    "uuid": "378106c8-728e-4040-9022-c93449c47622",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Ovarian Cyst",
+    "uuid": "3358803c-af2b-4deb-95c7-cf755dc8c3ff",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Ovarian Lump, malignant",
+    "uuid": "8424e888-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Ovarian cyst, left",
+    "uuid": "8bd7a300-c885-4a7f-b4d1-9777d52e1886",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Ovarian cyst, right",
+    "uuid": "1494652c-80c2-4f00-ae88-73777ee23263",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Ovarian tumor",
+    "uuid": "85e1647a-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Overian cyst, twisted",
+    "uuid": "1e2037e3-e144-4030-b6b9-d26cbe5cc50e",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - PID fibroid",
+    "uuid": "1fdce53d-0f2f-4ccd-b119-307c833c2360",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - PID with DUB",
+    "uuid": "03028499-d2d3-4fda-9534-b49c079ec47d",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - PID with Endocervicitis",
+    "uuid": "ff2cd7b9-fb56-49a4-a1a3-9578c0f4e6fd",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - PIH",
+    "uuid": "a69c3cdd-74c4-497e-958d-69159305c85e",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - PIH with fetal distress",
+    "uuid": "8eac2bf9-85d4-4532-a915-a05a675fa6e4",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - PROM",
+    "uuid": "bf0a212e-5f9c-4997-ba9e-126ddc380025",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - PROM with CPD",
+    "uuid": "d8121d47-205f-4011-9e91-4b3e3327ae3e",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - PUC",
+    "uuid": "30e13239-72f8-48cf-8bb1-0f98f2910013",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - PUC appendicular",
+    "uuid": "b0f0450d-215f-4b3b-b96f-9ab2db8d1f1b",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - PUC pouch colon IV with ARM",
+    "uuid": "84c1466e-3495-4b71-84a6-27b281484619",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - PUC stricture urethra",
+    "uuid": "3369a06d-887f-4d6a-970a-83e5b689aee9",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - PUJ + mid pole calculus, right",
+    "uuid": "8ac7c9bc-05bd-42bd-843d-c58e9f9806cc",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - PUJ abstuction, bilateral",
+    "uuid": "9d8a2ee6-d9cd-4fda-b4dd-b335c7c5f707",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - PUJ obstruction",
+    "uuid": "f095bb67-ab95-4a90-8a2b-2a1a9aa4a096",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - PUV",
+    "uuid": "c5f300e8-6d5c-43dc-9c4c-1864f3a99b38",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - PUV with CRF",
+    "uuid": "db4e8e19-1aa6-426b-8bfb-9326b8aa2c7b",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - PUV with UTI",
+    "uuid": "d1234e54-f0b8-4778-9d01-a352dd53b618",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Pain in abdomen",
+    "uuid": "88f0fd67-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Palmar keratosis",
+    "uuid": "8b609dfd-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Pancreatic secondaries",
+    "uuid": "8d314820-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Papillary carcinoma thyroid -follicular variant",
+    "uuid": "9308f362-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Paraphimosis",
+    "uuid": "b1d0c23e-3c7f-494f-8239-8a8be893c114",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Parkinsons disease",
+    "uuid": "9c3cc412-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Parotid Absess, left",
+    "uuid": "6acf77e6-87a1-4bca-916c-b090566ab1bd",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Parotid abscess",
+    "uuid": "401d5070-dc71-4766-adc8-9e96cfbb6370",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Parotid tumor Left",
+    "uuid": "486bdaf7-5cd7-4455-94fb-cee50ab622c6",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Parotid tumor, right",
+    "uuid": "e8582af3-0fe1-4c5f-a8d6-c886c68eb8b0",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Pelvi-ureteric junction Calculus (PUJ)",
+    "uuid": "2d91b092-cef4-4fd0-aa4f-27d79dd4c94a",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Pelvic Inflamatory Disease (PID)",
+    "uuid": "a2a95452-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Pelvic Inflammatory Disease (PID)",
+    "uuid": "c502f12a-0d4a-48b4-a717-ef66b9bf8a9e",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Pemphigus",
+    "uuid": "a55d3d61-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Penile elephantiasis",
+    "uuid": "b0fda9e1-26b5-4cc6-a293-24fd36973485",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Penoscrotal hypospadias",
+    "uuid": "ed1db825-0dc5-4d69-a021-a2c403f37acd",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Perforation Peritonitis",
+    "uuid": "b3cafd36-f783-4c75-a320-728171b71b6f",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Perianal abscess",
+    "uuid": "7985e6bd-390a-46a5-9270-31ff22fb7f03",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Pericolostomy",
+    "uuid": "3f17c21d-365f-46bd-8a1d-98e7b1b9f869",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Perineal abscess",
+    "uuid": "39fda377-1437-42da-afdf-dc33c1335dc7",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Perineal hyspospadias",
+    "uuid": "78efa45f-528d-43ab-929b-cd0fad3e5aee",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Peripheral neuritis",
+    "uuid": "a9f84a9d-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Peripheral neuropathy",
+    "uuid": "abbdf59e-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Pharyngitis",
+    "uuid": "b038e764-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Phimosis",
+    "uuid": "f88657e8-a2b8-4e88-9417-19ffbf04f9c0",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Plural effusion",
+    "uuid": "41ecd814-628a-4f23-ba2d-ccd79cbf144b",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Pneumonia, right middle lobe",
+    "uuid": "b748d189-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Pneumothorax",
+    "uuid": "176b5e57-1439-4dae-baeb-3e38870a7829",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Pneumothorax, bilateral",
+    "uuid": "7723b6c2-f052-4a1f-aab3-28679ea3951f",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Pneumothorax, left",
+    "uuid": "b94fd184-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Pneumothorax, right",
+    "uuid": "43358848-ad62-48c6-a2bb-d14b780c3416",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Polymenorrhea",
+    "uuid": "bb9f63b8-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Post Burn Contracture (PBC)",
+    "uuid": "b9eafee3-cdad-4095-ac41-3436d79d52c9",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Post menopausal syndrome",
+    "uuid": "bf2c854b-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Posterior sagittal anorectoplasty (PSARP)",
+    "uuid": "d68bd0d9-dc3a-4d6a-bc7f-3f7f4fbb5829",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Pott's spine with Left psoas abscess",
+    "uuid": "c9820432-90d1-44a4-baf1-c91e2d9dfb8d",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Potts spine",
+    "uuid": "c2e3639b-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Pourmer's gangrene",
+    "uuid": "7a6ba8b6-f4ef-4098-b95a-ba726b7eb1ce",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Pre-eclampsia",
+    "uuid": "256a49a8-2207-47bb-b76a-3dfcb499b9cd",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Preauricular abscess",
+    "uuid": "6a101e9e-f0e1-4699-a850-c69f88344c40",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Preauricular sinus",
+    "uuid": "55b38965-2c08-4ba9-b758-dcea9e3c04d1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Prev LSCS with non progressive obstructed labour",
+    "uuid": "6fd90e47-1ba9-472f-be05-e2a90df70444",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Primary amenorrhea",
+    "uuid": "caef20ab-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Primi with CPD",
+    "uuid": "1d88e0b5-3ab2-470c-ba84-14959fd55243",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Primigravida with PET",
+    "uuid": "cc977750-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Procidentia",
+    "uuid": "f352d6b4-3a68-4cf4-9c07-5b11c4843964",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Pseudo bulbar palsy",
+    "uuid": "d4ac62b1-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Pseudocyst pancrease",
+    "uuid": "f0e9691a-6e4f-45c0-8541-9d73b3c6f1c5",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Psoas abscess",
+    "uuid": "d673df72-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Psoas abscess (tubercular)",
+    "uuid": "0d251ef7-5835-454c-94c7-d6d2979acf7f",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Psoas abscess, left",
+    "uuid": "0f010fbc-7321-4ecd-af26-d045aee630cf",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Psoas abscess, right",
+    "uuid": "78b9e63f-0d4b-440e-85fd-45d30e6147cc",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Psoriasis",
+    "uuid": "d82e33de-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Psoriasis, erythematous",
+    "uuid": "d98ee96e-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Psoriasis, extensive",
+    "uuid": "db3f7ddd-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Pulmonary Hypertension",
+    "uuid": "e0d5a21f-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Pulmonary Oedema, Post LSCS",
+    "uuid": "e2e6e211-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Pulmonary Tuberculosis",
+    "uuid": "e518fd5f-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Pulmonary Tuberculosis, Bilateral Extensive",
+    "uuid": "e6b9b60f-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Pulmonary tuberculosis, Old",
+    "uuid": "e8e97243-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Pylolithotomy, Left",
+    "uuid": "d4bb8c9f-01a1-4e2f-b1c8-dbbcbf711d97",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Pylolithotomy, right",
+    "uuid": "f1e12222-0d43-4db6-bd9a-df318fa9ca16",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Pyloric stenosis",
+    "uuid": "cd6b7209-e34b-11e3-983a-91270dcbd3bf",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Pyocele, bilateral",
+    "uuid": "ec0984ee-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Pyocele, left",
+    "uuid": "02e46077-832e-42ef-8602-65194d364dcc",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Pyocele, light",
+    "uuid": "edaf5fbc-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Pyomyositis",
+    "uuid": "e2ee9bcf-33c0-42a4-bd7d-bab03ac20efc",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Pyonephrosis",
+    "uuid": "0e211a7b-21ba-4fd3-ad86-6e4bfaa4f4fb",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Pyonephrosis, left",
+    "uuid": "f0e55f19-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Pyonephrosis, right",
+    "uuid": "f28b665d-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Pyopericardium",
+    "uuid": "8d48ca71-fa57-4f9a-abd7-3be70e118109",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Pyoperitoneum",
+    "uuid": "77dcb982-d246-416f-8896-db900e97077d",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Pyopneumothorax, right",
+    "uuid": "6ec0aef7-07d5-4c9a-8f93-543ad612aec7",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Pyrexia of Unknown Origin",
+    "uuid": "f4225b51-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - RVF - ARM",
+    "uuid": "f25d1adc-b70f-4dca-ae04-47f6007fce25",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - RVF - ARM Type IV pauch colon with colostomy done",
+    "uuid": "fa0221ea-3a4f-4b0f-99f0-5b00ed4618da",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - RVF - H type",
+    "uuid": "e58b634e-4a14-4e3e-8e17-a366a9644c22",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Radiculoneuropathy",
+    "uuid": "f5fe862b-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Reactive airway disease",
+    "uuid": "f849718b-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Rectal prolapse",
+    "uuid": "56925ec3-f7ee-4be9-b281-c4263e35bedd",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Recto vaginal Fistula",
+    "uuid": "fc0465f9-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Recto vaginal fistula (RVF)",
+    "uuid": "a3923e7e-4603-4c24-9abd-bac2fc0af217",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Rectovaginal fistula with pouch colon Type IV (RVF)",
+    "uuid": "a64bbb0c-17c0-4e99-8cd2-d3fb8676af76",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Recurrent Appendicitis",
+    "uuid": "fece5052-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Recurrent fever",
+    "uuid": "005623f0-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Recurrent pericardial effusion",
+    "uuid": "01d4bdb1-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Renal Calculus",
+    "uuid": "bdf68057-6878-4ea0-961e-799bf94f7391",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Renal Calculus, horseshoe",
+    "uuid": "0b5fe786-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Renal Failure, Acute",
+    "uuid": "1299eb8f-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Renal Failure, Chronic",
+    "uuid": "14649d8e-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Renal calculi staghorn bilateral",
+    "uuid": "059182a7-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Renal calculus, bilateral",
+    "uuid": "08eb5719-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Renal calculus, right",
+    "uuid": "0f3d6410-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Reproductive Tract Infection",
+    "uuid": "1734092a-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Respiratory Tract Infection",
+    "uuid": "1c949c6f-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Respiratory infection, Acute",
+    "uuid": "1a25d511-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Rhematoid arthritis",
+    "uuid": "20d0c2bc-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Rheumatic Fever, Acute",
+    "uuid": "238091c4-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Rheumatic Heart Disease (RHD)",
+    "uuid": "2543ef57-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Rheumatoid Arthritis, Juvenile, Polyarticular (Polyarticular JRA)",
+    "uuid": "2aa14308-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Rheumatoid Arthritis, non seropositive",
+    "uuid": "2d184139-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Rheumatoid arthritis not JRA",
+    "uuid": "28c9bb9d-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Rheumatoid arthritis, Old",
+    "uuid": "2f26bf8c-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Rhinosporidiasis",
+    "uuid": "5555961e-507a-44d3-bfba-51cd872895d9",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Rhinosporidiosis, left",
+    "uuid": "43cdd1c9-773d-4d54-a87c-3ba59d4ce3c5",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Rhinosposidiosis, right",
+    "uuid": "1cf5db7d-88a5-4aaf-a700-2ee3b9d9c379",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Rickets",
+    "uuid": "3224c742-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Right Ventricular Failure",
+    "uuid": "34295dcf-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Ring Worm Infestation",
+    "uuid": "3633c4f3-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Road Traffic Accident",
+    "uuid": "36668ee3-8e2b-43f9-b7c4-d429429f1490",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Ruptured LSMMC",
+    "uuid": "7b993a33-8727-4dc7-b76e-d8384e61147b",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Ruptured MMC",
+    "uuid": "088ae9a9-facc-480f-92c2-e8606e0acbf0",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Ruptured ectopic pregnancy",
+    "uuid": "a83f3f6c-ace0-433a-a51b-d46da8a2321f",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - SOJ",
+    "uuid": "fba37c07-ef4f-4a67-879f-2bea4c05ef65",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - SOJ with Gastric outlet obstruction",
+    "uuid": "30c1916e-deea-449a-b455-3bb6e213beea",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - SPC for stricture urethra (SPC)",
+    "uuid": "b86f1440-e289-478b-838f-cbee85538804",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Salphingo oopherectomy, left",
+    "uuid": "20b2e358-fe78-429b-9f6d-59270c0a4e0b",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Salphingo oopherectomy, right",
+    "uuid": "56e2b533-98f1-4d80-b4d9-6b47f67fb244",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Scanty menses",
+    "uuid": "3991adb4-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Sciatica",
+    "uuid": "3d37293b-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Sciatica, Left",
+    "uuid": "3f1364c6-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Sciatica, Right",
+    "uuid": "40b5ecb9-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Scrotal Hypospadias",
+    "uuid": "9ddb324b-51bd-4a13-bff0-05480b3d48b9",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Scrotal abscess, left",
+    "uuid": "1319884a-53e2-4ad5-b956-5479f98fc24d",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Sebacious cyst",
+    "uuid": "86d335d5-5215-49af-9940-a326802acdeb",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Seizure disorder",
+    "uuid": "443997f7-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Seizure disorder, post encephalitis",
+    "uuid": "462abc87-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Seizures, myoclonic",
+    "uuid": "481ed20c-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Sentinel Piles",
+    "uuid": "49d7287c-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Septic arthritis",
+    "uuid": "1998884c-39c2-4505-b967-8e9c19e3f805",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Severe Gastritis",
+    "uuid": "4dbe7280-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Severe PET",
+    "uuid": "dbbb2721-bc1f-408c-85a2-dc5e47ae5aea",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Severe hypokalemia",
+    "uuid": "4f798a2e-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Sickle cell disease",
+    "uuid": "519b4e30-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Sickle, beta thalessemia",
+    "uuid": "543aa2a1-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Soft tissue Sarcoma",
+    "uuid": "3aeb16bc-15d2-4f9c-9d94-5ea1d67e4301",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Soft tissue infection",
+    "uuid": "5f0a8ddd-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Soft tissue infection, Neck",
+    "uuid": "617c500f-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Somatoform disorder",
+    "uuid": "63a56611-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Somatotropin disorder",
+    "uuid": "65fdb5fb-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Spider bit",
+    "uuid": "4b24a858-de4f-4760-9576-fbe2de38797d",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Spleenomegaly, Tropical",
+    "uuid": "68d895a5-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Spondyloarthritis",
+    "uuid": "6acb1c8b-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Spondylosis, Cervical",
+    "uuid": "6ce435c5-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Sprain, Right Ankle",
+    "uuid": "6eda6033-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Status vesicostomy",
+    "uuid": "731c1be2-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Stricture Urethra",
+    "uuid": "7a57cee9-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Stricture Urethra, distal",
+    "uuid": "7c0cae58-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Stricture Urethra, proximal",
+    "uuid": "7eb6cc54-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Stricture urethra Gramdoma",
+    "uuid": "16739274-a770-4722-8e9b-485b6b50226b",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Stricture urethra in retention",
+    "uuid": "489d4550-c38c-4030-92e5-3aabb258eea1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Sub cutaneons nodule",
+    "uuid": "5a46b34d-2a82-46a2-8ec4-5fded35fd219",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Subacute appendicitis",
+    "uuid": "5bb80679-5a83-4868-8d34-cdaae2f36153",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Submandibar absces",
+    "uuid": "3427f85f-97c5-4c9a-a4b2-3649e8e8d31e",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Submeatal stenosis",
+    "uuid": "6dc2a732-9a39-4565-9554-f7e8bcbc74a2",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Supra pubic catheter (SPC)",
+    "uuid": "72ecc03e-6c82-4115-845d-4424b1887c52",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Suprabital dermoid",
+    "uuid": "ff889a09-b56e-4f35-9abe-d3237fefc4ff",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Suprapubic abscess",
+    "uuid": "9cef8031-3edd-4d43-b9e0-0928b28f87e6",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Syringomyelia",
+    "uuid": "898c8599-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Systemic Lupus Erythematosus",
+    "uuid": "8b4cac4d-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Systemic Lupus Erythematosus (SLE)",
+    "uuid": "8d40ca12-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Systemic Sclerosis, Limited",
+    "uuid": "8fb1c7c7-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Testicular Cancer",
+    "uuid": "38c8aa76-bcdd-4a84-bd24-b78c19cf7f99",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Testicular tumor, right",
+    "uuid": "e4844660-4ddb-42b0-87e4-843a78c74930",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Tetrology of Fallots (TOF)",
+    "uuid": "92ba62ab-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Thoracic MMC",
+    "uuid": "72de89f5-c72d-4b4f-b370-b803886a8f3e",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Thyroglosal sinus",
+    "uuid": "96e27cbe-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Thyroglossal cyst",
+    "uuid": "00b1ec15-bbbd-4751-8b76-5391d9c7059a",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Thyroid goitre",
+    "uuid": "99a31c28-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Thyrotoxicosis",
+    "uuid": "9be850f2-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Tinea corporis",
+    "uuid": "9d4b4fee-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Tinea cruris",
+    "uuid": "9ed77d95-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Tinea unguium",
+    "uuid": "a10b4844-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Toxic nodular goiter (graves disease)",
+    "uuid": "a515de2a-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Tremurs",
+    "uuid": "a77a2e9f-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Tricuspid regurgitation",
+    "uuid": "a99008ce-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Tropical eosinophilia",
+    "uuid": "abb23cfc-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Tubercular meningitis",
+    "uuid": "ad5583a6-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Tuberculosis, disseminated",
+    "uuid": "af640867-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Twisted ovarian cyst Left",
+    "uuid": "f880102e-a5fb-444a-b101-f1b0283937fb",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Twisted ovarian cyst Right",
+    "uuid": "95e7df9c-5fc3-4de0-95cf-36afb0deb054",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Twisted ovarian cyst with AD",
+    "uuid": "5724af3a-99c5-4bf4-9a8c-a13cfffd382a",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Twisted ovarian cyst with incomplete",
+    "uuid": "e667f934-669d-4e3f-9009-9afeac27adf0",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Twisted ovrian cyst, suspected",
+    "uuid": "04d02a31-35f1-45df-9fa7-88c68d58b169",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - UDT",
+    "uuid": "76dfc41c-c01f-4d8b-88bc-043ed278901f",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - UDT, right",
+    "uuid": "cb36a064-f991-4a86-b85a-7a1ca4be0807",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - UV prolapse",
+    "uuid": "ce995756-663f-4396-b570-68e41c5e915f",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Umblical Granuloma",
+    "uuid": "9056e946-5199-4c3d-b229-c85ff2734b76",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Undernutrition, Severe",
+    "uuid": "b668ded3-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Undescended testis",
+    "uuid": "cdbce563-e34b-11e3-983a-91270dcbd3bf",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Undescended testis, right",
+    "uuid": "19f8d7b3-8d72-49ba-8942-134ebd2fd08d",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Upper Gastro Intestinal Bleed",
+    "uuid": "b9233d4d-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Upper Respiratory Tract Infection",
+    "uuid": "bc2231ee-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Ureteric calculus",
+    "uuid": "18e321eb-20be-432f-a68a-b0f33e80d6e5",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Ureteric calculus, left",
+    "uuid": "be1a53c0-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Ureteric calculus, right",
+    "uuid": "c013b005-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Urethral stenosis",
+    "uuid": "c1d2eb38-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Urethral stricture",
+    "uuid": "a4240ac0-b020-44b0-89a5-518b49f7fadf",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Urinary Tract Infection",
+    "uuid": "c67d1cb4-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - V P Shunt",
+    "uuid": "709e0d6e-c2c7-4b3c-9c20-4efa1acddaa2",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - VUJ calculus, left",
+    "uuid": "33039d05-6564-4fbe-b059-6be55717b176",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - VUJ calculus, right",
+    "uuid": "a66b171f-cc88-4fc4-a69c-c155266ef92c",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - VVF",
+    "uuid": "bbb9a673-fc3b-4780-b582-13397637014a",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - VVF + RVF",
+    "uuid": "9245ab88-b681-4e17-958d-338e3798c6bd",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - VVF +RVF Colostomy closure",
+    "uuid": "f2fee8e6-2f61-44a8-87ec-c8e61c50f15b",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Vaginal Hysterectomy",
+    "uuid": "e9953ed4-0178-4556-ac77-eca49a30958a",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Vaginal hydrocele, right",
+    "uuid": "bad4974d-242b-4801-a10d-4a49fa06a03c",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Vasectomy Bilateral",
+    "uuid": "e725f293-d106-4709-9801-07255fc6a403",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Ventral Hernia",
+    "uuid": "cd59aef1-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Ventricular Septal Defect, Large",
+    "uuid": "cf06e58c-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Vesical Calculus, Large",
+    "uuid": "4deb41a0-3da4-44cb-883a-a2a34f76ef88",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Vesical calculi, stricture post urethra-shaft",
+    "uuid": "d62ec628-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Vesical calculus",
+    "uuid": "293ab386-4cd7-4256-b225-6c32bc4d0f1d",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Vesico vaginal fistula (VVF)",
+    "uuid": "db7f67d5-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Vesico vaginal fistula, Recurrent",
+    "uuid": "dfcc1272-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Vesicovaginal fistula",
+    "uuid": "ed04994b-6a86-475e-bba1-75f49bb03039",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Vesicular calculus",
+    "uuid": "7d7d85d7-255d-4b4a-85a3-47888dccdcf7",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Vitamin B deficiency",
+    "uuid": "eacf98a3-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - WPOL",
+    "uuid": "248e303c-8a97-484d-9d25-cc9ef4fa19dc",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Wax in ear",
+    "uuid": "f4313454-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Wilm's tumour",
+    "uuid": "19a10121-28a1-4587-9f26-f43cf8259072",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Wilson's disease",
+    "uuid": "f9a9b957-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Worm infestation",
+    "uuid": "fce25dc1-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Wrist - Left, 2 views (X-ray)",
+    "uuid": "497da202-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Wrist - Right, 2 views (X-ray)",
+    "uuid": "4b5f141f-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - acute Appendicitis With early preg.",
+    "uuid": "9aa0c709-c202-4ad6-9cb5-2446279c288f",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - acute Appendicitis retrocecol abscess",
+    "uuid": "6fc39624-d94b-4d63-b97e-ccdadf368feb",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - acute Osteomyotic Bone",
+    "uuid": "fd8dc03c-0b61-40ac-8228-3d3fb2dc2026",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - acute Pancriatics+Inguinal hernia, right",
+    "uuid": "f3acf44f-0652-479b-92e8-8bbff17fc15d",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - acute ostemylitis, Left femur",
+    "uuid": "3591c65c-6c0b-49a6-941d-427c89224655",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - acute scrotum",
+    "uuid": "bf750f1f-5492-4a93-a533-d9f7e7be3fc8",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - acute scrotum, left",
+    "uuid": "448c4eb6-9ef9-4f42-b1da-53414c49fbdb",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - acute scrotum, right",
+    "uuid": "7fae4745-a083-43f5-94fb-354bbae04040",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - axilla contracture, left",
+    "uuid": "8a218ebc-06fd-4567-a834-8f95b459e325",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - axillary abscess, right",
+    "uuid": "8f6fe789-9e69-45b5-9a75-4375ca58bcf1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - axillary and wrist contracture, left",
+    "uuid": "4e19db2e-1eb8-4e1b-b35e-fba7a5f9cc91",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - axillary contracture, right",
+    "uuid": "60a1355b-f7ac-4a5e-9d14-aa9782c38038",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - axillary lipoma, left",
+    "uuid": "222b8e25-9db4-4247-b1b8-69dd8e36cc42",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - axillary lymphangioma, right",
+    "uuid": "ca235c56-f249-4b2d-bc6a-4e2d9f44b00d",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - below knee swelling, right",
+    "uuid": "229ab327-0794-4422-8f8e-9533972267ae",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - branchial sinus, right",
+    "uuid": "e6b7facb-0026-444d-b8fe-c17b9e0d38c3",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - breast abscess with lump, right",
+    "uuid": "14f9cd12-3c0c-433e-b21a-32dc7534860a",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - breast abscess, bilateral",
+    "uuid": "68a32224-8355-4e74-979e-e3be55c85ff5",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - breast lump, left",
+    "uuid": "ac83b9fe-1c42-4fc5-b2e3-cbe8a9903fe7",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - breast lump, right",
+    "uuid": "16b29114-2f6e-4449-96e0-78f391147126",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - breast mass, left",
+    "uuid": "41c0ac59-80f4-49f9-ac04-fa9ddec46113",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - breast nodule, left",
+    "uuid": "bc5b39a3-044a-458f-a239-fa35c374285e",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - breast papilloma, left",
+    "uuid": "76137d3e-8499-4802-b062-9b74245c066b",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - carbuncle",
+    "uuid": "20ae3a94-a15b-4c6f-87c7-6f58d45b00c1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - cervical dysplasia",
+    "uuid": "4f8140ea-24b0-459f-8376-c094392aa1db",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - cervical lymphademopathy, left",
+    "uuid": "34976903-f142-4fe2-9759-25cd53c1e897",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - cheek cyst, right",
+    "uuid": "5780c4d3-484e-4148-ba9b-e439c8a2b33c",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - cleft lip and palate",
+    "uuid": "87574662-e719-4b21-86fd-dc953bd6232e",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - cleft lip, bilateral",
+    "uuid": "d91e7029-f607-458a-9129-0fe5830e9d19",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - cleft lip, left",
+    "uuid": "6b91a381-6e86-4064-9c2d-8fde2cc21f2c",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - colle's Fracture, left",
+    "uuid": "68bcd76e-20fb-40aa-a6dc-bbead1149348",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - colle's Fracture, right",
+    "uuid": "8a358e90-e62e-4873-b4fe-bfbf94e17578",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - dermoid with torsion, bilateral",
+    "uuid": "469b6cfc-8c6c-4f59-85a0-677530ea490d",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - duodenal ulcer",
+    "uuid": "4037b4db-3f30-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ectopic anus, anterior",
+    "uuid": "9dac6129-10e8-454e-8bec-ae35b48cd6d1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - emphysemetosis pyomephrosis, right",
+    "uuid": "688b3a9e-7940-4503-a142-e163188fde36",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - empyema thoracis, left",
+    "uuid": "1cf0e2e2-724d-4cf6-910a-809fe34da8b1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - empyema thoracis, right",
+    "uuid": "018b142a-50ab-48c9-8774-ed1f8294c5ee",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - empyema tubercular, right",
+    "uuid": "3895fafa-26d1-40ab-82b2-d1d817294162",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - empyema, left",
+    "uuid": "914f66ab-70c6-4798-8111-50f29fdea138",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - fibroadenoma",
+    "uuid": "e10c3136-afd4-45ed-aaf6-7513e06541fc",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - foot gangrene, Left",
+    "uuid": "c1b328d8-c801-4a77-a208-3131258c23ff",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - foot gangrene, right",
+    "uuid": "a31f6969-25d6-4404-8ba6-6b109ee0c4c9",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - gynecomastia",
+    "uuid": "e82138f3-8576-4767-8c2f-852e14a1c44c",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - gynecomastia, left",
+    "uuid": "c0b06fe7-d89a-4824-bfec-781f8d71c734",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - gynecomastia, right",
+    "uuid": "7a8158e9-e5f2-467e-8a4d-b9313379cfd4",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - hydatid cyst, bilateral lungs",
+    "uuid": "b3c4c0f3-17cf-466f-a0f1-7880c073fd39",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ileostomy",
+    "uuid": "49a83115-7e60-49c2-b653-edad32d52a4c",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - labial ulcer, left",
+    "uuid": "fa3965d4-3763-489b-9449-388c6290057e",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - lactational amenorrhoea",
+    "uuid": "15910b78-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - leg absces, right",
+    "uuid": "88219a0e-c8be-4bd5-9fe3-edd91c51d643",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - leg abscess, left",
+    "uuid": "98f714f6-5773-4467-8f04-1877948425b7",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - lower ureteric calculus, left",
+    "uuid": "97b7acd1-6f3c-46f3-b6ee-1006c35fa253",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - lower ureteric calculus, right",
+    "uuid": "e5b96fe2-525a-42da-bd5b-ea335f6ba8c5",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - menopausal syndrome",
+    "uuid": "42f6c53f-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - parotid abscess, right",
+    "uuid": "56828c08-ac96-49c6-9301-b2950b368c78",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - parotid swelling",
+    "uuid": "2893e9b5-a30b-4024-9c84-331a95259613",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - pregnancy induced hypertension",
+    "uuid": "c46cfa66-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - prolapse uterus",
+    "uuid": "ce51a265-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - protracted anaphylaxis",
+    "uuid": "d14f6745-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - psoas abscess (post lumber)",
+    "uuid": "718eb974-6bce-46bd-b531-55758638d21c",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - pyocele, right",
+    "uuid": "ef2c1af2-3f31-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - rectovaginal fistula low (RVF)",
+    "uuid": "e3864c0b-76f1-4251-a549-b78f8cf9aeb6",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - renal calculus, left",
+    "uuid": "0d5da057-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ruptured empyema GB, suspected",
+    "uuid": "91894d7a-c559-4caf-9b83-6d6e379fa550",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - salpingo opherectomy, bilateral",
+    "uuid": "0f62750c-09b1-407d-81fe-0c1c1faf9031",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - scrotal abscess",
+    "uuid": "84653cf3-e0ef-4cad-bb90-bc68c77b9541",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - scrotal abscess, right",
+    "uuid": "4334faf1-b0c5-45ed-989a-afdf3b158747",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - staghorn calculi, bilateral",
+    "uuid": "2df5eadd-ad90-42e9-b5be-754e27adec02",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - staghorn calculus",
+    "uuid": "9406a238-1878-4de8-a788-37c5f95c98a7",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - staghorn calculus, left",
+    "uuid": "5919c81a-c5ba-49c0-8e05-65d9540a60c8",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - staghorn calculus, right",
+    "uuid": "47ca81c6-d851-4d90-a70e-f8f1b1f7ce98",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - stricture urethra FUC",
+    "uuid": "b3778691-3fdf-4c8e-be40-06acaace1494",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - tension pneunothorax, right",
+    "uuid": "be9058a0-855d-4b08-a5c5-8100c82801e8",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - twisted ovarian cyst (dermoid)",
+    "uuid": "a67b9a7d-d937-4a96-acba-408bd1882ac8",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - undescended testes, left",
+    "uuid": "b3566c47-166d-4265-b4cd-c9891c45e1e9",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - urethroplasty",
+    "uuid": "c45f7a2b-3f32-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - wilm's tumour, left",
+    "uuid": "72e672fd-66db-4ecb-ad66-b0d4ccf7d477",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - wilm's tumour, right",
+    "uuid": "32ba3fbe-a674-4d75-8762-01b8f37b73da",
+    "dataType": "Text",
+    "active": true
+  }
+]

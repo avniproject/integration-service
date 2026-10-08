@@ -1,0 +1,417 @@
+{
+  "name": "Bahmni - Drug Routes",
+  "uuid": "8c69e97e-2dfc-11e4-894f-60175255b68f",
+  "formType": "Encounter",
+  "formElementGroups": [
+    {
+      "uuid": "60ddf979-f80a-4164-b4e8-a177d2e1f2b8",
+      "name": "Bahmni - Intramuscular",
+      "displayOrder": 1.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Intramuscular",
+          "uuid": "7c333916-eafd-45d1-90eb-8c1d7f17da86",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Intramuscular",
+            "uuid": "8c6afc15-2dfc-11e4-894f-60175255b68f",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "13d8cceb-f437-42a0-94ae-1545252ca297",
+      "name": "Bahmni - Nasal",
+      "displayOrder": 2.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Nasal",
+          "uuid": "4af25fd8-e5dd-49f0-8ac3-d619be3eac92",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Nasal",
+            "uuid": "7ce6d9d5-6c1d-11e4-a1f2-ba526e30a5ad",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "0984da12-4174-4406-96b4-55c0b2a2a715",
+      "name": "Bahmni - Topical",
+      "displayOrder": 3.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Topical",
+          "uuid": "ebf87f8d-9e02-430d-b8d2-faaca6fc9e11",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Topical",
+            "uuid": "7ce66451-6c1d-11e4-a1f2-ba526e30a5ad",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "f3b2cad5-5e61-4632-b295-45d038076956",
+      "name": "Bahmni - Intraosseous",
+      "displayOrder": 4.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Intraosseous",
+          "uuid": "727891ff-9de3-434d-a8c5-d3fb916bfdff",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Intraosseous",
+            "uuid": "5fd8f56b-603e-11e4-a1f2-ba526e30a5ad",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "710759df-9500-44d8-bbd0-ceb434c05306",
+      "name": "Bahmni - Intrathecal",
+      "displayOrder": 5.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Intrathecal",
+          "uuid": "64aa4604-67fd-4e2c-8f10-93ab0f58520b",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Intrathecal",
+            "uuid": "5fd81cd1-603e-11e4-a1f2-ba526e30a5ad",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "8b0d852a-2b00-4a26-b189-ef84b7aecd71",
+      "name": "Bahmni - Intraperitoneal",
+      "displayOrder": 6.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Intraperitoneal",
+          "uuid": "b2acdbcc-63bc-4c1e-994a-d87e46f2b3af",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Intraperitoneal",
+            "uuid": "5fd742cb-603e-11e4-a1f2-ba526e30a5ad",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "611acd65-c6c8-44e6-b208-b609bb4f5b06",
+      "name": "Bahmni - Intradermal",
+      "displayOrder": 7.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Intradermal",
+          "uuid": "2c0eb495-9de4-4644-9b36-17a75e2ff81e",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Intradermal",
+            "uuid": "5fd47601-603e-11e4-a1f2-ba526e30a5ad",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "870ccd86-b90f-45c8-a17f-b665c8c405d2",
+      "name": "Bahmni - Nasogastric",
+      "displayOrder": 8.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Nasogastric",
+          "uuid": "42baf585-8d79-48ba-adea-784864cd08f9",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Nasogastric",
+            "uuid": "8c780b20-2dfc-11e4-894f-60175255b68f",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "176cbba6-e28b-4901-84da-943fdb96ebd5",
+      "name": "Bahmni - Sub Lingual",
+      "displayOrder": 9.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Sub Lingual",
+          "uuid": "b0607447-8cc4-4a28-a155-3769bfd40134",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Sub Lingual",
+            "uuid": "8c7541d0-2dfc-11e4-894f-60175255b68f",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "01970d50-aa79-4943-b4a3-fdc3893a4edb",
+      "name": "Bahmni - Per Rectum",
+      "displayOrder": 10.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Per Rectum",
+          "uuid": "ed9b3712-d07f-4864-a967-5743d9e02442",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Per Rectum",
+            "uuid": "8c7039f6-2dfc-11e4-894f-60175255b68f",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "d02314db-165e-4cfe-b645-b2829d35d285",
+      "name": "Bahmni - Sub Cutaneous",
+      "displayOrder": 11.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Sub Cutaneous",
+          "uuid": "cdc30229-8590-4233-9792-f262866bd11e",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Sub Cutaneous",
+            "uuid": "8c6ef87e-2dfc-11e4-894f-60175255b68f",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "6b5df594-cf1c-4c7f-bf87-f0956982edce",
+      "name": "Bahmni - Per Vaginal",
+      "displayOrder": 12.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Per Vaginal",
+          "uuid": "120867f3-cbce-4dc7-8c30-ef1df0ac78ac",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Per Vaginal",
+            "uuid": "8c6d9d6b-2dfc-11e4-894f-60175255b68f",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "ba7dbeff-e929-4b98-ae3d-6871552ea0d1",
+      "name": "Bahmni - Oral",
+      "displayOrder": 13.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Oral",
+          "uuid": "9829ec53-395b-408b-b0c5-ae84bfed604a",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Oral",
+            "uuid": "8c6c9317-2dfc-11e4-894f-60175255b68f",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "79df3b9a-3ec6-4e57-8a49-30c80deda937",
+      "name": "Bahmni - Intravenous",
+      "displayOrder": 14.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Intravenous",
+          "uuid": "b70f8998-60e2-4cc7-a993-9f27812d4faa",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Intravenous",
+            "uuid": "8c6bd389-2dfc-11e4-894f-60175255b68f",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "acd6334e-c264-483b-8122-eb582ac20994",
+      "name": "Bahmni - Inhalation",
+      "displayOrder": 15.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Inhalation",
+          "uuid": "da173f3c-ffc0-4c87-9015-82550fc5861c",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Inhalation",
+            "uuid": "7ce74f9e-6c1d-11e4-a1f2-ba526e30a5ad",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

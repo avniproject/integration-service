@@ -1,0 +1,6 @@
+"uuid","name","description","class","shortname","datatype","units","High Normal","Low Normal","Allow Decimal","locale","synonym.1","answer.1","reference-term-source","reference-term-code","reference-term-relationship","reference-term-source","reference-term-code","reference-term-relationship"
+"8cb66f1a-2dfc-11e4-894f-60175255b68f","Day(s)",,"Misc","day(s)","N/A",,,,,,"","","SNOMED","258703001","SAME-AS",,,
+"7b5d1822-603c-11e4-a1f2-ba526e30a5ad","Hour(s)",,"Misc","hour(s)","N/A",,,,,,"","","SNOMED","258702006","SAME-AS",,,
+"7b5f2e0a-603c-11e4-a1f2-ba526e30a5ad","Week(s)",,"Misc","week(s)","N/A",,,,,,"","","SNOMED","258705008","SAME-AS",,,
+"7b604dcb-603c-11e4-a1f2-ba526e30a5ad","Month(s)",,"Misc","month(s)","N/A",,,,,,"","","SNOMED","258706009","SAME-AS",,,
+"0a92a6be-89ef-11e4-a1f2-ba526e30a5ad","Minute(s)",,"Misc","minute(s)","N/A",,,,,,"","","SNOMED","258701004","SAME-AS",,,

@@ -1,0 +1,39 @@
+{
+  "name": "Bahmni - Referral Form, Doctors Name",
+  "uuid": "142d6b21-defd-4b03-9196-bebacdac363e",
+  "formType": "Encounter",
+  "formElementGroups": [
+    {
+      "uuid": "f6a51f0f-95bf-4a5d-9075-05e48c0806f4",
+      "name": "Bahmni - Doctor's Name",
+      "displayOrder": 1.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Doctor's Name",
+          "uuid": "8c1c3518-0593-42bd-834e-13e1083418ec",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Doctor's Name",
+            "uuid": "df0c60cb-0b83-4a6e-918e-13d0a0c6d450",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

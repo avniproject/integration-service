@@ -1,0 +1,40 @@
+{
+  "name": "Bahmni - Advanced Procedure",
+  "uuid": "64fd041c-9bcd-11e3-927e-8840ab96f0f1",
+  "formType": "Encounter",
+  "formElementGroups": [
+    {
+      "uuid": "4c9207ab-762f-4b62-a870-0f6b72c00fb4",
+      "name": "Bahmni - Anoscopy",
+      "displayOrder": 1.0,
+      "formElements": [],
+      "timed": false
+    },
+    {
+      "uuid": "73e16c74-a434-4909-af9b-b27d616a3c66",
+      "name": "Bahmni - Bronchoscopy",
+      "displayOrder": 2.0,
+      "formElements": [],
+      "timed": false
+    },
+    {
+      "uuid": "eb58c4b2-3820-4f30-a00c-3f2b752f93f6",
+      "name": "Bahmni - Colonoscopy",
+      "displayOrder": 3.0,
+      "formElements": [],
+      "timed": false
+    },
+    {
+      "uuid": "e2655fef-03ee-4e28-be47-2316ea1c3653",
+      "name": "Bahmni - Cystoscopy",
+      "displayOrder": 4.0,
+      "formElements": [],
+      "timed": false
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

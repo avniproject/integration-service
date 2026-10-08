@@ -1,0 +1,5 @@
+"uuid","name","description","class","shortname","datatype","units","High Normal","Low Normal","Allow Decimal","locale","synonym.1","answer.1","reference-term-source","reference-term-code","reference-term-relationship"
+"735ba25f-e2fd-4e05-b362-3687ff0ffcfd","Ante Natal Care, Spontaneous Abortion",,"Misc","Spontaneous Abortion","N/A",,,,,,"","",,,
+"28cebb91-36fe-47cb-bbfb-2d725a5857a4","Ante Natal Care, Medical Termination of Pregnancy (MTP)",,"Misc","Medical Termination of Pregnancy (MTP)","N/A",,,,,,"","",,,
+"653b303d-1a53-4608-ae92-e025a2c05643","Ante Natal Care, Live Birth",,"Misc","Live Birth","N/A",,,,,,"","",,,
+"6b3c3164-bcbd-4670-b245-836324a0b37b","Ante Natal Care, Still Birth",,"Misc","Still Birth","N/A",,,,,,"","",,,

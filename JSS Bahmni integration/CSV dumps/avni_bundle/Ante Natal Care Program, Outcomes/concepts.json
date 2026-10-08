@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Bahmni - Ante Natal Care, Live Birth",
+    "uuid": "653b303d-1a53-4608-ae92-e025a2c05643",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Ante Natal Care, Medical Termination of Pregnancy (MTP)",
+    "uuid": "28cebb91-36fe-47cb-bbfb-2d725a5857a4",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Ante Natal Care, Spontaneous Abortion",
+    "uuid": "735ba25f-e2fd-4e05-b362-3687ff0ffcfd",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Ante Natal Care, Still Birth",
+    "uuid": "6b3c3164-bcbd-4670-b245-836324a0b37b",
+    "dataType": "Text",
+    "active": true
+  }
+]

@@ -1,0 +1,722 @@
+[
+  {
+    "name": "Bahmni - ABDOMEN LATERAL DECUBITUS",
+    "uuid": "7ddddc3c-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ABDOMEN PA/AP Standing",
+    "uuid": "7d6391f5-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ABDOMEN Supine Urography",
+    "uuid": "7e45085b-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ABDOMEN Urinary Bladder",
+    "uuid": "7f6108fe-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ABDOMEN, ERECT",
+    "uuid": "5f9478ac-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ABDOMEN, SUPINE",
+    "uuid": "3cd85931-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ABDOMEN,GENERAL",
+    "uuid": "7cf5d8a3-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ARM Clavicle AP",
+    "uuid": "6a0ce36b-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ARM Elbow AP",
+    "uuid": "6dcada6a-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ARM Elbow Lateral",
+    "uuid": "6e2804de-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ARM Finger lateral",
+    "uuid": "72ff5eb9-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ARM Forearm AP",
+    "uuid": "6f41701e-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ARM Forearm Lateral",
+    "uuid": "6fc5e547-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ARM Hand AP",
+    "uuid": "72258f4d-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ARM Hand oblique",
+    "uuid": "729831ca-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ARM Humerus AP",
+    "uuid": "6ced2919-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ARM Humerus Lateral",
+    "uuid": "6d5ac441-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ARM Scaphoid",
+    "uuid": "71aa0ab8-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ARM Scapula AP",
+    "uuid": "6b0420db-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ARM Scapula Lateral",
+    "uuid": "6b76c51f-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ARM Shoulder AP",
+    "uuid": "6bfc8538-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ARM Shoulder Axial",
+    "uuid": "6c7c8125-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ARM Wrist AP",
+    "uuid": "70c86c42-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ARM Wrist Lateral",
+    "uuid": "7128240d-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ARM Wrist PA",
+    "uuid": "704f6ebb-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Acromioclavicular joints - Bilateral (X-ray)",
+    "uuid": "5f048cc4-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Ankle - Right, 3 views (X-ray)",
+    "uuid": "615c67e0-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - BARIUM ENEMA",
+    "uuid": "897a76ab-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - BARIUM MEAL",
+    "uuid": "88d98c7d-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - BARIUM SWALLOW AP",
+    "uuid": "885a2c8e-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - CERVICAL SPINE AP",
+    "uuid": "857d7c77-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - CERVICAL SPINE LAT",
+    "uuid": "85e4a8b6-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - CHEST AP",
+    "uuid": "7c1469f9-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - CHEST Lateral",
+    "uuid": "7b23b304-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - CHEST PA",
+    "uuid": "7abf1642-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - CHEST apical lordotic",
+    "uuid": "7c767cf0-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - CLAVICLE RT AP",
+    "uuid": "5029e407-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - CLAVICLE RT LAT",
+    "uuid": "55635bcf-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - CT",
+    "uuid": "8ba5fb43-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Calcaneus - Right, 2 views (X-ray)",
+    "uuid": "56b652c8-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cervical spine, 2 or 3 views (X-ray)",
+    "uuid": "578afd70-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Chest lordotic (X-ray)",
+    "uuid": "5d491afe-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Chest oblique - Bilateral (X-ray)",
+    "uuid": "5db7ec07-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Chest, 1 view (X-ray)",
+    "uuid": "39d085f3-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Chest, 2 views (X-ray)",
+    "uuid": "3ffc23d7-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Chest, 4 views (X-ray)",
+    "uuid": "5c6b751f-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Elbow - Left, 2 views (X-ray)",
+    "uuid": "4838addd-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Elbow - Right, 2 views (X-ray)",
+    "uuid": "4ab32770-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - FEMUR LT AP",
+    "uuid": "5431b18b-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - FEMUR RT AP",
+    "uuid": "45eb0680-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - FEMUR RT LAT",
+    "uuid": "4c138ffe-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - FOOT LT AP",
+    "uuid": "78d86510-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - FOOT LT OBLIQUE",
+    "uuid": "602d5163-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - FOOT RT AP",
+    "uuid": "4542bfa1-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - FOOT RT OBLIQUE",
+    "uuid": "4742f7f4-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Facial bones, 3 views (X-ray)",
+    "uuid": "5a6631dc-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Forearm - Left, 2 views (X-ray)",
+    "uuid": "4ca04729-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Forearm - Right, 2 views (X-ray)",
+    "uuid": "4f4fe3d7-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - HEAD Sinus And Face Lateral",
+    "uuid": "8268d895-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - HEAD Skull AP",
+    "uuid": "8102f44c-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - HEAD Skull PA",
+    "uuid": "8096abf9-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - HIP BILATERAL AP",
+    "uuid": "7a56a0e4-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - HIP LT LAT",
+    "uuid": "759ec70d-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - HIP RT LAT",
+    "uuid": "748f7a75-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Hand - Left, 2 views (X-ray)",
+    "uuid": "41e84b71-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Hand - Right, 2 views (X-ray)",
+    "uuid": "48e86a65-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Hip - Left, 2 views (X-ray)",
+    "uuid": "40ed0d78-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Hip - Right, 2 views (X-ray)",
+    "uuid": "42a9f416-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Humerus - Left, 2 views (X-ray)",
+    "uuid": "4d316d5d-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Humerus - Right, 2 views (X-ray)",
+    "uuid": "50c403a8-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - IVP, view (X-ray)",
+    "uuid": "a3ddb0e3-f747-4f0e-afcc-a540497a4c0d",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - KNEE Both AP",
+    "uuid": "75563fae-6885-463d-a63e-f6921f1c55de",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - KNEE Both Lateral",
+    "uuid": "ae62f71a-63f0-4cb5-8dcd-0ff7f16fe35c",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - KNEE LT AP",
+    "uuid": "3e94ef16-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - KNEE LT LAT",
+    "uuid": "3f43730d-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - KNEE RT AP",
+    "uuid": "794ed858-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - KNEE RT LAT",
+    "uuid": "79d5d201-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - KUB",
+    "uuid": "8b43bc6f-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Kidney retrograde pyelogram (X-ray)",
+    "uuid": "5e76ff3f-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - LEG Pelvis",
+    "uuid": "736ba58d-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - LOWER LEG LT AP",
+    "uuid": "76eb43b5-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - LOWER LEG LT LAT",
+    "uuid": "7765b42c-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - LOWER LEG RT AP",
+    "uuid": "761a570b-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - LOWER LEG RT LAT",
+    "uuid": "76775e86-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - LOWER LEG WITH KNEE LT AP",
+    "uuid": "785013ed-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - LOWER LEG WITH KNEE LT LAT",
+    "uuid": "5375370b-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - LOWER LEG WITH KNEE RT AP",
+    "uuid": "77c16eb1-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - LOWER LEG WITH KNEE RT LAT",
+    "uuid": "56017b9f-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - LOWER RIB LT",
+    "uuid": "46a68f3c-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - LOWER RIB RT",
+    "uuid": "444a8fd6-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - LUMBAR SPINE AP",
+    "uuid": "4e936696-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - LUMBO SACRAL LAT",
+    "uuid": "8795f69d-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - MANDIBLE AP",
+    "uuid": "840c1d83-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - MANDIBLE LAT",
+    "uuid": "850ea225-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - MANDIBLE PA",
+    "uuid": "848a31ba-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - MCU, View (X-Ray)",
+    "uuid": "77119544-0dd8-423a-b27a-9fad7813043d",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - MRI",
+    "uuid": "8befdc8f-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Mandible panorex (X-ray)",
+    "uuid": "5ce33731-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - NASAL BONE LAT",
+    "uuid": "82fca80c-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - NECK LAT",
+    "uuid": "6313f243-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Orthopantomography",
+    "uuid": "1687cd8b-868b-47d6-ab1e-6e2cd7209687",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - PELVIS",
+    "uuid": "3c1d1787-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - RGU",
+    "uuid": "8af9ce34-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - SHOULDER LT AP",
+    "uuid": "5240c777-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - SHOULDER LT LAT",
+    "uuid": "52d88ecc-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - SKULL LAT",
+    "uuid": "81eebc29-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - SPINE Thoracolumbar Lateral",
+    "uuid": "14dee0fb-c83e-4725-88a0-de7bb4d59d94",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Sinuses, 3 views (X-ray)",
+    "uuid": "59f2c239-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Skull, 2 views (X-ray)",
+    "uuid": "641471f0-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Skull, 4 views (X-ray)",
+    "uuid": "5be0761c-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - THORACIC SPINE AP",
+    "uuid": "8646c237-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - THORACIC SPINE LAT",
+    "uuid": "86af655f-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - THORACO LUMBAR AP",
+    "uuid": "582b7fc3-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - THORACO LUMBAR LAT",
+    "uuid": "872af3ec-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - TOWNE",
+    "uuid": "816f397c-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Temporomandibular joint, bilateral (XRay)",
+    "uuid": "6390c2c3-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Thoracic spine, 2 views (X-ray)",
+    "uuid": "54cf9e30-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - WHOLE SPINE AP",
+    "uuid": "3b40c0bb-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Wrist - Left, 2 views (X-ray)",
+    "uuid": "497da202-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Wrist - Right, 2 views (X-ray)",
+    "uuid": "4b5f141f-9bcd-11e3-927e-8840ab96f0f1",
+    "dataType": "Text",
+    "active": true
+  }
+]

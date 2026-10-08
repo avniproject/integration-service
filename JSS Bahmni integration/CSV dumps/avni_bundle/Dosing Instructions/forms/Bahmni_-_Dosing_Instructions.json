@@ -1,0 +1,228 @@
+{
+  "name": "Bahmni - Dosing Instructions",
+  "uuid": "8db8af90-2dfc-11e4-894f-60175255b68f",
+  "formType": "Encounter",
+  "formElementGroups": [
+    {
+      "uuid": "735d471e-d05d-4080-8552-810445df3f3b",
+      "name": "Bahmni - Before meals",
+      "displayOrder": 1.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Before meals",
+          "uuid": "f4429ce5-83cb-4586-b5fd-2fbecf271817",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Before meals",
+            "uuid": "8db93cf6-2dfc-11e4-894f-60175255b68f",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "9ad11143-459f-4886-b125-3370a8cccc80",
+      "name": "Bahmni - Empty stomach",
+      "displayOrder": 2.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Empty stomach",
+          "uuid": "2fc4acdb-8694-472a-9726-59106b125984",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Empty stomach",
+            "uuid": "8db9c15d-2dfc-11e4-894f-60175255b68f",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "45beec85-f51a-4d11-9f52-d27a8924a2b2",
+      "name": "Bahmni - After meals",
+      "displayOrder": 3.0,
+      "formElements": [
+        {
+          "name": "Bahmni - After meals",
+          "uuid": "b404a5db-aaf8-4e13-8d78-a2c929836f4b",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - After meals",
+            "uuid": "8dba4835-2dfc-11e4-894f-60175255b68f",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "94789ef3-de05-4c6e-8b3f-1d4eecdf397e",
+      "name": "Bahmni - In the morning",
+      "displayOrder": 4.0,
+      "formElements": [
+        {
+          "name": "Bahmni - In the morning",
+          "uuid": "a83f856e-d9c5-4c54-b26e-fd567814f388",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - In the morning",
+            "uuid": "8dbaeb29-2dfc-11e4-894f-60175255b68f",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "832eecf3-7329-4298-a12d-957132e296c9",
+      "name": "Bahmni - In the evening",
+      "displayOrder": 5.0,
+      "formElements": [
+        {
+          "name": "Bahmni - In the evening",
+          "uuid": "3f53d37e-8bd8-4960-8fca-c453dd64aaff",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - In the evening",
+            "uuid": "8dbb7c36-2dfc-11e4-894f-60175255b68f",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "08932221-f365-4cd8-81a4-95e4b2785585",
+      "name": "Bahmni - At bedtime",
+      "displayOrder": 6.0,
+      "formElements": [
+        {
+          "name": "Bahmni - At bedtime",
+          "uuid": "d524b634-d1b0-4db6-9947-527be73007e0",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - At bedtime",
+            "uuid": "8dbc13de-2dfc-11e4-894f-60175255b68f",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "f6c7bdae-8b18-4369-85dc-1725b432c154",
+      "name": "Bahmni - Immediately",
+      "displayOrder": 7.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Immediately",
+          "uuid": "9fcc7bfc-fc27-47f2-af14-da2a70792c5d",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Immediately",
+            "uuid": "8dbcc47c-2dfc-11e4-894f-60175255b68f",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "17d98099-0326-4b8a-a7b1-bd14f3d66e61",
+      "name": "Bahmni - As directed",
+      "displayOrder": 8.0,
+      "formElements": [
+        {
+          "name": "Bahmni - As directed",
+          "uuid": "de26e35d-7ddd-4a76-8030-3fba403c3960",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - As directed",
+            "uuid": "8dbd859f-2dfc-11e4-894f-60175255b68f",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

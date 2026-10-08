@@ -1,0 +1,674 @@
+{
+  "name": "Bahmni - Dose Quantity Units",
+  "uuid": "8fd440aa-1663-11e4-9b1f-a53a324dedbc",
+  "formType": "Encounter",
+  "formElementGroups": [
+    {
+      "uuid": "32b825ec-e7e1-44e8-bd4e-e0b6dea5972e",
+      "name": "Bahmni - Ayurvedic",
+      "displayOrder": 1.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Ayurvedic",
+          "uuid": "5edb40ef-f2fa-40d8-9dba-401b68750c6e",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Ayurvedic",
+            "uuid": "1cef35bb-c792-4249-98bd-a92b1df6b5b1",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "df593f91-7968-4ae7-941b-4cf716774584",
+      "name": "Bahmni - Spray",
+      "displayOrder": 2.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Spray",
+          "uuid": "16e4fe24-7469-4e64-af3a-6706125a587f",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Spray",
+            "uuid": "3d290abb-e633-4a72-b86c-c3397479f201",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "8385df37-1138-4a3e-b99b-6186f9498163",
+      "name": "Bahmni - Solution",
+      "displayOrder": 3.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Solution",
+          "uuid": "6aa53c79-a14f-4774-b4a3-14b2af51ace7",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Solution",
+            "uuid": "af5b6109-4f7a-472c-bfae-ca1b00a5d7c5",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "ffeacb30-0dd9-45f8-865f-be976301e36a",
+      "name": "Bahmni - Powder",
+      "displayOrder": 4.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Powder",
+          "uuid": "f08b0087-8c79-47c2-aef3-9fcf5c84e600",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Powder",
+            "uuid": "5dd0dfdf-47d6-449e-86f7-ed19a52fae09",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "4981328c-1c65-4f26-8999-cef5cff80337",
+      "name": "Bahmni - Ointment",
+      "displayOrder": 5.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Ointment",
+          "uuid": "c95121b9-410e-4d31-be3a-c940dcc1ecf7",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Ointment",
+            "uuid": "dde64e58-e00f-4cf7-8daa-71f65ca7772b",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "3621610f-e7a8-4eed-afe3-1ce072c4793b",
+      "name": "Bahmni - Lotion",
+      "displayOrder": 6.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Lotion",
+          "uuid": "544e5809-5376-4d03-80a3-9b587fad6cd3",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Lotion",
+            "uuid": "37742f06-cbfe-4130-9459-704e4345884f",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "44be42b3-5d0c-4cbd-bb57-83f7800c36f9",
+      "name": "Bahmni - Liquid",
+      "displayOrder": 7.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Liquid",
+          "uuid": "ccafe51b-ce6d-418b-9008-4c0c8a050d6f",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Liquid",
+            "uuid": "c6c64bc2-1228-4c9e-988b-a2ddeebbd49f",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "d5244079-ec28-4c94-9c99-224d7c48fe09",
+      "name": "Bahmni - Jelly",
+      "displayOrder": 8.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Jelly",
+          "uuid": "7d0d0df4-51a6-407c-a31d-6d1907eec401",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Jelly",
+            "uuid": "d54d5a45-54e1-4c80-8a47-8309c373ee07",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "11203a5a-a36c-4314-a725-32ad2900e99c",
+      "name": "Bahmni - Drops",
+      "displayOrder": 9.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Drops",
+          "uuid": "af75a6fc-39ae-425b-82b6-9b3a169e1235",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Drops",
+            "uuid": "91d0df98-3d0c-404f-9dc0-7c299d1e5a21",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "ca3d1825-974a-4ba8-8b31-678e8af04abe",
+      "name": "Bahmni - Cream",
+      "displayOrder": 10.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Cream",
+          "uuid": "3d757c04-ba5e-4a4e-80d5-f219f42fae72",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Cream",
+            "uuid": "35e0684a-285e-40d2-8f68-6f4f11e69f02",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "a673a49e-70dd-41dc-8f1f-75d508c64939",
+      "name": "Bahmni - Granule",
+      "displayOrder": 11.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Granule",
+          "uuid": "fb589540-d018-40cb-a0ab-a87d4b3c67e6",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Granule",
+            "uuid": "eb9ea49c-d77e-486a-bace-c792fc029f6f",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "d148423e-6f61-41c4-b014-6c3747fce10e",
+      "name": "Bahmni - Gel",
+      "displayOrder": 12.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Gel",
+          "uuid": "9ad209a8-e61d-4ca6-877b-9bc5b75e6141",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Gel",
+            "uuid": "a8306b7c-bb6e-4abe-b993-7a4d0854ed48",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "705d99c9-6e65-4c00-8c69-b6ba5059ef67",
+      "name": "Bahmni - Inhaler",
+      "displayOrder": 13.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Inhaler",
+          "uuid": "2a85e733-134c-4b42-a001-d211df63e950",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Inhaler",
+            "uuid": "fed337be-5c72-49d4-bb35-fa610eb8307e",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "0de0c795-24bf-43ec-8a95-c0b44df36c67",
+      "name": "Bahmni - Injection",
+      "displayOrder": 14.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Injection",
+          "uuid": "df99612b-9817-4432-bd51-30d9332ca19a",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Injection",
+            "uuid": "dcaf558e-369e-4bf5-b18b-09bd5c987a2f",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "7216cc8f-c29d-4005-a5e7-df5fae1edc03",
+      "name": "Bahmni - Pessary",
+      "displayOrder": 15.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Pessary",
+          "uuid": "5cc66712-11fa-4209-8718-356cd6bef225",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Pessary",
+            "uuid": "411ef51e-2c80-4fe1-a5ef-dba2edc648a6",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "f1b3079f-77e0-4cdf-ad27-5263631c669d",
+      "name": "Bahmni - Syrup",
+      "displayOrder": 16.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Syrup",
+          "uuid": "8b1ac22f-c1a1-467d-be05-d9e9eebd8831",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Syrup",
+            "uuid": "5108a8a7-037c-4ab2-8ca2-149a843dda8a",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "90bfc030-8824-4ebe-b55e-0e54462a3925",
+      "name": "Bahmni - Food Supplement",
+      "displayOrder": 17.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Food Supplement",
+          "uuid": "89fb296c-5601-4bf5-a52f-44f650c86239",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Food Supplement",
+            "uuid": "0234b981-836f-400b-b91f-e8599d13ea2b",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "5550fdba-c1e5-4a88-ac0f-50cbf0df34ed",
+      "name": "Bahmni - Tablet(s)",
+      "displayOrder": 18.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Tablet(s)",
+          "uuid": "1eeb5c24-4f9d-4d65-97ca-3d3de52d5c50",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Tablet(s)",
+            "uuid": "e2b80de6-a30b-4ec3-869a-a22265717a71",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "a10c6f1e-1034-49ca-80f1-db4d785a6e06",
+      "name": "Bahmni - Tablet(s)",
+      "displayOrder": 19.0,
+      "formElements": [],
+      "timed": false
+    },
+    {
+      "uuid": "5094050b-13f9-497e-826e-bd0df8414f06",
+      "name": "Bahmni - Capsule(s)",
+      "displayOrder": 20.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Capsule(s)",
+          "uuid": "8b828d44-7600-42cd-a3d7-9bbb92706859",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Capsule(s)",
+            "uuid": "53854ae7-1c1f-45d8-90fd-5a53ce463ba7",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "faeb433d-2e83-4158-8701-b61dbff51124",
+      "name": "Bahmni - Capsule(s)",
+      "displayOrder": 21.0,
+      "formElements": [],
+      "timed": false
+    },
+    {
+      "uuid": "1d7cedb0-c667-43fd-ad4f-f362e12ef5a9",
+      "name": "Bahmni - ml",
+      "displayOrder": 22.0,
+      "formElements": [
+        {
+          "name": "Bahmni - ml",
+          "uuid": "0b9fcf6f-0e80-4afc-a333-73f476ee6df5",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - ml",
+            "uuid": "8c4469ab-2dfc-11e4-894f-60175255b68f",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "16388d85-4a9f-4517-864d-cda7391faa93",
+      "name": "Bahmni - mg",
+      "displayOrder": 23.0,
+      "formElements": [
+        {
+          "name": "Bahmni - mg",
+          "uuid": "de4d13ba-499e-412b-a8b3-de52eb974670",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - mg",
+            "uuid": "8c4572fa-2dfc-11e4-894f-60175255b68f",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "75c7916f-92aa-400b-8283-6f5e1820ee36",
+      "name": "Bahmni - IU",
+      "displayOrder": 24.0,
+      "formElements": [
+        {
+          "name": "Bahmni - IU",
+          "uuid": "68cc33c0-8383-440a-b730-b0baffe5b87e",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - IU",
+            "uuid": "5eefd932-603e-11e4-a1f2-ba526e30a5ad",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "6493dac3-c315-4295-a7a7-db3639f2b4a9",
+      "name": "Bahmni - Unit(s)",
+      "displayOrder": 25.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Unit(s)",
+          "uuid": "c1a6961c-f17b-4278-a29c-56b6fe960590",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Unit(s)",
+            "uuid": "5ef053b6-603e-11e4-a1f2-ba526e30a5ad",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "5b16bb71-a2cd-4fe1-8490-713bfc8b7661",
+      "name": "Bahmni - ml (syrup)",
+      "displayOrder": 26.0,
+      "formElements": [
+        {
+          "name": "Bahmni - ml (syrup)",
+          "uuid": "1d8e81cb-f85d-4869-b6b6-4333d51800d7",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - ml (syrup)",
+            "uuid": "cb3a525b-8e00-40f2-b159-8835f657d212",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

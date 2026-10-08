@@ -1,0 +1,75 @@
+{
+  "name": "Bahmni - Endoscopy",
+  "uuid": "64ab9461-9bcd-11e3-927e-8840ab96f0f1",
+  "formType": "Encounter",
+  "formElementGroups": [
+    {
+      "uuid": "c9e578f3-af7f-4c13-af5b-22f1ec31426d",
+      "name": "Bahmni - Anoscopy",
+      "displayOrder": 1.0,
+      "formElements": [],
+      "timed": false
+    },
+    {
+      "uuid": "2c93cfbe-8c26-40c6-accc-c8cec9a54ad5",
+      "name": "Bahmni - Bronchoscopy",
+      "displayOrder": 2.0,
+      "formElements": [],
+      "timed": false
+    },
+    {
+      "uuid": "8e6b01cf-c9fc-4e9c-91fd-0ac81d2b8991",
+      "name": "Bahmni - Colonoscopy",
+      "displayOrder": 3.0,
+      "formElements": [],
+      "timed": false
+    },
+    {
+      "uuid": "d3a8ce51-5d3c-460a-aa5b-b16e6058cc56",
+      "name": "Bahmni - Cystoscopy",
+      "displayOrder": 4.0,
+      "formElements": [],
+      "timed": false
+    },
+    {
+      "uuid": "af9e646d-52ae-4217-8a5b-9825d6bc59f4",
+      "name": "Bahmni - Esophagogastroduodenoscopy (EGD)",
+      "displayOrder": 5.0,
+      "formElements": [],
+      "timed": false
+    },
+    {
+      "uuid": "db05560b-14e3-4b91-a320-a948bcd7e4ab",
+      "name": "Bahmni - Enteroscopy",
+      "displayOrder": 6.0,
+      "formElements": [],
+      "timed": false
+    },
+    {
+      "uuid": "ade783e3-0099-4f67-96e7-c35178ef712a",
+      "name": "Bahmni - Endoscopic retrograde cholangiopancreatography (ERCP)",
+      "displayOrder": 7.0,
+      "formElements": [],
+      "timed": false
+    },
+    {
+      "uuid": "e2ee1287-401c-470d-9b63-a000fae8b860",
+      "name": "Bahmni - Laparoscopy",
+      "displayOrder": 8.0,
+      "formElements": [],
+      "timed": false
+    },
+    {
+      "uuid": "18ce2182-22bf-4c02-acc0-29e137399658",
+      "name": "Bahmni - Sigmoidoscopy",
+      "displayOrder": 9.0,
+      "formElements": [],
+      "timed": false
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

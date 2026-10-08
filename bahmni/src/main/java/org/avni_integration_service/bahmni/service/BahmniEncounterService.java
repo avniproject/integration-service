@@ -49,4 +49,26 @@ public class BahmniEncounterService {
     public OpenMRSDefaultEncounter getDefaultEncounter(String uuid) {
         return encounterRepository.getDefaultEncounter(uuid);
     }
+
+    public List<OpenMRSFullEncounter> getAllEncountersForPatient(String patientUuid) {
+        return encounterRepository.getEncountersByPatient(patientUuid);
+    }
+
+    public List<OpenMRSFullEncounter> getAllEncountersByPatientAndType(String patientUuid, String encounterTypeUuid) {
+        return encounterRepository.getEncounterByPatientAndEncType(patientUuid, encounterTypeUuid);
+    }
+
+    public List<BahmniEncounter> getEncountersForPatient(String patientUuid, String convSetUuid, BahmniEncounterToAvniEncounterMetaData metaData) {
+        return encounterRepository.getEncountersByPatient(patientUuid).stream()
+            .map(e -> new BahmniEncounter(e, metaData))
+            .filter(e -> e.getSplitEncounters().stream().anyMatch(s -> convSetUuid.equals(s.getFormConceptSetUuid())))
+            .collect(Collectors.toList());
+    }
+
+    public List<BahmniEncounter> getEncountersForPatientByType(String patientUuid, String encounterTypeUuid, String convSetUuid, BahmniEncounterToAvniEncounterMetaData metaData) {
+        return encounterRepository.getEncounterByPatientAndEncType(patientUuid, encounterTypeUuid).stream()
+            .map(e -> new BahmniEncounter(e, metaData))
+            .filter(e -> e.getSplitEncounters().stream().anyMatch(s -> convSetUuid.equals(s.getFormConceptSetUuid())))
+            .collect(Collectors.toList());
+    }
 }

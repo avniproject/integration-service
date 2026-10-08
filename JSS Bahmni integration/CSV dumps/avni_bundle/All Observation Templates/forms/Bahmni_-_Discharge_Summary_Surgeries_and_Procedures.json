@@ -1,0 +1,66 @@
+{
+  "name": "Bahmni - Discharge Summary, Surgeries and Procedures",
+  "uuid": "f70c2937-e349-11e3-983a-91270dcbd3bf",
+  "formType": "Encounter",
+  "formElementGroups": [
+    {
+      "uuid": "78bfb7cf-302c-49a5-9480-acbb19190017",
+      "name": "Bahmni - Date of Operation",
+      "displayOrder": 1.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Date of Operation",
+          "uuid": "e03b112f-7c64-48b1-924b-3c691950b82f",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Date of Operation",
+            "uuid": "f70cf3ba-e349-11e3-983a-91270dcbd3bf",
+            "dataType": "Date",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "c5f7329f-833c-4c64-9ecb-b1b04f5e6fa2",
+      "name": "Bahmni - Operative Procedure",
+      "displayOrder": 2.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Operative Procedure",
+          "uuid": "97316db4-df5c-43f6-8527-e8e358c864df",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Operative Procedure",
+            "uuid": "f70da424-e349-11e3-983a-91270dcbd3bf",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

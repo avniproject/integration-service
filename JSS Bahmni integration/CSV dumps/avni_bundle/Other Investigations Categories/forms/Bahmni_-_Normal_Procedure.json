@@ -1,0 +1,47 @@
+{
+  "name": "Bahmni - Normal Procedure",
+  "uuid": "67e29147-9bcd-11e3-927e-8840ab96f0f1",
+  "formType": "Encounter",
+  "formElementGroups": [
+    {
+      "uuid": "42601625-c9cb-4495-a9d1-154fea17e4b0",
+      "name": "Bahmni - Esophagogastroduodenoscopy (EGD)",
+      "displayOrder": 1.0,
+      "formElements": [],
+      "timed": false
+    },
+    {
+      "uuid": "56a95d25-a427-4a8b-ae35-0c8f502019a6",
+      "name": "Bahmni - Enteroscopy",
+      "displayOrder": 2.0,
+      "formElements": [],
+      "timed": false
+    },
+    {
+      "uuid": "7f83cccc-1c4c-4bb8-ad75-678d08c95ed5",
+      "name": "Bahmni - Endoscopic retrograde cholangiopancreatography (ERCP)",
+      "displayOrder": 3.0,
+      "formElements": [],
+      "timed": false
+    },
+    {
+      "uuid": "6d95869a-f8bd-4ca9-8907-74d10565bf23",
+      "name": "Bahmni - Laparoscopy",
+      "displayOrder": 4.0,
+      "formElements": [],
+      "timed": false
+    },
+    {
+      "uuid": "604c0d98-05a0-4eab-bb22-242706783781",
+      "name": "Bahmni - Sigmoidoscopy",
+      "displayOrder": 5.0,
+      "formElements": [],
+      "timed": false
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

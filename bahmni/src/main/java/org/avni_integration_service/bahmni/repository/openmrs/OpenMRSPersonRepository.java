@@ -20,4 +20,14 @@ public class OpenMRSPersonRepository extends BaseOpenMRSRepository {
         String outputJson = openMRSWebClient.post(getResourcePath("person"), json);
         return ObjectJsonMapper.readValue(outputJson, OpenMRSUuidHolder.class);
     }
+
+    public void setPersonAttribute(String personUuid, String attributeTypeUuid, String value, String existingAttributeUuid) {
+        String payload = String.format("{\"attributeType\": \"%s\", \"value\": \"%s\"}", attributeTypeUuid, value);
+        String path = String.format("person/%s/attribute", personUuid);
+        if (existingAttributeUuid != null) {
+            openMRSWebClient.post(getSingleResourcePath(path, existingAttributeUuid), payload);
+        } else {
+            openMRSWebClient.post(getResourcePath(path), payload);
+        }
+    }
 }

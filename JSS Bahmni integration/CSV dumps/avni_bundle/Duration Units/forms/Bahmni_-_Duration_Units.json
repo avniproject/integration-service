@@ -1,0 +1,147 @@
+{
+  "name": "Bahmni - Duration Units",
+  "uuid": "8cb0f863-2dfc-11e4-894f-60175255b68f",
+  "formType": "Encounter",
+  "formElementGroups": [
+    {
+      "uuid": "562e7196-92ba-4486-9d07-f974d5448223",
+      "name": "Bahmni - Day(s)",
+      "displayOrder": 1.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Day(s)",
+          "uuid": "bd9e7c0e-3ce2-42a9-bd8a-c517c8bd7854",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Day(s)",
+            "uuid": "8cb66f1a-2dfc-11e4-894f-60175255b68f",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "44ae43d4-3ce1-4d5a-a1b7-dead1cdf13fc",
+      "name": "Bahmni - Hour(s)",
+      "displayOrder": 2.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Hour(s)",
+          "uuid": "2825b8e1-a720-4628-876b-012108fac46d",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Hour(s)",
+            "uuid": "7b5d1822-603c-11e4-a1f2-ba526e30a5ad",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "a9ce5de7-e77e-4bb5-a6dc-61f8f7026250",
+      "name": "Bahmni - Week(s)",
+      "displayOrder": 3.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Week(s)",
+          "uuid": "ed4be679-9571-4eaf-8b5d-025ce9eb60f3",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Week(s)",
+            "uuid": "7b5f2e0a-603c-11e4-a1f2-ba526e30a5ad",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "a5ffc9de-0483-4f06-8da5-9bed0de3ba8e",
+      "name": "Bahmni - Month(s)",
+      "displayOrder": 4.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Month(s)",
+          "uuid": "bbd13512-e741-4ede-a045-0f0e67f565f1",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Month(s)",
+            "uuid": "7b604dcb-603c-11e4-a1f2-ba526e30a5ad",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "83996f25-c9d5-4e46-9135-33407ac6724e",
+      "name": "Bahmni - Minute(s)",
+      "displayOrder": 5.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Minute(s)",
+          "uuid": "3cfcf739-e763-4ac2-bb01-df148d23ba72",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Minute(s)",
+            "uuid": "0a92a6be-89ef-11e4-a1f2-ba526e30a5ad",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

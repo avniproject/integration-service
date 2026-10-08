@@ -1,0 +1,201 @@
+{
+  "name": "Bahmni - Visit Diagnoses",
+  "uuid": "56104bb2-9bc6-11e3-927e-8840ab96f0f1",
+  "formType": "Encounter",
+  "formElementGroups": [
+    {
+      "uuid": "c08d33fb-fa31-4efe-9bc5-c200b802ca72",
+      "name": "Bahmni - Non-coded Diagnosis",
+      "displayOrder": 1.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Non-coded Diagnosis",
+          "uuid": "5a4b668f-d1da-4929-9006-75894e8e6327",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Non-coded Diagnosis",
+            "uuid": "5610932b-9bc6-11e3-927e-8840ab96f0f1",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "14ee3ff1-f685-4e5f-8a51-da1f3e8a34d2",
+      "name": "Bahmni - Coded Diagnosis",
+      "displayOrder": 2.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Coded Diagnosis",
+          "uuid": "adcebb1b-56c0-4cc0-93bc-15c9e347d532",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Coded Diagnosis",
+            "uuid": "5610ce73-9bc6-11e3-927e-8840ab96f0f1",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "a5bc9c10-d0a3-4f5d-8c54-f8ff697edaeb",
+      "name": "Bahmni - Diagnosis Certainty",
+      "displayOrder": 3.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Diagnosis Certainty",
+          "uuid": "bc7404bb-f25f-4dee-ba8b-b78236c481bf",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Diagnosis Certainty",
+            "uuid": "5610f903-9bc6-11e3-927e-8840ab96f0f1",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "79446843-787a-4798-897b-f0080f17c296",
+      "name": "Bahmni - Diagnosis order",
+      "displayOrder": 4.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Diagnosis order",
+          "uuid": "f54f735b-adef-4515-959e-77b3ee1b3a55",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Diagnosis order",
+            "uuid": "56117844-9bc6-11e3-927e-8840ab96f0f1",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "ace8698b-0be3-49d7-aaf6-c1ac8a73149a",
+      "name": "Bahmni - Bahmni Initial Diagnosis",
+      "displayOrder": 5.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Bahmni Initial Diagnosis",
+          "uuid": "ce86183d-2aea-48ad-b3cd-addd79511a09",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Bahmni Initial Diagnosis",
+            "uuid": "e59dca36-e349-11e3-983a-91270dcbd3bf",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "2279df3e-30f5-4e9c-a391-087a5a5a287d",
+      "name": "Bahmni - Bahmni Diagnosis Revised",
+      "displayOrder": 6.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Bahmni Diagnosis Revised",
+          "uuid": "5d1ca7df-8d2f-4322-802a-34d37c4f33e3",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Bahmni Diagnosis Revised",
+            "uuid": "e59e70b3-e349-11e3-983a-91270dcbd3bf",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "880b9a6a-6dd3-4fd4-b7c1-d5db3650edfd",
+      "name": "Bahmni - Bahmni Diagnosis Status",
+      "displayOrder": 7.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Bahmni Diagnosis Status",
+          "uuid": "3958f694-3906-433c-b827-7d78078c919d",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Bahmni Diagnosis Status",
+            "uuid": "e59d191a-e349-11e3-983a-91270dcbd3bf",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

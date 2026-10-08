@@ -1,0 +1,315 @@
+{
+  "name": "Bahmni - Diabetes Intake Template",
+  "uuid": "60619143-5b49-4c10-92f4-0d080cd10b8a",
+  "formType": "Encounter",
+  "formElementGroups": [
+    {
+      "uuid": "c53176bc-95a9-49da-aaac-2045891735c0",
+      "name": "Bahmni - Diabetes, History",
+      "displayOrder": 1.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Diabetes, Diagnosed Date",
+          "uuid": "7dcca04b-a3c2-4971-a043-98cb08e265ca",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Diabetes, Diagnosed Date",
+            "uuid": "1c413fb2-801a-4e84-8fee-8f7d79f0312b",
+            "dataType": "Date",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Diabetes, Treatment Stopped Date",
+          "uuid": "8d65b4da-f248-4135-b756-cd68886950e9",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Diabetes, Treatment Stopped Date",
+            "uuid": "93cee5e7-b8f6-4ea5-a3e6-b94b6a9c6f30",
+            "dataType": "Date",
+            "active": true
+          },
+          "displayOrder": 2.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "fee117b1-67e2-4c33-ba08-3d5b27b1ea30",
+      "name": "Bahmni - Diabetes, Complaint",
+      "displayOrder": 2.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Diabetes, Complaint",
+          "uuid": "429676cb-419f-4a46-9221-f4573874bc89",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Diabetes, Complaint",
+            "uuid": "01badc59-8cd7-4c6e-846b-e1a923c223ee",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "83d5a018-3c6f-4542-bb18-450a02cd2412",
+      "name": "Bahmni - Diabetes, Other Complaints",
+      "displayOrder": 3.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Diabetes, Other Complaints",
+          "uuid": "f9dcda8d-512b-4b81-8c0c-f07532680905",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Diabetes, Other Complaints",
+            "uuid": "1b924377-b2a4-454e-88d6-124c939c46b4",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "40bfb6bb-428f-4c61-9411-a104e4f7a13f",
+      "name": "Bahmni - Diabetes, Complications",
+      "displayOrder": 4.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Diabetes, Complications",
+          "uuid": "f280f17c-06a5-44aa-baed-818b2d5041f5",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Diabetes, Complications",
+            "uuid": "5ec8dd19-2446-4edf-818b-5faffec63427",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "10405d5a-5123-484e-8362-8fb2a686bc01",
+      "name": "Bahmni - Diabetes, Other Complications",
+      "displayOrder": 5.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Diabetes, Other Complications",
+          "uuid": "8aa97518-81a7-4389-b36f-b2892e41b9e1",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Diabetes, Other Complications",
+            "uuid": "a1cb3d0c-cecd-4589-9e3c-d0836bc93194",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "9a9093e9-ad87-4ea5-8296-f5a1d67292fe",
+      "name": "Bahmni - Diabetes, Examination",
+      "displayOrder": 6.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Diabetes, Peripheral Pulses",
+          "uuid": "71af7c78-ae23-42bc-ae1f-f589e6978d7c",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Diabetes, Peripheral Pulses",
+            "uuid": "db466f75-584e-47ef-96a6-ccde4482a1db",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Diabetes, Sensory Charting Assessment",
+          "uuid": "f7146ead-f2ae-4c8b-b205-bfd07ba79f47",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Diabetes, Sensory Charting Assessment",
+            "uuid": "2b40efca-8d5d-4690-a37f-ff4d4ada5102",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 2.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Diabetes, Skin fold Thickness",
+          "uuid": "da7dc234-74ca-4829-b9a3-7f60220f0235",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Diabetes, Skin fold Thickness",
+            "uuid": "a408441f-d028-4a61-9a3b-2ffa1a607e5e",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 3.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Diabetes, Foot Exam",
+          "uuid": "cbd0991e-1fdb-4085-a4e4-3271fed49da0",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Diabetes, Foot Exam",
+            "uuid": "5508a7b2-f583-473d-8cf9-f7fc25101ee8",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 4.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Diabetes, Eye Exam",
+          "uuid": "52116e5b-625b-46c4-817e-736b2922cd2d",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Diabetes, Eye Exam",
+            "uuid": "77f81858-101d-4726-abe6-b279d81cdbb6",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 5.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "7050605d-d18f-4189-9502-356d23607add",
+      "name": "Bahmni - Diabetes, Investigations",
+      "displayOrder": 7.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Diabetes, Electrocardiography",
+          "uuid": "adc19f92-7eea-4aa8-b4c2-43b0ff34625d",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Diabetes, Electrocardiography",
+            "uuid": "e1aafdd6-29fb-4b1d-b78c-8b1768b98efd",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Diabetes, X-Ray",
+          "uuid": "8ae63b42-327c-4b24-b932-69de3283c042",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Diabetes, X-Ray",
+            "uuid": "f2884e7d-0173-4b6c-8108-a4d80b37e713",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 2.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

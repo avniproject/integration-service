@@ -6,6 +6,7 @@ import org.avni_integration_service.bahmni.BahmniEntityType;
 import org.avni_integration_service.bahmni.BahmniErrorType;
 import org.avni_integration_service.bahmni.ConstantKey;
 import org.avni_integration_service.bahmni.SubjectToPatientMetaData;
+import org.avni_integration_service.bahmni.contract.OpenMRSPersonAttribute;
 import org.avni_integration_service.bahmni.client.WebClientsException;
 import org.avni_integration_service.bahmni.contract.*;
 import org.avni_integration_service.bahmni.mapper.avni.SubjectMapper;
@@ -45,6 +46,7 @@ public class PatientService {
         } else {
             OpenMRSEncounter encounter = subjectMapper.mapSubjectToExistingEncounter(existingEncounter, subject, patient.getUuid(), subjectToPatientMetaData.encounterTypeUuid(), constants);
             openMRSEncounterRepository.updateEncounter(encounter);
+            writeAvniSubjectUuidToBahmni(subject, patient, constants);
             avniBahmniErrorService.successfullyProcessed(subject);
         }
     }
@@ -56,7 +58,7 @@ public class PatientService {
         var visit = visitService.getOrCreateVisit(patient, subject);
         OpenMRSEncounter encounter = subjectMapper.mapSubjectToEncounter(subject, patient.getUuid(), subjectToPatientMetaData.encounterTypeUuid(), constants, visit);
         OpenMRSFullEncounter savedEncounter = openMRSEncounterRepository.createEncounter(encounter);
-
+        writeAvniSubjectUuidToBahmni(subject, patient, constants);
         avniBahmniErrorService.successfullyProcessed(subject);
         return savedEncounter;
     }
@@ -68,6 +70,22 @@ public class PatientService {
         var newPatient = createPatient(subject, subjectToPatientMetaData, constants);
         var fullPatientObject = getPatient(newPatient.getUuid());
         return createSubject(subject, fullPatientObject, subjectToPatientMetaData, constants);
+    }
+
+    public void writeAvniUuidToPatient(Subject subject, OpenMRSPatient patient, Constants constants) {
+        writeAvniSubjectUuidToBahmni(subject, patient, constants);
+    }
+
+    private void writeAvniSubjectUuidToBahmni(Subject subject, OpenMRSPatient patient, Constants constants) {
+        String attributeTypeUuid = constants.getValue(ConstantKey.AvniSubjectUuidBahmniAttributeTypeUuid.name());
+        if (attributeTypeUuid == null) return;
+
+        String existingAttributeUuid = patient.getPerson().getAttributes().stream()
+                .filter(a -> attributeTypeUuid.equals(a.getAttributeType().getUuid()))
+                .map(OpenMRSPersonAttribute::getUuid)
+                .findFirst().orElse(null);
+
+        openMRSPersonRepository.setPersonAttribute(patient.getUuid(), attributeTypeUuid, subject.getUuid(), existingAttributeUuid);
     }
 
     public Pair<OpenMRSPatient, OpenMRSFullEncounter> findSubject(Subject subject, Constants constants, SubjectToPatientMetaData subjectToPatientMetaData) throws PatientEncounterEventWorker.SubjectIdChangedException {

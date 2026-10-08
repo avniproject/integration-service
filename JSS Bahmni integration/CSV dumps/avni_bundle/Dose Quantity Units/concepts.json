@@ -1,0 +1,146 @@
+[
+  {
+    "name": "Bahmni - Ayurvedic",
+    "uuid": "1cef35bb-c792-4249-98bd-a92b1df6b5b1",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Capsule(s)",
+    "uuid": "53854ae7-1c1f-45d8-90fd-5a53ce463ba7",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Cream",
+    "uuid": "35e0684a-285e-40d2-8f68-6f4f11e69f02",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Drops",
+    "uuid": "91d0df98-3d0c-404f-9dc0-7c299d1e5a21",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Food Supplement",
+    "uuid": "0234b981-836f-400b-b91f-e8599d13ea2b",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Gel",
+    "uuid": "a8306b7c-bb6e-4abe-b993-7a4d0854ed48",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Granule",
+    "uuid": "eb9ea49c-d77e-486a-bace-c792fc029f6f",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - IU",
+    "uuid": "5eefd932-603e-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Inhaler",
+    "uuid": "fed337be-5c72-49d4-bb35-fa610eb8307e",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Injection",
+    "uuid": "dcaf558e-369e-4bf5-b18b-09bd5c987a2f",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Jelly",
+    "uuid": "d54d5a45-54e1-4c80-8a47-8309c373ee07",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Liquid",
+    "uuid": "c6c64bc2-1228-4c9e-988b-a2ddeebbd49f",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Lotion",
+    "uuid": "37742f06-cbfe-4130-9459-704e4345884f",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Ointment",
+    "uuid": "dde64e58-e00f-4cf7-8daa-71f65ca7772b",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Pessary",
+    "uuid": "411ef51e-2c80-4fe1-a5ef-dba2edc648a6",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Powder",
+    "uuid": "5dd0dfdf-47d6-449e-86f7-ed19a52fae09",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Solution",
+    "uuid": "af5b6109-4f7a-472c-bfae-ca1b00a5d7c5",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Spray",
+    "uuid": "3d290abb-e633-4a72-b86c-c3397479f201",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Syrup",
+    "uuid": "5108a8a7-037c-4ab2-8ca2-149a843dda8a",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Tablet(s)",
+    "uuid": "e2b80de6-a30b-4ec3-869a-a22265717a71",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - Unit(s)",
+    "uuid": "5ef053b6-603e-11e4-a1f2-ba526e30a5ad",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - mg",
+    "uuid": "8c4572fa-2dfc-11e4-894f-60175255b68f",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ml",
+    "uuid": "8c4469ab-2dfc-11e4-894f-60175255b68f",
+    "dataType": "Text",
+    "active": true
+  },
+  {
+    "name": "Bahmni - ml (syrup)",
+    "uuid": "cb3a525b-8e00-40f2-b159-8835f657d212",
+    "dataType": "Text",
+    "active": true
+  }
+]

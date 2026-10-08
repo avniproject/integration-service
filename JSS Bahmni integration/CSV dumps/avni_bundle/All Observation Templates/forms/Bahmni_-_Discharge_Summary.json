@@ -1,0 +1,544 @@
+{
+  "name": "Bahmni - Discharge Summary",
+  "uuid": "f709eca4-e349-11e3-983a-91270dcbd3bf",
+  "formType": "Encounter",
+  "formElementGroups": [
+    {
+      "uuid": "554c1836-3b7a-45da-b670-c20df181a2c7",
+      "name": "Bahmni - Discharge Summary, Template",
+      "displayOrder": 1.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Discharge Summary, Template",
+          "uuid": "a0e716ed-61f9-41ce-a3df-1c06f9989bb2",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Discharge Summary, Template",
+            "uuid": "1c2f918e-788e-410f-90af-fedc295e9691",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "1d5131a3-877a-43cf-830b-38a368e4d5fb",
+      "name": "Bahmni - Discharge Summary, Treating Doctor",
+      "displayOrder": 2.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Discharge Summary, Treating Doctor",
+          "uuid": "2dbddcf9-8ce1-4e92-9be1-1d0c0a4825d2",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Discharge Summary, Treating Doctor",
+            "uuid": "32386858-405f-417a-8b4d-e622c57b9029",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "3233febc-b372-4f78-9030-57e7f45a9344",
+      "name": "Bahmni - Discharge Summary, Admission Indication",
+      "displayOrder": 3.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Discharge Summary, Admission Indication",
+          "uuid": "7db36556-3e84-4ed7-a9bf-180e97ca7a2c",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Discharge Summary, Admission Indication",
+            "uuid": "248b167d-b451-4e32-9e1e-f301ddb22b79",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "9d2bc9bb-3705-453e-9e7a-2f4ecff175e2",
+      "name": "Bahmni - Discharge Summary, Emergency Care",
+      "displayOrder": 4.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Discharge Summary, Emergency Care",
+          "uuid": "82fea7ea-fb24-40e2-8c84-6217d46ff24e",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Discharge Summary, Emergency Care",
+            "uuid": "a47955eb-9ecc-4c49-a02b-ff1b8cf1fca6",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "89c91dc4-1edf-4244-8f9e-8638660c7812",
+      "name": "Bahmni - Hospital Course",
+      "displayOrder": 5.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Hospital Course",
+          "uuid": "27b4353f-b5a3-45db-b418-d2d51ff5775d",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Hospital Course",
+            "uuid": "f70a9549-e349-11e3-983a-91270dcbd3bf",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "0de63b3f-9db6-45e4-a28d-542fb412fe66",
+      "name": "Bahmni - Discharge Summary, Condition at the time of discharge",
+      "displayOrder": 6.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Discharge Summary, Condition at the time of discharge",
+          "uuid": "b9b99d54-f0ac-424e-9790-a62c1854b93a",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Discharge Summary, Condition at the time of discharge",
+            "uuid": "c02bf4f7-0732-4a71-a596-9e8a73766ba0",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "a8b8ea9a-9401-4409-95bf-5882144e5995",
+      "name": "Bahmni - History and Examination Notes",
+      "displayOrder": 7.0,
+      "formElements": [
+        {
+          "name": "Bahmni - History and Examination Notes",
+          "uuid": "89d1e87d-2209-4c2c-9d81-d62898cfeea7",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - History and Examination Notes",
+            "uuid": "f70b495a-e349-11e3-983a-91270dcbd3bf",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "ef884a7c-9f67-40ff-96c7-4704f4d7cd05",
+      "name": "Bahmni - Recent Diagnosis",
+      "displayOrder": 8.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Recent Diagnosis",
+          "uuid": "48e5632e-61a9-4b0d-9cbc-189c330451c7",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Recent Diagnosis",
+            "uuid": "2c3f5e9a-4005-47f5-a00f-13c09c6f9a22",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "b22cd02b-552b-4388-8592-cd59dd044ad3",
+      "name": "Bahmni - Discharge Summary, Surgeries and Procedures",
+      "displayOrder": 9.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Date of Operation",
+          "uuid": "f1cb1f5c-2741-4f68-9758-02f68bd3f1a3",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Date of Operation",
+            "uuid": "f70cf3ba-e349-11e3-983a-91270dcbd3bf",
+            "dataType": "Date",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        },
+        {
+          "name": "Bahmni - Operative Procedure",
+          "uuid": "deea8090-60c2-4f40-b0e5-5fc1a5e78613",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Operative Procedure",
+            "uuid": "f70da424-e349-11e3-983a-91270dcbd3bf",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 2.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "d59b45a3-da3b-4501-a955-9c0a0122b8a1",
+      "name": "Bahmni - Discharge Summary, Surgical Indication",
+      "displayOrder": 10.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Discharge Summary, Surgical Indication",
+          "uuid": "ded87d87-cd3d-4318-b7a8-034062399a07",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Discharge Summary, Surgical Indication",
+            "uuid": "3e8d5237-dbee-4b37-8f73-94c6d3561a60",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "aa2a14e9-6977-4d5c-963b-66c9e9368ea3",
+      "name": "Bahmni - Follow up Date",
+      "displayOrder": 11.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Follow up Date",
+          "uuid": "c0a6b522-e34c-43d5-b4d0-cda68f194507",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Follow up Date",
+            "uuid": "f70e53b2-e349-11e3-983a-91270dcbd3bf",
+            "dataType": "Date",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "ea9fde8c-b6c2-406c-beb7-2bc8dc419ab7",
+      "name": "Bahmni - Discharge Summary, Plan for follow up",
+      "displayOrder": 12.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Discharge Summary, Plan for follow up",
+          "uuid": "dced5836-a2bc-46c1-96e2-6064d4e5ff1d",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Discharge Summary, Plan for follow up",
+            "uuid": "aab962f0-04bb-49de-a025-d9be151ced91",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "b7009c21-ace6-4a3a-aa5f-838988d38f8c",
+      "name": "Bahmni - Lab Investigation Notes",
+      "displayOrder": 13.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Lab Investigation Notes",
+          "uuid": "b9a857e2-4a97-4a4d-9f8f-b2076b7276a9",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Lab Investigation Notes",
+            "uuid": "f70f2a72-e349-11e3-983a-91270dcbd3bf",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "9fbd9fe2-2df9-4ea4-ab2e-986a3db3c2a5",
+      "name": "Bahmni - Radiology Notes",
+      "displayOrder": 14.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Radiology Notes",
+          "uuid": "29d44073-7f52-4e37-953b-23a69466b4b7",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Radiology Notes",
+            "uuid": "f71000b3-e349-11e3-983a-91270dcbd3bf",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "7267cfc9-b7d5-4234-80b2-f08e816ef0af",
+      "name": "Bahmni - Other Notes",
+      "displayOrder": 15.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Other Notes",
+          "uuid": "36d95b15-b871-4c26-aec4-362eb650b8e6",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Other Notes",
+            "uuid": "f7c4ff97-e349-11e3-983a-91270dcbd3bf",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "75a75714-a3dc-4caa-a675-0cfa0de82b1a",
+      "name": "Bahmni - Advice on Discharge",
+      "displayOrder": 16.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Advice on Discharge",
+          "uuid": "2fbc2c51-b570-4b57-8dc7-c514ed467e7f",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Advice on Discharge",
+            "uuid": "0e07c1aa-ed88-11e3-8f57-746bba63c2a3",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "f9291e82-5563-4fd0-bf07-fc906730ddc0",
+      "name": "Bahmni - Discharge Summary, Urgent Care",
+      "displayOrder": 17.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Discharge Summary, Urgent Care",
+          "uuid": "469dabf2-4db9-4da4-ac88-2ed76295e54e",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Discharge Summary, Urgent Care",
+            "uuid": "89fca858-e760-40b8-a459-463d74bef17d",
+            "dataType": "Text",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "6cccde88-3b7c-4254-8957-04395f77c482",
+      "name": "Bahmni - Emergency Contact Person",
+      "displayOrder": 18.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Emergency Contact Person",
+          "uuid": "517d9098-0ea1-446b-b99a-b9171d2c4b09",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Emergency Contact Person",
+            "uuid": "8b208563-0aa0-4f5f-88b9-282f80393ed8",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    },
+    {
+      "uuid": "16300dd1-a3d7-4ccc-9dae-08d0fb6784ba",
+      "name": "Bahmni - Emergency Contact Number",
+      "displayOrder": 19.0,
+      "formElements": [
+        {
+          "name": "Bahmni - Emergency Contact Number",
+          "uuid": "0924c4f7-84b1-4651-a915-12706815d5e2",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni - Emergency Contact Number",
+            "uuid": "84b2f2a6-90f6-4a9f-92d5-358050b8a241",
+            "dataType": "Coded",
+            "active": true
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}
