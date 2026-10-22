@@ -93,25 +93,19 @@ The Flyway migration for this is:
 
 ## Bahmni Setup Required
 
-The person attribute type must exist in Bahmni with UUID `ceddfccf-7913-4a63-b60e-d3114f867e4b`. It should be:
+The person attribute type must exist in Bahmni (once per Bahmni instance). Prerelease has it (created 2026-04-23).
 
-- **Name:** Avni Subject UUID (or similar)
-- **Format:** Text
-- **Searchable:** No (internal link, not for clinical use)
+| Field | Value |
+|---|---|
+| Name | `avni_subject_uuid` |
+| Description | Avni Subject UUID |
+| Format | `java.lang.String` (Text) |
+| Searchable | No |
+| UUID | `ceddfccf-7913-4a63-b60e-d3114f867e4b` |
 
-Verify it exists: Bahmni Admin → Person Attribute Types → search for the UUID.
+Create it with `JSS Bahmni integration/bahmni-config/avni-subject-uuid-attribute.sql` (checks first, creates only if missing) — see [07-deployment-runbook.md](07-deployment-runbook.md), Step 1.
 
-### Make the Attribute Read-Only in Bahmni UI
-
-The UUID is written by the integration service and must not be editable by Bahmni users. Add the attribute name to `"readOnlyExtraIdentifiers"` in `app.json` — the value will be visible on the registration screen but cannot be edited:
-
-```json
-"patientConfig": {
-  "readOnlyExtraIdentifiers": ["Avni Subject UUID"]
-}
-```
-
-**How to apply:** The `app.json` file lives on the Bahmni server (path varies by installation, typically under the Bahmni configuration directory). Requires server file access to edit and a cache clear / app restart to take effect.
+It is **not** shown on the Bahmni registration screen, so staff cannot edit it; only the integration writes it. Doctors see it as the "View in Avni" link on the patient dashboard ([bahmni-config/README.md](../bahmni-config/README.md)).
 
 ---
 

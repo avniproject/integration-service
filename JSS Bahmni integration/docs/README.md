@@ -16,6 +16,7 @@ Branch: `jss_ganiyari_dev` · Module: `bahmni/`
 | [04-integration-worker-reference.md](04-integration-worker-reference.md) | All workers in the bahmni module and what each does |
 | [05-avni-uuid-bahmni-attribute-sync.md](05-avni-uuid-bahmni-attribute-sync.md) | Writing the Avni ID onto the Bahmni patient ("View on Avni") |
 | [06-bahmni-patient-creation.md](06-bahmni-patient-creation.md) | **Planned, after go-live:** creating Bahmni patients for people with no Bahmni ID — gaps, cluster → clinic table, questions for JSS |
+| [07-deployment-runbook.md](07-deployment-runbook.md) | **Deploying** to prerelease / production: Bahmni attribute + dashboard link, Avni bundle and users, avni-int backup/clean-up, settings, checks, rollback |
 
 Final form list from JSS: [Google Sheet](https://docs.google.com/spreadsheets/d/1ZRTp0mB2xPG5vlQMetj6Tp35jS9pQS2kBvV1I1tS7f0/edit?gid=2110362113#gid=2110362113)
 
