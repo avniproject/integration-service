@@ -8,6 +8,8 @@ import org.avni_integration_service.util.ObjectJsonMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.net.URI;
+
 @Component
 public class OpenMRSPersonRepository extends BaseOpenMRSRepository {
     @Autowired
@@ -29,5 +31,9 @@ public class OpenMRSPersonRepository extends BaseOpenMRSRepository {
         } else {
             openMRSWebClient.post(getResourcePath(path), payload);
         }
+    }
+
+    public void removePersonAttribute(String personUuid, String attributeUuid) {
+        openMRSWebClient.delete(URI.create(getSingleResourcePath(String.format("person/%s/attribute", personUuid), attributeUuid)));
     }
 }

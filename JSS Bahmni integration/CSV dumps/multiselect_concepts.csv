@@ -1,0 +1,62 @@
+uuid,name,source
+cb7c8b06-8b6d-495d-a89c-04855ca8f7a1,Anesthesia Administered,bahmni-config: openmrs/apps/clinical/app.json
+562771d5-d468-4dcc-9195-5009747cca32,Any Symptoms,bahmni-config: openmrs/apps/clinical/app.json
+64645d42-7e42-4658-ae31-d4b7b0b965b1,Are there any medicine side effects,bahmni-config: openmrs/apps/clinical/app.json
+d2acaab5-b339-40a0-9dcb-da04e0bc280d,Associated Risk Factors,bahmni-config: openmrs/apps/clinical/app.json
+f2e60be3-448f-4d98-b5f3-e479ad5e872d,"Breast Cancer, Axillary",bahmni-config: openmrs/apps/clinical/app.json
+93f35ec3-6392-4adb-b809-badcdbc41be5,"Breast Cancer, Infra Clavicular",bahmni-config: openmrs/apps/clinical/app.json
+610ed496-51a4-4b0a-81de-b8488766cb5c,"Breast Cancer, Supra Clavicular",bahmni-config: openmrs/apps/clinical/app.json
+71a65c2b-ccfe-462c-9e12-d2e1766671e7,"CDST Form, Drugs used in his treatment",bahmni-config: openmrs/apps/clinical/app.json
+3bd72637-c771-42ed-b7f0-2e1607076dad,"Cancer Registration, Addictions",bahmni-config: openmrs/apps/clinical/app.json
+03a7cee0-d957-4cdd-909a-0ef95afb32fb,"Cancer Registration, Basis of Diagnosis",bahmni-config: openmrs/apps/clinical/app.json
+77c98370-a977-4fea-899e-fe6363a8ab38,"Cancer Registration, Co-morbid conditions",bahmni-config: openmrs/apps/clinical/app.json
+9122664a-b4e0-4fd7-909f-7ff395d21006,"Cancer Registration, Gastro Intestinal",bahmni-config: openmrs/apps/clinical/app.json
+a8477f40-3717-48a3-bece-fc38c7ce589d,"Cancer Registration, Genitourinary",bahmni-config: openmrs/apps/clinical/app.json
+031846e9-ac59-437e-a585-0b75dd0eec44,"Cancer Registration, Gynecology",bahmni-config: openmrs/apps/clinical/app.json
+a2c9d354-a7e8-474a-9d30-ef994e497260,"Cancer Registration, Head and Neck",bahmni-config: openmrs/apps/clinical/app.json
+1cce3922-63b7-4954-af45-b665f31820cd,"Cancer Registration, Musculo skeletal",bahmni-config: openmrs/apps/clinical/app.json
+23446b55-c447-4b9f-b7ad-d703509ba6c6,"Cancer Registration, Skin",bahmni-config: openmrs/apps/clinical/app.json
+4ab79d3d-4d52-4d9e-84d7-c32c953abdd7,"Cancer, Regimen Type",bahmni-config: openmrs/apps/clinical/app.json
+70d233b5-38e1-4456-aac0-cf1088c28e43,Cause of seizure,bahmni-config: openmrs/apps/clinical/app.json
+9a36719d-0720-4a3e-a76b-b28577e28c57,"Cervical Cancer, Chemo",bahmni-config: openmrs/apps/clinical/app.json
+784340ef-4099-48aa-97fa-603417403f81,"Clinical diagnosis of EPTB, Investigation used",bahmni-config: openmrs/apps/clinical/app.json
+fb970bef-dacd-4995-860a-61c5ff4f2e4d,Coded Operating Assistant Surgeon,bahmni-config: openmrs/apps/clinical/app.json
+5283755c-056a-464a-949b-674c1a4dbe02,Coded Operating Surgeon,bahmni-config: openmrs/apps/clinical/app.json
+cc539654-1e3e-4d16-86aa-c4e37ee54f2c,Coded Operation Anesthetist,bahmni-config: openmrs/apps/clinical/app.json
+5aa2a043-10cd-4529-813a-a31ab43fb8df,Comorbidities (if any),bahmni-config: openmrs/apps/clinical/app.json
+112d6d76-1822-4f8a-ac4c-356c6bb68b9b,Danger sign and Symptoms,bahmni-config: openmrs/apps/clinical/app.json
+3575e548-961e-41f9-8c50-501bfea91dc1,Dental Advice,bahmni-config: openmrs/apps/clinical/app.json
+01badc59-8cd7-4c6e-846b-e1a923c223ee,"Diabetes, Complaint",bahmni-config: openmrs/apps/clinical/app.json
+5ec8dd19-2446-4edf-818b-5faffec63427,"Diabetes, Complications",bahmni-config: openmrs/apps/clinical/app.json
+be25a305-ff75-4602-93ad-9dc9b2a1c3c6,"Epilepsy, Type of disease",bahmni-config: openmrs/apps/clinical/app.json
+aed23f6d-f565-4558-af0e-39dabd072285,Habits,bahmni-config: openmrs/apps/clinical/app.json
+4097c8ab-cf11-449c-99e1-96e216a91898,High Risk Last Pregnancy,bahmni-config: openmrs/apps/clinical/app.json
+5bb9b870-60ec-479f-b9fa-34c343cc85c6,High Risk This Pregnancy,bahmni-config: openmrs/apps/clinical/app.json
+81a2197e-1777-4649-9ccd-a92937022f72,History of Prior Chemo Radio Therapy,bahmni-config: openmrs/apps/clinical/app.json
+132e53b4-a7f0-4c54-a310-b62a6a4cdb37,"If No, what is the problem",bahmni-config: openmrs/apps/clinical/app.json
+a23dc7f5-9f0b-4670-83d7-4c3aa7b12ac1,Medicine,bahmni-config: openmrs/apps/clinical/app.json
+7c6fa392-3793-447e-9fcc-74bc3d3ef2da,"Palliative Care Assessment, Complaints",bahmni-config: openmrs/apps/clinical/app.json
+73cb96df-5e84-4272-a3bc-44de2d0de690,Past Dental History,bahmni-config: openmrs/apps/clinical/app.json
+c766cfda-d5ac-4dd0-8143-557859549a6a,Past Medical History,bahmni-config: openmrs/apps/clinical/app.json
+c8e02aeb-5f0c-44a1-922c-cc099a8874d7,Plan of Treatment,bahmni-config: openmrs/apps/clinical/app.json
+9f2851ef-a73e-4dc8-b9d0-904d51ef1928,Present Pregnancy with Diagnosed Complications,bahmni-config: openmrs/apps/clinical/app.json
+b69afc94-b5ea-4ee6-893d-8a62b5e57286,"Psychiatry, Anxiety Complaints",bahmni-config: openmrs/apps/clinical/app.json
+f0fd8bc6-0623-47a8-815f-4defb8bbc9c1,"Psychiatry, Depression Complaints",bahmni-config: openmrs/apps/clinical/app.json
+24c4872b-10a1-408a-94ae-b4cb74544755,"Psychiatry, Mania Complaints",bahmni-config: openmrs/apps/clinical/app.json
+3b8b2ca3-9bdb-4446-9d1d-d46c916fa29d,"Psychiatry, Physical Complaints",bahmni-config: openmrs/apps/clinical/app.json
+b317768e-7892-42ac-802a-48ee1ff84ac1,"Psychiatry, Psychosis Complaints",bahmni-config: openmrs/apps/clinical/app.json
+fda8af0c-b374-400c-b206-af13905f1fe7,"Psychiatry, Sexual History",bahmni-config: openmrs/apps/clinical/app.json
+7416def9-f047-41cd-94f5-52f9329f2f0f,"Psychiatry, Substance Use Complications",bahmni-config: openmrs/apps/clinical/app.json
+43609062-ed43-495f-9d71-752d3c137745,"Psychiatry, Substance Use Drug Dependence Criteria",bahmni-config: openmrs/apps/clinical/app.json
+8311d63b-d498-49b1-b2a8-666c9a9159e8,"RNTCP, Testing centre",bahmni-config: openmrs/apps/clinical/app.json
+87985f58-58f0-4e31-914d-2068d301254f,Referral reason,bahmni-config: openmrs/apps/clinical/app.json
+f09cd5bd-68c0-4bce-9ce5-857cfa5dc461,"Sickle Cell Disease, Complications",bahmni-config: openmrs/apps/clinical/app.json
+96950f67-b4d6-44de-b1a9-2e8a33c97a21,Signs,bahmni-config: openmrs/apps/clinical/app.json
+51ad1c27-1f44-4cd5-9dfe-43849a6d70e0,"Summary, Advice",bahmni-config: openmrs/apps/clinical/app.json
+96a300a6-6f5c-492d-bc97-880eff80b4fe,"Tuberculosis, Adverse Effects",bahmni-config: openmrs/apps/clinical/app.json
+15a61c3f-697f-4379-ae18-b42800459fd9,"Tuberculosis, Basis of Diagnosis",bahmni-config: openmrs/apps/clinical/app.json
+be51b9fb-3c07-472a-8c1b-363516d1924f,"Tuberculosis, Comorbidity",bahmni-config: openmrs/apps/clinical/app.json
+c4eeffc6-3f29-41ce-9cc1-0199ad22e785,"Tuberculosis, Extrapulmonary Site",bahmni-config: openmrs/apps/clinical/app.json
+def62668-2ab2-4991-ae4e-901c19347b5d,Why was CBNAAT useful?,bahmni-config: openmrs/apps/clinical/app.json
+0161fffc-e2b0-4cfc-b78b-66c5d5edfe0d,Albumin (Routine Urine),"bahmni-data: 649 obs groups with more than one answer (prerelease, Oct 2026)"
+478eddf6-92b2-435f-b86e-a31915dcb5cb,Sugar (Routine Urin),"bahmni-data: 563 obs groups with more than one answer (prerelease, Oct 2026)"

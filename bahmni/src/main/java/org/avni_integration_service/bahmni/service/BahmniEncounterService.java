@@ -54,6 +54,14 @@ public class BahmniEncounterService {
         return encounterRepository.getEncountersByPatient(patientUuid);
     }
 
+    public List<String> getAllEncounterUuidsForPatient(String patientUuid) {
+        return encounterRepository.getEncounterUuidsByPatient(patientUuid);
+    }
+
+    public OpenMRSFullEncounter getEncounter(String encounterUuid) {
+        return encounterRepository.getEncounterByUuid(encounterUuid);
+    }
+
     public List<OpenMRSFullEncounter> getAllEncountersByPatientAndType(String patientUuid, String encounterTypeUuid) {
         return encounterRepository.getEncounterByPatientAndEncType(patientUuid, encounterTypeUuid);
     }

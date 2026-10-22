@@ -1,0 +1,7 @@
+{
+  "name": "Bahmni Patient Registration Encounter Cancellation",
+  "uuid": "f5781390-7ce1-454f-b538-f934a3098e47",
+  "formType": "IndividualEncounterCancellation",
+  "formElementGroups": [],
+  "decisionConcepts": []
+}

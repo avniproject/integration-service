@@ -1,0 +1,9 @@
+[
+  {
+    "name": "Bahmni Patient Registration",
+    "uuid": "639e3e08-41e5-41d3-a16d-ccef7f264655",
+    "entityEligibilityCheckRule": "'use strict';\n({params, imports}) => {\n  const individual = params.entity;\n  return false;\n};",
+    "active": true,
+    "immutable": false
+  }
+]

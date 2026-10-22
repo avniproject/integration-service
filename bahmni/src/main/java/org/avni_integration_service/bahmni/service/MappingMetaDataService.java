@@ -6,7 +6,9 @@ import org.avni_integration_service.integration_data.domain.*;
 import org.avni_integration_service.integration_data.repository.IgnoredIntegratingConceptRepository;
 import org.avni_integration_service.integration_data.repository.MappingMetaDataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -60,9 +62,15 @@ public class MappingMetaDataService {
         return new PatientToSubjectMetaData(bahmniEntityUuidConceptInAvni, avniIdentifierConcept, patientEncounterType, patientIdentifierName);
     }
 
+    // Loaded once per run and used after this session closes, so load the lazy group/type of each form mapping now
+    @Transactional(readOnly = true)
     public BahmniEncounterToAvniEncounterMetaData getForBahmniEncounterToAvniEntities() {
         List<MappingMetaData> mappings = mappingMetaDataRepository.findAllByMappingTypeAndIsVoidedFalse(bahmniMappingType.encounterType);
         BahmniEncounterToAvniEncounterMetaData metaData = new BahmniEncounterToAvniEncounterMetaData();
+        mappings.forEach(mapping -> {
+            Hibernate.initialize(mapping.getMappingGroup());
+            Hibernate.initialize(mapping.getMappingType());
+        });
         metaData.addEncounterMappings(mappings);
 
         String bahmniEntityUuidConceptInAvni = mappingService.getAvniValue(bahmniMappingGroup.common, bahmniMappingType.bahmniUUIDConcept);

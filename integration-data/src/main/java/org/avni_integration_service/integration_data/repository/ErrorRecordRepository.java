@@ -29,6 +29,8 @@ public interface ErrorRecordRepository extends PagingAndSortingRepository<ErrorR
 
     List<ErrorRecord> findAllByAvniEntityTypeNotNull();
 
+    List<ErrorRecord> findAllByAvniEntityTypeAndIntegrationSystem(AvniEntityType avniEntityType, IntegrationSystem integrationSystem);
+
     default ErrorRecord saveErrorRecord(ErrorRecord errorRecord) {
         errorRecord.setIntegrationSystem(getIntegrationSystem());
         return this.save(errorRecord);

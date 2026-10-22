@@ -1,0 +1,34 @@
+bahmni_form,status,extra_top_level_sets,note
+REGISTRATION_CONCEPTS,build,,"Recorded inside ""Mobile clinic - Registration second page"" (138 times, last 2016) - synced from there"
+Visit Diagnoses,build,,
+Blood Pressure,build,,Always recorded inside Vitals - its data appears in the Bahmni - Vitals visit; this form stays empty
+Discharge Summary,build,,
+"Discharge Summary, Surgeries and Procedures",build,,Always recorded inside Discharge Summary - its data appears in the Bahmni - Discharge Summary visit; this form stays empty
+death template,build,,
+Endoscopy,not-built,,No questions in the Bahmni dump (only procedure names) and never recorded on prerelease
+Advanced Procedure,not-built,,No questions in the Bahmni dump (only procedure names) and never recorded on prerelease
+Normal Procedure,not-built,,No questions in the Bahmni dump (only procedure names) and never recorded on prerelease
+Lab Samples,not-built,,Never recorded on prerelease (2013-2025); lab results sync through All_Tests_and_Panels
+All_Tests_and_Panels,build,,Lab results arrive as flat obs on the LAB_RESULT encounter (LabEncounterType mapping)
+Obstetrical History,build,,"Recorded inside ""OBS/GYN Common"" (101 times, last 2014) - synced from there"
+"Obstetrics, P/V (per vaginal)",build,,"Recorded inside ""Obstetrics"" (4 times, last Dec 2023) - synced from there"
+"Obstetrics, P/A (per abdomen)",build,,"Recorded inside ""Obstetrics"" (365 times, last Dec 2023) - synced from there"
+"Ante Natal Care Program, Outcomes",not-built,,Never recorded on prerelease and the dump has no questions for it - needs a fresh Bahmni export if JSS confirm prod has data
+Diabetes Counselling Template,build,,
+Diabetes Intake Template,build,,
+CDST Forms,build,RMRCT Form;RNTCP Form,"Doctors fill RMRCT Form / RNTCP Form on their own (3,462 + 490 visits)"
+Dose Quantity Units,covered,,"Prescription drop-down values - prescriptions sync as one readable line in Bahmni - Medication (agreed Oct 2026, route/instructions not included)"
+Dosing Units,covered,,"Prescription drop-down values - prescriptions sync as one readable line in Bahmni - Medication (agreed Oct 2026, route/instructions not included)"
+Drug Routes,covered,,"Prescription drop-down values - prescriptions sync as one readable line in Bahmni - Medication (agreed Oct 2026, route/instructions not included)"
+Duration Units,covered,,"Prescription drop-down values - prescriptions sync as one readable line in Bahmni - Medication (agreed Oct 2026, route/instructions not included)"
+Dosing Instructions,covered,,"Prescription drop-down values - prescriptions sync as one readable line in Bahmni - Medication (agreed Oct 2026, route/instructions not included)"
+Other Diagnoses,answers,,Not a form - list of diagnoses; they sync as answers of Visit Diagnoses > Coded Diagnosis (all Diagnosis-class concepts)
+OPD Information,build,,
+"Referral Form, Summary",build,,"Recorded inside ""Referral Form"" (1,221 times, last Dec 2025) - synced from there; other Referral Form parts not on the list"
+Surgeries and Procedures,build,Operation Notes Template,"Doctors fill Operation Notes Template on its own (30,963 visits)"
+Nutritional Values,build,,
+General Patient Template,build,ECG Report;Spirometry Report,"Doctors fill ECG Report / Spirometry Report on their own (27,294 + 86 visits)"
+History and Examination,build,,
+Vitals,build,,
+Birth Template,build,,
+Community Program Referral Form,build,,

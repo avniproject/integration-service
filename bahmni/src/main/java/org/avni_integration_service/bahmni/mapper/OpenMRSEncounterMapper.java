@@ -17,6 +17,7 @@ import org.avni_integration_service.util.FormatAndParseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -74,12 +75,27 @@ public class OpenMRSEncounterMapper {
 
             if (conceptMapping.isCoded()) {
                 MappingMetaData answerConceptMapping = getConceptMappingByOpenMRSConcept((String) openMRSObservation.getValue(), bahmniEncounterToAvniEncounterMetaData, false);
-                avniBaseContract.addObservation(conceptMapping.getAvniValue(), answerConceptMapping.getAvniValue());
+                addCodedAnswer(avniBaseContract, conceptMapping.getAvniValue(), answerConceptMapping.getAvniValue());
             } else {
                 avniBaseContract.addObservation(conceptMapping.getAvniValue(), openMRSObservation.getValue());
             }
         });
         avniBaseContract.addObservation(bahmniEncounterToAvniEncounterMetaData.getBahmniEntityUuidConcept(), encounterUuid);
+    }
+
+    // Bahmni records each answer of a multi-select question as a separate obs; collect them into a list
+    // instead of letting the last answer overwrite the earlier ones
+    @SuppressWarnings("unchecked")
+    private void addCodedAnswer(AvniBaseContract avniBaseContract, String conceptName, String answer) {
+        Object existing = avniBaseContract.getObservations().get(conceptName);
+        if (existing == null) {
+            avniBaseContract.addObservation(conceptName, answer);
+        } else if (existing instanceof List) {
+            List<Object> answers = (List<Object>) existing;
+            if (!answers.contains(answer)) answers.add(answer);
+        } else if (!existing.equals(answer)) {
+            avniBaseContract.addObservation(conceptName, new ArrayList<>(List.of(existing, answer)));
+        }
     }
 
     private MappingMetaData getConceptMappingByOpenMRSConcept(String openMRSConceptUuid, BahmniEncounterToAvniEncounterMetaData bahmniEncounterToAvniEncounterMetaData, boolean isIgnorable) {

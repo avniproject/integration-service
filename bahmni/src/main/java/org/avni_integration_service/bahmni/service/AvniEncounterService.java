@@ -76,6 +76,10 @@ public class AvniEncounterService extends BaseAvniEncounterService {
         }
 
         GeneralEncounter encounter = openMRSEncounterMapper.mapToAvniEncounter(splitEncounter, metaData, avniPatient);
+        if (hasNothingToSync(encounter, metaData)) {
+            logger.info(String.format("Skipping split encounter with nothing to sync for form %s, Bahmni encounter %s", splitEncounter.getFormConceptSetUuid(), splitEncounter.getOpenMRSEncounterUuid()));
+            return;
+        }
         avniEncounterRepository.create(encounter);
     }
 
@@ -83,7 +87,16 @@ public class AvniEncounterService extends BaseAvniEncounterService {
         if (openMRSFullEncounter.isVoided()) return;
 
         GeneralEncounter encounter = openMRSEncounterMapper.mapToAvniEncounter(openMRSFullEncounter, metaData, avniPatient);
+        if (hasNothingToSync(encounter, metaData)) {
+            logger.info(String.format("Skipping lab encounter with no results, Bahmni encounter %s", openMRSFullEncounter.getUuid()));
+            return;
+        }
         avniEncounterRepository.create(encounter);
+    }
+
+    // Only the Bahmni Entity UUID was mapped - e.g. a form holding just a photo, or a lab entry without results
+    private static boolean hasNothingToSync(GeneralEncounter encounter, BahmniEncounterToAvniEncounterMetaData metaData) {
+        return encounter.getObservations().keySet().stream().allMatch(concept -> concept.equals(metaData.getBahmniEntityUuidConcept()));
     }
 
     public void createDrugOrderEncounter(OpenMRSFullEncounter openMRSFullEncounter, BahmniEncounterToAvniEncounterMetaData metaData, GeneralEncounter avniPatient, OpenMRSDefaultEncounter defaultEncounter) {

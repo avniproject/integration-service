@@ -1,0 +1,13 @@
+{
+    "avniLink": {
+        "title": "Avni",
+        "type": "custom",
+        "displayOrder": 1,
+        "config": {
+            "title": "Avni",
+            "template": "<avni-link></avni-link>",
+            "avniWebAppUrl": "https://prerelease.avniproject.org",
+            "avniSubjectUuidAttributeTypeUuid": "ceddfccf-7913-4a63-b60e-d3114f867e4b"
+        }
+    }
+}

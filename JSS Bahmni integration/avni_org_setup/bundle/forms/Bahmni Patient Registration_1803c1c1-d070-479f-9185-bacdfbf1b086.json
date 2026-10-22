@@ -1,0 +1,43 @@
+{
+  "name": "Bahmni Patient Registration",
+  "uuid": "1803c1c1-d070-479f-9185-bacdfbf1b086",
+  "formType": "Encounter",
+  "formElementGroups": [
+    {
+      "uuid": "3710c283-6032-40c7-a112-99f64a4fde3e",
+      "name": "Details",
+      "displayOrder": 1.0,
+      "formElements": [
+        {
+          "name": "Bahmni Entity UUID",
+          "uuid": "f7a78719-24c0-499f-99b1-c6c941e0cd0e",
+          "keyValues": [
+            {
+              "key": "editable",
+              "value": false
+            }
+          ],
+          "concept": {
+            "name": "Bahmni Entity UUID",
+            "uuid": "a1b2c3d4-e5f6-4a5b-8c9d-0e1f2a3b4c5d",
+            "dataType": "Text",
+            "answers": [],
+            "active": true,
+            "keyValues": [],
+            "media": []
+          },
+          "displayOrder": 1.0,
+          "type": "SingleSelect",
+          "mandatory": false
+        }
+      ],
+      "timed": false,
+      "display": "Details"
+    }
+  ],
+  "decisionRule": "",
+  "visitScheduleRule": "",
+  "validationRule": "",
+  "checklistsRule": "",
+  "decisionConcepts": []
+}

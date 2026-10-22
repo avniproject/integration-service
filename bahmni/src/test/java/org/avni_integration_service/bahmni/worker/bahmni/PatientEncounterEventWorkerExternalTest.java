@@ -37,6 +37,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.HashMap;
 import java.util.List;
 
+@Disabled("Needs live JSS Bahmni and Avni servers - run by hand with bahmni-secret.properties")
 @SpringBootTest(classes = BaseSpringTest.class)
 public class PatientEncounterEventWorkerExternalTest extends BaseExternalTest {
     @Autowired

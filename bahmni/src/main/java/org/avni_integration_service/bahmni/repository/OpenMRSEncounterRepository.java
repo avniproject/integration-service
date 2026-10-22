@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Component
@@ -83,9 +84,28 @@ public class OpenMRSEncounterRepository extends BaseOpenMRSRepository {
     }
 
     public List<OpenMRSFullEncounter> getEncountersByPatient(String patientUuid) {
-        String json = openMRSWebClient.get(URI.create(String.format("%s?patient=%s&v=full", getResourcePath("encounter"), patientUuid)));
-        SearchResults<OpenMRSFullEncounter> searchResults = ObjectJsonMapper.readValue(json, new TypeReference<SearchResults<OpenMRSFullEncounter>>() {});
-        if (searchResults.getResults() == null) return new ArrayList<>();
-        return searchResults.getResults();
+        return getEncounterUuidsByPatient(patientUuid).stream().map(this::getEncounterByUuid).collect(Collectors.toList());
+    }
+
+    /**
+     * UUIDs of all encounters of a patient. Only UUIDs are listed: full encounters in bulk are heavy for the JSS
+     * Bahmni server and one bad encounter fails the whole page, so callers fetch encounters one by one.
+     * OpenMRS returns 50 per page with a "next" link; JSS Bahmni fails with HTTP 500 when "limit" is passed,
+     * so page the way the "next" link does: startIndex only.
+     */
+    public List<String> getEncounterUuidsByPatient(String patientUuid) {
+        List<String> uuids = new ArrayList<>();
+        while (true) {
+            String json = openMRSWebClient.get(URI.create(String.format("%s?patient=%s&v=custom:(uuid)&startIndex=%d", getResourcePath("encounter"), patientUuid, uuids.size())));
+            SearchResults<OpenMRSUuidHolder> searchResults = ObjectJsonMapper.readValue(json, new TypeReference<SearchResults<OpenMRSUuidHolder>>() {});
+            List<OpenMRSUuidHolder> page = searchResults.getResults() == null ? List.of() : searchResults.getResults();
+            page.forEach(encounter -> uuids.add(encounter.getUuid()));
+            if (page.isEmpty() || !hasNextPage(json)) return uuids;
+        }
+    }
+
+    private static boolean hasNextPage(String searchResultsJson) {
+        List<Map<String, Object>> links = (List<Map<String, Object>>) ObjectJsonMapper.readValue(searchResultsJson, Map.class).get("links");
+        return links != null && links.stream().anyMatch(link -> "next".equals(link.get("rel")));
     }
 }

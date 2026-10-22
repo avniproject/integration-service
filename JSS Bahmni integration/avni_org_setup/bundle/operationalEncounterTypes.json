@@ -1,0 +1,13 @@
+{
+  "operationalEncounterTypes": [
+    {
+      "uuid": "ff1f5bef-f196-47e2-a897-21908e6c55fe",
+      "encounterType": {
+        "uuid": "639e3e08-41e5-41d3-a16d-ccef7f264655",
+        "voided": false
+      },
+      "name": "Bahmni Patient Registration",
+      "voided": false
+    }
+  ]
+}

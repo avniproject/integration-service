@@ -12,6 +12,7 @@ import org.avni_integration_service.bahmni.contract.OpenMRSPatient;
 import org.avni_integration_service.bahmni.repository.OpenMRSPatientRepository;
 import org.avni_integration_service.bahmni.service.MappingMetaDataService;
 import org.avni_integration_service.integration_data.domain.Constants;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,7 @@ import static org.junit.jupiter.api.Assertions.*;
  *
  * Requires live JSS Bahmni and Avni prerelease servers.
  */
+@Disabled("Needs live JSS Bahmni and Avni servers - run by hand with bahmni-secret.properties")
 @SpringBootTest(classes = BaseSpringTest.class)
 class SubjectWorkerAvniUuidSyncExternalTest extends BaseExternalTest {
 

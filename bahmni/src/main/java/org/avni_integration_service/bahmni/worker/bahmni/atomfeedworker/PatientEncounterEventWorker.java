@@ -19,8 +19,12 @@ import org.ict4h.atomfeed.client.domain.Event;
 import org.ict4h.atomfeed.client.service.EventWorker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 @Component
 public class PatientEncounterEventWorker implements EventWorker, ErrorRecordWorker {
@@ -41,8 +45,15 @@ public class PatientEncounterEventWorker implements EventWorker, ErrorRecordWork
     @Autowired
     private MappingMetaDataService mappingMetaDataService;
 
+    @Autowired
+    private JssPatientLinkService jssPatientLinkService;
+    @Autowired
+    private PatientService patientService;
+
     private BahmniEncounterToAvniEncounterMetaData metaData;
     private Constants constants;
+    // Bahmni patient UUID -> linked Avni subject UUID, for one run (most hospital patients are not linked)
+    private final Map<String, Optional<String>> linkedAvniSubjects = new HashMap<>();
 
     @Override
     public void process(Event event) {
@@ -61,7 +72,43 @@ public class PatientEncounterEventWorker implements EventWorker, ErrorRecordWork
     }
 
     private void processEncounter(BahmniEncounter bahmniEncounter) {
-        GeneralEncounter avniPatient = subjectService.findPatient(metaData, bahmniEncounter.getOpenMRSEncounter().getPatient().getUuid());
+        String patientUuid = bahmniEncounter.getOpenMRSEncounter().getPatient().getUuid();
+        if (!jssPatientLinkService.isEnabled(constants)) {
+            processEncounter(bahmniEncounter, subjectService.findPatient(metaData, patientUuid));
+            return;
+        }
+        String avniSubjectUuid = linkedAvniSubjects.computeIfAbsent(patientUuid,
+                uuid -> Optional.ofNullable(jssPatientLinkService.linkedAvniSubjectUuid(patientService.getPatient(uuid), constants))).orElse(null);
+        if (avniSubjectUuid == null) {
+            logger.debug(String.format("Skipping encounter %s: Bahmni patient %s is not linked to Avni", bahmniEncounter.getOpenMRSEncounter().getUuid(), patientUuid));
+            return;
+        }
+        processEncounter(bahmniEncounter, avniPatientReference(avniSubjectUuid));
+    }
+
+    /** Sync one Bahmni encounter for a patient already known to be linked (catch-up after linking). */
+    @Transactional
+    public void processEncounterForLinkedPatient(OpenMRSFullEncounter openMRSEncounter, String avniSubjectUuid) {
+        linkedAvniSubjects.put(openMRSEncounter.getPatient().getUuid(), Optional.of(avniSubjectUuid));
+        processEncounter(new BahmniEncounter(openMRSEncounter, metaData), avniPatientReference(avniSubjectUuid));
+    }
+
+    public BahmniEncounterToAvniEncounterMetaData getMetaData() {
+        return metaData;
+    }
+
+    public Constants getConstants() {
+        return constants;
+    }
+
+    // The rest of the sync only needs the Avni subject of the patient, which an encounter reference carries
+    private static GeneralEncounter avniPatientReference(String avniSubjectUuid) {
+        GeneralEncounter reference = new GeneralEncounter();
+        reference.setSubjectId(avniSubjectUuid);
+        return reference;
+    }
+
+    private void processEncounter(BahmniEncounter bahmniEncounter, GeneralEncounter avniPatient) {
         try {
             if (encounterService.isProcessableLabEncounter(bahmniEncounter, metaData, constants)) {
                 processLabEncounter(bahmniEncounter.getOpenMRSEncounter(), metaData, avniPatient);
@@ -185,6 +232,7 @@ public class PatientEncounterEventWorker implements EventWorker, ErrorRecordWork
     public void cacheRunImmutables(Constants constants) {
         this.constants = constants;
         this.metaData = mappingMetaDataService.getForBahmniEncounterToAvniEntities();
+        this.linkedAvniSubjects.clear();
     }
 
     @Override

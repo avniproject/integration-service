@@ -6,6 +6,7 @@ import org.avni_integration_service.util.FormatAndParseUtil;
 
 import java.text.DecimalFormat;
 import java.util.*;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -79,6 +80,29 @@ public class OpenMRSFullEncounter {
         return leafObservations;
     }
 
+    /**
+     * Mapped forms in this encounter with their leaf observations. A top-level group that is not a mapped form is
+     * searched for mapped forms inside it, because doctors often fill a form as part of a bigger one
+     * (e.g. "Obstetrics, P/A (per abdomen)" recorded inside "Obstetrics").
+     */
+    public Map<String, List<OpenMRSObservation>> getMappedFormObservations(Predicate<String> isMappedForm) {
+        Map<String, List<OpenMRSObservation>> forms = new LinkedHashMap<>();
+        List<Map<String, Object>> observations = (List<Map<String, Object>>) map.get("obs");
+        observations.forEach(observation -> collectMappedForms(forms, observation, isMappedForm));
+        return forms;
+    }
+
+    private void collectMappedForms(Map<String, List<OpenMRSObservation>> forms, Map<String, Object> observation, Predicate<String> isMappedForm) {
+        String conceptUuid = (String) ((Map<String, Object>) observation.get("concept")).get("uuid");
+        if (isMappedForm.test(conceptUuid)) {
+            addLeafObservation(forms.computeIfAbsent(conceptUuid, k -> new ArrayList<>()), observation);
+            return;
+        }
+        List<Map<String, Object>> groupMembers = (List<Map<String, Object>>) observation.get("groupMembers");
+        if (groupMembers != null)
+            groupMembers.forEach(groupMember -> collectMappedForms(forms, groupMember, isMappedForm));
+    }
+
     private void addLeafObservation(List<OpenMRSObservation> leafObservations, Map<String, Object> observation) {
         List<Map<String, Object>> groupMembers = (List<Map<String, Object>>) observation.get("groupMembers");
         if (groupMembers != null) {
@@ -149,7 +173,9 @@ public class OpenMRSFullEncounter {
             String dose = stringObjectMap.get("dose") == null ? "" : doseFormat.format(stringObjectMap.get("dose"));
             int duration = (int) stringObjectMap.get("duration");
             boolean asNeeded = (boolean) stringObjectMap.get("asNeeded");
+            // older Bahmni prescriptions have no scheduledDate, only dateActivated
             String scheduledDate = (String) stringObjectMap.get("scheduledDate");
+            if (scheduledDate == null) scheduledDate = (String) stringObjectMap.get("dateActivated");
             Date date = FormatAndParseUtil.fromIsoDateString(scheduledDate);
             String humanReadableDate = FormatAndParseUtil.toHumanReadableFormat(date);
             String frequencyDisplay = frequency != null ? (String) frequency.get("display") : "";
