@@ -17,6 +17,7 @@ import java.util.Optional;
 public class TanuhErrorService {
     public static final String MODEL_CALL_FAILED = "HighRiskModelCallFailed";
     public static final String SCREENING_PROCESSING_FAILED = "ScreeningProcessingFailed";
+    public static final String DATA_QUALITY_CALL_FAILED = "DataQualityCallFailed";
     private static final Logger logger = Logger.getLogger(TanuhErrorService.class);
 
     private final ErrorRecordRepository errorRecordRepository;

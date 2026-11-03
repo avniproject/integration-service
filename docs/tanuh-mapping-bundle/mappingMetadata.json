@@ -1,0 +1,362 @@
+[
+  {
+    "uuid": "78b90ea9-a33a-4e98-a160-270723097ff5",
+    "mappingGroupUuid": "d41712c8-beec-4019-b03b-70fcfe0907b6",
+    "mappingTypeUuid": "1acc87b6-48b2-432d-9762-506e9513f779",
+    "intSystemValue": "yes",
+    "avniValue": "Yes",
+    "about": null,
+    "dataTypeHint": null,
+    "voided": false
+  },
+  {
+    "uuid": "55245a2a-26e8-4c45-8732-a3010972c9c7",
+    "mappingGroupUuid": "d41712c8-beec-4019-b03b-70fcfe0907b6",
+    "mappingTypeUuid": "1acc87b6-48b2-432d-9762-506e9513f779",
+    "intSystemValue": "no",
+    "avniValue": "No",
+    "about": null,
+    "dataTypeHint": null,
+    "voided": false
+  },
+  {
+    "uuid": "858b2f66-1540-49b1-8dc6-1e52e7ae66f5",
+    "mappingGroupUuid": "d41712c8-beec-4019-b03b-70fcfe0907b6",
+    "mappingTypeUuid": "1acc87b6-48b2-432d-9762-506e9513f779",
+    "intSystemValue": "suspicious",
+    "avniValue": "Suspicious",
+    "about": null,
+    "dataTypeHint": null,
+    "voided": false
+  },
+  {
+    "uuid": "1fc8a3f3-5fe4-41dc-9912-1a9c8c817ce6",
+    "mappingGroupUuid": "d41712c8-beec-4019-b03b-70fcfe0907b6",
+    "mappingTypeUuid": "1acc87b6-48b2-432d-9762-506e9513f779",
+    "intSystemValue": "non_suspicious",
+    "avniValue": "Non-Suspicious",
+    "about": null,
+    "dataTypeHint": null,
+    "voided": false
+  },
+  {
+    "uuid": "e264150c-e308-451e-93e5-e1b401c84d67",
+    "mappingGroupUuid": "d41712c8-beec-4019-b03b-70fcfe0907b6",
+    "mappingTypeUuid": "1acc87b6-48b2-432d-9762-506e9513f779",
+    "intSystemValue": "non_suspicious_legacy",
+    "avniValue": "Non Suspicious",
+    "about": null,
+    "dataTypeHint": null,
+    "voided": false
+  },
+  {
+    "uuid": "96f23813-25f2-445b-b20d-2d70e56d3502",
+    "mappingGroupUuid": "d41712c8-beec-4019-b03b-70fcfe0907b6",
+    "mappingTypeUuid": "1acc87b6-48b2-432d-9762-506e9513f779",
+    "intSystemValue": "oral_screening",
+    "avniValue": "Oral Screening",
+    "about": null,
+    "dataTypeHint": null,
+    "voided": false
+  },
+  {
+    "uuid": "deeaedce-0cf4-4503-9309-00d4b84e1ed3",
+    "mappingGroupUuid": "d41712c8-beec-4019-b03b-70fcfe0907b6",
+    "mappingTypeUuid": "1acc87b6-48b2-432d-9762-506e9513f779",
+    "intSystemValue": "take_photos",
+    "avniValue": "Take photos of all lesions and 1 photo without lesion",
+    "about": null,
+    "dataTypeHint": null,
+    "voided": false
+  },
+  {
+    "uuid": "62702677-af11-4f57-beb6-fad17e62ec37",
+    "mappingGroupUuid": "d41712c8-beec-4019-b03b-70fcfe0907b6",
+    "mappingTypeUuid": "1acc87b6-48b2-432d-9762-506e9513f779",
+    "intSystemValue": "guided_photos",
+    "avniValue": "ORAL SCREENING",
+    "about": null,
+    "dataTypeHint": null,
+    "voided": false
+  },
+  {
+    "uuid": "bddca1d6-ca18-45aa-b194-71035da5b8b7",
+    "mappingGroupUuid": "d41712c8-beec-4019-b03b-70fcfe0907b6",
+    "mappingTypeUuid": "1acc87b6-48b2-432d-9762-506e9513f779",
+    "intSystemValue": "oral_image",
+    "avniValue": "Oral Image",
+    "about": null,
+    "dataTypeHint": null,
+    "voided": false
+  },
+  {
+    "uuid": "422222d9-7e89-4ece-b68c-6a3f73673c0d",
+    "mappingGroupUuid": "d41712c8-beec-4019-b03b-70fcfe0907b6",
+    "mappingTypeUuid": "1acc87b6-48b2-432d-9762-506e9513f779",
+    "intSystemValue": "suspicious_lesion",
+    "avniValue": "Suspicious Lesion?",
+    "about": null,
+    "dataTypeHint": null,
+    "voided": false
+  },
+  {
+    "uuid": "243c20cf-011e-4fb5-9733-b9ae740db06e",
+    "mappingGroupUuid": "d41712c8-beec-4019-b03b-70fcfe0907b6",
+    "mappingTypeUuid": "1acc87b6-48b2-432d-9762-506e9513f779",
+    "intSystemValue": "screening_not_required_proceed",
+    "avniValue": "Oral Cancer Screening is not required as the person is below 30 years of age. Would you still like to proceed?",
+    "about": null,
+    "dataTypeHint": null,
+    "voided": false
+  },
+  {
+    "uuid": "54aea3a3-426f-4c81-9727-a1cd4048921c",
+    "mappingGroupUuid": "d41712c8-beec-4019-b03b-70fcfe0907b6",
+    "mappingTypeUuid": "1acc87b6-48b2-432d-9762-506e9513f779",
+    "intSystemValue": "any_symptoms",
+    "avniValue": "Any Symptoms",
+    "about": null,
+    "dataTypeHint": null,
+    "voided": false
+  },
+  {
+    "uuid": "9aca9dd3-c392-47e0-bcc4-6eb486140dbe",
+    "mappingGroupUuid": "d41712c8-beec-4019-b03b-70fcfe0907b6",
+    "mappingTypeUuid": "1acc87b6-48b2-432d-9762-506e9513f779",
+    "intSystemValue": "able_to_open_mouth",
+    "avniValue": "Able to Open Mouth?",
+    "about": null,
+    "dataTypeHint": null,
+    "voided": false
+  },
+  {
+    "uuid": "4167405b-afec-4f03-9e15-8e1f197e3bf5",
+    "mappingGroupUuid": "d41712c8-beec-4019-b03b-70fcfe0907b6",
+    "mappingTypeUuid": "1acc87b6-48b2-432d-9762-506e9513f779",
+    "intSystemValue": "see_any_lesions",
+    "avniValue": "Do you see any lesions?",
+    "about": null,
+    "dataTypeHint": null,
+    "voided": false
+  },
+  {
+    "uuid": "c6772fb9-843e-4edc-a4c7-aa4f51583c7b",
+    "mappingGroupUuid": "d41712c8-beec-4019-b03b-70fcfe0907b6",
+    "mappingTypeUuid": "1acc87b6-48b2-432d-9762-506e9513f779",
+    "intSystemValue": "worker_overrides_ai",
+    "avniValue": "App found No Suspicious Lesion. But you noticed suspicious lesions. Would you like to refer the patient to a dentist?",
+    "about": null,
+    "dataTypeHint": null,
+    "voided": false
+  },
+  {
+    "uuid": "a6a85dc0-617f-473f-b5e6-8e9ddfeecf28",
+    "mappingGroupUuid": "d41712c8-beec-4019-b03b-70fcfe0907b6",
+    "mappingTypeUuid": "1acc87b6-48b2-432d-9762-506e9513f779",
+    "intSystemValue": "precapture_ack",
+    "avniValue": "Pre-capture instructions acknowledged",
+    "about": null,
+    "dataTypeHint": null,
+    "voided": false
+  },
+  {
+    "uuid": "88fba6e3-d507-462f-bdec-15a35f8e0b98",
+    "mappingGroupUuid": "d41712c8-beec-4019-b03b-70fcfe0907b6",
+    "mappingTypeUuid": "1acc87b6-48b2-432d-9762-506e9513f779",
+    "intSystemValue": "smokeless_tobacco",
+    "avniValue": "Smokeless Tobacco Usage",
+    "about": null,
+    "dataTypeHint": null,
+    "voided": false
+  },
+  {
+    "uuid": "8f09d165-4930-4565-93ee-39b4d2d7d889",
+    "mappingGroupUuid": "d41712c8-beec-4019-b03b-70fcfe0907b6",
+    "mappingTypeUuid": "1acc87b6-48b2-432d-9762-506e9513f779",
+    "intSystemValue": "bidi_cigarette",
+    "avniValue": "Cigarettes / Bidi Usage",
+    "about": null,
+    "dataTypeHint": null,
+    "voided": false
+  },
+  {
+    "uuid": "de674a52-7b75-4b66-93bd-fc2b8a183468",
+    "mappingGroupUuid": "d41712c8-beec-4019-b03b-70fcfe0907b6",
+    "mappingTypeUuid": "1acc87b6-48b2-432d-9762-506e9513f779",
+    "intSystemValue": "areca_nut",
+    "avniValue": "Areca Nut Consumption",
+    "about": null,
+    "dataTypeHint": null,
+    "voided": false
+  },
+  {
+    "uuid": "534c2e48-f5c4-44c6-8de9-183f0a37301a",
+    "mappingGroupUuid": "d41712c8-beec-4019-b03b-70fcfe0907b6",
+    "mappingTypeUuid": "1acc87b6-48b2-432d-9762-506e9513f779",
+    "intSystemValue": "alcohol",
+    "avniValue": "Alcohol Consumption",
+    "about": null,
+    "dataTypeHint": null,
+    "voided": false
+  },
+  {
+    "uuid": "f45a8c13-2d3f-4e5c-bdfb-bf4435227507",
+    "mappingGroupUuid": "d41712c8-beec-4019-b03b-70fcfe0907b6",
+    "mappingTypeUuid": "1acc87b6-48b2-432d-9762-506e9513f779",
+    "intSystemValue": "alcohol_frequency",
+    "avniValue": "Frequency of Alcohol Consumption",
+    "about": null,
+    "dataTypeHint": null,
+    "voided": false
+  },
+  {
+    "uuid": "5ae8f78f-f4f0-4722-b31b-9c71f5ce2bfe",
+    "mappingGroupUuid": "d41712c8-beec-4019-b03b-70fcfe0907b6",
+    "mappingTypeUuid": "1acc87b6-48b2-432d-9762-506e9513f779",
+    "intSystemValue": "place_of_referral",
+    "avniValue": "Place of referral",
+    "about": null,
+    "dataTypeHint": null,
+    "voided": false
+  },
+  {
+    "uuid": "d268e795-8594-4f8e-9714-b69436419752",
+    "mappingGroupUuid": "d41712c8-beec-4019-b03b-70fcfe0907b6",
+    "mappingTypeUuid": "1acc87b6-48b2-432d-9762-506e9513f779",
+    "intSystemValue": "health_worker_verdict",
+    "avniValue": "Health Worker verdict",
+    "about": null,
+    "dataTypeHint": null,
+    "voided": false
+  },
+  {
+    "uuid": "d995c149-150d-478e-91ca-cad94faaa2ff",
+    "mappingGroupUuid": "d41712c8-beec-4019-b03b-70fcfe0907b6",
+    "mappingTypeUuid": "1acc87b6-48b2-432d-9762-506e9513f779",
+    "intSystemValue": "ai_verdict_group",
+    "avniValue": "Image-wise AI Assessment",
+    "about": null,
+    "dataTypeHint": null,
+    "voided": false
+  },
+  {
+    "uuid": "bbe8fc77-87cb-4127-9cc6-28e644370a29",
+    "mappingGroupUuid": "d41712c8-beec-4019-b03b-70fcfe0907b6",
+    "mappingTypeUuid": "1acc87b6-48b2-432d-9762-506e9513f779",
+    "intSystemValue": "ai_verdict",
+    "avniValue": "AI Verdict",
+    "about": null,
+    "dataTypeHint": null,
+    "voided": false
+  },
+  {
+    "uuid": "7c74b097-8125-429d-bf1c-bc4ff3720442",
+    "mappingGroupUuid": "d41712c8-beec-4019-b03b-70fcfe0907b6",
+    "mappingTypeUuid": "1acc87b6-48b2-432d-9762-506e9513f779",
+    "intSystemValue": "ai_verdict_legacy",
+    "avniValue": "AI verdict",
+    "about": null,
+    "dataTypeHint": null,
+    "voided": false
+  },
+  {
+    "uuid": "7ac7e394-e638-4f9e-9902-b4d8daa9376e",
+    "mappingGroupUuid": "d41712c8-beec-4019-b03b-70fcfe0907b6",
+    "mappingTypeUuid": "1acc87b6-48b2-432d-9762-506e9513f779",
+    "intSystemValue": "legacy_photo",
+    "avniValue": "Photo %d (image)",
+    "about": "%d is the photo's number, 1 to 8",
+    "dataTypeHint": null,
+    "voided": false
+  },
+  {
+    "uuid": "d743402b-cebd-46a3-945b-f84251cfbb6e",
+    "mappingGroupUuid": "d41712c8-beec-4019-b03b-70fcfe0907b6",
+    "mappingTypeUuid": "1acc87b6-48b2-432d-9762-506e9513f779",
+    "intSystemValue": "legacy_health_worker_verdict",
+    "avniValue": "Photo %d — Health Worker verdict",
+    "about": "%d is the photo's number, 1 to 8",
+    "dataTypeHint": null,
+    "voided": false
+  },
+  {
+    "uuid": "bf691f21-34db-4f30-bd19-495ad8aeac30",
+    "mappingGroupUuid": "d41712c8-beec-4019-b03b-70fcfe0907b6",
+    "mappingTypeUuid": "1acc87b6-48b2-432d-9762-506e9513f779",
+    "intSystemValue": "legacy_asha_verdict",
+    "avniValue": "Photo %d — ASHA verdict",
+    "about": "%d is the photo's number, 1 to 8",
+    "dataTypeHint": null,
+    "voided": false
+  },
+  {
+    "uuid": "cf778b3a-bd3f-4b9a-bf29-c56f220b25df",
+    "mappingGroupUuid": "d41712c8-beec-4019-b03b-70fcfe0907b6",
+    "mappingTypeUuid": "1acc87b6-48b2-432d-9762-506e9513f779",
+    "intSystemValue": "legacy_ai_verdict",
+    "avniValue": "Photo %d — AI verdict",
+    "about": "%d is the photo's number, 1 to 8",
+    "dataTypeHint": null,
+    "voided": false
+  },
+  {
+    "uuid": "a24e4ad2-e4c9-4a45-9021-c1e5b13531b9",
+    "mappingGroupUuid": "d41712c8-beec-4019-b03b-70fcfe0907b6",
+    "mappingTypeUuid": "1acc87b6-48b2-432d-9762-506e9513f779",
+    "intSystemValue": "full_address",
+    "avniValue": "Full Address",
+    "about": null,
+    "dataTypeHint": null,
+    "voided": false
+  },
+  {
+    "uuid": "5cf74be1-0f92-48ef-bd2a-3d19c78b7fd1",
+    "mappingGroupUuid": "d41712c8-beec-4019-b03b-70fcfe0907b6",
+    "mappingTypeUuid": "1acc87b6-48b2-432d-9762-506e9513f779",
+    "intSystemValue": "lgd_code",
+    "avniValue": "LGD code",
+    "about": null,
+    "dataTypeHint": null,
+    "voided": false
+  },
+  {
+    "uuid": "2f0dbde8-cc58-46c4-abba-6610931f90b9",
+    "mappingGroupUuid": "d41712c8-beec-4019-b03b-70fcfe0907b6",
+    "mappingTypeUuid": "1acc87b6-48b2-432d-9762-506e9513f779",
+    "intSystemValue": "qc_status",
+    "avniValue": "QC status",
+    "about": "Written by the job: the data quality service's verdict on the screening",
+    "dataTypeHint": null,
+    "voided": false
+  },
+  {
+    "uuid": "f02b72bc-7b55-4aa1-bea7-d8ab0e95b131",
+    "mappingGroupUuid": "d41712c8-beec-4019-b03b-70fcfe0907b6",
+    "mappingTypeUuid": "1acc87b6-48b2-432d-9762-506e9513f779",
+    "intSystemValue": "qc_pass",
+    "avniValue": "QC Pass",
+    "about": "Answer of qc_status",
+    "dataTypeHint": null,
+    "voided": false
+  },
+  {
+    "uuid": "8cccb510-e085-4520-aece-2f00b9e52bcf",
+    "mappingGroupUuid": "d41712c8-beec-4019-b03b-70fcfe0907b6",
+    "mappingTypeUuid": "1acc87b6-48b2-432d-9762-506e9513f779",
+    "intSystemValue": "qc_fail",
+    "avniValue": "QC Fail",
+    "about": "Answer of qc_status",
+    "dataTypeHint": null,
+    "voided": false
+  },
+  {
+    "uuid": "4f97975c-dd1e-4ab5-80e7-23d69e10c666",
+    "mappingGroupUuid": "d41712c8-beec-4019-b03b-70fcfe0907b6",
+    "mappingTypeUuid": "1acc87b6-48b2-432d-9762-506e9513f779",
+    "intSystemValue": "qc_check_time",
+    "avniValue": "QC check time",
+    "about": "Written by the job: when the verdict was given, in UTC",
+    "dataTypeHint": null,
+    "voided": false
+  }
+]

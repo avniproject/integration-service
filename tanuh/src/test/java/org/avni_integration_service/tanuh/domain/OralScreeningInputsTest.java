@@ -26,49 +26,38 @@ public class OralScreeningInputsTest {
     }
 
     @Test
-    public void yesOnOneRowMakesTheWorkerSuspicious() {
-        OralScreeningInputs inputs = OralScreeningInputs.from(screening(List.of(row("u1", "No"), row("u2", "Yes")), null));
-        assertEquals(WorkerOpinion.SUSPICIOUS, inputs.getWorkerOpinion());
+    public void everyRowsPhotoIsRead() {
+        OralScreeningInputs inputs = OralScreeningInputs.from(screening(List.of(row("u1", "No"), row("u2", "Yes")), null), TanuhConceptsFixture.defaults());
         assertEquals(List.of("u1", "u2"), inputs.getPhotoUrls());
-    }
-
-    @Test
-    public void noOnEveryRowAndAReferralYesIsNotSuspicious() {
-        OralScreeningInputs inputs = OralScreeningInputs.from(screening(List.of(row("u1", "No"), row("u2", "No")), null));
-        assertEquals(WorkerOpinion.NOT_SUSPICIOUS, inputs.getWorkerOpinion());
     }
 
     @Test
     public void theGuidedGroupIsUsedWhenTakePhotosHasNoRows() {
-        OralScreeningInputs inputs = OralScreeningInputs.from(screening(List.of(), List.of(row("g1", "No"), row("g2", "Yes"))));
+        OralScreeningInputs inputs = OralScreeningInputs.from(screening(List.of(), List.of(row("g1", "No"), row("g2", "Yes"))), TanuhConceptsFixture.defaults());
         assertEquals(List.of("g1", "g2"), inputs.getPhotoUrls());
-        assertEquals(WorkerOpinion.SUSPICIOUS, inputs.getWorkerOpinion());
     }
 
     @Test
     public void takePhotosAloneCountsWhenBothGroupsHaveRows() {
-        OralScreeningInputs inputs = OralScreeningInputs.from(screening(List.of(row("t1", "No")), List.of(row("g1", "Yes"))));
+        OralScreeningInputs inputs = OralScreeningInputs.from(screening(List.of(row("t1", "No")), List.of(row("g1", "Yes"))), TanuhConceptsFixture.defaults());
         assertEquals(List.of("t1"), inputs.getPhotoUrls());
-        assertEquals(WorkerOpinion.NOT_SUSPICIOUS, inputs.getWorkerOpinion());
     }
 
     @Test
     public void listValuesAreReadAsWellAsSingleOnes() {
-        OralScreeningInputs inputs = OralScreeningInputs.from(screening(List.of(row(List.of("u1", "u2"), List.of("Yes"))), null));
+        OralScreeningInputs inputs = OralScreeningInputs.from(screening(List.of(row(List.of("u1", "u2"), List.of("Yes"))), null), TanuhConceptsFixture.defaults());
         assertEquals(List.of("u1", "u2"), inputs.getPhotoUrls());
-        assertEquals(WorkerOpinion.SUSPICIOUS, inputs.getWorkerOpinion());
     }
 
     @Test
     public void rowsWithoutAPhotoAreSkippedAndNoGroupMeansNoPhotos() {
-        assertEquals(List.of("u2"), OralScreeningInputs.from(screening(List.of(row(null, "No"), row("u2", "No")), null)).getPhotoUrls());
-        OralScreeningInputs none = OralScreeningInputs.from(screening(null, null));
+        assertEquals(List.of("u2"), OralScreeningInputs.from(screening(List.of(row(null, "No"), row("u2", "No")), null), TanuhConceptsFixture.defaults()).getPhotoUrls());
+        OralScreeningInputs none = OralScreeningInputs.from(screening(null, null), TanuhConceptsFixture.defaults());
         assertFalse(none.hasPhotos());
-        assertEquals(WorkerOpinion.NOT_SUSPICIOUS, none.getWorkerOpinion());
     }
 
     @Test
     public void aSingleRowGroupStoredAsAMapIsReadAsOneRow() {
-        assertEquals(List.of("u1"), OralScreeningInputs.from(screening(row("u1", "No"), null)).getPhotoUrls());
+        assertEquals(List.of("u1"), OralScreeningInputs.from(screening(row("u1", "No"), null), TanuhConceptsFixture.defaults()).getPhotoUrls());
     }
 }

@@ -2,38 +2,27 @@ package org.avni_integration_service.tanuh.domain;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
 import java.util.List;
 
+import static org.avni_integration_service.tanuh.domain.TanuhConcepts.Concept.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+// The bundled names, checked against the names Tanuh's configuration creates.
 public class TanuhNamesTest {
-    @Test
-    public void conceptNamesAreTheOnesTanuhsConfigurationCreates() {
-        assertEquals(List.of("High risk model result", "High risk model status", "High risk model version",
-                        "High risk model run time", "Review category", "Scored", "Not scored"),
-                List.of(TanuhConcepts.MODEL_RESULT, TanuhConcepts.MODEL_STATUS, TanuhConcepts.MODEL_VERSION,
-                        TanuhConcepts.MODEL_RUN_TIME, TanuhConcepts.REVIEW_CATEGORY, TanuhConcepts.STATUS_SCORED,
-                        TanuhConcepts.STATUS_NOT_SCORED));
-    }
+    private final TanuhConcepts concepts = TanuhConceptsFixture.defaults();
 
     @Test
-    public void reviewGroupAnswersAreTheOnesTanuhsConfigurationCreates() {
-        assertEquals(List.of("High Risk", "Low Risk", "FLW override", "Not scored", "Safety sample", "Closed"),
-                Arrays.stream(ReviewCategory.values()).map(ReviewCategory::getAnswer).toList());
-    }
-
-    @Test
-    public void modelResultAnswersAreTheOnesTanuhsConfigurationCreates() {
-        assertEquals(List.of("High Risk", "Low Risk", "Non Suspicious"),
-                Arrays.stream(ModelResult.Result.values()).map(ModelResult.Result::getAnswer).toList());
+    public void theQualityVerdictIsWrittenToTheseConcepts() {
+        assertEquals(List.of("QC status", "QC Pass", "QC Fail", "QC check time"),
+                List.of(concepts.name(QC_STATUS), concepts.name(QC_PASS), concepts.name(QC_FAIL), concepts.name(QC_CHECK_TIME)));
     }
 
     @Test
     public void theFormsQuestionsAreNamedAsOnTanuhsForms() {
         assertEquals(List.of("Oral Screening", "Take photos of all lesions and 1 photo without lesion", "ORAL SCREENING",
                         "Oral Image", "Suspicious Lesion?", "Yes"),
-                List.of(TanuhConcepts.ORAL_SCREENING, TanuhConcepts.TAKE_PHOTOS, TanuhConcepts.GUIDED_PHOTOS,
-                        TanuhConcepts.ORAL_IMAGE, TanuhConcepts.SUSPICIOUS_LESION, TanuhConcepts.YES));
+                List.of(concepts.name(ORAL_SCREENING), concepts.name(TAKE_PHOTOS), concepts.name(GUIDED_PHOTOS),
+                        concepts.name(ORAL_IMAGE), concepts.name(SUSPICIOUS_LESION), concepts.name(YES)));
+        assertEquals("Photo 3 — AI verdict", concepts.name(LEGACY_AI_VERDICT, 3));
     }
 }

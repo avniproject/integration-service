@@ -1,5 +1,6 @@
 package org.avni_integration_service.tanuh.worker;
 
+import org.avni_integration_service.tanuh.domain.TanuhConceptsFixture;
 import org.avni_integration_service.avni.domain.GeneralEncounter;
 import org.avni_integration_service.avni.domain.Subject;
 import org.avni_integration_service.avni.repository.AvniSubjectRepository;
@@ -14,11 +15,10 @@ import org.avni_integration_service.integration_data.repository.ErrorRecordRepos
 import org.avni_integration_service.integration_data.repository.IntegratingEntityStatusRepository;
 import org.avni_integration_service.tanuh.config.TanuhConfig;
 import org.avni_integration_service.tanuh.config.TanuhContextProvider;
-import org.avni_integration_service.tanuh.domain.ModelResult;
+import org.avni_integration_service.tanuh.dqs.DqsClient;
+import org.avni_integration_service.tanuh.dqs.DqsException;
 import org.avni_integration_service.tanuh.model.HighRiskModelClient;
 import org.avni_integration_service.tanuh.model.HighRiskModelException;
-import org.avni_integration_service.tanuh.service.RoutingPolicy;
-import org.avni_integration_service.tanuh.service.Sampler;
 import org.avni_integration_service.tanuh.service.TanuhErrorService;
 import org.avni_integration_service.tanuh.service.TanuhPhotoDownloader;
 import org.junit.jupiter.api.AfterEach;
@@ -26,6 +26,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.io.TempDir;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpHeaders;
@@ -46,7 +47,6 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 public class TanuhScreeningRetryWorkerTest {
     static final String JOB_USER = "integration@tanuh_uat_local";
-    static final Instant RUN_TIME = Instant.parse("2026-10-07T09:15:00.123Z");
     static final String PHOTOS = "Take photos of all lesions and 1 photo without lesion";
 
     @Mock
@@ -56,7 +56,7 @@ public class TanuhScreeningRetryWorkerTest {
     @Mock
     private HighRiskModelClient model;
     @Mock
-    private Sampler sampler;
+    private DqsClient dqs;
     @Mock
     private TanuhErrorService errors;
     @Mock
@@ -71,6 +71,8 @@ public class TanuhScreeningRetryWorkerTest {
 
     @BeforeEach
     public void setUp() throws Exception {
+        // The patient's registration goes ahead of every screening; the service stores it and the tests leave it be.
+        lenient().when(dqs.submit(eq(DqsClient.REGISTRATION), anyMap())).thenReturn(ProcessScreeningTest.passed());
         IntegrationSystemConfig user = new IntegrationSystemConfig();
         user.setKey("avni_user");
         user.setValue(JOB_USER);
@@ -78,9 +80,10 @@ public class TanuhScreeningRetryWorkerTest {
         system.setId(15);
         ReflectionTestUtils.setField(system, "name", "tanuh_uat_local");
         context.set(new TanuhConfig(new IntegrationSystemConfigCollection(List.of(user)), system));
+        context.setConcepts(TanuhConceptsFixture.defaults());
         encounters = new FakeAvniEncounterRepository(JOB_USER, Date.from(Instant.parse("2026-10-07T00:00:00Z")));
-        OralScreeningWorker worker = new OralScreeningWorker(encounters, subjects, downloader, model, new RoutingPolicy(), sampler,
-                errors, errorRecords, statuses, context, 10);
+        OralScreeningWorker worker = new OralScreeningWorker(encounters, subjects, dqs, downloader, model, errors, errorRecords,
+                statuses, context, ProcessScreeningTest.CLOCK, 10);
         retryWorker = new TanuhScreeningRetryWorker(errorRecords, encounters, worker, errors, context);
         lenient().when(subjects.getSubjectOrThrow(anyString())).thenReturn(patient(false));
         lenient().when(downloader.download(anyString())).thenAnswer(invocation -> Files.createTempFile(photoDir.toPath(), "photo", null).toFile());
@@ -109,8 +112,12 @@ public class TanuhScreeningRetryWorkerTest {
     }
 
     private static ErrorRecord waiting(String uuid, ErrorTypeFollowUpStep followUpStep) {
+        return waiting(uuid, followUpStep, TanuhErrorService.MODEL_CALL_FAILED);
+    }
+
+    private static ErrorRecord waiting(String uuid, ErrorTypeFollowUpStep followUpStep, String errorTypeName) {
         ErrorType type = new ErrorType();
-        type.setName(TanuhErrorService.MODEL_CALL_FAILED);
+        type.setName(errorTypeName);
         type.setFollowUpStep(followUpStep);
         ErrorRecord record = new ErrorRecord();
         record.setAvniEntityType(AvniEntityType.GeneralEncounter);
@@ -123,12 +130,12 @@ public class TanuhScreeningRetryWorkerTest {
         when(errorRecords.getProcessableErrorRecords()).thenReturn(List.of(records));
     }
 
-    private void modelSays(ModelResult.Result result) throws Exception {
-        when(model.score(any(), anyList())).thenReturn(new ModelResult(result, "stub", RUN_TIME));
+    private void dqsPasses() {
+        when(dqs.submit(eq(DqsClient.ORAL_SCREENING), anyMap())).thenReturn(ProcessScreeningTest.passed());
     }
 
     @Test
-    public void aDeletedScreeningStopsWaitingWithoutAModelCall() {
+    public void aDeletedScreeningStopsWaitingWithoutASend() {
         screening("s1", "No").setVoided(true);
         ErrorRecord record = waiting("s1", ErrorTypeFollowUpStep.Process);
         waitingAre(record);
@@ -136,20 +143,20 @@ public class TanuhScreeningRetryWorkerTest {
         assertTrue(retryWorker.processWaiting());
 
         verify(errorRecords).delete(record);
-        verifyNoInteractions(model);
+        verifyNoInteractions(dqs, model);
         assertTrue(encounters.patchedUuids.isEmpty());
     }
 
     @Test
-    public void aScreeningTheJobAlreadyWroteStopsWaitingWithoutAModelCall() {
+    public void aScreeningTheJobAlreadyWroteStopsWaitingWithoutASend() {
         encounters.touch(screening("s1", "No"), JOB_USER);
-        ErrorRecord record = waiting("s1", ErrorTypeFollowUpStep.Process);
+        ErrorRecord record = waiting("s1", ErrorTypeFollowUpStep.Process, TanuhErrorService.DATA_QUALITY_CALL_FAILED);
         waitingAre(record);
 
         assertTrue(retryWorker.processWaiting());
 
         verify(errorRecords).delete(record);
-        verifyNoInteractions(model);
+        verifyNoInteractions(dqs, model);
     }
 
     @Test
@@ -160,57 +167,119 @@ public class TanuhScreeningRetryWorkerTest {
         assertTrue(retryWorker.processWaiting());
 
         verify(errorRecords).delete(record);
-        verifyNoInteractions(model);
+        verifyNoInteractions(dqs, model);
     }
 
     @Test
-    public void aScoredRetryWritesTheFiveValuesAndStopsWaiting() throws Exception {
+    public void aCheckedRetryWritesTheVerdictAndStopsWaiting() throws Exception {
         screening("s1", "No");
-        modelSays(ModelResult.Result.HIGH_RISK);
+        dqsPasses();
         ErrorRecord record = waiting("s1", ErrorTypeFollowUpStep.Process);
         waitingAre(record);
 
         assertTrue(retryWorker.processWaiting());
 
         assertEquals(List.of("s1"), encounters.patchedUuids);
-        assertEquals("High Risk", encounters.screenings.get("s1").getObservation("Review category"));
+        assertEquals("QC Pass", encounters.screenings.get("s1").getObservation("QC status"));
+        verify(model).submit(any(), anyList());
         verify(errorRecords).delete(record);
     }
 
     @Test
     public void aFailedRetryKeepsTheRecordWithAFreshLogAndReportsFailure() throws Exception {
         screening("s1", "No");
-        when(model.score(any(), anyList())).thenThrow(new HighRiskModelException("model down"));
+        dqsPasses();
+        doThrow(new HighRiskModelException("model down")).when(model).submit(any(), anyList());
         waitingAre(waiting("s1", ErrorTypeFollowUpStep.Process));
 
         assertFalse(retryWorker.processWaiting());
 
         verify(errors).errorOccurred("s1", TanuhErrorService.MODEL_CALL_FAILED, "HighRiskModelException: model down");
         verify(errorRecords, never()).delete(any(ErrorRecord.class));
-        assertTrue(encounters.patchedUuids.isEmpty());
+        assertEquals(List.of("s1"), encounters.patchedUuids, "the verdict stands; only the hand-over waits");
     }
 
-    // The record holds only the screening's id, so the retry scores the screening as it is now: a worker's edit
-    // made while it waited is what gets scored.
+    // The verdict is on the screening and only the hand-over failed, so the retry hands it over without a second check.
     @Test
-    public void theRetryScoresTheScreeningAsItIsNow() throws Exception {
+    public void aWrittenScreeningWhoseHandOverFailedIsHandedOverAgainWithoutASecondCheck() throws Exception {
+        GeneralEncounter s = screening("s1", "No");
+        s.addObservation("QC status", "QC Pass");
+        encounters.touch(s, JOB_USER);
+        ErrorRecord record = waiting("s1", ErrorTypeFollowUpStep.Process);
+        waitingAre(record);
+
+        assertTrue(retryWorker.processWaiting());
+
+        verify(model).submit(any(), anyList());
+        verifyNoInteractions(dqs);
+        assertTrue(encounters.patchedUuids.isEmpty());
+        verify(errorRecords).delete(record);
+    }
+
+    @Test
+    public void aHandOverThatStillFailsKeepsWaiting() throws Exception {
+        GeneralEncounter s = screening("s1", "No");
+        s.addObservation("QC status", "QC Pass");
+        encounters.touch(s, JOB_USER);
+        doThrow(new HighRiskModelException("model down")).when(model).submit(any(), anyList());
+        waitingAre(waiting("s1", ErrorTypeFollowUpStep.Process));
+
+        assertFalse(retryWorker.processWaiting());
+
+        verify(errors).errorOccurred("s1", TanuhErrorService.MODEL_CALL_FAILED, "HighRiskModelException: model down");
+        verify(errorRecords, never()).delete(any(ErrorRecord.class));
+        verifyNoInteractions(dqs);
+    }
+
+    @Test
+    public void aWrittenScreeningNoLongerMarkedPassIsNotHandedOver() {
+        GeneralEncounter s = screening("s1", "No");
+        s.addObservation("QC status", "QC Fail");
+        encounters.touch(s, JOB_USER);
+        ErrorRecord record = waiting("s1", ErrorTypeFollowUpStep.Process);
+        waitingAre(record);
+
+        assertTrue(retryWorker.processWaiting());
+
+        verifyNoInteractions(dqs, model);
+        verify(errorRecords).delete(record);
+    }
+
+    // The record holds only the screening's id, so the retry sends the screening as it is now: a worker's edit
+    // made while it waited is what gets checked.
+    @Test
+    public void theRetrySendsTheScreeningAsItIsNow() {
         screening("s1", "No");
-        encounters.screenings.get("s1").addObservation(PHOTOS, photoRows("s1", "Yes"));
+        encounters.screenings.get("s1").addObservation("Any Symptoms", "Yes");
         encounters.workerEdits("s1");
-        modelSays(ModelResult.Result.NOT_SUSPICIOUS);
+        dqsPasses();
         waitingAre(waiting("s1", ErrorTypeFollowUpStep.Process));
 
         assertTrue(retryWorker.processWaiting());
 
-        assertEquals("FLW override", encounters.screenings.get("s1").getObservation("Review category"));
+        ArgumentCaptor<Map<String, Object>> record = ArgumentCaptor.forClass(Map.class);
+        verify(dqs).submit(eq(DqsClient.ORAL_SCREENING), record.capture());
+        assertEquals(true, record.getValue().get("any_symptoms"));
     }
 
     @Test
-    public void aScreeningChangedDuringItsRetryKeepsWaitingWithoutFailing() throws Exception {
+    public void aDataQualityFailureKeepsTheScreeningWaiting() {
         screening("s1", "No");
-        when(model.score(any(), anyList())).thenAnswer(invocation -> {
+        when(dqs.submit(eq(DqsClient.ORAL_SCREENING), anyMap())).thenThrow(new DqsException("DQS at dqs did not answer"));
+        waitingAre(waiting("s1", ErrorTypeFollowUpStep.Process));
+
+        assertFalse(retryWorker.processWaiting());
+
+        verify(errors).errorOccurred("s1", TanuhErrorService.DATA_QUALITY_CALL_FAILED, "DqsException: DQS at dqs did not answer");
+        verify(errorRecords, never()).delete(any(ErrorRecord.class));
+    }
+
+    @Test
+    public void aScreeningChangedDuringItsRetryKeepsWaitingWithoutFailing() {
+        screening("s1", "No");
+        when(dqs.submit(eq(DqsClient.ORAL_SCREENING), anyMap())).thenAnswer(invocation -> {
             encounters.workerEdits("s1");
-            return new ModelResult(ModelResult.Result.HIGH_RISK, "stub", RUN_TIME);
+            return ProcessScreeningTest.passed();
         });
         waitingAre(waiting("s1", ErrorTypeFollowUpStep.Process));
 
@@ -230,7 +299,7 @@ public class TanuhScreeningRetryWorkerTest {
         assertTrue(retryWorker.processWaiting());
 
         verify(errorRecords).delete(record);
-        verifyNoInteractions(model);
+        verifyNoInteractions(dqs, model);
     }
 
     @Test
@@ -241,17 +310,18 @@ public class TanuhScreeningRetryWorkerTest {
         assertTrue(retryWorker.processWaiting());
 
         verify(errorRecords, never()).delete(any(ErrorRecord.class));
-        verifyNoInteractions(model);
+        verifyNoInteractions(dqs, model);
     }
 
     @Test
     public void oneFailedRetryReportsFailureAndTheOthersAreStillTried() throws Exception {
         screening("s1", "No");
         screening("s2", "No");
-        when(model.score(any(), anyList())).thenAnswer(invocation -> {
+        dqsPasses();
+        doAnswer(invocation -> {
             if (((GeneralEncounter) invocation.getArgument(0)).getUuid().equals("s1")) throw new HighRiskModelException("model down");
-            return new ModelResult(ModelResult.Result.LOW_RISK, "stub", RUN_TIME);
-        });
+            return null;
+        }).when(model).submit(any(), anyList());
         ErrorRecord first = waiting("s1", ErrorTypeFollowUpStep.Process);
         ErrorRecord second = waiting("s2", ErrorTypeFollowUpStep.Process);
         waitingAre(first, second);
@@ -289,7 +359,7 @@ public class TanuhScreeningRetryWorkerTest {
         assertThrows(HttpClientErrorException.NotFound.class, () -> retryWorker.processWaiting());
 
         verify(errorRecords, never()).delete(any(ErrorRecord.class));
-        verifyNoInteractions(errors, model);
+        verifyNoInteractions(errors, dqs, model);
     }
 
     @Test
@@ -316,7 +386,8 @@ public class TanuhScreeningRetryWorkerTest {
     @Test
     public void processErrorRetriesThatScreeningAndFailsLoudlyWhileItStillWaits() throws Exception {
         screening("s1", "No");
-        when(model.score(any(), anyList())).thenThrow(new HighRiskModelException("model down"));
+        dqsPasses();
+        doThrow(new HighRiskModelException("model down")).when(model).submit(any(), anyList());
         when(errorRecords.findByAvniEntityTypeAndEntityId(AvniEntityType.GeneralEncounter, "s1")).thenReturn(waiting("s1", ErrorTypeFollowUpStep.Process));
 
         assertThrows(IllegalStateException.class, () -> retryWorker.processError("s1"));
@@ -327,7 +398,7 @@ public class TanuhScreeningRetryWorkerTest {
     @Test
     public void processErrorSettlesThatScreeningWhenItsRetrySucceeds() throws Exception {
         screening("s1", "No");
-        modelSays(ModelResult.Result.LOW_RISK);
+        dqsPasses();
         ErrorRecord record = waiting("s1", ErrorTypeFollowUpStep.Process);
         when(errorRecords.findByAvniEntityTypeAndEntityId(AvniEntityType.GeneralEncounter, "s1")).thenReturn(record);
 

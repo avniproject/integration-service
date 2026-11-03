@@ -12,44 +12,22 @@ import java.util.Locale;
 public class TanuhConfig {
     private static final Logger logger = Logger.getLogger(TanuhConfig.class);
 
-    public static final double DEFAULT_SAFETY_SAMPLE_RATE = 0.05;
-    public static final String DEFAULT_STUB_MODE = "by_encounter";
-    private static final List<String> STUB_MODES = List.of("fixed", "by_encounter", "fail");
-    private static final List<String> STUB_RESULTS = List.of("High Risk", "Low Risk", "Non Suspicious");
+    public static final String DEFAULT_STUB_MODE = "accept";
+    private static final List<String> STUB_MODES = List.of("accept", "fail");
 
     private final IntegrationSystemConfigCollection integrationSystemConfigCollection;
     private final ContextIntegrationSystem integrationSystem;
-    private final double safetySampleRate;
     private final String stubMode;
-    private final String stubFixedResult;
 
     public TanuhConfig(IntegrationSystemConfigCollection integrationSystemConfigCollection, IntegrationSystem integrationSystem) {
         this.integrationSystemConfigCollection = integrationSystemConfigCollection;
         this.integrationSystem = new ContextIntegrationSystem(integrationSystem);
-        this.safetySampleRate = readSafetySampleRate();
         this.stubMode = readStubMode();
-        this.stubFixedResult = readStubFixedResult();
     }
 
     private String getStringConfigValue(String key, String defaultValue) {
         String configValue = integrationSystemConfigCollection.getConfigValue(key);
         return StringUtils.hasLength(configValue) ? configValue : defaultValue;
-    }
-
-    private double readSafetySampleRate() {
-        String value = getStringConfigValue("safety_sample_rate", null);
-        if (!StringUtils.hasText(value)) {
-            logger.warn(String.format("[%s] safety_sample_rate is not set, using %s", integrationSystem.getName(), DEFAULT_SAFETY_SAMPLE_RATE));
-            return DEFAULT_SAFETY_SAMPLE_RATE;
-        }
-        try {
-            double rate = Double.parseDouble(value.trim());
-            if (rate >= 0.0 && rate <= 1.0) return rate;
-            logger.warn(String.format("[%s] safety_sample_rate '%s' is not from 0 to 1, using %s", integrationSystem.getName(), value, DEFAULT_SAFETY_SAMPLE_RATE));
-        } catch (NumberFormatException e) {
-            logger.warn(String.format("[%s] safety_sample_rate '%s' is not a number, using %s", integrationSystem.getName(), value, DEFAULT_SAFETY_SAMPLE_RATE));
-        }
-        return DEFAULT_SAFETY_SAMPLE_RATE;
     }
 
     private String readStubMode() {
@@ -58,14 +36,6 @@ public class TanuhConfig {
         if (STUB_MODES.contains(value.trim())) return value.trim();
         logger.warn(String.format("[%s] model_stub_mode '%s' is not one of %s, using %s", integrationSystem.getName(), value, STUB_MODES, DEFAULT_STUB_MODE));
         return DEFAULT_STUB_MODE;
-    }
-
-    private String readStubFixedResult() {
-        String value = getStringConfigValue("model_stub_fixed_result", null);
-        if (!StringUtils.hasText(value)) return null;
-        if (STUB_RESULTS.contains(value.trim())) return value.trim();
-        logger.warn(String.format("[%s] model_stub_fixed_result '%s' is not one of %s", integrationSystem.getName(), value, STUB_RESULTS));
-        return null;
     }
 
     public String getApiUrl() {
@@ -88,16 +58,8 @@ public class TanuhConfig {
         return getStringConfigValue("int_env", null);
     }
 
-    public double getSafetySampleRate() {
-        return safetySampleRate;
-    }
-
     public String getStubMode() {
         return stubMode;
-    }
-
-    public String getStubFixedResult() {
-        return stubFixedResult;
     }
 
     public ContextIntegrationSystem getIntegrationSystem() {
@@ -110,5 +72,25 @@ public class TanuhConfig {
 
     public String getErrorJobHealthCheckSlug() {
         return getMainJobHealthCheckSlug() + "-error";
+    }
+
+    // The data quality service's address, with no trailing slash; null when the organisation has none configured.
+    public String getDqsApiUrl() {
+        String value = getStringConfigValue("dqs_api_url", null);
+        if (!StringUtils.hasText(value)) return null;
+        value = value.trim();
+        while (value.endsWith("/")) value = value.substring(0, value.length() - 1);
+        return value;
+    }
+
+    public String getDqsTenant() {
+        return getStringConfigValue("dqs_tenant", "samvit").trim();
+    }
+
+    // The Avni user the high-risk model service writes its result as; null when not set. A screening it changed last
+    // is not sent again, or each result it wrote would send the screening back to it.
+    public String getHighRiskAvniUser() {
+        String value = getStringConfigValue("high_risk_avni_user", null);
+        return StringUtils.hasText(value) ? value.trim() : null;
     }
 }

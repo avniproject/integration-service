@@ -5,6 +5,7 @@ import org.apache.log4j.Logger;
 import org.avni_integration_service.avni.client.AvniHttpClient;
 import org.avni_integration_service.integration_data.context.IntegrationContext;
 import org.avni_integration_service.tanuh.config.TanuhAvniSessionFactory;
+import org.avni_integration_service.tanuh.config.TanuhConceptsLoader;
 import org.avni_integration_service.tanuh.config.TanuhConfig;
 import org.avni_integration_service.tanuh.config.TanuhContextProvider;
 import org.avni_integration_service.tanuh.worker.OralScreeningWorker;
@@ -23,16 +24,19 @@ public class AvniTanuhMainJob {
     private final AvniHttpClient avniHttpClient;
     private final TanuhContextProvider tanuhContextProvider;
     private final OralScreeningWorker oralScreeningWorker;
+    private final TanuhConceptsLoader tanuhConceptsLoader;
 
     public AvniTanuhMainJob(Bugsnag bugsnag, HealthCheckService healthCheckService,
                             TanuhAvniSessionFactory tanuhAvniSessionFactory, AvniHttpClient avniHttpClient,
-                            TanuhContextProvider tanuhContextProvider, OralScreeningWorker oralScreeningWorker) {
+                            TanuhContextProvider tanuhContextProvider, OralScreeningWorker oralScreeningWorker,
+                             TanuhConceptsLoader tanuhConceptsLoader) {
         this.bugsnag = bugsnag;
         this.healthCheckService = healthCheckService;
         this.tanuhAvniSessionFactory = tanuhAvniSessionFactory;
         this.avniHttpClient = avniHttpClient;
         this.tanuhContextProvider = tanuhContextProvider;
         this.oralScreeningWorker = oralScreeningWorker;
+        this.tanuhConceptsLoader = tanuhConceptsLoader;
     }
 
     public void execute(TanuhConfig tanuhConfig) {
@@ -42,6 +46,7 @@ public class AvniTanuhMainJob {
             tanuhContextProvider.set(tanuhConfig);
             avniHttpClient.setAvniSession(tanuhAvniSessionFactory.createSession());
             IntegrationContext.set(tanuhConfig.getIntegrationSystem());
+            tanuhContextProvider.setConcepts(tanuhConceptsLoader.load(tanuhConfig.getIntegrationSystem()));
             oralScreeningWorker.processNew();
             healthCheckService.success(tanuhConfig.getMainJobHealthCheckSlug());
             logger.info(format("Tanuh Main Job Ended: %s", name));

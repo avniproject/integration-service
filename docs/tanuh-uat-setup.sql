@@ -12,7 +12,13 @@
 --   4. If review booking has already stopped on UAT, start from the moment it stopped instead (Step 3).
 --      A screening referred in between booked no review and would otherwise never reach the physician.
 --
+--   5. Replace <DQS_API_URL> with the data quality service's address for this environment (docs/tanuh-runbook.md,
+--      "The data quality service"). Every screening is sent there before anything else happens to it.
+--
 -- Every insert is guarded, so running it again changes nothing.
+--
+-- Afterwards, before the restart: import docs/tanuh-mapping-bundle as this organisation's bundle (docs/tanuh-runbook.md,
+-- "Question and answer names"). Without the names every job of the organisation fails.
 -- ============================================================
 
 -- Step 0: a database built by migrations can leave this id sequence behind rows inserted with fixed ids.
@@ -39,9 +45,9 @@ CROSS JOIN (VALUES
     ('int_env', 'staging', false),
     ('main.scheduled.job.cron', '0 */15 * * * ?', false),
     ('error.scheduled.job.cron', '0 5/15 * * * ?', false),
-    ('safety_sample_rate', '0.05', false),
-    ('model_stub_mode', 'by_encounter', false),
-    ('model_stub_fixed_result', 'Low Risk', false)
+    ('model_stub_mode', 'accept', false),
+    ('dqs_api_url', '<DQS_API_URL>', false),
+    ('dqs_tenant', 'samvit', false)
 ) AS c(key, value, is_secret)
 WHERE s.name = 'tanuh_uat'
   AND NOT EXISTS (SELECT 1 FROM integration_system_config x WHERE x.integration_system_id = s.id AND x.key = c.key);
@@ -60,7 +66,7 @@ WHERE s.name = 'tanuh_uat'
 INSERT INTO error_type (name, integration_system_id, uuid, follow_up_step, comparison_operator)
 SELECT t.name, s.id, uuid_generate_v4(), '0', NULL
 FROM integration_system s
-CROSS JOIN (VALUES ('HighRiskModelCallFailed'), ('ScreeningProcessingFailed')) AS t(name)
+CROSS JOIN (VALUES ('DataQualityCallFailed'), ('HighRiskModelCallFailed'), ('ScreeningProcessingFailed')) AS t(name)
 WHERE s.name = 'tanuh_uat'
   AND NOT EXISTS (SELECT 1 FROM error_type e WHERE e.integration_system_id = s.id AND e.name = t.name);
 

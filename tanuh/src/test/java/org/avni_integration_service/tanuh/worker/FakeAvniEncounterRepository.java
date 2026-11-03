@@ -14,29 +14,33 @@ import java.util.*;
 // given, read by 0-based offset pages), oldest first by (time, uuid), as the server orders by (time, id); a PATCH
 // merges the values sent (a null removes one) and marks the visit last changed by the job user. As on avni-server 18.1,
 // a PATCH that changes nothing leaves "last modified" as it was.
-class FakeAvniEncounterRepository extends AvniEncounterRepository {
-    static final String WORKER = "worker@tanuh_uat_local";
+public class FakeAvniEncounterRepository extends AvniEncounterRepository {
+    public static final String WORKER = "worker@tanuh_uat_local";
 
-    final Map<String, GeneralEncounter> screenings = new LinkedHashMap<>();
-    final List<String> patchedUuids = new ArrayList<>();
-    final List<Map<String, Object>> patchBodies = new ArrayList<>();
-    int listCalls;
-    Integer failOnListCall;
-    RuntimeException failReadsWith;
-    RuntimeException failListsWith;
+    public final Map<String, GeneralEncounter> screenings = new LinkedHashMap<>();
+    public final List<String> patchedUuids = new ArrayList<>();
+    public final List<Map<String, Object>> patchBodies = new ArrayList<>();
+    public int listCalls;
+    public Integer failOnListCall;
+    public RuntimeException failReadsWith;
+    public RuntimeException failListsWith;
     private final String jobUser;
     private long clockMillis;
 
-    FakeAvniEncounterRepository(String jobUser, Date start) {
+    public FakeAvniEncounterRepository(String jobUser, Date start) {
         this.jobUser = jobUser;
         this.clockMillis = start.getTime();
     }
 
-    GeneralEncounter add(String uuid, Map<String, Object> observations) {
+    public GeneralEncounter add(String uuid, Map<String, Object> observations) {
+        return add(uuid, "Oral Screening", observations);
+    }
+
+    public GeneralEncounter add(String uuid, String encounterType, Map<String, Object> observations) {
         GeneralEncounter s = new GeneralEncounter();
         s.setUuid(uuid);
         s.setSubjectId("patient-of-" + uuid);
-        s.setEncounterType("Oral Screening");
+        s.setEncounterType(encounterType);
         s.setEncounterDateTime("2026-10-06T10:00:00.000Z");
         s.setVoided(false);
         observations.forEach(s::addObservation);
@@ -45,25 +49,30 @@ class FakeAvniEncounterRepository extends AvniEncounterRepository {
         return s;
     }
 
-    void touch(GeneralEncounter s, String user) {
+    public void touch(GeneralEncounter s, String user) {
         clockMillis += 1000;
         stamp(s, user);
     }
 
     // One millisecond for all of them, as a single SQL statement setting last_modified_date_time = now() gives.
-    void stampTogether(Collection<String> uuids) {
+    public void stampTogether(Collection<String> uuids) {
         clockMillis += 1000;
         uuids.forEach(uuid -> stamp(screenings.get(uuid), WORKER));
     }
 
+    // The first stamp is the creation; later ones keep it, as the server's audit does.
+    @SuppressWarnings("unchecked")
     private void stamp(GeneralEncounter s, String user) {
-        Map<String, Object> audit = new HashMap<>();
-        audit.put("Last modified at", FormatAndParseUtil.toISODateTimeString(new Date(clockMillis)));
+        Map<String, Object> audit = s.get("audit") instanceof Map<?, ?> existing ? new HashMap<>((Map<String, Object>) existing) : new HashMap<>();
+        String at = FormatAndParseUtil.toISODateTimeString(new Date(clockMillis));
+        audit.put("Last modified at", at);
         audit.put("Last modified by", user);
+        audit.putIfAbsent("Created at", at);
+        audit.putIfAbsent("Created by", user);
         s.set("audit", audit);
     }
 
-    void workerEdits(String uuid) {
+    public void workerEdits(String uuid) {
         touch(screenings.get(uuid), WORKER);
     }
 

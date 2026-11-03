@@ -1,6 +1,7 @@
 package org.avni_integration_service.tanuh.domain;
 
 import org.avni_integration_service.avni.domain.GeneralEncounter;
+import org.avni_integration_service.tanuh.domain.TanuhConcepts.Concept;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,25 +9,19 @@ import java.util.Map;
 
 public final class OralScreeningInputs {
     private final List<String> photoUrls;
-    private final WorkerOpinion workerOpinion;
 
-    private OralScreeningInputs(List<String> photoUrls, WorkerOpinion workerOpinion) {
+    private OralScreeningInputs(List<String> photoUrls) {
         this.photoUrls = photoUrls;
-        this.workerOpinion = workerOpinion;
     }
 
-    // The rows of "Take photos of all lesions and 1 photo without lesion" when it has any, otherwise those of
-    // "ORAL SCREENING". The worker's opinion is "Suspicious Lesion?" on those rows only; a referral answer does not count.
-    public static OralScreeningInputs from(GeneralEncounter screening) {
-        List<Map<String, Object>> rows = rows(screening.getObservation(TanuhConcepts.TAKE_PHOTOS));
-        if (rows.isEmpty()) rows = rows(screening.getObservation(TanuhConcepts.GUIDED_PHOTOS));
+    // The photos in the rows of "Take photos of all lesions and 1 photo without lesion" when it has any, otherwise in
+    // those of "ORAL SCREENING".
+    public static OralScreeningInputs from(GeneralEncounter screening, TanuhConcepts concepts) {
+        List<Map<String, Object>> rows = rows(screening.getObservation(concepts.name(Concept.TAKE_PHOTOS)));
+        if (rows.isEmpty()) rows = rows(screening.getObservation(concepts.name(Concept.GUIDED_PHOTOS)));
         List<String> urls = new ArrayList<>();
-        boolean suspicious = false;
-        for (Map<String, Object> row : rows) {
-            urls.addAll(strings(row.get(TanuhConcepts.ORAL_IMAGE)));
-            suspicious |= strings(row.get(TanuhConcepts.SUSPICIOUS_LESION)).contains(TanuhConcepts.YES);
-        }
-        return new OralScreeningInputs(List.copyOf(urls), suspicious ? WorkerOpinion.SUSPICIOUS : WorkerOpinion.NOT_SUSPICIOUS);
+        for (Map<String, Object> row : rows) urls.addAll(strings(row.get(concepts.name(Concept.ORAL_IMAGE))));
+        return new OralScreeningInputs(List.copyOf(urls));
     }
 
     @SuppressWarnings("unchecked")
@@ -38,7 +33,7 @@ public final class OralScreeningInputs {
         return List.of();
     }
 
-    // A photo URL or a coded answer comes as a string or as a list of them.
+    // A photo URL comes as a string or as a list of them.
     private static List<String> strings(Object value) {
         if (value instanceof String s) return s.isBlank() ? List.of() : List.of(s);
         if (value instanceof List<?> list) {
@@ -49,10 +44,6 @@ public final class OralScreeningInputs {
 
     public List<String> getPhotoUrls() {
         return photoUrls;
-    }
-
-    public WorkerOpinion getWorkerOpinion() {
-        return workerOpinion;
     }
 
     public boolean hasPhotos() {

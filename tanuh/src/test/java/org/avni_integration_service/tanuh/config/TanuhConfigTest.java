@@ -28,44 +28,19 @@ public class TanuhConfigTest {
     }
 
     @Test
-    public void safetySampleRateDefaultsWhenMissingOrBlank() {
-        assertEquals(0.05, configWith().getSafetySampleRate());
-        assertEquals(0.05, configWith("safety_sample_rate", "").getSafetySampleRate());
-        assertEquals(0.05, configWith("safety_sample_rate", "   ").getSafetySampleRate());
-    }
-
-    @Test
-    public void safetySampleRateReadsAValueFromZeroToOne() {
-        assertEquals(0.1, configWith("safety_sample_rate", "0.1").getSafetySampleRate());
-        assertEquals(0.2, configWith("safety_sample_rate", " 0.2 ").getSafetySampleRate());
-        assertEquals(0.0, configWith("safety_sample_rate", "0").getSafetySampleRate());
-        assertEquals(1.0, configWith("safety_sample_rate", "1").getSafetySampleRate());
-    }
-
-    @Test
-    public void safetySampleRateDefaultsWhenNotANumberOrOutOfRange() {
-        for (String bad : List.of("abc", "1.5", "-0.1", "NaN", "Infinity", "-Infinity")) {
-            assertEquals(0.05, configWith("safety_sample_rate", bad).getSafetySampleRate(), bad);
-        }
-    }
-
-    @Test
-    public void stubModeIsOneOfTheThreeOrTheDefault() {
-        assertEquals("by_encounter", configWith().getStubMode());
-        assertEquals("fixed", configWith("model_stub_mode", "fixed").getStubMode());
+    public void stubModeIsAcceptOrFailOrTheDefault() {
+        assertEquals("accept", configWith().getStubMode());
         assertEquals("fail", configWith("model_stub_mode", " fail ").getStubMode());
-        assertEquals("by_encounter", configWith("model_stub_mode", "by_encounter").getStubMode());
-        assertEquals("by_encounter", configWith("model_stub_mode", "Fixed").getStubMode());
-        assertEquals("by_encounter", configWith("model_stub_mode", "random").getStubMode());
+        assertEquals("accept", configWith("model_stub_mode", "accept").getStubMode());
+        assertEquals("accept", configWith("model_stub_mode", "by_encounter").getStubMode());
+        assertEquals("accept", configWith("model_stub_mode", "Fail").getStubMode());
     }
 
     @Test
-    public void stubFixedResultIsOneOfTheModelsAnswersOrNull() {
-        assertNull(configWith().getStubFixedResult());
-        assertEquals("High Risk", configWith("model_stub_fixed_result", "High Risk").getStubFixedResult());
-        assertEquals("Low Risk", configWith("model_stub_fixed_result", " Low Risk ").getStubFixedResult());
-        assertEquals("Non Suspicious", configWith("model_stub_fixed_result", "Non Suspicious").getStubFixedResult());
-        assertNull(configWith("model_stub_fixed_result", "Medium").getStubFixedResult());
+    public void theHighRiskServicesUserIsTheTrimmedSettingOrNull() {
+        assertNull(configWith().getHighRiskAvniUser());
+        assertNull(configWith("high_risk_avni_user", "  ").getHighRiskAvniUser());
+        assertEquals("high-risk@tanuh_uat", configWith("high_risk_avni_user", " high-risk@tanuh_uat ").getHighRiskAvniUser());
     }
 
     @Test
@@ -93,5 +68,19 @@ public class TanuhConfigTest {
         assertEquals("tanuh_uat_local", config.getMainJobHealthCheckSlug());
         assertEquals("tanuh_uat_local-error", config.getErrorJobHealthCheckSlug());
         assertEquals("Tanuh_UAT_Local", config.getIntegrationSystem().getName());
+    }
+
+    @Test
+    public void dqsSettingsComeFromTheRowsWithTheAddressTrimmed() {
+        TanuhConfig config = configWith("dqs_api_url", " https://dqs.example.org/ ", "dqs_tenant", "samvit");
+        assertEquals("https://dqs.example.org", config.getDqsApiUrl());
+        assertEquals("samvit", config.getDqsTenant());
+    }
+
+    @Test
+    public void dqsHasNoAddressUntilOneIsSet() {
+        TanuhConfig config = configWith("dqs_api_url", "  ");
+        assertNull(config.getDqsApiUrl());
+        assertEquals("samvit", config.getDqsTenant());
     }
 }

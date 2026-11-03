@@ -5,6 +5,7 @@ import org.apache.log4j.Logger;
 import org.avni_integration_service.avni.client.AvniHttpClient;
 import org.avni_integration_service.integration_data.context.IntegrationContext;
 import org.avni_integration_service.tanuh.config.TanuhAvniSessionFactory;
+import org.avni_integration_service.tanuh.config.TanuhConceptsLoader;
 import org.avni_integration_service.tanuh.config.TanuhConfig;
 import org.avni_integration_service.tanuh.config.TanuhContextProvider;
 import org.avni_integration_service.tanuh.worker.TanuhScreeningRetryWorker;
@@ -23,16 +24,19 @@ public class AvniTanuhErrorJob {
     private final AvniHttpClient avniHttpClient;
     private final TanuhContextProvider tanuhContextProvider;
     private final TanuhScreeningRetryWorker tanuhScreeningRetryWorker;
+    private final TanuhConceptsLoader tanuhConceptsLoader;
 
     public AvniTanuhErrorJob(Bugsnag bugsnag, HealthCheckService healthCheckService,
                              TanuhAvniSessionFactory tanuhAvniSessionFactory, AvniHttpClient avniHttpClient,
-                             TanuhContextProvider tanuhContextProvider, TanuhScreeningRetryWorker tanuhScreeningRetryWorker) {
+                             TanuhContextProvider tanuhContextProvider, TanuhScreeningRetryWorker tanuhScreeningRetryWorker,
+                             TanuhConceptsLoader tanuhConceptsLoader) {
         this.bugsnag = bugsnag;
         this.healthCheckService = healthCheckService;
         this.tanuhAvniSessionFactory = tanuhAvniSessionFactory;
         this.avniHttpClient = avniHttpClient;
         this.tanuhContextProvider = tanuhContextProvider;
         this.tanuhScreeningRetryWorker = tanuhScreeningRetryWorker;
+        this.tanuhConceptsLoader = tanuhConceptsLoader;
     }
 
     public void execute(TanuhConfig tanuhConfig) {
@@ -42,6 +46,7 @@ public class AvniTanuhErrorJob {
             tanuhContextProvider.set(tanuhConfig);
             avniHttpClient.setAvniSession(tanuhAvniSessionFactory.createSession());
             IntegrationContext.set(tanuhConfig.getIntegrationSystem());
+            tanuhContextProvider.setConcepts(tanuhConceptsLoader.load(tanuhConfig.getIntegrationSystem()));
             if (tanuhScreeningRetryWorker.processWaiting()) {
                 healthCheckService.success(tanuhConfig.getErrorJobHealthCheckSlug());
                 logger.info(format("Tanuh Error Job Ended: %s", name));

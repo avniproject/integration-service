@@ -7,6 +7,9 @@ import org.avni_integration_service.integration_data.domain.IntegrationSystem;
 import org.avni_integration_service.integration_data.domain.config.IntegrationSystemConfigCollection;
 import org.avni_integration_service.tanuh.config.TanuhAvniSessionFactory;
 import org.avni_integration_service.tanuh.config.TanuhConfig;
+import org.avni_integration_service.tanuh.config.TanuhConceptsLoader;
+import org.avni_integration_service.tanuh.domain.TanuhConceptsFixture;
+import org.junit.jupiter.api.BeforeEach;
 import org.avni_integration_service.tanuh.config.TanuhContextProvider;
 import org.avni_integration_service.tanuh.worker.OralScreeningWorker;
 import org.avni_integration_service.tanuh.worker.TanuhScreeningRetryWorker;
@@ -41,7 +44,14 @@ public class AvniTanuhJobsTest {
     private OralScreeningWorker worker;
     @Mock
     private TanuhScreeningRetryWorker retryWorker;
+    @Mock
+    private TanuhConceptsLoader conceptsLoader;
     private final TanuhContextProvider contextProvider = new TanuhContextProvider();
+
+    @BeforeEach
+    public void loadNames() {
+        lenient().when(conceptsLoader.load(any())).thenReturn(TanuhConceptsFixture.defaults());
+    }
 
     private TanuhConfig config(String name) {
         IntegrationSystem system = new IntegrationSystem();
@@ -68,12 +78,13 @@ public class AvniTanuhJobsTest {
 
     private void assertContextsCleared() {
         assertThrows(IllegalStateException.class, contextProvider::get);
+        assertThrows(IllegalStateException.class, contextProvider::getConcepts);
         assertThrows(IllegalStateException.class, IntegrationContext::get);
     }
 
     @Test
     public void mainJobRunsInItsOrganisationsContextAndPingsItsOwnCheck() {
-        AvniTanuhMainJob job = new AvniTanuhMainJob(bugsnag, healthCheckService, sessionFactory, avniHttpClient, contextProvider, worker);
+        AvniTanuhMainJob job = new AvniTanuhMainJob(bugsnag, healthCheckService, sessionFactory, avniHttpClient, contextProvider, worker, conceptsLoader);
         List<String> seen = recordContextsWhenPinged("tanuh_uat_local");
         List<String> seenByWorker = new ArrayList<>();
         doAnswer(invocation -> {
@@ -92,7 +103,7 @@ public class AvniTanuhJobsTest {
 
     @Test
     public void mainJobPingsFailureReportsAndClearsWhenTheRunFails() {
-        AvniTanuhMainJob job = new AvniTanuhMainJob(bugsnag, healthCheckService, sessionFactory, avniHttpClient, contextProvider, worker);
+        AvniTanuhMainJob job = new AvniTanuhMainJob(bugsnag, healthCheckService, sessionFactory, avniHttpClient, contextProvider, worker, conceptsLoader);
         RuntimeException failure = new RuntimeException("sign-in refused");
         when(sessionFactory.createSession()).thenThrow(failure);
 
@@ -106,7 +117,7 @@ public class AvniTanuhJobsTest {
 
     @Test
     public void mainJobClearsItsContextsWhenWorkAfterSetupFails() {
-        AvniTanuhMainJob job = new AvniTanuhMainJob(bugsnag, healthCheckService, sessionFactory, avniHttpClient, contextProvider, worker);
+        AvniTanuhMainJob job = new AvniTanuhMainJob(bugsnag, healthCheckService, sessionFactory, avniHttpClient, contextProvider, worker, conceptsLoader);
         RuntimeException failure = new RuntimeException("scoring failed");
         doThrow(failure).when(healthCheckService).success("tanuh_uat_local");
 
@@ -119,7 +130,7 @@ public class AvniTanuhJobsTest {
 
     @Test
     public void mainJobPingsFailureWhenTheWorkerThrows() {
-        AvniTanuhMainJob job = new AvniTanuhMainJob(bugsnag, healthCheckService, sessionFactory, avniHttpClient, contextProvider, worker);
+        AvniTanuhMainJob job = new AvniTanuhMainJob(bugsnag, healthCheckService, sessionFactory, avniHttpClient, contextProvider, worker, conceptsLoader);
         IllegalStateException failure = new IllegalStateException("No TanuhOralScreening cursor row for this organisation. Run its setup script.");
         doThrow(failure).when(worker).processNew();
 
@@ -133,7 +144,7 @@ public class AvniTanuhJobsTest {
 
     @Test
     public void errorJobRetriesInItsOrganisationsContextAndPingsTheErrorCheck() {
-        AvniTanuhErrorJob job = new AvniTanuhErrorJob(bugsnag, healthCheckService, sessionFactory, avniHttpClient, contextProvider, retryWorker);
+        AvniTanuhErrorJob job = new AvniTanuhErrorJob(bugsnag, healthCheckService, sessionFactory, avniHttpClient, contextProvider, retryWorker, conceptsLoader);
         List<String> seen = recordContextsWhenPinged("tanuh_prod_local-error");
         List<String> seenByRetries = new ArrayList<>();
         when(retryWorker.processWaiting()).thenAnswer(invocation -> {
@@ -152,7 +163,7 @@ public class AvniTanuhJobsTest {
 
     @Test
     public void errorJobPingsFailureWhenAnyRetryFailed() {
-        AvniTanuhErrorJob job = new AvniTanuhErrorJob(bugsnag, healthCheckService, sessionFactory, avniHttpClient, contextProvider, retryWorker);
+        AvniTanuhErrorJob job = new AvniTanuhErrorJob(bugsnag, healthCheckService, sessionFactory, avniHttpClient, contextProvider, retryWorker, conceptsLoader);
         when(retryWorker.processWaiting()).thenReturn(false);
 
         job.execute(config("Tanuh_Prod_Local"));
@@ -165,7 +176,7 @@ public class AvniTanuhJobsTest {
 
     @Test
     public void errorJobPingsFailureAndReportsWhenTheRetriesThrow() {
-        AvniTanuhErrorJob job = new AvniTanuhErrorJob(bugsnag, healthCheckService, sessionFactory, avniHttpClient, contextProvider, retryWorker);
+        AvniTanuhErrorJob job = new AvniTanuhErrorJob(bugsnag, healthCheckService, sessionFactory, avniHttpClient, contextProvider, retryWorker, conceptsLoader);
         RuntimeException failure = new RuntimeException("error records unreadable");
         when(retryWorker.processWaiting()).thenThrow(failure);
 
@@ -178,7 +189,7 @@ public class AvniTanuhJobsTest {
 
     @Test
     public void errorJobPingsTheErrorCheckWhenTheRunFails() {
-        AvniTanuhErrorJob job = new AvniTanuhErrorJob(bugsnag, healthCheckService, sessionFactory, avniHttpClient, contextProvider, retryWorker);
+        AvniTanuhErrorJob job = new AvniTanuhErrorJob(bugsnag, healthCheckService, sessionFactory, avniHttpClient, contextProvider, retryWorker, conceptsLoader);
         RuntimeException failure = new RuntimeException("sign-in refused");
         when(sessionFactory.createSession()).thenThrow(failure);
 
@@ -187,6 +198,19 @@ public class AvniTanuhJobsTest {
         verify(healthCheckService).failure("tanuh_prod_local-error");
         verify(bugsnag).notify(failure);
         verifyNoInteractions(retryWorker);
+        assertContextsCleared();
+    }
+
+    @Test
+    public void mappingRowsThatCannotBeReadFailTheRunBeforeAnyWork() {
+        when(conceptsLoader.load(any())).thenThrow(new IllegalStateException("[tanuh_uat_local] Tanuh mapping: no row for qc_status"));
+        AvniTanuhMainJob job = new AvniTanuhMainJob(bugsnag, healthCheckService, sessionFactory, avniHttpClient, contextProvider, worker, conceptsLoader);
+
+        job.execute(config("tanuh_uat_local"));
+
+        verify(healthCheckService).failure("tanuh_uat_local");
+        verify(bugsnag).notify(any(IllegalStateException.class));
+        verifyNoInteractions(worker);
         assertContextsCleared();
     }
 }

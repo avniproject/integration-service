@@ -6,10 +6,11 @@ import org.avni_integration_service.avni.repository.AvniEncounterRepository;
 import org.avni_integration_service.avni.worker.ErrorRecordWorker;
 import org.avni_integration_service.integration_data.domain.AvniEntityType;
 import org.avni_integration_service.integration_data.domain.error.ErrorRecord;
+import org.avni_integration_service.integration_data.domain.error.ErrorRecordLog;
 import org.avni_integration_service.integration_data.domain.error.ErrorTypeFollowUpStep;
 import org.avni_integration_service.integration_data.repository.ErrorRecordRepository;
 import org.avni_integration_service.tanuh.config.TanuhContextProvider;
-import org.avni_integration_service.tanuh.domain.TanuhConcepts;
+import org.avni_integration_service.tanuh.domain.TanuhConcepts.Concept;
 import org.avni_integration_service.tanuh.service.TanuhErrorService;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
@@ -17,8 +18,8 @@ import org.springframework.web.client.HttpClientErrorException;
 import java.util.Date;
 import java.util.List;
 
-// Retries every screening waiting in an error record, as the screening is now, until it is scored or no longer needs
-// scoring. The main job leaves a screening alone while its record is open, so this is the only path that scores it.
+// Retries every screening waiting in an error record, as the screening is now, until it is checked or no longer needs
+// checking. The main job leaves a screening alone while its record is open, so this is the only path that checks it.
 @Component
 public class TanuhScreeningRetryWorker implements ErrorRecordWorker {
     private static final Logger logger = Logger.getLogger(TanuhScreeningRetryWorker.class);
@@ -76,11 +77,20 @@ public class TanuhScreeningRetryWorker implements ErrorRecordWorker {
             return false;
         }
         if (Boolean.TRUE.equals(screening.getVoided())) return settle(errorRecord, "deleted");
-        if (tanuhContextProvider.get().getAvniImplUser().equalsIgnoreCase(screening.getLastModifiedBy()))
-            return settle(errorRecord, "already written by the job");
+        boolean jobWroteLast = tanuhContextProvider.get().getAvniImplUser().equalsIgnoreCase(screening.getLastModifiedBy());
+        // Its verdict is written and only the hand-over failed: hand it over again, without checking it a second time.
+        // A worker's edit since makes it a new version, which is checked in full below.
+        if (jobWroteLast && handOverFailed(errorRecord))
+            return switch (oralScreeningWorker.handOverAgain(screening)) {
+                case WRITTEN -> settle(errorRecord, "handed over");
+                case SKIPPED -> settle(errorRecord, "no longer marked to be handed over");
+                case CHANGED -> true;
+                case FAILED -> false;
+            };
+        if (jobWroteLast) return settle(errorRecord, "already written by the job");
         return switch (oralScreeningWorker.processScreening(screening, false)) {
-            case WRITTEN -> settle(errorRecord, "scored");
-            case SKIPPED -> settle(errorRecord, "no longer needs scoring");
+            case WRITTEN -> settle(errorRecord, "checked");
+            case SKIPPED -> settle(errorRecord, "no longer needs checking");
             // It changed while being retried, so nothing was written: it keeps waiting and the newer version is retried next run.
             case CHANGED -> true;
             // The error service has refreshed the record's log.
@@ -88,11 +98,16 @@ public class TanuhScreeningRetryWorker implements ErrorRecordWorker {
         };
     }
 
+    private static boolean handOverFailed(ErrorRecord errorRecord) {
+        ErrorRecordLog last = errorRecord.getLastErrorRecordLog();
+        return last != null && TanuhErrorService.MODEL_CALL_FAILED.equals(last.getErrorType().getName());
+    }
+
     // Sign-in happens on the run's first call, and the client passes a 404 through unchanged. A wrong address, or a
     // proxy answering 404, would otherwise read as "screening gone" and drop every waiting record behind a green
     // check. This call lists nothing and must succeed before any record is touched; its failure fails the run.
     private void confirmAvniAnswers() {
-        avniEncounterRepository.getGeneralEncounters(new Date(), TanuhConcepts.ORAL_SCREENING, 1);
+        avniEncounterRepository.getGeneralEncounters(new Date(), tanuhContextProvider.getConcepts().name(Concept.ORAL_SCREENING), 1);
     }
 
     private boolean settle(ErrorRecord errorRecord, String why) {
