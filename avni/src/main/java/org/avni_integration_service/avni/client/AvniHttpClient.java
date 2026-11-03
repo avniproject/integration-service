@@ -137,6 +137,19 @@ public class AvniHttpClient {
         return headers;
     }
 
+    // The session's ID token for the service's own use against another system that accepts Avni's Cognito tokens.
+    // Signs in when the session holds none. Null when the session does not sign in to Avni (avni_auth_enabled false).
+    public String getIdToken() {
+        if (!getAvniSession().getAuthWithAvni()) return null;
+        return fetchAuthToken();
+    }
+
+    // Signs in again and returns the new token, for a caller whose request was refused with an expired one.
+    public String renewIdToken() {
+        getAvniSession().clearAuthInformation();
+        return getIdToken();
+    }
+
     String fetchAuthToken() {
         String idToken = getAvniSession().getIdToken();
         if (idToken != null) return idToken;
