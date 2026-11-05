@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -33,7 +34,10 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
 @ExtendWith(MockitoExtension.class)
 public class DqsClientTest {
     private static final String ROUTE = "https://dqs.example.org/v1/samvit/records/oral_screening";
-    private static final String SCORED = "{\"evaluation\":{\"scored\":true,\"violations\":[],\"outcomes\":[]},\"summary\":{\"outcomes\":{\"pass\":5,\"fail\":1}}}";
+    private static final String SCORED = "{\"evaluation\":{\"scored\":true,\"violations\":[],\"outcomes\":["
+            + "{\"rule_id\":\"ST-001\",\"version\":\"1.0.0\",\"outcome\":\"pass\",\"evidence\":null,\"blocked_on\":[]},"
+            + "{\"rule_id\":\"SL-001\",\"version\":\"1.0.0\",\"outcome\":\"fail\",\"evidence\":{\"message\":\"No location was captured for this record\"},\"blocked_on\":[]}]},"
+            + "\"summary\":{\"outcomes\":{\"pass\":1,\"fail\":1}}}";
     private static final String UNREADABLE = "{\"evaluation\":{\"scored\":false,\"violations\":[{\"code\":\"IDENTITY_FIELD_MISSING\",\"level\":\"error\",\"message\":\"beneficiary_id identifies the record and is absent\"}]},\"summary\":{\"outcomes\":{}}}";
 
     @Mock
@@ -90,7 +94,7 @@ public class DqsClientTest {
 
         assertEquals(200, result.status());
         assertTrue(result.scored());
-        assertEquals(Map.of("pass", 5, "fail", 1), result.outcomes());
+        assertEquals(List.of(new DqsResult.RuleOutcome("ST-001", "pass"), new DqsResult.RuleOutcome("SL-001", "fail")), result.rules());
         server.verify();
     }
 
@@ -167,7 +171,8 @@ public class DqsClientTest {
     public void aStoredAnswerThatDoesNotSayHowItWasScoredFailsTheSend() {
         for (String body : List.of("<html>signed out</html>", "", "{}",
                 "{\"evaluation\":{\"scored\":true}}",
-                "{\"evaluation\":{\"scored\":true},\"summary\":{\"outcomes\":{\"fail\":\"many\"}}}")) {
+                "{\"evaluation\":{\"scored\":true},\"summary\":{\"outcomes\":{\"fail\":1}}}",
+                "{\"evaluation\":{\"scored\":true,\"outcomes\":[{\"rule_id\":\"SL-001\"}]}}")) {
             server.reset();
             server.expect(requestTo(ROUTE)).andRespond(withSuccess(body, MediaType.APPLICATION_JSON));
             DqsException e = assertThrows(DqsException.class, () -> client.submit(DqsClient.ORAL_SCREENING, payload()), body);
@@ -181,7 +186,8 @@ public class DqsClientTest {
 
         DqsResult result = client.submit(DqsClient.ORAL_SCREENING, payload());
 
-        assertFalse(result.passed());
+        assertFalse(result.scored());
+        assertFalse(result.passed(Set.of()));
     }
 
     // The job user's token goes with every record, so an address that is not https sends nothing.

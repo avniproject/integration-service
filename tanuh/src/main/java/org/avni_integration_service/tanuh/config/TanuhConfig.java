@@ -6,23 +6,31 @@ import org.avni_integration_service.integration_data.domain.IntegrationSystem;
 import org.avni_integration_service.integration_data.domain.config.IntegrationSystemConfigCollection;
 import org.springframework.util.StringUtils;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class TanuhConfig {
     private static final Logger logger = Logger.getLogger(TanuhConfig.class);
 
     public static final String DEFAULT_STUB_MODE = "accept";
     private static final List<String> STUB_MODES = List.of("accept", "fail");
+    // The checks sheet's blocking checks among those Samvit runs on an oral screening: no visit time or one in the
+    // future, no usable image, unusable images.
+    public static final String DEFAULT_QC_FAIL_RULES = "ST-001,SM-003,QC-030";
 
     private final IntegrationSystemConfigCollection integrationSystemConfigCollection;
     private final ContextIntegrationSystem integrationSystem;
     private final String stubMode;
+    private final Set<String> qcFailRules;
 
     public TanuhConfig(IntegrationSystemConfigCollection integrationSystemConfigCollection, IntegrationSystem integrationSystem) {
         this.integrationSystemConfigCollection = integrationSystemConfigCollection;
         this.integrationSystem = new ContextIntegrationSystem(integrationSystem);
         this.stubMode = readStubMode();
+        this.qcFailRules = readQcFailRules();
     }
 
     private String getStringConfigValue(String key, String defaultValue) {
@@ -36,6 +44,11 @@ public class TanuhConfig {
         if (STUB_MODES.contains(value.trim())) return value.trim();
         logger.warn(String.format("[%s] model_stub_mode '%s' is not one of %s, using %s", integrationSystem.getName(), value, STUB_MODES, DEFAULT_STUB_MODE));
         return DEFAULT_STUB_MODE;
+    }
+
+    private Set<String> readQcFailRules() {
+        return Arrays.stream(getStringConfigValue("qc_fail_rules", DEFAULT_QC_FAIL_RULES).split(","))
+                .map(String::trim).filter(StringUtils::hasText).collect(Collectors.toUnmodifiableSet());
     }
 
     public String getApiUrl() {
@@ -85,6 +98,12 @@ public class TanuhConfig {
 
     public String getDqsTenant() {
         return getStringConfigValue("dqs_tenant", "samvit").trim();
+    }
+
+    // The data quality service's rules whose failure makes a screening QC Fail. A failed rule not in this set is
+    // logged and does not fail it.
+    public Set<String> getQcFailRules() {
+        return qcFailRules;
     }
 
     // The Avni user the high-risk model service writes its result as; null when not set. A screening it changed last

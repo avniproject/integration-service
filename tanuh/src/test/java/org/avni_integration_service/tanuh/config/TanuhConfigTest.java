@@ -8,6 +8,7 @@ import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -41,6 +42,13 @@ public class TanuhConfigTest {
         assertNull(configWith().getHighRiskAvniUser());
         assertNull(configWith("high_risk_avni_user", "  ").getHighRiskAvniUser());
         assertEquals("high-risk@tanuh_uat", configWith("high_risk_avni_user", " high-risk@tanuh_uat ").getHighRiskAvniUser());
+    }
+
+    @Test
+    public void theRulesThatFailQcAreTheListedIdsOrTheBlockingChecks() {
+        assertEquals(Set.of("ST-001", "SM-003", "QC-030"), configWith().getQcFailRules());
+        assertEquals(Set.of("ST-001", "SM-003", "QC-030"), configWith("qc_fail_rules", "").getQcFailRules());
+        assertEquals(Set.of("SL-001", "samvit:ORAL-003"), configWith("qc_fail_rules", " SL-001 ,, samvit:ORAL-003 ").getQcFailRules());
     }
 
     @Test

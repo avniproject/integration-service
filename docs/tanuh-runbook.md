@@ -12,7 +12,7 @@ Each Tanuh organisation has two jobs on the integration service.
   3. if the screening passed QC and has photos, hands it with its photos to the high-risk model service, without waiting for a result. For now the model service is a stand-in. The real service works on its own time and writes its result to Avni itself, through Avni's API; that write is not this job's concern.
 - **The retry job**, five minutes after each main run, tries again every screening that is waiting after a failure. A screening whose verdict was written but whose hand-over failed is only handed over again, if it is still marked `QC Pass`; any other is tried again from step 1.
 
-A screening passes QC when the data quality service could read it and none of its rules failed it. A rule that could not decide, or did not apply, does not fail it. A screening that fails QC is not sent to the model service. A screening that passes without any photo is marked `QC Pass` but not sent either, as there is nothing for the model to look at.
+Whether a screening passes QC is decided by this service, not by the data quality service: the data quality service returns each rule's outcome, and a screening fails QC when the service could not read it, or when a rule named in `qc_fail_rules` (section 14) failed it. Any other failed rule is logged and does not fail the screening, and neither does a rule that could not decide or did not apply. A screening that fails QC is not sent to the model service. A screening that passes without any photo is marked `QC Pass` but not sent either, as there is nothing for the model to look at.
 
 While the data quality service or the model service is down, the screenings wait and none is lost; the red retry check is the sign. The stand-in never takes a screening on an organisation set up as production.
 
@@ -55,7 +55,7 @@ Settings are rows in `integration_system_config` for the organisation's integrat
   - `accept`, the default, takes every screening and does nothing with it.
   - `fail` makes every hand-over fail, to test the retry path.
 - `high_risk_avni_user`: the Avni user the real model service writes its results as, once it does. A screening that user changed last is not sent again. Without it, each result the model service wrote would send the screening round once more. Set it before the real model service starts writing; it can stay unset while the stand-in runs.
-- `dqs_api_url` and `dqs_tenant`: section 14.
+- `dqs_api_url`, `dqs_tenant` and `qc_fail_rules`: section 14.
 
 ```sql
 UPDATE integration_system_config SET value = 'fail'
@@ -165,6 +165,7 @@ What is not sent: other visit types, a patient with no screening, the photograph
 
 - `dqs_api_url`: the service's address, for example `https://13.233.1.2` (the staging service answers on its Elastic IP with a certificate for it). It must be https, because the job user's sign-in token goes with every record; only an address on the integration service's own machine (`localhost`, `127.0.0.1`) may be plain http. With no value, or a value that is not https, every screening waits with `DataQualityCallFailed`.
 - `dqs_tenant`: the tenant key in the service's URLs, `samvit`.
+- `qc_fail_rules`: the rule ids, comma-separated, whose failure makes a screening `QC Fail`, for example `ST-001,SM-003,QC-030`. That is the default when the row is absent or empty: the checks sheet's blocking checks among the rules Samvit runs on an oral screening (no visit time or one in the future, no usable image, unusable images). A rule failed on the screening but not listed is logged as `Screening <id> passed QC; failed rules not in qc_fail_rules: [...]`. A failed QC is logged with the listed rules that failed it. Rules on the registration record never decide the verdict.
 
 ### Letting the job user in
 
@@ -186,9 +187,9 @@ A screening the service does not take waits with `DataQualityCallFailed` (sectio
 - `404`: `dqs_api_url` or `dqs_tenant` is wrong, or the tenant's published rulepack does not carry `oral_screening` or `registration`. The message names the record type.
 - `503`: the service could not fetch Cognito's signing keys.
 - A 400: the request body was refused. That is a defect in this service; report it with the screening's uuid.
-- `does not say how it was scored`: the service answered 200 with a body that is not its evaluation, often a proxy's page in front of it. Nothing is written; the screening is sent again on the next retry.
+- `does not say how it was scored`: the service answered 200 with a body that is not its evaluation (a `scored` flag and an outcome for each rule), often a proxy's page in front of it. Nothing is written; the screening is sent again on the next retry.
 
-A screening the service stores but cannot score (it answers 422, for a record that lacks an identity) is not a failure: it is marked `QC Fail`.
+A screening the service stores but cannot read (it answers 422, for a record that lacks an identity or carries a value it cannot parse) is not a failure: it is marked `QC Fail` whatever `qc_fail_rules` says, and the log names the violations.
 
 ## 15. Question and answer names
 

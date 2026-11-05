@@ -34,6 +34,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 // Each new or edited Oral Screening goes to the data quality service, and the QC verdict is written back to it. A
 // screening that passed QC is then handed to the high-risk model service, which works on its own time and writes its
@@ -118,14 +119,15 @@ public class OralScreeningWorker {
             // edited patient is carried by the next screening. Neither payload is logged: they carry the patient's details.
             dqsClient.submit(DqsClient.REGISTRATION, RegistrationRecord.from(s, patient, concepts));
             DqsResult quality = dqsClient.submit(DqsClient.ORAL_SCREENING, OralScreeningRecord.from(s, patient, concepts));
-            if (!quality.passed()) logger.info(String.format("Screening %s failed QC: %s, %s", uuid, quality.outcomes(), quality.violations()));
+            boolean passed = quality.passed(config.getQcFailRules());
+            logVerdict(uuid, quality, passed, config.getQcFailRules());
             // Checked right before the write, so an edit synced while the service answered is not written over.
             if (changedSince(uuid, listedAt)) return changed(uuid);
             // The check time changes on every write. The server ignores a write that changes nothing, which would
             // leave the worker as the last editor and send the screening again on every run.
-            avniEncounterRepository.patch(uuid, verdict(quality.passed(), concepts));
-            logger.info(String.format("Screening %s: %s written", uuid, quality.passed() ? concepts.name(Concept.QC_PASS) : concepts.name(Concept.QC_FAIL)));
-            passedQc = quality.passed();
+            avniEncounterRepository.patch(uuid, verdict(passed, concepts));
+            logger.info(String.format("Screening %s: %s written", uuid, passed ? concepts.name(Concept.QC_PASS) : concepts.name(Concept.QC_FAIL)));
+            passedQc = passed;
         } catch (DqsException e) {
             return failed(uuid, TanuhErrorService.DATA_QUALITY_CALL_FAILED, e);
         } catch (Exception e) {
@@ -170,6 +172,16 @@ public class OralScreeningWorker {
         } finally {
             photos.forEach(File::delete);
         }
+    }
+
+    // Whether a screening passes is decided here, from the rule outcomes the service returned: see DqsResult.passed.
+    private static void logVerdict(String uuid, DqsResult quality, boolean passed, Set<String> qcFailRules) {
+        if (!quality.scored())
+            logger.info(String.format("Screening %s failed QC: the data quality service could not read it: %s", uuid, quality.violations()));
+        else if (!passed)
+            logger.info(String.format("Screening %s failed QC on %s; all failed rules %s, violations %s", uuid, quality.failedRulesThatFailQc(qcFailRules), quality.failedRules(), quality.violations()));
+        else if (!quality.failedRules().isEmpty())
+            logger.info(String.format("Screening %s passed QC; failed rules not in qc_fail_rules: %s", uuid, quality.failedRules()));
     }
 
     private Map<String, Object> verdict(boolean passed, TanuhConcepts concepts) {

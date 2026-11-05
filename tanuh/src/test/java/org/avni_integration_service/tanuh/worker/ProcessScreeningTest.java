@@ -16,6 +16,7 @@ import org.avni_integration_service.tanuh.config.TanuhContextProvider;
 import org.avni_integration_service.tanuh.dqs.DqsClient;
 import org.avni_integration_service.tanuh.dqs.DqsException;
 import org.avni_integration_service.tanuh.dqs.DqsResult;
+import org.avni_integration_service.tanuh.dqs.DqsResult.RuleOutcome;
 import org.avni_integration_service.tanuh.model.HighRiskModelClient;
 import org.avni_integration_service.tanuh.model.HighRiskModelException;
 import org.avni_integration_service.tanuh.service.TanuhErrorService;
@@ -123,11 +124,17 @@ public class ProcessScreeningTest {
     }
 
     static DqsResult passed() {
-        return new DqsResult(200, true, List.of(), Map.of("pass", 5));
+        return new DqsResult(200, true, List.of(), List.of(new RuleOutcome("ST-001", "pass"), new RuleOutcome("SM-003", "pass")));
     }
 
+    // SM-003, no usable image, is one of the default qc_fail_rules.
     static DqsResult failedRule() {
-        return new DqsResult(200, true, List.of(), Map.of("pass", 4, "fail", 1));
+        return new DqsResult(200, true, List.of(), List.of(new RuleOutcome("ST-001", "pass"), new RuleOutcome("SM-003", "fail")));
+    }
+
+    // SL-001, no location, is not.
+    static DqsResult failedRuleNotFailingQc() {
+        return new DqsResult(200, true, List.of(), List.of(new RuleOutcome("ST-001", "pass"), new RuleOutcome("SL-001", "fail")));
     }
 
     static Map<String, Object> verdict(String qcStatus) {
@@ -170,9 +177,41 @@ public class ProcessScreeningTest {
     }
 
     @Test
+    public void aFailedRuleNotInQcFailRulesIsLoggedAndTheScreeningPasses() throws Exception {
+        GeneralEncounter s = screeningWithPhotos("s1", "No");
+        dqsSays(failedRuleNotFailingQc());
+
+        assertEquals(ScreeningOutcome.WRITTEN, worker.processScreening(s, true));
+
+        assertEquals(List.of(verdict("QC Pass")), encounters.patchBodies);
+        verify(model).submit(same(s), anyList());
+    }
+
+    @Test
+    public void theRulesThatFailQcAreTheOrganisationsChoice() {
+        IntegrationSystemConfig user = new IntegrationSystemConfig();
+        user.setKey("avni_user");
+        user.setValue(JOB_USER);
+        IntegrationSystemConfig failRules = new IntegrationSystemConfig();
+        failRules.setKey("qc_fail_rules");
+        failRules.setValue(" SL-001 , ST-001 ");
+        IntegrationSystem system = new IntegrationSystem();
+        system.setId(15);
+        ReflectionTestUtils.setField(system, "name", "tanuh_uat_local");
+        context.set(new TanuhConfig(new IntegrationSystemConfigCollection(List.of(user, failRules)), system));
+        GeneralEncounter s = screeningWithPhotos("s1", "No");
+        dqsSays(failedRuleNotFailingQc());
+
+        assertEquals(ScreeningOutcome.WRITTEN, worker.processScreening(s, true));
+
+        assertEquals(List.of(verdict("QC Fail")), encounters.patchBodies);
+        verifyNoInteractions(model);
+    }
+
+    @Test
     public void anUnreadableScreeningIsMarkedFail() {
         GeneralEncounter s = screeningWithPhotos("s1", "No");
-        dqsSays(new DqsResult(422, false, List.of("error IDENTITY_FIELD_MISSING: absent"), Map.of()));
+        dqsSays(new DqsResult(422, false, List.of("error IDENTITY_FIELD_MISSING: absent"), List.of()));
 
         assertEquals(ScreeningOutcome.WRITTEN, worker.processScreening(s, true));
 

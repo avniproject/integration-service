@@ -22,8 +22,6 @@ import org.springframework.web.client.RestTemplate;
 import java.net.URI;
 import java.time.Duration;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -112,10 +110,10 @@ public class DqsClient {
         }
     }
 
-    // A 200 passes or fails the record only on an answer that says how it was scored: evaluation.scored and whole
-    // counts under summary.outcomes. Anything else, such as a proxy's page, is a DqsException rather than a pass with no
-    // failed rules, so the screening waits and is sent again. A 422 is a record the service could not read, a fail
-    // whatever its body holds.
+    // A 200 is read only from an answer that says how it was scored: evaluation.scored and an outcome for each rule
+    // under evaluation.outcomes. Anything else, such as a proxy's page, is a DqsException rather than a record with no
+    // failed rules, so the screening waits and is sent again. A 422 is a record the service could not read, whatever
+    // its body holds.
     private static DqsResult stored(String what, Answer answer) {
         JsonNode body;
         try {
@@ -125,25 +123,23 @@ public class DqsClient {
         }
         if (body == null) body = MissingNode.getInstance();
         JsonNode evaluation = body.path("evaluation");
-        JsonNode counts = body.path("summary").path("outcomes");
-        if (answer.status == 200 && !(evaluation.path("scored").isBoolean() && counts.isObject() && allWhole(counts)))
+        JsonNode outcomes = evaluation.path("outcomes");
+        if (answer.status == 200 && !(evaluation.path("scored").isBoolean() && outcomes.isArray() && allRuleOutcomes(outcomes)))
             throw new DqsException(String.format("DQS stored %s but its answer does not say how it was scored: %s", what, detail(answer)));
-        boolean scored = evaluation.path("scored").isBoolean() ? evaluation.path("scored").asBoolean() : answer.status == 200;
+        boolean scored = answer.status == 200 && evaluation.path("scored").asBoolean();
         List<String> violations = new ArrayList<>();
         for (JsonNode violation : evaluation.path("violations"))
             violations.add(String.format("%s %s: %s", violation.path("level").asText(), violation.path("code").asText(), violation.path("message").asText()));
-        Map<String, Integer> outcomes = new LinkedHashMap<>();
-        Iterator<Map.Entry<String, JsonNode>> fields = counts.fields();
-        while (fields.hasNext()) {
-            Map.Entry<String, JsonNode> count = fields.next();
-            outcomes.put(count.getKey(), count.getValue().asInt());
-        }
-        return new DqsResult(answer.status, scored, violations, outcomes);
+        List<DqsResult.RuleOutcome> rules = new ArrayList<>();
+        if (allRuleOutcomes(outcomes))
+            for (JsonNode outcome : outcomes)
+                rules.add(new DqsResult.RuleOutcome(outcome.path("rule_id").asText(), outcome.path("outcome").asText()));
+        return new DqsResult(answer.status, scored, violations, rules);
     }
 
-    private static boolean allWhole(JsonNode counts) {
-        Iterator<JsonNode> values = counts.elements();
-        while (values.hasNext()) if (!values.next().canConvertToExactIntegral()) return false;
+    private static boolean allRuleOutcomes(JsonNode outcomes) {
+        for (JsonNode outcome : outcomes)
+            if (!(outcome.path("rule_id").isTextual() && outcome.path("outcome").isTextual())) return false;
         return true;
     }
 
