@@ -34,7 +34,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 // Each new or edited Oral Screening goes to the data quality service, and the QC verdict is written back to it. A
 // screening that passed QC is then handed to the high-risk model service, which works on its own time and writes its
@@ -116,11 +115,14 @@ public class OralScreeningWorker {
 
             // The registration goes first, so the rules that compare the screening with the patient find it. It is
             // sent with every screening: the service keeps one registration per patient, replaced on each send, and an
-            // edited patient is carried by the next screening. Neither payload is logged: they carry the patient's details.
+            // edited patient is carried by the next screening. Neither payload is logged: they carry the patient's details
+            // and, in the screening's, links to the photos. Those links last two minutes, so the client signs them just
+            // before each post.
             dqsClient.submit(DqsClient.REGISTRATION, RegistrationRecord.from(s, patient, concepts));
-            DqsResult quality = dqsClient.submit(DqsClient.ORAL_SCREENING, OralScreeningRecord.from(s, patient, concepts));
-            boolean passed = quality.passed(config.getQcFailRules());
-            logVerdict(uuid, quality, passed, config.getQcFailRules());
+            DqsResult quality = dqsClient.submit(DqsClient.ORAL_SCREENING, () -> OralScreeningRecord.from(s, patient, concepts, tanuhPhotoDownloader::sign));
+            DqsResult.QcVerdict qc = quality.verdict(config.getQcFailRules());
+            logVerdict(uuid, quality, qc);
+            boolean passed = qc.passed();
             // Checked right before the write, so an edit synced while the service answered is not written over.
             if (changedSince(uuid, listedAt)) return changed(uuid);
             // The check time changes on every write. The server ignores a write that changes nothing, which would
@@ -175,13 +177,18 @@ public class OralScreeningWorker {
     }
 
     // Whether a screening passes is decided here, from the rule outcomes the service returned: see DqsResult.passed.
-    private static void logVerdict(String uuid, DqsResult quality, boolean passed, Set<String> qcFailRules) {
-        if (!quality.scored())
+    private static void logVerdict(String uuid, DqsResult quality, DqsResult.QcVerdict qc) {
+        if (!quality.scored()) {
             logger.info(String.format("Screening %s failed QC: the data quality service could not read it: %s", uuid, quality.violations()));
-        else if (!passed)
-            logger.info(String.format("Screening %s failed QC on %s; all failed rules %s, violations %s", uuid, quality.failedRulesThatFailQc(qcFailRules), quality.failedRules(), quality.violations()));
-        else if (!quality.failedRules().isEmpty())
-            logger.info(String.format("Screening %s passed QC; failed rules not in qc_fail_rules: %s", uuid, quality.failedRules()));
+            return;
+        }
+        // A listed rule the service did not run can never fail a screening, so the setting is not doing what it says.
+        if (!qc.unreported().isEmpty())
+            logger.warn(String.format("Screening %s: qc_fail_rules lists %s, which the data quality service gave no outcome for: the id is misspelt, or the tenant's rules no longer run it", uuid, qc.unreported()));
+        if (!qc.passed())
+            logger.info(String.format("Screening %s failed QC on %s; all failed rules %s, violations %s", uuid, qc.failingQc(), qc.failed(), quality.violations()));
+        else if (!qc.failed().isEmpty())
+            logger.info(String.format("Screening %s passed QC; failed rules not in qc_fail_rules: %s", uuid, qc.failed()));
     }
 
     private Map<String, Object> verdict(boolean passed, TanuhConcepts concepts) {

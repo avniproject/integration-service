@@ -46,9 +46,14 @@ public class TanuhConfig {
         return DEFAULT_STUB_MODE;
     }
 
+    // A value with no rule id in it, such as " " or ",", would fail no screening, so it means the default too.
     private Set<String> readQcFailRules() {
-        return Arrays.stream(getStringConfigValue("qc_fail_rules", DEFAULT_QC_FAIL_RULES).split(","))
-                .map(String::trim).filter(StringUtils::hasText).collect(Collectors.toUnmodifiableSet());
+        Set<String> rules = ruleIds(getStringConfigValue("qc_fail_rules", DEFAULT_QC_FAIL_RULES));
+        return rules.isEmpty() ? ruleIds(DEFAULT_QC_FAIL_RULES) : rules;
+    }
+
+    private static Set<String> ruleIds(String value) {
+        return Arrays.stream(value.split(",")).map(String::trim).filter(StringUtils::hasText).collect(Collectors.toUnmodifiableSet());
     }
 
     public String getApiUrl() {

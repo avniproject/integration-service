@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Supplier;
 
 // Posts one record at a time to the data quality service's route for its record type, as the organisation's Avni job
 // user: the service checks the job user's Cognito ID token, the same one the Avni calls carry. Every answer other than
@@ -56,9 +57,15 @@ public class DqsClient {
         this.restTemplate = restTemplate;
     }
 
-    // The payload is never logged: a registration carries the patient's name and address, which the service hashes
-    // or drops on arrival. A token expires after an hour, so one 401 is answered with a fresh sign-in.
     public DqsResult submit(String recordType, Map<String, Object> payload) {
+        return submit(recordType, () -> payload);
+    }
+
+    // The payload is never logged: a registration carries the patient's name and address, which the service hashes
+    // or drops on arrival, and a screening links to the patient's photos. A token expires after an hour, so one 401 is
+    // answered with a fresh sign-in. The payload is built after the sign-in, once per post, because the photo links
+    // signed into it last two minutes and a post can wait a minute for its answer.
+    public DqsResult submit(String recordType, Supplier<Map<String, Object>> payload) {
         TanuhConfig config = tanuhContextProvider.get();
         if (config.getDqsApiUrl() == null)
             throw new DqsException("dqs_api_url is not set for this organisation, so no record can be sent");
@@ -67,13 +74,14 @@ public class DqsClient {
         // this machine.
         if (!"https".equalsIgnoreCase(uri.getScheme()) && !LOOPBACK.contains(String.valueOf(uri.getHost()).toLowerCase(Locale.ROOT)))
             throw new DqsException(String.format("dqs_api_url %s is not https, so no record is sent: the job user's token would travel in the clear", config.getDqsApiUrl()));
-        String recordId = String.valueOf(payload.get("record_id"));
-        String json = ObjectJsonMapper.writeValueAsString(payload);
         String token = avniHttpClient.getIdToken();
-        Answer answer = post(uri, json, token);
+        Map<String, Object> record = payload.get();
+        String recordId = String.valueOf(record.get("record_id"));
+        Answer answer = post(uri, ObjectJsonMapper.writeValueAsString(record), token);
         if (answer.status == 401 && token != null) {
             logger.info(String.format("DQS refused the token for %s %s; signing in again", recordType, recordId));
-            answer = post(uri, json, avniHttpClient.renewIdToken());
+            String renewed = avniHttpClient.renewIdToken();
+            answer = post(uri, ObjectJsonMapper.writeValueAsString(payload.get()), renewed);
         }
         return interpret(recordType, recordId, config.getDqsTenant(), answer);
     }
@@ -111,9 +119,9 @@ public class DqsClient {
     }
 
     // A 200 is read only from an answer that says how it was scored: evaluation.scored and an outcome for each rule
-    // under evaluation.outcomes. Anything else, such as a proxy's page, is a DqsException rather than a record with no
-    // failed rules, so the screening waits and is sent again. A 422 is a record the service could not read, whatever
-    // its body holds.
+    // under evaluation.outcomes, at least one of them. Anything else, such as a proxy's page or a pack that ran no rule
+    // on the record, is a DqsException rather than a record with no failed rules, so the screening waits and is sent
+    // again. A 422 is a record the service could not read, whatever its body holds; the outcomes it does list are kept.
     private static DqsResult stored(String what, Answer answer) {
         JsonNode body;
         try {
@@ -124,23 +132,26 @@ public class DqsClient {
         if (body == null) body = MissingNode.getInstance();
         JsonNode evaluation = body.path("evaluation");
         JsonNode outcomes = evaluation.path("outcomes");
-        if (answer.status == 200 && !(evaluation.path("scored").isBoolean() && outcomes.isArray() && allRuleOutcomes(outcomes)))
+        List<DqsResult.RuleOutcome> rules = ruleOutcomes(outcomes);
+        boolean everyOutcomeRead = outcomes.isArray() && rules.size() == outcomes.size();
+        if (answer.status == 200 && !(evaluation.path("scored").isBoolean() && everyOutcomeRead))
             throw new DqsException(String.format("DQS stored %s but its answer does not say how it was scored: %s", what, detail(answer)));
+        if (answer.status == 200 && rules.isEmpty())
+            throw new DqsException(String.format("DQS stored %s but ran no rule on it: check that the tenant's published pack has rules for this record type", what));
         boolean scored = answer.status == 200 && evaluation.path("scored").asBoolean();
         List<String> violations = new ArrayList<>();
         for (JsonNode violation : evaluation.path("violations"))
             violations.add(String.format("%s %s: %s", violation.path("level").asText(), violation.path("code").asText(), violation.path("message").asText()));
-        List<DqsResult.RuleOutcome> rules = new ArrayList<>();
-        if (allRuleOutcomes(outcomes))
-            for (JsonNode outcome : outcomes)
-                rules.add(new DqsResult.RuleOutcome(outcome.path("rule_id").asText(), outcome.path("outcome").asText()));
         return new DqsResult(answer.status, scored, violations, rules);
     }
 
-    private static boolean allRuleOutcomes(JsonNode outcomes) {
+    // The outcomes that name a rule and its outcome; any other entry is left out.
+    private static List<DqsResult.RuleOutcome> ruleOutcomes(JsonNode outcomes) {
+        List<DqsResult.RuleOutcome> rules = new ArrayList<>();
         for (JsonNode outcome : outcomes)
-            if (!(outcome.path("rule_id").isTextual() && outcome.path("outcome").isTextual())) return false;
-        return true;
+            if (outcome.path("rule_id").isTextual() && outcome.path("outcome").isTextual())
+                rules.add(new DqsResult.RuleOutcome(outcome.path("rule_id").asText(), outcome.path("outcome").asText()));
+        return rules;
     }
 
     private static String detail(Answer answer) {

@@ -9,14 +9,16 @@ import org.avni_integration_service.tanuh.dqs.ImageVerdicts.Verdict;
 
 import java.util.List;
 import java.util.Map;
+import java.util.function.UnaryOperator;
 
 // An Oral Screening as the service's oral_screening record: the worker who filled it, the habit answers, the
-// examination answers, and the photo counts the agreement rules read.
+// examination answers, the photo counts the agreement rules read, and a signed link to each photo, in the form's order,
+// for the service to fetch the photos by.
 public final class OralScreeningRecord {
     private OralScreeningRecord() {
     }
 
-    public static Map<String, Object> from(GeneralEncounter screening, Subject patient, TanuhConcepts concepts) {
+    public static Map<String, Object> from(GeneralEncounter screening, Subject patient, TanuhConcepts concepts, UnaryOperator<String> sign) {
         Answers.Visit visit = new Answers.Visit(screening, concepts);
         Map<String, Object> payload = Envelope.of(screening, patient, concepts, Answers.audit(screening, Envelope.CREATED_BY),
                 Answers.audit(screening, Envelope.CREATED_AT));
@@ -43,6 +45,7 @@ public final class OralScreeningRecord {
         payload.put("images_rater_missing", ImageVerdicts.missing(worker));
         ImageVerdicts.putAgreement(payload, worker, ai, "images_rater_and_ai_suspicious", "images_rater_only_suspicious",
                 "images_ai_only_suspicious", "images_neither_suspicious");
+        payload.put("image_urls", images.stream().map(Image::url).map(sign).toList());
         return payload;
     }
 

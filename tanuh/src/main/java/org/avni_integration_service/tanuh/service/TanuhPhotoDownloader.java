@@ -42,9 +42,14 @@ public class TanuhPhotoDownloader {
         return new RestTemplateBuilder().setConnectTimeout(timeout).setReadTimeout(timeout).build();
     }
 
-    // Signs just before the download, since a link lasts two minutes. The caller deletes the file.
+    // A link Avni signs lasts two minutes, so it is asked for just before it is used.
+    public String sign(String s3Url) {
+        return avniMediaRepository.getSignedDownloadUrl(s3Url);
+    }
+
+    // The caller deletes the file.
     public File download(String s3Url) {
-        URI signedUrl = URI.create(avniMediaRepository.getSignedDownloadUrl(s3Url));
+        URI signedUrl = URI.create(sign(s3Url));
         return restTemplate.execute(signedUrl, HttpMethod.GET, null, response -> {
             // Owner-only (0600): these are patients' mouth photos.
             File file = Files.createTempFile(directory.toPath(), "tanuh-photo-", null).toFile();

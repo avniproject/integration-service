@@ -24,6 +24,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -131,6 +132,25 @@ public class DqsClientTest {
         server.verify();
     }
 
+    // The photo links in a screening last two minutes, so each post carries a payload built after its sign-in.
+    @Test
+    public void thePayloadIsBuiltAfterTheSignInAndAgainForTheSecondPost() {
+        AtomicInteger built = new AtomicInteger();
+        server.expect(requestTo(ROUTE)).andExpect(content().json("{\"record_id\":\"s1\",\"built\":1}"))
+                .andRespond(withStatus(HttpStatus.UNAUTHORIZED));
+        server.expect(requestTo(ROUTE)).andExpect(content().json("{\"record_id\":\"s1\",\"built\":2}"))
+                .andRespond(withSuccess(SCORED, MediaType.APPLICATION_JSON));
+
+        client.submit(DqsClient.ORAL_SCREENING, () -> {
+            verify(avniHttpClient, times(built.get() == 0 ? 0 : 1)).renewIdToken();
+            verify(avniHttpClient).getIdToken();
+            return Map.of("record_id", "s1", "built", built.incrementAndGet());
+        });
+
+        assertEquals(2, built.get());
+        server.verify();
+    }
+
     @Test
     public void aTokenRefusedTwiceFailsTheSend() {
         server.expect(requestTo(ROUTE)).andRespond(withStatus(HttpStatus.UNAUTHORIZED).body("{\"detail\":\"the token was issued to another client\"}").contentType(MediaType.APPLICATION_JSON));
@@ -172,12 +192,33 @@ public class DqsClientTest {
         for (String body : List.of("<html>signed out</html>", "", "{}",
                 "{\"evaluation\":{\"scored\":true}}",
                 "{\"evaluation\":{\"scored\":true},\"summary\":{\"outcomes\":{\"fail\":1}}}",
-                "{\"evaluation\":{\"scored\":true,\"outcomes\":[{\"rule_id\":\"SL-001\"}]}}")) {
+                "{\"evaluation\":{\"scored\":true,\"outcomes\":[{\"rule_id\":\"SL-001\"}]}}",
+                "{\"evaluation\":{\"scored\":true,\"outcomes\":[{\"rule_id\":\"ST-001\",\"outcome\":\"pass\"},{\"rule_id\":\"SL-001\"}]}}")) {
             server.reset();
             server.expect(requestTo(ROUTE)).andRespond(withSuccess(body, MediaType.APPLICATION_JSON));
             DqsException e = assertThrows(DqsException.class, () -> client.submit(DqsClient.ORAL_SCREENING, payload()), body);
             assertTrue(e.getMessage().contains("does not say how it was scored"), body + ": " + e.getMessage());
         }
+    }
+
+    // A pack that runs no rule on the record would pass every screening.
+    @Test
+    public void aStoredAnswerWithNoRuleOutcomeFailsTheSend() {
+        server.expect(requestTo(ROUTE)).andRespond(withSuccess("{\"evaluation\":{\"scored\":true,\"violations\":[],\"outcomes\":[]}}", MediaType.APPLICATION_JSON));
+
+        DqsException e = assertThrows(DqsException.class, () -> client.submit(DqsClient.ORAL_SCREENING, payload()));
+
+        assertTrue(e.getMessage().contains("ran no rule on it"), e.getMessage());
+    }
+
+    @Test
+    public void anUnreadableRecordKeepsTheOutcomesItCanRead() {
+        server.expect(requestTo(ROUTE)).andRespond(withStatus(HttpStatus.UNPROCESSABLE_ENTITY).contentType(MediaType.APPLICATION_JSON)
+                .body("{\"evaluation\":{\"scored\":false,\"violations\":[],\"outcomes\":[{\"rule_id\":\"ST-001\",\"outcome\":\"fail\"},{\"rule_id\":\"SL-001\"}]}}"));
+
+        DqsResult result = client.submit(DqsClient.ORAL_SCREENING, payload());
+
+        assertEquals(List.of(new DqsResult.RuleOutcome("ST-001", "fail")), result.rules());
     }
 
     @Test
@@ -187,7 +228,7 @@ public class DqsClientTest {
         DqsResult result = client.submit(DqsClient.ORAL_SCREENING, payload());
 
         assertFalse(result.scored());
-        assertFalse(result.passed(Set.of()));
+        assertFalse(result.verdict(Set.of()).passed());
     }
 
     // The job user's token goes with every record, so an address that is not https sends nothing.

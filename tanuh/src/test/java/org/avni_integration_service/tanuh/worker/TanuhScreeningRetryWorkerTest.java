@@ -39,6 +39,7 @@ import java.io.File;
 import java.nio.file.Files;
 import java.time.Instant;
 import java.util.*;
+import java.util.function.Supplier;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
@@ -131,7 +132,7 @@ public class TanuhScreeningRetryWorkerTest {
     }
 
     private void dqsPasses() {
-        when(dqs.submit(eq(DqsClient.ORAL_SCREENING), anyMap())).thenReturn(ProcessScreeningTest.passed());
+        when(dqs.submit(eq(DqsClient.ORAL_SCREENING), any(Supplier.class))).thenReturn(ProcessScreeningTest.passed());
     }
 
     @Test
@@ -257,15 +258,15 @@ public class TanuhScreeningRetryWorkerTest {
 
         assertTrue(retryWorker.processWaiting());
 
-        ArgumentCaptor<Map<String, Object>> record = ArgumentCaptor.forClass(Map.class);
+        ArgumentCaptor<Supplier<Map<String, Object>>> record = ArgumentCaptor.forClass(Supplier.class);
         verify(dqs).submit(eq(DqsClient.ORAL_SCREENING), record.capture());
-        assertEquals(true, record.getValue().get("any_symptoms"));
+        assertEquals(true, record.getValue().get().get("any_symptoms"));
     }
 
     @Test
     public void aDataQualityFailureKeepsTheScreeningWaiting() {
         screening("s1", "No");
-        when(dqs.submit(eq(DqsClient.ORAL_SCREENING), anyMap())).thenThrow(new DqsException("DQS at dqs did not answer"));
+        when(dqs.submit(eq(DqsClient.ORAL_SCREENING), any(Supplier.class))).thenThrow(new DqsException("DQS at dqs did not answer"));
         waitingAre(waiting("s1", ErrorTypeFollowUpStep.Process));
 
         assertFalse(retryWorker.processWaiting());
@@ -277,7 +278,7 @@ public class TanuhScreeningRetryWorkerTest {
     @Test
     public void aScreeningChangedDuringItsRetryKeepsWaitingWithoutFailing() {
         screening("s1", "No");
-        when(dqs.submit(eq(DqsClient.ORAL_SCREENING), anyMap())).thenAnswer(invocation -> {
+        when(dqs.submit(eq(DqsClient.ORAL_SCREENING), any(Supplier.class))).thenAnswer(invocation -> {
             encounters.workerEdits("s1");
             return ProcessScreeningTest.passed();
         });

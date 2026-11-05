@@ -41,6 +41,7 @@ import java.time.Clock;
 import java.time.Instant;
 import java.time.ZoneOffset;
 import java.util.*;
+import java.util.function.Supplier;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
@@ -92,6 +93,7 @@ public class ProcessScreeningTest {
         lenient().when(subjects.getSubjectOrThrow(anyString())).thenReturn(patient(false));
         // The patient's registration goes ahead of every screening; the service stores it and the tests leave it be.
         lenient().when(dqs.submit(eq(DqsClient.REGISTRATION), anyMap())).thenReturn(passed());
+        lenient().when(downloader.sign(anyString())).thenAnswer(invocation -> invocation.getArgument(0) + "?X-Amz-Signature=signed");
         lenient().when(downloader.download(anyString())).thenAnswer(invocation -> {
             File file = Files.createTempFile(photoDir.toPath(), "photo", null).toFile();
             downloaded.add(file);
@@ -142,7 +144,7 @@ public class ProcessScreeningTest {
     }
 
     private void dqsSays(DqsResult result) {
-        when(dqs.submit(eq(DqsClient.ORAL_SCREENING), anyMap())).thenReturn(result);
+        when(dqs.submit(eq(DqsClient.ORAL_SCREENING), any(Supplier.class))).thenReturn(result);
     }
 
     @Test
@@ -153,10 +155,12 @@ public class ProcessScreeningTest {
         assertEquals(ScreeningOutcome.WRITTEN, worker.processScreening(s, true));
 
         assertEquals(List.of(verdict("QC Pass")), encounters.patchBodies);
-        ArgumentCaptor<Map<String, Object>> record = ArgumentCaptor.forClass(Map.class);
+        ArgumentCaptor<Supplier<Map<String, Object>>> record = ArgumentCaptor.forClass(Supplier.class);
         verify(dqs).submit(eq(DqsClient.ORAL_SCREENING), record.capture());
-        assertEquals("s1", record.getValue().get("record_id"));
-        assertEquals(2, record.getValue().get("image_count"));
+        assertEquals("s1", record.getValue().get().get("record_id"));
+        assertEquals(2, record.getValue().get().get("image_count"));
+        assertEquals(List.of("minio://avni-user-media/t/s1-0.jpg?X-Amz-Signature=signed", "minio://avni-user-media/t/s1-1.jpg?X-Amz-Signature=signed"),
+                record.getValue().get().get("image_urls"));
         ArgumentCaptor<List<File>> photos = ArgumentCaptor.forClass(List.class);
         verify(model).submit(same(s), photos.capture());
         assertEquals(2, photos.getValue().size());
@@ -173,7 +177,8 @@ public class ProcessScreeningTest {
         assertEquals(ScreeningOutcome.WRITTEN, worker.processScreening(s, true));
 
         assertEquals(List.of(verdict("QC Fail")), encounters.patchBodies);
-        verifyNoInteractions(model, downloader, errors);
+        verify(downloader, never()).download(anyString());
+        verifyNoInteractions(model, errors);
     }
 
     @Test
@@ -289,7 +294,7 @@ public class ProcessScreeningTest {
     @Test
     public void aScreeningChangedWhileBeingCheckedIsNeitherHandedOverNorWritten() {
         GeneralEncounter s = screeningWithPhotos("s1", "No");
-        when(dqs.submit(eq(DqsClient.ORAL_SCREENING), anyMap())).thenAnswer(invocation -> {
+        when(dqs.submit(eq(DqsClient.ORAL_SCREENING), any(Supplier.class))).thenAnswer(invocation -> {
             encounters.workerEdits("s1");
             return passed();
         });
@@ -303,7 +308,7 @@ public class ProcessScreeningTest {
     @Test
     public void aDataQualityFailureWritesNothingAndWaitsForARetry() {
         GeneralEncounter s = screeningWithPhotos("s1", "No");
-        when(dqs.submit(eq(DqsClient.ORAL_SCREENING), anyMap())).thenThrow(new DqsException("DQS cannot take oral_screening s1 right now (503): busy"));
+        when(dqs.submit(eq(DqsClient.ORAL_SCREENING), any(Supplier.class))).thenThrow(new DqsException("DQS cannot take oral_screening s1 right now (503): busy"));
 
         assertEquals(ScreeningOutcome.FAILED, worker.processScreening(s, true));
 
@@ -327,7 +332,7 @@ public class ProcessScreeningTest {
         ArgumentCaptor<Map<String, Object>> registration = ArgumentCaptor.forClass(Map.class);
         InOrder order = inOrder(dqs);
         order.verify(dqs).submit(eq(DqsClient.REGISTRATION), registration.capture());
-        order.verify(dqs).submit(eq(DqsClient.ORAL_SCREENING), anyMap());
+        order.verify(dqs).submit(eq(DqsClient.ORAL_SCREENING), any(Supplier.class));
         assertEquals("patient-of-s1", registration.getValue().get("record_id"));
         assertEquals("2026-07-03", registration.getValue().get("registered_on"));
     }
@@ -339,7 +344,7 @@ public class ProcessScreeningTest {
 
         assertEquals(ScreeningOutcome.FAILED, worker.processScreening(s, true));
 
-        verify(dqs, never()).submit(eq(DqsClient.ORAL_SCREENING), anyMap());
+        verify(dqs, never()).submit(eq(DqsClient.ORAL_SCREENING), any(Supplier.class));
         verify(errors).errorOccurred("s1", "DataQualityCallFailed", "DqsException: DQS cannot take registration p1 right now (503): busy");
         assertTrue(encounters.patchBodies.isEmpty());
         verifyNoInteractions(model);

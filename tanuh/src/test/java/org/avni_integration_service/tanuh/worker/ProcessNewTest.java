@@ -37,6 +37,7 @@ import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.util.*;
+import java.util.function.Supplier;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -99,8 +100,8 @@ public class ProcessNewTest {
         live.setVoided(false);
         lenient().when(subjects.getSubjectOrThrow(anyString())).thenReturn(live);
         lenient().when(downloader.download(anyString())).thenAnswer(invocation -> Files.createTempFile(photoDir.toPath(), "photo", null).toFile());
-        lenient().when(dqs.submit(eq(DqsClient.ORAL_SCREENING), anyMap())).thenAnswer(invocation -> {
-            String uuid = (String) ((Map<?, ?>) invocation.getArgument(1)).get("record_id");
+        lenient().when(dqs.submit(eq(DqsClient.ORAL_SCREENING), any(Supplier.class))).thenAnswer(invocation -> {
+            String uuid = (String) ((Supplier<Map<?, ?>>) invocation.getArgument(1)).get().get("record_id");
             sent.merge(uuid, 1, Integer::sum);
             Runnable during = duringNextSend.remove(uuid);
             if (during != null) during.run();

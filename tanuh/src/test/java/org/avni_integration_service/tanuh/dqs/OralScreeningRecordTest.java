@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.UnaryOperator;
 
 import static org.avni_integration_service.tanuh.dqs.Fixtures.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -17,6 +18,7 @@ public class OralScreeningRecordTest {
     private static final String SPLIT_GROUP = "Take photos of all lesions and 1 photo without lesion";
     private static final String GUIDED_GROUP = "ORAL SCREENING";
     private static final String AI_GROUP = "Image-wise AI Assessment";
+    private static final UnaryOperator<String> SIGN = url -> url + "?X-Amz-Signature=signed";
 
     private static GeneralEncounter fullScreening() {
         GeneralEncounter s = screening("s1");
@@ -51,7 +53,7 @@ public class OralScreeningRecordTest {
         s.addObservation(SPLIT_GROUP, rows(photoRow("https://s3/t/a.jpg", "No"), photoRow("https://s3/t/b.jpg", "No"), photoRow("https://s3/t/c.jpg", "No")));
         s.addObservation(AI_GROUP, rows(aiRow("Non-Suspicious"), aiRow("Non Suspicious"), aiRow("None")));
 
-        Map<String, Object> record = OralScreeningRecord.from(s, patient(), TanuhConceptsFixture.defaults());
+        Map<String, Object> record = OralScreeningRecord.from(s, patient(), TanuhConceptsFixture.defaults(), SIGN);
 
         assertEquals(2, record.get("images_neither_suspicious"), "the current and the older spelling");
         assertEquals(1, record.get("images_ai_missing"), "'None' is no verdict");
@@ -67,7 +69,7 @@ public class OralScreeningRecordTest {
             return rows;
         });
 
-        Map<String, Object> record = OralScreeningRecord.from(s, patient(), renamed);
+        Map<String, Object> record = OralScreeningRecord.from(s, patient(), renamed, SIGN);
 
         assertEquals(1, record.get("images_neither_suspicious"));
         assertEquals(0, record.get("images_ai_missing"));
@@ -75,7 +77,7 @@ public class OralScreeningRecordTest {
 
     @Test
     public void theEnvelopeComesFromTheVisitItsAuditAndThePatient() {
-        Map<String, Object> record = OralScreeningRecord.from(fullScreening(), patient(), TanuhConceptsFixture.defaults());
+        Map<String, Object> record = OralScreeningRecord.from(fullScreening(), patient(), TanuhConceptsFixture.defaults(), SIGN);
 
         assertEquals("s1", record.get("record_id"));
         assertEquals("patient-1", record.get("beneficiary_id"));
@@ -90,7 +92,7 @@ public class OralScreeningRecordTest {
 
     @Test
     public void theAnswersAreMappedToTheServicesFields() {
-        Map<String, Object> record = OralScreeningRecord.from(fullScreening(), patient(), TanuhConceptsFixture.defaults());
+        Map<String, Object> record = OralScreeningRecord.from(fullScreening(), patient(), TanuhConceptsFixture.defaults(), SIGN);
 
         assertEquals("never", record.get("bidi_cigarette"));
         assertEquals("current", record.get("smokeless_tobacco"));
@@ -108,7 +110,7 @@ public class OralScreeningRecordTest {
 
     @Test
     public void thePhotoCountsPairTheWorkersAnswerWithTheModelsVerdictByRow() {
-        Map<String, Object> record = OralScreeningRecord.from(fullScreening(), patient(), TanuhConceptsFixture.defaults());
+        Map<String, Object> record = OralScreeningRecord.from(fullScreening(), patient(), TanuhConceptsFixture.defaults(), SIGN);
 
         assertEquals(4, record.get("image_count"));
         assertEquals(1, record.get("images_ai_missing"));
@@ -117,6 +119,21 @@ public class OralScreeningRecordTest {
         assertEquals(1, record.get("images_rater_only_suspicious"));
         assertEquals(1, record.get("images_ai_only_suspicious"));
         assertEquals(0, record.get("images_neither_suspicious"));
+    }
+
+    @Test
+    public void eachPhotoIsSentAsASignedLinkInTheFormsOrder() {
+        Map<String, Object> record = OralScreeningRecord.from(fullScreening(), patient(), TanuhConceptsFixture.defaults(), SIGN);
+
+        assertEquals(List.of("https://s3/t/a.jpg?X-Amz-Signature=signed", "https://s3/t/b.jpg?X-Amz-Signature=signed",
+                "https://s3/t/c.jpg?X-Amz-Signature=signed", "https://s3/t/d.jpg?X-Amz-Signature=signed"), record.get("image_urls"));
+    }
+
+    @Test
+    public void aScreeningWithoutPhotosSendsNoLinks() {
+        Map<String, Object> record = OralScreeningRecord.from(screening("s8"), patient(), TanuhConceptsFixture.defaults(), SIGN);
+
+        assertEquals(List.of(), record.get("image_urls"));
     }
 
     @Test
@@ -129,7 +146,7 @@ public class OralScreeningRecordTest {
         s.addObservation(GUIDED_GROUP, rows(row, photoRow("https://s3/t/b.jpg", "No")));
         s.addObservation(AI_GROUP, rows(aiRow(null), aiRow("Non-Suspicious"), aiRow("Suspicious")));
 
-        Map<String, Object> record = OralScreeningRecord.from(s, patient(), TanuhConceptsFixture.defaults());
+        Map<String, Object> record = OralScreeningRecord.from(s, patient(), TanuhConceptsFixture.defaults(), SIGN);
 
         assertEquals(2, record.get("image_count"), "a stale trailing AI row is not a photo");
         assertEquals(0, record.get("images_ai_missing"));
@@ -146,7 +163,7 @@ public class OralScreeningRecordTest {
         s.addObservation("Photo 3 (image)", "https://s3/t/p3.jpg");
         s.addObservation("Photo 3 — ASHA verdict", "Non Suspicious");
 
-        Map<String, Object> record = OralScreeningRecord.from(s, patient(), TanuhConceptsFixture.defaults());
+        Map<String, Object> record = OralScreeningRecord.from(s, patient(), TanuhConceptsFixture.defaults(), SIGN);
 
         assertEquals(2, record.get("image_count"));
         assertEquals(1, record.get("images_ai_missing"));
@@ -159,7 +176,7 @@ public class OralScreeningRecordTest {
         GeneralEncounter s = screening("s4");
         s.addObservation("Oral Cancer Screening is not required as the person is below 30 years of age. Would you still like to proceed?", "No");
 
-        Map<String, Object> record = OralScreeningRecord.from(s, patient(), TanuhConceptsFixture.defaults());
+        Map<String, Object> record = OralScreeningRecord.from(s, patient(), TanuhConceptsFixture.defaults(), SIGN);
 
         assertEquals(true, record.get("screening_not_required"));
         assertEquals(0, record.get("image_count"));
@@ -171,7 +188,7 @@ public class OralScreeningRecordTest {
     public void proceedingUnderThirtyMeansTheScreeningWasRequiredAfterAll() {
         GeneralEncounter s = screening("s5");
         s.addObservation("Oral Cancer Screening is not required as the person is below 30 years of age. Would you still like to proceed?", "Yes");
-        assertEquals(false, OralScreeningRecord.from(s, patient(), TanuhConceptsFixture.defaults()).get("screening_not_required"));
+        assertEquals(false, OralScreeningRecord.from(s, patient(), TanuhConceptsFixture.defaults(), SIGN).get("screening_not_required"));
     }
 
     @Test
@@ -183,7 +200,7 @@ public class OralScreeningRecordTest {
         s.set("Encounter Coordinates", "not a point");
         s.set("Encounter date time", "yesterday");
 
-        Map<String, Object> record = OralScreeningRecord.from(s, patient(), TanuhConceptsFixture.defaults());
+        Map<String, Object> record = OralScreeningRecord.from(s, patient(), TanuhConceptsFixture.defaults(), SIGN);
 
         assertEquals("4a43f83e-26db-40c8-83d8-4317dcfda913", record.get("place_of_referral_id"));
         assertFalse(record.containsKey("any_symptoms"));
@@ -196,6 +213,6 @@ public class OralScreeningRecordTest {
     public void aVisitTimeWithAnOffsetIsPassedThroughUnchanged() {
         GeneralEncounter s = screening("s7");
         s.set("Encounter date time", "2026-10-06T11:00:00.000+05:30");
-        assertEquals("2026-10-06T11:00:00.000+05:30", OralScreeningRecord.from(s, patient(), TanuhConceptsFixture.defaults()).get("visit_at"));
+        assertEquals("2026-10-06T11:00:00.000+05:30", OralScreeningRecord.from(s, patient(), TanuhConceptsFixture.defaults(), SIGN).get("visit_at"));
     }
 }

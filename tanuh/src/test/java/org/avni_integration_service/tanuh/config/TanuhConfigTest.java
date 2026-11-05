@@ -48,6 +48,8 @@ public class TanuhConfigTest {
     public void theRulesThatFailQcAreTheListedIdsOrTheBlockingChecks() {
         assertEquals(Set.of("ST-001", "SM-003", "QC-030"), configWith().getQcFailRules());
         assertEquals(Set.of("ST-001", "SM-003", "QC-030"), configWith("qc_fail_rules", "").getQcFailRules());
+        assertEquals(Set.of("ST-001", "SM-003", "QC-030"), configWith("qc_fail_rules", " ").getQcFailRules(), "no id in it");
+        assertEquals(Set.of("ST-001", "SM-003", "QC-030"), configWith("qc_fail_rules", " , ,").getQcFailRules(), "no id in it");
         assertEquals(Set.of("SL-001", "samvit:ORAL-003"), configWith("qc_fail_rules", " SL-001 ,, samvit:ORAL-003 ").getQcFailRules());
     }
 
