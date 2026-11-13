@@ -8,6 +8,8 @@ group = 'org.avni_integration_service'
 version = '0.0.2-SNAPSHOT'
 sourceCompatibility = "17"
 
+ext['tomcat.version'] = '9.0.123'
+
 repositories {
     mavenCentral()
     maven {
