@@ -93,4 +93,17 @@ public class TanuhConfigTest {
         assertNull(config.getDqsApiUrl());
         assertEquals("samvit", config.getDqsTenant());
     }
+
+    @Test
+    public void theGoogleSignInSettingsAreTrimmedWithDefaults() {
+        TanuhConfig none = configWith();
+        assertNull(none.getOcshrCredentialConfig());
+        assertEquals("sa-ocshr-avni@proj-model-hub.iam.gserviceaccount.com", none.getOcshrServiceAccount());
+        assertEquals("medgemma-intake", none.getOcshrAudience());
+        assertNull(configWith("ocshr_credential_config", "  ").getOcshrCredentialConfig());
+        TanuhConfig set = configWith("ocshr_credential_config", " {} ", "ocshr_service_account", " a@b.c ", "ocshr_audience", " aud ");
+        assertEquals("{}", set.getOcshrCredentialConfig());
+        assertEquals("a@b.c", set.getOcshrServiceAccount());
+        assertEquals("aud", set.getOcshrAudience());
+    }
 }

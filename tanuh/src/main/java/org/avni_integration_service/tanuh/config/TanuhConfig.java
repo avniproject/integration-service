@@ -117,4 +117,23 @@ public class TanuhConfig {
         String value = getStringConfigValue("high_risk_avni_user", null);
         return StringUtils.hasText(value) ? value.trim() : null;
     }
+
+    // Tanuh's credential configuration file (AWS workload identity federation), kept as the JSON text; null when not
+    // set, which holds screenings back until it is.
+    public String getOcshrCredentialConfig() {
+        String value = getStringConfigValue("ocshr_credential_config", null);
+        return StringUtils.hasText(value) ? value.trim() : null;
+    }
+
+    // The service account Tanuh's model service accepts calls from.
+    public String getOcshrServiceAccount() {
+        String value = getStringConfigValue("ocshr_service_account", null);
+        return StringUtils.hasText(value) ? value.trim() : "sa-ocshr-avni@proj-model-hub.iam.gserviceaccount.com";
+    }
+
+    // The audience Tanuh's model service expects in the ID token.
+    public String getOcshrAudience() {
+        String value = getStringConfigValue("ocshr_audience", null);
+        return StringUtils.hasText(value) ? value.trim() : "medgemma-intake";
+    }
 }
