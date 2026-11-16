@@ -92,6 +92,15 @@ public class TanuhConfig {
         return getMainJobHealthCheckSlug() + "-error";
     }
 
+    // The model service's address, with no trailing slash; null when the organisation has none configured.
+    public String getOcshrApiUrl() {
+        String value = getStringConfigValue("ocshr_api_url", null);
+        if (!StringUtils.hasText(value)) return null;
+        value = value.trim();
+        while (value.endsWith("/")) value = value.substring(0, value.length() - 1);
+        return value;
+    }
+
     // The data quality service's address, with no trailing slash; null when the organisation has none configured.
     public String getDqsApiUrl() {
         String value = getStringConfigValue("dqs_api_url", null);

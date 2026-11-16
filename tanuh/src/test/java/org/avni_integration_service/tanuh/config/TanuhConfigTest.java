@@ -106,4 +106,11 @@ public class TanuhConfigTest {
         assertEquals("a@b.c", set.getOcshrServiceAccount());
         assertEquals("aud", set.getOcshrAudience());
     }
+
+    @Test
+    public void theModelServiceAddressIsTrimmedWithoutTrailingSlashesAndNullWhenUnset() {
+        assertNull(configWith().getOcshrApiUrl());
+        assertNull(configWith("ocshr_api_url", "  ").getOcshrApiUrl());
+        assertEquals("https://ocshr.example.org", configWith("ocshr_api_url", " https://ocshr.example.org// ").getOcshrApiUrl());
+    }
 }
