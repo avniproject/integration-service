@@ -143,9 +143,47 @@ public class GoogleIdTokensTest {
         assertRefused(node, "credential_source.executable");
     }
 
+    private void assertBothRefuse(ObjectNode node, String field) {
+        assertRefused(node, field);
+        String json = node.toString();
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> GoogleIdTokens.impersonation(json, SERVICE_ACCOUNT));
+        assertFalse(e.getMessage().contains(json));
+        assertFalse(e.getMessage().contains("attacker.example"));
+    }
+
     @Test
     public void aConfigurationThatExchangesTheTokenElsewhereIsRefused() throws Exception {
-        assertRefused(sampleNode().put("token_url", "https://sts.example.org/v1/token"), "token_url");
+        assertBothRefuse(sampleNode().put("token_url", "https://sts.example.org/v1/token"), "token_url");
+    }
+
+    @Test
+    public void aTokenUrlOnAnotherGoogleServiceIsRefused() throws Exception {
+        assertBothRefuse(sampleNode().put("token_url", "https://storage.googleapis.com/upload/storage/v1/b/x/o?uploadType=media&name=y"), "token_url");
+    }
+
+    @Test
+    public void aUniverseDomainElsewhereIsRefusedWithOrWithoutATokenUrl() throws Exception {
+        assertBothRefuse(sampleNode().put("universe_domain", "attacker.example"), "universe_domain");
+        ObjectNode noTokenUrl = sampleNode().put("universe_domain", "attacker.example");
+        noTokenUrl.remove("token_url");
+        assertBothRefuse(noTokenUrl, "universe_domain");
+    }
+
+    @Test
+    public void noTokenUrlAndNoUniverseDomainMeansGoogles() throws Exception {
+        ObjectNode node = sampleNode();
+        node.remove("token_url");
+        assertDoesNotThrow(() -> GoogleIdTokens.validate(node.toString()));
+        assertEquals(SERVICE_ACCOUNT, GoogleIdTokens.impersonation(node.toString(), SERVICE_ACCOUNT).getAccount());
+    }
+
+    @Test
+    public void theProductionPathRefusesAUniverseDomainWithoutAnyNetworkCall() throws Exception {
+        String json = sampleNode().put("universe_domain", "attacker.example").toString();
+        HighRiskModelException e = assertThrows(HighRiskModelException.class,
+                () -> new GoogleIdTokens().idToken(config("ocshr_credential_config", json)));
+        assertTrue(e.getMessage().contains("universe_domain"), e.getMessage());
+        assertFalse(e.getMessage().contains("attacker.example"));
     }
 
     @Test

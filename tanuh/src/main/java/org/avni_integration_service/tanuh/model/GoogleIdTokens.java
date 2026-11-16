@@ -1,6 +1,7 @@
 package org.avni_integration_service.tanuh.model;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.google.auth.oauth2.AwsCredentials;
 import com.google.auth.oauth2.ExternalAccountCredentials;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.auth.oauth2.IdTokenCredentials;
@@ -28,6 +29,8 @@ import java.util.function.Function;
 @Component
 public class GoogleIdTokens implements IdTokenSource {
     static final List<String> SCOPES = List.of("https://www.googleapis.com/auth/cloud-platform");
+    private static final String GOOGLE_UNIVERSE = "googleapis.com";
+    private static final String GOOGLE_TOKEN_URL = "https://sts.googleapis.com/v1/token";
     private static final List<String> METADATA_HOSTS = List.of("169.254.169.254", "[fd00:ec2::254]");
 
     private final Map<Integer, IdTokenCredentials> credentials = new ConcurrentHashMap<>();
@@ -101,13 +104,10 @@ public class GoogleIdTokens implements IdTokenSource {
             throw new IllegalArgumentException("ocshr_credential_config: type must be external_account");
         if (root.has("service_account_impersonation_url"))
             throw new IllegalArgumentException("ocshr_credential_config: service_account_impersonation_url must not be set");
-        if (root.has("token_url")) {
-            String tokenUrl = text(root, "token_url");
-            URI uri = uri(tokenUrl, "token_url");
-            String host = uri.getHost();
-            if (!"https".equals(uri.getScheme()) || host == null || !host.endsWith(".googleapis.com"))
-                throw new IllegalArgumentException("ocshr_credential_config: token_url must be an https address on googleapis.com");
-        }
+        if (root.has("universe_domain") && !GOOGLE_UNIVERSE.equals(text(root, "universe_domain")))
+            throw new IllegalArgumentException("ocshr_credential_config: universe_domain must be absent or googleapis.com");
+        if (root.has("token_url") && !GOOGLE_TOKEN_URL.equals(text(root, "token_url")))
+            throw new IllegalArgumentException("ocshr_credential_config: token_url must be absent or " + GOOGLE_TOKEN_URL);
         JsonNode source = root.get("credential_source");
         if (source == null || !source.isObject())
             throw new IllegalArgumentException("ocshr_credential_config: credential_source is missing");
@@ -137,10 +137,20 @@ public class GoogleIdTokens implements IdTokenSource {
         }
     }
 
+    // Checks what the library built as well as what the file said, so a field nobody thought of cannot move the
+    // sign-in off Google's own addresses. Messages never carry values from the file.
     static ImpersonatedCredentials impersonation(String credentialConfigJson, String serviceAccount) throws IOException {
-        GoogleCredentials source = ExternalAccountCredentials
-                .fromStream(new ByteArrayInputStream(credentialConfigJson.getBytes(StandardCharsets.UTF_8)))
-                .createScoped(SCOPES);
+        ExternalAccountCredentials external = ExternalAccountCredentials
+                .fromStream(new ByteArrayInputStream(credentialConfigJson.getBytes(StandardCharsets.UTF_8)));
+        if (!(external instanceof AwsCredentials))
+            throw new IllegalArgumentException("ocshr_credential_config is not an AWS federation");
+        if (!GOOGLE_UNIVERSE.equals(external.getUniverseDomain()))
+            throw new IllegalArgumentException("ocshr_credential_config: universe_domain must be absent or googleapis.com");
+        if (external.getServiceAccountImpersonationUrl() != null)
+            throw new IllegalArgumentException("ocshr_credential_config: service_account_impersonation_url must not be set");
+        if (!GOOGLE_TOKEN_URL.equals(external.getTokenUrl()))
+            throw new IllegalArgumentException("ocshr_credential_config: token_url must be absent or " + GOOGLE_TOKEN_URL);
+        GoogleCredentials source = external.createScoped(SCOPES);
         return ImpersonatedCredentials.create(source, serviceAccount, null, SCOPES, 3600);
     }
 
