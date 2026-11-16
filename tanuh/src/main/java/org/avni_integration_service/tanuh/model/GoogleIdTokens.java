@@ -1,6 +1,7 @@
 package org.avni_integration_service.tanuh.model;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.google.auth.oauth2.AwsCredentials;
 import com.google.auth.oauth2.ExternalAccountCredentials;
 import com.google.auth.oauth2.GoogleCredentials;
@@ -32,6 +33,7 @@ public class GoogleIdTokens implements IdTokenSource {
     private static final String GOOGLE_UNIVERSE = "googleapis.com";
     private static final String GOOGLE_TOKEN_URL = "https://sts.googleapis.com/v1/token";
     private static final List<String> METADATA_HOSTS = List.of("169.254.169.254", "[fd00:ec2::254]");
+    private static final String IAM_CREDENTIALS = "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/";
 
     private final Map<Integer, IdTokenCredentials> credentials = new ConcurrentHashMap<>();
     private final Function<TanuhConfig, IdTokenCredentials> builder;
@@ -81,25 +83,37 @@ public class GoogleIdTokens implements IdTokenSource {
 
     private static IdTokenCredentials build(TanuhConfig config) {
         try {
-            String json = config.getOcshrCredentialConfig();
-            validate(json);
-            return idTokens(impersonation(json, config.getOcshrServiceAccount()), config.getOcshrAudience());
+            return credentials(config.getOcshrCredentialConfig(), config.getOcshrServiceAccount(), config.getOcshrAudience());
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
+    }
+
+    // The production path from the settings to the credentials, with no network call.
+    static IdTokenCredentials credentials(String credentialConfigJson, String serviceAccount, String audience) throws IOException {
+        String json = withoutOwnImpersonation(credentialConfigJson, serviceAccount);
+        validate(json);
+        return idTokens(impersonation(json, serviceAccount), audience);
+    }
+
+    // Google's tool writes the service account impersonation into the file it issues, and Tanuh's file has it. This
+    // job impersonates that account itself, to ask for an ID token, so the address is accepted only when it is
+    // Google's IAM credentials address for the configured service account, and is then dropped. Any other value is
+    // refused, and the message never carries it.
+    static String withoutOwnImpersonation(String credentialConfigJson, String serviceAccount) {
+        JsonNode root = parse(credentialConfigJson);
+        if (!root.has("service_account_impersonation_url")) return credentialConfigJson;
+        if (!(IAM_CREDENTIALS + serviceAccount + ":generateAccessToken").equals(text(root, "service_account_impersonation_url")))
+            throw new IllegalArgumentException("ocshr_credential_config: service_account_impersonation_url must be Google's IAM credentials address for the configured service account");
+        ((ObjectNode) root).remove("service_account_impersonation_url");
+        return root.toString();
     }
 
     // Only an AWS federation that reads this job's own role and exchanges it at Google is accepted: the configuration
     // is a setting an operator pastes in, and a different shape could make the job run a program or send its
     // credentials to another address. Messages name the field and never the JSON.
     static void validate(String credentialConfigJson) {
-        JsonNode root;
-        try {
-            root = ObjectJsonMapper.objectMapper.readTree(credentialConfigJson);
-        } catch (IOException e) {
-            throw new IllegalArgumentException("ocshr_credential_config is not valid JSON");
-        }
-        if (root == null || !root.isObject()) throw new IllegalArgumentException("ocshr_credential_config is not a JSON object");
+        JsonNode root = parse(credentialConfigJson);
         if (!"external_account".equals(text(root, "type")))
             throw new IllegalArgumentException("ocshr_credential_config: type must be external_account");
         if (root.has("service_account_impersonation_url"))
@@ -121,6 +135,17 @@ public class GoogleIdTokens implements IdTokenSource {
             if (host == null || !METADATA_HOSTS.contains(host))
                 throw new IllegalArgumentException("ocshr_credential_config: credential_source." + field + " must be the AWS metadata address");
         }
+    }
+
+    private static JsonNode parse(String credentialConfigJson) {
+        JsonNode root;
+        try {
+            root = ObjectJsonMapper.objectMapper.readTree(credentialConfigJson);
+        } catch (IOException e) {
+            throw new IllegalArgumentException("ocshr_credential_config is not valid JSON");
+        }
+        if (root == null || !root.isObject()) throw new IllegalArgumentException("ocshr_credential_config is not a JSON object");
+        return root;
     }
 
     private static String text(JsonNode node, String field) {

@@ -95,6 +95,48 @@ public class GoogleIdTokensTest {
         assertDoesNotThrow(() -> GoogleIdTokens.validate(sample()));
     }
 
+    // The file Tanuh issued (shape copied, identifiers replaced) names the impersonation of our service account, as
+    // Google's tool writes it. The production path must accept it and still impersonate that account itself.
+    private static String tanuhIssued() throws IOException {
+        return Files.readString(Path.of("src/test/resources/ocshr/tanuh-issued-credential-config.sample.json"), StandardCharsets.UTF_8);
+    }
+
+    @Test
+    public void theFileTanuhIssuedIsAccepted() throws Exception {
+        assertNotNull(GoogleIdTokens.credentials(tanuhIssued(), SERVICE_ACCOUNT, "medgemma-intake"));
+    }
+
+    @Test
+    public void theFileTanuhIssuedIsStillImpersonatedByTheJobItself() throws Exception {
+        String json = GoogleIdTokens.withoutOwnImpersonation(tanuhIssued(), SERVICE_ACCOUNT);
+        ImpersonatedCredentials credentials = GoogleIdTokens.impersonation(json, SERVICE_ACCOUNT);
+        assertEquals(SERVICE_ACCOUNT, credentials.getAccount());
+        assertNull(((AwsCredentials) credentials.getSourceCredentials()).getServiceAccountImpersonationUrl());
+    }
+
+    private void assertImpersonationRefused(String impersonationUrl, String mustNotAppear) throws IOException {
+        String json = sampleNode().put("service_account_impersonation_url", impersonationUrl).toString();
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
+                () -> GoogleIdTokens.credentials(json, SERVICE_ACCOUNT, "medgemma-intake"));
+        assertTrue(e.getMessage().contains("service_account_impersonation_url"), e.getMessage());
+        assertFalse(e.getMessage().contains(mustNotAppear), e.getMessage());
+    }
+
+    @Test
+    public void anImpersonationOfAnotherServiceAccountIsRefused() throws Exception {
+        assertImpersonationRefused("https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/other@attacker-project.iam.gserviceaccount.com:generateAccessToken", "attacker-project");
+    }
+
+    @Test
+    public void anImpersonationAddressOffGooglesIamServiceIsRefused() throws Exception {
+        assertImpersonationRefused("https://iamcredentials.attacker.example/v1/projects/-/serviceAccounts/" + SERVICE_ACCOUNT + ":generateAccessToken", "attacker.example");
+    }
+
+    @Test
+    public void anImpersonationOverPlainHttpIsRefused() throws Exception {
+        assertImpersonationRefused("http://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/" + SERVICE_ACCOUNT + ":generateAccessToken", "http://");
+    }
+
     @Test
     public void theIdTokenAsksForTheAudienceAndTheCallersEmail() throws Exception {
         FakeProvider provider = new FakeProvider();
@@ -187,8 +229,8 @@ public class GoogleIdTokensTest {
     }
 
     @Test
-    public void aConfigurationThatAlreadyImpersonatesIsRefused() throws Exception {
-        assertRefused(sampleNode().put("service_account_impersonation_url", "https://iamcredentials.googleapis.com/x"), "service_account_impersonation_url");
+    public void anImpersonationAddressThatIsNotExactlyOursIsRefused() throws Exception {
+        assertImpersonationRefused("https://iamcredentials.googleapis.com/x", "/x");
     }
 
     @Test
