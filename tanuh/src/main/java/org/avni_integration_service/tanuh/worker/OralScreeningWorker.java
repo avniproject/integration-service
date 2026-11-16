@@ -97,7 +97,7 @@ public class OralScreeningWorker {
     public ScreeningOutcome processScreening(GeneralEncounter s, boolean checkOpenErrorRecord) {
         String uuid = s.getUuid();
         Date listedAt = s.getLastModifiedDate();
-        boolean passedQc;
+        boolean handOver;
         try {
             TanuhConfig config = tanuhContextProvider.get();
             TanuhConcepts concepts = tanuhContextProvider.getConcepts();
@@ -127,9 +127,14 @@ public class OralScreeningWorker {
             if (changedSince(uuid, listedAt)) return changed(uuid);
             // The check time changes on every write. The server ignores a write that changes nothing, which would
             // leave the worker as the last editor and send the screening again on every run.
-            avniEncounterRepository.patch(uuid, verdict(passed, concepts));
+            // A screening is sent only while OCSHR Call Made is empty, and a Yes or No is final. One that fails QC
+            // is not sent, so it is marked No in the same write; one already marked keeps its answer.
+            boolean notYetSent = s.getObservation(concepts.name(Concept.OCSHR_CALL_MADE)) == null;
+            Map<String, Object> values = verdict(passed, concepts);
+            if (!passed && notYetSent) values.put(concepts.name(Concept.OCSHR_CALL_MADE), concepts.name(Concept.NO));
+            avniEncounterRepository.patch(uuid, values);
             logger.info(String.format("Screening %s: %s written", uuid, passed ? concepts.name(Concept.QC_PASS) : concepts.name(Concept.QC_FAIL)));
-            passedQc = passed;
+            handOver = passed && notYetSent;
         } catch (DqsException e) {
             return failed(uuid, TanuhErrorService.DATA_QUALITY_CALL_FAILED, e);
         } catch (Exception e) {
@@ -137,7 +142,7 @@ public class OralScreeningWorker {
         }
         // Handed over only once its verdict is on the screening: the hand-over is the last step, so a failure in it
         // leaves the verdict standing and only the hand-over waits for the retry (handOverAgain).
-        return passedQc ? handOverOrWait(s) : ScreeningOutcome.WRITTEN;
+        return handOver ? handOverOrWait(s) : ScreeningOutcome.WRITTEN;
     }
 
     // The retry of a screening whose verdict was written but whose hand-over failed. The verdict is read back from the
@@ -146,6 +151,10 @@ public class OralScreeningWorker {
         TanuhConcepts concepts = tanuhContextProvider.getConcepts();
         if (!concepts.name(Concept.QC_PASS).equals(s.getObservation(concepts.name(Concept.QC_STATUS)))) {
             logger.info(String.format("Screening %s is not marked %s: not handed over", s.getUuid(), concepts.name(Concept.QC_PASS)));
+            return ScreeningOutcome.SKIPPED;
+        }
+        if (s.getObservation(concepts.name(Concept.OCSHR_CALL_MADE)) != null) {
+            logger.info(String.format("Screening %s already has %s: not handed over", s.getUuid(), concepts.name(Concept.OCSHR_CALL_MADE)));
             return ScreeningOutcome.SKIPPED;
         }
         return handOverOrWait(s);

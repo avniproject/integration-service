@@ -358,5 +358,15 @@
     "about": "Written by the job: when the verdict was given, in UTC",
     "dataTypeHint": null,
     "voided": false
+  },
+  {
+    "uuid": "44295c25-e0a2-4ae6-861d-5cb68ea03a0d",
+    "mappingGroupUuid": "d41712c8-beec-4019-b03b-70fcfe0907b6",
+    "mappingTypeUuid": "1acc87b6-48b2-432d-9762-506e9513f779",
+    "intSystemValue": "ocshr_call_made",
+    "avniValue": "OCSHR Call Made",
+    "about": "Written by the job: Yes once Tanuh's model service took the screening, No when it is not sent. A screening is sent only while this is empty",
+    "dataTypeHint": null,
+    "voided": false
   }
 ]

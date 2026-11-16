@@ -33,7 +33,9 @@ public final class TanuhConcepts {
 
         FULL_ADDRESS, LGD_CODE,
 
-        QC_STATUS, QC_PASS, QC_FAIL, QC_CHECK_TIME;
+        QC_STATUS, QC_PASS, QC_FAIL, QC_CHECK_TIME,
+
+        OCSHR_CALL_MADE;
 
         public String key() {
             return name().toLowerCase(Locale.ROOT);

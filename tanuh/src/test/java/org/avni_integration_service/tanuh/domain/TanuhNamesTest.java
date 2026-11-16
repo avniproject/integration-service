@@ -15,6 +15,7 @@ public class TanuhNamesTest {
     public void theQualityVerdictIsWrittenToTheseConcepts() {
         assertEquals(List.of("QC status", "QC Pass", "QC Fail", "QC check time"),
                 List.of(concepts.name(QC_STATUS), concepts.name(QC_PASS), concepts.name(QC_FAIL), concepts.name(QC_CHECK_TIME)));
+        assertEquals("OCSHR Call Made", concepts.name(OCSHR_CALL_MADE));
     }
 
     @Test

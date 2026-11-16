@@ -143,6 +143,13 @@ public class ProcessScreeningTest {
         return Map.of("QC status", qcStatus, "QC check time", CHECK_TIME);
     }
 
+    // A screening that fails QC is not sent, and the job writes that down in the same PATCH.
+    static Map<String, Object> failVerdict() {
+        Map<String, Object> values = new HashMap<>(verdict("QC Fail"));
+        values.put("OCSHR Call Made", "No");
+        return values;
+    }
+
     private void dqsSays(DqsResult result) {
         when(dqs.submit(eq(DqsClient.ORAL_SCREENING), any(Supplier.class))).thenReturn(result);
     }
@@ -176,7 +183,7 @@ public class ProcessScreeningTest {
 
         assertEquals(ScreeningOutcome.WRITTEN, worker.processScreening(s, true));
 
-        assertEquals(List.of(verdict("QC Fail")), encounters.patchBodies);
+        assertEquals(List.of(failVerdict()), encounters.patchBodies);
         verify(downloader, never()).download(anyString());
         verifyNoInteractions(model, errors);
     }
@@ -209,7 +216,7 @@ public class ProcessScreeningTest {
 
         assertEquals(ScreeningOutcome.WRITTEN, worker.processScreening(s, true));
 
-        assertEquals(List.of(verdict("QC Fail")), encounters.patchBodies);
+        assertEquals(List.of(failVerdict()), encounters.patchBodies);
         verifyNoInteractions(model);
     }
 
@@ -220,7 +227,7 @@ public class ProcessScreeningTest {
 
         assertEquals(ScreeningOutcome.WRITTEN, worker.processScreening(s, true));
 
-        assertEquals(List.of(verdict("QC Fail")), encounters.patchBodies);
+        assertEquals(List.of(failVerdict()), encounters.patchBodies);
         verifyNoInteractions(model);
     }
 
@@ -402,6 +409,54 @@ public class ProcessScreeningTest {
         verify(model).submit(same(marked), anyList());
         verifyNoMoreInteractions(model);
         verifyNoInteractions(dqs);
+        assertTrue(encounters.patchBodies.isEmpty());
+    }
+
+    @Test
+    public void aScreeningAlreadySentIsCheckedButNotSentAgain() {
+        GeneralEncounter s = screeningWithPhotos("s1", "No");
+        s.addObservation("OCSHR Call Made", "Yes");
+        dqsSays(passed());
+
+        assertEquals(ScreeningOutcome.WRITTEN, worker.processScreening(s, true));
+
+        assertEquals(List.of(verdict("QC Pass")), encounters.patchBodies);
+        verifyNoInteractions(model);
+    }
+
+    @Test
+    public void aSentScreeningThatNowFailsQcKeepsItsYes() {
+        GeneralEncounter s = screeningWithPhotos("s1", "No");
+        s.addObservation("OCSHR Call Made", "Yes");
+        dqsSays(failedRule());
+
+        assertEquals(ScreeningOutcome.WRITTEN, worker.processScreening(s, true));
+
+        assertEquals(List.of(verdict("QC Fail")), encounters.patchBodies);
+        verifyNoInteractions(model);
+    }
+
+    @Test
+    public void aScreeningMarkedNotSentStaysNotSent() {
+        GeneralEncounter s = screeningWithPhotos("s1", "No");
+        s.addObservation("OCSHR Call Made", "No");
+        dqsSays(passed());
+
+        assertEquals(ScreeningOutcome.WRITTEN, worker.processScreening(s, true));
+
+        assertEquals(List.of(verdict("QC Pass")), encounters.patchBodies);
+        verifyNoInteractions(model);
+    }
+
+    @Test
+    public void handingOverAgainSkipsAScreeningWhoseCallMadeIsSet() {
+        GeneralEncounter s = screeningWithPhotos("s1", "No");
+        s.addObservation("QC status", "QC Pass");
+        s.addObservation("OCSHR Call Made", "Yes");
+
+        assertEquals(ScreeningOutcome.SKIPPED, worker.handOverAgain(s));
+
+        verifyNoInteractions(model, dqs);
         assertTrue(encounters.patchBodies.isEmpty());
     }
 
