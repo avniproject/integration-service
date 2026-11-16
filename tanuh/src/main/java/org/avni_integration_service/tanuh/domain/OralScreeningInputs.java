@@ -15,11 +15,16 @@ public final class OralScreeningInputs {
     }
 
     // The photos in the rows of "Take photos of all lesions and 1 photo without lesion" when it has any, otherwise in
-    // those of "ORAL SCREENING".
+    // those of "ORAL SCREENING", otherwise in the "Photo N (image)" slots of screenings captured before the groups.
     public static OralScreeningInputs from(GeneralEncounter screening, TanuhConcepts concepts) {
         List<Map<String, Object>> rows = rows(screening.getObservation(concepts.name(Concept.TAKE_PHOTOS)));
         if (rows.isEmpty()) rows = rows(screening.getObservation(concepts.name(Concept.GUIDED_PHOTOS)));
         List<String> urls = new ArrayList<>();
+        if (rows.isEmpty()) {
+            for (int slot = 1; slot <= TanuhConcepts.LEGACY_PHOTO_SLOTS; slot++) {
+                urls.addAll(strings(screening.getObservation(concepts.name(Concept.LEGACY_PHOTO, slot))));
+            }
+        }
         for (Map<String, Object> row : rows) urls.addAll(strings(row.get(concepts.name(Concept.ORAL_IMAGE))));
         return new OralScreeningInputs(List.copyOf(urls));
     }

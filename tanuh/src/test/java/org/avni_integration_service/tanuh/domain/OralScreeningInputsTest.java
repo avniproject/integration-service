@@ -60,4 +60,19 @@ public class OralScreeningInputsTest {
     public void aSingleRowGroupStoredAsAMapIsReadAsOneRow() {
         assertEquals(List.of("u1"), OralScreeningInputs.from(screening(row("u1", "No"), null), TanuhConceptsFixture.defaults()).getPhotoUrls());
     }
+
+    @Test
+    public void aScreeningCapturedBeforeTheGroupsGivesItsPhotoSlots() {
+        GeneralEncounter s = new GeneralEncounter();
+        s.addObservation("Photo 3 (image)", "old3");
+        s.addObservation("Photo 1 (image)", "old1");
+        assertEquals(List.of("old1", "old3"), OralScreeningInputs.from(s, TanuhConceptsFixture.defaults()).getPhotoUrls());
+    }
+
+    @Test
+    public void theGroupsWinOverTheOldSlots() {
+        GeneralEncounter s = screening(List.of(row("t1", "No")), null);
+        s.addObservation("Photo 1 (image)", "old1");
+        assertEquals(List.of("t1"), OralScreeningInputs.from(s, TanuhConceptsFixture.defaults()).getPhotoUrls());
+    }
 }
