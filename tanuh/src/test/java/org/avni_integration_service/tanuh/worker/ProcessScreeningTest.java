@@ -75,6 +75,7 @@ public class ProcessScreeningTest {
     private IntegratingEntityStatusRepository statuses;
     private final TanuhContextProvider context = new TanuhContextProvider();
     private FakeAvniEncounterRepository encounters;
+    private final FakeSentScreenings sent = new FakeSentScreenings();
     private OralScreeningWorker worker;
 
     @BeforeEach
@@ -91,7 +92,7 @@ public class ProcessScreeningTest {
         context.set(new TanuhConfig(new IntegrationSystemConfigCollection(List.of(user, highRiskUser)), system));
         context.setConcepts(TanuhConceptsFixture.defaults());
         encounters = new FakeAvniEncounterRepository(JOB_USER, Date.from(Instant.parse("2026-10-07T00:00:00Z")));
-        worker = new OralScreeningWorker(encounters, subjects, dqs, downloader, model, errors, alerts, errorRecords, statuses, context, CLOCK, 10);
+        worker = new OralScreeningWorker(encounters, subjects, dqs, downloader, model, errors, alerts, sent, errorRecords, statuses, context, CLOCK, 10);
         lenient().when(subjects.getSubjectOrThrow(anyString())).thenReturn(patient(false));
         // The patient's registration goes ahead of every screening; the service stores it and the tests leave it be.
         lenient().when(dqs.submit(eq(DqsClient.REGISTRATION), anyMap())).thenReturn(passed());
@@ -754,6 +755,126 @@ public class ProcessScreeningTest {
 
         verifyNoInteractions(model);
         assertTrue(encounters.patchBodies.isEmpty());
+    }
+
+    // A phone's edit replaces every answer on the screening with the phone's copy. A phone that had not received the
+    // job's answers sends a copy without them, which looks like a screening never checked or sent.
+    private GeneralEncounter editedOnAPhoneWithoutTheJobsAnswers(String uuid) {
+        GeneralEncounter s = encounters.screenings.get(uuid);
+        for (String answer : List.of("QC status", "QC check time", "OCSHR Call Made")) s.getObservations().remove(answer);
+        encounters.workerEdits(uuid);
+        return s;
+    }
+
+    private static Map<String, Object> withCallMade(Map<String, Object> verdict, String answer) {
+        Map<String, Object> values = new HashMap<>(verdict);
+        values.put("OCSHR Call Made", answer);
+        return values;
+    }
+
+    // A screening that went to Tanuh's model once never goes again after an edit (Adam, 17 Nov 2026). Its answer is put
+    // back from the job's own record.
+    @Test
+    public void aSentScreeningWhoseAnswerAPhoneClearedIsNotSentAgain() throws Exception {
+        dqsSays(passed());
+        worker.processScreening(screeningWithPhotos("s1", "No"), true);
+
+        assertEquals(ScreeningOutcome.WRITTEN, worker.processScreening(editedOnAPhoneWithoutTheJobsAnswers("s1"), true));
+
+        verify(model, times(1)).submit(anyString(), anyList());
+        assertEquals(withCallMade(verdict("QC Pass"), "Yes"), encounters.patchBodies.get(encounters.patchBodies.size() - 1));
+        assertEquals("Yes", encounters.screenings.get("s1").getObservation("OCSHR Call Made"));
+    }
+
+    @Test
+    public void aScreeningMarkedNotSentWhoseAnswerAPhoneClearedStaysNotSent() throws Exception {
+        dqsSays(passed());
+        worker.processScreening(encounters.add("s1", Map.of("Able to Open Mouth?", "No")), true);
+        GeneralEncounter edited = editedOnAPhoneWithoutTheJobsAnswers("s1");
+        edited.addObservation(PHOTOS, List.of(row("https://s3.ap-south-1.amazonaws.com/prod-user-media/tanuh_uat/s1-0.jpg", "No")));
+
+        assertEquals(ScreeningOutcome.WRITTEN, worker.processScreening(edited, true));
+
+        verifyNoInteractions(model);
+        assertEquals(notSent("QC Pass"), encounters.patchBodies.get(encounters.patchBodies.size() - 1));
+    }
+
+    @Test
+    public void anEditThatFailsQcAfterASendKeepsTheScreeningMarkedSent() throws Exception {
+        dqsSays(passed());
+        worker.processScreening(screeningWithPhotos("s1", "No"), true);
+        dqsSays(failedRule());
+
+        assertEquals(ScreeningOutcome.WRITTEN, worker.processScreening(editedOnAPhoneWithoutTheJobsAnswers("s1"), true));
+
+        verify(model, times(1)).submit(anyString(), anyList());
+        assertEquals(withCallMade(verdict("QC Fail"), "Yes"), encounters.patchBodies.get(encounters.patchBodies.size() - 1));
+    }
+
+    // Tanuh may already hold a screening whose send went unanswered. The send is repeated as it was, so an edit's
+    // new photos never reach the model, and Tanuh answers the repeat as the same case.
+    @Test
+    public void anEditAfterASendWhoseAnswerWasLostRepeatsTheFirstPhotos() throws Exception {
+        dqsSays(passed());
+        when(model.submit(anyString(), anyList())).thenThrow(new HighRiskModelException("Model service at ocshr did not answer: Read timed out"));
+        assertEquals(ScreeningOutcome.FAILED, worker.processScreening(screeningWithPhotos("s1", "No", "No"), true));
+        GeneralEncounter edited = editedOnAPhoneWithoutTheJobsAnswers("s1");
+        edited.addObservation(PHOTOS, List.of(row("https://s3.ap-south-1.amazonaws.com/prod-user-media/tanuh_uat/s1-9.jpg", "No")));
+        reset(model);
+        when(model.submit(anyString(), anyList())).thenReturn(new Submission(Submission.Outcome.ACCEPTED, "{}"));
+
+        assertEquals(ScreeningOutcome.WRITTEN, worker.processScreening(edited, false));
+
+        verify(model).submit("s1", List.of("s3://prod-user-media/tanuh_uat/s1-0.jpg", "s3://prod-user-media/tanuh_uat/s1-1.jpg"));
+        verifyNoMoreInteractions(model);
+        assertEquals("Yes", encounters.screenings.get("s1").getObservation("OCSHR Call Made"));
+    }
+
+    @Test
+    public void aSendWhoseAnswerWasLostIsSettledEvenWhenTheEditFailsQc() throws Exception {
+        dqsSays(passed());
+        when(model.submit(anyString(), anyList())).thenThrow(new HighRiskModelException("Model service at ocshr did not answer: Read timed out"));
+        worker.processScreening(screeningWithPhotos("s1", "No"), true);
+        encounters.workerEdits("s1");
+        dqsSays(failedRule());
+        reset(model);
+        when(model.submit(anyString(), anyList())).thenReturn(new Submission(Submission.Outcome.ACCEPTED, "{}"));
+
+        assertEquals(ScreeningOutcome.WRITTEN, worker.processScreening(encounters.screenings.get("s1"), false));
+
+        verify(model).submit("s1", List.of("s3://prod-user-media/tanuh_uat/s1-0.jpg"));
+        assertEquals(List.of(verdict("QC Pass"), verdict("QC Fail"), callMade("Yes")), encounters.patchBodies);
+    }
+
+    @Test
+    public void handingOverAgainSettlesASendWhoseAnswerWasLostWhateverTheVerdict() throws Exception {
+        GeneralEncounter s = screeningWithPhotos("s1", "No");
+        s.addObservation("QC status", "QC Fail");
+        encounters.touch(s, JOB_USER);
+        sent.attempt("s1", List.of("s3://prod-user-media/tanuh_uat/s1-0.jpg"));
+
+        assertEquals(ScreeningOutcome.WRITTEN, worker.handOverAgain(s));
+
+        verify(model).submit("s1", List.of("s3://prod-user-media/tanuh_uat/s1-0.jpg"));
+        assertEquals(List.of(callMade("Yes")), encounters.patchBodies);
+    }
+
+    // Tanuh took the screening, but a worker's edit landed before Yes was written. The edit is checked on the next run,
+    // which writes Yes from the job's record and sends nothing.
+    @Test
+    public void anEditDuringTheHandOverGetsItsYesOnTheNextRunWithoutASecondSend() throws Exception {
+        GeneralEncounter s = screeningWithPhotos("s1", "No");
+        dqsSays(passed());
+        when(model.submit(anyString(), anyList())).thenAnswer(invocation -> {
+            encounters.workerEdits("s1");
+            return new Submission(Submission.Outcome.ACCEPTED, "{}");
+        });
+        assertEquals(ScreeningOutcome.CHANGED, worker.processScreening(s, true));
+
+        assertEquals(ScreeningOutcome.WRITTEN, worker.processScreening(encounters.screenings.get("s1"), true));
+
+        verify(model, times(1)).submit(anyString(), anyList());
+        assertEquals(withCallMade(verdict("QC Pass"), "Yes"), encounters.patchBodies.get(encounters.patchBodies.size() - 1));
     }
 
     // Tanuh's service writes its result, probability and version itself.

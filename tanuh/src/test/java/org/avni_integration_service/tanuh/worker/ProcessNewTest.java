@@ -107,7 +107,7 @@ public class ProcessNewTest {
             if (during != null) during.run();
             return answer;
         });
-        worker = new OralScreeningWorker(encounters, subjects, dqs, downloader, model, errors, alerts, errorRecords, statuses, context, new TickingClock(), 10);
+        worker = new OralScreeningWorker(encounters, subjects, dqs, downloader, model, errors, alerts, new FakeSentScreenings(), errorRecords, statuses, context, new TickingClock(), 10);
     }
 
     // A millisecond later on every read, as a real clock would be between writes.

@@ -86,7 +86,7 @@ public class TanuhScreeningRetryWorkerTest {
         context.set(new TanuhConfig(new IntegrationSystemConfigCollection(List.of(user, highRiskUser)), system));
         context.setConcepts(TanuhConceptsFixture.defaults());
         encounters = new FakeAvniEncounterRepository(JOB_USER, Date.from(Instant.parse("2026-10-07T00:00:00Z")));
-        OralScreeningWorker worker = new OralScreeningWorker(encounters, subjects, dqs, downloader, model, errors, alerts, errorRecords,
+        OralScreeningWorker worker = new OralScreeningWorker(encounters, subjects, dqs, downloader, model, errors, alerts, new FakeSentScreenings(), errorRecords,
                 statuses, context, ProcessScreeningTest.CLOCK, 10);
         retryWorker = new TanuhScreeningRetryWorker(errorRecords, encounters, worker, errors, context);
         lenient().when(subjects.getSubjectOrThrow(anyString())).thenReturn(patient(false));
