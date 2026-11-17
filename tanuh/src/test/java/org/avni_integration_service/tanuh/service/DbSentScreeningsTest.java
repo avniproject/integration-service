@@ -14,6 +14,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.List;
@@ -35,6 +36,8 @@ public class DbSentScreeningsTest extends BaseTanuhSpringTest {
     private IntegrationSystemRepository integrationSystemRepository;
     @Autowired
     private TanuhContextProvider context;
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
     private IntegrationSystem one;
     private IntegrationSystem other;
@@ -42,6 +45,10 @@ public class DbSentScreeningsTest extends BaseTanuhSpringTest {
 
     @BeforeEach
     public void setUp() {
+        // A database built by its migrations, as CI builds its test database on every run, leaves this sequence behind
+        // the rows the migrations inserted with fixed ids. Moved forward as the setup scripts' step 0 does, never back.
+        jdbcTemplate.queryForObject("SELECT setval('integration_system_id_seq', GREATEST((SELECT COALESCE(MAX(id), 1) FROM integration_system), "
+                + "(SELECT last_value FROM integration_system_id_seq)))", Long.class);
         one = system("sent_screenings_test_one");
         other = system("sent_screenings_test_other");
         screening = UUID.randomUUID().toString();
