@@ -7,7 +7,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 
+import java.nio.charset.StandardCharsets;
+
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -26,11 +29,27 @@ public class TanuhPhotoDownloaderTest {
     // AWSS3Service.generateMediaDownloadUrl), so the photo is outside the organisation's media storage.
     @Test
     public void avnisRefusalMeansThePhotoIsOutsideTheOrganisationsStorage() {
-        HttpClientErrorException forbidden = HttpClientErrorException.create(HttpStatus.FORBIDDEN, "Forbidden", HttpHeaders.EMPTY, null, null);
+        HttpClientErrorException forbidden = forbidden("User 'integration@tanuh_uat' not authorized to access '" + PHOTO + "'");
         when(media.getSignedDownloadUrl(PHOTO)).thenThrow(forbidden);
 
         PhotoOutsideStorageException e = assertThrows(PhotoOutsideStorageException.class, () -> downloader.sign(PHOTO));
         assertSame(forbidden, e.getCause());
+    }
+
+    // A 403 from anything else, such as the firewall in front of Avni blocking a burst of calls, says nothing about the
+    // photo, so it is passed on and the screening waits for a retry rather than being marked not sent for good.
+    @Test
+    public void aForbiddenWithoutAvnisRefusalIsPassedOnAsItIs() {
+        for (String body : new String[]{"<html><head><title>403 Forbidden</title></head><body><h1>403 Forbidden</h1></body></html>", ""}) {
+            HttpClientErrorException forbidden = forbidden(body);
+            doThrow(forbidden).when(media).getSignedDownloadUrl(PHOTO);
+
+            assertSame(forbidden, assertThrows(HttpClientErrorException.class, () -> downloader.sign(PHOTO)), body);
+        }
+    }
+
+    private static HttpClientErrorException forbidden(String body) {
+        return HttpClientErrorException.create(HttpStatus.FORBIDDEN, "Forbidden", HttpHeaders.EMPTY, body.getBytes(StandardCharsets.UTF_8), StandardCharsets.UTF_8);
     }
 
     // Anything else is a failure to retry, never a verdict on the photo.

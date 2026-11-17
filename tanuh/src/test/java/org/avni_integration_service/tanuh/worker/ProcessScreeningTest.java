@@ -20,7 +20,9 @@ import org.avni_integration_service.tanuh.dqs.DqsResult.RuleOutcome;
 import org.avni_integration_service.tanuh.model.HighRiskModelClient;
 import org.avni_integration_service.tanuh.model.HighRiskModelException;
 import org.avni_integration_service.tanuh.model.Submission;
+import org.avni_integration_service.tanuh.domain.TanuhConcepts.Concept;
 import org.avni_integration_service.tanuh.service.PhotoOutsideStorageException;
+import org.avni_integration_service.tanuh.service.SentScreenings;
 import org.avni_integration_service.tanuh.service.TanuhAlerts;
 import org.avni_integration_service.tanuh.service.TanuhErrorService;
 import org.avni_integration_service.tanuh.service.TanuhPhotoDownloader;
@@ -875,6 +877,80 @@ public class ProcessScreeningTest {
 
         verify(model, times(1)).submit(anyString(), anyList());
         assertEquals(withCallMade(verdict("QC Pass"), "Yes"), encounters.patchBodies.get(encounters.patchBodies.size() - 1));
+    }
+
+    private Optional<Concept> recordedAnswer(String uuid) {
+        return sent.find(uuid).flatMap(SentScreenings.SentScreening::callMade);
+    }
+
+    // A refusal is reported when the job records it, even if a worker's edit keeps its No off the screening for now.
+    @Test
+    public void aRefusalIsReportedEvenWhenItsNoIsNotWrittenAtOnce() throws Exception {
+        GeneralEncounter s = screeningWithPhotos("s1", "No");
+        dqsSays(passed());
+        when(model.submit(anyString(), anyList())).thenAnswer(invocation -> {
+            encounters.workerEdits("s1");
+            return new Submission(Submission.Outcome.REFUSED, "{\"error\":\"INVALID_MANIFEST\"}");
+        });
+
+        assertEquals(ScreeningOutcome.CHANGED, worker.processScreening(s, true));
+
+        assertEquals(Optional.of(Concept.NO), recordedAnswer("s1"));
+        verify(alerts).screeningNeedsAPerson(eq("s1"), eq(TanuhAlerts.Reason.REFUSED), contains("INVALID_MANIFEST"));
+    }
+
+    @Test
+    public void aPhotoAvniRefusesOnAHandOverIsReportedEvenWhenItsNoIsNotWrittenAtOnce() throws Exception {
+        GeneralEncounter s = handOverCutShort("s1", JOB_USER);
+        when(downloader.sign(anyString())).thenAnswer(invocation -> {
+            encounters.workerEdits("s1");
+            throw new PhotoOutsideStorageException("outside", null);
+        });
+
+        assertEquals(ScreeningOutcome.CHANGED, worker.processScreening(s, true));
+
+        assertEquals(Optional.of(Concept.NO), recordedAnswer("s1"));
+        verify(alerts).screeningNeedsAPerson(eq("s1"), eq(TanuhAlerts.Reason.PHOTO_OUTSIDE_STORAGE), anyString());
+    }
+
+    // The answer is kept before it is written on the screening: a write that fails leaves it in the job's record, and
+    // the retry writes it without a second send.
+    @Test
+    public void aYesWhoseWriteFailsIsKeptAndWrittenByTheRetryWithoutASecondSend() throws Exception {
+        GeneralEncounter s = screeningWithPhotos("s1", "No");
+        dqsSays(passed());
+        when(model.submit(anyString(), anyList())).thenAnswer(invocation -> {
+            encounters.failNextPatchWith = new RuntimeException("connection reset");
+            return new Submission(Submission.Outcome.ACCEPTED, "{}");
+        });
+        assertEquals(ScreeningOutcome.FAILED, worker.processScreening(s, true));
+        assertEquals(Optional.of(Concept.YES), recordedAnswer("s1"));
+        assertNull(encounters.screenings.get("s1").getObservation("OCSHR Call Made"));
+        reset(model);
+
+        assertEquals(ScreeningOutcome.WRITTEN, worker.handOverAgain(encounters.screenings.get("s1")));
+
+        verifyNoInteractions(model);
+        assertEquals("Yes", encounters.screenings.get("s1").getObservation("OCSHR Call Made"));
+    }
+
+    // A parked screening is settled by a person, who writes Yes on it once Tanuh confirms the copy it holds (runbook,
+    // section 8). That Yes settles the job's record, so the screening is not sent again and parked again.
+    @Test
+    public void aPersonsAnswerOnAParkedScreeningSettlesItsRecordWithoutASend() throws Exception {
+        GeneralEncounter s = screeningWithPhotos("s1", "No");
+        dqsSays(passed());
+        when(model.submit(anyString(), anyList())).thenReturn(new Submission(Submission.Outcome.CONFLICT, "{\"error\":\"CASE_EXISTS_WITH_DIFFERENT_MANIFEST\"}"));
+        assertEquals(ScreeningOutcome.PARKED, worker.processScreening(s, true));
+        GeneralEncounter settled = encounters.screenings.get("s1");
+        settled.addObservation("OCSHR Call Made", "Yes");
+        encounters.workerEdits("s1");
+        reset(model);
+
+        assertEquals(ScreeningOutcome.WRITTEN, worker.processScreening(settled, true));
+
+        verifyNoInteractions(model);
+        assertEquals(Optional.of(Concept.YES), recordedAnswer("s1"));
     }
 
     // Tanuh's service writes its result, probability and version itself.

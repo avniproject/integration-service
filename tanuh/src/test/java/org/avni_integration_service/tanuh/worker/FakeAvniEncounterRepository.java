@@ -114,8 +114,16 @@ public class FakeAvniEncounterRepository extends AvniEncounterRepository {
         return s;
     }
 
+    // The next PATCH fails with this, as a dropped connection would, and writes nothing.
+    public RuntimeException failNextPatchWith;
+
     @Override
     public GeneralEncounter patch(String uuid, Map<String, Object> observations) {
+        if (failNextPatchWith != null) {
+            RuntimeException e = failNextPatchWith;
+            failNextPatchWith = null;
+            throw e;
+        }
         patchedUuids.add(uuid);
         patchBodies.add(new HashMap<>(observations));
         GeneralEncounter s = screenings.get(uuid);

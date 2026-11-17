@@ -73,6 +73,18 @@ public class S3UrisTest {
         }
     }
 
+    // A key still holding an escape after one decoding was encoded twice, and a service that decodes it again would read
+    // other steps than Avni's check did. Avni's own keys are a folder and a file name, with no escape and no backslash.
+    @Test
+    public void aKeyEncodedTwiceHasNone() {
+        for (String url : List.of(
+                "https://prod-user-media.s3.ap-south-1.amazonaws.com/tanuh_uat/x%252F..%252F..%252Fother_org%252Fa1.jpg",
+                "https://s3.ap-south-1.amazonaws.com/prod-user-media/tanuh_uat/x%255C..%255Cother_org%255Ca1.jpg",
+                "https://s3.ap-south-1.amazonaws.com/prod-user-media/tanuh_uat/x%5C..%5Cother_org%5Ca1.jpg")) {
+            assertEquals(Optional.empty(), S3Uris.one(url), url);
+        }
+    }
+
     @Test
     public void aDotInsideANameIsKept() {
         assertEquals(Optional.of("s3://prod-user-media/tanuh_uat/a..1.jpg"),

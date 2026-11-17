@@ -175,13 +175,24 @@ public class OralScreeningWorker {
             Optional<Concept> recordedAnswer = recordedSend.flatMap(SentScreenings.SentScreening::callMade);
             Object callMadeOnScreen = s.getObservation(concepts.name(Concept.OCSHR_CALL_MADE));
             boolean neverDecided = callMadeOnScreen == null && recordedSend.isEmpty();
-            boolean answerLost = recordedSend.isPresent() && recordedAnswer.isEmpty();
+            // A send with no answer is settled by an answer a person wrote on the screening, such as a parked screening
+            // Tanuh confirmed (runbook, section 8); otherwise it is repeated as it was.
+            Optional<Concept> answerOnScreen = answerOn(callMadeOnScreen, concepts);
+            boolean answerLost = recordedSend.isPresent() && recordedAnswer.isEmpty() && answerOnScreen.isEmpty();
             send = answerLost || (passed && neverDecided && imageUris(s, concepts).isPresent());
             boolean markedNotSent = neverDecided && !send;
             Map<String, Object> values = verdict(passed, concepts);
             if (markedNotSent) {
                 sentScreenings.answer(uuid, Concept.NO);
+                if (photoOutsideStorage)
+                    tanuhAlerts.screeningNeedsAPerson(uuid, TanuhAlerts.Reason.PHOTO_OUTSIDE_STORAGE,
+                            String.format("Avni refused to sign one of its photos for the data quality service, so it is marked %s and %s %s",
+                                    concepts.name(Concept.QC_FAIL), concepts.name(Concept.OCSHR_CALL_MADE), concepts.name(Concept.NO)));
                 values.put(concepts.name(Concept.OCSHR_CALL_MADE), concepts.name(Concept.NO));
+            } else if (recordedSend.isPresent() && recordedAnswer.isEmpty() && answerOnScreen.isPresent()) {
+                logger.info(String.format("Screening %s: the %s %s written on it settles the job's record of its send", uuid,
+                        concepts.name(Concept.OCSHR_CALL_MADE), callMadeOnScreen));
+                sentScreenings.answer(uuid, answerOnScreen.get());
             } else if (callMadeOnScreen == null && recordedAnswer.isPresent()) {
                 logger.warn(String.format("Screening %s lost its %s in an edit: %s is written back from the job's record and it is not sent again",
                         uuid, concepts.name(Concept.OCSHR_CALL_MADE), concepts.name(recordedAnswer.get())));
@@ -189,10 +200,7 @@ public class OralScreeningWorker {
             }
             avniEncounterRepository.patch(uuid, values);
             logger.info(String.format("Screening %s: %s written", uuid, passed ? concepts.name(Concept.QC_PASS) : concepts.name(Concept.QC_FAIL)));
-            if (photoOutsideStorage)
-                tanuhAlerts.screeningNeedsAPerson(uuid, TanuhAlerts.Reason.PHOTO_OUTSIDE_STORAGE,
-                        String.format("Avni answered 403 when asked to sign one of its photos for the data quality service, so it is marked %s", concepts.name(Concept.QC_FAIL)));
-            else if (passed && markedNotSent)
+            if (passed && markedNotSent)
                 logger.warn(String.format("Screening %s passed QC but has no photo, or a photo outside S3: marked not sent to the high-risk model", uuid));
         } catch (DqsException e) {
             return failed(uuid, TanuhErrorService.DATA_QUALITY_CALL_FAILED, e);
@@ -255,11 +263,9 @@ public class OralScreeningWorker {
                 if (refusedPhoto.isPresent()) {
                     logger.warn(String.format("Screening %s: Avni will not sign photo %d, which is outside the organisation's media storage: marked not sent to the high-risk model", uuid, refusedPhoto.getAsInt()));
                     sentScreenings.answer(uuid, Concept.NO);
-                    ScreeningOutcome outcome = writeCallMade(uuid, Concept.NO);
-                    if (outcome == ScreeningOutcome.WRITTEN)
-                        tanuhAlerts.screeningNeedsAPerson(uuid, TanuhAlerts.Reason.PHOTO_OUTSIDE_STORAGE,
-                                String.format("Avni answered 403 when asked to sign photo %d before the hand-over", refusedPhoto.getAsInt()));
-                    return outcome;
+                    tanuhAlerts.screeningNeedsAPerson(uuid, TanuhAlerts.Reason.PHOTO_OUTSIDE_STORAGE,
+                            String.format("Avni refused to sign photo %d before the hand-over", refusedPhoto.getAsInt()));
+                    return writeCallMade(uuid, Concept.NO);
                 }
                 // Kept before the send, so a send whose answer is lost is repeated with these photos and no others.
                 sentScreenings.attempt(uuid, uris);
@@ -273,10 +279,8 @@ public class OralScreeningWorker {
                 case REFUSED -> {
                     logger.warn(String.format("Screening %s refused by the high-risk model service, so it is marked not sent: %s", uuid, submission.detail()));
                     sentScreenings.answer(uuid, Concept.NO);
-                    ScreeningOutcome outcome = writeCallMade(uuid, Concept.NO);
-                    if (outcome == ScreeningOutcome.WRITTEN)
-                        tanuhAlerts.screeningNeedsAPerson(uuid, TanuhAlerts.Reason.REFUSED, submission.detail());
-                    return outcome;
+                    tanuhAlerts.screeningNeedsAPerson(uuid, TanuhAlerts.Reason.REFUSED, submission.detail());
+                    return writeCallMade(uuid, Concept.NO);
                 }
                 case CONFLICT -> {
                 }
@@ -334,6 +338,13 @@ public class OralScreeningWorker {
                 String.format("The high-risk model service holds this screening with other photos: %s", detail));
         tanuhAlerts.screeningNeedsAPerson(uuid, TanuhAlerts.Reason.HELD_WITH_OTHER_PHOTOS, detail);
         return ScreeningOutcome.PARKED;
+    }
+
+    // OCSHR Call Made as written on the screening, read as the job's YES or NO; empty for no answer or any other value.
+    private static Optional<Concept> answerOn(Object callMade, TanuhConcepts concepts) {
+        if (concepts.name(Concept.YES).equals(callMade)) return Optional.of(Concept.YES);
+        if (concepts.name(Concept.NO).equals(callMade)) return Optional.of(Concept.NO);
+        return Optional.empty();
     }
 
     // The job's own writes, and Tanuh's result when high_risk_avni_user names the user it writes as.

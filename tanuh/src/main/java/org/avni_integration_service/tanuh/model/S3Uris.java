@@ -50,8 +50,11 @@ public final class S3Uris {
     }
 
     // Avni's signing check reads only a key's first folder, so "tanuh_uat/../other_org/x.jpg" passes it while naming
-    // another organisation's photo. A key with a ".", ".." or empty step is not taken as a photo of this organisation.
+    // another organisation's photo. A key with a ".", ".." or empty step is not taken as a photo of this organisation,
+    // nor is one still holding an escape or a backslash after one decoding: it was encoded twice, and a service that
+    // decodes it again would read other steps than Avni's check did.
     private static boolean staysInItsFolders(String key) {
+        if (key.indexOf('%') >= 0 || key.indexOf('\\') >= 0) return false;
         for (String step : key.split("/", -1))
             if (step.isEmpty() || step.equals(".") || step.equals("..")) return false;
         return true;
