@@ -81,6 +81,13 @@ public class TanuhConfig {
         return value;
     }
 
+    // Whether each screening goes to the data quality service, and gets its QC verdict, before it is sent to Tanuh's
+    // model. Switched off for now (Adam, 17 Nov 2026) by dqs_enabled false. Only false turns it off, so a missing or
+    // mistyped row keeps the check, whose failures show, rather than skipping it without a sign.
+    public boolean isDataQualityCheckOn() {
+        return !"false".equalsIgnoreCase(getStringConfigValue("dqs_enabled", "true").trim());
+    }
+
     // The data quality service's address, with no trailing slash; null when the organisation has none configured.
     public String getDqsApiUrl() {
         String value = getStringConfigValue("dqs_api_url", null);

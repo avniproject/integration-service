@@ -44,6 +44,16 @@ public class TanuhConfigTest {
         assertEquals(Set.of("SL-001", "samvit:ORAL-003"), configWith("qc_fail_rules", " SL-001 ,, samvit:ORAL-003 ").getQcFailRules());
     }
 
+    // Off only when the setting says false, so a missing or mistyped row keeps the check and its failures in sight.
+    @Test
+    public void theDataQualityCheckIsOnUnlessTheSettingSaysFalse() {
+        assertTrue(configWith().isDataQualityCheckOn());
+        assertTrue(configWith("dqs_enabled", "true").isDataQualityCheckOn());
+        assertTrue(configWith("dqs_enabled", "flase").isDataQualityCheckOn(), "a typo keeps it on");
+        assertFalse(configWith("dqs_enabled", "false").isDataQualityCheckOn());
+        assertFalse(configWith("dqs_enabled", " FALSE ").isDataQualityCheckOn());
+    }
+
     @Test
     public void connectionSettingsComeFromTheRows() {
         TanuhConfig config = configWith("avni_api_url", "http://localhost:8021", "avni_user", "integration@tanuh_uat_local",

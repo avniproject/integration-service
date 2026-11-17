@@ -14,8 +14,8 @@
 --   4. If review booking has already stopped on UAT, start from the moment it stopped instead (Step 3).
 --      A screening referred in between booked no review and would otherwise never reach the physician.
 --
---   5. Replace <DQS_API_URL> with the data quality service's address for this environment (docs/tanuh-runbook.md,
---      "The data quality service"). Every screening is sent there before anything else happens to it.
+--   5. The data quality check is off for now (dqs_enabled 'false', decided 17 Nov 2026): leave dqs_api_url empty. To switch
+--      it on later, set dqs_api_url and dqs_enabled 'true' (docs/tanuh-runbook.md, "The data quality service").
 --   6. Replace <OCSHR_API_URL> with the model service's address from Tanuh's guide on PE-248, and
 --      <OCSHR_CREDENTIAL_CONFIG_JSON> with Tanuh's credential file, its JSON pasted whole; it holds no secret.
 --      Replace <HIGH_RISK_AVNI_USER> with the Avni user Tanuh's service writes its results as: highrisk@tanuh_uat.
@@ -56,7 +56,8 @@ CROSS JOIN (VALUES
     ('ocshr_api_url', '<OCSHR_API_URL>', false),
     ('ocshr_credential_config', '<OCSHR_CREDENTIAL_CONFIG_JSON>', false),
     ('high_risk_avni_user', '<HIGH_RISK_AVNI_USER>', false),
-    ('dqs_api_url', '<DQS_API_URL>', false),
+    ('dqs_enabled', 'false', false),
+    ('dqs_api_url', '', false),
     ('dqs_tenant', 'samvit', false),
     ('qc_fail_rules', 'ST-001,SM-003,QC-030', false)
 ) AS c(key, value, is_secret)

@@ -42,7 +42,9 @@ import java.util.OptionalInt;
 
 // Each new or edited Oral Screening goes to the data quality service, and the QC verdict is written back to it. A
 // screening that passed QC is then handed to Tanuh's high-risk model service, which works on its own time and writes its
-// result to Avni itself. The job writes only whether the screening was sent, in OCSHR Call Made.
+// result to Avni itself. The job writes whether the call was made, in OCSHR Call Made. With the data quality check
+// switched off (dqs_enabled false), every screening with a photo the model can read is handed over, and OCSHR Call Made
+// is all the job writes.
 @Component
 public class OralScreeningWorker {
     public static final String CURSOR_ENTITY_TYPE = "TanuhOralScreening";
@@ -127,14 +129,18 @@ public class OralScreeningWorker {
         } catch (Exception e) {
             return failed(uuid, TanuhErrorService.SCREENING_PROCESSING_FAILED, e);
         }
-        return handOverCutShort ? handOver(s) : check(s);
+        return handOverCutShort ? handOver(s, null) : check(s);
     }
 
-    // The data quality check and the QC verdict, then the hand-over of a screening that passed and can be sent.
+    // The data quality check and the QC verdict, then the hand-over of a screening that passed and can be sent. With the
+    // check off (dqs_enabled false, Adam, 17 Nov 2026), the data quality service is not asked, no verdict is written,
+    // and every screening with a photo Tanuh's model can read is handed over; the job writes only OCSHR Call Made.
     private ScreeningOutcome check(GeneralEncounter s) {
         String uuid = s.getUuid();
         Date listedAt = s.getLastModifiedDate();
+        boolean checkOn;
         boolean send;
+        boolean wrote;
         try {
             TanuhConfig config = tanuhContextProvider.get();
             TanuhConcepts concepts = tanuhContextProvider.getConcepts();
@@ -142,25 +148,28 @@ public class OralScreeningWorker {
             if (Boolean.TRUE.equals(patient.getVoided()))
                 return skipped(uuid, "patient deleted");
 
-            // The registration goes first, so the rules that compare the screening with the patient find it. It is
-            // sent with every screening: the service keeps one registration per patient, replaced on each send, and an
-            // edited patient is carried by the next screening. Neither payload is logged: they carry the patient's details
-            // and, in the screening's, links to the photos. Those links last two minutes, so the client signs them just
-            // before each post.
-            dqsClient.submit(DqsClient.REGISTRATION, RegistrationRecord.from(s, patient, concepts));
-            // A photo Avni will not sign (a 403) is outside the organisation's media storage. The service is not asked,
-            // and the screening fails QC and is marked not sent in one write (Adam, 17 Nov 2026).
+            checkOn = config.isDataQualityCheckOn();
             boolean photoOutsideStorage = false;
-            boolean passed;
-            try {
-                DqsResult quality = dqsClient.submit(DqsClient.ORAL_SCREENING, () -> OralScreeningRecord.from(s, patient, concepts, tanuhPhotoDownloader::sign));
-                DqsResult.QcVerdict qc = quality.verdict(config.getQcFailRules());
-                logVerdict(uuid, quality, qc);
-                passed = qc.passed();
-            } catch (PhotoOutsideStorageException e) {
-                logger.warn(String.format("Screening %s has a photo Avni will not sign, outside the organisation's media storage: %s and not sent to the high-risk model", uuid, concepts.name(Concept.QC_FAIL)));
-                photoOutsideStorage = true;
-                passed = false;
+            boolean passed = true;
+            if (checkOn) {
+                // The registration goes first, so the rules that compare the screening with the patient find it. It is
+                // sent with every screening: the service keeps one registration per patient, replaced on each send, and an
+                // edited patient is carried by the next screening. Neither payload is logged: they carry the patient's
+                // details and, in the screening's, links to the photos. Those links last two minutes, so the client signs
+                // them just before each post.
+                dqsClient.submit(DqsClient.REGISTRATION, RegistrationRecord.from(s, patient, concepts));
+                // A photo Avni will not sign (a 403) is outside the organisation's media storage. The service is not
+                // asked, and the screening fails QC and is marked not sent in one write (Adam, 17 Nov 2026).
+                try {
+                    DqsResult quality = dqsClient.submit(DqsClient.ORAL_SCREENING, () -> OralScreeningRecord.from(s, patient, concepts, tanuhPhotoDownloader::sign));
+                    DqsResult.QcVerdict qc = quality.verdict(config.getQcFailRules());
+                    logVerdict(uuid, quality, qc);
+                    passed = qc.passed();
+                } catch (PhotoOutsideStorageException e) {
+                    logger.warn(String.format("Screening %s has a photo Avni will not sign, outside the organisation's media storage: %s and not sent to the high-risk model", uuid, concepts.name(Concept.QC_FAIL)));
+                    photoOutsideStorage = true;
+                    passed = false;
+                }
             }
             // Checked right before the write, so an edit synced while the service answered is not written over.
             if (changedSince(uuid, listedAt)) return changed(uuid);
@@ -181,7 +190,7 @@ public class OralScreeningWorker {
             boolean answerLost = recordedSend.isPresent() && recordedAnswer.isEmpty() && answerOnScreen.isEmpty();
             send = answerLost || (passed && neverDecided && imageUris(s, concepts).isPresent());
             boolean markedNotSent = neverDecided && !send;
-            Map<String, Object> values = verdict(passed, concepts);
+            Map<String, Object> values = checkOn ? verdict(passed, concepts) : new HashMap<>();
             if (markedNotSent) {
                 sentScreenings.answer(uuid, Concept.NO);
                 if (photoOutsideStorage)
@@ -198,18 +207,28 @@ public class OralScreeningWorker {
                         uuid, concepts.name(Concept.OCSHR_CALL_MADE), concepts.name(recordedAnswer.get())));
                 values.put(concepts.name(Concept.OCSHR_CALL_MADE), concepts.name(recordedAnswer.get()));
             }
-            avniEncounterRepository.patch(uuid, values);
-            logger.info(String.format("Screening %s: %s written", uuid, passed ? concepts.name(Concept.QC_PASS) : concepts.name(Concept.QC_FAIL)));
+            // With the check off there is nothing to write when the screening is already marked, or is about to be sent.
+            wrote = !values.isEmpty();
+            if (wrote) {
+                avniEncounterRepository.patch(uuid, values);
+                if (checkOn)
+                    logger.info(String.format("Screening %s: %s written", uuid, passed ? concepts.name(Concept.QC_PASS) : concepts.name(Concept.QC_FAIL)));
+                else
+                    logger.info(String.format("Screening %s: %s %s written", uuid, concepts.name(Concept.OCSHR_CALL_MADE), values.get(concepts.name(Concept.OCSHR_CALL_MADE))));
+            }
             if (passed && markedNotSent)
-                logger.warn(String.format("Screening %s passed QC but has no photo, or a photo outside S3: marked not sent to the high-risk model", uuid));
+                logger.warn(String.format("Screening %s %s but has no photo, or a photo outside S3: marked not sent to the high-risk model", uuid,
+                        checkOn ? "passed QC" : "is not checked for quality"));
         } catch (DqsException e) {
             return failed(uuid, TanuhErrorService.DATA_QUALITY_CALL_FAILED, e);
         } catch (Exception e) {
             return failed(uuid, TanuhErrorService.SCREENING_PROCESSING_FAILED, e);
         }
         // Handed over only once its verdict is on the screening: the hand-over is the last step, so a failure in it
-        // leaves the verdict standing and only the hand-over waits for the retry (handOverAgain).
-        return send ? handOver(s) : ScreeningOutcome.WRITTEN;
+        // leaves the verdict standing and only the hand-over waits for the retry (handOverAgain). With the check off
+        // nothing was written before the hand-over, so the listed version is what its answer must still find.
+        if (send) return handOver(s, checkOn ? null : listedAt);
+        return wrote ? ScreeningOutcome.WRITTEN : skipped(uuid, "already marked, and the data quality check is off");
     }
 
     // The retry of a screening whose verdict was written but whose hand-over failed. The screening is read again for
@@ -222,21 +241,22 @@ public class OralScreeningWorker {
                     concepts.name(Concept.OCSHR_CALL_MADE), concepts.name(Concept.QC_PASS)));
             return ScreeningOutcome.SKIPPED;
         }
-        return handOver(s);
+        return handOver(s, null);
     }
 
     // The hand-over of a screening just checked, of one whose hand-over was cut short, and of one whose hand-over is
     // retried. OCSHR Call Made says whether the call was made (Adam, 17 Nov 2026): Yes once Tanuh's service answers for
     // the case, whether it took it, refused it, or already holds it with other photos, and No without a call when Avni
     // will not sign one of its photos. A call that fails or gets no answer writes nothing, and the same request goes
-    // again. A refusal, a case held with other photos and a photo Avni will not sign are reported.
-    private ScreeningOutcome handOver(GeneralEncounter s) {
+    // again. A refusal, a case held with other photos and a photo Avni will not sign are reported. listedAt is the
+    // version's time when nothing was written to it before the hand-over, and null otherwise (see writeCallMade).
+    private ScreeningOutcome handOver(GeneralEncounter s, Date listedAt) {
         String uuid = s.getUuid();
         try {
             Optional<SentScreenings.SentScreening> recordedSend = sentScreenings.find(uuid);
             Optional<Concept> recordedAnswer = recordedSend.flatMap(SentScreenings.SentScreening::callMade);
             // Settled before: nothing is sent, and the answer an edit cleared is written back.
-            if (recordedAnswer.isPresent()) return writeCallMade(uuid, recordedAnswer.get());
+            if (recordedAnswer.isPresent()) return writeCallMade(uuid, recordedAnswer.get(), listedAt);
             Optional<List<String>> firstSend = recordedSend.flatMap(SentScreenings.SentScreening::imageUris);
             List<String> uris;
             if (firstSend.isPresent()) {
@@ -250,7 +270,7 @@ public class OralScreeningWorker {
                 if (imageUris.isEmpty()) {
                     logger.warn(String.format("Screening %s has no photo, or a photo outside S3: not sent to the high-risk model", uuid));
                     sentScreenings.answer(uuid, Concept.NO);
-                    return writeCallMade(uuid, Concept.NO);
+                    return writeCallMade(uuid, Concept.NO, listedAt);
                 }
                 uris = imageUris.get();
                 // Sending more would earn a refusal, and a refused case is never scored, so the first ones in the form's
@@ -266,7 +286,7 @@ public class OralScreeningWorker {
                     sentScreenings.answer(uuid, Concept.NO);
                     tanuhAlerts.screeningNeedsAPerson(uuid, TanuhAlerts.Reason.PHOTO_OUTSIDE_STORAGE,
                             String.format("Avni refused to sign photo %d before the hand-over", refusedPhoto.getAsInt()));
-                    return writeCallMade(uuid, Concept.NO);
+                    return writeCallMade(uuid, Concept.NO, listedAt);
                 }
                 // Kept before the send, so a send whose answer is lost is repeated with these photos and no others.
                 sentScreenings.attempt(uuid, uris);
@@ -275,15 +295,15 @@ public class OralScreeningWorker {
             switch (submission.outcome()) {
                 case ACCEPTED -> {
                     sentScreenings.answer(uuid, Concept.YES);
-                    return writeCallMade(uuid, Concept.YES);
+                    return writeCallMade(uuid, Concept.YES, listedAt);
                 }
                 case REFUSED -> {
                     logger.warn(String.format("Screening %s was refused by the high-risk model service, which will not score it; the call was made, so it is marked sent: %s", uuid, submission.detail()));
-                    return sentButNotScored(uuid, TanuhAlerts.Reason.REFUSED, submission.detail());
+                    return sentButNotScored(uuid, TanuhAlerts.Reason.REFUSED, submission.detail(), listedAt);
                 }
                 case CONFLICT -> {
                     logger.warn(String.format("Screening %s is held by the high-risk model service with other photos, which are the ones it scores; the call was made, so it is marked sent: %s", uuid, submission.detail()));
-                    return sentButNotScored(uuid, TanuhAlerts.Reason.HELD_WITH_OTHER_PHOTOS, submission.detail());
+                    return sentButNotScored(uuid, TanuhAlerts.Reason.HELD_WITH_OTHER_PHOTOS, submission.detail(), listedAt);
                 }
                 default -> throw new HighRiskModelException("The high-risk model service gave an answer the job does not know: " + submission.outcome());
             }
@@ -297,10 +317,10 @@ public class OralScreeningWorker {
     // Tanuh's service answered for the case without taking these photos, so it will not score them, but the call was
     // made: Yes is kept and written, the screening is never sent again, and a person is told so they can take it up with
     // Tanuh's team. The answer is kept and reported before the write, so a write that does not land loses neither.
-    private ScreeningOutcome sentButNotScored(String uuid, TanuhAlerts.Reason reason, String detail) {
+    private ScreeningOutcome sentButNotScored(String uuid, TanuhAlerts.Reason reason, String detail, Date listedAt) {
         sentScreenings.answer(uuid, Concept.YES);
         tanuhAlerts.screeningNeedsAPerson(uuid, reason, detail);
-        return writeCallMade(uuid, Concept.YES);
+        return writeCallMade(uuid, Concept.YES, listedAt);
     }
 
     // Avni signs only an address in the organisation's own media storage and answers 403 for any other, so another
@@ -320,13 +340,17 @@ public class OralScreeningWorker {
         return OptionalInt.empty();
     }
 
-    // Written only while the job or Tanuh's service changed the screening last: anyone else's edit since is left as it
-    // is, and read on its next listing. Tanuh's service counts because its result can land before this write. The PATCH
-    // reply's time cannot be the baseline, as Avni stamps the change when the save is flushed, after the reply is built.
-    private ScreeningOutcome writeCallMade(String uuid, Concept answer) {
+    // Written only while the job or Tanuh's service changed the screening last, or, when the job wrote nothing to it
+    // before the hand-over (the data quality check off), while it is still the version listed at listedAt. Anyone else's
+    // edit since is left as it is, and read on its next listing. Tanuh's service counts because its result can land
+    // before this write. After a job's own write the PATCH reply's time cannot be the baseline, as Avni stamps the change
+    // when the save is flushed, after the reply is built; a listed version's time is the server's own.
+    private ScreeningOutcome writeCallMade(String uuid, Concept answer, Date listedAt) {
         TanuhConcepts concepts = tanuhContextProvider.getConcepts();
         String callMade = concepts.name(Concept.OCSHR_CALL_MADE);
-        if (!lastChangedByJobOrModel(avniEncounterRepository.getGeneralEncounter(uuid), tanuhContextProvider.get())) {
+        GeneralEncounter now = avniEncounterRepository.getGeneralEncounter(uuid);
+        boolean unchangedSinceListed = listedAt != null && listedAt.equals(now.getLastModifiedDate());
+        if (!unchangedSinceListed && !lastChangedByJobOrModel(now, tanuhContextProvider.get())) {
             if (answer == Concept.YES)
                 logger.warn(String.format("Screening %s changed while it was handed over: the call was made, but %s is not written; the newer version is read next", uuid, callMade));
             else

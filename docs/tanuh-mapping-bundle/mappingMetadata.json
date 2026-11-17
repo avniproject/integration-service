@@ -325,7 +325,7 @@
     "mappingTypeUuid": "1acc87b6-48b2-432d-9762-506e9513f779",
     "intSystemValue": "qc_status",
     "avniValue": "QC status",
-    "about": "Written by the job: the data quality service's verdict on the screening",
+    "about": "Written by the job while the data quality check is on (dqs_enabled): the data quality service's verdict on the screening",
     "dataTypeHint": null,
     "voided": false
   },
@@ -355,7 +355,7 @@
     "mappingTypeUuid": "1acc87b6-48b2-432d-9762-506e9513f779",
     "intSystemValue": "qc_check_time",
     "avniValue": "QC check time",
-    "about": "Written by the job: when the verdict was given, in UTC",
+    "about": "Written by the job while the data quality check is on (dqs_enabled): when the verdict was given, in UTC",
     "dataTypeHint": null,
     "voided": false
   },
@@ -365,7 +365,7 @@
     "mappingTypeUuid": "1acc87b6-48b2-432d-9762-506e9513f779",
     "intSystemValue": "ocshr_call_made",
     "avniValue": "OCSHR Call Made",
-    "about": "Written by the job: Yes once Tanuh's model service took the screening, No when it is not sent. A screening is sent only while this is empty",
+    "about": "Written by the job: Yes once the call to Tanuh's model service is made and it answers for the screening, No when it is not sent. A screening is sent only while this is empty",
     "dataTypeHint": null,
     "voided": false
   }
