@@ -6,7 +6,6 @@ import org.avni_integration_service.avni.repository.AvniEncounterRepository;
 import org.avni_integration_service.avni.worker.ErrorRecordWorker;
 import org.avni_integration_service.integration_data.domain.AvniEntityType;
 import org.avni_integration_service.integration_data.domain.error.ErrorRecord;
-import org.avni_integration_service.integration_data.domain.error.ErrorRecordLog;
 import org.avni_integration_service.integration_data.domain.error.ErrorTypeFollowUpStep;
 import org.avni_integration_service.integration_data.repository.ErrorRecordRepository;
 import org.avni_integration_service.tanuh.config.TanuhContextProvider;
@@ -78,16 +77,19 @@ public class TanuhScreeningRetryWorker implements ErrorRecordWorker {
         }
         if (Boolean.TRUE.equals(screening.getVoided())) return settle(errorRecord, "deleted");
         boolean jobWroteLast = tanuhContextProvider.get().getAvniImplUser().equalsIgnoreCase(screening.getLastModifiedBy());
-        // Its verdict is written and only the hand-over failed: hand it over again, without checking it a second time.
+        // The job wrote it last, so its verdict stands and it is not checked a second time. It is handed over if it
+        // still waits to be, and settled if not, whatever the record's newest reason: after a failed send and then a
+        // failed read, the main job has moved past it and never lists it again, so this is its only way to be sent.
         // A worker's edit since makes it a new version, which is checked in full below.
-        if (jobWroteLast && handOverFailed(errorRecord))
+        if (jobWroteLast)
             return switch (oralScreeningWorker.handOverAgain(screening)) {
                 case WRITTEN -> settle(errorRecord, "handed over");
-                case SKIPPED -> settle(errorRecord, "no longer marked to be handed over");
+                case SKIPPED -> settle(errorRecord, "not waiting to be handed over");
                 case CHANGED -> true;
                 case FAILED -> false;
+                // Tanuh holds it with other photos: its record now ends in a type this job skips, for a person.
+                case PARKED -> true;
             };
-        if (jobWroteLast) return settle(errorRecord, "already written by the job");
         return switch (oralScreeningWorker.processScreening(screening, false)) {
             case WRITTEN -> settle(errorRecord, "checked");
             case SKIPPED -> settle(errorRecord, "no longer needs checking");
@@ -95,12 +97,8 @@ public class TanuhScreeningRetryWorker implements ErrorRecordWorker {
             case CHANGED -> true;
             // The error service has refreshed the record's log.
             case FAILED -> false;
+            case PARKED -> true;
         };
-    }
-
-    private static boolean handOverFailed(ErrorRecord errorRecord) {
-        ErrorRecordLog last = errorRecord.getLastErrorRecordLog();
-        return last != null && TanuhErrorService.MODEL_CALL_FAILED.equals(last.getErrorType().getName());
     }
 
     // Sign-in happens on the run's first call, and the client passes a 404 through unchanged. A wrong address, or a

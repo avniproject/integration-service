@@ -19,13 +19,13 @@ import org.avni_integration_service.tanuh.dqs.DqsClient;
 import org.avni_integration_service.tanuh.dqs.DqsException;
 import org.avni_integration_service.tanuh.model.HighRiskModelClient;
 import org.avni_integration_service.tanuh.model.HighRiskModelException;
+import org.avni_integration_service.tanuh.model.Submission;
 import org.avni_integration_service.tanuh.service.TanuhErrorService;
 import org.avni_integration_service.tanuh.service.TanuhPhotoDownloader;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.jupiter.api.io.TempDir;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -35,8 +35,6 @@ import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 
-import java.io.File;
-import java.nio.file.Files;
 import java.time.Instant;
 import java.util.*;
 import java.util.function.Supplier;
@@ -49,6 +47,7 @@ import static org.mockito.Mockito.*;
 public class TanuhScreeningRetryWorkerTest {
     static final String JOB_USER = "integration@tanuh_uat_local";
     static final String PHOTOS = "Take photos of all lesions and 1 photo without lesion";
+    static final String CONFLICT = "{\"error\":\"CASE_EXISTS_WITH_DIFFERENT_MANIFEST\",\"case_id\":\"s1\"}";
 
     @Mock
     private AvniSubjectRepository subjects;
@@ -64,8 +63,6 @@ public class TanuhScreeningRetryWorkerTest {
     private ErrorRecordRepository errorRecords;
     @Mock
     private IntegratingEntityStatusRepository statuses;
-    @TempDir
-    File photoDir;
     private final TanuhContextProvider context = new TanuhContextProvider();
     private FakeAvniEncounterRepository encounters;
     private TanuhScreeningRetryWorker retryWorker;
@@ -77,17 +74,21 @@ public class TanuhScreeningRetryWorkerTest {
         IntegrationSystemConfig user = new IntegrationSystemConfig();
         user.setKey("avni_user");
         user.setValue(JOB_USER);
+        IntegrationSystemConfig highRiskUser = new IntegrationSystemConfig();
+        highRiskUser.setKey("high_risk_avni_user");
+        highRiskUser.setValue(ProcessScreeningTest.HIGH_RISK_USER);
         IntegrationSystem system = new IntegrationSystem();
         system.setId(15);
         ReflectionTestUtils.setField(system, "name", "tanuh_uat_local");
-        context.set(new TanuhConfig(new IntegrationSystemConfigCollection(List.of(user)), system));
+        context.set(new TanuhConfig(new IntegrationSystemConfigCollection(List.of(user, highRiskUser)), system));
         context.setConcepts(TanuhConceptsFixture.defaults());
         encounters = new FakeAvniEncounterRepository(JOB_USER, Date.from(Instant.parse("2026-10-07T00:00:00Z")));
         OralScreeningWorker worker = new OralScreeningWorker(encounters, subjects, dqs, downloader, model, errors, errorRecords,
                 statuses, context, ProcessScreeningTest.CLOCK, 10);
         retryWorker = new TanuhScreeningRetryWorker(errorRecords, encounters, worker, errors, context);
         lenient().when(subjects.getSubjectOrThrow(anyString())).thenReturn(patient(false));
-        lenient().when(downloader.download(anyString())).thenAnswer(invocation -> Files.createTempFile(photoDir.toPath(), "photo", null).toFile());
+        // Tanuh's model service takes every screening unless a test says otherwise.
+        lenient().when(model.submit(anyString(), anyList())).thenReturn(new Submission(Submission.Outcome.ACCEPTED, "{}"));
     }
 
     @AfterEach
@@ -103,7 +104,7 @@ public class TanuhScreeningRetryWorkerTest {
 
     private static List<Map<String, Object>> photoRows(String uuid, String suspicious) {
         Map<String, Object> row = new HashMap<>();
-        row.put("Oral Image", "minio://avni-user-media/t/" + uuid + ".jpg");
+        row.put("Oral Image", "https://s3.ap-south-1.amazonaws.com/prod-user-media/tanuh_uat/" + uuid + "-0.jpg");
         row.put("Suspicious Lesion?", suspicious);
         return List.of(row);
     }
@@ -180,7 +181,7 @@ public class TanuhScreeningRetryWorkerTest {
 
         assertTrue(retryWorker.processWaiting());
 
-        assertEquals(List.of("s1"), encounters.patchedUuids);
+        assertEquals(List.of("s1", "s1"), encounters.patchedUuids, "the verdict, then Tanuh's answer");
         assertEquals("QC Pass", encounters.screenings.get("s1").getObservation("QC status"));
         verify(model).submit(any(), anyList());
         verify(errorRecords).delete(record);
@@ -211,9 +212,46 @@ public class TanuhScreeningRetryWorkerTest {
 
         assertTrue(retryWorker.processWaiting());
 
-        verify(model).submit(any(), anyList());
+        verify(model).submit(eq("s1"), eq(List.of("s3://prod-user-media/tanuh_uat/s1-0.jpg")));
         verifyNoInteractions(dqs);
-        assertTrue(encounters.patchedUuids.isEmpty());
+        assertEquals(List.of("s1"), encounters.patchedUuids, "only Tanuh's answer is written, not a second verdict");
+        assertEquals(List.of(ProcessScreeningTest.callMade("Yes")), encounters.patchBodies);
+        verify(errorRecords).delete(record);
+    }
+
+    // A failed send opened the record, then a retry could not read the screening, so the record's newest reason is no
+    // longer the model call. The screening still waits to be sent: the main job skipped it while the record was open,
+    // and its read position has moved past, so this retry is the only way it is ever sent.
+    @Test
+    public void aWaitingHandOverWhoseRecordLastFailedOnAReadIsStillSent() throws Exception {
+        GeneralEncounter s = screening("s1", "No");
+        s.addObservation("QC status", "QC Pass");
+        encounters.touch(s, JOB_USER);
+        ErrorRecord record = waiting("s1", ErrorTypeFollowUpStep.Process, TanuhErrorService.SCREENING_PROCESSING_FAILED);
+        waitingAre(record);
+
+        assertTrue(retryWorker.processWaiting());
+
+        verify(model).submit(eq("s1"), eq(List.of("s3://prod-user-media/tanuh_uat/s1-0.jpg")));
+        assertEquals(List.of(ProcessScreeningTest.callMade("Yes")), encounters.patchBodies);
+        verify(errorRecords).delete(record);
+    }
+
+    // The same record on a screening that is no longer waiting, such as one marked QC Fail and No by a verdict write
+    // whose reply was lost: it is settled without a send.
+    @Test
+    public void aRecordOnAScreeningNoLongerWaitingIsSettledWithoutASend() throws Exception {
+        GeneralEncounter s = screening("s1", "No");
+        s.addObservation("QC status", "QC Fail");
+        s.addObservation("OCSHR Call Made", "No");
+        encounters.touch(s, JOB_USER);
+        ErrorRecord record = waiting("s1", ErrorTypeFollowUpStep.Process, TanuhErrorService.SCREENING_PROCESSING_FAILED);
+        waitingAre(record);
+
+        assertTrue(retryWorker.processWaiting());
+
+        verifyNoInteractions(model);
+        assertTrue(encounters.patchBodies.isEmpty());
         verify(errorRecords).delete(record);
     }
 
@@ -320,9 +358,9 @@ public class TanuhScreeningRetryWorkerTest {
         screening("s2", "No");
         dqsPasses();
         doAnswer(invocation -> {
-            if (((GeneralEncounter) invocation.getArgument(0)).getUuid().equals("s1")) throw new HighRiskModelException("model down");
-            return null;
-        }).when(model).submit(any(), anyList());
+            if ("s1".equals(invocation.getArgument(0))) throw new HighRiskModelException("model down");
+            return new Submission(Submission.Outcome.ACCEPTED, "{}");
+        }).when(model).submit(anyString(), anyList());
         ErrorRecord first = waiting("s1", ErrorTypeFollowUpStep.Process);
         ErrorRecord second = waiting("s2", ErrorTypeFollowUpStep.Process);
         waitingAre(first, second);
@@ -406,5 +444,56 @@ public class TanuhScreeningRetryWorkerTest {
         retryWorker.processError("s1");
 
         verify(errorRecords).delete(record);
+    }
+
+    // Tanuh holds the case with other photos. The record stays, now ending in a type the retry job skips, for a person
+    // to settle with Tanuh, and the run is not failed for it.
+    @Test
+    public void aHandOverRetryThatMeetsAConflictIsParkedNotFailed() throws Exception {
+        GeneralEncounter s = screening("s1", "No");
+        s.addObservation("QC status", "QC Pass");
+        encounters.touch(s, JOB_USER);
+        when(model.submit(anyString(), anyList())).thenReturn(new Submission(Submission.Outcome.CONFLICT, CONFLICT));
+        waitingAre(waiting("s1", ErrorTypeFollowUpStep.Process));
+
+        assertTrue(retryWorker.processWaiting());
+
+        verify(errors).errorOccurred(eq("s1"), eq("HighRiskModelCaseConflict"), contains("CASE_EXISTS_WITH_DIFFERENT_MANIFEST"));
+        verify(errorRecords, never()).delete(any(ErrorRecord.class));
+        verifyNoInteractions(dqs);
+        assertTrue(encounters.patchedUuids.isEmpty());
+    }
+
+    // The same conflict met by a retry that checks the screening in full.
+    @Test
+    public void aCheckedRetryThatMeetsAConflictIsParkedNotFailed() throws Exception {
+        screening("s1", "No");
+        dqsPasses();
+        when(model.submit(anyString(), anyList())).thenReturn(new Submission(Submission.Outcome.CONFLICT, CONFLICT));
+        waitingAre(waiting("s1", ErrorTypeFollowUpStep.Process, TanuhErrorService.DATA_QUALITY_CALL_FAILED));
+
+        assertTrue(retryWorker.processWaiting());
+
+        verify(errors).errorOccurred(eq("s1"), eq("HighRiskModelCaseConflict"), contains("CASE_EXISTS_WITH_DIFFERENT_MANIFEST"));
+        verify(errorRecords, never()).delete(any(ErrorRecord.class));
+        assertEquals(List.of("s1"), encounters.patchedUuids, "the verdict stands; nothing else is written");
+    }
+
+    // The send timed out although Tanuh stored the case and wrote its result. The screening, last changed by Tanuh's
+    // service, is handed over again without a second check; Tanuh answers the identical resend with its 200.
+    @Test
+    public void aTimedOutSendThatTanuhScoredIsMarkedSent() throws Exception {
+        GeneralEncounter s = screening("s1", "No");
+        s.addObservation("QC status", "QC Pass");
+        encounters.touch(s, ProcessScreeningTest.HIGH_RISK_USER);
+        ErrorRecord record = waiting("s1", ErrorTypeFollowUpStep.Process);
+        waitingAre(record);
+
+        assertTrue(retryWorker.processWaiting());
+
+        verify(model).submit("s1", List.of("s3://prod-user-media/tanuh_uat/s1-0.jpg"));
+        assertEquals(List.of(ProcessScreeningTest.callMade("Yes")), encounters.patchBodies);
+        verify(errorRecords).delete(record);
+        verifyNoInteractions(dqs);
     }
 }

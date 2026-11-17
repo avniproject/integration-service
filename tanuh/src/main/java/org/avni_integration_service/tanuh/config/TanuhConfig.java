@@ -1,49 +1,33 @@
 package org.avni_integration_service.tanuh.config;
 
-import org.apache.log4j.Logger;
 import org.avni_integration_service.integration_data.context.ContextIntegrationSystem;
 import org.avni_integration_service.integration_data.domain.IntegrationSystem;
 import org.avni_integration_service.integration_data.domain.config.IntegrationSystemConfigCollection;
 import org.springframework.util.StringUtils;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 public class TanuhConfig {
-    private static final Logger logger = Logger.getLogger(TanuhConfig.class);
-
-    public static final String DEFAULT_STUB_MODE = "accept";
-    private static final List<String> STUB_MODES = List.of("accept", "fail");
     // The checks sheet's blocking checks among those Samvit runs on an oral screening: no visit time or one in the
     // future, no usable image, unusable images.
     public static final String DEFAULT_QC_FAIL_RULES = "ST-001,SM-003,QC-030";
 
     private final IntegrationSystemConfigCollection integrationSystemConfigCollection;
     private final ContextIntegrationSystem integrationSystem;
-    private final String stubMode;
     private final Set<String> qcFailRules;
 
     public TanuhConfig(IntegrationSystemConfigCollection integrationSystemConfigCollection, IntegrationSystem integrationSystem) {
         this.integrationSystemConfigCollection = integrationSystemConfigCollection;
         this.integrationSystem = new ContextIntegrationSystem(integrationSystem);
-        this.stubMode = readStubMode();
         this.qcFailRules = readQcFailRules();
     }
 
     private String getStringConfigValue(String key, String defaultValue) {
         String configValue = integrationSystemConfigCollection.getConfigValue(key);
         return StringUtils.hasLength(configValue) ? configValue : defaultValue;
-    }
-
-    private String readStubMode() {
-        String value = getStringConfigValue("model_stub_mode", null);
-        if (!StringUtils.hasText(value)) return DEFAULT_STUB_MODE;
-        if (STUB_MODES.contains(value.trim())) return value.trim();
-        logger.warn(String.format("[%s] model_stub_mode '%s' is not one of %s, using %s", integrationSystem.getName(), value, STUB_MODES, DEFAULT_STUB_MODE));
-        return DEFAULT_STUB_MODE;
     }
 
     // A value with no rule id in it, such as " " or ",", would fail no screening, so it means the default too.
@@ -74,10 +58,6 @@ public class TanuhConfig {
 
     public String getEnvironment() {
         return getStringConfigValue("int_env", null);
-    }
-
-    public String getStubMode() {
-        return stubMode;
     }
 
     public ContextIntegrationSystem getIntegrationSystem() {

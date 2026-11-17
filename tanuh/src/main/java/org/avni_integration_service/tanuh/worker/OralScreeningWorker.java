@@ -20,28 +20,31 @@ import org.avni_integration_service.tanuh.dqs.OralScreeningRecord;
 import org.avni_integration_service.tanuh.dqs.RegistrationRecord;
 import org.avni_integration_service.tanuh.model.HighRiskModelClient;
 import org.avni_integration_service.tanuh.model.HighRiskModelException;
+import org.avni_integration_service.tanuh.model.S3Uris;
+import org.avni_integration_service.tanuh.model.Submission;
 import org.avni_integration_service.tanuh.service.TanuhErrorService;
 import org.avni_integration_service.tanuh.service.TanuhPhotoDownloader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.io.File;
 import java.time.Clock;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 // Each new or edited Oral Screening goes to the data quality service, and the QC verdict is written back to it. A
-// screening that passed QC is then handed to the high-risk model service, which works on its own time and writes its
-// result to Avni itself.
+// screening that passed QC is then handed to Tanuh's high-risk model service, which works on its own time and writes its
+// result to Avni itself. The job writes only whether the screening was sent, in OCSHR Call Made.
 @Component
 public class OralScreeningWorker {
     public static final String CURSOR_ENTITY_TYPE = "TanuhOralScreening";
     static final int PAGE_SIZE = EncounterCursorWalker.PAGE_SIZE;
+    // Tanuh's service takes 1 to 13 photos per case (its intake guide, section 8).
+    static final int MAX_IMAGES = 13;
     private static final Logger logger = Logger.getLogger(OralScreeningWorker.class);
     // The check time is a true instant, so it is written in UTC.
     private static final DateTimeFormatter CHECK_TIME = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").withZone(ZoneOffset.UTC);
@@ -96,19 +99,37 @@ public class OralScreeningWorker {
     // checkOpenErrorRecord is false only for the retry job (#132), which owns the screenings that have one.
     public ScreeningOutcome processScreening(GeneralEncounter s, boolean checkOpenErrorRecord) {
         String uuid = s.getUuid();
-        Date listedAt = s.getLastModifiedDate();
-        boolean handOver;
+        boolean handOverCutShort;
         try {
             TanuhConfig config = tanuhContextProvider.get();
             TanuhConcepts concepts = tanuhContextProvider.getConcepts();
             if (!concepts.name(Concept.ORAL_SCREENING).equals(s.getEncounterType()) || !s.isCompleted() || Boolean.TRUE.equals(s.getVoided()))
                 return skipped(uuid, "not a completed, live Oral Screening");
-            if (config.getAvniImplUser().equalsIgnoreCase(s.getLastModifiedBy()))
-                return skipped(uuid, "last changed by the job");
-            if (config.getHighRiskAvniUser() != null && config.getHighRiskAvniUser().equalsIgnoreCase(s.getLastModifiedBy()))
-                return skipped(uuid, "last changed by the high-risk model service");
+            // A version the job or Tanuh's service wrote has been checked, so it is left alone, unless it is marked QC
+            // Pass with OCSHR Call Made still empty. Then its hand-over was cut short: the job stopped before writing Call
+            // Made, or Tanuh's result landed after a send that timed out. It is handed over without a second check.
+            handOverCutShort = lastChangedByJobOrModel(s, config);
+            if (handOverCutShort && !awaitsHandOver(s, concepts))
+                return skipped(uuid, "last changed by the job or the high-risk model service");
             if (checkOpenErrorRecord && errorRecordRepository.findByAvniEntityTypeAndEntityId(AvniEntityType.GeneralEncounter, uuid) != null)
                 return skipped(uuid, "waiting for a retry");
+            // The listed copy is sent only if it is still the screening as it is now: a page can take minutes, and a
+            // worker's edit since, or the retry job finishing the same hand-over, would otherwise send a stale copy.
+            if (handOverCutShort && changedSince(uuid, s.getLastModifiedDate())) return changed(uuid);
+        } catch (Exception e) {
+            return failed(uuid, TanuhErrorService.SCREENING_PROCESSING_FAILED, e);
+        }
+        return handOverCutShort ? handOver(s) : check(s);
+    }
+
+    // The data quality check and the QC verdict, then the hand-over of a screening that passed and can be sent.
+    private ScreeningOutcome check(GeneralEncounter s) {
+        String uuid = s.getUuid();
+        Date listedAt = s.getLastModifiedDate();
+        boolean send;
+        try {
+            TanuhConfig config = tanuhContextProvider.get();
+            TanuhConcepts concepts = tanuhContextProvider.getConcepts();
             Subject patient = avniSubjectRepository.getSubjectOrThrow(s.getSubjectId());
             if (Boolean.TRUE.equals(patient.getVoided()))
                 return skipped(uuid, "patient deleted");
@@ -127,14 +148,17 @@ public class OralScreeningWorker {
             if (changedSince(uuid, listedAt)) return changed(uuid);
             // The check time changes on every write. The server ignores a write that changes nothing, which would
             // leave the worker as the last editor and send the screening again on every run.
-            // A screening is sent only while OCSHR Call Made is empty, and a Yes or No is final. One that fails QC
-            // is not sent, so it is marked No in the same write; one already marked keeps its answer.
+            // A screening is sent only while OCSHR Call Made is empty, and a Yes or No is final. One that will not be
+            // sent is marked No in the same write: it failed QC, or has no photo Tanuh's model can read. One already
+            // marked keeps its answer.
             boolean notYetSent = s.getObservation(concepts.name(Concept.OCSHR_CALL_MADE)) == null;
+            send = passed && notYetSent && imageUris(s, concepts).isPresent();
             Map<String, Object> values = verdict(passed, concepts);
-            if (!passed && notYetSent) values.put(concepts.name(Concept.OCSHR_CALL_MADE), concepts.name(Concept.NO));
+            if (notYetSent && !send) values.put(concepts.name(Concept.OCSHR_CALL_MADE), concepts.name(Concept.NO));
             avniEncounterRepository.patch(uuid, values);
             logger.info(String.format("Screening %s: %s written", uuid, passed ? concepts.name(Concept.QC_PASS) : concepts.name(Concept.QC_FAIL)));
-            handOver = passed && notYetSent;
+            if (passed && notYetSent && !send)
+                logger.warn(String.format("Screening %s passed QC but has no photo, or a photo outside S3: marked not sent to the high-risk model", uuid));
         } catch (DqsException e) {
             return failed(uuid, TanuhErrorService.DATA_QUALITY_CALL_FAILED, e);
         } catch (Exception e) {
@@ -142,47 +166,119 @@ public class OralScreeningWorker {
         }
         // Handed over only once its verdict is on the screening: the hand-over is the last step, so a failure in it
         // leaves the verdict standing and only the hand-over waits for the retry (handOverAgain).
-        return handOver ? handOverOrWait(s) : ScreeningOutcome.WRITTEN;
+        return send ? handOver(s) : ScreeningOutcome.WRITTEN;
     }
 
-    // The retry of a screening whose verdict was written but whose hand-over failed. The verdict is read back from the
-    // screening, so a screening that is no longer marked QC Pass is not handed over.
+    // The retry of a screening whose verdict was written but whose hand-over failed. The screening is read again for
+    // the retry, so one no longer marked QC Pass, or already marked sent or not sent, is not handed over.
     public ScreeningOutcome handOverAgain(GeneralEncounter s) {
         TanuhConcepts concepts = tanuhContextProvider.getConcepts();
-        if (!concepts.name(Concept.QC_PASS).equals(s.getObservation(concepts.name(Concept.QC_STATUS)))) {
-            logger.info(String.format("Screening %s is not marked %s: not handed over", s.getUuid(), concepts.name(Concept.QC_PASS)));
+        if (!awaitsHandOver(s, concepts)) {
+            logger.info(String.format("Screening %s is not marked %s with %s empty: not handed over", s.getUuid(),
+                    concepts.name(Concept.QC_PASS), concepts.name(Concept.OCSHR_CALL_MADE)));
             return ScreeningOutcome.SKIPPED;
         }
-        if (s.getObservation(concepts.name(Concept.OCSHR_CALL_MADE)) != null) {
-            logger.info(String.format("Screening %s already has %s: not handed over", s.getUuid(), concepts.name(Concept.OCSHR_CALL_MADE)));
-            return ScreeningOutcome.SKIPPED;
-        }
-        return handOverOrWait(s);
+        return handOver(s);
     }
 
-    private ScreeningOutcome handOverOrWait(GeneralEncounter s) {
+    // The hand-over of a screening just checked, of one whose hand-over was cut short, and of one whose hand-over is
+    // retried. Tanuh's answer goes on the screening as OCSHR Call Made: Yes when the service took it, No when it refused
+    // it. A screening the service holds with other photos is parked for a person, and nothing is written.
+    private ScreeningOutcome handOver(GeneralEncounter s) {
+        String uuid = s.getUuid();
+        Submission submission;
         try {
-            handOver(s, OralScreeningInputs.from(s, tanuhContextProvider.getConcepts()));
-            return ScreeningOutcome.WRITTEN;
+            OralScreeningInputs inputs = OralScreeningInputs.from(s, tanuhContextProvider.getConcepts());
+            Optional<List<String>> imageUris = inputs.hasPhotos() ? S3Uris.all(inputs.getPhotoUrls()) : Optional.empty();
+            // Met only when the hand-over was cut short or is retried: a screening just checked has its No in its verdict.
+            if (imageUris.isEmpty()) {
+                logger.warn(String.format("Screening %s has no photo, or a photo outside S3: not sent to the high-risk model", uuid));
+                return writeCallMade(uuid, Concept.NO);
+            }
+            List<String> uris = imageUris.get();
+            // Sending more would earn a refusal and a No for good, so the screening waits until the limit is settled.
+            if (uris.size() > MAX_IMAGES)
+                throw new HighRiskModelException(String.format("%d photos, and Tanuh's service takes at most %d per case, so it waits until that is settled", uris.size(), MAX_IMAGES));
+            confirmAvniSigns(inputs.getPhotoUrls());
+            submission = highRiskModelClient.submit(uuid, uris);
+            switch (submission.outcome()) {
+                case ACCEPTED -> {
+                    return writeCallMade(uuid, Concept.YES);
+                }
+                case REFUSED -> {
+                    logger.warn(String.format("Screening %s refused by the high-risk model service, so it is marked not sent: %s", uuid, submission.detail()));
+                    return writeCallMade(uuid, Concept.NO);
+                }
+                case CONFLICT -> {
+                }
+                default -> throw new HighRiskModelException("The high-risk model service gave an answer the job does not know: " + submission.outcome());
+            }
         } catch (Exception e) {
-            // A photo that would not download fails the hand-over as much as the model service refusing it.
-            return failed(s.getUuid(), TanuhErrorService.MODEL_CALL_FAILED, e);
+            // The model client logs nothing when it throws, so this is where the reason is logged and recorded. An
+            // answer with no outcome lands here too, as a failed call to retry, never as a parked screening.
+            return failed(uuid, TanuhErrorService.MODEL_CALL_FAILED, e);
+        }
+        // CONFLICT, recorded outside the catch above: a missing error type stops the run, as it does in failed().
+        return parked(uuid, submission.detail());
+    }
+
+    // Avni signs only an address in the organisation's own media folder, so another organisation's photo written into
+    // this screening's answer is never sent. Nothing is downloaded: the signed link is not used.
+    private void confirmAvniSigns(List<String> photoUrls) throws HighRiskModelException {
+        for (int i = 0; i < photoUrls.size(); i++) {
+            try {
+                tanuhPhotoDownloader.sign(photoUrls.get(i));
+            } catch (RuntimeException e) {
+                throw new HighRiskModelException(String.format("Avni would not sign photo %d, so the screening is not sent; only the organisation's own photos go to Tanuh: %s", i + 1, e.getMessage()), e);
+            }
         }
     }
 
-    // A screening without photos has nothing for the model to look at, so it is not handed over.
-    private void handOver(GeneralEncounter s, OralScreeningInputs inputs) throws HighRiskModelException {
-        if (!inputs.hasPhotos()) {
-            logger.info(String.format("Screening %s passed QC but has no photo: not sent to the high-risk model", s.getUuid()));
-            return;
+    // Written only while the job or Tanuh's service changed the screening last: anyone else's edit since is left as it
+    // is, and read on its next listing. Tanuh's service counts because its result can land before this write. The PATCH
+    // reply's time cannot be the baseline, as Avni stamps the change when the save is flushed, after the reply is built.
+    private ScreeningOutcome writeCallMade(String uuid, Concept answer) {
+        TanuhConcepts concepts = tanuhContextProvider.getConcepts();
+        String callMade = concepts.name(Concept.OCSHR_CALL_MADE);
+        if (!lastChangedByJobOrModel(avniEncounterRepository.getGeneralEncounter(uuid), tanuhContextProvider.get())) {
+            if (answer == Concept.YES)
+                logger.warn(String.format("Screening %s changed while it was handed over: Tanuh's service took it, but %s is not written; the newer version is read next", uuid, callMade));
+            else
+                logger.info(String.format("Screening %s changed while it was handed over: %s not written, the newer version is read next", uuid, callMade));
+            return ScreeningOutcome.CHANGED;
         }
-        List<File> photos = new ArrayList<>();
-        try {
-            for (String url : inputs.getPhotoUrls()) photos.add(tanuhPhotoDownloader.download(url));
-            highRiskModelClient.submit(s, photos);
-        } finally {
-            photos.forEach(File::delete);
-        }
+        avniEncounterRepository.patch(uuid, Map.of(callMade, concepts.name(answer)));
+        logger.info(String.format("Screening %s: %s %s written", uuid, callMade, concepts.name(answer)));
+        return ScreeningOutcome.WRITTEN;
+    }
+
+    // Tanuh's service holds this screening with other photos, so sending it again cannot help. It waits in an error
+    // record of a type the retry job skips, for a person to settle with Tanuh.
+    private ScreeningOutcome parked(String uuid, String detail) {
+        logger.warn(String.format("Screening %s is held by the high-risk model service with other photos: parked for a person: %s", uuid, detail));
+        tanuhErrorService.errorOccurred(uuid, TanuhErrorService.MODEL_CASE_CONFLICT,
+                String.format("The high-risk model service holds this screening with other photos: %s", detail));
+        return ScreeningOutcome.PARKED;
+    }
+
+    // The job's own writes, and Tanuh's result when high_risk_avni_user names the user it writes as.
+    private static boolean lastChangedByJobOrModel(GeneralEncounter s, TanuhConfig config) {
+        String by = s.getLastModifiedBy();
+        return config.getAvniImplUser().equalsIgnoreCase(by)
+                || (config.getHighRiskAvniUser() != null && config.getHighRiskAvniUser().equalsIgnoreCase(by));
+    }
+
+    // Checked and marked QC Pass, and not yet marked sent or not sent.
+    private static boolean awaitsHandOver(GeneralEncounter s, TanuhConcepts concepts) {
+        return concepts.name(Concept.QC_PASS).equals(s.getObservation(concepts.name(Concept.QC_STATUS)))
+                && s.getObservation(concepts.name(Concept.OCSHR_CALL_MADE)) == null;
+    }
+
+    // The photos as Tanuh's model reads them: S3 locations, in order and each once. Empty when there is none, or when
+    // any has no S3 location, since sending the rest would hide the photo left out.
+    private static Optional<List<String>> imageUris(GeneralEncounter s, TanuhConcepts concepts) {
+        OralScreeningInputs inputs = OralScreeningInputs.from(s, concepts);
+        return inputs.hasPhotos() ? S3Uris.all(inputs.getPhotoUrls()) : Optional.empty();
     }
 
     // Whether a screening passes is decided here, from the rule outcomes the service returned: see DqsResult.passed.

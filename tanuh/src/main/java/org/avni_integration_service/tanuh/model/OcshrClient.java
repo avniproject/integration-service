@@ -32,7 +32,7 @@ import java.util.Set;
 // with other photos and 422 for a case that breaks a rule are answers to keep; everything else, including an answer that
 // is not what the guide says, is a HighRiskModelException so the screening waits and is sent again.
 @Component
-public class OcshrClient {
+public class OcshrClient implements HighRiskModelClient {
     static final Duration CONNECT_TIMEOUT = Duration.ofSeconds(10);
     static final Duration READ_TIMEOUT = Duration.ofSeconds(60);
     private static final int DETAIL_LENGTH = 300;
@@ -57,6 +57,7 @@ public class OcshrClient {
 
     // A token expires after an hour, so one 401 is answered with a fresh one and the same body is sent again. Messages
     // and logs carry the case id, the status and the cut body, never the token.
+    @Override
     public Submission submit(String caseId, List<String> imageUris) throws HighRiskModelException {
         TanuhConfig config = tanuhContextProvider.get();
         String baseUrl = config.getOcshrApiUrl();

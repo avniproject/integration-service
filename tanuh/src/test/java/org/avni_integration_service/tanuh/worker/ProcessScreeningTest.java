@@ -19,13 +19,13 @@ import org.avni_integration_service.tanuh.dqs.DqsResult;
 import org.avni_integration_service.tanuh.dqs.DqsResult.RuleOutcome;
 import org.avni_integration_service.tanuh.model.HighRiskModelClient;
 import org.avni_integration_service.tanuh.model.HighRiskModelException;
+import org.avni_integration_service.tanuh.model.Submission;
 import org.avni_integration_service.tanuh.service.TanuhErrorService;
 import org.avni_integration_service.tanuh.service.TanuhPhotoDownloader;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.jupiter.api.io.TempDir;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InOrder;
 import org.mockito.Mock;
@@ -35,13 +35,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.web.client.HttpClientErrorException;
 
-import java.io.File;
-import java.nio.file.Files;
 import java.time.Clock;
 import java.time.Instant;
 import java.time.ZoneOffset;
 import java.util.*;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
@@ -53,6 +52,7 @@ public class ProcessScreeningTest {
     static final String HIGH_RISK_USER = "high-risk@tanuh_uat_local";
     static final Clock CLOCK = Clock.fixed(Instant.parse("2026-10-07T09:15:00.123Z"), ZoneOffset.UTC);
     static final String CHECK_TIME = "2026-10-07T09:15:00.123Z";
+    static final String PHOTOS = "Take photos of all lesions and 1 photo without lesion";
 
     @Mock
     private AvniSubjectRepository subjects;
@@ -68,12 +68,9 @@ public class ProcessScreeningTest {
     private ErrorRecordRepository errorRecords;
     @Mock
     private IntegratingEntityStatusRepository statuses;
-    @TempDir
-    File photoDir;
     private final TanuhContextProvider context = new TanuhContextProvider();
     private FakeAvniEncounterRepository encounters;
     private OralScreeningWorker worker;
-    private final List<File> downloaded = new ArrayList<>();
 
     @BeforeEach
     public void setUp() throws Exception {
@@ -94,11 +91,8 @@ public class ProcessScreeningTest {
         // The patient's registration goes ahead of every screening; the service stores it and the tests leave it be.
         lenient().when(dqs.submit(eq(DqsClient.REGISTRATION), anyMap())).thenReturn(passed());
         lenient().when(downloader.sign(anyString())).thenAnswer(invocation -> invocation.getArgument(0) + "?X-Amz-Signature=signed");
-        lenient().when(downloader.download(anyString())).thenAnswer(invocation -> {
-            File file = Files.createTempFile(photoDir.toPath(), "photo", null).toFile();
-            downloaded.add(file);
-            return file;
-        });
+        // Tanuh's model service takes every screening unless a test says otherwise.
+        lenient().when(model.submit(anyString(), anyList())).thenReturn(new Submission(Submission.Outcome.ACCEPTED, "{}"));
     }
 
     @AfterEach
@@ -121,8 +115,9 @@ public class ProcessScreeningTest {
 
     private GeneralEncounter screeningWithPhotos(String uuid, String... suspiciousPerPhoto) {
         List<Map<String, Object>> rows = new ArrayList<>();
-        for (int i = 0; i < suspiciousPerPhoto.length; i++) rows.add(row("minio://avni-user-media/t/" + uuid + "-" + i + ".jpg", suspiciousPerPhoto[i]));
-        return encounters.add(uuid, Map.of("Take photos of all lesions and 1 photo without lesion", rows));
+        for (int i = 0; i < suspiciousPerPhoto.length; i++)
+            rows.add(row("https://s3.ap-south-1.amazonaws.com/prod-user-media/tanuh_uat/" + uuid + "-" + i + ".jpg", suspiciousPerPhoto[i]));
+        return encounters.add(uuid, Map.of(PHOTOS, rows));
     }
 
     static DqsResult passed() {
@@ -143,11 +138,30 @@ public class ProcessScreeningTest {
         return Map.of("QC status", qcStatus, "QC check time", CHECK_TIME);
     }
 
-    // A screening that fails QC is not sent, and the job writes that down in the same PATCH.
-    static Map<String, Object> failVerdict() {
-        Map<String, Object> values = new HashMap<>(verdict("QC Fail"));
+    // A screening that will not be sent is marked so in the same PATCH as its verdict.
+    static Map<String, Object> notSent(String qcStatus) {
+        Map<String, Object> values = new HashMap<>(verdict(qcStatus));
         values.put("OCSHR Call Made", "No");
         return values;
+    }
+
+    // A screening that fails QC is not sent, and the job writes that down in the same PATCH.
+    static Map<String, Object> failVerdict() {
+        return notSent("QC Fail");
+    }
+
+    // Written once Tanuh's model service has answered.
+    static Map<String, Object> callMade(String answer) {
+        return Map.of("OCSHR Call Made", answer);
+    }
+
+    // Checked and marked QC Pass, then last changed by this user before Tanuh's answer was written down.
+    private GeneralEncounter handOverCutShort(String uuid, String lastChangedBy) {
+        GeneralEncounter s = screeningWithPhotos(uuid, "No");
+        s.addObservation("QC status", "QC Pass");
+        s.addObservation("QC check time", CHECK_TIME);
+        encounters.touch(s, lastChangedBy);
+        return s;
     }
 
     private void dqsSays(DqsResult result) {
@@ -161,18 +175,15 @@ public class ProcessScreeningTest {
 
         assertEquals(ScreeningOutcome.WRITTEN, worker.processScreening(s, true));
 
-        assertEquals(List.of(verdict("QC Pass")), encounters.patchBodies);
+        assertEquals(List.of(verdict("QC Pass"), callMade("Yes")), encounters.patchBodies);
         ArgumentCaptor<Supplier<Map<String, Object>>> record = ArgumentCaptor.forClass(Supplier.class);
         verify(dqs).submit(eq(DqsClient.ORAL_SCREENING), record.capture());
         assertEquals("s1", record.getValue().get().get("record_id"));
         assertEquals(2, record.getValue().get().get("image_count"));
-        assertEquals(List.of("minio://avni-user-media/t/s1-0.jpg?X-Amz-Signature=signed", "minio://avni-user-media/t/s1-1.jpg?X-Amz-Signature=signed"),
+        assertEquals(List.of("https://s3.ap-south-1.amazonaws.com/prod-user-media/tanuh_uat/s1-0.jpg?X-Amz-Signature=signed",
+                        "https://s3.ap-south-1.amazonaws.com/prod-user-media/tanuh_uat/s1-1.jpg?X-Amz-Signature=signed"),
                 record.getValue().get().get("image_urls"));
-        ArgumentCaptor<List<File>> photos = ArgumentCaptor.forClass(List.class);
-        verify(model).submit(same(s), photos.capture());
-        assertEquals(2, photos.getValue().size());
-        verify(downloader).download("minio://avni-user-media/t/s1-0.jpg");
-        verify(downloader).download("minio://avni-user-media/t/s1-1.jpg");
+        verify(model).submit(eq("s1"), eq(List.of("s3://prod-user-media/tanuh_uat/s1-0.jpg", "s3://prod-user-media/tanuh_uat/s1-1.jpg")));
         verifyNoInteractions(errors);
     }
 
@@ -184,7 +195,6 @@ public class ProcessScreeningTest {
         assertEquals(ScreeningOutcome.WRITTEN, worker.processScreening(s, true));
 
         assertEquals(List.of(failVerdict()), encounters.patchBodies);
-        verify(downloader, never()).download(anyString());
         verifyNoInteractions(model, errors);
     }
 
@@ -195,8 +205,8 @@ public class ProcessScreeningTest {
 
         assertEquals(ScreeningOutcome.WRITTEN, worker.processScreening(s, true));
 
-        assertEquals(List.of(verdict("QC Pass")), encounters.patchBodies);
-        verify(model).submit(same(s), anyList());
+        assertEquals(List.of(verdict("QC Pass"), callMade("Yes")), encounters.patchBodies);
+        verify(model).submit(eq("s1"), eq(List.of("s3://prod-user-media/tanuh_uat/s1-0.jpg")));
     }
 
     @Test
@@ -231,15 +241,30 @@ public class ProcessScreeningTest {
         verifyNoInteractions(model);
     }
 
+    // Tanuh's model has nothing to look at, so the screening is marked not sent in the same PATCH as its verdict.
     @Test
-    public void aScreeningWithoutPhotosThatPassesIsMarkedPassWithoutAModelCall() {
+    public void aScreeningWithoutPhotosIsMarkedNotSent() {
         GeneralEncounter s = encounters.add("s1", Map.of("Able to Open Mouth?", "No"));
         dqsSays(passed());
 
         assertEquals(ScreeningOutcome.WRITTEN, worker.processScreening(s, true));
 
-        assertEquals(List.of(verdict("QC Pass")), encounters.patchBodies);
-        verifyNoInteractions(model, downloader);
+        assertEquals(List.of(notSent("QC Pass")), encounters.patchBodies);
+        verifyNoInteractions(model);
+    }
+
+    // Tanuh's model reads photos from S3 only, and sending the rest would hide the photo left out.
+    @Test
+    public void aPhotoOutsideS3MarksTheScreeningNotSent() {
+        GeneralEncounter s = encounters.add("s1", Map.of(PHOTOS, List.of(
+                row("https://s3.ap-south-1.amazonaws.com/prod-user-media/tanuh_uat/s1-0.jpg", "No"),
+                row("minio://avni-user-media/t/s1-1.jpg", "No"))));
+        dqsSays(passed());
+
+        assertEquals(ScreeningOutcome.WRITTEN, worker.processScreening(s, true));
+
+        assertEquals(List.of(notSent("QC Pass")), encounters.patchBodies);
+        verifyNoInteractions(model);
     }
 
     @Test
@@ -294,7 +319,7 @@ public class ProcessScreeningTest {
 
         assertEquals(ScreeningOutcome.SKIPPED, worker.processScreening(s, true));
         assertEquals(ScreeningOutcome.WRITTEN, worker.processScreening(s, false));
-        assertEquals(1, encounters.patchBodies.size());
+        assertEquals(2, encounters.patchBodies.size());
     }
 
     // A worker's edit synced while the job checked the copy it listed must not be overwritten with a stale verdict.
@@ -363,12 +388,12 @@ public class ProcessScreeningTest {
     public void aModelHandOverFailureKeepsTheVerdictAndWaitsForTheHandOver() throws Exception {
         GeneralEncounter s = screeningWithPhotos("s1", "No");
         dqsSays(passed());
-        doThrow(new HighRiskModelException("The stand-in model is set to fail")).when(model).submit(any(), anyList());
+        doThrow(new HighRiskModelException("Model service answered 500 for case s1: busy")).when(model).submit(any(), anyList());
 
         assertEquals(ScreeningOutcome.FAILED, worker.processScreening(s, true));
 
         assertEquals(List.of(verdict("QC Pass")), encounters.patchBodies);
-        verify(errors).errorOccurred("s1", "HighRiskModelCallFailed", "HighRiskModelException: The stand-in model is set to fail");
+        verify(errors).errorOccurred("s1", "HighRiskModelCallFailed", "HighRiskModelException: Model service answered 500 for case s1: busy");
     }
 
     @Test
@@ -376,7 +401,10 @@ public class ProcessScreeningTest {
         GeneralEncounter s = screeningWithPhotos("s1", "No");
         dqsSays(passed());
         List<Integer> writtenAtHandOver = new ArrayList<>();
-        doAnswer(invocation -> writtenAtHandOver.add(encounters.patchBodies.size())).when(model).submit(any(), anyList());
+        doAnswer(invocation -> {
+            writtenAtHandOver.add(encounters.patchBodies.size());
+            return new Submission(Submission.Outcome.ACCEPTED, "{}");
+        }).when(model).submit(anyString(), anyList());
 
         assertEquals(ScreeningOutcome.WRITTEN, worker.processScreening(s, true));
 
@@ -384,32 +412,22 @@ public class ProcessScreeningTest {
     }
 
     @Test
-    public void aPhotoThatWillNotDownloadWaitsAsAHandOverFailure() {
-        GeneralEncounter s = screeningWithPhotos("s1", "No");
-        dqsSays(passed());
-        when(downloader.download(anyString())).thenThrow(new IllegalStateException("photo not found"));
-
-        assertEquals(ScreeningOutcome.FAILED, worker.processScreening(s, true));
-
-        assertEquals(List.of(verdict("QC Pass")), encounters.patchBodies);
-        verify(errors).errorOccurred("s1", "HighRiskModelCallFailed", "IllegalStateException: photo not found");
-        verifyNoInteractions(model);
-    }
-
-    @Test
     public void handingOverAgainSendsOnlyAScreeningStillMarkedPass() throws Exception {
         GeneralEncounter marked = screeningWithPhotos("s1", "No");
         marked.addObservation("QC status", "QC Pass");
+        encounters.touch(marked, JOB_USER);
         GeneralEncounter failed = screeningWithPhotos("s2", "No");
         failed.addObservation("QC status", "QC Fail");
+        encounters.touch(failed, JOB_USER);
 
         assertEquals(ScreeningOutcome.WRITTEN, worker.handOverAgain(marked));
         assertEquals(ScreeningOutcome.SKIPPED, worker.handOverAgain(failed));
 
-        verify(model).submit(same(marked), anyList());
+        verify(model).submit(eq("s1"), eq(List.of("s3://prod-user-media/tanuh_uat/s1-0.jpg")));
         verifyNoMoreInteractions(model);
         verifyNoInteractions(dqs);
-        assertTrue(encounters.patchBodies.isEmpty());
+        assertEquals(List.of("s1"), encounters.patchedUuids, "only Tanuh's answer is written, not a second verdict");
+        assertEquals(List.of(callMade("Yes")), encounters.patchBodies);
     }
 
     @Test
@@ -475,14 +493,223 @@ public class ProcessScreeningTest {
     }
 
     @Test
-    public void downloadedPhotosAreDeletedWhetherTheHandOverSucceedsOrFails() throws Exception {
+    public void anAcceptedScreeningIsMarkedSent() throws Exception {
+        GeneralEncounter s = screeningWithPhotos("s1", "No", "Yes");
         dqsSays(passed());
-        doNothing().doThrow(new HighRiskModelException("down")).when(model).submit(any(), anyList());
 
-        worker.processScreening(screeningWithPhotos("ok", "No", "No"), true);
-        worker.processScreening(screeningWithPhotos("down", "No"), true);
+        assertEquals(ScreeningOutcome.WRITTEN, worker.processScreening(s, true));
 
-        assertEquals(3, downloaded.size());
-        downloaded.forEach(file -> assertFalse(file.exists(), file + " should be deleted"));
+        verify(model).submit("s1", List.of("s3://prod-user-media/tanuh_uat/s1-0.jpg", "s3://prod-user-media/tanuh_uat/s1-1.jpg"));
+        assertEquals(List.of(verdict("QC Pass"), callMade("Yes")), encounters.patchBodies);
+        assertEquals("Yes", encounters.screenings.get("s1").getObservation("OCSHR Call Made"));
+    }
+
+    @Test
+    public void aScreeningTheServiceRefusesIsMarkedNotSent() throws Exception {
+        GeneralEncounter s = screeningWithPhotos("s1", "No");
+        dqsSays(passed());
+        when(model.submit(anyString(), anyList()))
+                .thenReturn(new Submission(Submission.Outcome.REFUSED, "{\"error\":\"INVALID_MANIFEST\",\"problems\":[\"image 1: not found\"]}"));
+
+        assertEquals(ScreeningOutcome.WRITTEN, worker.processScreening(s, true));
+
+        assertEquals(List.of(verdict("QC Pass"), callMade("No")), encounters.patchBodies);
+        verifyNoInteractions(errors);
+    }
+
+    // Tanuh's service holds this case with other photos. Nothing is written: a person settles it with Tanuh.
+    @Test
+    public void aScreeningTheServiceHoldsWithOtherPhotosIsParked() throws Exception {
+        GeneralEncounter s = screeningWithPhotos("s1", "No");
+        dqsSays(passed());
+        String detail = "{\"error\":\"CASE_EXISTS_WITH_DIFFERENT_MANIFEST\",\"case_id\":\"s1\"}";
+        when(model.submit(anyString(), anyList())).thenReturn(new Submission(Submission.Outcome.CONFLICT, detail));
+
+        assertEquals(ScreeningOutcome.PARKED, worker.processScreening(s, true));
+
+        verify(errors).errorOccurred(eq("s1"), eq("HighRiskModelCaseConflict"), contains(detail));
+        verifyNoMoreInteractions(errors);
+        assertEquals(List.of(verdict("QC Pass")), encounters.patchBodies);
+    }
+
+    // Without its error type the conflict cannot be parked, and that is the setup script's fault, not the model call's.
+    @Test
+    public void aConflictWithNoErrorTypeToParkItStopsTheRun() throws Exception {
+        GeneralEncounter s = screeningWithPhotos("s1", "No");
+        dqsSays(passed());
+        when(model.submit(anyString(), anyList())).thenReturn(new Submission(Submission.Outcome.CONFLICT, "{}"));
+        doThrow(new IllegalStateException("No error type HighRiskModelCaseConflict for integration system 15. Run the organisation's setup script."))
+                .when(errors).errorOccurred(eq("s1"), eq("HighRiskModelCaseConflict"), anyString());
+
+        IllegalStateException e = assertThrows(IllegalStateException.class, () -> worker.processScreening(s, true));
+
+        assertTrue(e.getMessage().contains("setup script"), e.getMessage());
+        verify(errors, never()).errorOccurred(eq("s1"), eq("HighRiskModelCallFailed"), anyString());
+    }
+
+    @Test
+    public void aFailedHandOverWritesNothingAndWaits() throws Exception {
+        GeneralEncounter s = screeningWithPhotos("s1", "No");
+        dqsSays(passed());
+        when(model.submit(anyString(), anyList())).thenThrow(new HighRiskModelException("HTTP 503"));
+
+        assertEquals(ScreeningOutcome.FAILED, worker.processScreening(s, true));
+
+        verify(errors).errorOccurred("s1", "HighRiskModelCallFailed", "HighRiskModelException: HTTP 503");
+        assertEquals(List.of(verdict("QC Pass")), encounters.patchBodies);
+        assertNull(encounters.screenings.get("s1").getObservation("OCSHR Call Made"));
+    }
+
+    // A worker's edit synced while Tanuh's service answered is checked on its next listing, not hidden by the job's write.
+    @Test
+    public void anEditDuringTheHandOverIsNotWrittenOver() throws Exception {
+        GeneralEncounter s = screeningWithPhotos("s1", "No");
+        dqsSays(passed());
+        when(model.submit(anyString(), anyList())).thenAnswer(invocation -> {
+            encounters.workerEdits("s1");
+            return new Submission(Submission.Outcome.ACCEPTED, "{}");
+        });
+
+        assertEquals(ScreeningOutcome.CHANGED, worker.processScreening(s, true));
+
+        assertEquals(List.of(verdict("QC Pass")), encounters.patchBodies);
+        verifyNoInteractions(errors);
+    }
+
+    // Tanuh's service can write its result before the job writes Call Made, and that is no reason to leave it empty.
+    @Test
+    public void aResultThatLandsFirstStillGetsYes() throws Exception {
+        GeneralEncounter s = screeningWithPhotos("s1", "No");
+        dqsSays(passed());
+        when(model.submit(anyString(), anyList())).thenAnswer(invocation -> {
+            encounters.touch(encounters.screenings.get("s1"), "High-Risk@tanuh_uat_local");
+            return new Submission(Submission.Outcome.ACCEPTED, "{}");
+        });
+
+        assertEquals(ScreeningOutcome.WRITTEN, worker.processScreening(s, true));
+
+        assertEquals(List.of(verdict("QC Pass"), callMade("Yes")), encounters.patchBodies);
+    }
+
+    // The job stopped between Tanuh's acceptance and the Call Made write. Its verdict stands, so it is not checked again.
+    @Test
+    public void aHandOverCutShortIsFinishedOnTheNextListing() throws Exception {
+        GeneralEncounter s = handOverCutShort("s1", JOB_USER);
+
+        assertEquals(ScreeningOutcome.WRITTEN, worker.processScreening(s, true));
+
+        verify(model).submit("s1", List.of("s3://prod-user-media/tanuh_uat/s1-0.jpg"));
+        assertEquals(List.of(callMade("Yes")), encounters.patchBodies);
+        verifyNoInteractions(dqs, subjects);
+    }
+
+    // A send that timed out although Tanuh stored it: Tanuh's result is the last change, and the resend gets its 200.
+    @Test
+    public void aScreeningTanuhAlreadyScoredIsMarkedSent() throws Exception {
+        GeneralEncounter s = handOverCutShort("s1", HIGH_RISK_USER);
+
+        assertEquals(ScreeningOutcome.WRITTEN, worker.processScreening(s, true));
+
+        verify(model).submit("s1", List.of("s3://prod-user-media/tanuh_uat/s1-0.jpg"));
+        assertEquals(List.of(callMade("Yes")), encounters.patchBodies);
+        verifyNoInteractions(dqs, subjects);
+    }
+
+    @Test
+    public void aPendingHandOverWaitsWhileItsRecordIsOpen() {
+        GeneralEncounter s = handOverCutShort("s1", JOB_USER);
+        when(errorRecords.findByAvniEntityTypeAndEntityId(AvniEntityType.GeneralEncounter, "s1")).thenReturn(new ErrorRecord());
+
+        assertEquals(ScreeningOutcome.SKIPPED, worker.processScreening(s, true));
+
+        verify(errorRecords).findByAvniEntityTypeAndEntityId(AvniEntityType.GeneralEncounter, "s1");
+        verifyNoInteractions(model, dqs, subjects);
+        assertTrue(encounters.patchBodies.isEmpty());
+    }
+
+    // Avni signs only addresses in the organisation's own media folder. A photo it will not sign is not sent, so
+    // another organisation's photo written into a screening's answer never reaches Tanuh's model.
+    @Test
+    public void aPhotoAvniWillNotSignIsNotSent() throws Exception {
+        GeneralEncounter s = screeningWithPhotos("s1", "No", "No");
+        dqsSays(passed());
+        when(downloader.sign(contains("s1-1"))).thenThrow(new IllegalStateException("403 Forbidden"));
+
+        assertEquals(ScreeningOutcome.FAILED, worker.processScreening(s, true));
+
+        verify(model, never()).submit(anyString(), anyList());
+        verify(errors).errorOccurred(eq("s1"), eq("HighRiskModelCallFailed"), contains("would not sign photo 2"));
+        assertEquals(List.of(verdict("QC Pass")), encounters.patchBodies);
+    }
+
+    // Tanuh's service takes 1 to 13 photos per case (its guide, section 8). A screening with more is not sent and is not
+    // marked No: it waits, so it is sent once the limit is settled, instead of being refused for good.
+    @Test
+    public void moreThanThirteenPhotosWaitInsteadOfBeingRefused() throws Exception {
+        String[] fourteen = new String[14];
+        java.util.Arrays.fill(fourteen, "No");
+        GeneralEncounter s = screeningWithPhotos("s1", fourteen);
+        dqsSays(passed());
+
+        assertEquals(ScreeningOutcome.FAILED, worker.processScreening(s, true));
+
+        verify(model, never()).submit(anyString(), anyList());
+        verify(errors).errorOccurred(eq("s1"), eq("HighRiskModelCallFailed"), contains("14 photos"));
+        assertEquals(List.of(verdict("QC Pass")), encounters.patchBodies);
+        assertNull(encounters.screenings.get("s1").getObservation("OCSHR Call Made"));
+    }
+
+    @Test
+    public void thirteenPhotosAreSent() throws Exception {
+        String[] thirteen = new String[13];
+        java.util.Arrays.fill(thirteen, "No");
+        GeneralEncounter s = screeningWithPhotos("s1", thirteen);
+        dqsSays(passed());
+
+        assertEquals(ScreeningOutcome.WRITTEN, worker.processScreening(s, true));
+
+        verify(model).submit(eq("s1"), argThat(uris -> uris.size() == 13));
+    }
+
+    // An answer the job does not know is a failed call, retried, never a screening parked for a person.
+    @Test
+    public void anAnswerTheJobDoesNotKnowIsAFailureNotAParking() throws Exception {
+        GeneralEncounter s = screeningWithPhotos("s1", "No");
+        dqsSays(passed());
+        when(model.submit(anyString(), anyList())).thenReturn(new Submission(null, "{}"));
+
+        assertEquals(ScreeningOutcome.FAILED, worker.processScreening(s, true));
+
+        verify(errors).errorOccurred(eq("s1"), eq("HighRiskModelCallFailed"), anyString());
+        verify(errors, never()).errorOccurred(eq("s1"), eq("HighRiskModelCaseConflict"), anyString());
+    }
+
+    // A worker's edit synced after the listing: the listed copy is not sent, and the newer version is read next.
+    @Test
+    public void aHandOverCutShortThatChangedSinceItWasListedIsNotSent() throws Exception {
+        GeneralEncounter stored = handOverCutShort("s1", JOB_USER);
+        GeneralEncounter listed = new GeneralEncounter();
+        stored.getProperties().forEach(listed::set);
+        encounters.workerEdits("s1");
+
+        assertEquals(ScreeningOutcome.CHANGED, worker.processScreening(listed, true));
+
+        verifyNoInteractions(model);
+        assertTrue(encounters.patchBodies.isEmpty());
+    }
+
+    // Tanuh's service writes its result, probability and version itself.
+    @Test
+    public void theJobNeverWritesTheModelsResult() throws Exception {
+        dqsSays(passed());
+        when(model.submit(eq("refused"), anyList())).thenReturn(new Submission(Submission.Outcome.REFUSED, "{\"error\":\"INVALID_MANIFEST\"}"));
+
+        worker.processScreening(screeningWithPhotos("accepted", "No"), true);
+        worker.processScreening(screeningWithPhotos("refused", "No"), true);
+        worker.processScreening(encounters.add("bare", Map.of("Able to Open Mouth?", "No")), true);
+
+        assertEquals(List.of("accepted", "accepted", "refused", "refused", "bare"), encounters.patchedUuids);
+        Set<String> written = encounters.patchBodies.stream().flatMap(body -> body.keySet().stream()).collect(Collectors.toSet());
+        assertTrue(Set.of("QC status", "QC check time", "OCSHR Call Made").containsAll(written), written.toString());
     }
 }

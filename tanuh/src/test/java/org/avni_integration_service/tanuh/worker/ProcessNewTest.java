@@ -17,6 +17,7 @@ import org.avni_integration_service.tanuh.config.TanuhContextProvider;
 import org.avni_integration_service.tanuh.dqs.DqsClient;
 import org.avni_integration_service.tanuh.dqs.DqsResult;
 import org.avni_integration_service.tanuh.model.HighRiskModelClient;
+import org.avni_integration_service.tanuh.model.Submission;
 import org.avni_integration_service.tanuh.service.TanuhErrorService;
 import org.avni_integration_service.tanuh.service.TanuhPhotoDownloader;
 import org.avni_integration_service.util.FormatAndParseUtil;
@@ -25,13 +26,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Timeout;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.jupiter.api.io.TempDir;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.util.ReflectionTestUtils;
 
-import java.io.File;
-import java.nio.file.Files;
 import java.time.Clock;
 import java.time.Instant;
 import java.time.ZoneId;
@@ -64,8 +62,6 @@ public class ProcessNewTest {
     private ErrorRecordRepository errorRecords;
     @Mock
     private IntegratingEntityStatusRepository statuses;
-    @TempDir
-    File photoDir;
     private final TanuhContextProvider context = new TanuhContextProvider();
     private final Map<String, Integer> sent = new HashMap<>();
     private final Map<String, Runnable> duringNextSend = new HashMap<>();
@@ -99,7 +95,8 @@ public class ProcessNewTest {
         Subject live = new Subject();
         live.setVoided(false);
         lenient().when(subjects.getSubjectOrThrow(anyString())).thenReturn(live);
-        lenient().when(downloader.download(anyString())).thenAnswer(invocation -> Files.createTempFile(photoDir.toPath(), "photo", null).toFile());
+        // Tanuh's model service takes every screening.
+        lenient().when(model.submit(anyString(), anyList())).thenReturn(new Submission(Submission.Outcome.ACCEPTED, "{}"));
         lenient().when(dqs.submit(eq(DqsClient.ORAL_SCREENING), any(Supplier.class))).thenAnswer(invocation -> {
             String uuid = (String) ((Supplier<Map<?, ?>>) invocation.getArgument(1)).get().get("record_id");
             sent.merge(uuid, 1, Integer::sum);
@@ -138,7 +135,7 @@ public class ProcessNewTest {
 
     private static Map<String, Object> photos(String uuid) {
         Map<String, Object> row = new HashMap<>();
-        row.put("Oral Image", "minio://avni-user-media/t/" + uuid + ".jpg");
+        row.put("Oral Image", "https://s3.ap-south-1.amazonaws.com/prod-user-media/tanuh_uat/" + uuid + "-0.jpg");
         row.put("Suspicious Lesion?", "No");
         return Map.of("Take photos of all lesions and 1 photo without lesion", List.of(row));
     }
@@ -157,7 +154,7 @@ public class ProcessNewTest {
         addScreenings(25);
         worker.processNew();
         assertEachSentOnce(25);
-        assertEquals(25, encounters.patchedUuids.size());
+        assertEquals(50, encounters.patchedUuids.size(), "each screening's verdict, then Tanuh's answer");
     }
 
     @Test
@@ -167,7 +164,7 @@ public class ProcessNewTest {
         worker.processNew();
         worker.processNew();
         assertEachSentOnce(25);
-        assertEquals(25, encounters.patchedUuids.size());
+        assertEquals(50, encounters.patchedUuids.size(), "each screening's verdict, then Tanuh's answer");
     }
 
     @Test
@@ -186,19 +183,23 @@ public class ProcessNewTest {
         verify(model, times(3)).submit(any(), anyList());
     }
 
+    // A No is final: a screening that passed QC without photos is not sent, even once an edit adds them.
     @Test
-    public void aScreeningWithoutPhotosEditedToAddThemIsHandedToTheModel() throws Exception {
+    public void aScreeningWithoutPhotosIsMarkedNotSentAndStaysSo() {
         encounters.add("bare", Map.of("Able to Open Mouth?", "No"));
         worker.processNew();
         assertEquals("QC Pass", encounters.screenings.get("bare").getObservation("QC status"));
-        verifyNoInteractions(model);
+        assertEquals("No", encounters.patchBodies.get(0).get("OCSHR Call Made"), "marked not sent in the verdict's PATCH");
 
         photos("bare").forEach(encounters.screenings.get("bare")::addObservation);
         encounters.workerEdits("bare");
         worker.processNew();
 
         assertEquals(2, sent.get("bare"));
-        verify(model).submit(same(encounters.screenings.get("bare")), anyList());
+        assertEquals(List.of("bare", "bare"), encounters.patchedUuids);
+        assertFalse(encounters.patchBodies.get(1).containsKey("OCSHR Call Made"), "only the verdict is written again");
+        assertEquals("No", encounters.screenings.get("bare").getObservation("OCSHR Call Made"));
+        verifyNoInteractions(model);
     }
 
     // Review finding: a full page that could not move past "from" jumped to its last row's time, and the server's
@@ -232,7 +233,7 @@ public class ProcessNewTest {
         worker.processNew();
 
         assertEachSentOnce(35);
-        assertEquals(35, encounters.patchedUuids.size());
+        assertEquals(70, encounters.patchedUuids.size(), "each screening's verdict, then Tanuh's answer");
     }
 
     // Review finding: an edit synced while the job checked the copy it listed was overwritten, then skipped as the job's own.
@@ -248,7 +249,7 @@ public class ProcessNewTest {
         worker.processNew();
 
         assertEquals(2, sent.get("s01"));
-        assertEquals(List.of("s01"), encounters.patchedUuids);
+        assertEquals(List.of("s01", "s01"), encounters.patchedUuids, "the verdict, then Tanuh's answer, both on the second run");
         assertEquals("QC Pass", encounters.screenings.get("s01").getObservation("QC status"));
     }
 

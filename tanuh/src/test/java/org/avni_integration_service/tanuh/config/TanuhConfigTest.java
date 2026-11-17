@@ -29,15 +29,6 @@ public class TanuhConfigTest {
     }
 
     @Test
-    public void stubModeIsAcceptOrFailOrTheDefault() {
-        assertEquals("accept", configWith().getStubMode());
-        assertEquals("fail", configWith("model_stub_mode", " fail ").getStubMode());
-        assertEquals("accept", configWith("model_stub_mode", "accept").getStubMode());
-        assertEquals("accept", configWith("model_stub_mode", "by_encounter").getStubMode());
-        assertEquals("accept", configWith("model_stub_mode", "Fail").getStubMode());
-    }
-
-    @Test
     public void theHighRiskServicesUserIsTheTrimmedSettingOrNull() {
         assertNull(configWith().getHighRiskAvniUser());
         assertNull(configWith("high_risk_avni_user", "  ").getHighRiskAvniUser());

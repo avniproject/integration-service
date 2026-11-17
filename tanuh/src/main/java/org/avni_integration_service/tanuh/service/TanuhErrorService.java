@@ -16,6 +16,8 @@ import java.util.Optional;
 @Service
 public class TanuhErrorService {
     public static final String MODEL_CALL_FAILED = "HighRiskModelCallFailed";
+    // Tanuh's model service holds the screening with other photos. Its type is Terminal, so the retry job leaves it for a person.
+    public static final String MODEL_CASE_CONFLICT = "HighRiskModelCaseConflict";
     public static final String SCREENING_PROCESSING_FAILED = "ScreeningProcessingFailed";
     public static final String DATA_QUALITY_CALL_FAILED = "DataQualityCallFailed";
     private static final Logger logger = Logger.getLogger(TanuhErrorService.class);
