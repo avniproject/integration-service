@@ -9,12 +9,12 @@ Each Tanuh organisation has two jobs on the integration service.
 - **The main job**, every 15 minutes, reads the Oral Screenings that are new or edited since its last run. For each one it:
   1. reads the screening's patient from Avni and sends the patient's registration, then the screening, to the data quality service (section 14), and reads the screening's verdict;
   2. writes the QC verdict back onto the screening: `QC Pass` or `QC Fail`, and the time of the check. If a field worker's edit reached Avni while the service was answering, nothing is written and the edited version is checked on the next run;
-  3. if the screening passed QC and has photos, sends its uuid and its photos' S3 addresses to Tanuh's model service (section 17), without waiting for a result, and writes `OCSHR Call Made` on it: `Yes` once the service takes it, `No` if the service refuses it. A screening that failed QC, has no photo, or has a photo outside Avni's S3 storage is not sent; it gets `No` in the same write as its verdict. The model service scores on its own time and writes its result to Avni itself, through Avni's API, as `high_risk_avni_user`; that write is not this job's concern.
+  3. if the screening passed QC and has photos, sends its uuid and its photos' S3 addresses to Tanuh's model service (section 17), without waiting for a result, and writes `OCSHR Call Made` on it: `Yes` once the service takes it, `No` if the service refuses it. A screening that failed QC, has no photo, or has a photo outside Avni's S3 storage is not sent; it gets `No` in the same write as its verdict. A screening with more than 13 photos sends its first 13 (section 17). The model service scores on its own time and writes its result to Avni itself, through Avni's API, as `high_risk_avni_user`; that write is not this job's concern.
 - **The retry job**, five minutes after each main run, tries again every screening that is waiting after a failure. A screening whose verdict was written but whose hand-over failed is only handed over again, if it is still marked `QC Pass`; any other is tried again from step 1.
 
-Whether a screening passes QC is decided by this service, not by the data quality service: the data quality service returns each rule's outcome, and a screening fails QC when the service could not read it, or when a rule named in `qc_fail_rules` (section 14) failed it. Any other failed rule is logged and does not fail the screening, and neither does a rule that could not decide or did not apply. A screening that fails QC is not sent to the model service, and neither is one that passes without any photo, as there is nothing for the model to look at. Both get `OCSHR Call Made` `No`.
+Whether a screening passes QC is decided by this service, not by the data quality service: the data quality service returns each rule's outcome, and a screening fails QC when the service could not read it, or when a rule named in `qc_fail_rules` (section 14) failed it. Any other failed rule is logged and does not fail the screening, and neither does a rule that could not decide or did not apply. A screening that fails QC is not sent to the model service, and neither is one that passes without any photo, as there is nothing for the model to look at. Both get `OCSHR Call Made` `No`. A screening with a photo Avni will not sign, because it is outside the organisation's media storage, fails QC without the data quality service being asked, and gets `No` in the same write (section 17).
 
-A screening is sent only while its `OCSHR Call Made` is empty. Once it is `Yes` or `No` it is never sent again, even after an edit: a `No` given for missing photos stays when photos are added later.
+A screening goes to Tanuh's model service once at most. It is sent only while it has no answer, and once it is `Yes` or `No` it is never sent again, even after an edit: a `No` given for missing photos stays when photos are added later. The job keeps each answer in its own database as well as on the screening (section 18), because a phone's edit can clear `OCSHR Call Made`; an answer an edit cleared is written back on the next run.
 
 While the data quality service or the model service is down, the screenings wait and none is lost; the red retry check is the sign. A failed or slow send writes nothing, so a screening is never recorded as not sent because the service was down.
 
@@ -24,12 +24,13 @@ UAT goes first, then production, and both run on the production integration serv
 
 1. Check the implementation team's configuration is live on the organisation: the QC questions the job writes (`QC status` with its answers `QC Pass` and `QC Fail`, and `QC check time`, or whatever names section 15 maps), the `OCSHR Call Made` question with its answers `Yes` and `No` (section 16), the job user in the Integration group only, and the visit type named exactly "Oral Screening".
 2. Create the organisation's two health checks (section 4).
-3. Copy the organisation's script, `docs/tanuh-uat-setup.sql` or `docs/tanuh-production-setup.sql`, to a folder outside this repository. Put the job user's name and password, the data quality service's address and the model service's values (section 17) into the copy, run the copy on that service's database just before the restart, then delete the copy. Never type the password into the file in the repository: one commit would publish it. The first run reads screenings changed after that moment. Running the script again changes nothing.
+3. If the organisation's job also runs on another integration service, stop it there first (section 7): two services would check the same screenings as the same job user. UAT's ran on int-staging before 17 Nov 2026; check that one.
+4. Copy the organisation's script, `docs/tanuh-uat-setup.sql` or `docs/tanuh-production-setup.sql`, to a folder outside this repository. Put the job user's name and password, the data quality service's address and the model service's values (section 17) into the copy, run the copy on that service's database just before the restart, then delete the copy. Never type the password into the file in the repository: one commit would publish it. The first run reads screenings changed after that moment. Running the script again changes nothing.
    - If review booking has already stopped on the organisation, start from the moment it stopped instead: the script's `TIMESTAMP` option, in UTC. On production this happens when the configuration promotion carries UAT's Oral Screening form after UAT's booking stop. A screening referred between then and the restart was never sent on, and a start at the restart would never read it. Ask the implementation team when the promotion landed.
-4. Import the organisation's question and answer names from `docs/tanuh-mapping-bundle` (section 15). Without them every job fails.
-5. Let the job user into the data quality service (section 14, "Letting the job user in").
-6. Restart the integration service. For production, see section 3.
-7. After the first run with a new screening, open it and confirm it carries a QC verdict (section 8). If the visit type has any other name on that organisation than its `oral_screening` mapping row, the job reads nothing and its check stays green, so this is the only sign.
+5. Import the organisation's question and answer names from `docs/tanuh-mapping-bundle` (section 15). Without them every job fails.
+6. Let the job user into the data quality service (section 14, "Letting the job user in").
+7. Restart the integration service. For production, see section 3. Both scripts set `int_env` to `prod`, which must match the service's `AVNI_INT_ENV`; on a mismatch the service skips the organisation and logs "Environment mismatch detected".
+8. After the first run with a new screening, open it and confirm it carries a QC verdict (section 8). If the visit type has any other name on that organisation than its `oral_screening` mapping row, the job reads nothing and its check stays green, so this is the only sign.
 
 ## 3. Deploying to production
 
@@ -47,13 +48,14 @@ Each organisation has two checks on healthchecks.io, named after its integration
 
 - **Main check down:** the run stopped with an error. Usually it is the sign-in, the visit list, a missing cursor row, a cursor in the future (section 10), or mapping rows the job cannot trust (section 15). The error-reporting service (Bugsnag) has the details. A screening the data quality service or the model service would not take does not stop the run: it waits for a retry.
 - **Retry check down:** at least one retry failed in that run, usually because the data quality service or the model service is down, or a permission is missing. Section 8 shows why each screening waits. The next run that clears every retry turns the check green. If it stays red while new screenings are being checked, see section 9.
+- **A Bugsnag warning with both checks green:** a screening that needs a person. Each kind is its own group, with the organisation's integration system as its context: `tanuh:HELD_WITH_OTHER_PHOTOS`, a screening parked because Tanuh holds it with other photos (section 8); `tanuh:REFUSED`, one Tanuh's service refused, now marked `No` (section 17); `tanuh:PHOTO_OUTSIDE_STORAGE`, one with a photo Avni will not sign, now marked `QC Fail` or `No` (section 17). Neither check turns red for these, so Bugsnag is the only sign. Several refusals or refused photos in a row usually mean a setup fault, such as photos in a bucket Tanuh does not read.
 - A failure in one organisation leaves the other organisation's checks as they were.
 
 ## 6. Settings
 
 Settings are rows in `integration_system_config` for the organisation's integration system. They are read when the service starts, so every change needs a restart.
 
-- `high_risk_avni_user`: the Avni user Tanuh's model service writes its results as (`highrisk@tanuh_uat` on UAT). The job writes `OCSHR Call Made` after a hand-over only if that user or the job user changed the screening last, because Tanuh's result can land before the job's write. A screening that user changed last is not checked again. Set it before switching on: without it, each result Tanuh writes looks like a worker's edit, so the screening is checked and sent again.
+- `high_risk_avni_user`: the Avni user Tanuh's model service writes its results as (`highrisk@tanuh_uat` on UAT). The job writes `OCSHR Call Made` after a hand-over only if that user or the job user changed the screening last, because Tanuh's result can land before the job's write. A screening that user changed last is not checked again. Set it before switching on: without it, each result Tanuh writes looks like a worker's edit, so the screening goes to the data quality service again. It is not sent to the model again (section 18).
 - `ocshr_api_url`, `ocshr_credential_config`, `ocshr_service_account` and `ocshr_audience`: section 17.
 - `dqs_api_url`, `dqs_tenant` and `qc_fail_rules`: section 14.
 
@@ -83,9 +85,9 @@ ORDER BY l.logged_at DESC;
 ```
 
 - `DataQualityCallFailed`: the data quality service did not take the screening. The message says why (section 14, "Reading a data quality failure"). The retry job tries again on every run.
-- `HighRiskModelCallFailed`: the screening's verdict is written, but its hand-over failed: the model service did not answer, answered with an error, or refused the sign-in. Two causes stop the send before any call: a photo Avni will not sign, which is one outside the organisation's own media folder, and more than 13 photos, the most Tanuh's service takes in one case (section 17). Nothing was written to `OCSHR Call Made`. The retry job hands it over again on every run, every 15 minutes, without checking it a second time. A field worker's edit in the meantime makes it a new version, which is checked in full. A 401 after one token renewal, a 403 and a 422 about the request's format are retried the same way on purpose: each means a setup or contract fault on one side, the red retry check is the signal, and nothing is lost while it is fixed.
-- `HighRiskModelCaseConflict`: Tanuh's service already holds this screening with other photos (`409 CASE_EXISTS_WITH_DIFFERENT_MANIFEST`), usually because the photos changed after a send. Nothing is written, and the record is Terminal: the retry job leaves it and the retry check stays green. Ask Tanuh's team which photos they hold.
-  - If they remove their copy, make the record a model-call failure again, and the next retry run sends the screening. If they still hold it, it is parked again.
+- `HighRiskModelCallFailed`: the screening's verdict is written, but its hand-over failed: the model service did not answer, answered with an error, or refused the sign-in. One cause stops the send before any call: Avni failing to sign a photo for any reason other than refusing it, such as Avni being down. A photo Avni refuses with a 403 is not a wait: the screening is marked `No` (section 17). Nothing was written to `OCSHR Call Made`. The retry job hands it over again on every run, every 15 minutes, without checking it a second time. A field worker's edit in the meantime makes it a new version, which is checked in full. A 401 after one token renewal, a 403 and a 422 about the request's format are retried the same way on purpose: each means a setup or contract fault on one side, the red retry check is the signal, and nothing is lost while it is fixed.
+- `HighRiskModelCaseConflict`: Tanuh's service already holds this screening with other photos (`409 CASE_EXISTS_WITH_DIFFERENT_MANIFEST`), which the job never does itself: it only repeats a screening's first send (section 18). So it means another service sent the same screening, such as the organisation set up on int-staging as well. Nothing is written, and the record is Terminal: the retry job leaves it and the retry check stays green. It is reported to Bugsnag as `tanuh:HELD_WITH_OTHER_PHOTOS` (section 5). Ask Tanuh's team which photos they hold.
+  - If they remove their copy, make the record a model-call failure again, and the next retry run sends the screening. If they still hold it, it is parked again. The repeat uses the photos of the job's first send; to send the screening's current photos instead, also delete its row in `tanuh_ocshr_case` (section 18).
 
     ```sql
     UPDATE error_record_log SET error_type_id = (SELECT id FROM error_type WHERE name = 'HighRiskModelCallFailed'
@@ -111,7 +113,7 @@ A retry check that stays red while new screenings are being checked usually mean
 
 1. Run the query in section 8 a few hours apart. A screening still listed with the same reason while others clear is one the retries cannot fix. Its message says why.
 2. If the cause can be fixed, such as a missing permission, fix it. The next retry run sends the screening and the check turns green.
-3. If it cannot be fixed, tell Tanuh's team which screening it is: it has no QC verdict and was not sent to the model service, so it needs looking at by hand.
+3. If it cannot be fixed, tell Tanuh's team which screening it is and why it waits. With `DataQualityCallFailed` or `ScreeningProcessingFailed` it has no QC verdict; with `HighRiskModelCallFailed` it is marked `QC Pass` but was not sent to the model service. Either way it needs looking at by hand.
 4. Then stop retrying it. On the service's error records page, switch on "processing disabled" for its record, or run the query below. The retry job skips it from its next run and the check turns green. While the record exists, the main job keeps leaving the screening alone, even after a worker edits it. Switching the setting off puts it back in the retries.
 
    ```sql
@@ -138,7 +140,7 @@ The main job fails with "cursor is in the future" when its read position is more
 ## 11. Things that lose waiting screenings or leave data behind
 
 - **The metadata migrator's Avni-to-Bahmni clean-up** must not run on a database with Tanuh organisations. It resets every read position on the database to 1900, so Tanuh's next run would send every screening the organisation has ever had. It also deletes every waiting screening's record, so those screenings are never retried.
-- **A worker's edit in the second between Tanuh's acceptance and the job's write** is left as a known gap. The job then writes nothing, and checks the edit on the next run. If the edit fails QC, the screening gets `No` although Tanuh holds the case. If it changed the photos, the resend gets a 409 and is parked (section 8). Closing it would mean asking Tanuh for the case before every `No`.
+- **An edit made on a phone that had not received the job's answers.** When a phone saves an edit, Avni replaces every answer on the screening with the phone's copy, so the QC verdict, `OCSHR Call Made` and any result Tanuh's service wrote are cleared. The job checks the edit as a new version and writes its verdict, but it does not send the screening again: it writes `OCSHR Call Made` back from its own record (section 18). A send whose answer was lost is repeated with its first photos, whatever the edit changed. A result Tanuh wrote is not put back by this job, and Tanuh's guide does not say whether its service writes one again, so a result an edit cleared may stay cleared until Tanuh's team writes it again.
 - **A bulk update that gives many screenings the same time** is read correctly but more slowly, because each such time is read on its own. Spread the times where the update allows, as Avni's own migrations do with `id * interval '1 millisecond'`.
 
 ## 12. Rolling back
@@ -240,7 +242,8 @@ This covers an organisation set up before the data quality service, which scored
 3. Run the organisation's setup script again (section 2, step 3, with the data quality service's address and the model service's values in the copy). It adds the rows that are missing and changes nothing else. The rows `model_stub_mode`, `safety_sample_rate` and `model_stub_fixed_result` are no longer read and can stay.
 4. Deploy, and import the mapping bundle (section 15) straight after. The new build fails every job of the organisation until the `ocshr_call_made` row is there, and the old build fails with it, as "not a key the job uses". So the setup script goes before the deploy, the bundle right after it, and one red run between them is expected.
 5. Let the job user into the data quality service (section 14) if it is not already, and restart.
-6. Screenings checked before this version have no `OCSHR Call Made`. Those marked `QC Pass` are sent after a worker's edit, or once the read position is moved back before them (section 10). Screenings scored before the data quality service keep their model values; the job no longer writes or changes them.
+6. The deploy adds the table `tanuh_ocshr_case` (migration `V2_4_10`), empty. Nothing needs doing to it.
+7. Screenings checked before this version have no `OCSHR Call Made`. Those marked `QC Pass` are sent after a worker's edit, or once the read position is moved back before them (section 10). Screenings scored before the data quality service keep their model values; the job no longer writes or changes them.
 
 ## 17. Tanuh's model service
 
@@ -248,8 +251,9 @@ Tanuh's guide to the service is attached to their Jira story PE-248.
 
 **What is sent.** For each screening that passes QC with photos, `POST <ocshr_api_url>/v1/cases` with `{"case_id": "<screening uuid>", "images": [{"uri": "s3://<bucket>/<key>"}, ...]}`. The photos go in the form's order, each once, with the old flat photo slots read when the groups are empty. Tanuh reads the photos from S3 with a role of their own (`ocshr-image-reader-uat` for UAT, and one each for staging and production), so nothing is downloaded here.
 
-- Before the send, Avni signs each photo's address and the signed link is thrown away. Avni signs only addresses in the organisation's own media folder, so another organisation's photo written into a screening is never sent.
-- Tanuh's service takes 1 to 13 photos per case. A screening with more is not sent and waits with `HighRiskModelCallFailed`, so it is sent once the limit is settled with Tanuh, rather than refused and marked `No` for good. Raise `MAX_IMAGES` in `OralScreeningWorker` when Tanuh raises the limit.
+- Before the send, Avni signs each photo's address and the signed link is thrown away. Avni signs only addresses in the organisation's own media storage and answers 403 for any other. A screening with such a photo is not sent: it gets `No`, together with `QC Fail` when the refusal comes at the quality check, and is reported to Bugsnag as `tanuh:PHOTO_OUTSIDE_STORAGE` (section 5). Any other failure to sign leaves it waiting with `HighRiskModelCallFailed`.
+- Avni's check reads only the first folder of a photo's address, so the job itself takes an address with a `.`, `..` or empty step as outside storage. Such a screening gets `No` in its verdict's write, as one with a photo outside S3 does.
+- Tanuh's service takes 1 to 13 photos per case. A screening with more sends its first 13, in the form's order (decided 17 Nov 2026), and the job logs a warning. A case cannot change once sent: a resend with other photos gets a 409. So if Tanuh raises the limit, screenings already sent keep their 13; raise `MAX_IMAGES` in `OralScreeningWorker` for the ones sent after.
 
 **How the job signs in.** The service accepts only the AWS role `avni_integration_service` in account 118388513628, which int-prod runs as.
 
@@ -266,9 +270,27 @@ Tanuh's guide to the service is attached to their Jira story PE-248.
 | The service answers | `OCSHR Call Made` | The screening |
 |---|---|---|
 | 200 or 202 naming this case | `Yes` | done |
-| 422 `INVALID_MANIFEST` | `No` | done; the detail is logged |
-| 409 `CASE_EXISTS_WITH_DIFFERENT_MANIFEST` | nothing | parked (section 8) |
+| 422 `INVALID_MANIFEST` | `No` | done; reported to Bugsnag as `tanuh:REFUSED` (section 5) |
+| 409 `CASE_EXISTS_WITH_DIFFERENT_MANIFEST` | nothing | parked (section 8) and reported to Bugsnag as `tanuh:HELD_WITH_OTHER_PHOTOS` |
 | 401 | nothing | the token is renewed once and the call repeated |
 | anything else, or no answer | nothing | waits with `HighRiskModelCallFailed` (section 8) |
 
+A redirect is never followed, so the ID token goes only to `ocshr_api_url`. It counts as an answer the job does not know.
+
 **Checking the sign-in by hand.** Tanuh's guide gives a `gcloud` check to run on a machine with the role. A 404 `CASE_NOT_FOUND` for the case `does-not-exist` proves the sign-in works. On 17 Nov 2026 the same two Google calls, made from int-prod by a script with no dependencies, returned that answer.
+
+## 18. The job's record of sends
+
+The table `tanuh_ocshr_case` in the integration service's database holds one row per screening the job sent to Tanuh's model service or marked not sent, per organisation. A phone's edit can clear `OCSHR Call Made` on the screening, so this row, not the screening, decides whether a screening is sent.
+
+- `image_uris`: the photos of the first send, kept before the send is made. A send whose answer is lost is repeated with exactly these, so Tanuh answers it as the same case and an edit's photos never reach the model. Empty for a screening marked not sent without a send.
+- `call_made`: `YES` once Tanuh's service took the screening, `NO` when it is not sent. Empty while the first send's answer is not known; the retry job settles it.
+
+```sql
+SELECT c.screening_uuid, c.call_made, c.image_uris, c.created_date_time
+FROM tanuh_ocshr_case c
+WHERE c.integration_system_id = (SELECT id FROM integration_system WHERE name = 'tanuh_uat')
+ORDER BY c.created_date_time DESC;
+```
+
+Delete a row only to send a screening again on purpose, such as after Tanuh's team removes a case they hold (section 8). The next run then decides afresh from the screening as it is.

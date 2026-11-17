@@ -19,6 +19,9 @@
 --   6. Replace <OCSHR_API_URL> with the model service's address from Tanuh's guide on PE-248, and
 --      <OCSHR_CREDENTIAL_CONFIG_JSON> with Tanuh's credential file, its JSON pasted whole; it holds no secret.
 --      Replace <HIGH_RISK_AVNI_USER> with the Avni user Tanuh's service writes its results as: highrisk@tanuh_uat.
+--   7. If tanuh_uat still runs on int-staging, stop it there first (docs/tanuh-runbook.md, "Stopping an organisation"),
+--      or both services check the same screenings. int_env is 'prod' to match int-prod's AVNI_INT_ENV; on a mismatch
+--      the service skips the organisation and logs "Environment mismatch detected".
 --
 -- Every insert is guarded, so running it again changes nothing.
 --
@@ -47,7 +50,7 @@ CROSS JOIN (VALUES
     ('avni_user', '<AVNI_USER>', false),
     ('avni_password', '<AVNI_PASSWORD>', true),
     ('avni_auth_enabled', 'true', false),
-    ('int_env', 'staging', false),
+    ('int_env', 'prod', false),
     ('main.scheduled.job.cron', '0 */15 * * * ?', false),
     ('error.scheduled.job.cron', '0 5/15 * * * ?', false),
     ('ocshr_api_url', '<OCSHR_API_URL>', false),
