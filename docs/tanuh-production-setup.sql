@@ -1,5 +1,5 @@
 -- ============================================================
--- Tanuh high-risk model, PRODUCTION (integration-service#132)
+-- Tanuh high-risk model, PRODUCTION (integration-service#132, integration-service#134)
 -- Target: the PRODUCTION integration service's database (int-prod),
 --         which works against Tanuh's production organisation on app.avniproject.org.
 --
@@ -19,6 +19,10 @@
 --
 --   5. Replace <DQS_API_URL> with the data quality service's address for this environment (docs/tanuh-runbook.md,
 --      "The data quality service"). Every screening is sent there before anything else happens to it.
+--   6. Replace <OCSHR_API_URL> with the model service's address from Tanuh's guide on PE-248, and
+--      <OCSHR_CREDENTIAL_CONFIG_JSON> with Tanuh's credential file, its JSON pasted whole; it holds no secret.
+--      Replace <HIGH_RISK_AVNI_USER> with the Avni user Tanuh's service writes production's results as. It is not
+--      UAT's user, and it needs a user group deployed on production first.
 --
 -- Every insert is guarded, so running it again changes nothing.
 --
@@ -50,7 +54,9 @@ CROSS JOIN (VALUES
     ('int_env', 'prod', false),
     ('main.scheduled.job.cron', '0 */15 * * * ?', false),
     ('error.scheduled.job.cron', '0 5/15 * * * ?', false),
-    ('model_stub_mode', 'accept', false),
+    ('ocshr_api_url', '<OCSHR_API_URL>', false),
+    ('ocshr_credential_config', '<OCSHR_CREDENTIAL_CONFIG_JSON>', false),
+    ('high_risk_avni_user', '<HIGH_RISK_AVNI_USER>', false),
     ('dqs_api_url', '<DQS_API_URL>', false),
     ('dqs_tenant', 'samvit', false),
     ('qc_fail_rules', 'ST-001,SM-003,QC-030', false)
@@ -68,11 +74,13 @@ FROM integration_system s
 WHERE s.name = 'tanuh_prod'
   AND NOT EXISTS (SELECT 1 FROM integrating_entity_status x WHERE x.integration_system_id = s.id AND x.entity_type = 'TanuhOralScreening');
 
--- Step 4: the reasons a screening waits for a retry. follow_up_step '0' is Process (read as an ordinal).
+-- Step 4: the reasons a screening waits. follow_up_step is read as an ordinal: '0' is Process, which the retry job
+-- tries again; '1' is Terminal, which waits for a person (a case Tanuh holds with other photos, runbook section 8).
 INSERT INTO error_type (name, integration_system_id, uuid, follow_up_step, comparison_operator)
-SELECT t.name, s.id, uuid_generate_v4(), '0', NULL
+SELECT t.name, s.id, uuid_generate_v4(), t.step, NULL
 FROM integration_system s
-CROSS JOIN (VALUES ('DataQualityCallFailed'), ('HighRiskModelCallFailed'), ('ScreeningProcessingFailed')) AS t(name)
+CROSS JOIN (VALUES ('DataQualityCallFailed', '0'), ('HighRiskModelCallFailed', '0'), ('ScreeningProcessingFailed', '0'),
+                   ('HighRiskModelCaseConflict', '1')) AS t(name, step)
 WHERE s.name = 'tanuh_prod'
   AND NOT EXISTS (SELECT 1 FROM error_type e WHERE e.integration_system_id = s.id AND e.name = t.name);
 
