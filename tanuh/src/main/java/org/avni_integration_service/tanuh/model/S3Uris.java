@@ -45,8 +45,16 @@ public final class S3Uris {
             bucket = key.substring(0, slash);
             key = key.substring(slash + 1);
         }
-        if (bucket.isEmpty() || key.isEmpty()) return Optional.empty();
+        if (bucket.isEmpty() || key.isEmpty() || !staysInItsFolders(key)) return Optional.empty();
         return Optional.of("s3://" + bucket + "/" + key);
+    }
+
+    // Avni's signing check reads only a key's first folder, so "tanuh_uat/../other_org/x.jpg" passes it while naming
+    // another organisation's photo. A key with a ".", ".." or empty step is not taken as a photo of this organisation.
+    private static boolean staysInItsFolders(String key) {
+        for (String step : key.split("/", -1))
+            if (step.isEmpty() || step.equals(".") || step.equals("..")) return false;
+        return true;
     }
 
     // The locations of all the photos, each once and in the order first seen, since the intake API refuses a repeated

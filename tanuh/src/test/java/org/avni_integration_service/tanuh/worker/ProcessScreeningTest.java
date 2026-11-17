@@ -20,6 +20,8 @@ import org.avni_integration_service.tanuh.dqs.DqsResult.RuleOutcome;
 import org.avni_integration_service.tanuh.model.HighRiskModelClient;
 import org.avni_integration_service.tanuh.model.HighRiskModelException;
 import org.avni_integration_service.tanuh.model.Submission;
+import org.avni_integration_service.tanuh.service.PhotoOutsideStorageException;
+import org.avni_integration_service.tanuh.service.TanuhAlerts;
 import org.avni_integration_service.tanuh.service.TanuhErrorService;
 import org.avni_integration_service.tanuh.service.TanuhPhotoDownloader;
 import org.junit.jupiter.api.AfterEach;
@@ -34,6 +36,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
 
 import java.time.Clock;
 import java.time.Instant;
@@ -65,6 +68,8 @@ public class ProcessScreeningTest {
     @Mock
     private TanuhErrorService errors;
     @Mock
+    private TanuhAlerts alerts;
+    @Mock
     private ErrorRecordRepository errorRecords;
     @Mock
     private IntegratingEntityStatusRepository statuses;
@@ -86,7 +91,7 @@ public class ProcessScreeningTest {
         context.set(new TanuhConfig(new IntegrationSystemConfigCollection(List.of(user, highRiskUser)), system));
         context.setConcepts(TanuhConceptsFixture.defaults());
         encounters = new FakeAvniEncounterRepository(JOB_USER, Date.from(Instant.parse("2026-10-07T00:00:00Z")));
-        worker = new OralScreeningWorker(encounters, subjects, dqs, downloader, model, errors, errorRecords, statuses, context, CLOCK, 10);
+        worker = new OralScreeningWorker(encounters, subjects, dqs, downloader, model, errors, alerts, errorRecords, statuses, context, CLOCK, 10);
         lenient().when(subjects.getSubjectOrThrow(anyString())).thenReturn(patient(false));
         // The patient's registration goes ahead of every screening; the service stores it and the tests leave it be.
         lenient().when(dqs.submit(eq(DqsClient.REGISTRATION), anyMap())).thenReturn(passed());
@@ -162,6 +167,14 @@ public class ProcessScreeningTest {
         s.addObservation("QC check time", CHECK_TIME);
         encounters.touch(s, lastChangedBy);
         return s;
+    }
+
+    // The real client builds the screening's record, signing each photo, before it posts; this one does the same.
+    private void dqsBuildsTheRecord() {
+        when(dqs.submit(eq(DqsClient.ORAL_SCREENING), any(Supplier.class))).thenAnswer(invocation -> {
+            ((Supplier<?>) invocation.getArgument(1)).get();
+            return passed();
+        });
     }
 
     private void dqsSays(DqsResult result) {
@@ -515,6 +528,7 @@ public class ProcessScreeningTest {
 
         assertEquals(List.of(verdict("QC Pass"), callMade("No")), encounters.patchBodies);
         verifyNoInteractions(errors);
+        verify(alerts).screeningNeedsAPerson(eq("s1"), eq(TanuhAlerts.Reason.REFUSED), contains("INVALID_MANIFEST"));
     }
 
     // Tanuh's service holds this case with other photos. Nothing is written: a person settles it with Tanuh.
@@ -530,6 +544,7 @@ public class ProcessScreeningTest {
         verify(errors).errorOccurred(eq("s1"), eq("HighRiskModelCaseConflict"), contains(detail));
         verifyNoMoreInteractions(errors);
         assertEquals(List.of(verdict("QC Pass")), encounters.patchBodies);
+        verify(alerts).screeningNeedsAPerson(eq("s1"), eq(TanuhAlerts.Reason.HELD_WITH_OTHER_PHOTOS), contains("CASE_EXISTS_WITH_DIFFERENT_MANIFEST"));
     }
 
     // Without its error type the conflict cannot be parked, and that is the setup script's fault, not the model call's.
@@ -627,36 +642,79 @@ public class ProcessScreeningTest {
         assertTrue(encounters.patchBodies.isEmpty());
     }
 
-    // Avni signs only addresses in the organisation's own media folder. A photo it will not sign is not sent, so
-    // another organisation's photo written into a screening's answer never reaches Tanuh's model.
+    // The data quality service gets each photo as a link Avni signs. Avni answers 403 for a photo in another
+    // organisation's folder or another bucket: that screening has a photo outside the organisation's media storage, so it
+    // fails QC and is marked not sent in one write, without asking the service, and a person is told (Adam, 17 Nov 2026).
     @Test
-    public void aPhotoAvniWillNotSignIsNotSent() throws Exception {
+    public void aPhotoAvniRefusesFailsQcAndIsMarkedNotSent() throws Exception {
+        GeneralEncounter s = screeningWithPhotos("s1", "No", "No");
+        dqsBuildsTheRecord();
+        when(downloader.sign(contains("s1-1"))).thenThrow(new PhotoOutsideStorageException("outside", null));
+
+        assertEquals(ScreeningOutcome.WRITTEN, worker.processScreening(s, true));
+
+        assertEquals(List.of(failVerdict()), encounters.patchBodies);
+        verifyNoInteractions(model, errors);
+        verify(alerts).screeningNeedsAPerson(eq("s1"), eq(TanuhAlerts.Reason.PHOTO_OUTSIDE_STORAGE), anyString());
+    }
+
+    @Test
+    public void aSentScreeningWithAPhotoAvniRefusesKeepsItsYes() throws Exception {
+        GeneralEncounter s = screeningWithPhotos("s1", "No");
+        s.addObservation("OCSHR Call Made", "Yes");
+        dqsBuildsTheRecord();
+        when(downloader.sign(anyString())).thenThrow(new PhotoOutsideStorageException("outside", null));
+
+        assertEquals(ScreeningOutcome.WRITTEN, worker.processScreening(s, true));
+
+        assertEquals(List.of(verdict("QC Fail")), encounters.patchBodies);
+        verifyNoInteractions(model, errors);
+    }
+
+    // A hand-over that skips the quality check (cut short, or retried) signs every photo before the send.
+    @Test
+    public void aPhotoAvniRefusesOnAHandOverIsMarkedNotSent() throws Exception {
+        GeneralEncounter s = handOverCutShort("s1", JOB_USER);
+        when(downloader.sign(anyString())).thenThrow(new PhotoOutsideStorageException("outside", null));
+
+        assertEquals(ScreeningOutcome.WRITTEN, worker.processScreening(s, true));
+
+        assertEquals(List.of(callMade("No")), encounters.patchBodies);
+        verifyNoInteractions(model, errors);
+        verify(alerts).screeningNeedsAPerson(eq("s1"), eq(TanuhAlerts.Reason.PHOTO_OUTSIDE_STORAGE), contains("photo 1"));
+    }
+
+    // Any other failure to sign is not a verdict on the photo: the screening waits and is sent again.
+    @Test
+    public void aPhotoAvniCannotSignForAnotherReasonWaits() throws Exception {
         GeneralEncounter s = screeningWithPhotos("s1", "No", "No");
         dqsSays(passed());
-        when(downloader.sign(contains("s1-1"))).thenThrow(new IllegalStateException("403 Forbidden"));
+        when(downloader.sign(contains("s1-1"))).thenThrow(HttpServerErrorException.create(HttpStatus.INTERNAL_SERVER_ERROR, "Internal Server Error", HttpHeaders.EMPTY, null, null));
 
         assertEquals(ScreeningOutcome.FAILED, worker.processScreening(s, true));
 
         verify(model, never()).submit(anyString(), anyList());
-        verify(errors).errorOccurred(eq("s1"), eq("HighRiskModelCallFailed"), contains("would not sign photo 2"));
+        verify(errors).errorOccurred(eq("s1"), eq("HighRiskModelCallFailed"), contains("could not sign photo 2"));
         assertEquals(List.of(verdict("QC Pass")), encounters.patchBodies);
+        verifyNoInteractions(alerts);
     }
 
-    // Tanuh's service takes 1 to 13 photos per case (its guide, section 8). A screening with more is not sent and is not
-    // marked No: it waits, so it is sent once the limit is settled, instead of being refused for good.
+    // Tanuh's service takes 1 to 13 photos per case (its guide, section 8). A screening with more sends its first 13, in
+    // the form's order, rather than earning a refusal and a No for good (Adam, 17 Nov 2026).
     @Test
-    public void moreThanThirteenPhotosWaitInsteadOfBeingRefused() throws Exception {
+    public void moreThanThirteenPhotosSendTheFirstThirteen() throws Exception {
         String[] fourteen = new String[14];
         java.util.Arrays.fill(fourteen, "No");
         GeneralEncounter s = screeningWithPhotos("s1", fourteen);
         dqsSays(passed());
 
-        assertEquals(ScreeningOutcome.FAILED, worker.processScreening(s, true));
+        assertEquals(ScreeningOutcome.WRITTEN, worker.processScreening(s, true));
 
-        verify(model, never()).submit(anyString(), anyList());
-        verify(errors).errorOccurred(eq("s1"), eq("HighRiskModelCallFailed"), contains("14 photos"));
-        assertEquals(List.of(verdict("QC Pass")), encounters.patchBodies);
-        assertNull(encounters.screenings.get("s1").getObservation("OCSHR Call Made"));
+        List<String> firstThirteen = new ArrayList<>();
+        for (int i = 0; i < 13; i++) firstThirteen.add("s3://prod-user-media/tanuh_uat/s1-" + i + ".jpg");
+        verify(model).submit("s1", firstThirteen);
+        assertEquals(List.of(verdict("QC Pass"), callMade("Yes")), encounters.patchBodies);
+        verifyNoInteractions(errors);
     }
 
     @Test

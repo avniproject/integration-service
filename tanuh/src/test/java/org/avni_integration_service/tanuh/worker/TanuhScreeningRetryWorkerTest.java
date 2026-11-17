@@ -20,6 +20,7 @@ import org.avni_integration_service.tanuh.dqs.DqsException;
 import org.avni_integration_service.tanuh.model.HighRiskModelClient;
 import org.avni_integration_service.tanuh.model.HighRiskModelException;
 import org.avni_integration_service.tanuh.model.Submission;
+import org.avni_integration_service.tanuh.service.TanuhAlerts;
 import org.avni_integration_service.tanuh.service.TanuhErrorService;
 import org.avni_integration_service.tanuh.service.TanuhPhotoDownloader;
 import org.junit.jupiter.api.AfterEach;
@@ -60,6 +61,8 @@ public class TanuhScreeningRetryWorkerTest {
     @Mock
     private TanuhErrorService errors;
     @Mock
+    private TanuhAlerts alerts;
+    @Mock
     private ErrorRecordRepository errorRecords;
     @Mock
     private IntegratingEntityStatusRepository statuses;
@@ -83,7 +86,7 @@ public class TanuhScreeningRetryWorkerTest {
         context.set(new TanuhConfig(new IntegrationSystemConfigCollection(List.of(user, highRiskUser)), system));
         context.setConcepts(TanuhConceptsFixture.defaults());
         encounters = new FakeAvniEncounterRepository(JOB_USER, Date.from(Instant.parse("2026-10-07T00:00:00Z")));
-        OralScreeningWorker worker = new OralScreeningWorker(encounters, subjects, dqs, downloader, model, errors, errorRecords,
+        OralScreeningWorker worker = new OralScreeningWorker(encounters, subjects, dqs, downloader, model, errors, alerts, errorRecords,
                 statuses, context, ProcessScreeningTest.CLOCK, 10);
         retryWorker = new TanuhScreeningRetryWorker(errorRecords, encounters, worker, errors, context);
         lenient().when(subjects.getSubjectOrThrow(anyString())).thenReturn(patient(false));
@@ -460,6 +463,7 @@ public class TanuhScreeningRetryWorkerTest {
 
         verify(errors).errorOccurred(eq("s1"), eq("HighRiskModelCaseConflict"), contains("CASE_EXISTS_WITH_DIFFERENT_MANIFEST"));
         verify(errorRecords, never()).delete(any(ErrorRecord.class));
+        verify(alerts).screeningNeedsAPerson(eq("s1"), eq(TanuhAlerts.Reason.HELD_WITH_OTHER_PHOTOS), anyString());
         verifyNoInteractions(dqs);
         assertTrue(encounters.patchedUuids.isEmpty());
     }
@@ -476,6 +480,7 @@ public class TanuhScreeningRetryWorkerTest {
 
         verify(errors).errorOccurred(eq("s1"), eq("HighRiskModelCaseConflict"), contains("CASE_EXISTS_WITH_DIFFERENT_MANIFEST"));
         verify(errorRecords, never()).delete(any(ErrorRecord.class));
+        verify(alerts).screeningNeedsAPerson(eq("s1"), eq(TanuhAlerts.Reason.HELD_WITH_OTHER_PHOTOS), anyString());
         assertEquals(List.of("s1"), encounters.patchedUuids, "the verdict stands; nothing else is written");
     }
 

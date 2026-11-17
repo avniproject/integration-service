@@ -18,6 +18,7 @@ import org.avni_integration_service.tanuh.dqs.DqsClient;
 import org.avni_integration_service.tanuh.dqs.DqsResult;
 import org.avni_integration_service.tanuh.model.HighRiskModelClient;
 import org.avni_integration_service.tanuh.model.Submission;
+import org.avni_integration_service.tanuh.service.TanuhAlerts;
 import org.avni_integration_service.tanuh.service.TanuhErrorService;
 import org.avni_integration_service.tanuh.service.TanuhPhotoDownloader;
 import org.avni_integration_service.util.FormatAndParseUtil;
@@ -58,6 +59,8 @@ public class ProcessNewTest {
     private HighRiskModelClient model;
     @Mock
     private TanuhErrorService errors;
+    @Mock
+    private TanuhAlerts alerts;
     @Mock
     private ErrorRecordRepository errorRecords;
     @Mock
@@ -104,7 +107,7 @@ public class ProcessNewTest {
             if (during != null) during.run();
             return answer;
         });
-        worker = new OralScreeningWorker(encounters, subjects, dqs, downloader, model, errors, errorRecords, statuses, context, new TickingClock(), 10);
+        worker = new OralScreeningWorker(encounters, subjects, dqs, downloader, model, errors, alerts, errorRecords, statuses, context, new TickingClock(), 10);
     }
 
     // A millisecond later on every read, as a real clock would be between writes.

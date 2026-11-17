@@ -22,6 +22,8 @@ import org.avni_integration_service.tanuh.model.HighRiskModelClient;
 import org.avni_integration_service.tanuh.model.HighRiskModelException;
 import org.avni_integration_service.tanuh.model.S3Uris;
 import org.avni_integration_service.tanuh.model.Submission;
+import org.avni_integration_service.tanuh.service.PhotoOutsideStorageException;
+import org.avni_integration_service.tanuh.service.TanuhAlerts;
 import org.avni_integration_service.tanuh.service.TanuhErrorService;
 import org.avni_integration_service.tanuh.service.TanuhPhotoDownloader;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +37,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.OptionalInt;
 
 // Each new or edited Oral Screening goes to the data quality service, and the QC verdict is written back to it. A
 // screening that passed QC is then handed to Tanuh's high-risk model service, which works on its own time and writes its
@@ -55,6 +58,7 @@ public class OralScreeningWorker {
     private final TanuhPhotoDownloader tanuhPhotoDownloader;
     private final HighRiskModelClient highRiskModelClient;
     private final TanuhErrorService tanuhErrorService;
+    private final TanuhAlerts tanuhAlerts;
     private final ErrorRecordRepository errorRecordRepository;
     private final TanuhContextProvider tanuhContextProvider;
     private final Clock clock;
@@ -64,18 +68,18 @@ public class OralScreeningWorker {
     public OralScreeningWorker(AvniEncounterRepository avniEncounterRepository, AvniSubjectRepository avniSubjectRepository,
                                DqsClient dqsClient, TanuhPhotoDownloader tanuhPhotoDownloader,
                                HighRiskModelClient highRiskModelClient, TanuhErrorService tanuhErrorService,
-                               ErrorRecordRepository errorRecordRepository,
+                               TanuhAlerts tanuhAlerts, ErrorRecordRepository errorRecordRepository,
                                IntegratingEntityStatusRepository integratingEntityStatusRepository,
                                TanuhContextProvider tanuhContextProvider) {
         this(avniEncounterRepository, avniSubjectRepository, dqsClient, tanuhPhotoDownloader, highRiskModelClient,
-                tanuhErrorService, errorRecordRepository, integratingEntityStatusRepository, tanuhContextProvider,
+                tanuhErrorService, tanuhAlerts, errorRecordRepository, integratingEntityStatusRepository, tanuhContextProvider,
                 Clock.systemUTC(), PAGE_SIZE);
     }
 
     OralScreeningWorker(AvniEncounterRepository avniEncounterRepository, AvniSubjectRepository avniSubjectRepository,
                         DqsClient dqsClient, TanuhPhotoDownloader tanuhPhotoDownloader,
                         HighRiskModelClient highRiskModelClient, TanuhErrorService tanuhErrorService,
-                        ErrorRecordRepository errorRecordRepository,
+                        TanuhAlerts tanuhAlerts, ErrorRecordRepository errorRecordRepository,
                         IntegratingEntityStatusRepository integratingEntityStatusRepository,
                         TanuhContextProvider tanuhContextProvider, Clock clock, int pageSize) {
         this.avniEncounterRepository = avniEncounterRepository;
@@ -84,6 +88,7 @@ public class OralScreeningWorker {
         this.tanuhPhotoDownloader = tanuhPhotoDownloader;
         this.highRiskModelClient = highRiskModelClient;
         this.tanuhErrorService = tanuhErrorService;
+        this.tanuhAlerts = tanuhAlerts;
         this.errorRecordRepository = errorRecordRepository;
         this.tanuhContextProvider = tanuhContextProvider;
         this.clock = clock;
@@ -140,10 +145,20 @@ public class OralScreeningWorker {
             // and, in the screening's, links to the photos. Those links last two minutes, so the client signs them just
             // before each post.
             dqsClient.submit(DqsClient.REGISTRATION, RegistrationRecord.from(s, patient, concepts));
-            DqsResult quality = dqsClient.submit(DqsClient.ORAL_SCREENING, () -> OralScreeningRecord.from(s, patient, concepts, tanuhPhotoDownloader::sign));
-            DqsResult.QcVerdict qc = quality.verdict(config.getQcFailRules());
-            logVerdict(uuid, quality, qc);
-            boolean passed = qc.passed();
+            // A photo Avni will not sign (a 403) is outside the organisation's media storage. The service is not asked,
+            // and the screening fails QC and is marked not sent in one write (Adam, 17 Nov 2026).
+            boolean photoOutsideStorage = false;
+            boolean passed;
+            try {
+                DqsResult quality = dqsClient.submit(DqsClient.ORAL_SCREENING, () -> OralScreeningRecord.from(s, patient, concepts, tanuhPhotoDownloader::sign));
+                DqsResult.QcVerdict qc = quality.verdict(config.getQcFailRules());
+                logVerdict(uuid, quality, qc);
+                passed = qc.passed();
+            } catch (PhotoOutsideStorageException e) {
+                logger.warn(String.format("Screening %s has a photo Avni will not sign, outside the organisation's media storage: %s and not sent to the high-risk model", uuid, concepts.name(Concept.QC_FAIL)));
+                photoOutsideStorage = true;
+                passed = false;
+            }
             // Checked right before the write, so an edit synced while the service answered is not written over.
             if (changedSince(uuid, listedAt)) return changed(uuid);
             // The check time changes on every write. The server ignores a write that changes nothing, which would
@@ -157,7 +172,10 @@ public class OralScreeningWorker {
             if (notYetSent && !send) values.put(concepts.name(Concept.OCSHR_CALL_MADE), concepts.name(Concept.NO));
             avniEncounterRepository.patch(uuid, values);
             logger.info(String.format("Screening %s: %s written", uuid, passed ? concepts.name(Concept.QC_PASS) : concepts.name(Concept.QC_FAIL)));
-            if (passed && notYetSent && !send)
+            if (photoOutsideStorage)
+                tanuhAlerts.screeningNeedsAPerson(uuid, TanuhAlerts.Reason.PHOTO_OUTSIDE_STORAGE,
+                        String.format("Avni answered 403 when asked to sign one of its photos for the data quality service, so it is marked %s", concepts.name(Concept.QC_FAIL)));
+            else if (passed && notYetSent && !send)
                 logger.warn(String.format("Screening %s passed QC but has no photo, or a photo outside S3: marked not sent to the high-risk model", uuid));
         } catch (DqsException e) {
             return failed(uuid, TanuhErrorService.DATA_QUALITY_CALL_FAILED, e);
@@ -183,7 +201,8 @@ public class OralScreeningWorker {
 
     // The hand-over of a screening just checked, of one whose hand-over was cut short, and of one whose hand-over is
     // retried. Tanuh's answer goes on the screening as OCSHR Call Made: Yes when the service took it, No when it refused
-    // it. A screening the service holds with other photos is parked for a person, and nothing is written.
+    // it, and No without a send when Avni will not sign one of its photos. A screening the service holds with other photos
+    // is parked for a person, and nothing is written. A refusal, a parking and a photo Avni will not sign are reported.
     private ScreeningOutcome handOver(GeneralEncounter s) {
         String uuid = s.getUuid();
         Submission submission;
@@ -196,10 +215,21 @@ public class OralScreeningWorker {
                 return writeCallMade(uuid, Concept.NO);
             }
             List<String> uris = imageUris.get();
-            // Sending more would earn a refusal and a No for good, so the screening waits until the limit is settled.
-            if (uris.size() > MAX_IMAGES)
-                throw new HighRiskModelException(String.format("%d photos, and Tanuh's service takes at most %d per case, so it waits until that is settled", uris.size(), MAX_IMAGES));
-            confirmAvniSigns(inputs.getPhotoUrls());
+            // Sending more would earn a refusal and a No for good, so the first ones in the form's order go (Adam, 17 Nov
+            // 2026). A case cannot change once sent: should Tanuh raise the limit, these keep the photos they were sent with.
+            if (uris.size() > MAX_IMAGES) {
+                logger.warn(String.format("Screening %s has %d photos and Tanuh's service takes at most %d per case: the first %d are sent", uuid, uris.size(), MAX_IMAGES, MAX_IMAGES));
+                uris = uris.subList(0, MAX_IMAGES);
+            }
+            OptionalInt refusedPhoto = photoAvniRefuses(inputs.getPhotoUrls());
+            if (refusedPhoto.isPresent()) {
+                logger.warn(String.format("Screening %s: Avni will not sign photo %d, which is outside the organisation's media storage: marked not sent to the high-risk model", uuid, refusedPhoto.getAsInt()));
+                ScreeningOutcome outcome = writeCallMade(uuid, Concept.NO);
+                if (outcome == ScreeningOutcome.WRITTEN)
+                    tanuhAlerts.screeningNeedsAPerson(uuid, TanuhAlerts.Reason.PHOTO_OUTSIDE_STORAGE,
+                            String.format("Avni answered 403 when asked to sign photo %d before the hand-over", refusedPhoto.getAsInt()));
+                return outcome;
+            }
             submission = highRiskModelClient.submit(uuid, uris);
             switch (submission.outcome()) {
                 case ACCEPTED -> {
@@ -207,7 +237,10 @@ public class OralScreeningWorker {
                 }
                 case REFUSED -> {
                     logger.warn(String.format("Screening %s refused by the high-risk model service, so it is marked not sent: %s", uuid, submission.detail()));
-                    return writeCallMade(uuid, Concept.NO);
+                    ScreeningOutcome outcome = writeCallMade(uuid, Concept.NO);
+                    if (outcome == ScreeningOutcome.WRITTEN)
+                        tanuhAlerts.screeningNeedsAPerson(uuid, TanuhAlerts.Reason.REFUSED, submission.detail());
+                    return outcome;
                 }
                 case CONFLICT -> {
                 }
@@ -222,16 +255,21 @@ public class OralScreeningWorker {
         return parked(uuid, submission.detail());
     }
 
-    // Avni signs only an address in the organisation's own media folder, so another organisation's photo written into
-    // this screening's answer is never sent. Nothing is downloaded: the signed link is not used.
-    private void confirmAvniSigns(List<String> photoUrls) throws HighRiskModelException {
+    // Avni signs only an address in the organisation's own media storage and answers 403 for any other, so another
+    // organisation's photo written into this screening's answer is never sent. This gives the first photo it refuses, if
+    // any. Any other failure to sign is no verdict on the photo, so it throws and the screening waits. The signed link is
+    // not used: nothing is downloaded.
+    private OptionalInt photoAvniRefuses(List<String> photoUrls) throws HighRiskModelException {
         for (int i = 0; i < photoUrls.size(); i++) {
             try {
                 tanuhPhotoDownloader.sign(photoUrls.get(i));
+            } catch (PhotoOutsideStorageException e) {
+                return OptionalInt.of(i + 1);
             } catch (RuntimeException e) {
-                throw new HighRiskModelException(String.format("Avni would not sign photo %d, so the screening is not sent; only the organisation's own photos go to Tanuh: %s", i + 1, e.getMessage()), e);
+                throw new HighRiskModelException(String.format("Avni could not sign photo %d, so the screening waits: %s", i + 1, e.getMessage()), e);
             }
         }
+        return OptionalInt.empty();
     }
 
     // Written only while the job or Tanuh's service changed the screening last: anyone else's edit since is left as it
@@ -258,6 +296,7 @@ public class OralScreeningWorker {
         logger.warn(String.format("Screening %s is held by the high-risk model service with other photos: parked for a person: %s", uuid, detail));
         tanuhErrorService.errorOccurred(uuid, TanuhErrorService.MODEL_CASE_CONFLICT,
                 String.format("The high-risk model service holds this screening with other photos: %s", detail));
+        tanuhAlerts.screeningNeedsAPerson(uuid, TanuhAlerts.Reason.HELD_WITH_OTHER_PHOTOS, detail);
         return ScreeningOutcome.PARKED;
     }
 

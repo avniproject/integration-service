@@ -2,6 +2,7 @@ package org.avni_integration_service.tanuh.model;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.MissingNode;
+import org.apache.http.impl.client.HttpClients;
 import org.apache.log4j.Logger;
 import org.avni_integration_service.tanuh.config.TanuhConfig;
 import org.avni_integration_service.tanuh.config.TanuhContextProvider;
@@ -13,6 +14,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestClientException;
@@ -43,10 +45,14 @@ public class OcshrClient implements HighRiskModelClient {
     private final IdTokenSource idTokenSource;
     private final RestTemplate restTemplate;
 
+    // The same HTTP library the service uses elsewhere, with redirects off: it follows a 303 for any method, copying
+    // every header, so the ID token would go wherever the answer pointed, http included, and that address's answer would
+    // be taken as Tanuh's. A redirect is an answer the job does not know, so the screening waits.
     @Autowired
     public OcshrClient(TanuhContextProvider tanuhContextProvider, IdTokenSource idTokenSource) {
-        this(tanuhContextProvider, idTokenSource,
-                new RestTemplateBuilder().setConnectTimeout(CONNECT_TIMEOUT).setReadTimeout(READ_TIMEOUT).build());
+        this(tanuhContextProvider, idTokenSource, new RestTemplateBuilder()
+                .requestFactory(() -> new HttpComponentsClientHttpRequestFactory(HttpClients.custom().useSystemProperties().disableRedirectHandling().build()))
+                .setConnectTimeout(CONNECT_TIMEOUT).setReadTimeout(READ_TIMEOUT).build());
     }
 
     OcshrClient(TanuhContextProvider tanuhContextProvider, IdTokenSource idTokenSource, RestTemplate restTemplate) {

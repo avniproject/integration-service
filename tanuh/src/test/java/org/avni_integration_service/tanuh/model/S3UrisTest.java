@@ -57,4 +57,25 @@ public class S3UrisTest {
         assertEquals(Optional.of(List.of(A, "s3://prod-user-media/tanuh_uat/b2.jpg")), S3Uris.all(List.of(a, b, a)));
         assertEquals(Optional.of(List.of(A)), S3Uris.all(List.of(a, a + "?X-Amz-Signature=x")));
     }
+
+    // Avni's signing check looks only at a key's first folder, so "tanuh_uat/../other_org/x.jpg" passes it while naming
+    // another organisation's photo. A key that walks out of its folder, or has an empty step, has no S3 location here.
+    @Test
+    public void aKeyThatStepsOutOfItsFolderHasNone() {
+        for (String url : List.of(
+                "https://s3.ap-south-1.amazonaws.com/prod-user-media/tanuh_uat/../other_org/a1.jpg",
+                "https://s3.ap-south-1.amazonaws.com/prod-user-media/tanuh_uat%2F..%2Fother_org%2Fa1.jpg",
+                "https://prod-user-media.s3.ap-south-1.amazonaws.com/tanuh_uat/../other_org/a1.jpg",
+                "https://s3.ap-south-1.amazonaws.com/prod-user-media/tanuh_uat/./a1.jpg",
+                "https://s3.ap-south-1.amazonaws.com/prod-user-media/tanuh_uat//a1.jpg",
+                "https://s3.ap-south-1.amazonaws.com/prod-user-media/../tanuh_uat/a1.jpg")) {
+            assertEquals(Optional.empty(), S3Uris.one(url), url);
+        }
+    }
+
+    @Test
+    public void aDotInsideANameIsKept() {
+        assertEquals(Optional.of("s3://prod-user-media/tanuh_uat/a..1.jpg"),
+                S3Uris.one("https://s3.ap-south-1.amazonaws.com/prod-user-media/tanuh_uat/a..1.jpg"));
+    }
 }
