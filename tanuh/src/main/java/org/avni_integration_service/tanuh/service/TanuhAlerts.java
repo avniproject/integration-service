@@ -5,13 +5,13 @@ import com.bugsnag.Severity;
 import org.avni_integration_service.tanuh.config.TanuhContextProvider;
 import org.springframework.stereotype.Component;
 
-// A screening the job cannot settle on its own is reported to the error-reporting service (Bugsnag), because neither
-// health check turns red for it. Each reason is its own group there, named after the organisation's integration system.
+// A screening that needs a person is reported to the error-reporting service (Bugsnag), because neither health check
+// turns red for it. Each reason is its own group there, named after the organisation's integration system.
 @Component
 public class TanuhAlerts {
     public enum Reason {
-        HELD_WITH_OTHER_PHOTOS("is held by Tanuh's model service with other photos and is parked for a person to settle with Tanuh"),
-        REFUSED("was refused by Tanuh's model service and is marked not sent for good"),
+        HELD_WITH_OTHER_PHOTOS("is held by Tanuh's model service with other photos, which are the ones it scores; the call was made, so it is marked OCSHR Call Made Yes and not sent again"),
+        REFUSED("was refused by Tanuh's model service, so it will not be scored; the call was made, so it is marked OCSHR Call Made Yes and not sent again"),
         PHOTO_OUTSIDE_STORAGE("has a photo Avni will not sign, outside the organisation's media storage, so it is not sent to Tanuh's model service");
 
         private final String description;

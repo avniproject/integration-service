@@ -449,39 +449,42 @@ public class TanuhScreeningRetryWorkerTest {
         verify(errorRecords).delete(record);
     }
 
-    // Tanuh holds the case with other photos. The record stays, now ending in a type the retry job skips, for a person
-    // to settle with Tanuh, and the run is not failed for it.
+    // Tanuh holds the case with other photos. The call was made, so the retry marks it Yes, reports it and settles its
+    // record: nothing waits for a person in the integration's error records.
     @Test
-    public void aHandOverRetryThatMeetsAConflictIsParkedNotFailed() throws Exception {
+    public void aHandOverRetryThatMeetsAConflictIsMarkedSentAndSettled() throws Exception {
         GeneralEncounter s = screening("s1", "No");
         s.addObservation("QC status", "QC Pass");
         encounters.touch(s, JOB_USER);
         when(model.submit(anyString(), anyList())).thenReturn(new Submission(Submission.Outcome.CONFLICT, CONFLICT));
-        waitingAre(waiting("s1", ErrorTypeFollowUpStep.Process));
+        ErrorRecord record = waiting("s1", ErrorTypeFollowUpStep.Process);
+        waitingAre(record);
 
         assertTrue(retryWorker.processWaiting());
 
-        verify(errors).errorOccurred(eq("s1"), eq("HighRiskModelCaseConflict"), contains("CASE_EXISTS_WITH_DIFFERENT_MANIFEST"));
-        verify(errorRecords, never()).delete(any(ErrorRecord.class));
-        verify(alerts).screeningNeedsAPerson(eq("s1"), eq(TanuhAlerts.Reason.HELD_WITH_OTHER_PHOTOS), anyString());
+        verify(errorRecords).delete(record);
+        verifyNoInteractions(errors);
+        verify(alerts).screeningNeedsAPerson(eq("s1"), eq(TanuhAlerts.Reason.HELD_WITH_OTHER_PHOTOS), contains("CASE_EXISTS_WITH_DIFFERENT_MANIFEST"));
         verifyNoInteractions(dqs);
-        assertTrue(encounters.patchedUuids.isEmpty());
+        assertEquals("Yes", encounters.screenings.get("s1").getObservation("OCSHR Call Made"));
     }
 
     // The same conflict met by a retry that checks the screening in full.
     @Test
-    public void aCheckedRetryThatMeetsAConflictIsParkedNotFailed() throws Exception {
+    public void aCheckedRetryThatMeetsAConflictIsMarkedSentAndSettled() throws Exception {
         screening("s1", "No");
         dqsPasses();
         when(model.submit(anyString(), anyList())).thenReturn(new Submission(Submission.Outcome.CONFLICT, CONFLICT));
-        waitingAre(waiting("s1", ErrorTypeFollowUpStep.Process, TanuhErrorService.DATA_QUALITY_CALL_FAILED));
+        ErrorRecord record = waiting("s1", ErrorTypeFollowUpStep.Process, TanuhErrorService.DATA_QUALITY_CALL_FAILED);
+        waitingAre(record);
 
         assertTrue(retryWorker.processWaiting());
 
-        verify(errors).errorOccurred(eq("s1"), eq("HighRiskModelCaseConflict"), contains("CASE_EXISTS_WITH_DIFFERENT_MANIFEST"));
-        verify(errorRecords, never()).delete(any(ErrorRecord.class));
-        verify(alerts).screeningNeedsAPerson(eq("s1"), eq(TanuhAlerts.Reason.HELD_WITH_OTHER_PHOTOS), anyString());
-        assertEquals(List.of("s1"), encounters.patchedUuids, "the verdict stands; nothing else is written");
+        verify(errorRecords).delete(record);
+        verifyNoInteractions(errors);
+        verify(alerts).screeningNeedsAPerson(eq("s1"), eq(TanuhAlerts.Reason.HELD_WITH_OTHER_PHOTOS), contains("CASE_EXISTS_WITH_DIFFERENT_MANIFEST"));
+        assertEquals(List.of("s1", "s1"), encounters.patchedUuids, "the verdict, then OCSHR Call Made");
+        assertEquals("Yes", encounters.screenings.get("s1").getObservation("OCSHR Call Made"));
     }
 
     // The send timed out although Tanuh stored the case and wrote its result. The screening, last changed by Tanuh's

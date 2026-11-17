@@ -520,8 +520,10 @@ public class ProcessScreeningTest {
         assertEquals("Yes", encounters.screenings.get("s1").getObservation("OCSHR Call Made"));
     }
 
+    // OCSHR Call Made says whether the call was made (Adam, 17 Nov 2026). Tanuh refused this one, so it will not be
+    // scored, but the call was made: it is marked Yes, never sent again, and reported so a person can take it to Tanuh.
     @Test
-    public void aScreeningTheServiceRefusesIsMarkedNotSent() throws Exception {
+    public void aScreeningTheServiceRefusesIsMarkedSentAndReported() throws Exception {
         GeneralEncounter s = screeningWithPhotos("s1", "No");
         dqsSays(passed());
         when(model.submit(anyString(), anyList()))
@@ -529,40 +531,27 @@ public class ProcessScreeningTest {
 
         assertEquals(ScreeningOutcome.WRITTEN, worker.processScreening(s, true));
 
-        assertEquals(List.of(verdict("QC Pass"), callMade("No")), encounters.patchBodies);
+        assertEquals(List.of(verdict("QC Pass"), callMade("Yes")), encounters.patchBodies);
+        assertEquals(Optional.of(Concept.YES), recordedAnswer("s1"));
         verifyNoInteractions(errors);
         verify(alerts).screeningNeedsAPerson(eq("s1"), eq(TanuhAlerts.Reason.REFUSED), contains("INVALID_MANIFEST"));
     }
 
-    // Tanuh's service holds this case with other photos. Nothing is written: a person settles it with Tanuh.
+    // Tanuh's service already holds this case with other photos, which are the ones it scores. The call was made, so it
+    // is marked Yes and reported, and nothing waits for a person in an error record.
     @Test
-    public void aScreeningTheServiceHoldsWithOtherPhotosIsParked() throws Exception {
+    public void aScreeningTheServiceHoldsWithOtherPhotosIsMarkedSentAndReported() throws Exception {
         GeneralEncounter s = screeningWithPhotos("s1", "No");
         dqsSays(passed());
         String detail = "{\"error\":\"CASE_EXISTS_WITH_DIFFERENT_MANIFEST\",\"case_id\":\"s1\"}";
         when(model.submit(anyString(), anyList())).thenReturn(new Submission(Submission.Outcome.CONFLICT, detail));
 
-        assertEquals(ScreeningOutcome.PARKED, worker.processScreening(s, true));
+        assertEquals(ScreeningOutcome.WRITTEN, worker.processScreening(s, true));
 
-        verify(errors).errorOccurred(eq("s1"), eq("HighRiskModelCaseConflict"), contains(detail));
-        verifyNoMoreInteractions(errors);
-        assertEquals(List.of(verdict("QC Pass")), encounters.patchBodies);
+        assertEquals(List.of(verdict("QC Pass"), callMade("Yes")), encounters.patchBodies);
+        assertEquals(Optional.of(Concept.YES), recordedAnswer("s1"));
+        verifyNoInteractions(errors);
         verify(alerts).screeningNeedsAPerson(eq("s1"), eq(TanuhAlerts.Reason.HELD_WITH_OTHER_PHOTOS), contains("CASE_EXISTS_WITH_DIFFERENT_MANIFEST"));
-    }
-
-    // Without its error type the conflict cannot be parked, and that is the setup script's fault, not the model call's.
-    @Test
-    public void aConflictWithNoErrorTypeToParkItStopsTheRun() throws Exception {
-        GeneralEncounter s = screeningWithPhotos("s1", "No");
-        dqsSays(passed());
-        when(model.submit(anyString(), anyList())).thenReturn(new Submission(Submission.Outcome.CONFLICT, "{}"));
-        doThrow(new IllegalStateException("No error type HighRiskModelCaseConflict for integration system 15. Run the organisation's setup script."))
-                .when(errors).errorOccurred(eq("s1"), eq("HighRiskModelCaseConflict"), anyString());
-
-        IllegalStateException e = assertThrows(IllegalStateException.class, () -> worker.processScreening(s, true));
-
-        assertTrue(e.getMessage().contains("setup script"), e.getMessage());
-        verify(errors, never()).errorOccurred(eq("s1"), eq("HighRiskModelCallFailed"), anyString());
     }
 
     @Test
@@ -732,9 +721,9 @@ public class ProcessScreeningTest {
         verify(model).submit(eq("s1"), argThat(uris -> uris.size() == 13));
     }
 
-    // An answer the job does not know is a failed call, retried, never a screening parked for a person.
+    // An answer the job does not know is a failed call: OCSHR Call Made stays empty and the same request goes again.
     @Test
-    public void anAnswerTheJobDoesNotKnowIsAFailureNotAParking() throws Exception {
+    public void anAnswerTheJobDoesNotKnowIsAFailedCallThatLeavesCallMadeEmpty() throws Exception {
         GeneralEncounter s = screeningWithPhotos("s1", "No");
         dqsSays(passed());
         when(model.submit(anyString(), anyList())).thenReturn(new Submission(null, "{}"));
@@ -742,7 +731,8 @@ public class ProcessScreeningTest {
         assertEquals(ScreeningOutcome.FAILED, worker.processScreening(s, true));
 
         verify(errors).errorOccurred(eq("s1"), eq("HighRiskModelCallFailed"), anyString());
-        verify(errors, never()).errorOccurred(eq("s1"), eq("HighRiskModelCaseConflict"), anyString());
+        assertEquals(List.of(verdict("QC Pass")), encounters.patchBodies);
+        assertEquals(Optional.empty(), recordedAnswer("s1"));
     }
 
     // A worker's edit synced after the listing: the listed copy is not sent, and the newer version is read next.
@@ -883,9 +873,9 @@ public class ProcessScreeningTest {
         return sent.find(uuid).flatMap(SentScreenings.SentScreening::callMade);
     }
 
-    // A refusal is reported when the job records it, even if a worker's edit keeps its No off the screening for now.
+    // A refusal is reported when the job records its Yes, even if a worker's edit keeps the Yes off the screening for now.
     @Test
-    public void aRefusalIsReportedEvenWhenItsNoIsNotWrittenAtOnce() throws Exception {
+    public void aRefusalIsReportedEvenWhenItsYesIsNotWrittenAtOnce() throws Exception {
         GeneralEncounter s = screeningWithPhotos("s1", "No");
         dqsSays(passed());
         when(model.submit(anyString(), anyList())).thenAnswer(invocation -> {
@@ -895,7 +885,7 @@ public class ProcessScreeningTest {
 
         assertEquals(ScreeningOutcome.CHANGED, worker.processScreening(s, true));
 
-        assertEquals(Optional.of(Concept.NO), recordedAnswer("s1"));
+        assertEquals(Optional.of(Concept.YES), recordedAnswer("s1"));
         verify(alerts).screeningNeedsAPerson(eq("s1"), eq(TanuhAlerts.Reason.REFUSED), contains("INVALID_MANIFEST"));
     }
 
@@ -934,20 +924,22 @@ public class ProcessScreeningTest {
         assertEquals("Yes", encounters.screenings.get("s1").getObservation("OCSHR Call Made"));
     }
 
-    // A parked screening is settled by a person, who writes Yes on it once Tanuh confirms the copy it holds (runbook,
-    // section 8). That Yes settles the job's record, so the screening is not sent again and parked again.
+    // A send that failed waits for its retry with no answer in the job's record. A person who settles it with Tanuh
+    // writes Yes on the screening (runbook, section 8); that Yes settles the record, so the screening is not sent again.
     @Test
-    public void aPersonsAnswerOnAParkedScreeningSettlesItsRecordWithoutASend() throws Exception {
+    public void aPersonsAnswerOnAScreeningWhoseSendFailedSettlesItsRecordWithoutASend() throws Exception {
         GeneralEncounter s = screeningWithPhotos("s1", "No");
         dqsSays(passed());
-        when(model.submit(anyString(), anyList())).thenReturn(new Submission(Submission.Outcome.CONFLICT, "{\"error\":\"CASE_EXISTS_WITH_DIFFERENT_MANIFEST\"}"));
-        assertEquals(ScreeningOutcome.PARKED, worker.processScreening(s, true));
+        when(model.submit(anyString(), anyList())).thenThrow(new HighRiskModelException("Model service at tanuh did not answer: Read timed out"));
+        assertEquals(ScreeningOutcome.FAILED, worker.processScreening(s, true));
+        assertEquals(Optional.empty(), recordedAnswer("s1"));
         GeneralEncounter settled = encounters.screenings.get("s1");
         settled.addObservation("OCSHR Call Made", "Yes");
         encounters.workerEdits("s1");
         reset(model);
 
-        assertEquals(ScreeningOutcome.WRITTEN, worker.processScreening(settled, true));
+        // The retry job's path: the screening's error record is open.
+        assertEquals(ScreeningOutcome.WRITTEN, worker.processScreening(settled, false));
 
         verifyNoInteractions(model);
         assertEquals(Optional.of(Concept.YES), recordedAnswer("s1"));

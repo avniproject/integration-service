@@ -48,7 +48,7 @@ public class TanuhAlertsTest {
         ArgumentCaptor<Callback> callback = ArgumentCaptor.forClass(Callback.class);
         verify(bugsnag).notify(error.capture(), eq(Severity.WARNING), callback.capture());
         assertTrue(error.getValue() instanceof TanuhAlerts.ScreeningNeedsAPersonException, error.getValue().getClass().getName());
-        assertEquals("Screening s1 was refused by Tanuh's model service and is marked not sent for good: {\"error\":\"INVALID_MANIFEST\"}",
+        assertEquals("Screening s1 was refused by Tanuh's model service, so it will not be scored; the call was made, so it is marked OCSHR Call Made Yes and not sent again: {\"error\":\"INVALID_MANIFEST\"}",
                 error.getValue().getMessage());
 
         Report report = mock(Report.class);
@@ -61,8 +61,11 @@ public class TanuhAlertsTest {
     public void eachReasonIsItsOwnGroup() {
         alerts.screeningNeedsAPerson("s1", TanuhAlerts.Reason.HELD_WITH_OTHER_PHOTOS, "{}");
 
+        ArgumentCaptor<Throwable> error = ArgumentCaptor.forClass(Throwable.class);
         ArgumentCaptor<Callback> callback = ArgumentCaptor.forClass(Callback.class);
-        verify(bugsnag).notify(any(Throwable.class), eq(Severity.WARNING), callback.capture());
+        verify(bugsnag).notify(error.capture(), eq(Severity.WARNING), callback.capture());
+        assertEquals("Screening s1 is held by Tanuh's model service with other photos, which are the ones it scores; the call was made, so it is marked OCSHR Call Made Yes and not sent again: {}",
+                error.getValue().getMessage());
         Report report = mock(Report.class);
         callback.getValue().beforeNotify(report);
         verify(report).setGroupingHash("tanuh:HELD_WITH_OTHER_PHOTOS");

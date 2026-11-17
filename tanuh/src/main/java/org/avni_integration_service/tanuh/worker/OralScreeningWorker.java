@@ -175,8 +175,8 @@ public class OralScreeningWorker {
             Optional<Concept> recordedAnswer = recordedSend.flatMap(SentScreenings.SentScreening::callMade);
             Object callMadeOnScreen = s.getObservation(concepts.name(Concept.OCSHR_CALL_MADE));
             boolean neverDecided = callMadeOnScreen == null && recordedSend.isEmpty();
-            // A send with no answer is settled by an answer a person wrote on the screening, such as a parked screening
-            // Tanuh confirmed (runbook, section 8); otherwise it is repeated as it was.
+            // A send with no answer is settled by an answer a person wrote on the screening, such as one whose send kept
+            // failing that they settled with Tanuh (runbook, section 8); otherwise it is repeated as it was.
             Optional<Concept> answerOnScreen = answerOn(callMadeOnScreen, concepts);
             boolean answerLost = recordedSend.isPresent() && recordedAnswer.isEmpty() && answerOnScreen.isEmpty();
             send = answerLost || (passed && neverDecided && imageUris(s, concepts).isPresent());
@@ -226,12 +226,12 @@ public class OralScreeningWorker {
     }
 
     // The hand-over of a screening just checked, of one whose hand-over was cut short, and of one whose hand-over is
-    // retried. Tanuh's answer goes on the screening as OCSHR Call Made: Yes when the service took it, No when it refused
-    // it, and No without a send when Avni will not sign one of its photos. A screening the service holds with other photos
-    // is parked for a person, and nothing is written. A refusal, a parking and a photo Avni will not sign are reported.
+    // retried. OCSHR Call Made says whether the call was made (Adam, 17 Nov 2026): Yes once Tanuh's service answers for
+    // the case, whether it took it, refused it, or already holds it with other photos, and No without a call when Avni
+    // will not sign one of its photos. A call that fails or gets no answer writes nothing, and the same request goes
+    // again. A refusal, a case held with other photos and a photo Avni will not sign are reported.
     private ScreeningOutcome handOver(GeneralEncounter s) {
         String uuid = s.getUuid();
-        Submission submission;
         try {
             Optional<SentScreenings.SentScreening> recordedSend = sentScreenings.find(uuid);
             Optional<Concept> recordedAnswer = recordedSend.flatMap(SentScreenings.SentScreening::callMade);
@@ -253,8 +253,9 @@ public class OralScreeningWorker {
                     return writeCallMade(uuid, Concept.NO);
                 }
                 uris = imageUris.get();
-                // Sending more would earn a refusal and a No for good, so the first ones in the form's order go (Adam, 17
-                // Nov 2026). A case cannot change once sent: should Tanuh raise the limit, these keep the photos they were sent with.
+                // Sending more would earn a refusal, and a refused case is never scored, so the first ones in the form's
+                // order go (Adam, 17 Nov 2026). A case cannot change once sent: should Tanuh raise the limit, these keep the
+                // photos they were sent with.
                 if (uris.size() > MAX_IMAGES) {
                     logger.warn(String.format("Screening %s has %d photos and Tanuh's service takes at most %d per case: the first %d are sent", uuid, uris.size(), MAX_IMAGES, MAX_IMAGES));
                     uris = List.copyOf(uris.subList(0, MAX_IMAGES));
@@ -270,29 +271,36 @@ public class OralScreeningWorker {
                 // Kept before the send, so a send whose answer is lost is repeated with these photos and no others.
                 sentScreenings.attempt(uuid, uris);
             }
-            submission = highRiskModelClient.submit(uuid, uris);
+            Submission submission = highRiskModelClient.submit(uuid, uris);
             switch (submission.outcome()) {
                 case ACCEPTED -> {
                     sentScreenings.answer(uuid, Concept.YES);
                     return writeCallMade(uuid, Concept.YES);
                 }
                 case REFUSED -> {
-                    logger.warn(String.format("Screening %s refused by the high-risk model service, so it is marked not sent: %s", uuid, submission.detail()));
-                    sentScreenings.answer(uuid, Concept.NO);
-                    tanuhAlerts.screeningNeedsAPerson(uuid, TanuhAlerts.Reason.REFUSED, submission.detail());
-                    return writeCallMade(uuid, Concept.NO);
+                    logger.warn(String.format("Screening %s was refused by the high-risk model service, which will not score it; the call was made, so it is marked sent: %s", uuid, submission.detail()));
+                    return sentButNotScored(uuid, TanuhAlerts.Reason.REFUSED, submission.detail());
                 }
                 case CONFLICT -> {
+                    logger.warn(String.format("Screening %s is held by the high-risk model service with other photos, which are the ones it scores; the call was made, so it is marked sent: %s", uuid, submission.detail()));
+                    return sentButNotScored(uuid, TanuhAlerts.Reason.HELD_WITH_OTHER_PHOTOS, submission.detail());
                 }
                 default -> throw new HighRiskModelException("The high-risk model service gave an answer the job does not know: " + submission.outcome());
             }
         } catch (Exception e) {
             // The model client logs nothing when it throws, so this is where the reason is logged and recorded. An
-            // answer with no outcome lands here too, as a failed call to retry, never as a parked screening.
+            // answer with no outcome lands here too, as a failed call: nothing is written and the same request goes again.
             return failed(uuid, TanuhErrorService.MODEL_CALL_FAILED, e);
         }
-        // CONFLICT, recorded outside the catch above: a missing error type stops the run, as it does in failed().
-        return parked(uuid, submission.detail());
+    }
+
+    // Tanuh's service answered for the case without taking these photos, so it will not score them, but the call was
+    // made: Yes is kept and written, the screening is never sent again, and a person is told so they can take it up with
+    // Tanuh's team. The answer is kept and reported before the write, so a write that does not land loses neither.
+    private ScreeningOutcome sentButNotScored(String uuid, TanuhAlerts.Reason reason, String detail) {
+        sentScreenings.answer(uuid, Concept.YES);
+        tanuhAlerts.screeningNeedsAPerson(uuid, reason, detail);
+        return writeCallMade(uuid, Concept.YES);
     }
 
     // Avni signs only an address in the organisation's own media storage and answers 403 for any other, so another
@@ -320,7 +328,7 @@ public class OralScreeningWorker {
         String callMade = concepts.name(Concept.OCSHR_CALL_MADE);
         if (!lastChangedByJobOrModel(avniEncounterRepository.getGeneralEncounter(uuid), tanuhContextProvider.get())) {
             if (answer == Concept.YES)
-                logger.warn(String.format("Screening %s changed while it was handed over: Tanuh's service took it, but %s is not written; the newer version is read next", uuid, callMade));
+                logger.warn(String.format("Screening %s changed while it was handed over: the call was made, but %s is not written; the newer version is read next", uuid, callMade));
             else
                 logger.info(String.format("Screening %s changed while it was handed over: %s not written, the newer version is read next", uuid, callMade));
             return ScreeningOutcome.CHANGED;
@@ -328,16 +336,6 @@ public class OralScreeningWorker {
         avniEncounterRepository.patch(uuid, Map.of(callMade, concepts.name(answer)));
         logger.info(String.format("Screening %s: %s %s written", uuid, callMade, concepts.name(answer)));
         return ScreeningOutcome.WRITTEN;
-    }
-
-    // Tanuh's service holds this screening with other photos, so sending it again cannot help. It waits in an error
-    // record of a type the retry job skips, for a person to settle with Tanuh.
-    private ScreeningOutcome parked(String uuid, String detail) {
-        logger.warn(String.format("Screening %s is held by the high-risk model service with other photos: parked for a person: %s", uuid, detail));
-        tanuhErrorService.errorOccurred(uuid, TanuhErrorService.MODEL_CASE_CONFLICT,
-                String.format("The high-risk model service holds this screening with other photos: %s", detail));
-        tanuhAlerts.screeningNeedsAPerson(uuid, TanuhAlerts.Reason.HELD_WITH_OTHER_PHOTOS, detail);
-        return ScreeningOutcome.PARKED;
     }
 
     // OCSHR Call Made as written on the screening, read as the job's YES or NO; empty for no answer or any other value.

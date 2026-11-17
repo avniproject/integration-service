@@ -87,8 +87,6 @@ public class TanuhScreeningRetryWorker implements ErrorRecordWorker {
                 case SKIPPED -> settle(errorRecord, "not waiting to be handed over");
                 case CHANGED -> true;
                 case FAILED -> false;
-                // Tanuh holds it with other photos: its record now ends in a type this job skips, for a person.
-                case PARKED -> true;
             };
         return switch (oralScreeningWorker.processScreening(screening, false)) {
             case WRITTEN -> settle(errorRecord, "checked");
@@ -97,7 +95,6 @@ public class TanuhScreeningRetryWorker implements ErrorRecordWorker {
             case CHANGED -> true;
             // The error service has refreshed the record's log.
             case FAILED -> false;
-            case PARKED -> true;
         };
     }
 

@@ -74,12 +74,11 @@ WHERE s.name = 'tanuh_uat'
   AND NOT EXISTS (SELECT 1 FROM integrating_entity_status x WHERE x.integration_system_id = s.id AND x.entity_type = 'TanuhOralScreening');
 
 -- Step 4: the reasons a screening waits. follow_up_step is read as an ordinal: '0' is Process, which the retry job
--- tries again; '1' is Terminal, which waits for a person (a case Tanuh holds with other photos, runbook section 8).
+-- tries again.
 INSERT INTO error_type (name, integration_system_id, uuid, follow_up_step, comparison_operator)
 SELECT t.name, s.id, uuid_generate_v4(), t.step, NULL
 FROM integration_system s
-CROSS JOIN (VALUES ('DataQualityCallFailed', '0'), ('HighRiskModelCallFailed', '0'), ('ScreeningProcessingFailed', '0'),
-                   ('HighRiskModelCaseConflict', '1')) AS t(name, step)
+CROSS JOIN (VALUES ('DataQualityCallFailed', '0'), ('HighRiskModelCallFailed', '0'), ('ScreeningProcessingFailed', '0')) AS t(name, step)
 WHERE s.name = 'tanuh_uat'
   AND NOT EXISTS (SELECT 1 FROM error_type e WHERE e.integration_system_id = s.id AND e.name = t.name);
 
