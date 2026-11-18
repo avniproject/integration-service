@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 public class TanuhConfig {
     // The checks sheet's blocking checks among those Samvit runs on an oral screening: no visit time or one in the
     // future, no usable image, unusable images.
-    public static final String DEFAULT_QC_FAIL_RULES = "ST-001,SM-003,QC-030";
+    public static final String DEFAULT_QC_FAIL_RULES = "ST-001,QC-030";
 
     private final IntegrationSystemConfigCollection integrationSystemConfigCollection;
     private final ContextIntegrationSystem integrationSystem;

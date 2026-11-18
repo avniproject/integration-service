@@ -129,12 +129,12 @@ public class ProcessScreeningTest {
     }
 
     static DqsResult passed() {
-        return new DqsResult(200, true, List.of(), List.of(new RuleOutcome("ST-001", "pass"), new RuleOutcome("SM-003", "pass")));
+        return new DqsResult(200, true, List.of(), List.of(new RuleOutcome("ST-001", "pass"), new RuleOutcome("QC-030", "pass")));
     }
 
-    // SM-003, no usable image, is one of the default qc_fail_rules.
+    // QC-030, unusable images, is one of the default qc_fail_rules.
     static DqsResult failedRule() {
-        return new DqsResult(200, true, List.of(), List.of(new RuleOutcome("ST-001", "pass"), new RuleOutcome("SM-003", "fail")));
+        return new DqsResult(200, true, List.of(), List.of(new RuleOutcome("ST-001", "pass"), new RuleOutcome("QC-030", "fail")));
     }
 
     // SL-001, no location, is not.

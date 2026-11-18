@@ -59,7 +59,7 @@ CROSS JOIN (VALUES
     ('dqs_enabled', 'false', false),
     ('dqs_api_url', '', false),
     ('dqs_tenant', 'samvit', false),
-    ('qc_fail_rules', 'ST-001,SM-003,QC-030', false)
+    ('qc_fail_rules', 'ST-001,QC-030', false)
 ) AS c(key, value, is_secret)
 WHERE s.name = 'tanuh_uat'
   AND NOT EXISTS (SELECT 1 FROM integration_system_config x WHERE x.integration_system_id = s.id AND x.key = c.key);
