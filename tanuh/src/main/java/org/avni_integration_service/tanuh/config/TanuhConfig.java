@@ -81,6 +81,16 @@ public class TanuhConfig {
         return value;
     }
 
+    // The Avni organisation's id, sent to Tanuh's model service as the case's tenant (Vinay, 19 Nov 2026). It differs
+    // between environments, so it is a setting rather than a constant. Null when unset or not a whole number above
+    // zero, which holds screenings back until it is put right.
+    public Long getAvniOrganisationId() {
+        String value = getStringConfigValue("avni_organisation_id", "").trim();
+        if (!value.matches("[0-9]{1,18}")) return null;
+        long id = Long.parseLong(value);
+        return id > 0 ? id : null;
+    }
+
     // Whether each screening goes to the data quality service, and gets its QC verdict, before it is sent to Tanuh's
     // model. Switched off for now (Adam, 17 Nov 2026) by dqs_enabled false. Only false turns it off, so a missing or
     // mistyped row keeps the check, whose failures show, rather than skipping it without a sign.

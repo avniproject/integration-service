@@ -6,6 +6,7 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.log4j.Logger;
 import org.avni_integration_service.tanuh.config.TanuhConfig;
 import org.avni_integration_service.tanuh.config.TanuhContextProvider;
+import org.avni_integration_service.tanuh.domain.TanuhConcepts.Concept;
 import org.avni_integration_service.util.ObjectJsonMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -72,7 +73,12 @@ public class OcshrClient implements HighRiskModelClient {
         URI uri = URI.create(baseUrl + "/v1/cases");
         if (!"https".equalsIgnoreCase(uri.getScheme()) && !LOOPBACK.contains(String.valueOf(uri.getHost()).toLowerCase(Locale.ROOT)))
             throw new HighRiskModelException(String.format("ocshr_api_url %s is not https, so nothing is sent: the Google ID token would travel in the clear", baseUrl));
-        String json = body(caseId, imageUris);
+        Long tenantId = config.getAvniOrganisationId();
+        if (tenantId == null)
+            throw new HighRiskModelException("avni_organisation_id is not set to the organisation's id, a whole number, so no screening can be sent to the model service");
+        // The job sends only Oral Screenings, so the type is the name this organisation gives that encounter type.
+        String encounterType = tanuhContextProvider.getConcepts().name(Concept.ORAL_SCREENING);
+        String json = body(caseId, tenantId, encounterType, imageUris);
         Answer answer = post(uri, json, idTokenSource.idToken(config));
         if (answer.status == 401) {
             logger.info(String.format("Model service refused the token for case %s; asking for a new one", caseId));
@@ -84,11 +90,13 @@ public class OcshrClient implements HighRiskModelClient {
         return submission;
     }
 
-    private static String body(String caseId, List<String> imageUris) {
+    private static String body(String caseId, long tenantId, String encounterType, List<String> imageUris) {
         List<Map<String, String>> images = new ArrayList<>();
         for (String uri : imageUris) images.add(Map.of("uri", uri));
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("case_id", caseId);
+        body.put("tenant_id", tenantId);
+        body.put("encounter_type", encounterType);
         body.put("images", images);
         return ObjectJsonMapper.writeValueAsString(body);
     }

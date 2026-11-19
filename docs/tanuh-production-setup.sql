@@ -23,6 +23,8 @@
 --      <OCSHR_CREDENTIAL_CONFIG_JSON> with Tanuh's credential file, its JSON pasted whole; it holds no secret.
 --      Replace <HIGH_RISK_AVNI_USER> with the Avni user Tanuh's service writes production's results as. It is not
 --      UAT's user, and it needs a user group deployed on production first.
+--   7. Replace <AVNI_ORGANISATION_ID> with the organisation's id in Avni, which every case sent to Tanuh's model
+--      carries as tenant_id: the organisationId that GET /me answers for the job user. Without it no screening is sent.
 --
 -- Every insert is guarded, so running it again changes nothing.
 --
@@ -57,6 +59,7 @@ CROSS JOIN (VALUES
     ('ocshr_api_url', '<OCSHR_API_URL>', false),
     ('ocshr_credential_config', '<OCSHR_CREDENTIAL_CONFIG_JSON>', false),
     ('high_risk_avni_user', '<HIGH_RISK_AVNI_USER>', false),
+    ('avni_organisation_id', '<AVNI_ORGANISATION_ID>', false),
     ('dqs_enabled', 'false', false),
     ('dqs_api_url', '', false),
     ('dqs_tenant', 'samvit', false),

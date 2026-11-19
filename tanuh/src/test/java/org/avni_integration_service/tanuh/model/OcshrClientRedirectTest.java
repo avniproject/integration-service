@@ -6,6 +6,7 @@ import org.avni_integration_service.integration_data.domain.config.IntegrationSy
 import org.avni_integration_service.integration_data.domain.config.IntegrationSystemConfigCollection;
 import org.avni_integration_service.tanuh.config.TanuhConfig;
 import org.avni_integration_service.tanuh.config.TanuhContextProvider;
+import org.avni_integration_service.tanuh.domain.TanuhConceptsFixture;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -44,7 +45,8 @@ public class OcshrClientRedirectTest {
             reply(exchange, 303, "");
         });
         tanuh.start();
-        context.set(config("ocshr_api_url", "http://127.0.0.1:" + tanuh.getAddress().getPort()));
+        context.set(config("ocshr_api_url", "http://127.0.0.1:" + tanuh.getAddress().getPort(), "avni_organisation_id", "1071"));
+        context.setConcepts(TanuhConceptsFixture.defaults());
     }
 
     @AfterEach
@@ -64,14 +66,18 @@ public class OcshrClientRedirectTest {
         exchange.close();
     }
 
-    private static TanuhConfig config(String key, String value) {
-        IntegrationSystemConfig c = new IntegrationSystemConfig();
-        c.setKey(key);
-        c.setValue(value);
+    private static TanuhConfig config(String... keyValues) {
+        List<IntegrationSystemConfig> configs = new java.util.ArrayList<>();
+        for (int i = 0; i < keyValues.length; i += 2) {
+            IntegrationSystemConfig c = new IntegrationSystemConfig();
+            c.setKey(keyValues[i]);
+            c.setValue(keyValues[i + 1]);
+            configs.add(c);
+        }
         IntegrationSystem integrationSystem = new IntegrationSystem();
         integrationSystem.setId(1);
         ReflectionTestUtils.setField(integrationSystem, "name", "tanuh_uat_local");
-        return new TanuhConfig(new IntegrationSystemConfigCollection(List.of(c)), integrationSystem);
+        return new TanuhConfig(new IntegrationSystemConfigCollection(configs), integrationSystem);
     }
 
     @Test

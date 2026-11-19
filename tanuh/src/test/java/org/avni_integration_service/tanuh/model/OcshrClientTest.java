@@ -5,6 +5,8 @@ import org.avni_integration_service.integration_data.domain.config.IntegrationSy
 import org.avni_integration_service.integration_data.domain.config.IntegrationSystemConfigCollection;
 import org.avni_integration_service.tanuh.config.TanuhConfig;
 import org.avni_integration_service.tanuh.config.TanuhContextProvider;
+import org.avni_integration_service.tanuh.domain.TanuhConcepts;
+import org.avni_integration_service.tanuh.domain.TanuhConceptsFixture;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpMethod;
@@ -28,7 +30,7 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
 
 public class OcshrClientTest {
     private static final String URL = "https://ocshr.example.org/v1/cases";
-    private static final String BODY = "{\"case_id\":\"s1\",\"images\":[{\"uri\":\"s3://b/k1.jpg\"},{\"uri\":\"s3://b/k2.jpg\"}]}";
+    private static final String BODY = "{\"case_id\":\"s1\",\"tenant_id\":1071,\"encounter_type\":\"Oral Screening\",\"images\":[{\"uri\":\"s3://b/k1.jpg\"},{\"uri\":\"s3://b/k2.jpg\"}]}";
     private static final List<String> IMAGES = List.of("s3://b/k1.jpg", "s3://b/k2.jpg");
     private static final String RECEIVED = "{\"case_id\":\"s1\",\"status\":\"RECEIVED\",\"image_count\":2,\"error_code\":null,\"error_detail\":null}";
 
@@ -53,7 +55,8 @@ public class OcshrClientTest {
 
     @BeforeEach
     public void setUp() {
-        context.set(config("ocshr_api_url", "https://ocshr.example.org/"));
+        context.set(config("ocshr_api_url", "https://ocshr.example.org/", "avni_organisation_id", "1071"));
+        context.setConcepts(TanuhConceptsFixture.defaults());
         server = MockRestServiceServer.bindTo(restTemplate).build();
         client = new OcshrClient(context, tokens, restTemplate);
     }
@@ -90,6 +93,42 @@ public class OcshrClientTest {
                 .andRespond(withStatus(HttpStatus.ACCEPTED).contentType(MediaType.APPLICATION_JSON).body(RECEIVED));
         assertEquals(Submission.Outcome.ACCEPTED, submit().outcome());
         server.verify();
+    }
+
+    @Test
+    public void theEncounterTypeIsTheNameTheOrganisationGivesTheOralScreening() throws Exception {
+        TanuhConcepts renamed = TanuhConceptsFixture.editedBy(rows -> {
+            rows.replaceAll(row -> row.key().equals("oral_screening") ? new TanuhConcepts.Mapping("oral_screening", "Mouth Screening") : row);
+            return rows;
+        });
+        context.setConcepts(renamed);
+        server.expect(requestTo(URL))
+                .andExpect(content().json("{\"case_id\":\"s1\",\"tenant_id\":1071,\"encounter_type\":\"Mouth Screening\",\"images\":[{\"uri\":\"s3://b/k1.jpg\"},{\"uri\":\"s3://b/k2.jpg\"}]}", true))
+                .andRespond(withStatus(HttpStatus.ACCEPTED).contentType(MediaType.APPLICATION_JSON).body(RECEIVED));
+        assertEquals(Submission.Outcome.ACCEPTED, submit().outcome());
+        server.verify();
+    }
+
+    // Tanuh's service tells cases apart by the organisation they came from, so a case without it is not sent: the
+    // screening waits, with nothing written, until the setting is put right.
+    @Test
+    public void noOrganisationIdMeansTheScreeningWaits() {
+        context.set(config("ocshr_api_url", "https://ocshr.example.org/"));
+        HighRiskModelException e = assertThrows(HighRiskModelException.class, this::submit);
+        assertTrue(e.getMessage().contains("avni_organisation_id"), e.getMessage());
+        server.verify();
+        assertEquals(0, tokenRequests.get());
+    }
+
+    @Test
+    public void anOrganisationIdThatIsNotAWholeNumberMeansTheScreeningWaits() {
+        for (String value : List.of("tanuh_uat", "0", "-1071", "1071.0", "  ")) {
+            context.set(config("ocshr_api_url", "https://ocshr.example.org/", "avni_organisation_id", value));
+            HighRiskModelException e = assertThrows(HighRiskModelException.class, this::submit, value);
+            assertTrue(e.getMessage().contains("avni_organisation_id"), e.getMessage());
+        }
+        server.verify();
+        assertEquals(0, tokenRequests.get());
     }
 
     @Test
@@ -188,12 +227,12 @@ public class OcshrClientTest {
 
     @Test
     public void theTokenNeverTravelsInTheClear() throws Exception {
-        context.set(config("ocshr_api_url", "http://ocshr.example.org"));
+        context.set(config("ocshr_api_url", "http://ocshr.example.org", "avni_organisation_id", "1071"));
         assertThrows(HighRiskModelException.class, this::submit);
         server.verify();
         assertEquals(0, tokenRequests.get());
 
-        context.set(config("ocshr_api_url", "http://localhost:8099"));
+        context.set(config("ocshr_api_url", "http://localhost:8099", "avni_organisation_id", "1071"));
         server.expect(requestTo("http://localhost:8099/v1/cases"))
                 .andRespond(withStatus(HttpStatus.ACCEPTED).contentType(MediaType.APPLICATION_JSON).body(RECEIVED));
         assertEquals(Submission.Outcome.ACCEPTED, submit().outcome());

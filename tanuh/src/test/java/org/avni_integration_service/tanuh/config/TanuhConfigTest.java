@@ -114,4 +114,15 @@ public class TanuhConfigTest {
         assertNull(configWith("ocshr_api_url", "  ").getOcshrApiUrl());
         assertEquals("https://ocshr.example.org", configWith("ocshr_api_url", " https://ocshr.example.org// ").getOcshrApiUrl());
     }
+
+    @Test
+    public void theOrganisationIdIsAPositiveWholeNumberOrNull() {
+        assertNull(configWith().getAvniOrganisationId());
+        assertNull(configWith("avni_organisation_id", "  ").getAvniOrganisationId());
+        assertNull(configWith("avni_organisation_id", "tanuh_uat").getAvniOrganisationId());
+        assertNull(configWith("avni_organisation_id", "0").getAvniOrganisationId());
+        assertNull(configWith("avni_organisation_id", "-1071").getAvniOrganisationId());
+        assertNull(configWith("avni_organisation_id", "1071.0").getAvniOrganisationId());
+        assertEquals(1071L, configWith("avni_organisation_id", " 1071 ").getAvniOrganisationId());
+    }
 }
