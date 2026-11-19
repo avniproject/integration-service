@@ -64,6 +64,20 @@ public class TanuhConceptsLoaderTest {
         assertEquals("QC Pass", concepts.name(TanuhConcepts.Concept.QC_PASS));
     }
 
+    // The bundle's Concept mapping type is voided on purpose: the Bahmni module looks up the mapping type named Concept
+    // across every integration when the service starts, and a second live one stops the whole service starting
+    // (int-prerelease, 18 Nov 2026). Tanuh's rows are read by their type's name, voided or not.
+    @Test
+    public void rowsUnderAVoidedConceptTypeAreStillTheNames() {
+        List<MappingMetaData> rows = bundleRows();
+        rows.forEach(row -> row.getMappingType().setVoided(true));
+        organisationHas(rows);
+
+        TanuhConcepts concepts = loader.load(new ContextIntegrationSystem(system));
+
+        assertEquals("OCSHR Call Made", concepts.name(TanuhConcepts.Concept.OCSHR_CALL_MADE));
+    }
+
     @Test
     public void anOrganisationWithoutRowsIsToldWhatIsMissing() {
         organisationHas(List.of());

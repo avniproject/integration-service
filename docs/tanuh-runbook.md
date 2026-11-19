@@ -216,6 +216,8 @@ rm /tmp/int-cookies /tmp/tanuh-mapping.zip
 
 A 200 means it was imported. Check the 37 rows on the admin app's mapping metadata screens. The newest is `ocshr_call_made`, the `OCSHR Call Made` question the job writes after each hand-over.
 
+The bundle's one mapping type, `Concept`, is voided on purpose. When the service starts, the Bahmni module looks up the mapping type named `Concept` across every integration, so a second live one stops the whole service from starting, for every organisation on that server. On 18 Nov 2026 a live Tanuh `Concept` type kept int-prerelease restarting until it was voided, and int-prod carried the same until it was voided before any restart. The Tanuh job reads its rows by the type's name, voided or not. A server whose Tanuh `Concept` type is live needs `UPDATE mapping_type SET is_voided = true WHERE name = 'Concept' AND integration_system_id = (SELECT id FROM integration_system WHERE name = '<organisation>');` before its next restart.
+
 Importing the repository's bundle again puts every row back to the repository's name, undoing edits made on the organisation.
 
 **Changing a name.** Edit the row in the integration admin app's mapping metadata screens, working in the organisation's integration system. When Tanuh renames something for every organisation, change it in `docs/tanuh-mapping-bundle/mappingMetadata.json` too, so new organisations and the tests get the new name.
