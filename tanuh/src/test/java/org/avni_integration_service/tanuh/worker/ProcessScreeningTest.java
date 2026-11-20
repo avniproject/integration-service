@@ -100,7 +100,7 @@ public class ProcessScreeningTest {
         lenient().when(dqs.submit(eq(DqsClient.REGISTRATION), anyMap())).thenReturn(passed());
         lenient().when(downloader.sign(anyString())).thenAnswer(invocation -> invocation.getArgument(0) + "?X-Amz-Signature=signed");
         // Tanuh's model service takes every screening unless a test says otherwise.
-        lenient().when(model.submit(anyString(), anyList())).thenReturn(new Submission(Submission.Outcome.ACCEPTED, "{}"));
+        lenient().when(model.submit(anyString(), anyList(), any())).thenReturn(new Submission(Submission.Outcome.ACCEPTED, "{}"));
     }
 
     @AfterEach
@@ -126,6 +126,31 @@ public class ProcessScreeningTest {
         for (int i = 0; i < suspiciousPerPhoto.length; i++)
             rows.add(row("https://s3.ap-south-1.amazonaws.com/prod-user-media/tanuh_uat/" + uuid + "-" + i + ".jpg", suspiciousPerPhoto[i]));
         return encounters.add(uuid, Map.of(PHOTOS, rows));
+    }
+
+    // A screening with one photo, whose read-only "Egde AI Final Verdict" holds what the phone's model said, and whose
+    // "Image-wise AI Assessment" holds the model's verdict on the photo; null leaves either out.
+    private GeneralEncounter screeningWithFinalVerdict(String uuid, String finalVerdict, String photoVerdict) {
+        Map<String, Object> observations = new HashMap<>();
+        observations.put(PHOTOS, List.of(row("https://s3.ap-south-1.amazonaws.com/prod-user-media/tanuh_uat/" + uuid + "-0.jpg", "No")));
+        if (photoVerdict != null) observations.put("Image-wise AI Assessment", List.of(Map.of("AI Verdict", photoVerdict)));
+        if (finalVerdict != null) observations.put("Egde AI Final Verdict", finalVerdict);
+        return encounters.add(uuid, observations);
+    }
+
+    @Test
+    public void theRequestCarriesTheScreeningsFinalVerdict() throws Exception {
+        dqsSays(passed());
+        worker.processScreening(screeningWithFinalVerdict("s1", "Suspicious", null), true);
+        verify(model).submit(eq("s1"), eq(List.of("s3://prod-user-media/tanuh_uat/s1-0.jpg")), eq("Suspicious"));
+    }
+
+    // The job works nothing out from the photos' own verdicts (Adam, 20 Nov 2026): without the answer, Tanuh is told none.
+    @Test
+    public void aScreeningWithoutTheFinalVerdictIsSentWithNone() throws Exception {
+        dqsSays(passed());
+        worker.processScreening(screeningWithFinalVerdict("s1", null, "Suspicious"), true);
+        verify(model).submit(eq("s1"), eq(List.of("s3://prod-user-media/tanuh_uat/s1-0.jpg")), isNull());
     }
 
     static DqsResult passed() {
@@ -199,7 +224,7 @@ public class ProcessScreeningTest {
         assertEquals(List.of("https://s3.ap-south-1.amazonaws.com/prod-user-media/tanuh_uat/s1-0.jpg?X-Amz-Signature=signed",
                         "https://s3.ap-south-1.amazonaws.com/prod-user-media/tanuh_uat/s1-1.jpg?X-Amz-Signature=signed"),
                 record.getValue().get().get("image_urls"));
-        verify(model).submit(eq("s1"), eq(List.of("s3://prod-user-media/tanuh_uat/s1-0.jpg", "s3://prod-user-media/tanuh_uat/s1-1.jpg")));
+        verify(model).submit(eq("s1"), eq(List.of("s3://prod-user-media/tanuh_uat/s1-0.jpg", "s3://prod-user-media/tanuh_uat/s1-1.jpg")), any());
         verifyNoInteractions(errors);
     }
 
@@ -222,7 +247,7 @@ public class ProcessScreeningTest {
         assertEquals(ScreeningOutcome.WRITTEN, worker.processScreening(s, true));
 
         assertEquals(List.of(verdict("QC Pass"), callMade("Yes")), encounters.patchBodies);
-        verify(model).submit(eq("s1"), eq(List.of("s3://prod-user-media/tanuh_uat/s1-0.jpg")));
+        verify(model).submit(eq("s1"), eq(List.of("s3://prod-user-media/tanuh_uat/s1-0.jpg")), any());
     }
 
     @Test
@@ -404,7 +429,7 @@ public class ProcessScreeningTest {
     public void aModelHandOverFailureKeepsTheVerdictAndWaitsForTheHandOver() throws Exception {
         GeneralEncounter s = screeningWithPhotos("s1", "No");
         dqsSays(passed());
-        doThrow(new HighRiskModelException("Model service answered 500 for case s1: busy")).when(model).submit(any(), anyList());
+        doThrow(new HighRiskModelException("Model service answered 500 for case s1: busy")).when(model).submit(any(), anyList(), any());
 
         assertEquals(ScreeningOutcome.FAILED, worker.processScreening(s, true));
 
@@ -420,7 +445,7 @@ public class ProcessScreeningTest {
         doAnswer(invocation -> {
             writtenAtHandOver.add(encounters.patchBodies.size());
             return new Submission(Submission.Outcome.ACCEPTED, "{}");
-        }).when(model).submit(anyString(), anyList());
+        }).when(model).submit(anyString(), anyList(), any());
 
         assertEquals(ScreeningOutcome.WRITTEN, worker.processScreening(s, true));
 
@@ -439,7 +464,7 @@ public class ProcessScreeningTest {
         assertEquals(ScreeningOutcome.WRITTEN, worker.handOverAgain(marked));
         assertEquals(ScreeningOutcome.SKIPPED, worker.handOverAgain(failed));
 
-        verify(model).submit(eq("s1"), eq(List.of("s3://prod-user-media/tanuh_uat/s1-0.jpg")));
+        verify(model).submit(eq("s1"), eq(List.of("s3://prod-user-media/tanuh_uat/s1-0.jpg")), any());
         verifyNoMoreInteractions(model);
         verifyNoInteractions(dqs);
         assertEquals(List.of("s1"), encounters.patchedUuids, "only Tanuh's answer is written, not a second verdict");
@@ -515,7 +540,7 @@ public class ProcessScreeningTest {
 
         assertEquals(ScreeningOutcome.WRITTEN, worker.processScreening(s, true));
 
-        verify(model).submit("s1", List.of("s3://prod-user-media/tanuh_uat/s1-0.jpg", "s3://prod-user-media/tanuh_uat/s1-1.jpg"));
+        verify(model).submit(eq("s1"), eq(List.of("s3://prod-user-media/tanuh_uat/s1-0.jpg", "s3://prod-user-media/tanuh_uat/s1-1.jpg")), any());
         assertEquals(List.of(verdict("QC Pass"), callMade("Yes")), encounters.patchBodies);
         assertEquals("Yes", encounters.screenings.get("s1").getObservation("OCSHR Call Made"));
     }
@@ -526,7 +551,7 @@ public class ProcessScreeningTest {
     public void aScreeningTheServiceRefusesIsMarkedSentAndReported() throws Exception {
         GeneralEncounter s = screeningWithPhotos("s1", "No");
         dqsSays(passed());
-        when(model.submit(anyString(), anyList()))
+        when(model.submit(anyString(), anyList(), any()))
                 .thenReturn(new Submission(Submission.Outcome.REFUSED, "{\"error\":\"INVALID_MANIFEST\",\"problems\":[\"image 1: not found\"]}"));
 
         assertEquals(ScreeningOutcome.WRITTEN, worker.processScreening(s, true));
@@ -544,7 +569,7 @@ public class ProcessScreeningTest {
         GeneralEncounter s = screeningWithPhotos("s1", "No");
         dqsSays(passed());
         String detail = "{\"error\":\"CASE_EXISTS_WITH_DIFFERENT_MANIFEST\",\"case_id\":\"s1\"}";
-        when(model.submit(anyString(), anyList())).thenReturn(new Submission(Submission.Outcome.CONFLICT, detail));
+        when(model.submit(anyString(), anyList(), any())).thenReturn(new Submission(Submission.Outcome.CONFLICT, detail));
 
         assertEquals(ScreeningOutcome.WRITTEN, worker.processScreening(s, true));
 
@@ -558,7 +583,7 @@ public class ProcessScreeningTest {
     public void aFailedHandOverWritesNothingAndWaits() throws Exception {
         GeneralEncounter s = screeningWithPhotos("s1", "No");
         dqsSays(passed());
-        when(model.submit(anyString(), anyList())).thenThrow(new HighRiskModelException("HTTP 503"));
+        when(model.submit(anyString(), anyList(), any())).thenThrow(new HighRiskModelException("HTTP 503"));
 
         assertEquals(ScreeningOutcome.FAILED, worker.processScreening(s, true));
 
@@ -572,7 +597,7 @@ public class ProcessScreeningTest {
     public void anEditDuringTheHandOverIsNotWrittenOver() throws Exception {
         GeneralEncounter s = screeningWithPhotos("s1", "No");
         dqsSays(passed());
-        when(model.submit(anyString(), anyList())).thenAnswer(invocation -> {
+        when(model.submit(anyString(), anyList(), any())).thenAnswer(invocation -> {
             encounters.workerEdits("s1");
             return new Submission(Submission.Outcome.ACCEPTED, "{}");
         });
@@ -588,7 +613,7 @@ public class ProcessScreeningTest {
     public void aResultThatLandsFirstStillGetsYes() throws Exception {
         GeneralEncounter s = screeningWithPhotos("s1", "No");
         dqsSays(passed());
-        when(model.submit(anyString(), anyList())).thenAnswer(invocation -> {
+        when(model.submit(anyString(), anyList(), any())).thenAnswer(invocation -> {
             encounters.touch(encounters.screenings.get("s1"), "High-Risk@tanuh_uat_local");
             return new Submission(Submission.Outcome.ACCEPTED, "{}");
         });
@@ -605,7 +630,7 @@ public class ProcessScreeningTest {
 
         assertEquals(ScreeningOutcome.WRITTEN, worker.processScreening(s, true));
 
-        verify(model).submit("s1", List.of("s3://prod-user-media/tanuh_uat/s1-0.jpg"));
+        verify(model).submit(eq("s1"), eq(List.of("s3://prod-user-media/tanuh_uat/s1-0.jpg")), any());
         assertEquals(List.of(callMade("Yes")), encounters.patchBodies);
         verifyNoInteractions(dqs, subjects);
     }
@@ -617,7 +642,7 @@ public class ProcessScreeningTest {
 
         assertEquals(ScreeningOutcome.WRITTEN, worker.processScreening(s, true));
 
-        verify(model).submit("s1", List.of("s3://prod-user-media/tanuh_uat/s1-0.jpg"));
+        verify(model).submit(eq("s1"), eq(List.of("s3://prod-user-media/tanuh_uat/s1-0.jpg")), any());
         assertEquals(List.of(callMade("Yes")), encounters.patchBodies);
         verifyNoInteractions(dqs, subjects);
     }
@@ -685,7 +710,7 @@ public class ProcessScreeningTest {
 
         assertEquals(ScreeningOutcome.FAILED, worker.processScreening(s, true));
 
-        verify(model, never()).submit(anyString(), anyList());
+        verify(model, never()).submit(anyString(), anyList(), any());
         verify(errors).errorOccurred(eq("s1"), eq("HighRiskModelCallFailed"), contains("could not sign photo 2"));
         assertEquals(List.of(verdict("QC Pass")), encounters.patchBodies);
         verifyNoInteractions(alerts);
@@ -704,7 +729,7 @@ public class ProcessScreeningTest {
 
         List<String> firstThirteen = new ArrayList<>();
         for (int i = 0; i < 13; i++) firstThirteen.add("s3://prod-user-media/tanuh_uat/s1-" + i + ".jpg");
-        verify(model).submit("s1", firstThirteen);
+        verify(model).submit(eq("s1"), eq(firstThirteen), any());
         assertEquals(List.of(verdict("QC Pass"), callMade("Yes")), encounters.patchBodies);
         verifyNoInteractions(errors);
     }
@@ -718,7 +743,7 @@ public class ProcessScreeningTest {
 
         assertEquals(ScreeningOutcome.WRITTEN, worker.processScreening(s, true));
 
-        verify(model).submit(eq("s1"), argThat(uris -> uris.size() == 13));
+        verify(model).submit(eq("s1"), argThat(uris -> uris.size() == 13), any());
     }
 
     // An answer the job does not know is a failed call: OCSHR Call Made stays empty and the same request goes again.
@@ -726,7 +751,7 @@ public class ProcessScreeningTest {
     public void anAnswerTheJobDoesNotKnowIsAFailedCallThatLeavesCallMadeEmpty() throws Exception {
         GeneralEncounter s = screeningWithPhotos("s1", "No");
         dqsSays(passed());
-        when(model.submit(anyString(), anyList())).thenReturn(new Submission(null, "{}"));
+        when(model.submit(anyString(), anyList(), any())).thenReturn(new Submission(null, "{}"));
 
         assertEquals(ScreeningOutcome.FAILED, worker.processScreening(s, true));
 
@@ -773,7 +798,7 @@ public class ProcessScreeningTest {
 
         assertEquals(ScreeningOutcome.WRITTEN, worker.processScreening(editedOnAPhoneWithoutTheJobsAnswers("s1"), true));
 
-        verify(model, times(1)).submit(anyString(), anyList());
+        verify(model, times(1)).submit(anyString(), anyList(), any());
         assertEquals(withCallMade(verdict("QC Pass"), "Yes"), encounters.patchBodies.get(encounters.patchBodies.size() - 1));
         assertEquals("Yes", encounters.screenings.get("s1").getObservation("OCSHR Call Made"));
     }
@@ -799,7 +824,7 @@ public class ProcessScreeningTest {
 
         assertEquals(ScreeningOutcome.WRITTEN, worker.processScreening(editedOnAPhoneWithoutTheJobsAnswers("s1"), true));
 
-        verify(model, times(1)).submit(anyString(), anyList());
+        verify(model, times(1)).submit(anyString(), anyList(), any());
         assertEquals(withCallMade(verdict("QC Fail"), "Yes"), encounters.patchBodies.get(encounters.patchBodies.size() - 1));
     }
 
@@ -808,16 +833,18 @@ public class ProcessScreeningTest {
     @Test
     public void anEditAfterASendWhoseAnswerWasLostRepeatsTheFirstPhotos() throws Exception {
         dqsSays(passed());
-        when(model.submit(anyString(), anyList())).thenThrow(new HighRiskModelException("Model service at ocshr did not answer: Read timed out"));
+        when(model.submit(anyString(), anyList(), any())).thenThrow(new HighRiskModelException("Model service at ocshr did not answer: Read timed out"));
         assertEquals(ScreeningOutcome.FAILED, worker.processScreening(screeningWithPhotos("s1", "No", "No"), true));
         GeneralEncounter edited = editedOnAPhoneWithoutTheJobsAnswers("s1");
         edited.addObservation(PHOTOS, List.of(row("https://s3.ap-south-1.amazonaws.com/prod-user-media/tanuh_uat/s1-9.jpg", "No")));
+        edited.addObservation("Egde AI Final Verdict", "Suspicious");
         reset(model);
-        when(model.submit(anyString(), anyList())).thenReturn(new Submission(Submission.Outcome.ACCEPTED, "{}"));
+        when(model.submit(anyString(), anyList(), any())).thenReturn(new Submission(Submission.Outcome.ACCEPTED, "{}"));
 
         assertEquals(ScreeningOutcome.WRITTEN, worker.processScreening(edited, false));
 
-        verify(model).submit("s1", List.of("s3://prod-user-media/tanuh_uat/s1-0.jpg", "s3://prod-user-media/tanuh_uat/s1-1.jpg"));
+        // The job keeps no record of the phone's verdict, so the repeat carries the answer the screening holds now.
+        verify(model).submit(eq("s1"), eq(List.of("s3://prod-user-media/tanuh_uat/s1-0.jpg", "s3://prod-user-media/tanuh_uat/s1-1.jpg")), eq("Suspicious"));
         verifyNoMoreInteractions(model);
         assertEquals("Yes", encounters.screenings.get("s1").getObservation("OCSHR Call Made"));
     }
@@ -825,16 +852,16 @@ public class ProcessScreeningTest {
     @Test
     public void aSendWhoseAnswerWasLostIsSettledEvenWhenTheEditFailsQc() throws Exception {
         dqsSays(passed());
-        when(model.submit(anyString(), anyList())).thenThrow(new HighRiskModelException("Model service at ocshr did not answer: Read timed out"));
+        when(model.submit(anyString(), anyList(), any())).thenThrow(new HighRiskModelException("Model service at ocshr did not answer: Read timed out"));
         worker.processScreening(screeningWithPhotos("s1", "No"), true);
         encounters.workerEdits("s1");
         dqsSays(failedRule());
         reset(model);
-        when(model.submit(anyString(), anyList())).thenReturn(new Submission(Submission.Outcome.ACCEPTED, "{}"));
+        when(model.submit(anyString(), anyList(), any())).thenReturn(new Submission(Submission.Outcome.ACCEPTED, "{}"));
 
         assertEquals(ScreeningOutcome.WRITTEN, worker.processScreening(encounters.screenings.get("s1"), false));
 
-        verify(model).submit("s1", List.of("s3://prod-user-media/tanuh_uat/s1-0.jpg"));
+        verify(model).submit(eq("s1"), eq(List.of("s3://prod-user-media/tanuh_uat/s1-0.jpg")), any());
         assertEquals(List.of(verdict("QC Pass"), verdict("QC Fail"), callMade("Yes")), encounters.patchBodies);
     }
 
@@ -847,7 +874,7 @@ public class ProcessScreeningTest {
 
         assertEquals(ScreeningOutcome.WRITTEN, worker.handOverAgain(s));
 
-        verify(model).submit("s1", List.of("s3://prod-user-media/tanuh_uat/s1-0.jpg"));
+        verify(model).submit(eq("s1"), eq(List.of("s3://prod-user-media/tanuh_uat/s1-0.jpg")), any());
         assertEquals(List.of(callMade("Yes")), encounters.patchBodies);
     }
 
@@ -857,7 +884,7 @@ public class ProcessScreeningTest {
     public void anEditDuringTheHandOverGetsItsYesOnTheNextRunWithoutASecondSend() throws Exception {
         GeneralEncounter s = screeningWithPhotos("s1", "No");
         dqsSays(passed());
-        when(model.submit(anyString(), anyList())).thenAnswer(invocation -> {
+        when(model.submit(anyString(), anyList(), any())).thenAnswer(invocation -> {
             encounters.workerEdits("s1");
             return new Submission(Submission.Outcome.ACCEPTED, "{}");
         });
@@ -865,7 +892,7 @@ public class ProcessScreeningTest {
 
         assertEquals(ScreeningOutcome.WRITTEN, worker.processScreening(encounters.screenings.get("s1"), true));
 
-        verify(model, times(1)).submit(anyString(), anyList());
+        verify(model, times(1)).submit(anyString(), anyList(), any());
         assertEquals(withCallMade(verdict("QC Pass"), "Yes"), encounters.patchBodies.get(encounters.patchBodies.size() - 1));
     }
 
@@ -878,7 +905,7 @@ public class ProcessScreeningTest {
     public void aRefusalIsReportedEvenWhenItsYesIsNotWrittenAtOnce() throws Exception {
         GeneralEncounter s = screeningWithPhotos("s1", "No");
         dqsSays(passed());
-        when(model.submit(anyString(), anyList())).thenAnswer(invocation -> {
+        when(model.submit(anyString(), anyList(), any())).thenAnswer(invocation -> {
             encounters.workerEdits("s1");
             return new Submission(Submission.Outcome.REFUSED, "{\"error\":\"INVALID_MANIFEST\"}");
         });
@@ -909,7 +936,7 @@ public class ProcessScreeningTest {
     public void aYesWhoseWriteFailsIsKeptAndWrittenByTheRetryWithoutASecondSend() throws Exception {
         GeneralEncounter s = screeningWithPhotos("s1", "No");
         dqsSays(passed());
-        when(model.submit(anyString(), anyList())).thenAnswer(invocation -> {
+        when(model.submit(anyString(), anyList(), any())).thenAnswer(invocation -> {
             encounters.failNextPatchWith = new RuntimeException("connection reset");
             return new Submission(Submission.Outcome.ACCEPTED, "{}");
         });
@@ -930,7 +957,7 @@ public class ProcessScreeningTest {
     public void aPersonsAnswerOnAScreeningWhoseSendFailedSettlesItsRecordWithoutASend() throws Exception {
         GeneralEncounter s = screeningWithPhotos("s1", "No");
         dqsSays(passed());
-        when(model.submit(anyString(), anyList())).thenThrow(new HighRiskModelException("Model service at tanuh did not answer: Read timed out"));
+        when(model.submit(anyString(), anyList(), any())).thenThrow(new HighRiskModelException("Model service at tanuh did not answer: Read timed out"));
         assertEquals(ScreeningOutcome.FAILED, worker.processScreening(s, true));
         assertEquals(Optional.empty(), recordedAnswer("s1"));
         GeneralEncounter settled = encounters.screenings.get("s1");
@@ -949,7 +976,7 @@ public class ProcessScreeningTest {
     @Test
     public void theJobNeverWritesTheModelsResult() throws Exception {
         dqsSays(passed());
-        when(model.submit(eq("refused"), anyList())).thenReturn(new Submission(Submission.Outcome.REFUSED, "{\"error\":\"INVALID_MANIFEST\"}"));
+        when(model.submit(eq("refused"), anyList(), any())).thenReturn(new Submission(Submission.Outcome.REFUSED, "{\"error\":\"INVALID_MANIFEST\"}"));
 
         worker.processScreening(screeningWithPhotos("accepted", "No"), true);
         worker.processScreening(screeningWithPhotos("refused", "No"), true);

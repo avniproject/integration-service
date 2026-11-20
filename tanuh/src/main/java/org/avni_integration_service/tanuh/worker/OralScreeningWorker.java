@@ -258,13 +258,14 @@ public class OralScreeningWorker {
             // Settled before: nothing is sent, and the answer an edit cleared is written back.
             if (recordedAnswer.isPresent()) return writeCallMade(uuid, recordedAnswer.get(), listedAt);
             Optional<List<String>> firstSend = recordedSend.flatMap(SentScreenings.SentScreening::imageUris);
+            OralScreeningInputs inputs = OralScreeningInputs.from(s, tanuhContextProvider.getConcepts());
             List<String> uris;
             if (firstSend.isPresent()) {
                 // A send whose answer was lost: Tanuh may hold it, so it is repeated as it was, whatever an edit changed
-                // since, and Tanuh answers the repeat as the same case. An edit's photos never reach the model.
+                // since, and Tanuh answers the repeat as the same case. An edit's photos never reach the model. The
+                // phone's verdict is not recorded, so the repeat carries the answer the screening holds now.
                 uris = firstSend.get();
             } else {
-                OralScreeningInputs inputs = OralScreeningInputs.from(s, tanuhContextProvider.getConcepts());
                 Optional<List<String>> imageUris = inputs.hasPhotos() ? S3Uris.all(inputs.getPhotoUrls()) : Optional.empty();
                 // Met only when the hand-over was cut short or is retried: a screening just checked has its No in its verdict.
                 if (imageUris.isEmpty()) {
@@ -291,7 +292,7 @@ public class OralScreeningWorker {
                 // Kept before the send, so a send whose answer is lost is repeated with these photos and no others.
                 sentScreenings.attempt(uuid, uris);
             }
-            Submission submission = highRiskModelClient.submit(uuid, uris);
+            Submission submission = highRiskModelClient.submit(uuid, uris, inputs.getEdgeVerdict());
             switch (submission.outcome()) {
                 case ACCEPTED -> {
                     sentScreenings.answer(uuid, Concept.YES);

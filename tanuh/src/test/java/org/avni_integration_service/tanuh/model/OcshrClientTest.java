@@ -7,6 +7,7 @@ import org.avni_integration_service.tanuh.config.TanuhConfig;
 import org.avni_integration_service.tanuh.config.TanuhContextProvider;
 import org.avni_integration_service.tanuh.domain.TanuhConcepts;
 import org.avni_integration_service.tanuh.domain.TanuhConceptsFixture;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpMethod;
@@ -30,7 +31,7 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
 
 public class OcshrClientTest {
     private static final String URL = "https://ocshr.example.org/v1/cases";
-    private static final String BODY = "{\"case_id\":\"s1\",\"tenant_id\":1071,\"encounter_type\":\"Oral Screening\",\"images\":[{\"uri\":\"s3://b/k1.jpg\"},{\"uri\":\"s3://b/k2.jpg\"}]}";
+    private static final String BODY = "{\"case_id\":\"s1\",\"tenant_id\":1071,\"encounter_type\":\"Oral Screening\",\"edge_verdict\":\"Suspicious\",\"images\":[{\"uri\":\"s3://b/k1.jpg\"},{\"uri\":\"s3://b/k2.jpg\"}]}";
     private static final List<String> IMAGES = List.of("s3://b/k1.jpg", "s3://b/k2.jpg");
     private static final String RECEIVED = "{\"case_id\":\"s1\",\"status\":\"RECEIVED\",\"image_count\":2,\"error_code\":null,\"error_detail\":null}";
 
@@ -61,6 +62,12 @@ public class OcshrClientTest {
         client = new OcshrClient(context, tokens, restTemplate);
     }
 
+    // The context is per thread, so what a test sets would otherwise reach the next test run on the same thread.
+    @AfterEach
+    public void tearDown() {
+        TanuhContextProvider.clear();
+    }
+
     private static TanuhConfig config(String... keyValues) {
         List<IntegrationSystemConfig> configs = new ArrayList<>();
         for (int i = 0; i < keyValues.length; i += 2) {
@@ -76,7 +83,7 @@ public class OcshrClientTest {
     }
 
     private Submission submit() throws HighRiskModelException {
-        return client.submit("s1", IMAGES);
+        return client.submit("s1", IMAGES, "Suspicious");
     }
 
     private void answer(HttpStatus status, String body) {
@@ -103,7 +110,7 @@ public class OcshrClientTest {
         });
         context.setConcepts(renamed);
         server.expect(requestTo(URL))
-                .andExpect(content().json("{\"case_id\":\"s1\",\"tenant_id\":1071,\"encounter_type\":\"Mouth Screening\",\"images\":[{\"uri\":\"s3://b/k1.jpg\"},{\"uri\":\"s3://b/k2.jpg\"}]}", true))
+                .andExpect(content().json("{\"case_id\":\"s1\",\"tenant_id\":1071,\"encounter_type\":\"Mouth Screening\",\"edge_verdict\":\"Suspicious\",\"images\":[{\"uri\":\"s3://b/k1.jpg\"},{\"uri\":\"s3://b/k2.jpg\"}]}", true))
                 .andRespond(withStatus(HttpStatus.ACCEPTED).contentType(MediaType.APPLICATION_JSON).body(RECEIVED));
         assertEquals(Submission.Outcome.ACCEPTED, submit().outcome());
         server.verify();
@@ -129,6 +136,15 @@ public class OcshrClientTest {
         }
         server.verify();
         assertEquals(0, tokenRequests.get());
+    }
+
+    @Test
+    public void aCaseWithoutThePhonesVerdictSendsNull() throws Exception {
+        server.expect(requestTo(URL))
+                .andExpect(content().json("{\"case_id\":\"s1\",\"tenant_id\":1071,\"encounter_type\":\"Oral Screening\",\"edge_verdict\":null,\"images\":[{\"uri\":\"s3://b/k1.jpg\"},{\"uri\":\"s3://b/k2.jpg\"}]}", true))
+                .andRespond(withStatus(HttpStatus.ACCEPTED).contentType(MediaType.APPLICATION_JSON).body(RECEIVED));
+        assertEquals(Submission.Outcome.ACCEPTED, client.submit("s1", IMAGES, null).outcome());
+        server.verify();
     }
 
     @Test

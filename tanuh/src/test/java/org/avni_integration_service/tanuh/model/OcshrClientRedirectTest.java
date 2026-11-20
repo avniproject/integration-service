@@ -95,7 +95,7 @@ public class OcshrClientRedirectTest {
         };
         OcshrClient client = new OcshrClient(context, tokens);
 
-        HighRiskModelException e = assertThrows(HighRiskModelException.class, () -> client.submit("s1", List.of("s3://b/k1.jpg")));
+        HighRiskModelException e = assertThrows(HighRiskModelException.class, () -> client.submit("s1", List.of("s3://b/k1.jpg"), null));
 
         assertTrue(e.getMessage().contains("303"), e.getMessage());
         assertEquals(List.of(), elsewhere, "nothing, and no token, reached the address the redirect named");

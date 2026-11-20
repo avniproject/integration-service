@@ -43,6 +43,7 @@ import static org.avni_integration_service.tanuh.worker.ProcessScreeningTest.PHO
 import static org.avni_integration_service.tanuh.worker.ProcessScreeningTest.callMade;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.contains;
@@ -93,7 +94,7 @@ public class ProcessScreeningWithoutTheCheckTest {
         worker = new OralScreeningWorker(encounters, subjects, dqs, downloader, model, errors, alerts, sent, errorRecords, statuses, context, CLOCK, 10);
         lenient().when(subjects.getSubjectOrThrow(anyString())).thenReturn(new Subject());
         lenient().when(downloader.sign(anyString())).thenAnswer(invocation -> invocation.getArgument(0) + "?X-Amz-Signature=signed");
-        lenient().when(model.submit(anyString(), anyList())).thenReturn(new Submission(Submission.Outcome.ACCEPTED, "{}"));
+        lenient().when(model.submit(anyString(), anyList(), any())).thenReturn(new Submission(Submission.Outcome.ACCEPTED, "{}"));
     }
 
     @AfterEach
@@ -130,7 +131,7 @@ public class ProcessScreeningWithoutTheCheckTest {
         assertEquals(ScreeningOutcome.WRITTEN, worker.processScreening(s, true));
 
         verifyNoInteractions(dqs);
-        verify(model).submit("s1", TWO_PHOTOS);
+        verify(model).submit(eq("s1"), eq(TWO_PHOTOS), any());
         assertEquals(List.of(callMade("Yes")), encounters.patchBodies);
         assertEquals(Optional.of(Concept.YES), recordedAnswer("s1"));
     }
@@ -153,7 +154,7 @@ public class ProcessScreeningWithoutTheCheckTest {
         assertEquals(ScreeningOutcome.WRITTEN, worker.processScreening(s, true));
 
         verifyNoInteractions(dqs);
-        verify(model, never()).submit(anyString(), anyList());
+        verify(model, never()).submit(anyString(), anyList(), any());
         assertEquals(List.of(callMade("No")), encounters.patchBodies);
         verify(alerts).screeningNeedsAPerson(eq("s1"), eq(TanuhAlerts.Reason.PHOTO_OUTSIDE_STORAGE), anyString());
     }
@@ -182,7 +183,7 @@ public class ProcessScreeningWithoutTheCheckTest {
 
         assertEquals(ScreeningOutcome.WRITTEN, worker.processScreening(edited, true));
 
-        verify(model, times(1)).submit(anyString(), anyList());
+        verify(model, times(1)).submit(anyString(), anyList(), any());
         verifyNoInteractions(dqs);
         assertEquals(List.of(callMade("Yes"), callMade("Yes")), encounters.patchBodies);
     }
@@ -191,7 +192,7 @@ public class ProcessScreeningWithoutTheCheckTest {
     @Test
     public void aFailedCallIsSentAgainByTheRetryAndMarkedYes() throws Exception {
         GeneralEncounter s = screeningWithPhotos("s1", 2);
-        when(model.submit(anyString(), anyList()))
+        when(model.submit(anyString(), anyList(), any()))
                 .thenThrow(new HighRiskModelException("Model service at tanuh did not answer: Read timed out"))
                 .thenReturn(new Submission(Submission.Outcome.ACCEPTED, "{}"));
         assertEquals(ScreeningOutcome.FAILED, worker.processScreening(s, true));
@@ -200,7 +201,7 @@ public class ProcessScreeningWithoutTheCheckTest {
 
         assertEquals(ScreeningOutcome.WRITTEN, worker.processScreening(encounters.screenings.get("s1"), false));
 
-        verify(model, times(2)).submit("s1", TWO_PHOTOS);
+        verify(model, times(2)).submit(eq("s1"), eq(TWO_PHOTOS), any());
         verifyNoInteractions(dqs);
         assertEquals(List.of(callMade("Yes")), encounters.patchBodies);
     }
@@ -210,7 +211,7 @@ public class ProcessScreeningWithoutTheCheckTest {
     @Test
     public void anEditDuringTheCallKeepsTheYesForTheNewerVersion() throws Exception {
         GeneralEncounter s = screeningWithPhotos("s1", 2);
-        when(model.submit(anyString(), anyList())).thenAnswer(invocation -> {
+        when(model.submit(anyString(), anyList(), any())).thenAnswer(invocation -> {
             encounters.workerEdits("s1");
             return new Submission(Submission.Outcome.ACCEPTED, "{}");
         });
@@ -221,7 +222,7 @@ public class ProcessScreeningWithoutTheCheckTest {
 
         assertEquals(ScreeningOutcome.WRITTEN, worker.processScreening(encounters.screenings.get("s1"), true));
 
-        verify(model, times(1)).submit(anyString(), anyList());
+        verify(model, times(1)).submit(anyString(), anyList(), any());
         assertEquals(List.of(callMade("Yes")), encounters.patchBodies);
     }
 }

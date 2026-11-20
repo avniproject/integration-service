@@ -91,7 +91,7 @@ public class TanuhScreeningRetryWorkerTest {
         retryWorker = new TanuhScreeningRetryWorker(errorRecords, encounters, worker, errors, context);
         lenient().when(subjects.getSubjectOrThrow(anyString())).thenReturn(patient(false));
         // Tanuh's model service takes every screening unless a test says otherwise.
-        lenient().when(model.submit(anyString(), anyList())).thenReturn(new Submission(Submission.Outcome.ACCEPTED, "{}"));
+        lenient().when(model.submit(anyString(), anyList(), any())).thenReturn(new Submission(Submission.Outcome.ACCEPTED, "{}"));
     }
 
     @AfterEach
@@ -186,7 +186,7 @@ public class TanuhScreeningRetryWorkerTest {
 
         assertEquals(List.of("s1", "s1"), encounters.patchedUuids, "the verdict, then Tanuh's answer");
         assertEquals("QC Pass", encounters.screenings.get("s1").getObservation("QC status"));
-        verify(model).submit(any(), anyList());
+        verify(model).submit(any(), anyList(), any());
         verify(errorRecords).delete(record);
     }
 
@@ -194,7 +194,7 @@ public class TanuhScreeningRetryWorkerTest {
     public void aFailedRetryKeepsTheRecordWithAFreshLogAndReportsFailure() throws Exception {
         screening("s1", "No");
         dqsPasses();
-        doThrow(new HighRiskModelException("model down")).when(model).submit(any(), anyList());
+        doThrow(new HighRiskModelException("model down")).when(model).submit(any(), anyList(), any());
         waitingAre(waiting("s1", ErrorTypeFollowUpStep.Process));
 
         assertFalse(retryWorker.processWaiting());
@@ -215,7 +215,7 @@ public class TanuhScreeningRetryWorkerTest {
 
         assertTrue(retryWorker.processWaiting());
 
-        verify(model).submit(eq("s1"), eq(List.of("s3://prod-user-media/tanuh_uat/s1-0.jpg")));
+        verify(model).submit(eq("s1"), eq(List.of("s3://prod-user-media/tanuh_uat/s1-0.jpg")), any());
         verifyNoInteractions(dqs);
         assertEquals(List.of("s1"), encounters.patchedUuids, "only Tanuh's answer is written, not a second verdict");
         assertEquals(List.of(ProcessScreeningTest.callMade("Yes")), encounters.patchBodies);
@@ -235,7 +235,7 @@ public class TanuhScreeningRetryWorkerTest {
 
         assertTrue(retryWorker.processWaiting());
 
-        verify(model).submit(eq("s1"), eq(List.of("s3://prod-user-media/tanuh_uat/s1-0.jpg")));
+        verify(model).submit(eq("s1"), eq(List.of("s3://prod-user-media/tanuh_uat/s1-0.jpg")), any());
         assertEquals(List.of(ProcessScreeningTest.callMade("Yes")), encounters.patchBodies);
         verify(errorRecords).delete(record);
     }
@@ -263,7 +263,7 @@ public class TanuhScreeningRetryWorkerTest {
         GeneralEncounter s = screening("s1", "No");
         s.addObservation("QC status", "QC Pass");
         encounters.touch(s, JOB_USER);
-        doThrow(new HighRiskModelException("model down")).when(model).submit(any(), anyList());
+        doThrow(new HighRiskModelException("model down")).when(model).submit(any(), anyList(), any());
         waitingAre(waiting("s1", ErrorTypeFollowUpStep.Process));
 
         assertFalse(retryWorker.processWaiting());
@@ -363,7 +363,7 @@ public class TanuhScreeningRetryWorkerTest {
         doAnswer(invocation -> {
             if ("s1".equals(invocation.getArgument(0))) throw new HighRiskModelException("model down");
             return new Submission(Submission.Outcome.ACCEPTED, "{}");
-        }).when(model).submit(anyString(), anyList());
+        }).when(model).submit(anyString(), anyList(), any());
         ErrorRecord first = waiting("s1", ErrorTypeFollowUpStep.Process);
         ErrorRecord second = waiting("s2", ErrorTypeFollowUpStep.Process);
         waitingAre(first, second);
@@ -429,7 +429,7 @@ public class TanuhScreeningRetryWorkerTest {
     public void processErrorRetriesThatScreeningAndFailsLoudlyWhileItStillWaits() throws Exception {
         screening("s1", "No");
         dqsPasses();
-        doThrow(new HighRiskModelException("model down")).when(model).submit(any(), anyList());
+        doThrow(new HighRiskModelException("model down")).when(model).submit(any(), anyList(), any());
         when(errorRecords.findByAvniEntityTypeAndEntityId(AvniEntityType.GeneralEncounter, "s1")).thenReturn(waiting("s1", ErrorTypeFollowUpStep.Process));
 
         assertThrows(IllegalStateException.class, () -> retryWorker.processError("s1"));
@@ -456,7 +456,7 @@ public class TanuhScreeningRetryWorkerTest {
         GeneralEncounter s = screening("s1", "No");
         s.addObservation("QC status", "QC Pass");
         encounters.touch(s, JOB_USER);
-        when(model.submit(anyString(), anyList())).thenReturn(new Submission(Submission.Outcome.CONFLICT, CONFLICT));
+        when(model.submit(anyString(), anyList(), any())).thenReturn(new Submission(Submission.Outcome.CONFLICT, CONFLICT));
         ErrorRecord record = waiting("s1", ErrorTypeFollowUpStep.Process);
         waitingAre(record);
 
@@ -474,7 +474,7 @@ public class TanuhScreeningRetryWorkerTest {
     public void aCheckedRetryThatMeetsAConflictIsMarkedSentAndSettled() throws Exception {
         screening("s1", "No");
         dqsPasses();
-        when(model.submit(anyString(), anyList())).thenReturn(new Submission(Submission.Outcome.CONFLICT, CONFLICT));
+        when(model.submit(anyString(), anyList(), any())).thenReturn(new Submission(Submission.Outcome.CONFLICT, CONFLICT));
         ErrorRecord record = waiting("s1", ErrorTypeFollowUpStep.Process, TanuhErrorService.DATA_QUALITY_CALL_FAILED);
         waitingAre(record);
 
@@ -499,7 +499,7 @@ public class TanuhScreeningRetryWorkerTest {
 
         assertTrue(retryWorker.processWaiting());
 
-        verify(model).submit("s1", List.of("s3://prod-user-media/tanuh_uat/s1-0.jpg"));
+        verify(model).submit(eq("s1"), eq(List.of("s3://prod-user-media/tanuh_uat/s1-0.jpg")), any());
         assertEquals(List.of(ProcessScreeningTest.callMade("Yes")), encounters.patchBodies);
         verify(errorRecords).delete(record);
         verifyNoInteractions(dqs);

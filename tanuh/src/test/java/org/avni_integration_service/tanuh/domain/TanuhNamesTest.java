@@ -25,5 +25,7 @@ public class TanuhNamesTest {
                 List.of(concepts.name(ORAL_SCREENING), concepts.name(TAKE_PHOTOS), concepts.name(GUIDED_PHOTOS),
                         concepts.name(ORAL_IMAGE), concepts.name(SUSPICIOUS_LESION), concepts.name(YES)));
         assertEquals("Photo 3 — AI verdict", concepts.name(LEGACY_AI_VERDICT, 3));
+        // Spelt "Egde" on Tanuh UAT's Oral Screening form (bundle of 20 Nov 2026); the job must ask for it as spelt.
+        assertEquals("Egde AI Final Verdict", concepts.name(EDGE_AI_FINAL_VERDICT));
     }
 }

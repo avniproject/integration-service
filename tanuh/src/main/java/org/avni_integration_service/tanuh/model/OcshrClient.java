@@ -65,7 +65,7 @@ public class OcshrClient implements HighRiskModelClient {
     // A token expires after an hour, so one 401 is answered with a fresh one and the same body is sent again. Messages
     // and logs carry the case id, the status and the cut body, never the token.
     @Override
-    public Submission submit(String caseId, List<String> imageUris) throws HighRiskModelException {
+    public Submission submit(String caseId, List<String> imageUris, String edgeVerdict) throws HighRiskModelException {
         TanuhConfig config = tanuhContextProvider.get();
         String baseUrl = config.getOcshrApiUrl();
         if (baseUrl == null)
@@ -78,7 +78,7 @@ public class OcshrClient implements HighRiskModelClient {
             throw new HighRiskModelException("avni_organisation_id is not set to the organisation's id, a whole number, so no screening can be sent to the model service");
         // The job sends only Oral Screenings, so the type is the name this organisation gives that encounter type.
         String encounterType = tanuhContextProvider.getConcepts().name(Concept.ORAL_SCREENING);
-        String json = body(caseId, tenantId, encounterType, imageUris);
+        String json = body(caseId, tenantId, encounterType, edgeVerdict, imageUris);
         Answer answer = post(uri, json, idTokenSource.idToken(config));
         if (answer.status == 401) {
             logger.info(String.format("Model service refused the token for case %s; asking for a new one", caseId));
@@ -90,13 +90,15 @@ public class OcshrClient implements HighRiskModelClient {
         return submission;
     }
 
-    private static String body(String caseId, long tenantId, String encounterType, List<String> imageUris) {
+    // edge_verdict is sent as null when the phone's verdict is not known (Harsha, 20 Nov 2026).
+    private static String body(String caseId, long tenantId, String encounterType, String edgeVerdict, List<String> imageUris) {
         List<Map<String, String>> images = new ArrayList<>();
         for (String uri : imageUris) images.add(Map.of("uri", uri));
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("case_id", caseId);
         body.put("tenant_id", tenantId);
         body.put("encounter_type", encounterType);
+        body.put("edge_verdict", edgeVerdict);
         body.put("images", images);
         return ObjectJsonMapper.writeValueAsString(body);
     }

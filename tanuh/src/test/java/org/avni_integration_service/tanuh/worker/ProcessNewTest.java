@@ -99,7 +99,7 @@ public class ProcessNewTest {
         live.setVoided(false);
         lenient().when(subjects.getSubjectOrThrow(anyString())).thenReturn(live);
         // Tanuh's model service takes every screening.
-        lenient().when(model.submit(anyString(), anyList())).thenReturn(new Submission(Submission.Outcome.ACCEPTED, "{}"));
+        lenient().when(model.submit(anyString(), anyList(), any())).thenReturn(new Submission(Submission.Outcome.ACCEPTED, "{}"));
         lenient().when(dqs.submit(eq(DqsClient.ORAL_SCREENING), any(Supplier.class))).thenAnswer(invocation -> {
             String uuid = (String) ((Supplier<Map<?, ?>>) invocation.getArgument(1)).get().get("record_id");
             sent.merge(uuid, 1, Integer::sum);
@@ -183,7 +183,7 @@ public class ProcessNewTest {
         assertEquals(2, sent.get("s02"));
         assertEquals(1, sent.get("s01"));
         assertEquals("QC Fail", encounters.screenings.get("s02").getObservation("QC status"));
-        verify(model, times(3)).submit(any(), anyList());
+        verify(model, times(3)).submit(any(), anyList(), any());
     }
 
     // A No is final: a screening that passed QC without photos is not sent, even once an edit adds them.
